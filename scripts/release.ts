@@ -146,7 +146,8 @@ try {
 
 const onNpm = (name: string): boolean => {
   try {
-    return run("npm", ["view", `${name}@${version}`, "version"]).trim() === version;
+    // Not through run(): "not found" is an expected answer here, not a failure to print.
+    return execFileSync("npm", ["view", `${name}@${version}`, "version"], { cwd: ROOT, stdio: ["ignore", "pipe", "ignore"], shell: process.platform === "win32" }).toString().trim() === version;
   } catch {
     return false; // not found
   }

@@ -8,11 +8,12 @@
  * Checks per tarball:
  *   - its version is the release version, and so is every `@gistui/*` dependency (no `workspace:`; a
  *     stale lockfile rewrites `workspace:*` to an old version, so `bun install` runs first);
- *   - README.md and LICENSE are in it;
+ *   - README.md and LICENSE are in it (and, in the catalog, the agent skill from skills/);
  *   - every file its `exports` point to is in it;
  *   - every relative import of every JS file in it (a lazy chunk, a shared chunk) is in it.
  *
- * Publishing also needs: a clean git tree before and after the build, an npm login, and a passing
+ * Publishing also needs: a clean git tree before and after the build, an npm login (in GitHub Actions:
+ * an NPM_TOKEN secret or a trusted publisher, see .github/workflows/release.yml), and a passing
  * install test of these very tarballs (tests/pack/smoke.ts). A version that is already on npm is
  * skipped, so a publish that stopped half way can be run again.
  */
@@ -43,12 +44,18 @@ for (const p of pkgs) if (p.json.version !== version) fail(`${p.json.name} is ${
 const missing = readdirSync(join(ROOT, "packages")).filter((d) => !ORDER.includes(d));
 if (missing.length) fail(`not in the release order: ${missing.join(", ")}`);
 
+/** In GitHub Actions the release workflow publishes: with npm (provenance, and a token or a trusted publisher). */
+const CI = process.env.GITHUB_ACTIONS === "true";
+
 if (publish) {
   if (dirty()) fail("the git tree has uncommitted changes; commit first");
-  try {
-    run("npm", ["whoami"]);
-  } catch {
-    fail("not logged in to npm: run `npm login` first");
+  // A trusted publisher has no login to ask about: there, a publish that is not allowed fails by itself.
+  if (!CI) {
+    try {
+      run("npm", ["whoami"]);
+    } catch {
+      fail("not logged in to npm: run `npm login` first");
+    }
   }
 }
 
@@ -89,6 +96,13 @@ for (const p of pkgs) {
     else if (name.startsWith("@gistui/") && range !== version) problems.push(`${name} is ${range}, not ${version} (stale lockfile?)`);
   }
   for (const f of ["README.md", "LICENSE"]) if (!files.has(f)) problems.push(`no ${f}`);
+  // The agent skill ships in the catalog (copied in by its prepack), the same files as in skills/.
+  if (p.dir === "catalog") {
+    for (const f of ["SKILL.md", "reference.md"]) {
+      if (!files.has(`skills/gistui/${f}`)) problems.push(`no skills/gistui/${f}`);
+      else if (read(`skills/gistui/${f}`) !== readFileSync(join(ROOT, "skills/gistui", f), "utf8")) problems.push(`skills/gistui/${f} differs from skills/`);
+    }
+  }
   for (const t of targets(packed.exports)) {
     const path = t.replace(/^\.\//, "");
     if (!path.includes("*") && !files.has(path)) problems.push(`exports ${t}, not in the tarball`);
@@ -133,6 +147,8 @@ for (const { name, tgz } of tarballs) {
     continue;
   }
   console.log(`publishing ${name}@${version}`);
-  execFileSync("bun", ["publish", tgz, "--access", "public"], { cwd: ROOT, stdio: "inherit" });
+  // npm, not bun, in CI: it can publish as a trusted publisher (OIDC) and signs where the package was built.
+  if (CI) execFileSync("npm", ["publish", tgz, "--access", "public", "--provenance"], { cwd: ROOT, stdio: "inherit" });
+  else execFileSync("bun", ["publish", tgz, "--access", "public"], { cwd: ROOT, stdio: "inherit" });
 }
-console.log(`\nPublished ${version}. Tag it: git tag v${version} && git push --tags`);
+console.log(CI ? `\nPublished ${version}.` : `\nPublished ${version}. Tag it: git tag v${version} && git push --tags`);

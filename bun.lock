@@ -17,6 +17,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@gistui/catalog": "workspace:*",
+        "@gistui/chat": "workspace:*",
         "@gistui/core": "workspace:*",
         "@gistui/react": "workspace:*",
         "@gistui/styles": "workspace:*",

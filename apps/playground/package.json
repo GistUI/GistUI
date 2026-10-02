@@ -6,14 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "bun test"
   },
   "dependencies": {
     "@gistui/catalog": "workspace:*",
+    "@gistui/chat": "workspace:*",
     "@gistui/core": "workspace:*",
-    "@gistui/vanilla": "workspace:*",
     "@gistui/react": "workspace:*",
     "@gistui/styles": "workspace:*",
+    "@gistui/vanilla": "workspace:*",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },

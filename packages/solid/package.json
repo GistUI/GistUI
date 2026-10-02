@@ -11,6 +11,13 @@
     "generative-ui"
   ],
   "license": "MIT",
+  "homepage": "https://gistui.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GistUI/gistui.git",
+    "directory": "packages/solid"
+  },
+  "bugs": "https://github.com/GistUI/gistui/issues",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",

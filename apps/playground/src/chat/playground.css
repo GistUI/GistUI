@@ -1,0 +1,674 @@
+/* The examples chat: a sidebar of examples, and a thread of answers with suggested questions under it. */
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/geist-mono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --pg-bg: #ffffff;
+  --pg-side: #fafafa;
+  --pg-fg: #0c0c0e;
+  --pg-fg-2: #55555e;
+  --pg-fg-3: #8b8b94;
+  --pg-line: rgb(12 12 14 / 0.1);
+  --pg-line-2: rgb(12 12 14 / 0.17);
+  --pg-raise: #ffffff;
+  --pg-hover: #f0f0f2;
+  --pg-accent: #5b50e6;
+  --pg-accent-soft: rgb(91 80 230 / 0.09);
+  --pg-logo-square: #f1efff;
+  --pg-logo-bars: #5b50e6;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --pg-bg: #000000;
+  --pg-side: #070708;
+  --pg-fg: #ededef;
+  --pg-fg-2: #a1a1a8;
+  --pg-fg-3: #6e6e76;
+  --pg-line: rgb(255 255 255 / 0.09);
+  --pg-line-2: rgb(255 255 255 / 0.16);
+  --pg-raise: #0d0d0f;
+  --pg-hover: #19191c;
+  --pg-accent: #8f8cff;
+  --pg-accent-soft: rgb(143 140 255 / 0.13);
+  --pg-logo-square: #17122b;
+  --pg-logo-bars: #9a8cff;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--pg-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* An answer sits straight on the page: the rendered UI uses the page's own background. */
+.pgc,
+.pgc .gistui {
+  --gistui-bg: var(--pg-bg);
+  --gistui-font: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gistui-font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.pgc {
+  --column: 940px;
+  /* The generated UI is shown a little smaller than its natural size, so a wide dashboard fits the column. */
+  --ui-scale: 0.86;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  height: 100dvh;
+  background: var(--pg-bg);
+  color: var(--pg-fg);
+  font-family: var(--gistui-font);
+}
+
+.pgc button {
+  font: inherit;
+}
+
+.pgc-logo-square { fill: var(--pg-logo-square); }
+.pgc-logo-bars { fill: var(--pg-logo-bars); }
+
+/* ---------- Sidebar: every example ---------- */
+
+.pgc-side {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--pg-line);
+  background: var(--pg-side);
+}
+
+.pgc-brand {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  padding: 0 14px;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.pgc-brand em {
+  margin-left: 2px;
+  padding: 2px 7px;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 7px;
+  color: var(--pg-fg-2);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.pgc-search {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 12px 8px;
+  padding: 0 10px;
+  height: 34px;
+  border: 1px solid var(--pg-line);
+  border-radius: 10px;
+  background: var(--pg-raise);
+  color: var(--pg-fg-3);
+}
+
+.pgc-search svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+}
+
+.pgc-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--pg-fg);
+  font: inherit;
+  font-size: 13.5px;
+}
+
+.pgc-search:focus-within {
+  border-color: color-mix(in srgb, var(--pg-accent) 60%, transparent);
+}
+
+.pgc-nav {
+  flex: 1;
+  min-height: 0;
+  padding: 0 8px 16px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pg-line-2) transparent;
+}
+
+.pgc-group-title {
+  padding: 14px 8px 6px;
+  color: var(--pg-fg-3);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pgc-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 9px;
+  background: none;
+  color: var(--pg-fg-2);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.12s, background-color 0.12s;
+}
+
+.pgc-item svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  color: var(--pg-fg-3);
+}
+
+.pgc-item span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pgc-item:hover:not(:disabled) {
+  background: var(--pg-hover);
+  color: var(--pg-fg);
+}
+
+.pgc-item:disabled {
+  cursor: default;
+}
+
+/* An example already in the thread carries a small dot; the latest one is highlighted. */
+.pgc-item[data-seen]::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pg-fg-3);
+}
+
+.pgc-item[aria-current] {
+  background: var(--pg-accent-soft);
+  color: var(--pg-fg);
+}
+
+.pgc-item[aria-current] svg {
+  color: var(--pg-accent);
+}
+
+.pgc-item[aria-current]::after {
+  background: var(--pg-accent);
+}
+
+/* ---------- Main: bar, thread, dock ---------- */
+
+.pgc-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.pgc-head {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 clamp(14px, 3vw, 24px);
+  border-bottom: 1px solid var(--pg-line);
+}
+
+/* The open example's name and what it shows. */
+.pgc-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  font-size: 14.5px;
+}
+
+.pgc-title strong {
+  flex: none;
+  font-weight: 600;
+}
+
+.pgc-title span {
+  overflow: hidden;
+  color: var(--pg-fg-3);
+  font-size: 13.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pgc-spacer {
+  flex: 1;
+}
+
+.pgc-link {
+  padding: 6px 8px;
+  border-radius: 8px;
+  color: var(--pg-fg-2);
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.pgc-link:hover {
+  background: var(--pg-hover);
+  color: var(--pg-fg);
+}
+
+.pgc-icon,
+.pgc-new {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  border: 0;
+  background: none;
+  color: var(--pg-fg-2);
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s, transform 0.15s;
+}
+
+.pgc-icon svg,
+.pgc-new svg {
+  width: 17px;
+  height: 17px;
+}
+
+.pgc-icon {
+  width: 34px;
+  border-radius: 50%;
+}
+
+.pgc-icon:hover {
+  background: var(--pg-hover);
+  color: var(--pg-fg);
+}
+
+.pgc-menu {
+  display: none;
+}
+
+.pgc-new {
+  padding: 0 12px 0 9px;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 10px;
+  background: var(--pg-raise);
+  color: var(--pg-fg);
+  font-weight: 500;
+}
+
+.pgc-new:hover {
+  background: var(--pg-hover);
+}
+
+.pgc-new:active {
+  transform: scale(0.97);
+}
+
+/* Thread */
+
+.pgc-scroll {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 0;
+  padding: 22px clamp(14px, 3vw, 24px) 18px;
+  overflow-y: auto;
+}
+
+.pgc-msg,
+.pgc-hello {
+  width: min(100%, var(--column));
+  margin-inline: auto;
+}
+
+.pgc-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: pgc-in 0.3s ease-out;
+}
+
+@keyframes pgc-in {
+  from { opacity: 0; transform: translateY(6px); }
+}
+
+.pgc-msg[data-role="user"] {
+  align-items: flex-end;
+  gap: 4px;
+}
+
+/* Questions to go on with, under a first screen that has none of its own. */
+.pgc-more {
+  zoom: var(--ui-scale);
+}
+
+.pgc-origin {
+  color: var(--pg-fg-3);
+  font-size: 12px;
+}
+
+.pgc-bubble {
+  max-width: min(80%, 560px);
+  padding: 7px 12px;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--pg-fg);
+  color: var(--pg-bg);
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.pgc-say {
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.pgc-say p {
+  margin: 0;
+}
+
+.pgc-say blockquote {
+  margin: 2px 0;
+  padding-left: 12px;
+  border-left: 2px solid var(--pg-line-2);
+  color: var(--pg-fg-2);
+  font-size: 13.5px;
+}
+
+/* An answer: a bar with Preview / Code, then the screen or its program. */
+
+.pgc-answer {
+  display: grid;
+  gap: 12px;
+}
+
+.pgc-answer-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pgc-seg {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--pg-line);
+  border-radius: 11px;
+  background: var(--pg-raise);
+}
+
+.pgc-seg button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--pg-fg-2);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.12s, background-color 0.12s;
+}
+
+.pgc-seg svg,
+.pgc-copy svg {
+  width: 14px;
+  height: 14px;
+}
+
+.pgc-seg button[aria-selected="true"] {
+  background: var(--pg-hover);
+  color: var(--pg-fg);
+}
+
+.pgc-meta {
+  color: var(--pg-fg-3);
+  font-family: var(--gistui-font-mono);
+  font-size: 12px;
+}
+
+.pgc-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--pg-fg-2);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pgc-copy:hover {
+  background: var(--pg-hover);
+  color: var(--pg-fg);
+}
+
+.pgc-ui {
+  width: 100%;
+  zoom: var(--ui-scale);
+}
+
+.pgc-code {
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  border: 1px solid var(--pg-line);
+  border-radius: 14px;
+  background: var(--pg-side);
+  color: var(--pg-fg-2);
+  font-family: var(--gistui-font-mono);
+  font-size: 12.5px;
+  line-height: 1.75;
+  scrollbar-width: thin;
+}
+
+.pgc-code code {
+  display: block;
+  min-width: max-content;
+  font: inherit;
+}
+
+.pgc-line b {
+  color: var(--pg-accent);
+  font-weight: 500;
+}
+
+/* Empty state */
+
+.pgc-hello {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  margin-block: auto;
+  text-align: center;
+}
+
+.pgc-hello h1 {
+  margin: 8px 0 0;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.pgc-hello p {
+  max-width: 46ch;
+  margin: 0;
+  color: var(--pg-fg-2);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+.pgc-starters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 660px;
+  margin-top: 10px;
+}
+
+/* Dock: next questions and a note */
+
+.pgc-dock {
+  flex: none;
+  width: min(100% - 2 * clamp(14px, 3vw, 24px), var(--column));
+  margin-inline: auto;
+  padding-block: 12px 10px;
+  border-top: 1px solid var(--pg-line);
+}
+
+.pgc-next {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 0 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pgc-next > span {
+  flex: none;
+  color: var(--pg-fg-3);
+  font-size: 13px;
+}
+
+.pgc-next button,
+.pgc-starters button {
+  flex: none;
+  padding: 7px 12px;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 10px;
+  background: var(--pg-raise);
+  color: var(--pg-fg-2);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, transform 0.15s, opacity 0.15s;
+}
+
+.pgc-next button:hover:not(:disabled),
+.pgc-starters button:hover {
+  border-color: color-mix(in srgb, var(--pg-accent) 55%, transparent);
+  color: var(--pg-fg);
+}
+
+.pgc-next button:active:not(:disabled),
+.pgc-starters button:active {
+  transform: scale(0.97);
+}
+
+.pgc-next button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.pgc-note {
+  margin: 8px 0 0;
+  color: var(--pg-fg-3);
+  font-size: 12px;
+  text-align: center;
+}
+
+.pgc-scrim {
+  display: none;
+}
+
+/* ---------- Narrow screens: the sidebar becomes a drawer ---------- */
+
+/* A narrower column: scale the generated UI a little more, so four cards still fit on a line. */
+@media (max-width: 1240px) {
+  .pgc {
+    --ui-scale: 0.8;
+  }
+}
+
+@media (max-width: 640px) {
+  .pgc {
+    --ui-scale: 0.9;
+  }
+}
+
+@media (max-width: 860px) {
+  .pgc {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pgc-side {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 30;
+    width: min(84vw, 300px);
+    transform: translateX(-102%);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pgc[data-drawer] .pgc-side {
+    transform: none;
+  }
+
+  .pgc[data-drawer] .pgc-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: block;
+    background: rgb(0 0 0 / 0.5);
+  }
+
+  .pgc-menu {
+    display: inline-flex;
+  }
+
+  .pgc-link,
+  .pgc-title span {
+    display: none;
+  }
+}

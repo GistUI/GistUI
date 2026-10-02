@@ -25,6 +25,7 @@
     "test:visual": "playwright test -c tests/visual/playwright.config.ts",
     "test:parity": "playwright test -c tests/visual/parity.config.ts",
     "test:shadcn": "playwright test -c tests/visual/shadcn.config.ts",
+    "bump": "bun scripts/version.ts",
     "release:check": "bun scripts/release.ts",
     "test:pack": "bun tests/pack/smoke.ts",
     "release": "bun scripts/release.ts --publish"

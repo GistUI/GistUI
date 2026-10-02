@@ -9,6 +9,13 @@
     "generative-ui"
   ],
   "license": "MIT",
+  "homepage": "https://gistui.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GistUI/gistui.git",
+    "directory": "packages/catalog"
+  },
+  "bugs": "https://github.com/GistUI/gistui/issues",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -26,10 +33,12 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "skills"
   ],
   "scripts": {
     "build": "tsdown",
+    "prepack": "bun ../../scripts/copy-skill.ts",
     "test": "bun test",
     "typecheck": "tsc --noEmit"
   },

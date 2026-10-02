@@ -21,7 +21,7 @@ import { questionFor, QUESTIONS, recorded, suggestions, TOKENS_PER_SECOND } from
 type Theme = "light" | "dark";
 
 const SITE = "https://gistui.com";
-const GITHUB = "https://github.com/GistUI/gistui";
+const GITHUB = "https://github.com/GistUI/GistUI";
 const GROUPS = ["Showcase", "Dashboards", "Guides", "Reports", "Presentations", "Forms", "Content", "Playground"] as const;
 
 const systemTheme = (): Theme => (typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");

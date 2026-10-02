@@ -1,0 +1,3 @@
+root = Row(Header(billing), Chart(t, x:month), Select("n", "N", [red, "green"]))
+t = |a
+|1

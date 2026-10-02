@@ -1,0 +1,58 @@
+root = Card(header, filterCard, metricsCard, enrollmentCard, riskCard, engagementCard, messageDialog, column, gap:m, align:start)
+
+header = CardHeader("Training Platform Analytics", "Overview of learner activity")
+
+filterCard = Card(cohortSelect, wrap)
+
+cohortSelect = Select("cohort", SelectItem("cohort_a", "Cohort A"), SelectItem("cohort_b", "Cohort B"), placeholder:"Select cohort")
+
+metricsCard = Card(activeLearners, completionRate, avgQuiz, row, gap:s, align:start)
+
+activeLearners = Callout(variant:info, "Active Learners This Week", "1,240")
+completionRate = Callout(variant:success, "Course Completion Rate", "78%")
+avgQuiz = Callout(variant:info, "Average Quiz Score", "84%")
+
+enrollmentCard = Card(Heading("Courses Ranked by Enrollment", h3), enrollmentChart, sunk)
+
+enrollmentChart = HorizontalBarChart(labels:[…], Series("Enrollments", values:[…]), variant:grouped, xLabel:"Enrollments", yLabel:"Course")
+
+riskCard = Card(Heading("Learners at Risk of Dropping Out", h3), riskTable, sunk)
+
+riskTable = Table(riskLearnerCol, riskScoreCol)
+
+riskLearnerCol = Col("Learner", data:["Alice","Bob","Charlie"], type:string)
+riskScoreCol = Col("RiskScore", data:[0.9,0.85,0.8], type:number)
+
+engagementCard = Card(Heading("Engagement Across Past Eight Weeks", h3), engagementChart, sunk)
+
+engagementChart = LineChart(engagementData, variant:linear, xLabel:"Week", yLabel:"Engagement %")
+
+messageDialog = DialogBlock("Message Cohort", "Send Message", TextContent("Compose a message to the selected cohort.", large), msgForm, description:"", triggerVariant:primary)
+
+msgForm = Form("msg", msgButtons, msgField)
+
+msgField = FormControl("Message", TextArea("msg_body", "Type your message...", "", rows:5))
+
+msgButtons = Buttons(Button("Send", primary), Button("Cancel", tertiary))
+
+enrollmentData = |Course|Enrollments
+|Intro to AI|350
+|Data Science 101|300
+|Advanced ML|250
+|UX Design|200
+|Marketing Basics|150
+
+riskData = |Learner|RiskScore
+|Alice|0.9
+|Bob|0.85
+|Charlie|0.8
+
+engagementData = |Week|Engagement
+|W1|65
+|W2|68
+|W3|70
+|W4|72
+|W5|74
+|W6|75
+|W7|77
+|W8|78

@@ -1,0 +1,69 @@
+root = Card(headerBar, kpiRow1, kpiRow2, mainTabs, gap:l)
+headerBar = Card(headerTop, controlRow, variant:clear, gap:m)
+headerTop = Card(CardHeader("Executive Command Center", "Quarterly CEO Briefing & Operational Performance"), topActions, direction:row, justify:between, align:center, variant:clear)
+topActions = Buttons(Button("Export Board Pack", variant:primary, size:small), Button("Share Brief", variant:secondary, size:small))
+controlRow = Card(quarterControl, regionControl, direction:row, gap:m, align:center, variant:sunk)
+quarterControl = FormControl("Reporting Quarter", quarterSelect)
+quarterSelect = Select("quarter", SelectItem("q3_2024", "Q3 2024 (Current)"), SelectItem("q2_2024", "Q2 2024"), SelectItem("q1_2024", "Q1 2024"), SelectItem("q4_2023", "Q4 2023"), value:"q3_2024")
+regionControl = FormControl("Geographic Focus", regionSelect)
+regionSelect = Select("region", SelectItem("global", "Global (All Regions)"), SelectItem("na", "North America (NA)"), SelectItem("emea", "Europe & MEA"), SelectItem("apac", "Asia-Pacific (APAC)"), SelectItem("latam", "Latin America"), value:"global")
+kpiRow1 = Card(revCard, costCard, profitCard, runwayCard, direction:row, gap:m)
+revCard = Card(TextContent("Quarter Revenue", size:small), Heading("$24.8M", level:h2), Tag("+12.4% vs Plan", variant:success, size:sm), variant:card)
+costCard = Card(TextContent("Total Costs (OpEx + COGS)", size:small), Heading("$18.2M", level:h2), Tag("Within 2.1% of Budget", variant:info, size:sm), variant:card)
+profitCard = Card(TextContent("Net Profit (Operating)", size:small), Heading("$6.6M", level:h2), Tag("26.6% Margin (+3.1pp)", variant:success, size:sm), variant:card)
+runwayCard = Card(TextContent("Cash Runway", size:small), Heading("28 Months", level:h2), Tag("$42.5M Cash in Bank", variant:neutral, size:sm), variant:card)
+kpiRow2 = Card(pipeCard, winCard, custCard, npsCard, direction:row, gap:m)
+pipeCard = Card(TextContent("Sales Pipeline Value", size:small), Heading("$68.4M", level:h2), Tag("3.8x Coverage", variant:info, size:sm), variant:sunk)
+winCard = Card(TextContent("Win Rate", size:small), Heading("31.4%", level:h2), Tag("+2.8% QoQ", variant:success, size:sm), variant:sunk)
+custCard = Card(TextContent("Customers & Churn", size:small), Heading("1,420 Active", level:h2), Tag("1.2% Logo Churn (0.8% Net $)", variant:success, size:sm), variant:sunk)
+npsCard = Card(TextContent("Net Promoter Score (NPS)", size:small), Heading("+64 NPS", level:h2), Tag("Excellent (Top Quartile)", variant:success, size:sm), variant:sunk)
+mainTabs = Tabs(finTab, orgTab, stratTab, boardTab)
+finTab = TabItem("financials", "Financial Performance & Pipeline", finOverviewCard)
+finOverviewCard = Card(trendSection, pipelineBreakdown, gap:m)
+trendSection = Card(Heading("4-Quarter Financial Trajectory ($M)", level:h3), BarChart(quarterlyFinancials, variant:grouped, xLabel:"Quarter", yLabel:"$ Millions"), variant:clear)
+pipelineBreakdown = Card(Heading("Commercial Funnel & Growth Dynamics", level:h3), Table(pipelineTable), variant:sunk)
+orgTab = TabItem("organization", "Departments, Budget & Headcount", orgCard)
+orgCard = Card(budgetHeadcountCard, gap:m)
+budgetHeadcountCard = Card(Heading("Departmental Execution: Budget vs. Actual & Headcount", level:h3), Table(deptSummaryTable), variant:clear)
+stratTab = TabItem("strategy_risks", "Strategic Initiatives & Top Risks", stratRiskCard)
+stratRiskCard = Card(initiativesSection, Separator(decorative), risksSection, gap:l)
+initiativesSection = Card(Heading("Strategic Corporate Initiatives", level:h3), Table(initiativesTable), variant:clear)
+risksSection = Card(Heading("Enterprise Risk Matrix & Ownership", level:h3), Alert("Key Exposure", "EU AI Act compliance timeline accelerated by regulator; remediation prioritized under Legal/Product.", variant:warning), Table(risksTable), variant:clear)
+boardTab = TabItem("board_prep", "Next Board Meeting Agenda & Materials", boardCard)
+boardCard = Card(boardHeader, Table(boardAgendaTable), boardPackActions, gap:m)
+boardHeader = Card(Heading("Upcoming Board Meeting: Q3 Performance & 2025 Strategy", level:h3), TextContent("**Date:** November 14, 2024 | **Location:** Boardroom A & Hybrid Virtual | **Quorum Confirmed:** Yes", size:default), variant:clear)
+boardPackActions = Card(Buttons(Button("Download Complete Board Deck (.PDF)", variant:primary), Button("Review Committee Charters", variant:secondary), Button("Submit Pre-read Annotations", variant:tertiary)), variant:sunk)
+quarterlyFinancials = |Quarter|Revenue ($M):n|Costs ($M):n|Operating Profit ($M):n
+|Q4 2023|19.5|16.2|3.3
+|Q1 2024|21.0|16.8|4.2
+|Q2 2024|22.8|17.4|5.4
+|Q3 2024|24.8|18.2|6.6
+pipelineTable = |Segment|Pipeline Value|Weighted Value|Win Rate|Active Deals|QoQ Growth
+|Enterprise Tier 1|$38.2M|$19.1M|34.2%|46|+18.5%
+|Mid-Market|$21.0M|$8.4M|29.8%|118|+8.2%
+|Commercial / SMB|$9.2M|$4.6M|27.5%|310|+4.1%
+|Expansion / Upsell|$14.5M|$8.7M|58.0%|84|+22.0%
+deptSummaryTable = |Department|Budget Plan ($M):n|Actual Spend ($M):n|Budget Variance|Headcount (FTE):n|Open Roles:n
+|Engineering & R&D|8.00|7.85|-1.9%|142|12
+|Sales & Go-To-Market|5.20|5.30|+1.9%|98|15
+|Marketing & Growth|2.10|2.05|-2.4%|28|3
+|Product & Design|1.60|1.55|-3.1%|34|4
+|Customer Success & Ops|1.30|1.28|-1.5%|46|6
+|G&A / Legal / Finance|1.00|0.97|-3.0%|22|2
+initiativesTable = |Initiative|Executive Sponsor|Target Delivery|Status|Strategic Impact
+|Project Horizon (Global Cloud V2)|CTO (A. Rivera)|Q4 2024|On Track|Enables 99.999% SLA & Enterprise tier unlock
+|EMEA Regional Expansion|CRO (M. Zhao)|Q3 2024|Completed|Secured $4.2M new ARR in first 90 days
+|Automated Retention & CX Engine|CPO (D. Vance)|Q1 2025|At Risk (2w lag)|Reduces gross churn target to <0.8%
+|SOC-2 Type III & FedRAMP Ready|CISO (K. Patel)|Q4 2024|On Track|Unlocks $16M federal procurement pipeline
+risksTable = |Risk Description|Category|Severity|Risk Owner|Mitigation Strategy
+|Supply Chain / Cloud Compute GPU Latency|Infrastructure|High|VP Infrastructure (S. Gomez)|Dual-vendor cloud reservation signed; capacity locked
+|EU Data Sovereignty & AI Act Compliance|Regulatory|High|General Counsel (E. Stone)|Local data residency deployed; external audit ongoing
+|Key Account Sales Cycle Lengthening (60->85d)|Revenue|Medium|CRO (M. Zhao)|Revamped deal desk incentives and pilot programs
+|Key Technical Talent Retention in AI/ML|People|Medium|Chief People Officer (L. Cruz)|Market comp adjustments and RSU refresh program completed
+boardAgendaTable = |Time|Agenda Item|Presenter|Materials Attached|Action Required
+|09:00 - 09:30|CEO Overview & Strategic Highlights|CEO|Q3 Executive Summary|Information
+|09:30 - 10:15|Financial Performance & 2025 Budget Outlook|CFO|Financial Model & Audit Report|Approval
+|10:15 - 11:00|GTM, Pipeline Velocity & Market Expansion|CRO|Sales & Expansion Deep Dive|Discussion
+|11:00 - 11:45|Product Architecture & AI Roadmap Delivery|CPO / CTO|Product Technical Dossier|Information
+|11:45 - 12:15|Executive Compensation & Equity Refresh|CPO / Comp Chair|Compensation Committee Report|Approval
+|12:15 - 12:30|Executive Session & Closed Board Discussion|Lead Independent Director|None|Closed Session

@@ -1,0 +1,116 @@
+root = Card(portfolioSection, pnlSection, positionsSection, sectorExposureSection, varSection, gainersLosersSection, watchlistSection, ordersSection, marginSection, headlinesSection, econReleasesSection, strategyReturnSection, drawdrawdownSection, riskLimitsSection, rebalanceSection, placeOrderSection, timeframeSection, actions)
+
+portfolioSection = Card(CardHeader("Portfolio Value"), TextContent("$12.4 M", size:large-heavy), sunk)
+
+pnlSection = Card(CardHeader("Today's P&L"), TextContent("+$45.3 K (0.37%)", size:large-heavy), sunk)
+
+positionsSection = Card(CardHeader("Positions"), positionsTable, sunk)
+
+positionsTable = |Ticker|Size|Entry|Current
+|AAPL|120|$150.00|$158.20
+|MSFT|80|$280.00|$285.40
+|TSLA|50|$720.00|$710.10
+|AMZN|30|$3,300.00|$3,350.00
+
+sectorExposureSection = Card(CardHeader("Exposure by Sector"), sectorBarChart, sunk)
+
+sectorBarChart = BarChart(|Sector|Exposure|
+|Technology|45|
+|Healthcare|20|
+|Financials|15|
+|Energy|10|
+|Consumer|10, variant:grouped, xLabel:"Sector", yLabel:"% of Portfolio")
+
+varSection = Card(CardHeader("Value at Risk (VaR)"), TextContent("$210 K (1.7% of portfolio)", size:default), sunk)
+
+gainersLosersSection = Card(CardHeader("Today's Biggest Gainers & Losers"), gainersLosersTable, sunk)
+
+gainersLosersTable = |Ticker|Change|
+|NVDA|+3.2%|
+|NFLX|-2.8%|
+|GOOG|+2.5%|
+|FB|-3.1%|
+
+watchlistSection = Card(CardHeader("Watchlist"), watchlistTable, sunk)
+
+watchlistTable = |Ticker|Price|
+|AMD|$112.30|
+|BABA|$85.20|
+|UBER|$45.10|
+|JPM|$158.00|
+
+ordersSection = Card(CardHeader("Working Orders"), ordersTable, sunk)
+
+ordersTable = |Order ID|Ticker|Side|Qty|Status|
+|001|AAPL|Buy|50|Pending|
+|002|TSLA|Sell|20|Filled|
+|003|MSFT|Buy|30|Pending|
+
+marginSection = Card(CardHeader("Margin in Use"), TextContent("45% of available margin", size:default), sunk)
+
+headlinesSection = Card(CardHeader("Market Headlines"), headlinesTable, sunk)
+
+headlinesTable = |Headline|Sentiment|
+|"Fed signals rate hike"|Negative|
+|"Tech earnings beat expectations"|Positive|
+|"Oil prices rise on supply concerns"|Neutral|
+
+econReleasesSection = Card(CardHeader("Economic Releases This Week"), econTable, sunk)
+
+econTable = |Date|Event|
+|Mon 09/30|Non‑farm payrolls|
+|Tue 10/01|Retail sales|
+|Wed 10/02|CPI inflation|
+|Thu 10/03|Consumer confidence|
+|Fri 10/04|GDP revision|
+
+strategyReturnSection = Card(CardHeader("Strategy Returns YTD"), strategyTable, sunk)
+
+strategyTable = |Strategy|Return|
+|Momentum|+12.5%|
+|Mean Reversion|-3.2%|
+|StatArb|+7.8%|
+
+drawdrawdownSection = Card(CardHeader("Drawdown (Past Year)"), drawdownChart, sunk)
+
+drawdownChart = LineChart(|Month|Drawdown|
+|Jan|5%|
+|Feb|4%|
+|Mar|6%|
+|Apr|3%|
+|May|7%|
+|Jun|5%|
+|Jul|8%|
+|Aug|6%|
+|Sep|4%|
+|Oct|5%|, variant:linear, xLabel:"Month", yLabel:"% Drawdown")
+
+riskLimitsSection = Card(CardHeader("Risk Limits Near Breach"), Callout(variant:warning, "Limit Alert", "Sector exposure to Energy at 9.8% (limit 10%)"), sunk)
+
+rebalanceSection = Card(CardHeader("Rebalance Portfolio"), rebalanceButtons, sunk)
+
+rebalanceButtons = Buttons(Button("Rebalance now"), direction:row)
+
+placeOrderSection = Card(CardHeader("Place Order"), orderForm, sunk)
+
+orderForm = Form("place-order", orderFormButtons, tickerField, sideField, qtyField)
+
+tickerField = FormControl("Ticker", Input("ticker", placeholder:"Enter ticker"))
+
+sideField = FormControl("Side", sideSelect)
+
+sideSelect = Select("side", SelectItem("buy", "Buy"), SelectItem("sell", "Sell"), placeholder:"Choose side")
+
+qtyField = FormControl("Quantity", Input("quantity", placeholder:"Enter quantity", type:number))
+
+orderFormButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+timeframeSection = Card(CardHeader("Select Timeframe"), timeframeTabs, sunk)
+
+timeframeTabs = Tabs(tf1, tf2, tf3)
+
+tf1 = TabItem("1d", "1D", TextContent("1‑day view"))
+tf2 = TabItem("1w", "1W", TextContent("1‑week view"))
+tf3 = TabItem("1m", "1M", TextContent("1‑month view"))
+
+actions = Buttons(Button("Refresh", primary), Button("Export", secondary))

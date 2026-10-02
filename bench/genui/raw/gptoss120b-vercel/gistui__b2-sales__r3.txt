@@ -1,0 +1,27 @@
+root = Card(revSection, trendSection, topProductsSection, conversionSection, actions)
+
+revSection = Card(Heading("Revenue this month", h3), revRows)
+
+trendSection = Card(Heading("Revenue over the last 6 months", h3), LineChart(trendRows, natural, xLabel:"Month", yLabel:"Revenue"))
+
+topProductsSection = Card(Heading("Top‑selling products", h3), productsRows)
+
+conversionSection = Card(Heading("Conversion percentage", h3), TextContent("**45%**"))
+
+actions = Buttons(Button("Download CSV"))
+
+revRows = |Metric|Value
+|Revenue|$124,300
+
+trendRows = |Month|Revenue
+|Jan|102000
+|Feb|108500
+|Mar|115200
+|Apr|119800
+|May|122400
+|Jun|124300
+
+productsRows = |Product|Units Sold
+|SuperWidget|1,240
+|MegaGadget|980
+|UltraTool|750

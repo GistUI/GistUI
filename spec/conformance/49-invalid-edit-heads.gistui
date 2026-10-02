@@ -1,0 +1,3 @@
+$n += 1
+root.gap += lg
+root = Row()

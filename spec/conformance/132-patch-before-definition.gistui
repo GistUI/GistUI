@@ -1,0 +1,4 @@
+a.content = "early"
+root += a
+root = Row(a)
+a = Text("x")

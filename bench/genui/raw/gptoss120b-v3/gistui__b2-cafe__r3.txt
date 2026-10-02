@@ -1,0 +1,23 @@
+root = Card(specialCallout, drinksSection, foodSection, filterButton, hoursSection, wrap)
+
+specialCallout = Callout(variant:info, "Today's Special", "Pumpkin Spice Latte – $4.50")
+
+filterButton = Buttons(Button("Show Vegetarian Only"))
+
+drinksSection = Card(CardHeader("Drinks"), drinksTable, sunk)
+
+foodSection = Card(CardHeader("Food"), foodTable, sunk)
+
+hoursSection = Card(CardHeader("Opening Hours"), hoursTable, sunk)
+
+drinksItemCol = Col("Drink", data:["Coffee","Tea","Latte","Espresso"], type:string)
+drinksPriceCol = Col("Price", data:["$3.00","$2.50","$4.00","$2.75"], type:string)
+drinksTable = Table(drinksItemCol, drinksPriceCol)
+
+foodItemCol = Col("Food", data:["Croissant","Bagel","Muffin","Salad"], type:string)
+foodPriceCol = Col("Price", data:["$2.80","$2.20","$3.00","$5.50"], type:string)
+foodTable = Table(foodItemCol, foodPriceCol)
+
+hoursDayCol = Col("Day", data:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], type:string)
+hoursTimeCol = Col("Hours", data:["8am‑6pm","8am‑6pm","8am‑6pm","8am‑6pm","8am‑8pm","9am‑8pm","9am‑5pm"], type:string)
+hoursTable = Table(hoursDayCol, hoursTimeCol)

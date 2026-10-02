@@ -1,0 +1,52 @@
+root = Card(header, topFilterBar, kpiRow, trendsAndRankings, atRiskSection, gap:l)
+header = CardHeader("Learning Analytics & Performance", "Monitor cohort progress, engagement velocity, and retention risk factors.")
+
+topFilterBar = Card(filterRow, messageDrawer, direction:row, justify:between, align:center, variant:sunk, gap:m)
+filterRow = Form("filter_cohort", filterButtons, cohortSelect)
+cohortSelect = FormControl("Active Cohort Filter", cohortDropdown)
+cohortDropdown = Select("cohort", SelectItem("all", "All Active Cohorts"), SelectItem("eng_2025_q1", "Cohort 2025-Q1: Engineering"), SelectItem("sales_2025_q1", "Cohort 2025-Q1: Sales Enablement"), SelectItem("lead_2024_q4", "Cohort 2024-Q4: Leadership Path"), SelectItem("data_2025_q1", "Cohort 2025-Q1: Data & Analytics"), value:"all", size:small)
+filterButtons = Buttons(Button("Apply Filter", size:small))
+
+messageDrawer = DrawerBlock("Message Cohort", "Send Cohort Broadcast", messageForm, description:"Dispatch targeted guidance, reminders, or support resources directly to learner dashboards and email.", triggerVariant:default)
+messageForm = Form("broadcast_form", broadcastButtons, recipientField, templateField, subjectField, bodyField)
+recipientField = FormControl("Target Cohort", Select("broadcast_cohort", SelectItem("active_selection", "Current Filter Selection (All / Filtered)"), SelectItem("at_risk", "Only At-Risk Learners (<50% progress)"), SelectItem("eng_2025_q1", "Cohort 2025-Q1: Engineering"), SelectItem("sales_2025_q1", "Cohort 2025-Q1: Sales Enablement"), SelectItem("lead_2024_q4", "Cohort 2024-Q4: Leadership Path"), value:"active_selection"))
+templateField = FormControl("Quick Template", RadioGroup("template", RadioItem("Reminder", "Gentle reminder to complete weekly module", "remind"), RadioItem("Support", "Offer 1-on-1 TA / Mentor office hours", "support"), RadioItem("Announcement", "General cohort update or deadline extension", "announce"), defaultValue:"remind"))
+subjectField = FormControl("Subject Line", Input("subject", "Action Required: Complete your weekly learning modules"))
+bodyField = FormControl("Message Body", TextArea("body", "Hi team, we noticed a few pending assignments due before Sunday. Please reach out if you need assistance!", rows:4))
+broadcastButtons = Buttons(Button("Send Message", primary), Button("Save Draft", secondary))
+
+kpiRow = Card(kpiActive, kpiCompletion, kpiQuizScore, direction:row, gap:m, wrap)
+kpiActive = Card(TextContent("Active Learners (This Week)", small), Heading("1,842", h2), Tag("+12.4% vs last week", success), variant:sunk)
+kpiCompletion = Card(TextContent("Course Completion Rate", small), Heading("78.6%", h2), Progress(79, "Target: 80%"), variant:sunk)
+kpiQuizScore = Card(TextContent("Average Quiz Score", small), Heading("84.2%", h2), Tag("+3.1% benchmark", info), variant:sunk)
+
+trendsAndRankings = Card(engagementTrendCard, coursesRankingCard, direction:row, gap:m, wrap)
+engagementTrendCard = Card(CardHeader("Learner Engagement (Past 8 Weeks)", "Total active sessions and module submissions"), AreaChart(engagementData, natural, xLabel:"Week", yLabel:"Sessions"), variant:card)
+engagementData = |Week|ActiveSessions:n
+|Week 1|1120
+|Week 2|1280
+|Week 3|1450
+|Week 4|1390
+|Week 5|1620
+|Week 6|1580
+|Week 7|1740
+|Week 8|1842
+
+coursesRankingCard = Card(CardHeader("Courses Ranked by Enrollment", "Top enrolled courses across all platforms"), HorizontalBarChart(courseEnrollmentData, xLabel:"Learners Enrolled", yLabel:"Course"), variant:card)
+courseEnrollmentData = |Course|Enrolled:n
+|Systems Architecture|940
+|Data Engineering Fundamentals|820
+|Product Strategy & Metrics|760
+|Enterprise Sales Playbook|610
+|People Leadership 101|450
+|Cloud Security & Compliance|380
+
+atRiskSection = Card(CardHeader("Learners at Risk of Dropping Out", "Identified by inactivity (>14 days), low quiz performance (<65%), or lagging pacing"), Table(atRiskTableData), atRiskActions, variant:card)
+atRiskTableData = |Learner|Cohort|Course|Last Active|Progress|Quiz Avg|Risk Level
+|Marcus Vance|Eng 2025-Q1|Systems Architecture|16 days ago|22%|54%|High
+|Elena Rostova|Sales 2025-Q1|Enterprise Sales Playbook|18 days ago|31%|61%|High
+|Devon Brooks|Data 2025-Q1|Data Engineering Fund.|15 days ago|28%|58%|High
+|Amina Patel|Lead 2024-Q4|People Leadership 101|12 days ago|44%|63%|Medium
+|Carlos Mendez|Eng 2025-Q1|Cloud Security & Comp.|14 days ago|39%|60%|Medium
+
+atRiskActions = Buttons(Button("Export At-Risk Report", secondary), Button("Schedule Group Office Hours", tertiary))

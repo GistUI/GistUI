@@ -1,0 +1,36 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Icon",
+        "props": {
+          "name": "check-circle"
+        }
+      },
+      {
+        "type": "Icon",
+        "props": {
+          "name": "map-pin"
+        }
+      },
+      {
+        "type": "Icon",
+        "props": {
+          "name": "cloud-sun-rain"
+        }
+      },
+      {
+        "type": "Icon",
+        "props": {
+          "name": "a-b"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

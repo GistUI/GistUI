@@ -1,0 +1,81 @@
+root = Card(perfSection, flightsSection, delayedSection, gateChangesSection, crewsSection, weatherSection, loadSection, connectionsSection, rebookSection, hubSwitchSection, cancellationsSection, turnaroundSection, gap:m)
+
+perfSection = Card(CardHeader("On‑time Performance – Today"), TextContent("On‑time: **92%**", size:large), sunk)
+
+flightsSection = Card(CardHeader("Flights – Today"), flightsTable, sunk)
+
+flightsTable = Table(
+  Col("Number", ["AA101","DL202","UA303","SW404"], type:string),
+  Col("Route", ["NYC‑LAX","ATL‑ORD","SFO‑SEA","MIA‑BOS"], type:string),
+  Col("Gate", ["A12","B5","C3","D8"], type:string),
+  Col("Status", ["On‑time","Boarding","Delayed","On‑time"], type:string)
+)
+
+delayedSection = Card(CardHeader("Delayed Flights"), delayedTable, Callout(info, "Delayed Flights", "These flights are currently delayed."), sunk)
+
+delayedTable = Table(
+  Col("Number", ["DL202","UA303"], type:string),
+  Col("Route", ["ATL‑ORD","SFO‑SEA"], type:string),
+  Col("Gate", ["B5","C3"], type:string),
+  Col("Delay", ["15 min","30 min"], type:string)
+)
+
+gateChangesSection = Card(CardHeader("Recent Gate Changes"), gateChangesTable, sunk)
+
+gateChangesTable = Table(
+  Col("Number", ["AA101","SW404"], type:string),
+  Col("Old Gate", ["A10","D6"], type:string),
+  Col("New Gate", ["A12","D8"], type:string),
+  Col("Time", ["08:15","09:40"], type:string)
+)
+
+crewsSection = Card(CardHeader("Crews Available for Reassignment"), crewsTable, sunk)
+
+crewsTable = Table(
+  Col("Crew ID", ["C01","C02","C03"], type:string),
+  Col("Base", ["NYC","ATL","SFO"], type:string),
+  Col("Status", ["Available","Available","Available"], type:string)
+)
+
+weatherSection = Card(CardHeader("Weather Advisories"), weatherTable, sunk)
+
+weatherTable = Table(
+  Col("Advisory", ["Wind gusts up to 35 kt","Thunderstorm probability 40%"], type:string),
+  Col("Impact", ["Potential gate delays","Possible cancellations"], type:string)
+)
+
+loadSection = Card(CardHeader("Average Passenger Load – Today"), TextContent("Average load: **78%**", size:large), sunk)
+
+connectionsSection = Card(CardHeader("Connections at Risk"), connectionsTable, sunk)
+
+connectionsTable = Table(
+  Col("Flight", ["AA101","DL202"], type:string),
+  Col("Connecting Flight", ["DL450","UA220"], type:string),
+  Col("Risk", ["High","Medium"], type:string)
+)
+
+rebookSection = Card(CardHeader("Rebook Affected Passengers"), Buttons(rebookButton, cancelButton), sunk)
+
+rebookButton = Button("Rebook Passengers", ["rebook"], primary)
+cancelButton = Button("Cancel", ["cancel"], secondary)
+
+hubSwitchSection = Card(CardHeader("Switch Hub"), hubSelect, sunk)
+
+hubSelect = Select("hub", 
+  SelectItem("JFK", "JFK"), 
+  SelectItem("LAX", "LAX"), 
+  SelectItem("ORD", "ORD"), 
+  placeholder:"Select hub", 
+  value:"JFK"
+)
+
+cancellationsSection = Card(CardHeader("Cancellations – Today"), cancellationsTable, sunk)
+
+cancellationsTable = Table(
+  Col("Number", ["SW404"], type:string),
+  Col("Route", ["MIA‑BOS"], type:string),
+  Col("Gate", ["D8"], type:string),
+  Col("Reason", ["Crew shortage"], type:string)
+)
+
+turnaroundSection = Card(CardHeader("Average Turnaround Time – Today"), TextContent("Avg. turnaround: **42 min**", size:large), sunk)

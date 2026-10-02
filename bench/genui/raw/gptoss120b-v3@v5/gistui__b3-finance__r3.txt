@@ -1,0 +1,30 @@
+root = Card(header, cashOnHand, monthlyBurn, runwayMonths, expensesPie, transactionsTable, monthSelect, downloadButtons, variant:card, direction:column, gap:m, align:start)
+
+header = CardHeader("Month‑End Finance", "Startup finance snapshot")
+
+cashOnHand = TextContent("**Cash on Hand:** $1.2M", size:large)
+
+monthlyBurn = TextContent("**Monthly Burn:** $150k", size:large)
+
+runwayMonths = TextContent("**Months of Runway:** 8 months", size:large)
+
+expensesPie = PieChart(expenseRows, variant:donut, appearance:circular)
+
+expenseRows = |Category|Amount
+|R&D|50000
+|Marketing|30000
+|Operations|20000
+|Sales|25000
+|Other|15000
+
+transactionsTable = Table(dateCol, descCol, amountCol)
+
+dateCol = Col("Date", ["2024-09-05","2024-09-12","2024-09-20"], type:string)
+
+descCol = Col("Description", ["Equipment purchase","Consulting services","Office lease"], type:string)
+
+amountCol = Col("Amount", [12000,15000,11000], type:number)
+
+monthSelect = Select("month", SelectItem("2024-09","September 2024"), SelectItem("2024-08","August 2024"), SelectItem("2024-07","July 2024"), placeholder:"Select month", value:"2024-09", size:medium)
+
+downloadButtons = Buttons(Button("Download Statement", primary))

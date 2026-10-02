@@ -1,0 +1,19 @@
+root = Card(header, description, qualificationsCard, salaryCallout, applyForm, shareButtons, direction:column, gap:m)
+header = CardHeader("Senior Product Designer", "Product Design Team")
+description = MarkDownRenderer("**About the role**\n\nWe are looking for a creative designer to join our product team and shape user experiences across web and mobile platforms.")
+qualificationsList = ListBlock(
+  ListItem("Strong visual design skills"),
+  ListItem("Proficiency with Figma"),
+  ListItem("Experience designing for web and mobile"),
+  ListItem("Collaborative mindset"),
+  ListItem("Understanding of design systems"),
+  variant:number
+)
+qualificationsCard = Card(Heading("Main qualifications", h3), qualificationsList, clear)
+salaryCallout = TextCallout("Salary", "$80k–$120k", info)
+nameField = FormControl("Full name", Input("name", placeholder:"Your full name"))
+emailField = FormControl("Email", Input("email", placeholder:"you@example.com", type:email))
+resumeField = FormControl("Resume URL", Input("resume", placeholder:"Link to your resume", type:url))
+formButtons = Buttons(Button("Apply", primary), Button("Cancel", secondary))
+applyForm = Form("apply", formButtons, nameField, emailField, resumeField)
+shareButtons = Buttons(Button("Share", secondary))

@@ -1,0 +1,55 @@
+root = Card(header, specialCallout, hoursBanner, menuTabs)
+header = CardHeader("The Daily Grind Café & Bakery", "Freshly brewed artisan coffee, teas, and house-made eats")
+specialCallout = Callout(success, "Today's Chef Special: Honey Lavender Cold Brew & Fig Ricotta Toast ($11.50)", "Slow-steeped single-origin cold brew infused with organic lavender honey syrup, paired with grilled sourdough, fresh ricotta, mission figs, and crushed pistachios.")
+hoursBanner = Card(hoursHeading, hoursGrid, sunk)
+hoursHeading = Heading("Opening Hours & Information", h4)
+hoursGrid = Table(hoursTable)
+hoursTable = |Days|Service Hours|Notes
+|Mon – Fri|06:30 AM – 06:00 PM|Full Breakfast & Lunch Menu
+|Saturday|07:30 AM – 07:00 PM|Weekend Brunch Specials
+|Sunday|08:00 AM – 04:00 PM|Bakery & Espresso Bar Only
+
+menuTabs = Tabs(allMenuTab, vegMenuTab, drinksTab, foodTab)
+
+allMenuTab = TabItem("all", "All Menu", allDrinksCard, allFoodCard)
+allDrinksCard = Card(Heading("Beverages & Coffee", h3), Table(allDrinksTable))
+allDrinksTable = |Item|Category|Price|Dietary
+|Espresso (Double)|Coffee|$3.50|Vegetarian / Vegan
+|Flat White / Latte|Coffee|$4.75|Vegetarian (Oat/Almond +$0.75)
+|Iced Salted Caramel Cold Brew|Cold Drinks|$5.25|Vegetarian
+|Matcha Green Tea Latte|Specialty|$5.50|Vegetarian / Vegan
+|Loose Leaf Earl Grey Tea|Tea|$3.75|Vegetarian / Vegan
+|Fresh Squeezed Orange Juice|Juice|$4.50|Vegetarian / Vegan
+
+allFoodCard = Card(Heading("Food & Bakery", h3), Table(allFoodTable))
+allFoodTable = |Item|Description|Price|Dietary
+|Avocado Green Goddess Toast|Rustic sourdough, pickled shallots, microgreens|$9.50|Vegetarian / Vegan
+|Truffle Mushroom & Swiss Panini|Wild mushrooms, gruyère, arugula on ciabatta|$11.00|Vegetarian
+|Smoked Bacon & Cheddar Brioche|Fried cage-free egg, applewood bacon, chipotle mayo|$10.50|Non-Vegetarian
+|Mediterranean Hummus Bowl|Quinoa, falafel, kalamata olives, cucumber, tahini|$12.50|Vegetarian / Vegan
+|Almond Butter & Berry Acai Bowl|House granola, chia seeds, fresh berries|$10.00|Vegetarian / Vegan
+|Prosciutto & Fig Flatbread|Crispy flatbread, prosciutto di parma, goat cheese|$13.00|Non-Vegetarian
+
+vegMenuTab = TabItem("veg", "🌱 Vegetarian Only", vegFilterTag, vegDrinksCard, vegFoodCard)
+vegFilterTag = Alert("Showing Vegetarian & Plant-Based Selections Only", "All items listed below contain no meat or poultry. Ask our barista for dairy-free milk swaps.", info)
+vegDrinksCard = Card(Heading("Vegetarian Drinks", h3), Table(vegDrinksTable))
+vegDrinksTable = |Item|Category|Price|Notes
+|Espresso (Double)|Coffee|$3.50|100% Plant-based
+|Flat White / Latte|Coffee|$4.75|Dairy or Plant Milk (+0.75)
+|Iced Salted Caramel Cold Brew|Cold Drinks|$5.25|Dairy or Oat Cold Foam
+|Matcha Green Tea Latte|Specialty|$5.50|Ceremonial Grade Matcha
+|Loose Leaf Earl Grey Tea|Tea|$3.75|Steeped to order
+|Fresh Squeezed Orange Juice|Juice|$4.50|100% Pure fruit
+
+vegFoodCard = Card(Heading("Vegetarian Food & Bakery", h3), Table(vegFoodTable))
+vegFoodTable = |Item|Description|Price|Dietary Tag
+|Avocado Green Goddess Toast|Sourdough, lemon zest, radishes, chili flakes|$9.50|Vegan
+|Truffle Mushroom & Swiss Panini|Sautéed cremini & shiitake, melted swiss, dijonnaise|$11.00|Vegetarian
+|Mediterranean Hummus Bowl|Warm falafel, roasted chickpeas, organic greens, tahini|$12.50|Vegan
+|Almond Butter & Berry Acai Bowl|Organic acai puree, coconut flakes, pumpkin seeds|$10.00|Vegan
+
+drinksTab = TabItem("drinks", "Drinks Only", fullDrinksCard)
+fullDrinksCard = Card(Heading("Full Beverage Menu", h3), Table(allDrinksTable))
+
+foodTab = TabItem("food", "Food Only", fullFoodCard)
+fullFoodCard = Card(Heading("Full Food Menu", h3), Table(allFoodTable))

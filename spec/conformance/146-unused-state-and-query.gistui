@@ -1,0 +1,4 @@
+root = Text("a")
+$s = 1
+d = [1]
+q = @query("t")

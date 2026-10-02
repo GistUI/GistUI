@@ -1,0 +1,3 @@
+root = Table(t)
+t = |Code:s|Qty:n|Rate : n|Note: n|a:b:s
+|007|x|5|6|7

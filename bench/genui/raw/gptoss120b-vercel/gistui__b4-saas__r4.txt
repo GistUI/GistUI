@@ -1,0 +1,77 @@
+root = Card(mrrCard, arrCard, churnCard, signupsChart, planPie, topCustomersTable, riskTable, failedPaymentsTable, featureAdoptionChart, npsCard, periodForm, seatUtilChart, inviteForm)
+
+mrrCard = Card(CardHeader("Monthly Recurring Revenue"), TextContent("$1.2M", size:large), sunk)
+arrCard = Card(CardHeader("Annual Recurring Revenue"), TextContent("$14.4M", size:large), sunk)
+churnCard = Card(CardHeader("Churn This Month"), TextContent("2.3%", size:large), sunk)
+
+signupsChart = Card(Heading("New Signups (last 90 days)", h3), BarChart(signupsRows, grouped, xLabel:"Date", yLabel:"Signups"))
+
+signupsRows = |Date|Signups
+|2024-07-01|45
+|2024-07-08|52
+|2024-07-15|48
+|2024-07-22|60
+|2024-07-29|55
+|2024-08-05|58
+|2024-08-12|62
+|2024-08-19|57
+|2024-08-26|64
+|2024-09-02|70
+|2024-09-09|68
+|2024-09-16|73
+|2024-09-23|71
+|2024-09-30|75
+
+planPie = Card(Heading("Customers by Plan", h3), PieChart(planRows, donut, circular))
+
+planRows = |Plan|Customers
+|Basic|120
+|Pro|85
+|Enterprise|30
+
+topCustomersTable = Card(Heading("Top 10 Customers", h3), Table(
+  Col("Customer", data:["Acme Corp","Globex","Initech","Umbrella","Stark Industries","Wayne Enterprises","Oscorp","Hooli","Soylent","Massive Dynamic"], type:string),
+  Col("Seats", data:[250,200,180,150,140,130,120,110,100,95], type:number),
+  Col("Spend", data:["$250k","$200k","$180k","$150k","$140k","$130k","$120k","$110k","$100k","$95k"], type:string)
+), sunk)
+
+riskTable = Card(Heading("Accounts at Risk", h3), Table(
+  Col("Customer", data:["Beta Ltd","Gamma Co","Delta LLC"], type:string),
+  Col("Reason", data:["Low usage","Payment issues","Support tickets"], type:string)
+), sunk)
+
+failedPaymentsTable = Card(Heading("Failed Payments", h3), Table(
+  Col("Customer", data:["Acme Corp","Initech","Hooli"], type:string),
+  Col("Amount", data:["$5k","$3.2k","$4.5k"], type:string),
+  Col("Action", data:["Retry","Retry","Retry"], type:action)
+), sunk)
+
+featureAdoptionChart = Card(Heading("Adoption of New Features", h3), HorizontalBarChart(featureRows, stacked, xLabel:"Feature", yLabel:"Adoption %"))
+
+featureRows = |Feature|Adoption%
+|Feature A|68
+|Feature B|54
+|Feature C|39
+
+npsCard = Card(CardHeader("Current NPS"), TextContent("62", size:large), sunk)
+
+periodForm = Card(Heading("Reporting Period", h3), Form("report-period", periodButtons, periodSelect))
+periodSelect = Select("period", 
+  SelectItem("last_30", "Last 30 days"),
+  SelectItem("last_90", "Last 90 days"),
+  SelectItem("ytd", "Year to date"),
+  placeholder:"Select period", value:"last_30")
+periodButtons = Buttons(Button("Apply", primary))
+
+seatUtilChart = Card(Heading("Seat Utilization", h3), HorizontalBarChart(seatRows, clear, xLabel:"Team", yLabel:"Utilization %"))
+
+seatRows = |Team|Utilization%
+|Engineering|85
+|Marketing|70
+|Sales|92
+|Support|78
+|HR|60
+
+inviteForm = Card(Heading("Invite New Admin", h3), Form("invite-admin", inviteButtons, emailField))
+emailField = FormControl("Admin email", Input("email", "admin@example.com", type:email))
+inviteButtons = Buttons(Button("Send Invite", primary))

@@ -1,0 +1,302 @@
+root = Card(headerRow, alertsBanner, kpiRow, mainTabs)
+headerRow = Card(headerTitle, headerControls, clear, direction:row, justify:between, align:center)
+headerTitle = CardHeader("National Grid Operations Center", "Real-Time Dispatch & System Security Telemetry | Regional Interconnect ISO-E")
+headerControls = Card(curtailmentModal, clear, direction:row, gap:s, align:center)
+curtailmentModal = DialogBlock("Emergency Load Shed / Curtailment", "Issue Emergency Curtailment Order", curtailmentForm, description:"Mandatory system balancing protocol under Operating Rule 4.2. All actions are logged and broadcast to market participants.", triggerVariant:destructive)
+curtailmentForm = Form("curtailment_order", curtailmentButtons, curtRegionField, curtAmountField, curtReasonField)
+curtRegionField = FormControl("Target Balancing Authority / Zone", curtRegionSelect, "Select regional jurisdiction for shedding")
+curtRegionSelect = Select("curt_region", SelectItem("all", "All Zones (System-Wide)"), SelectItem("north", "Northern Intertie (Zone A)"), SelectItem("central", "Central Industrial Corridor (Zone B)"), SelectItem("east", "Eastern Metroplex (Zone C)"), SelectItem("south", "Southern Delta (Zone D)"), SelectItem("west", "Western Highlands (Zone E)"), placeholder:"Select zone", value:"central")
+curtAmountField = FormControl("Curtailment Target (MW)", Input("curt_mw", "e.g. 450", type:number), "Required reduction quota")
+curtReasonField = FormControl("Grid Security Justification", curtReasonRadio)
+curtReasonRadio = RadioGroup("curt_reason", RadioItem("Frequency Deviation", "Primary frequency response excursion < 49.85 Hz", "freq"), RadioItem("Thermal Constraint", "Transmission line loading exceeds emergency rating", "thermal"), RadioItem("Capacity Margin", "Operating reserve margin depleted below N-1 contingency", "margin"), defaultValue:"thermal")
+curtailmentButtons = Buttons(Button("Execute Directive", destructive), Button("Dismiss", tertiary))
+
+alertsBanner = Alert("Grid Frequency Advisory: Western Intertie Corridor Contingency (N-1 Active)", "Substation West-4 transformer thermal overload risk at 94.2% nominal capacity. Automated spinning reserves engaged (+350 MW dispatched).", warning)
+
+kpiRow = Card(kpiLoad, kpiCapacity, kpiPrice, kpiEmissions, clear, direction:row, gap:m)
+kpiLoad = Card("### 38,420 MW", "Current Active System Load", Tag("Peak Hours", warning), sunk)
+kpiCapacity = Card("### 86.3% of Peak", "Capacity Headroom: 6,080 MW", Progress(86, "44,500 MW Total Firm Cap"), sunk)
+kpiPrice = Card("### $74.80 / MWh", "Wholesale Spot Cleared", Tag("+14.2% vs baseline", danger), sunk)
+kpiEmissions = Card("### 14,820 tCO₂e", "Total Daily Fleet Emissions", Tag("386 g/kWh intensity", info), sunk)
+
+mainTabs = Tabs(overviewTab, plantsTab, gridHealthTab, outageScheduleTab)
+
+overviewTab = TabItem("overview", "Real-Time Dispatch & Balancing", overviewGrid)
+overviewGrid = Card(overviewTopRow, overviewBottomRow, clear, direction:column, gap:m)
+overviewTopRow = Card(mixCard, forecastCard, clear, direction:row, gap:m)
+mixCard = Card(Heading("Generation Fuel Mix (MW)", h3), SingleStackedBarChart(fuelLabels, fuelValues), Table(fuelTableCols), sunk)
+fuelLabels = |Source|Output_MW
+|Gas Turbines|16500
+|Nuclear Baseload|11200
+|Wind Fleet|5800
+|Hydroelectric|3200
+|Solar PV|1720
+fuelValues = |Gas Turbines|Nuclear Baseload|Wind Fleet|Hydroelectric|Solar PV
+|16500|11200|5800|3200|1720
+fuelTableCols = Table(fuelCol1, fuelCol2, fuelCol3)
+fuelCol1 = Col("Source", fuelDataSources)
+fuelCol2 = Col("Current Output", fuelDataMw, number)
+fuelCol3 = Col("Fleet Share", fuelDataPct)
+fuelDataSources = |Source
+|Gas Turbines (CCGT/Peaker)
+|Nuclear Baseload
+|Wind Fleet (Offshore/Onshore)
+|Hydro Electric (Pumped/Run)
+|Solar PV Arrays
+fuelDataMw = |Output_MW
+|16500
+|11200
+|5800
+|3200
+|1720
+fuelDataPct = |Share
+|42.9%
+|29.1%
+|15.1%
+|8.3%
+|4.5%
+
+forecastCard = Card(Heading("24-Hour Demand Forecast vs Generation Capacity (MW)", h3), LineChart(forecastData, natural, xLabel:"Time Horizon", yLabel:"Megawatts (MW)"), sunk)
+forecastData = |Hour|Forecast_Demand|Available_Capacity|Margin_Threshold
+|12:00|38420|44500|41000
+|14:00|40200|44500|41000
+|16:00|41850|44800|41000
+|18:00|43100|45100|41000
+|20:00|41600|44200|41000
+|22:00|37200|43800|41000
+|00:00|32400|42500|40000
+|02:00|28900|41000|39000
+|04:00|27600|40500|39000
+|06:00|31200|41500|40000
+|08:00|35900|43000|41000
+|10:00|37800|44000|41000
+
+overviewBottomRow = Card(liveAlertsCard, clear, direction:column)
+liveAlertsCard = Card(Heading("Live Telemetry Alarm Queue", h3), Table(alarmColTime, alarmColSev, alarmColSub, alarmColMsg, alarmColAck), sunk)
+alarmColTime = Col("Timestamp", alarmTimes)
+alarmColSev = Col("Severity", alarmSeverities)
+alarmColSub = Col("Substation / Node", alarmNodes)
+alarmColMsg = Col("Alarm Condition", alarmMsgs)
+alarmColAck = Col("Action", alarmActions)
+alarmTimes = |Timestamp
+|12:44:18
+|12:38:02
+|12:21:49
+|12:05:11
+alarmSeverities = |Severity
+|CRITICAL
+|HIGH
+|WARNING
+|INFO
+alarmNodes = |Substation
+|SS-702 (West-4)
+|HVDC-Link-East
+|Valley Creek 230kV
+|North Ridge Wind Hub
+alarmMsgs = |Message
+|Thermal threshold exceeded (94.2% nominal limit)
+|Reactive power VAR compensation imbalance (+120 MVAR)
+|Bus voltage drop to 0.941 p.u. under surge
+|Feeder synchronizer phase shift within operational tolerance
+alarmActions = |State
+|Dispatched
+|Monitoring
+|Stabilized
+|Logged
+
+plantsTab = TabItem("plants", "Fleet Generation & Units", plantsContainer)
+plantsContainer = Card(plantFilterHeader, plantTableSunk, clear, direction:column, gap:m)
+plantFilterHeader = Card(plantFilterForm, clear, direction:row, justify:between, align:center)
+plantFilterForm = Form("filter_plants", plantFilterBtns, filterPlantZone)
+filterPlantZone = FormControl("Focus Region / Control Area", Select("plant_zone_filter", SelectItem("all", "All Grid Sectors"), SelectItem("north", "Sector North"), SelectItem("central", "Sector Central"), SelectItem("east", "Sector East"), SelectItem("south", "Sector South"), SelectItem("west", "Sector West"), value:"all"))
+plantFilterBtns = Buttons(Button("Apply Scope", primary))
+
+plantTableSunk = Card(Table(pColName, pColZone, pColType, pColCap, pColActual, pColEff, pColStatus), sunk)
+pColName = Col("Facility Name", plantNames)
+pColZone = Col("Zone", plantZones)
+pColType = Col("Primary Fuel", plantTypes)
+pColCap = Col("Rated MW", plantCaps, number)
+pColActual = Col("Output MW", plantActuals, number)
+pColEff = Col("Loading %", plantEffs)
+pColStatus = Col("Operational Status", plantStatuses)
+
+plantNames = |Name
+|Apex Combined Cycle Gen 1-4
+|Grand River Nuclear Station
+|Highland Ridge Wind Farm
+|Canyon Creek Pumped Storage
+|Red Rock Solar Energy Park
+|Delta Peaking Combustion 1-2
+|Keystone Thermal Unit 3
+|Pine Valley Hydro Basin
+plantZones = |Zone
+|Central (B)
+|East (C)
+|North (A)
+|West (E)
+|South (D)
+|Central (B)
+|East (C)
+|North (A)
+plantTypes = |Fuel
+|Natural Gas CCGT
+|Nuclear PWR
+|Wind Turbine
+|Hydro Pumped
+|Solar Photovoltaic
+|Gas OCGT (Peaker)
+|Natural Gas Steam
+|Hydro Run-of-River
+plantCaps = |Rated_MW
+|3200
+|2400
+|1200
+|1600
+|650
+|900
+|1100
+|450
+plantActuals = |Actual_MW
+|3080
+|2400
+|890
+|1450
+|520
+|0
+|980
+|410
+plantEffs = |Efficiency
+|96.2%
+|100.0%
+|74.1%
+|90.6%
+|80.0%
+|0.0% (Standby)
+|89.1%
+|91.1%
+plantStatuses = |Status
+|ONLINE - Synchronized
+|ONLINE - Baseload Full
+|ONLINE - Curtailable
+|ONLINE - Spinning Reserve
+|ONLINE - Peak Dispatch
+|OFFLINE - Cold Standby
+|ONLINE - Synchronized
+|ONLINE - Baseload Full
+
+gridHealthTab = TabItem("regional", "Regional Grid Health & Active Outages", regionalContainer)
+regionalContainer = Card(regionalSelectorRow, regionalGridData, clear, direction:column, gap:m)
+regionalSelectorRow = Card(TextContent("Select a specific balancing jurisdiction to inspect localized transmission flows and branch constraints."), regionalFilterForm, clear, direction:row, justify:between, align:center)
+regionalFilterForm = Form("region_focus_form", regFilterBtns, regSelectCtrl)
+regSelectCtrl = FormControl("Primary Region Focus", Select("active_focus_region", SelectItem("north", "Zone A - North Intertie"), SelectItem("central", "Zone B - Central Industrial"), SelectItem("east", "Zone C - Eastern Metro"), SelectItem("south", "Zone D - Southern Delta"), SelectItem("west", "Zone E - Western Highlands"), value:"central"))
+regFilterBtns = Buttons(Button("Lock Regional Focus", secondary))
+
+regionalGridData = Card(regionalCardsRow, outageTableCard, clear, direction:column, gap:m)
+regionalCardsRow = Card(regZoneBStatus, regZoneEStatus, clear, direction:row, gap:m)
+regZoneBStatus = Card(Heading("Zone B - Central Corridor", h4), Tag("Load: 14,200 MW", warning), Tag("Reserve: 4.8% (Tight)", danger), TextContent("Heavy industrial demand; substation 115kV loop operating close to static N-1 thermal rating."), sunk)
+regZoneEStatus = Card(Heading("Zone E - Western Highlands", h4), Tag("Load: 6,800 MW", info), Tag("Reserve: 18.2% (Nominal)", success), TextContent("Exporting excess renewable power across 500kV interconnect to eastern load centers."), sunk)
+
+outageTableCard = Card(Heading("Active Transmission & Generation Outages", h3), Table(outIdCol, outRegCol, outEquipCol, outTypeCol, outMwCol, outCustCol, outEtaCol), sunk)
+outIdCol = Col("Outage ID", outIds)
+outRegCol = Col("Affected Region", outRegions)
+outEquipCol = Col("De-energized Element", outEquips)
+outTypeCol = Col("Outage Class", outTypes)
+outMwCol = Col("Capacity Lost", outMws, number)
+outCustCol = Col("Affected Customers", outCusts)
+outEtaCol = Col("Restoration ETR", outEtas)
+
+outIds = |Outage_ID
+|OUT-2024-881
+|OUT-2024-885
+|OUT-2024-889
+|OUT-2024-892
+outRegions = |Region
+|Zone E (West)
+|Zone B (Central)
+|Zone C (East)
+|Zone A (North)
+outEquips = |Asset
+|500kV Line 402 (Ridge-West)
+|Transformer T-12 Substation 8
+|Feeder 13.8kV East Downtown
+|Unit 2 Steam Generator Breaker
+outTypes = |Class
+|Forced (Storm Lightning Strike)
+|Forced (Overheating Trip)
+|Unplanned Cable Sever
+|Emergency Isolation
+outMws = |Lost_MW
+|1200
+|450
+|65
+|320
+outCusts = |Customers
+|0 (Bulk Transmission)
+|14,200 (Industrial Loop)
+|8,950 (Metro Residential)
+|0 (Generator Terminal)
+outEtas = |ETR
+|Today 16:30 UTC
+|Today 19:00 UTC
+|Today 14:15 UTC
+|Tomorrow 06:00 UTC
+
+outageScheduleTab = TabItem("maintenance", "Monthly Maintenance Plan", maintContainer)
+maintContainer = Card(Heading("Approved Maintenance & Overhauls (Current Month)", h3), Table(maintIdCol, maintPlantCol, maintRegCol, maintScopeCol, maintStartCol, maintEndCol, maintImpactCol, maintStatCol), sunk)
+maintIdCol = Col("Work Order", maintIds)
+maintPlantCol = Col("Asset / Facility", maintPlants)
+maintRegCol = Col("Region", maintRegions)
+maintScopeCol = Col("Scope of Work", maintScopes)
+maintStartCol = Col("Start Date", maintStarts)
+maintEndCol = Col("Completion", maintEnds)
+maintImpactCol = Col("Capacity Outage", maintImpacts, number)
+maintStatCol = Col("Schedule Status", maintStats)
+
+maintIds = |WO_ID
+|SCH-OCT-014
+|SCH-OCT-022
+|SCH-OCT-031
+|SCH-OCT-045
+|SCH-OCT-058
+maintPlants = |Asset
+|Blue Ridge Nuclear Unit 1
+|Cascade Hydro Station Penstock
+|East Bay CCGT Train A
+|North Cross 345kV Line Reconductor
+|South Substation Bus Upgrade
+maintRegions = |Region
+|Zone C (East)
+|Zone E (West)
+|Zone B (Central)
+|Zone A (North)
+|Zone D (South)
+maintScopes = |Scope
+|Refueling & reactor vessel ultrasonic inspection
+|Turbine runner blade overhaul and sediment flush
+|Hot gas path inspection & combustor rebuild
+|Transmission capacity uprate & stringing
+|Switchgear breaker upgrade & SF6 gas recharge
+maintStarts = |Start
+|Oct 02
+|Oct 10
+|Oct 15
+|Oct 18
+|Oct 24
+maintEnds = |End
+|Oct 28
+|Oct 16
+|Oct 22
+|Oct 29
+|Oct 27
+maintImpacts = |Impact_MW
+|1150
+|300
+|480
+|800
+|0
+maintStats = |Status
+|In Progress (On Schedule)
+|Completed
+|Approved - Staged
+|Scheduled
+|Scheduled

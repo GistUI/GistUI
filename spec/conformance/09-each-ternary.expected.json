@@ -1,0 +1,30 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "@each(rows, r => Card(r.name, Stat(\"Revenue\", \"$\" + r.total)))"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "\"Total: \" + @sum(rows.total)"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "$tab == \"done\" ? done : Text(\"Not yet\")"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

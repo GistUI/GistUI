@@ -1,0 +1,7 @@
+ root = Card(upNextBadge, meetingHeader, separator, attendeesTitle, attendeesList, joinButtons)
+upNextBadge = Badge("Up next", variant:secondary)
+meetingHeader = CardHeader("Product Review", "Today at 2:30 PM")
+separator = Separator(orientation:horizontal)
+attendeesTitle = TextContent("**Attendees**")
+attendeesList = ListBlock(ListItem("Alice Chen", "Product Design"), ListItem("Bob Smith", "Engineering"), ListItem("Cara Williams", "Marketing"))
+joinButtons = Buttons(Button("Join call", primary))

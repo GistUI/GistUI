@@ -1,0 +1,115 @@
+root = Card(headerBar, kpiRow, mainTabs, gap:m)
+headerBar = Card(headerTitleRow, headerControlsRow, variant:sunk, gap:s)
+headerTitleRow = Card(Heading("Metropolitan Operations Center (MOC)", level:h1), Tag("Live Monitoring", icon:"activity", variant:success), Tag("Threat Level: Nominal", variant:info), direction:row, justify:between, align:center, variant:clear)
+headerControlsRow = Card(weatherBadge, districtFilter, actionAlertModal, actionDispatchModal, direction:row, justify:between, align:center, variant:clear)
+weatherBadge = Card(Tag("Downtown Weather: 22°C • 64% Hum • 12 km/h NE • Clear", size:md, variant:neutral), variant:clear)
+districtFilter = FormControl("Filter Operations by District", districtSelect)
+districtSelect = Select("district_focus", SelectItem("all", "All Districts (Citywide)"), SelectItem("downtown", "Downtown Central"), SelectItem("north", "North End & Riverdale"), SelectItem("east", "East Industrial Basin"), SelectItem("west", "West Hills"), SelectItem("south", "South Wharf & Bay"), placeholder:"Select district...")
+
+actionAlertModal = DialogBlock("Broadcast Public Alert", "Broadcast Emergency Public Alert", alertBroadcastForm, description:"Send push alerts to mobile phones, digital roadside signage, and sirens.", triggerVariant:destructive)
+alertBroadcastForm = Form("alert_form", alertFormBtns, alertChannelField, alertMsgField)
+alertChannelField = FormControl("Target Delivery Channels", CheckBoxGroup("channels", CheckBoxItem("Cell Broadcast (WEA)", "Push to all connected cell towers", "cell"), CheckBoxItem("Roadway VMS Signage", "Update overhead highway matrix signs", "vms"), CheckBoxItem("Civic Mobile App", "Send urgent push notification", "app")))
+alertMsgField = FormControl("Alert Message Body", TextArea("alert_text", "e.g., Flash flood warning in low-lying areas. Seek higher ground immediately.", rows:3))
+alertFormBtns = Buttons(Button("Send Broadcast Alert", variant:primary, type:destructive))
+
+actionDispatchModal = DialogBlock("Dispatch Emergency Crew", "Field Crew Rapid Dispatch", dispatchForm, description:"Assign active fleet units to urgent incident tickets.", triggerVariant:default)
+dispatchForm = Form("dispatch_form", dispatchBtns, dispatchUnitField, dispatchIncidentField, dispatchPriorityField)
+dispatchUnitField = FormControl("Select Available Unit", Select("unit_id", SelectItem("u1", "Medic Unit 04 (Idle - Downtown Stn 1)"), SelectItem("u2", "Engine 12 (On Patrol - West Hills)"), SelectItem("u3", "Traffic Safety Car 09 (Idle - East Bypass)"), SelectItem("u4", "Utility Repair Crew 02 (Idle - Central Depot)"), placeholder:"Choose unit..."))
+dispatchIncidentField = FormControl("Assign to Incident", Select("inc_target", SelectItem("inc1", "INC-8821: Multi-vehicle collision (Central Ave)"), SelectItem("inc2", "INC-8823: Water main rupture (Oak St)"), SelectItem("inc3", "INC-8824: Power substation trip (East Ind)"), placeholder:"Select target incident..."))
+dispatchPriorityField = FormControl("Dispatch Priority Code", RadioGroup("prio_code", RadioItem("Code 3 (Urgent - Lights & Siren)", "Immediate life safety risk", "code3"), RadioItem("Code 2 (Standard Expedited)", "Urgent operational response", "code2"), RadioItem("Code 1 (Routine)", "Non-emergency deployment", "code1")))
+dispatchBtns = Buttons(Button("Confirm Crew Dispatch", variant:primary))
+
+kpiRow = Card(kpiCongestion, kpiTransit, kpiWater, kpiParking, direction:row, gap:m, variant:clear)
+kpiCongestion = Card(Heading("Live Congestion", level:h4), Progress(74, "74% Grid Saturation"), TextContent("**Peak Delay:** +14 min on Arterial Arteries\n**Status:** Heavy traffic on Core Expressways", size:small), Tag("Elevated", variant:warning), gap:xs)
+kpiTransit = Card(Heading("Transit Punctuality", level:h4), Progress(91, "91.8% On-Time Target"), TextContent("**Metro Rail:** 96.2% on-time\n**City Bus Fleet:** 87.4% on-time", size:small), Tag("On Target", variant:success), gap:xs)
+kpiWater = Card(Heading("Water Use Today", level:h4), Progress(68, "34.2M / 50M Gallons"), TextContent("**Peak Draw:** 1.8M G/hr at 08:30\n**Reservoir Reserves:** 88% full", size:small), Tag("Normal Flow", variant:info), gap:xs)
+kpiParking = Card(Heading("Downtown Parking", level:h4), Progress(83, "1,420 / 8,200 Bays Free"), TextContent("**Central Garages:** 92% occupied\n**On-Street Metered:** 74% occupied", size:small), Tag("High Demand", variant:warning), gap:xs)
+
+mainTabs = Tabs(tabOperations, tabUtilities, tabPlanning)
+
+tabOperations = TabItem("ops", "Live Operations & Emergency", opsLayout)
+opsLayout = Card(opsGrid, citizenSection, gap:m, variant:clear)
+opsGrid = Card(incidentsCard, vehiclesCard, direction:row, gap:m, variant:clear)
+
+incidentsCard = Card(CardHeader("Open Incidents (Live Priority Feed)", "Filter by severity and district location"), Table(incidentsTable), gap:xs)
+incidentsTable = |Incident ID|Type|Location|District|Severity|Status
+|INC-8821|Traffic Collision (3 cars)|Central Ave & 4th St|Downtown|High|Crew En Route
+|INC-8823|Water Main Burst|Oak St & Elm Blvd|West Hills|Critical|Dispatched
+|INC-8824|Transformer Failure|Pier 14 Access Rd|East Basin|Medium|Under Review
+|INC-8827|Signal Box Malfunction|Northway & 9th Ave|North End|Medium|Assigned
+|INC-8830|Blocked Transit Lane|Market Sq & Broad St|Downtown|Low|Investigating
+
+vehiclesCard = Card(CardHeader("Emergency Fleet Deployment", "Real-time positioning and duty assignments"), Table(fleetTable), gap:xs)
+fleetTable = |Unit Code|Service|Current Location|Assignment / Status|ETA / Speed
+|MED-04|Ambulance|Downtown Station 1|Standby / Ready|0 min
+|ENG-12|Fire Engine|West Hills Sector 3|Responding to INC-8823|4 min (45 km/h)
+|ENG-08|Fire Engine|East Basin Depot|Station Standby|0 min
+|POL-102|Police Cruiser|Downtown Central Ave|On-Scene INC-8821|Stationary
+|POL-215|Police Cruiser|North Expressway|Highway Patrol|68 km/h
+|UTIL-02|Public Works|Central Depot|Prep for Water Repair|En Route
+
+citizenSection = Card(CardHeader("Citizen Reports Feed (Inflow Stream)", "Incoming 311 app reports with live queue backlog"), citizenGrid, variant:sunk, gap:s)
+citizenGrid = Card(citizenBacklogCard, citizenFeedCard, direction:row, gap:m, variant:clear)
+citizenBacklogCard = Card(Heading("Service Request Backlog", level:h4), BarChart(backlogData, xLabel:"Service Category", yLabel:"Open Tickets"), TextContent("**Backlog Total:** 348 active civic requests\n**Mean Time to Resolution:** 4.2 hours", size:small), gap:xs)
+backlogData = |Category|Backlog Count
+|Potholes|112
+|Street Lights|78
+|Illegal Dumping|64
+|Noise Complaints|54
+|Graffiti Removal|40
+
+citizenFeedCard = Card(Heading("Live Citizen 311 Inflow", level:h4), Table(citizenFeedTable), gap:xs)
+citizenFeedTable = |Time|Report Topic|Reported Location|Channel|Status
+|10:42 AM|Deep pothole in curbside lane|Lincoln Hwy & 14th|Mobile App|Queued
+|10:39 AM|Traffic light stuck on flashing red|8th Ave & 2nd St|Web Portal|Triaged
+|10:35 AM|Broken sprinkler flooding sidewalk|City Hall Park|Phone (311)|Assigned
+|10:31 AM|Illegal construction noise|44 River Rd|Mobile App|Investigating
+|10:24 AM|Downed tree branch across bikeway|Pinecrest Path|Mobile App|Closed
+
+tabUtilities = TabItem("utilities", "Environment & Energy", utilsLayout)
+utilsLayout = Card(utilsGrid, gap:m, variant:clear)
+utilsGrid = Card(airQualityCard, energyWeekCard, direction:row, gap:m, variant:clear)
+
+airQualityCard = Card(CardHeader("Air Quality Index by District", "PM2.5, PM10 and O3 sensor readings"), BarChart(aqiData, xLabel:"District", yLabel:"AQI (Lower is better)"), Alert("Moderate Smog Advisory", "East Basin AQI exceeds target threshold due to port cargo freight activity.", variant:warning), gap:xs)
+aqiData = |District|AQI Score
+|Downtown Central|58
+|North End|38
+|East Industrial|84
+|West Hills|26
+|South Wharf|62
+
+energyWeekCard = Card(CardHeader("Citywide Energy Use (Past 7 Days)", "Electric grid load consumption in Megawatt Hours (MWh)"), LineChart(energyWeekData, natural, xLabel:"Day", yLabel:"Daily Consumption (MWh)"), TextContent("**Weekly Peak:** 11,980 MWh (Thursday peak air conditioning)\n**Renewable Contribution:** 34.6% Solar & Wind mix", size:small), gap:xs)
+energyWeekData = |Day|Energy (MWh)
+|Mon|10200
+|Tue|10850
+|Wed|11400
+|Thu|11980
+|Fri|11320
+|Sat|9650
+|Sun|9100
+
+tabPlanning = TabItem("planning", "Events, Roadworks & Infrastructure", planningLayout)
+planningLayout = Card(planningGrid, infraCard, gap:m, variant:clear)
+planningGrid = Card(eventsCard, roadworksCard, direction:row, gap:m, variant:clear)
+
+eventsCard = Card(CardHeader("Public Events (This Weekend)", "Permitted gatherings requiring crowd & traffic coordination"), Table(eventsTable), gap:xs)
+eventsTable = |Event Name|Expected Crowd|Location / Venue|Impact Level|Traffic Plan
+|City Waterfront Marathon|35,000|Bay Promenade|Major Closures|Diversion Route B active
+|Night Food Market|12,000|Downtown Plaza|Pedestrian Only|Shuttle bus priority
+|Symphony in the Park|6,500|West Hills Amphitheater|Moderate|On-site parking staff
+|Saturday Farmers Market|4,000|North Market St|Local Curb Closure|Signage posted
+
+roadworksCard = Card(CardHeader("Planned Roadworks (This Month)", "Scheduled capital road renewals and resurfacing"), Table(roadworksTable), gap:xs)
+roadworksTable = |Project ID|Corridor|Type of Work|Scheduled Window|Lane Restrictions
+|RW-402|I-90 Downtown Offramp|Bridge Joint Replacement|Oct 12 - Oct 19|2 of 4 lanes closed
+|RW-405|Riverdale Arterial|Asphalt Resurfacing|Oct 15 - Oct 22|Night work (20:00-05:00)
+|RW-408|South Port Connector|Storm Drain Installation|Oct 20 - Nov 05|Single-lane contraflow
+|RW-411|University Ave Corridor|Bike Lane Protected Curb|Oct 25 - Nov 10|Right lane closed
+
+infraCard = Card(CardHeader("Infrastructure Maintenance Due", "Asset inspection schedules and critical lifecycle service dates"), Table(infraTable), gap:xs)
+infraTable = |Asset ID|Infrastructure Asset|District|Service Required|Due By|Risk Level
+|INF-109|Harbor Suspension Bridge|South Wharf|Tensile Cable & Bearing Inspection|Overdue (3 Days)|High
+|INF-342|East Substation Transformer Bank|East Basin|Oil Coolant Flush & Dielectric Test|Due in 4 Days|Medium
+|INF-518|North Pump Station Valve 3|North End|High-Pressure Seal Overhaul|Due in 8 Days|Medium
+|INF-620|Downtown Metro Tunnel Fan 02|Downtown|Emergency Ventilation Motor Service|Due in 14 Days|Low
+|INF-744|Cloverleaf Storm Retention Vault|West Hills|Silt Dredging & Sluice Gate Test|Due in 18 Days|Low

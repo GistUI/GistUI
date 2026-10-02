@@ -1,0 +1,17 @@
+root = Card(menuHeader, specialCallout, vegSwitch, drinksCard, foodCard, hoursCard)
+menuHeader = CardHeader("Cafe Menu")
+specialCallout = Callout(variant:info, "Today's Special", "Grilled Veggie Panini - $7.99")
+vegSwitch = SwitchGroup("veg_filter", SwitchItem("veg", "Vegetarian only", defaultChecked), variant:clear)
+drinksCard = Card(Heading("Drinks", h3), Table(drinksRows))
+foodCard = Card(Heading("Food", h3), Table(foodRows))
+hoursCard = Card(Heading("Opening Hours", h3), TextContent("Mon-Fri: 7am - 6pm\nSat: 8am - 4pm\nSun: Closed"))
+drinksRows = |Drink|Price
+|Espresso|$2.50
+|Cappuccino|$3.50
+|Latte|$3.75
+|Tea|$2.00
+foodRows = |Food|Price
+|Croissant|$2.80
+|Bagel|$2.50
+|Veggie Panini|$7.99
+|Soup of the Day|$4.50

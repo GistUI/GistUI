@@ -1,0 +1,73 @@
+root = Card(dashboardHeader, dateRangeForm, visitorsCard, conversionCard, trafficCard, campaignsCard, bestCampaignCallout, subscriberCard, exportButtons, direction:column, gap:m)
+
+dashboardHeader = CardHeader("Weekly Marketing Dashboard", "Last 30 days")
+
+dateRangeForm = Form("date-range", dateFormButtons, startDateControl, endDateControl)
+startDateControl = FormControl("Start date", DatePicker("start", mode:single, value:["2024-09-01"]))
+endDateControl = FormControl("End date", DatePicker("end", mode:single, value:["2024-09-30"]))
+dateFormButtons = Buttons(Button("Apply", primary))
+
+visitorsCard = Card(Heading("Site Visitors", h3), visitorsChart, sunk)
+visitorsChart = LineChart(visitorsData, linear, xLabel:"Date", yLabel:"Visitors")
+visitorsData = |Date|Visitors
+|2024-09-01|1240
+|2024-09-02|1365
+|2024-09-03|1290
+|2024-09-04|1420
+|2024-09-05|1510
+|2024-09-06|1580
+|2024-09-07|1625
+|2024-09-08|1700
+|2024-09-09|1650
+|2024-09-10|1730
+|2024-09-11|1800
+|2024-09-12|1885
+|2024-09-13|1950
+|2024-09-14|2020
+|2024-09-15|2105
+|2024-09-16|2180
+|2024-09-17|2250
+|2024-09-18|2320
+|2024-09-19|2400
+|2024-09-20|2475
+|2024-09-21|2550
+|2024-09-22|2620
+|2024-09-23|2700
+|2024-09-24|2785
+|2024-09-25|2850
+|2024-09-26|2920
+|2024-09-27|3000
+|2024-09-28|3085
+|2024-09-29|3150
+|2024-09-30|3220
+
+conversionCard = Card(Heading("Conversion Rate", h3), conversionCallout, sunk)
+conversionCallout = TextCallout("Conversion Rate", "2.4%", success)
+
+trafficCard = Card(Heading("Top 5 Traffic Sources", h3), trafficPie, sunk)
+trafficPie = PieChart(trafficShareData, donut)
+trafficShareData = |Source|Share
+|Organic Search|45
+|Direct|25
+|Referral|15
+|Social|10
+|Email|5
+
+campaignsCard = Card(Heading("Running Campaigns", h3), campaignsTable, sunk)
+campaignsTable = Table(
+  Col("Campaign", ["Spring Sale","Summer Promo","Fall Launch","Black Friday","Holiday Blast"], type:string),
+  Col("Spend ($)", [12000,8500,9700,23000,15000], type:number)
+)
+
+bestCampaignCallout = Callout(success, "Best Performing Campaign", "Spring Sale – ROI 3.8x")
+
+subscriberCard = Card(Heading("Email Subscriber Growth (This Month)", h3), subscriberChart, sunk)
+subscriberChart = BarChart(subscriberData, grouped, xLabel:"Date", yLabel:"New Subscribers")
+subscriberData = |Date|New Subscribers
+|2024-09-01|120
+|2024-09-08|150
+|2024-09-15|180
+|2024-09-22|210
+|2024-09-29|240
+
+exportButtons = Buttons(Button("Export CSV", primary), Button("Download PDF", secondary))

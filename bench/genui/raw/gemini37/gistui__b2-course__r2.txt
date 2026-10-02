@@ -1,0 +1,38 @@
+root = Card(header, nextLessonCard, progressCard, modulesSection, statsCard, gap:m)
+header = Card(CardHeader("Full-Stack Web Development Bootcamp", "Instructor: Dr. Angela Yu • Lead Web Architect"), headerMeta, clear)
+headerMeta = Card(Tag("★ 4.9 Average Rating (14,280 reviews)", success), Tag("Course Certificate Eligible", info), Tag("Self-Paced", neutral), direction:row, gap:xs, clear, wrap)
+nextLessonCard = Card(Heading("Up Next", h3), nextLessonDetails, nextLessonAction, variant:card, gap:s)
+nextLessonDetails = TextCallout("Module 3: Server-side Architecture", "Lesson 3.4: Building REST APIs with Express & Node.js (25 mins remaining)", info)
+nextLessonAction = Buttons(Button("Continue Learning", [["openLesson", "3.4"]], primary, size:large), Button("Download Lesson Assets", [["download", "3.4"]], secondary))
+progressCard = Card(Heading("Your Course Progress", h4), TextContent("Overall Completion: **68%** (26 of 38 lessons completed)"), Progress(68, "68% Completed"), sunk, gap:xs)
+modulesSection = Card(Heading("Curriculum & Modules", h3), moduleList, clear, gap:xs)
+moduleList = SectionBlock(mod1, mod2, mod3, mod4, mod5, isFoldable)
+mod1 = SectionItem("mod-1", "Module 1: Modern JavaScript & Async Fundamentals (Completed)", mod1Content)
+mod1Content = ListBlock(m1_1, m1_2, m1_3)
+m1_1 = ListItem("1.1 ES6+ Syntax, Scoping & Closures", "Completed • Quiz passed (100%)")
+m1_2 = ListItem("1.2 Promises, Async/Await & Event Loop", "Completed • Quiz passed (95%)")
+m1_3 = ListItem("1.3 Project: Async Data Fetcher", "Completed • Code review approved")
+mod2 = SectionItem("mod-2", "Module 2: React Core & Component Design (Completed)", mod2Content)
+mod2Content = ListBlock(m2_1, m2_2, m2_3)
+m2_1 = ListItem("2.1 JSX, Props, and State Management", "Completed • Quiz passed (90%)")
+m2_2 = ListItem("2.2 Custom Hooks & Side Effects", "Completed • Quiz passed (92%)")
+m2_3 = ListItem("2.3 Project: Interactive Dashboard", "Completed • Code review approved")
+mod3 = SectionItem("mod-3", "Module 3: Backend Development & APIs (In Progress - 40%)", mod3Content)
+mod3Content = ListBlock(m3_1, m3_2, m3_3)
+m3_1 = ListItem("3.1 Node.js Runtime & Modules", "Completed")
+m3_2 = ListItem("3.2 HTTP Server Basics", "Completed")
+m3_3 = ListItem("3.4 Building REST APIs with Express", "Next up • 25 min")
+mod4 = SectionItem("mod-4", "Module 4: Databases & ORMs (Locked)", mod4Content)
+mod4Content = ListBlock(m4_1, m4_2)
+m4_1 = ListItem("4.1 PostgreSQL & Relational Modeling", "Locked • Complete Module 3 first")
+m4_2 = ListItem("4.2 Prisma ORM Integration", "Locked • Complete Module 3 first")
+mod5 = SectionItem("mod-5", "Module 5: Deployment & CI/CD Pipelines (Locked)", mod5Content)
+mod5Content = ListBlock(m5_1)
+m5_1 = ListItem("5.1 Docker Containers & Cloud Deploy", "Locked • Complete Module 4 first")
+statsCard = Card(Heading("Learner Feedback & Rating Breakdown", h4), TextContent("Average Learner Rating: **4.9 / 5.0** across 14,280 active learners"), ratingTable, sunk, gap:s)
+ratingTable = |Rating Tier|Percentage|Reviewers:n
+|5 Stars|91%|13000
+|4 Stars|7%|998
+|3 Stars|1.5%|214
+|2 Stars|0.3%|43
+|1 Star|0.2%|25

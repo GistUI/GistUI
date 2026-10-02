@@ -1,0 +1,79 @@
+root = Card(bedSection, erSection, admissionsSection, deptSection, staffSection, criticalSection, dischargeSection, orSection, suppliesSection, incidentSection, dateNavSection, transferSection, navButtons)
+
+bedSection = Card(CardHeader("Bed Occupancy"), HorizontalBarChart(labels:["ICU","General Ward","Recovery"], Series("Occupied", values:[78,120,45]), Series("Available", values:[22,80,55]), variant:grouped, xLabel:"Beds", yLabel:"Count"))
+
+erSection = Card(CardHeader("Current ER Wait"), TextContent("Average wait time: **2 hrs 15 mins**", size:large))
+
+admissionsSection = Card(CardHeader("Admissions (Last 2 Weeks)"), LineChart(admissionsRows, linear, xLabel:"Date", yLabel:"Admissions"))
+
+admissionsRows = |Date|Admissions
+|2024-09-16|34
+|2024-09-17|29
+|2024-09-18|41
+|2024-09-19|37
+|2024-09-20|30
+|2024-09-21|28
+|2024-09-22|33
+|2024-09-23|36
+|2024-09-24|31
+|2024-09-25|38
+|2024-09-26|35
+|2024-09-27|40
+|2024-09-28|32
+|2024-09-29|39
+
+deptSection = Card(CardHeader("Patients per Department"), PieChart(deptRows, donut, appearance:circular))
+
+deptRows = |Department|Patients
+|Cardiology|45
+|Neurology|38
+|Oncology|27
+|Pediatrics|52
+|Surgery|61
+
+staffSection = Card(CardHeader("Staff on Shift"), Table(staffColId, roleCol, shiftCol))
+
+staffColId = Col("Name", data:["Dr. Lee","Nurse Patel","Tech Gomez","Dr. Smith","Nurse O'Neil"], type:string)
+roleCol = Col("Role", data:["Surgeon","RN","Radiology Tech","Anesthesiologist","RN"], type:string)
+shiftCol = Col("Shift", data:["Day","Night","Day","Day","Night"], type:string)
+
+criticalSection = Card(CardHeader("Critical Patients"), ListBlock(critItem1, critItem2, critItem3, variant:number))
+
+critItem1 = ListItem("John Doe", "ICU - Cardiac Arrest", "View", image:[])
+critItem2 = ListItem("Maria Ruiz", "ER - Sepsis", "View", image:[])
+critItem3 = ListItem("Ahmed Khan", "ICU - Respiratory Failure", "View", image:[])
+
+dischargeSection = Card(CardHeader("Patients Ready for Discharge"), Table(patIdCol, deptCol, readyCol))
+
+patIdCol = Col("Patient", data:["Emily Clark","Liam Wong","Sofia Martinez"], type:string)
+deptCol = Col("Dept.", data:["General Ward","Recovery","General Ward"], type:string)
+readyCol = Col("Ready Since", data:["08:30","09:15","10:00"], type:string)
+
+orSection = Card(CardHeader("Today's OR Bookings"), Table(roomCol, timeCol, procedureCol))
+
+roomCol = Col("OR", data:["OR1","OR2","OR3"], type:string)
+timeCol = Col("Time", data:["08:00-10:00","10:30-12:30","13:00-15:00"], type:string)
+procedureCol = Col("Procedure", data:["Hip Replacement","CABG","Appendectomy"], type:string)
+
+suppliesSection = Card(CardHeader("Supplies Running Low"), Table(supplyCol, qtyCol))
+
+supplyCol = Col("Supply", data:["Sutures","Blood Bags","IV Sets"], type:string)
+qtyCol = Col("Remaining", data:["15","8","22"], type:string)
+
+incidentSection = Card(CardHeader("File an Incident"), Form("incident-form", incidentButtons, incidentDesc, incidentType, incidentUrgency))
+
+incidentDesc = FormControl("Description", Input("desc", "Brief description", , text))
+incidentType = FormControl("Type", Select("type", SelectItem("Safety","Safety"), SelectItem("Equipment","Equipment"), placeholder:"Select type"))
+incidentUrgency = FormControl("Urgency", Select("urgency", SelectItem("Low","Low"), SelectItem("Medium","Medium"), SelectItem("High","High"), placeholder:"Select urgency"))
+incidentButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+dateNavSection = Card(CardHeader("View Another Day"), DatePicker("date-nav", single, value:["2024-09-30"]))
+
+transferSection = Card(CardHeader("Request Patient Transfer"), Form("transfer-form", transferButtons, transferPatient, transferFrom, transferTo))
+
+transferPatient = FormControl("Patient ID", Input("patient_id", "e.g. 12345", , text))
+transferFrom = FormControl("From Department", Select("from_dept", SelectItem("ICU","ICU"), SelectItem("General Ward","General Ward"), placeholder:"Select source"))
+transferTo = FormControl("To Department", Select("to_dept", SelectItem("Surgery","Surgery"), SelectItem("Recovery","Recovery"), placeholder:"Select destination"))
+transferButtons = Buttons(Button("Request Transfer", primary), Button("Cancel", tertiary))
+
+navButtons = Buttons(Button("Refresh Data", primary), Button("Settings", secondary))

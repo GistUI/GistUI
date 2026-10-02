@@ -1,0 +1,95 @@
+root = Card(districtSelect, congestion, transit, airQuality, energy, water, incidents, vehicles, parking, events, citizen, backlog, weather, roadworks, infrastructure, actions)
+
+districtSelect = Select("district", SelectItem("Downtown", "Downtown"), SelectItem("Uptown", "Uptown"), SelectItem("Midtown", "Midtown"), placeholder:"Select district")
+
+actions = Buttons(dispatchDialog, alertDialog)
+
+dispatchDialog = DialogBlock("Dispatch Crew", "Dispatch Crew", dispatchForm, description:"Send a crew to a location", triggerVariant:default)
+
+dispatchForm = Form("dispatch", dispatchButtons, locationField, crewField)
+
+locationField = FormControl("Location", Input("location", "Enter address"))
+
+crewField = FormControl("Crew Type", crewSelect)
+
+crewSelect = Select("crew_type", SelectItem("Police", "Police"), SelectItem("Fire", "Fire"), SelectItem("Medical", "Medical"), placeholder:"Select crew")
+
+dispatchButtons = Buttons(Button("Send Dispatch", primary), Button("Cancel", tertiary))
+
+alertDialog = DialogBlock("Send Alert", "Public Alert", alertForm, description:"Compose a public alert", triggerVariant:default)
+
+alertForm = Form("alert", alertButtons, messageField)
+
+messageField = FormControl("Message", TextArea("message", "Enter alert text", rows:4))
+
+alertButtons = Buttons(Button("Send Alert", primary), Button("Cancel", tertiary))
+
+congestion = Card(Heading("Congestion Right Now", h3), congestionTable)
+
+transit = Card(Heading("Transit Punctuality", h3), transitTable)
+
+airQuality = Card(Heading("Air Quality by District", h3), airQualityTable)
+
+energy = Card(Heading("Energy Use (Past Week)", h3), energyChart)
+
+water = Card(Heading("Water Use Today", h3), waterStat)
+
+incidents = Card(Heading("Open Incidents", h3), incidentsTable)
+
+vehicles = Card(Heading("Emergency Vehicles Deployed", h3), vehiclesTable)
+
+parking = Card(Heading("Parking Availability Downtown", h3), parkingChart)
+
+events = Card(Heading("Public Events This Weekend", h3), eventsList)
+
+citizen = Card(Heading("Citizen Reports", h3), citizenFeed)
+
+backlog = Card(Heading("Service Request Backlog", h3), backlogTable)
+
+weather = Card(Heading("Current Weather", h3), weatherCard)
+
+roadworks = Card(Heading("Roadworks Planned This Month", h3), roadworksTable)
+
+infrastructure = Card(Heading("Infrastructure Jobs Due for Maintenance", h3), infraTable)
+
+congestionTable = Table(Col("Road", ["Main St","2nd Ave","Broadway"], type:string), Col("Congestion %", [80,65,50], type:number))
+
+transitTable = Table(Col("Line", ["Red","Blue","Green"], type:string), Col("On Time %", [92,87,90], type:number))
+
+airQualityTable = Table(Col("District", ["Downtown","Uptown","Midtown"], type:string), Col("AQI", [42,55,48], type:number))
+
+energyChart = LineChart(energyRows, linear, xLabel:"Day", yLabel:"MWh")
+
+energyRows = |Day|Energy
+|Mon|1200
+|Tue|1150
+|Wed|1300
+|Thu|1250
+|Fri|1400
+|Sat|1350
+|Sun|1500
+
+waterStat = TextContent("Today's water consumption: **3,200 ML**", size:large)
+
+incidentsTable = Table(Col("ID", ["INC-101","INC-202","INC-303"], type:string), Col("Location", ["5th & Main","Elm St","River Rd"], type:string), Col("Severity", ["High","Medium","Low"], type:string))
+
+vehiclesTable = Table(Col("Vehicle", ["Engine 1","Rescue 3","Medic 2"], type:string), Col("Status", ["On Scene","Available","En Route"], type:string))
+
+parkingChart = BarChart(parkingRows, grouped, xLabel:"Zone", yLabel:"Spots Available")
+
+parkingRows = |Zone|Available
+|A|120
+|B|85
+|C|60
+
+eventsList = ListBlock(ListItem("Music Festival", "Central Park", "Details", []), ListItem("Food Fair", "Market Square", "Details", []), variant:number)
+
+citizenFeed = ListBlock(ListItem("Pothole reported", "5th Ave near 10th", "View", []), ListItem("Streetlight out", "Broadway & 3rd", "View", []), variant:number)
+
+backlogTable = Table(Col("Request ID", ["REQ-001","REQ-045","REQ-078"], type:string), Col("Type", ["Garbage","Graffiti","Road Damage"], type:string), Col("Days Open", [12,5,20], type:number))
+
+weatherCard = Card(MarkDownRenderer("**Temp:** 22°C\n**Condition:** Sunny\n**Wind:** 5 km/h NW", variant:clear))
+
+roadworksTable = Table(Col("Project", ["Bridge Repair","Road Resurfacing"], type:string), Col("Start Date", ["2024-09-10","2024-09-15"], type:string), Col("End Date", ["2024-09-20","2024-09-30"], type:string))
+
+infraTable = Table(Col("Asset", ["Water Pump","Electrical Substation"], type:string), Col("Maintenance Due", ["2024-10-05","2024-11-12"], type:string))

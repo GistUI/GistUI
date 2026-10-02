@@ -1,0 +1,4 @@
+root = Card(header, uptime, incident)
+uptime = Card(Heading("Uptime this month", h3), TextContent("99.97%", size:large))
+incident = Card(Heading("Most recent incident", h3), TextContent("Resolved Sep 28, 2026 – Database outage caused latency spikes.", size:default))
+header = CardHeader("API Status", "Platform team")

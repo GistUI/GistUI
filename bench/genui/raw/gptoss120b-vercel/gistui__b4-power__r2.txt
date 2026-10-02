@@ -1,0 +1,43 @@
+root = Card(loadSection, capacitySection, generationChart, plantsTable, outagesTable, forecastChart, priceTag, maintenanceTable, alertsSection, regionFocusForm, curtailmentForm, emissionsTag)
+
+loadSection = Card(CardHeader("Current Load"), TextContent("4,320 MW", size:large), sunk)
+
+capacitySection = Card(CardHeader("Capacity Utilization"), SingleStackedBarChart(labels:["Utilization"], values:[85]), sunk)
+
+generationChart = Card(CardHeader("Generation Mix"), PieChart(labels:["Coal","Wind","Solar","Hydro","Nuclear"], values:[1500,1200,800,600,900], variant:donut), sunk)
+
+plantsTable = Card(CardHeader("Plants Output & Status"), Table(plantCol, outputCol, statusCol), sunk)
+
+plantCol = Col("Plant", data:["Plant A","Plant B","Plant C","Plant D"], type:string)
+outputCol = Col("Output (MW)", data:[500,750,300,450], type:number)
+statusCol = Col("Status", data:["Online","Online","Maintenance","Offline"], type:string)
+
+outagesTable = Card(CardHeader("Outages"), Table(regionCol, affectedCol, outageStatusCol), sunk)
+
+regionCol = Col("Region", data:["North","East"], type:string)
+affectedCol = Col("Affected (MW)", data:[200,150], type:number)
+outageStatusCol = Col("Status", data:["Planned","Unplanned"], type:string)
+
+forecastChart = Card(CardHeader("24‑Hour Demand Forecast"), LineChart(labels:["00:00","06:00","12:00","18:00","24:00"], values:[4000,4200,4500,4300,4100], natural, xLabel:"Time", yLabel:"MW"), sunk)
+
+priceTag = Card(CardHeader("Current Price"), Tag("$75/MWh", variant:info), sunk)
+
+maintenanceTable = Card(CardHeader("Planned Maintenance (This Month)"), Table(maintPlantCol, maintDateCol, maintDescCol), sunk)
+
+maintPlantCol = Col("Plant", data:["Plant B","Plant D"], type:string)
+maintDateCol = Col("Date", data:["2024-10-12","2024-10-20"], type:string)
+maintDescCol = Col("Description", data:["Turbine inspection","Generator overhaul"], type:string)
+
+alertsSection = Card(CardHeader("Live Alerts"), Callout(warning, "Voltage dip in Zone 3", "Voltage fell 5% below threshold"), Callout(error, "Generator trip at Plant C", "Unexpected shutdown"), sunk)
+
+regionFocusForm = Card(CardHeader("Focus on Region"), Form("region-focus", regionFormButtons, regionSelect), sunk)
+
+regionSelect = Select("region", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Select region")
+regionFormButtons = Buttons(Button("Apply", primary))
+
+curtailmentForm = Card(CardHeader("Order Curtailment"), Form("curtailment-order", curtailButtons, amountField), sunk)
+
+amountField = FormControl("Curtailment Amount (MW)", Input("curtail_amount", "Enter MW", "", number))
+curtailButtons = Buttons(Button("Submit", primary), Button("Cancel", secondary))
+
+emissionsTag = Card(CardHeader("Emissions Today"), Tag("1,200 tCO₂", variant:neutral), sunk)

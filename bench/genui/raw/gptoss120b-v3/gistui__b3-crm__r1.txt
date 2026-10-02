@@ -1,0 +1,32 @@
+root = Card(header, totalDeal, stageTag, activityList, contactsTable, followupsTable, noteForm, renewalCallout, logCallForm)
+
+activityList = ListBlock(activity1, activity2, activity3, variant:number)
+
+noteForm = Form("note", noteButtons, noteField)
+
+logCallForm = Form("call", callButtons, callNoteField)
+
+header = CardHeader("Acme Corp", "Owner: Jane Doe")
+totalDeal = TextContent("$2.5M", size:large)
+stageTag = Tag("Negotiation", variant:info)
+
+activity1 = ListItem("Called prospect", "2024-09-01")
+activity2 = ListItem("Sent email", "2024-09-03")
+activity3 = ListItem("Received reply", "2024-09-04")
+
+renewalCallout = Callout(variant:warning, "Renewal Date", "2024-10-05")
+
+noteField = FormControl("Note", TextArea("note_text", "Enter note...", "", rows:4))
+noteButtons = Buttons(Button("Save note", primary))
+
+callNoteField = FormControl("Call notes", TextArea("call_notes", "Enter call notes...", "", rows:4))
+callButtons = Buttons(Button("Log call", primary))
+
+contactsTable = Table(nameCol, roleCol)
+followupsTable = Table(followupCol, dueCol)
+
+nameCol = Col("Name", data:["Alice Johnson","Bob Smith"], type:string)
+roleCol = Col("Role", data:["Decision Maker","Influencer"], type:string)
+
+followupCol = Col("Follow-up", data:["Send proposal","Schedule demo"], type:string)
+dueCol = Col("Due Date", data:["2024-09-15","2024-09-20"], type:string)

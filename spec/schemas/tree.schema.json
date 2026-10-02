@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gistui.com/schemas/1.0/tree.schema.json",
+  "title": "GistUI abstract tree, JSON form",
+  "description": "The tree a processor produces, as the conformance suite writes it (GistUI Format 1.0, section 13.5). The value is the root node, or null when the program has no root.",
+  "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/node" }],
+  "$defs": {
+    "node": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "A component name of the catalog, or a special type.",
+          "type": "string",
+          "pattern": "^([A-Z][A-Za-z0-9_]*|#pending|#expr|#fragment|#unknown)$"
+        },
+        "id": { "description": "Node id (section 13.3). Optional in the JSON form.", "type": "string", "minLength": 1 },
+        "props": {
+          "description": "Static prop values. Left out when empty.",
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/value" }
+        },
+        "dyn": {
+          "description": "Runtime expressions by prop name, in canonical text form (Appendix B). For an #expr node the key is \"value\".",
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "children": {
+          "description": "Child nodes in order. Left out when empty.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/node" }
+        },
+        "partial": { "description": "True while the owning statement is still open. Never true in a final tree.", "type": "boolean" },
+        "expected": { "description": "On #pending: the component type expected in this place.", "type": "string" }
+      }
+    },
+    "value": {
+      "description": "A prop value: JSON data, a table, or a node (a component passed as a prop).",
+      "anyOf": [
+        { "type": ["null", "boolean", "number", "string"] },
+        { "type": "array", "items": { "$ref": "#/$defs/value" } },
+        { "$ref": "#/$defs/table" },
+        { "$ref": "#/$defs/node" },
+        { "type": "object", "additionalProperties": { "$ref": "#/$defs/value" } }
+      ]
+    },
+    "table": {
+      "description": "A table value in short form: column names with their type (:n number, :s string) and the typed rows. The full model is {columns, rows, text} (section 12.4).",
+      "type": "object",
+      "required": ["table", "rows"],
+      "additionalProperties": false,
+      "properties": {
+        "table": { "type": "array", "items": { "type": "string", "pattern": ":[ns]$" } },
+        "rows": {
+          "type": "array",
+          "items": { "type": "array", "items": { "type": ["string", "number", "null"] } }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+root = Card(CardHeader("Monthly Sales Check", "Founder overview"), revSection, chartSection, productsSection, conversionSection, downloadSection)
+
+revSection = Card(Heading("Revenue This Month", h3), Table(rev_this_month), sunk)
+
+chartSection = Card(Heading("Revenue Last 6 Months", h3), BarChart(six_months, stacked, xLabel:"Month", yLabel:"Revenue"), sunk)
+
+productsSection = Card(Heading("Top 3 Products", h3), Table(best_products), sunk)
+
+conversionSection = Card(Heading("Conversion Rate", h3), Callout(info, "Conversion", "2.5%"), sunk)
+
+downloadSection = Card(Buttons(Button("Download CSV", primary)), clear)
+
+rev_this_month = |Metric|Value
+|Revenue|$45,200
+
+six_months = |Month|Revenue
+|Jan|38000
+|Feb|41000
+|Mar|42000
+|Apr|43000
+|May|44000
+|Jun|45200
+
+best_products = |Product|Units Sold
+|Product A|1200
+|Product B|950
+|Product C|870

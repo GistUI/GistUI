@@ -1,0 +1,123 @@
+root = Card(CardHeader("Emergency Response Coordination Center"), incidentsSection, summarySection, resourcesSection, sheltersSection, routesSection, weatherSection, rescueSection, volunteersSection, donationsSection, aidRequestsSection, commsSection, roadsSection, hospitalsSection, tasksSection, requestResourcesForm, broadcastForm, focusZoneForm, situationReportForm, Buttons(Button("Refresh Data", primary), Button("Logout", secondary)))
+
+incidentsSection = Card(Heading("Active Incidents by Zone", h3), incidentsTable)
+
+incidentsTable = Table(
+  Col("Zone", ["North","South","East","West"], string),
+  Col("Incident", ["Fire","Flood","Landslide","Power Outage"], string),
+  Col("Severity", ["High","Medium","Low","Medium"], string)
+)
+
+summarySection = Card(Heading("Overall Severity Summary", h3), severityPie)
+
+severityPie = PieChart(labels:["High","Medium","Low"], values:[12,7,3], variant:pie)
+
+resourcesSection = Card(Heading("Vehicles, Personnel & Supplies Available", h3), resourcesTable)
+
+resourcesTable = Table(
+  Col("Resource Type", ["Vehicles","Personnel","Supplies"], string),
+  Col("Available", [15,120,340], number),
+  Col("In Use", [4,30,80], number)
+)
+
+sheltersSection = Card(Heading("Shelters Capacity & Occupancy", h3), sheltersTable)
+
+sheltersTable = Table(
+  Col("Shelter", ["Shelter A","Shelter B","Shelter C"], string),
+  Col("Capacity", [200,150,300], number),
+  Col("Occupied", [180,120,250], number)
+)
+
+routesSection = Card(Heading("Evacuation Routes Status", h3), routesTable)
+
+routesTable = Table(
+  Col("Route", ["Route 1","Route 2","Route 3"], string),
+  Col("Status", ["Open","Closed","Open"], string)
+)
+
+weatherSection = Card(Heading("48‑Hour Weather Forecast", h3), weatherTable)
+
+weatherTable = Table(
+  Col("Time", ["Now","+12h","+24h","+36h","+48h"], string),
+  Col("Condition", ["Clear","Rain","Rain","Storm","Clear"], string),
+  Col("Temp (°C)", [22,20,18,16,21], number)
+)
+
+rescueSection = Card(Heading("Rescued & Casualties", h3), rescueTable)
+
+rescueTable = Table(
+  Col("Metric", ["People Rescued","Casualties"], string),
+  Col("Count", [342,27], number)
+)
+
+volunteersSection = Card(Heading("Volunteers on Duty", h3), volunteersTable)
+
+volunteersTable = Table(
+  Col("Volunteer", ["Alice","Bob","Carlos","Dana"], string),
+  Col("Assignment", ["Logistics","Medical","Search","Communications"], string)
+)
+
+donationsSection = Card(Heading("Donations Received", h3), donationsTable)
+
+donationsTable = Table(
+  Col("Donor", ["CorpA","IndivB","OrgC"], string),
+  Col("Amount ($)", [50000,1200,8000], number)
+)
+
+aidRequestsSection = Card(Heading("Aid Requests Awaiting Action", h3), aidRequestsTable)
+
+aidRequestsTable = Table(
+  Col("Request ID", ["REQ-001","REQ-002","REQ-003"], string),
+  Col("Requested By", ["Community X","Community Y","Community Z"], string),
+  Col("Needed Items", ["Food, Water","Medical Kits","Blankets"], string)
+)
+
+commsSection = Card(Heading("Communication Channels Status", h3), commsTable)
+
+commsTable = Table(
+  Col("Channel", ["Radio","Phone","Satellite","Internet"], string),
+  Col("Status", ["Up","Down","Up","Up"], string)
+)
+
+roadsSection = Card(Heading("Roads Closed", h3), roadsTable)
+
+roadsTable = Table(
+  Col("Road", ["Highway 5","Main St","Bridge A"], string),
+  Col("Reason", ["Flood","Landslide","Repair"], string)
+)
+
+hospitalsSection = Card(Heading("Nearby Hospitals with Free Beds", h3), hospitalsTable)
+
+hospitalsTable = Table(
+  Col("Hospital", ["General Hospital","City Clinic","Regional Center"], string),
+  Col("Free Beds", [12,5,20], number)
+)
+
+tasksSection = Card(Heading("Open Tasks", h3), tasksTable)
+
+tasksTable = Table(
+  Col("Task", ["Assess damage","Distribute supplies","Update map"], string),
+  Col("Assignee", ["Team A","Team B","Team C"], string)
+)
+
+requestResourcesForm = Form("request-resources", requestButtons,
+  FormControl("Resource Type", Select("resource_type", SelectItem("Vehicle","Vehicle"), SelectItem("Medical","Medical"), SelectItem("Supply","Supply"), placeholder:"Select type", value:"", size:medium)),
+  FormControl("Quantity", Input("quantity", "Enter number", "", number))
+)
+
+broadcastForm = Form("broadcast-update", broadcastButtons,
+  FormControl("Message", TextArea("message", "Enter update...", "", rows:4))
+)
+
+focusZoneForm = Form("focus-zone", focusButtons,
+  FormControl("Zone", Select("zone_select", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Choose zone", value:"", size:medium))
+)
+
+situationReportForm = Form("situation-report", reportButtons,
+  FormControl("Report", TextArea("report", "Enter report...", "", rows:6))
+)
+
+requestButtons = Buttons(Button("Submit Request", primary))
+broadcastButtons = Buttons(Button("Send Broadcast", primary))
+focusButtons = Buttons(Button("Focus", primary))
+reportButtons = Buttons(Button("Submit Report", primary))

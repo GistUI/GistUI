@@ -1,0 +1,4 @@
+root = Plot(sales)
+sales = |Week|Web|Store
+|W1|10|4
+|W2|$12|n/a

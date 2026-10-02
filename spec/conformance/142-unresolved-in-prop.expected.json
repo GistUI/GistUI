@@ -1,0 +1,54 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Panel"
+      },
+      {
+        "type": "Chart"
+      },
+      {
+        "type": "Stats",
+        "props": {
+          "data": [
+            1
+          ]
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "unresolved-ref",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "unresolved-ref",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "missing-required",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "unresolved-ref",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

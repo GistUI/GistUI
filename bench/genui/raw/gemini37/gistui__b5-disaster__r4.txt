@@ -1,0 +1,173 @@
+root = Card(headerSection, kpiSummary, actionRow, mainTabs)
+headerSection = Card(CardHeader("Emergency Operations Center (EOC) — Incident Command", "Active Incident: Hurricane Aurelia Response | Operational Period 04"), alertBanner, variant:clear)
+alertBanner = Alert("Major Flood & Wind Threat Active", "Zone B and Zone C are experiencing severe flash floods and infrastructure strain. Level 4 Incident Command activated.", warning)
+
+kpiSummary = Card(Heading("Critical Metrics & Casualty Toll (Item 7)", h4), summaryGrid, Table(summaryTableData), sunk)
+summaryGrid = Card(direction:row, gap:m, wrap, Tag("Rescued: 1,428", success, size:lg), Tag("Casualties: 12 Confirmed / 4 Critical", danger, size:lg), Tag("Total Incidents: 47 Active", warning, size:lg), Tag("Overall Threat: CRITICAL (Level 4)", danger, size:lg), Tag("Operational Channels: 5/6 Online", info, size:lg))
+
+actionRow = Card(direction:row, justify:between, align:center, wrap, zoneFilterForm, quickActionButtons, variant:clear)
+
+zoneFilterForm = Form("zone-filter", filterButtons, zoneControl)
+zoneControl = FormControl("Focus Zone (Item 17)", zoneSelect, "Filter operational feeds by operational sector")
+zoneSelect = Select("selected_zone", SelectItem("all", "All Zones (Overall View)"), SelectItem("zone_a", "Zone A - Downtown & Financial"), SelectItem("zone_b", "Zone B - River North & Waterfront"), SelectItem("zone_c", "Zone C - East Valley & Industrial"), SelectItem("zone_d", "Zone D - West Ridge & Foothills"), SelectItem("zone_e", "Zone E - South Coast & Port"), placeholder:"Select Zone to Focus", value:"all")
+filterButtons = Buttons(Button("Apply Zone Focus", primary, size:small))
+
+quickActionButtons = Card(direction:row, gap:s, wrap, resReqDialog, broadcastDialog, sitrepDialog, variant:clear)
+
+resReqDialog = DialogBlock("Request Resources (Item 15)", "Resource Request Form (ICS-213 RR)", reqForm, description:"Submit emergency logistics requests to State EOC", triggerVariant:default)
+reqForm = Form("resource-request-form", reqButtons, reqTypeControl, reqQtyControl, reqPriorityControl, reqZoneControl, reqNotesControl)
+reqTypeControl = FormControl("Resource Type", Select("req_type", SelectItem("ambulances", "Type 1 Ambulances"), SelectItem("high_water", "High-Water Rescue Vehicles"), SelectItem("swift_water", "Swift Water Rescue Teams"), SelectItem("mre_food", "MREs / Ration Packs (Pallets)"), SelectItem("water_pallets", "Potable Water (Pallets)"), SelectItem("generators", "Industrial Generators (100kW)"), SelectItem("tarps_cots", "Emergency Cots & Shelter Tarps"), placeholder:"Select resource type"))
+reqQtyControl = FormControl("Quantity Required", Input("req_qty", "e.g., 10", type:number))
+reqZoneControl = FormControl("Target Staging Zone", Select("req_zone", SelectItem("zone_a", "Zone A Staging Area"), SelectItem("zone_b", "Zone B Staging Area"), SelectItem("zone_c", "Zone C Staging Area"), SelectItem("zone_d", "Zone D Staging Area"), SelectItem("zone_e", "Zone E Staging Area"), placeholder:"Select delivery zone"))
+reqPriorityControl = FormControl("Urgency Level", RadioGroup("req_priority", RadioItem("Immediate", "Life-safety threat within 1 hr", "immediate"), RadioItem("Urgent", "Required within 4-6 hrs", "urgent"), RadioItem("Routine", "Operational restocking for next shift", "routine"), defaultValue:"urgent"))
+reqNotesControl = FormControl("Special Instructions / Location", TextArea("req_notes", "Enter exact drop-off coordinates, POC name, and frequency..."))
+reqButtons = Buttons(Button("Submit Request", primary), Button("Cancel", tertiary))
+
+broadcastDialog = DialogBlock("Broadcast Update (Item 16)", "Emergency Public & Internal Broadcast", broadForm, description:"Send verified emergency alerts across radio, SMS, and public systems", triggerVariant:destructive)
+broadForm = Form("broadcast-form", broadButtons, broadAudienceControl, broadChannelControl, broadMessageControl)
+broadAudienceControl = FormControl("Target Audience", Select("broad_target", SelectItem("public_all", "All Public (WEA / EAS Cellular Alert)"), SelectItem("zone_b_c", "Zones B & C Public Residents Only"), SelectItem("field_responders", "Field Responders & Tactical Teams"), SelectItem("shelter_managers", "Shelter & Hospital Coordinators"), placeholder:"Select target audience"))
+broadChannelControl = FormControl("Broadcast Channels", CheckBoxGroup("channels", CheckBoxItem("WEA Cellular Push", "Wireless Emergency Alerts", "wea", defaultChecked), CheckBoxItem("NOAA Radio", "Weather Radio Override", "noaa", defaultChecked), CheckBoxItem("FirstNet / Tactical", "Field Unit Priority Channel", "firstnet", defaultChecked), CheckBoxItem("Public Siren System", "Acoustic Warning Sirens", "sirens")))
+broadMessageControl = FormControl("Broadcast Message (Max 160 Chars for SMS)", TextArea("broad_msg", "FLASH FLOOD EMERGENCY: Zone B & C residents seek high ground immediately. Do not drive through flooded roads. Shelter at North High.", rows:3))
+broadButtons = Buttons(Button("Transmit Broadcast", primary, type:destructive), Button("Cancel", tertiary))
+
+sitrepDialog = DialogBlock("File SitRep (Item 18)", "File Situation Report (SitRep #05)", sitrepForm, description:"Formal operational situation report for FEMA & State Emergency Management", triggerVariant:outline)
+sitrepForm = Form("sitrep-form", sitrepButtons, sitrepPeriodControl, sitrepSummaryControl, sitrepCasualtyControl, sitrepHazardsControl)
+sitrepPeriodControl = FormControl("Operational Period", Input("op_period", "Period 04 (0600 - 1800 hrs)"))
+sitrepSummaryControl = FormControl("Executive Situation Summary", TextArea("sitrep_summary", "River cresting at 24.5ft. Evacuations in Zone B 85% complete. Power outages affecting 42,000 meters...", rows:4))
+sitrepCasualtyControl = FormControl("Casualties & Rescues Delta", Input("sitrep_cas", "Rescued: +112, Casualties: +2 since last period"))
+sitrepHazardsControl = FormControl("Identified Critical Shortages", TextArea("sitrep_shortages", "Need additional diesel fuel for St. Jude backup generator and 4 high-clearance trucks for Zone C.", rows:2))
+sitrepButtons = Buttons(Button("Submit & Publish SitRep", primary), Button("Save Draft", secondary))
+
+mainTabs = Tabs(incidentsTab, logisticsTab, evacuationTab, operationsTab, weatherAidTab)
+
+incidentsTab = TabItem("incidents", "Active Incidents & Hospitals", incidentsCard, hospitalCard)
+incidentsCard = Card(CardHeader("Active Incidents by Zone & Severity (Item 1 & 2)", "Real-time incident dispatch queue and triage"), severitySummaryBar, Table(incidentsTableData))
+severitySummaryBar = Card(direction:row, gap:m, wrap, Tag("Critical: 14", danger), Tag("High: 18", warning), Tag("Medium: 10", info), Tag("Low: 5", neutral), variant:sunk)
+hospitalCard = Card(CardHeader("Nearby Hospitals & Bed Availability (Item 13)", "Regional medical center emergency & trauma capacity"), Table(hospitalTableData))
+
+logisticsTab = TabItem("logistics", "Resources & Supplies", resourcesCard, donationsCard)
+resourcesCard = Card(CardHeader("Available Vehicles, Personnel & Supplies (Item 3)", "Current inventory ready for immediate dispatch"), Table(resourcesTableData))
+donationsCard = Card(CardHeader("Donations Received & Inbound Staging (Item 9)", "Supplies, monetary grants, and volunteer-delivered provisions"), Table(donationsTableData))
+
+evacuationTab = TabItem("evacuation", "Shelters & Evac Routes", shelterCard, evacRouteCard, roadsCard)
+shelterCard = Card(CardHeader("Emergency Shelters — Capacity & Occupancy (Item 4)", "Real-time occupancy tracking for active evacuation centers"), Table(shelterTableData))
+evacRouteCard = Card(CardHeader("Evacuation Route Status (Item 5)", "Designated primary and secondary arterial corridors"), Table(evacRouteTableData))
+roadsCard = Card(CardHeader("Road Closures & Blockages (Item 12)", "Reported impassable roadways, washouts, and downed lines"), Table(roadsTableData))
+
+operationsTab = TabItem("operations", "Tasks, Volunteers & Comms", tasksCard, volunteerCard, commsCard)
+tasksCard = Card(CardHeader("Open Operational Tasks & Assignees (Item 14)", "Tactical response actions in progress"), Table(tasksTableData))
+volunteerCard = Card(CardHeader("Volunteers on Duty & Assignments (Item 8)", "Registered volunteer personnel deployment roster"), Table(volunteerTableData))
+commsCard = Card(CardHeader("Communication Channels Status (Item 11)", "Network backbone, repeater stations, and emergency frequencies"), Table(commsTableData))
+
+weatherAidTab = TabItem("weather_aid", "Weather & Aid Requests", weatherCard, aidCard)
+weatherCard = Card(CardHeader("48-Hour Weather Forecast (Item 6)", "Meteorological conditions, wind gusts, and precipitation models"), LineChart(weatherForecastData, natural, xLabel:"Timeline (Next 48h)", yLabel:"Precip (mm) / Wind (mph)"), Table(weatherTableData))
+aidCard = Card(CardHeader("Aid Requests Awaiting Action (Item 10)", "Triage queue for incoming 911/311 community distress requests"), Table(aidRequestsTableData))
+
+summaryTableData = |Metric Category|Count / Value|Status / Notes
+|Total People Rescued|1,428|Swift-water (812), Aviation (114), Ground (502)
+|Confirmed Casualties|12|Fatality notifications pending family contact
+|Critical Injuries in ICU|4|Transferred to Metro General Trauma
+|Active Dispatched Units|84 Units|Across 5 tactical zones
+|Sheltered Population|3,820 Persons|Operating at 76.4% total regional capacity
+
+incidentsTableData = |Incident ID|Zone|Incident Type|Severity Level|Status|Assigned Team
+|INC-1092|Zone B (River North)|Levee Breach Threat|Critical (L1)|Under Evaluation|USAR Team 1, Corps of Eng
+|INC-1088|Zone C (East Valley)|Apartment Complex Flash Flood|Critical (L1)|Rescue in Progress|Boat Squad 4, Rescue 9
+|INC-1085|Zone A (Downtown)|Substation Electrical Fire|High (L2)|Contained|Engine 12, HazMat 2
+|INC-1081|Zone B (Waterfront)|Trapped Motorists (4 vehicles)|High (L2)|Units En Route|Rescue 14
+|INC-1079|Zone E (South Port)|Barge Moorings Snapped|High (L2)|Securing Vessel|Coast Guard Sector 3
+|INC-1074|Zone D (Foothills)|Debris Flow on Access Rd|Medium (L3)|Clearing Path|DOT Crew 8
+|INC-1066|Zone A (Downtown)|Elderly Facility Generator Fail|Medium (L3)|Techs Dispatched|Logistics Power Unit 3
+|INC-1052|Zone C (East Valley)|Tree on Primary Feeder Line|Low (L4)|Queued for Action|Power Repair Squad 6
+
+hospitalTableData = |Hospital Facility|Zone|Total Beds|Free Regular Beds|Free ICU / Trauma Beds|Decon Capable|Status
+|Metro General Hospital|Zone A|550|42|6|Yes|Operational (Heavy Surge)
+|St. Jude Memorial Center|Zone B|320|18|2|Yes|Auxiliary Power Active
+|Valley Presbyterian|Zone C|280|0|0|No|Diverting Trauma to Metro
+|West Ridge Community|Zone D|210|54|11|Yes|Full Capacity Normal
+|Mercy Regional Medical|Zone E|400|65|9|Yes|Operational Normal
+
+resourcesTableData = |Resource Category|Available Units|Personnel Count|Deployment Staging|Readiness Status
+|High-Water Rescue Trucks|14 Available|28 Operators|Staging Depot B & C|Immediate Ready
+|Type 1 Ambulances|22 Available|44 Paramedics|Metro Staging Alpha|Immediate Ready
+|Swift Water Rescue Boats|8 Available|24 Techs|Riverfront Base|Deployed / Active
+|USAR Heavy Equipment|6 Excavators / Cranes|12 Specialists|North Yard|On Standby
+|Emergency Rations (MREs)|18,500 Meals|Logistics Staff (15)|Central Warehouse|Distribution Active
+|Potable Water Bottled|42,000 Liters|Logistics Staff (10)|Central Warehouse|Distribution Active
+|Portable Generators (50kW+)|16 Units|8 Electricians|Staging Depot A|11 Deployed, 5 Ready
+
+donationsTableData = |Donation Source / Agency|Item / Fund Category|Quantity / Value|Status / Received At
+|American Red Cross|Blankets & Comfort Kits|5,000 Kits|Received - Central Depot
+|Direct Relief Org|Emergency Medical Trauma Packs|250 Kits|Received - St. Jude Hospital
+|Local Grocery Logistics|Bottled Drinking Water|12 Pallets (17k bottles)|Received - South Shelter
+|State Emergency Fund|Emergency Cash Grant Allocation|$2,500,000|Approved / Disbursing
+|Operation BBQ Relief|Hot Meals Prepared|3,500 Meals/Day|Active Kitchen - North High
+
+shelterTableData = |Shelter Name|Location Zone|Capacity (Max)|Current Occupancy|Occupancy %|Pet Friendly|Special Needs
+|North High School Shelter|Zone A|1,200|980|81.6%|Yes|Yes (Medical Staffed)
+|Civic Arena Evacuation Hub|Zone D|2,500|2,150|86.0%|Yes|Yes (Generator Ready)
+|East Valley Baptist Hall|Zone C|500|490|98.0% (Near Full)|No|No
+|West Ridge Community Gym|Zone D|800|200|25.0%|Yes|Yes
+|South Harbor Middle School|Zone E|600|0|0% (Standby)|Yes|No
+
+evacRouteTableData = |Route Name|Corridor Segment|Direction|Status|Traffic Flow / Speed|Controlling Agency
+|Interstate 95 North|Downtown to Mile Marker 42|Outbound Only|Open (Contraflow)|35 mph (Heavy)|State Highway Patrol
+|State Route 104 West|River North to West Ridge|Outbound Only|Open|45 mph (Moderate)|County Sheriff
+|Highway 22 East|East Valley Connector|Both Directions|RESTRICTED (Emergency Only)|15 mph (Flooding)|National Guard
+|Harbor Expressway South|Port to South County|Outbound Only|Open|50 mph (Normal)|DOT
+|Old Valley Byway|Creek Crossing to North Hills|Both Directions|CLOSED|0 mph (Washout)|DOT
+
+roadsTableData = |Roadway / Intersection|Zone|Blockage Cause|Severity|Est. Reopen Time|Detour
+|Maple Ave & 4th Street|Zone B|3ft Standing Flood Water|Full Closure|Indefinite (River dependent)|Use 8th St Overpass
+|Route 22 @ Mile 14|Zone C|Bridge Approach Scour|Full Closure|48+ Hours|Reroute to SR-104
+|Canyon Creek Road|Zone D|Mudslide & Fallen Pines|Full Closure|Today 20:00|West Ridge Expressway
+|Bayview Boulevard|Zone E|Downed High-Voltage Lines|Full Closure|Today 16:00|Port Access Hwy
+|Industrial Parkway|Zone C|Overturned Tanker / Debris|Partial (1 Lane)|Today 14:00|Alternating Flagged
+
+tasksTableData = |Task ID|Task Description|Priority|Zone|Assigned Agency / Lead|Status
+|TSK-401|Deploy sandbag barrier along Riverfront levee segment 4|P1 - Critical|Zone B|National Guard Eng Battalion|In Progress (60%)
+|TSK-402|Deliver 2,000gal diesel fuel to St. Jude backup gen|P1 - Critical|Zone B|County Logistics (Driver R. Cole)|En Route
+|TSK-403|Perform door-to-door welfare checks in low-lying Zone C|P2 - High|Zone C|Fire Dept Strike Team 3|In Progress (45%)
+|TSK-404|Establish satellite triage clinic at West Ridge Gym|P2 - High|Zone D|Public Health / Dr. Vance|Assembling
+|TSK-405|Clear fallen trees on Route 104 shoulder|P3 - Medium|Zone D|DOT Road Crew 4|Assigned
+|TSK-406|Inspect water treatment plant intake valves|P3 - Medium|Zone E|Water Authority Eng Team|Scheduled 16:00
+
+volunteerTableData = |Volunteer ID|Volunteer Name|Role / Specialty|Assigned Location|Current Status
+|VOL-201|Elena Rostova|Shelter Intake Coordinator|Civic Arena Hub|On Duty (Shift 1)
+|VOL-202|Marcus Chen|Bilingual Translator (Span/Eng)|North High Shelter|On Duty (Shift 1)
+|VOL-203|Sarah Jenkins, RN|Triage First Aid Nurse|North High Shelter|On Duty (Shift 1)
+|VOL-204|David Kalu|Logistics & Forklift Driver|Central Warehouse|On Duty (Shift 2)
+|VOL-205|Rachel Adams|Hot Meal Distribution Lead|East Valley Shelter|On Duty (Shift 1)
+|VOL-206|Tom Bradley|HAM Radio Communications|EOC Backup Comms Desk|On Duty (Shift 1)
+|VOL-207|Amina Diallo|Child Care Support|Civic Arena Hub|On Duty (Shift 2)
+
+commsTableData = |Channel / Network Name|Frequency / Protocol|Target Users|Status|Redundancy / Notes
+|Primary Tactical Dispatch (VHF)|154.280 MHz|Fire / EMS / USAR|OPERATIONAL|Repeater Tower 1 on Gen
+|Law Enforcement Mutual Aid|155.475 MHz|Police / Highway Patrol|OPERATIONAL|Primary Backbone
+|EOC Microwave Data Link|5.8 GHz Digital IP|Inter-Agency HQ|OPERATIONAL|Starlink Fallback Active
+|FirstNet Cellular Band 14|LTE Mobile Broadband|All Command Staff|OPERATIONAL|COW Deployed to Zone B
+|Marine Distress / Coast Guard|VHF Channel 16|Maritime & Boat Squads|OPERATIONAL|Clear Signal
+|County Amateur Radio (ARES)|146.520 MHz FM|Shelters & Backup Outposts|DEGRADED|Tower 3 Antenna Damaged
+
+weatherForecastData = |Timeframe|Precipitation_mm:n|WindSpeed_mph:n
+|Today 12:00|35|48
+|Today 18:00|45|55
+|Tonight 00:00|60|62
+|Tomorrow 06:00|40|45
+|Tomorrow 12:00|20|32
+|Tomorrow 18:00|10|22
+|Day+2 00:00|5|15
+|Day+2 06:00|0|10
+
+weatherTableData = |Period|Expected Conditions|Temp (°F)|Rain Total|Sustained Wind / Gusts|Flood Hazard Warning
+|Next 0-12 Hrs|Torrential Rain & Storm Surge|72°F|3.2 in|45 mph / 65 mph gusts|Severe Flash Flood Watch
+|Next 12-24 Hrs|Heavy Rain, High Winds|68°F|2.8 in|38 mph / 50 mph gusts|River Cresting Warning
+|Next 24-36 Hrs|Scattered Showers, Decreasing Wind|65°F|0.8 in|22 mph / 30 mph gusts|Water Receding Slow
+|Next 36-48 Hrs|Partly Cloudy & Dry|64°F|0.1 in|12 mph / 18 mph gusts|Flood Waters Draining
+
+aidRequestsTableData = |Request ID|Time Received|Zone|Requestor / Household|Needs Description|Urgency|Status
+|REQ-882|10 mins ago|Zone C|Elderly resident (2 persons)|Oxygen concentrator running on battery|Critical|Queued (EMS Dispatch)
+|REQ-879|18 mins ago|Zone B|Family of 5 on rooftop|Trapped by flood waters, roof access only|Critical|Assigned Boat Squad 4
+|REQ-875|32 mins ago|Zone C|Community Group (18 persons)|Infant formula and clean water shortage|High|Pending Logistics
+|REQ-871|45 mins ago|Zone A|Disabled individual|Wheelchair evacuation transport needed|High|Queued for Paratransit
+|REQ-864|1 hr ago|Zone D|Rural homeowner|Downed live wire blocking driveway gate|Medium|Referred to Power Co

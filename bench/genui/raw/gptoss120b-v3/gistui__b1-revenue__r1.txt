@@ -1,0 +1,3 @@
+root = Card(header, compChart, variant:clear)
+header = CardHeader("Revenue Today", "Mid-morning check-in")
+compChart = HorizontalBarChart(labels:["Today","Yesterday"], Series("Revenue", values:[12340,10210]), variant:grouped, xLabel:"Revenue ($)", yLabel:"Period")

@@ -1,0 +1,74 @@
+root = Card(header, performance, flights, delayedCallout, gateChanges, crews, weather, load, connections, rebookButtons, hubSelect, cancellations, turnaround)
+
+header = CardHeader("Hub Operations Dashboard", "Select hub and manage flights")
+
+performance = Card(Tag("On‑time: 87%", success), TextContent("Today's on‑time performance is 87% of scheduled departures.", size:small))
+
+flights = Card(Heading("Flights", h3), flightsTable, sunk)
+
+flightsTable = Table(
+  Col("Number", data:["AA101","DL202","UA303","SW404"], type:string),
+  Col("Route", data:["NYC‑LAX","ATL‑ORD","SFO‑SEA","MIA‑BOS"], type:string),
+  Col("Gate", data:["A12","B5","C3","D8"], type:string),
+  Col("Status", data:["On‑time","Delayed","On‑time","Boarding"], type:string)
+)
+
+delayedCallout = Callout(variant:warning, "Delayed Flights", "AA101 – 30 min, DL202 – 45 min")
+
+gateChanges = Card(Heading("Recent Gate Changes", h3), gateChangesTable, sunk)
+
+gateChangesTable = Table(
+  Col("Flight", data:["UA303","SW404"], type:string),
+  Col("Old Gate", data:["C1","D2"], type:string),
+  Col("New Gate", data:["C3","D8"], type:string),
+  Col("Time", data:["08:15","09:40"], type:string)
+)
+
+crews = Card(Heading("Crews Available for Reassignment", h3), crewsTable, sunk)
+
+crewsTable = Table(
+  Col("Crew ID", data:["C001","C002","C003"], type:string),
+  Col("Base", data:["NYC","ATL","SFO"], type:string),
+  Col("Status", data:["Available","Available","Available"], type:string)
+)
+
+weather = Card(Heading("Weather Advisories", h3), weatherTable, sunk)
+
+weatherTable = Table(
+  Col("Advisory", data:["Thunderstorms","Low visibility"], type:string),
+  Col("Impact", data:["Potential delays","Gate holds"], type:string)
+)
+
+load = Card(Heading("Average Passenger Load", h3), TextContent("Average load today: 78%", size:large), sunk)
+
+connections = Card(Heading("Connections at Risk", h3), connectionsTable, sunk)
+
+connectionsTable = Table(
+  Col("Connection", data:["AA101‑DL202","UA303‑SW404"], type:string),
+  Col("Risk", data:["High","Medium"], type:string),
+  Col("Suggested Action", data:["Rebook","Notify"], type:string)
+)
+
+rebookButtons = Card(Heading("Rebook Affected Passengers", h3), Buttons(rebookBtn, cancelRebookBtn), sunk)
+
+rebookBtn = Button("Rebook Selected", primary)
+cancelRebookBtn = Button("Cancel", tertiary)
+
+hubSelect = Card(Heading("Select Hub", h3), hubSelectControl, sunk)
+
+hubSelectControl = Select("hub_select",
+  SelectItem("JFK", "JFK"),
+  SelectItem("LAX", "LAX"),
+  SelectItem("ORD", "ORD"),
+  placeholder:"Choose hub"
+)
+
+cancellations = Card(Heading("Cancellations Today", h3), cancellationsTable, sunk)
+
+cancellationsTable = Table(
+  Col("Flight", data:["DL202"], type:string),
+  Col("Reason", data:["Crew shortage"], type:string),
+  Col("Time", data:["10:30"], type:string)
+)
+
+turnaround = Card(Heading("Average Turnaround Time", h3), TextContent("Average turnaround: 42 min", size:large), sunk)

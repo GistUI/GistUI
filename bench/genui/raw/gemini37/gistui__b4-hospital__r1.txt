@@ -1,0 +1,121 @@
+root = Card(headerRow, alertsAndControls, kpiGrid, criticalAlertBanner, mainTabs)
+headerRow = Card(CardHeader("Hospital Operations Command Center", "Live Census, Throughput & Unit Telemetry • St. Jude Medical Complex"), headerActions, direction:row, justify:between, align:center, variant:clear)
+headerActions = Card(dateDrawer, incidentDialog, transferDialog, direction:row, gap:s, variant:clear)
+
+dateDrawer = DrawerBlock("Select Date / Historical View", "Operations Date Selection", dateContent, description:"Review operational logs, shift history, and census for other dates.")
+dateContent = Card(CalendarBlock(mode:single), Buttons(Button("Load Snapshot", primary), Button("Reset to Today", secondary)), gap:m)
+
+incidentDialog = DialogBlock("File Incident Report", "Hospital Incident & Event Reporting", incidentForm, description:"Submit high-priority safety, clinical, equipment, or facility incidents.", triggerVariant:destructive)
+incidentForm = Form("incident-form", incidentFormBtns, incDeptField, incTypeField, incSeverityField, incDescField)
+incDeptField = FormControl("Involved Department", Select("dept", SelectItem("er", "Emergency Dept"), SelectItem("icu", "ICU / CCU"), SelectItem("or", "Surgical / OR"), SelectItem("medsurg", "Med-Surg Floor"), placeholder:"Select department"))
+incTypeField = FormControl("Incident Category", Select("cat", SelectItem("safety", "Patient Fall / Safety"), SelectItem("med", "Medication Error"), SelectItem("eq", "Equipment Failure"), SelectItem("staff", "Staffing / Security"), placeholder:"Select category"))
+incSeverityField = FormControl("Severity Level", RadioGroup("severity", RadioItem("Code Red", "Immediate life danger / severe event", "red"), RadioItem("Code Amber", "Urgent intervention needed", "amber"), RadioItem("Code Yellow", "Minor / observation required", "yellow"), defaultValue:"amber"))
+incDescField = FormControl("Event Details", TextArea("desc", "Describe the event, patient ID if applicable, and actions taken...", rows:4))
+incidentFormBtns = Buttons(Button("Submit Incident Report", primary, type:destructive), Button("Cancel", tertiary))
+
+transferDialog = DialogBlock("Request Patient Transfer", "Inter-Unit / External Patient Transfer Request", transferForm, description:"Dispatch transport and transfer bed request to Central Bed Management.", triggerVariant:outline)
+transferForm = Form("transfer-form", transferBtns, transIdField, transSourceField, transTargetField, transPriorityField, transNotesField)
+transIdField = FormControl("Patient Name / MRN", Input("mrn", "e.g. John Doe - MRN 84920"))
+transSourceField = FormControl("Originating Department", Select("src", SelectItem("er", "Emergency Department"), SelectItem("icu", "Intensive Care Unit"), SelectItem("surg", "Post-Op Recovery (PACU)"), placeholder:"Select source"))
+transTargetField = FormControl("Destination Department", Select("dst", SelectItem("medsurg", "General Med-Surg"), SelectItem("stepdown", "Step-Down Telemetry"), SelectItem("rehab", "Rehabilitation Unit"), SelectItem("ext", "External Facility Transfer"), placeholder:"Select destination"))
+transPriorityField = FormControl("Transfer Priority", RadioGroup("tprio", RadioItem("Immediate (STAT)", "Life-sustaining equipment transfer", "stat"), RadioItem("Urgent", "Transfer within 60 mins", "urgent"), RadioItem("Routine", "Scheduled bed transition", "routine"), defaultValue:"urgent"))
+transNotesField = FormControl("Clinical Handover Notes", TextArea("tnotes", "Isolation needs, oxygen requirements, telemetry status...", rows:3))
+transferBtns = Buttons(Button("Transmit Transfer Order", primary), Button("Cancel", tertiary))
+
+alertsAndControls = Card(TextCallout("High Surge Protocol Active", "Hospital overall occupancy is at 88.4%. ER boarding wait is elevated. 4 Critical alert flags active.", variant:warning), variant:clear)
+
+kpiGrid = Card(kpiBed, kpiErWait, kpiDischarges, kpiCritical, direction:row, gap:m, variant:clear)
+kpiBed = Card(Heading("Bed Occupancy", h4), "### **88.4%**\n**314** / 355 Beds Occupied", Progress(88, "88% Total Capacity"), Tag("High Load", variant:danger), sunk)
+kpiErWait = Card(Heading("Current ER Wait", h4), "### **42 mins**\n**Triage-to-Bed Time**", "Median Door-to-Doc: **18m**\nTotal Waiting in Lobby: **14**", Tag("Surge Level 2", variant:warning), sunk)
+kpiDischarges = Card(Heading("Discharges Ready", h4), "### **18 Patients**\n**Pending Final Clearance**", "7 Pharmacy Clear • 11 Transport Ready", Tag("Discharge Lounge Ready", variant:success), sunk)
+kpiCritical = Card(Heading("Critical Patients", h4), "### **9 ICU / Resus**\n**4 Red Flag Watchlist**", "3 on Mechanical Vent • 2 Pressors Active", Tag("Priority Staffing", variant:danger), sunk)
+
+criticalAlertBanner = Alert("Immediate Clinical Attention: 4 Flagged Patients", "ICU Bed 04 (V-Tach episode), ER Trauma Bay 2 (Multi-trauma incoming), Step-Down 208 (Desaturation 84%), CCU Bed 12 (Post-arrest hypothermia protocol).", variant:destructive)
+
+mainTabs = Tabs(overviewTab, admissionsTab, surgicalTab, staffTab, supplyTab)
+
+overviewTab = TabItem("overview", "Overview & Flow", overviewContent)
+overviewContent = Card(deptCensusSection, splitPatientsRow, gap:m, variant:clear)
+
+deptCensusSection = Card(Heading("Patients per Department & Bed Utilization", h3), BarChart(deptTable, variant:grouped, xLabel:"Department", yLabel:"Patients"), sunk)
+
+deptTable = |Department|Admitted Patients|Capacity
+|Emergency (ER)|38|45
+|ICU / Critical Care|28|30
+|Cardiology (CCU)|22|24
+|General Surgery|44|50
+|Med-Surg Floor A|68|75
+|Med-Surg Floor B|62|70
+|Pediatrics|26|35
+|Maternity / L&D|26|30
+
+splitPatientsRow = Card(criticalCard, dischargeCard, direction:row, gap:m, variant:clear)
+
+criticalCard = Card(Heading("Critical Patients Monitored", h4), Table(critTable), sunk)
+critTable = |Patient ID|Location|Condition / Vitals|Primary Concern|Care Status
+|PT-8831 (Adams, J)|ICU - Bed 04|HR 134, BP 82/50|Unstable V-Tach / Sepsis|Cardiology Consult STAT
+|PT-9042 (Martinez, R)|ER - Trauma 2|GCS 9, SpO2 91%|Blunt Chest & Head Trauma|Intubated, OR Alerted
+|PT-7712 (Chen, W)|Step-Down 208|SpO2 84%, RR 32|Acute Hypoxemic Failure|High Flow O2 Titration
+|PT-6291 (Kim, S)|CCU - Bed 12|BP 90/60 on Pressor|Post-Cardiac Arrest Return|Targeted Temp Mgmt
+
+dischargeCard = Card(Heading("Patients Ready for Discharge Today", h4), Table(dischargeTable), sunk)
+dischargeTable = |Patient ID|Unit & Room|Discharge Destination|Pending Step|Status
+|PT-5510 (Baker, M)|Med-Surg 304|Home with Homecare|Family Transport Pickup|Cleared
+|PT-4482 (Gupta, A)|Cardiology 112|Home Independent|Pharmacy Medication Drop|Cleared
+|PT-9931 (Davis, K)|Surgical 418|Rehab Skilled Nursing|Med-Van Transport En Route|Ready to Move
+|PT-3320 (Owens, E)|Pediatrics 202|Home with Parents|Pediatrician Sign-off|Ready to Move
+
+admissionsTab = TabItem("admissions", "Admissions (Past 2 Weeks)", admissionsContent)
+admissionsContent = Card(Heading("Admissions Trend (Past 14 Days)", h3), AreaChart(admissionsTable, variant:natural, xLabel:"Date", yLabel:"Total Admissions"), Callout(variant:info, "Admissions Analysis", "Average daily admissions over the past 14 days was 37.1 patients. Notable surge observed on Days 6-8 due to seasonal influenza cluster."), sunk)
+
+admissionsTable = |Day|Emergency Admissions|Elective / Scheduled
+|Day 01 - May 01|28|12
+|Day 02 - May 02|30|15
+|Day 03 - May 03|26|14
+|Day 04 - May 04|31|16
+|Day 05 - May 05|34|11
+|Day 06 - May 06|44|13
+|Day 07 - May 07|46|14
+|Day 08 - May 08|41|12
+|Day 09 - May 09|35|15
+|Day 10 - May 10|29|17
+|Day 11 - May 11|33|18
+|Day 12 - May 12|32|14
+|Day 13 - May 13|38|15
+|Day 14 - Today|40|16
+
+surgicalTab = TabItem("or-schedule", "Operating Rooms", surgicalContent)
+surgicalContent = Card(Heading("Today's Operating Room Bookings & Status", h3), Table(orTable), Callout(variant:neutral, "OR Turnover Metric", "Average OR Turnover Time: 23 minutes across all suites. OR Suite 3 reserved as emergent contingency."), sunk)
+
+orTable = |OR Suite|Procedure Name|Surgical Team|Patient MRN|Time Scheduled|Room Status
+|OR Suite 1|Laparoscopic Cholecystectomy|Dr. Aris (Lead), Dr. Cole (Anesth)|MRN-91823|08:00 - 10:30|In Surgery
+|OR Suite 1|Total Hip Arthroplasty|Dr. Evans (Lead), Dr. Cole (Anesth)|MRN-84910|11:30 - 14:00|Scheduled
+|OR Suite 2|Coronary Artery Bypass (CABG)|Dr. Thorne (Lead), Dr. Vance (Anesth)|MRN-77341|07:30 - 12:30|In Surgery
+|OR Suite 2|Aortic Valve Replacement|Dr. Thorne (Lead), Dr. Vance (Anesth)|MRN-66299|13:30 - 17:30|Scheduled
+|OR Suite 3|Emergency Trauma Exploratory|Trauma Team On-Call|MRN-90420|STAT Standby|Reserved (Emergency)
+|OR Suite 4|Craniotomy for Hematoma|Dr. Sterling (Lead), Dr. Lin (Anesth)|MRN-55214|09:00 - 13:00|In Surgery
+|OR Suite 5|Appendectomy|Dr. Miller (Lead), Dr. Lin (Anesth)|MRN-88120|10:00 - 11:30|PACU Recovery
+
+staffTab = TabItem("staffing", "Staff on Shift", staffContent)
+staffContent = Card(Heading("Active Staff Roster & Role Assignments", h3), Table(staffTable), Callout(variant:success, "Staffing Ratio", "Nurse-to-Patient ratio in ICU: 1:1.5 (Target met). Med-Surg ratio: 1:4.2 (Adequate)."), sunk)
+
+staffTable = |Staff Member|Role & Specialty|Assigned Unit|Current Shift|Contact / Pager
+|Dr. Evelyn Aris, MD|Attending Surgeon|General Surgery / OR|07:00 - 19:00 (Day)|Ext. 4401 / Pager #12
+|Dr. Marcus Thorne, MD|Chief Cardiothoracic Surgeon|CCU / OR Suite 2|07:00 - 19:00 (Day)|Ext. 4409 / Pager #04
+|Dr. Sarah Lin, MD|Attending Anesthesiologist|Surgical Suites|06:30 - 18:30 (Day)|Ext. 4480 / Pager #19
+|Dr. Brian Vance, MD|Emergency Medicine Attending|Emergency Dept|07:00 - 19:00 (Day)|Ext. 9110 / Pager #01
+|Claire Bennett, BSN, RN|Charge Nurse|Emergency Dept|07:00 - 19:30 (Day)|Vocera ID: ER-CN-1
+|Liam O'Connor, RN, CCRN|ICU Resource Nurse|ICU / CCU|07:00 - 19:30 (Day)|Vocera ID: ICU-RN-4
+|Sofia Ramirez, RT|Lead Respiratory Therapist|Hospital-Wide Telemetry|07:00 - 19:00 (Day)|Pager #88
+|James Wilson, PharmD|Clinical Pharmacist|Inpatient Central Pharmacy|08:00 - 16:30 (Day)|Ext. 3120 / Pager #45
+
+supplyTab = TabItem("supplies", "Supplies & Inventory", supplyContent)
+supplyContent = Card(Heading("Critical Inventory & Supplies Running Low", h3), Table(supplyTable), Alert("Replenishment Required", "3 essential clinical items have dropped below Safety Par Levels. Central Supply reorder has been dispatched.", variant:warning), sunk)
+
+supplyTable = |Supply Item Name|Category|Current Stock|Par Level|Unit of Measure|Urgency Status
+|O-Negative Packed RBCs|Blood Bank|4 Units|12 Units|Units|Critical Low (<35%)
+|Endotracheal Tubes 7.5mm|Airway / Respiratory|8 Pk|25 Pk|Packs|Critical Low (<35%)
+|Propofol 10mg/mL (50mL)|Critical Care Pharmacy|14 Vials|40 Vials|Vials|Low (<40%)
+|Nitrile Exam Gloves (Size M)|PPE & General Care|12 Boxes|50 Boxes|Boxes|Reorder Needed
+|IV Infusion Tubing Sets|Nursing Supplies|22 Sets|60 Sets|Sets|Reorder Needed
+|Sodium Chloride 0.9% 1000mL|Fluids / Infusion|35 Bags|100 Bags|Bags|Reorder Needed

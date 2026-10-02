@@ -1,0 +1,40 @@
+root = Card(CardHeader("Hiring Overview", "HR Lead Dashboard"), headcount, openRoles, pipelineTable, avgTime, deptSplitChart, interviewsTable, attritionChart, newRoleButtons)
+
+headcount = TextContent("**Current headcount:** 124", size:large)
+
+openRoles = |Department|Role|Openings
+|Engineering|Backend Engineer|3
+|Engineering|Frontend Engineer|2
+|Product|Product Manager|1
+|Design|UX Designer|1
+
+pipelineTable = |Stage|Candidates
+|Applied|45
+|Phone Screen|20
+|Onsite|12
+|Offer|5
+|Hired|3
+
+avgTime = TextContent("**Average time to hire:** 32 days", size:large)
+
+deptSplitChart = BarChart(|Department|Headcount
+|Engineering|55
+|Product|30
+|Design|15
+|HR|10
+|Sales|14, variant:grouped, xLabel:"Department", yLabel:"Headcount")
+
+interviewsTable = |Candidate|Date|Role
+|Alice Johnson|2026-10-02|Backend Engineer
+|Bob Smith|2026-10-03|Product Manager
+|Carol Lee|2026-10-04|UX Designer
+
+attritionChart = LineChart(|Month|Attrition%
+|Apr|2.1
+|May|2.4
+|Jun|2.0
+|Jul|1.8
+|Aug|2.2
+|Sep|2.5, linear, xLabel:"Month", yLabel:"Attrition %")
+
+newRoleButtons = Buttons(Button("Open new role", primary))

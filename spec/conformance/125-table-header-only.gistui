@@ -1,0 +1,3 @@
+root = Row(Table(t), Table(u))
+t = |A|B:n
+u = |

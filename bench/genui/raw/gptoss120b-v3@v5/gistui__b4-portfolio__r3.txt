@@ -1,0 +1,99 @@
+root = Card(portfolioHeader, healthSummary, activeProjects, overdueMilestones, budgetChart, utilizationChart, risksTable, upcomingDeadlines, deliveryPaceChart, blockedItemsTable, quarterSelect, requestPeopleDialog, exportButton, archiveButton)
+
+portfolioHeader = CardHeader("Project Portfolio Review", "Quarterly Overview")
+
+healthSummary = TextCallout("Overall Health: Good", "All projects are on track with minor risks.", variant:info)
+
+activeProjects = Card(Heading("Active Projects", h3), activeProjectsTable)
+
+activeProjectsTable = Table(
+  Col("Project", ["Project Alpha", "Project Beta", "Project Gamma"], type:string),
+  Col("Owner", ["Alice", "Bob", "Carol"], type:string),
+  Col("Deadline", ["2024-11-15", "2024-12-01", "2024-11-30"], type:string),
+  Col("Health", ["Good", "Warning", "Critical"], type:string)
+)
+
+overdueMilestones = Card(Heading("Overdue Milestones", h3), overdueMilestonesTable)
+
+overdueMilestonesTable = Table(
+  Col("Milestone", ["Alpha Release", "Beta Testing"], type:string),
+  Col("Project", ["Project Alpha", "Project Beta"], type:string),
+  Col("Due Date", ["2024-10-01", "2024-09-28"], type:string)
+)
+
+budgetChart = Card(Heading("Budget Spend vs Allocation", h3), BarChart(
+  |Project|Allocated|Spent
+  |Alpha|200000|150000
+  |Beta|180000|170000
+  |Gamma|220000|210000
+  , variant:grouped, xLabel:"Project", yLabel:"USD"
+))
+
+utilizationChart = Card(Heading("Team Utilization", h3), HorizontalBarChart(
+  ["Team A", "Team B", "Team C"],
+  Series("Utilization", [75, 60, 85]),
+  variant:grouped, xLabel:"Utilization %", yLabel:"Team"
+))
+
+risksTable = Card(Heading("Risks", h3), Table(
+  Col("Risk", ["Scope creep", "Resource shortage"], type:string),
+  Col("Project", ["Project Alpha", "Project Gamma"], type:string),
+  Col("Severity", ["Medium", "High"], type:string)
+))
+
+upcomingDeadlines = Card(Heading("Deadlines in Next 2 Weeks", h3), upcomingDeadlinesTable)
+
+upcomingDeadlinesTable = Table(
+  Col("Project", ["Project Beta", "Project Gamma"], type:string),
+  Col("Deadline", ["2024-11-08", "2024-11-12"], type:string)
+)
+
+deliveryPaceChart = Card(Heading("Delivery Pace (Last 6 Sprints)", h3), LineChart(
+  |Sprint|Completed Stories
+  |S1|45
+  |S2|50
+  |S3|48
+  |S4|52
+  |S5|47
+  |S6|53
+  , variant:linear, xLabel:"Sprint", yLabel:"Stories"
+))
+
+blockedItemsTable = Card(Heading("Blocked Work Items", h3), Table(
+  Col("Item", ["Feature X integration", "API Y bugfix"], type:string),
+  Col("Project", ["Project Alpha", "Project Beta"], type:string),
+  Col("Reason", ["Dependency on Z", "Awaiting client feedback"], type:string)
+))
+
+quarterSelect = Card(Heading("Select Quarter", h3), Select("quarter", 
+  SelectItem("Q1-2024", "Q1 2024"),
+  SelectItem("Q2-2024", "Q2 2024"),
+  SelectItem("Q3-2024", "Q3 2024"),
+  SelectItem("Q4-2024", "Q4 2024"),
+  placeholder:"Choose quarter", value:"Q3-2024"
+))
+
+requestPeopleDialog = DialogBlock("Request More People", "Request Additional Resources",
+  MarkDownRenderer("**Select a project and specify the number of additional team members needed.**"),
+  Form("request-form", requestButtons,
+    projectSelectControl,
+    numberInputControl
+  ),
+  description:"Request extra staff for a project",
+  triggerVariant:primary
+)
+
+projectSelectControl = FormControl("Project", Select("project", 
+  SelectItem("Alpha", "Project Alpha"),
+  SelectItem("Beta", "Project Beta"),
+  SelectItem("Gamma", "Project Gamma"),
+  placeholder:"Select project", value:"Alpha"
+))
+
+numberInputControl = FormControl("Additional People", Input("count", "Number of people", type:number))
+
+requestButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+exportButton = Buttons(Button("Export Review", primary))
+
+archiveButton = Buttons(Button("Archive Finished Project", destructive))

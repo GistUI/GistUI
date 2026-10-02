@@ -1,0 +1,16 @@
+root = Card(statsSection, ticketsSection, actionsSection)
+
+statsSection = Card(Heading("Open tickets", h3), TextContent("**12**", size:large), Heading("Avg first‑response time", h3), TextContent("**4h 23m**", size:large), sunk)
+
+ticketsSection = Card(Heading("Recent tickets", h3), ticketsTable, filterSelect)
+
+filterSelect = Select("priority_filter", SelectItem("All", "All"), SelectItem("High", "High priority only"), placeholder:"Filter priority", value:"All")
+
+ticketsTable = |Ticket|Subject|Priority|Created
+|#1024|Login issue|High|2024-09-30|
+|#1023|Payment failure|Medium|2024-09-30|
+|#1022|Feature request|Low|2024-09-29|
+|#1021|UI glitch|High|2024-09-29|
+|#1020|Account locked|Medium|2024-09-28|
+
+actionsSection = Buttons(Button("New Ticket", primary))

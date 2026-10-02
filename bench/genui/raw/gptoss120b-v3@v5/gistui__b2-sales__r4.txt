@@ -1,0 +1,26 @@
+root = Card(cardHeader, revenueNow, revenueTrend, bestProducts, conversionInfo, downloadBtn)
+
+cardHeader = CardHeader("Monthly Sales Check", "Founder Overview")
+
+revenueNow = TextContent("**Revenue this month:** $124,500", size:large)
+
+revenueTrend = LineChart(trendData, linear, xLabel:"Month", yLabel:"Revenue")
+
+trendData = |Month|Revenue
+|Jan|102000
+|Feb|108500
+|Mar|115000
+|Apr|119300
+|May|122700
+|Jun|124500
+
+bestProducts = Card(Heading("Top 3 Products", h3), productsTable)
+
+productsTable = Table(productCol, unitsCol)
+
+productCol = Col("Product", ["Alpha Gadget","Beta Widget","Gamma Tool"], type:string)
+unitsCol = Col("Units Sold", [340, 275, 210], type:number)
+
+conversionInfo = TextContent("**Conversion rate:** 3.8%", size:default)
+
+downloadBtn = Buttons(Button("Download CSV"))

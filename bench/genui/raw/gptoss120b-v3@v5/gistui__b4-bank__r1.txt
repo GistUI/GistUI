@@ -1,0 +1,96 @@
+root = Card(balances, transactions, spending, bills, vacGoal, creditScore, actions)
+
+balances = Table(
+  Col("Account", ["Checking","Savings","Credit"], type:string),
+  Col("Balance", ["$2,340.00","$5,120.00","$1,200.00"], type:string)
+)
+
+transactions = Table(
+  Col("Date", ["2024-09-25","2024-09-24","2024-09-23"], type:string),
+  Col("Merchant", ["Starbucks","Amazon","Electric Co."], type:string),
+  Col("Amount", ["-$4.75","-$89.99","-$120.00"], type:string)
+)
+
+spending = PieChart(
+  ["Food","Shopping","Utilities","Travel","Other"],
+  [45,30,15,5,5],
+  variant:donut,
+  appearance:circular
+)
+
+bills = Table(
+  Col("Bill", ["Electricity","Internet","Gym"], type:string),
+  Col("Due", ["2024-10-05","2024-10-10","2024-10-12"], type:string),
+  Col("Amount", ["$120.00","$60.00","$45.00"], type:string)
+)
+
+vacGoal = Progress(45, label:"Vacation Savings")
+
+creditScore = TextContent("Current credit score: 720", size:large)
+
+actions = Card(
+  moveMoneyForm,
+  Card(Button("Freeze Credit Line")),
+  Card(statementSelect),
+  Card(alertsManage),
+  Card(disputeButton)
+)
+
+moveMoneyForm = Form(
+  "move-money",
+  moveButtons,
+  amountField,
+  fromSelect,
+  toSelect
+)
+
+moveButtons = Buttons(
+  Button("Transfer", primary)
+)
+
+amountField = FormControl(
+  "Amount",
+  Input("transfer_amount", placeholder:"$0.00", type:number)
+)
+
+fromSelect = FormControl(
+  "From account",
+  Select(
+    "from_account",
+    SelectItem("checking", "Checking"),
+    SelectItem("savings", "Savings"),
+    SelectItem("credit", "Credit"),
+    placeholder:"Select account"
+  )
+)
+
+toSelect = FormControl(
+  "To account",
+  Select(
+    "to_account",
+    SelectItem("checking", "Checking"),
+    SelectItem("savings", "Savings"),
+    SelectItem("credit", "Credit"),
+    placeholder:"Select account"
+  )
+)
+
+statementSelect = FormControl(
+  "Statement period",
+  Select(
+    "statement_period",
+    SelectItem("last_30", "Last 30 days"),
+    SelectItem("last_60", "Last 60 days"),
+    SelectItem("last_90", "Last 90 days"),
+    placeholder:"Select period"
+  )
+)
+
+alertsManage = SwitchGroup(
+  "alerts",
+  SwitchItem("low_balance", "Low balance", "Notify when balance < $100", false),
+  SwitchItem("large_tx", "Large transaction", "Notify for > $500", false),
+  variant:clear
+)
+
+disputeButton = Button("Dispute Transaction")

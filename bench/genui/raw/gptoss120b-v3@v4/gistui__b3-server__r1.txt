@@ -1,0 +1,40 @@
+root = Card(header, uptime, errorRate, regionSelect, cpuMemChart, incidentsTable, endpointsTable, alertForm, actions)
+
+header = CardHeader("Service Health Dashboard", "On‑call Engineer View")
+
+uptime = TextContent("**Uptime this quarter:** 99.97%", size:large)
+
+errorRate = TextContent("**Current error rate:** 0.42 %", size:large)
+
+regionSelect = FormControl("Region", Select("region", SelectItem("us-east-1", "US East 1"), SelectItem("eu-west-1", "EU West 1"), SelectItem("ap-southeast-2", "AP Southeast 2"), placeholder:"All regions", rules:[], value:"", size:medium))
+
+cpuMemChart = Card(Heading("CPU & Memory (last 24h)", h3), LineChart(cpuMemRows, linear, xLabel:"Time", yLabel:"%"))
+
+cpuMemRows = |Time|CPU|Memory
+|00:00|45|68
+|04:00|50|70
+|08:00|55|72
+|12:00|60|75
+|16:00|58|73
+|20:00|52|69
+|24:00|48|66
+
+incidentsTable = Card(Heading("Open Incidents", h3), Table(incIdCol, incSeverityCol, incDescCol, incActionCol))
+
+incIdCol = Col("ID", ["INC123","INC124","INC125"], type:string)
+incSeverityCol = Col("Severity", ["critical","high","medium"], type:string)
+incDescCol = Col("Description", ["Database outage","API latency spike","Cache miss rate high"], type:string)
+incActionCol = Col("Acknowledge", [Button("Acknowledge", ["acknowledge"], primary, normal, small), Button("Acknowledge", ["acknowledge"], primary, normal, small), Button("Acknowledge", ["acknowledge"], primary, normal, small)], type:action)
+
+endpointsTable = Card(Heading("Five Slowest Endpoints", h3), Table(epPathCol, epLatencyCol))
+
+epPathCol = Col("Endpoint", ["/api/v1/users","/api/v1/orders","/api/v1/payments","/api/v1/reports","/api/v1/search"], type:string)
+epLatencyCol = Col("Latency (ms)", [420,389,375,360,345], type:number)
+
+alertForm = Form("alert-threshold", alertButtons, thresholdField)
+
+thresholdField = FormControl("Alert Threshold (%)", Input("threshold", "Enter %", "", number, []))
+
+alertButtons = Buttons(Button("Set Threshold", ["setThreshold"], primary, normal, medium), Button("Cancel", [], secondary, normal, medium))
+
+actions = Buttons(Button("Refresh", ["refresh"], primary, normal, small))

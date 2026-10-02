@@ -1,0 +1,96 @@
+root = Card(header, summary, sections, rebalance, orderForm, timeframeTabs)
+header = CardHeader("Trading Desk", "Morning Overview")
+summary = Card(TextContent("$1,234,567", size:large), TextContent("P&L Today: +$12,345", size:large), clear)
+sections = SectionBlock(positionsItem, exposureItem, varItem, gainersItem, losersItem, watchlistItem, ordersItem, marginItem, headlinesItem, econItem, strategiesItem, drawdownItem, riskLimitsItem, isFoldable)
+
+positionsItem = SectionItem("positions", "Positions", positionsTable)
+exposureItem = SectionItem("exposure", "Exposure by Sector", exposureChart)
+varItem = SectionItem("var", "Value at Risk", varText)
+gainersItem = SectionItem("gainers", "Today's Biggest Gainers", gainersTable)
+losersItem = SectionItem("losers", "Today's Biggest Losers", losersTable)
+watchlistItem = SectionItem("watchlist", "Watchlist", watchlistTable)
+ordersItem = SectionItem("orders", "Working Orders", ordersTable)
+marginItem = SectionItem("margin", "Margin in Use", marginText)
+headlinesItem = SectionItem("headlines", "Market Headlines", headlinesTable)
+econItem = SectionItem("econ", "Economic Releases This Week", econTable)
+strategiesItem = SectionItem("strategies", "Strategy Returns YTD", strategiesTable)
+drawdownItem = SectionItem("drawdown", "Drawdown Past Year", drawdownChart)
+riskLimitsItem = SectionItem("risklimits", "Risk Limits Near Breach", riskLimitsTable)
+
+positionsTable = Table(colTicker, colSize, colEntry, colPrice)
+colTicker = Col("Ticker", ["AAPL","MSFT","GOOG"], type:string)
+colSize = Col("Size", [120,80,50], type:number)
+colEntry = Col("Entry", [150,250,1200], type:number)
+colPrice = Col("Current", [155,260,1195], type:number)
+
+exposureData = |Sector|Value
+|Technology|500000
+|Healthcare|200000
+|Finance|150000
+|Energy|100000
+|Consumer|80000
+exposureChart = PieChart(exposureData)
+
+varText = TextContent("$45,000", size:default)
+
+gainersTable = Table(colGainerTicker, colGainerChange)
+colGainerTicker = Col("Ticker", ["TSLA","NVDA"], type:string)
+colGainerChange = Col("Change", [5.2,4.8], type:number)
+
+losersTable = Table(colLoserTicker, colLoserChange)
+colLoserTicker = Col("Ticker", ["AMZN","NFLX"], type:string)
+colLoserChange = Col("Change", [-3.1,-2.7], type:number)
+
+watchlistTable = Table(colWatchTicker, colWatchPrice)
+colWatchTicker = Col("Ticker", ["SPY","QQQ","IWM"], type:string)
+colWatchPrice = Col("Price", [450.12,370.45,180.33], type:number)
+
+ordersTable = Table(colOrderId, colOrderTicker, colOrderSide, colOrderQty, colOrderStatus)
+colOrderId = Col("ID", ["001","002"], type:string)
+colOrderTicker = Col("Ticker", ["AAPL","MSFT"], type:string)
+colOrderSide = Col("Side", ["Buy","Sell"], type:string)
+colOrderQty = Col("Qty", [100,50], type:number)
+colOrderStatus = Col("Status", ["Pending","Filled"], type:string)
+
+marginText = TextContent("Margin Used: 45% of limit", size:default)
+
+headlinesTable = Table(colHeadline, colSentiment)
+colHeadline = Col("Headline", ["Oil prices rise","Tech stocks dip"], type:string)
+colSentiment = Col("Sentiment", ["Positive","Negative"], type:string)
+
+econTable = Table(colEconDate, colEconEvent, colEconImpact)
+colEconDate = Col("Date", ["2026-10-01","2026-10-03"], type:string)
+colEconEvent = Col("Event", ["Nonfarm Payrolls","CPI"], type:string)
+colEconImpact = Col("Impact", ["High","Medium"], type:string)
+
+strategiesTable = Table(colStrategy, colReturn)
+colStrategy = Col("Strategy", ["Mean Reversion","Momentum"], type:string)
+colReturn = Col("YTD Return", ["12%","8%"], type:string)
+
+drawdownData = |Month|Drawdown
+|Jan|5%
+|Feb|7%
+|Mar|6%
+|Apr|8%
+|May|4%
+drawdownChart = LineChart(drawdownData, linear, xLabel:"Month", yLabel:"Drawdown %")
+
+riskLimitsTable = Table(colLimit, colCurrent, colThreshold)
+colLimit = Col("Limit", ["Sector Exposure","Position Size"], type:string)
+colCurrent = Col("Current", ["90%","95%"], type:string)
+colThreshold = Col("Threshold", ["100%","100%"], type:string)
+
+rebalance = Buttons(Button("Rebalance", primary))
+
+tickerField = FormControl("Ticker", Input("ticker", "Ticker", , text))
+sideSelect = Select("side", SelectItem("Buy","Buy"), SelectItem("Sell","Sell"), placeholder:"Side", value:"Buy", size:small)
+sideField = FormControl("Side", sideSelect)
+quantityField = FormControl("Quantity", Input("quantity", "Qty", , number))
+orderButtons = Buttons(Button("Place Order", primary), Button("Cancel", secondary))
+orderForm = Form("order", orderButtons, tickerField, sideField, quantityField)
+
+timeframe1 = TabItem("1d", "1D", TextContent("1 Day view"))
+timeframe2 = TabItem("1w", "1W", TextContent("1 Week view"))
+timeframe3 = TabItem("1m", "1M", TextContent("1 Month view"))
+timeframe4 = TabItem("1y", "1Y", TextContent("1 Year view"))
+timeframeTabs = Tabs(timeframe1, timeframe2, timeframe3, timeframe4)

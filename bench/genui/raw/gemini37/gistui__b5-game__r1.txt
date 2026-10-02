@@ -1,0 +1,148 @@
+root = Card(header, topBar, mainTabs)
+header = CardHeader("Live-Ops Mission Control", "Real-time telemetry, player moderation, economy health & release ops")
+topBar = Card(kpiGroup, quickActions, direction:row, justify:between, align:center, variant:sunk)
+kpiGroup = Card(kpiCcu, kpiDau, kpiMau, kpiRev, kpiArpu, direction:row, gap:m, variant:clear)
+kpiCcu = Card(Heading("142,890", h2), Badge("CCU Online Now", success), variant:clear)
+kpiDau = Card(Heading("1.24M", h3), Badge("DAU", secondary), variant:clear)
+kpiMau = Card(Heading("8.60M", h3), Badge("MAU", secondary), variant:clear)
+kpiRev = Card(Heading("$184,250", h3), Badge("Revenue Today", default), variant:clear)
+kpiArpu = Card(Heading("$4.12", h3), Badge("ARPPU", outline), variant:clear)
+quickActions = Card(regionFocusSelect, hotfixDialog, patchNotesDrawer, direction:row, gap:s, variant:clear)
+
+regionFocusSelect = Select("focused_region", SelectItem("all", "All Regions (Global)"), SelectItem("na_east", "NA-East (US-VA)"), SelectItem("na_west", "NA-West (US-CA)"), SelectItem("eu_central", "EU-Central (Frankfurt)"), SelectItem("ap_east", "AP-East (Tokyo)"), SelectItem("sa_east", "SA-East (São Paulo)"), placeholder:"Focus Region", value:"all")
+
+hotfixDialog = DialogBlock("⚡ Ship Hotfix", "Emergency Hotfix Deployment", hotfixForm, description:"Deploy hotfix binaries and config overrides directly to live shards.", triggerVariant:destructive)
+hotfixForm = Form("hotfix-form", hotfixButtons, hotfixTargetSelect, hotfixVersionInput, hotfixPayloadArea)
+hotfixTargetSelect = FormControl("Target Shards", Select("hotfix_env", SelectItem("all", "Global Fleet (All Shards)"), SelectItem("na_east", "NA-East Shard 01-14"), SelectItem("eu_central", "EU-Central Shard 01-08"), SelectItem("staging", "Canary Staging Fleet"), placeholder:"Select target fleet"))
+hotfixVersionInput = FormControl("Hotfix Version Tag", Input("hotfix_ver", "v2.4.1-patch3"))
+hotfixPayloadArea = FormControl("Config JSON / Patch Script", TextArea("hotfix_payload", "{\n  \"disable_item_id\": 4091,\n  \"matchmaker_rate_limit\": 120\n}", 4))
+hotfixButtons = Buttons(Button("Confirm & Deploy Hotfix", primary, destructive), Button("Cancel", tertiary))
+
+patchNotesDrawer = DrawerBlock("📝 Draft Patch Notes", "Patch Notes Editor & Broadcaster", patchNotesForm, description:"Compose, format, and broadcast patch notes to in-game feed and launcher.")
+patchNotesForm = Form("patch-notes-form", patchButtons, patchTitleCtrl, patchTargetVerCtrl, patchBodyCtrl)
+patchTitleCtrl = FormControl("Patch Title", Input("patch_title", "Season 4 Mid-Cycle Balance & Stability"))
+patchTargetVerCtrl = FormControl("Target App Version", Select("patch_ver_target", SelectItem("v2.4.0", "v2.4.0 (Latest Live)"), SelectItem("v2.4.1", "v2.4.1 (Upcoming)"), placeholder:"Select version"))
+patchBodyCtrl = FormControl("Patch Content (Markdown)", TextArea("patch_body", "### Highlights\n- Fixed crash when switching loadouts in lobby.\n- Rebalanced Dragonblade damage from 120 to 105.\n- Reduced matchmaking latency in AP-East.", 8))
+patchButtons = Buttons(Button("Publish to Live Feed", primary), Button("Save Draft", secondary))
+
+mainTabs = Tabs(telemetryTab, economyTab, moderationTab, liveEventsTab, releasesTab)
+
+telemetryTab = TabItem("telemetry", "Telemetry & Servers", telemetryContent)
+telemetryContent = Card(telemetryRow1, telemetryRow2, gap:m, variant:clear)
+telemetryRow1 = Card(sessionTrendCard, serverHealthCard, direction:row, gap:m, variant:clear)
+sessionTrendCard = Card(Heading("Session Length Trend (Past 14 Days)", h3), TextContent("Average player session duration in minutes across all active platforms."), LineChart(sessionLengthData, natural, xLabel:"Day", yLabel:"Avg Minutes"), sunk)
+serverHealthCard = Card(Heading("Server Fleet Health by Region", h3), Table(serverHealthData), sunk)
+
+telemetryRow2 = Card(crashRateCard, direction:row, gap:m, variant:clear)
+crashRateCard = Card(Heading("Crash Rate & Stability by App Version", h3), Table(crashRateData), HorizontalBarChart(crashChartData, grouped, xLabel:"Crash Rate %", yLabel:"Version"), sunk)
+
+economyTab = TabItem("economy", "Economy & Store", economyContent)
+economyContent = Card(economyRow, gap:m, variant:clear)
+economyRow = Card(bestSellersCard, inflationCard, direction:row, gap:m, variant:clear)
+bestSellersCard = Card(Heading("Best-Selling Items (Today)", h3), TextContent("Tracked by gross units sold and revenue share."), Table(bestSellersData), BarChart(bestSellersChartData, grouped, xLabel:"Item", yLabel:"Units Sold"), sunk)
+inflationCard = Card(Heading("In-Game Currency Inflation (Gold / Gems Sink vs Faucet)", h3), TextContent("Net currency accumulation index across active player wallets over the last 6 months."), AreaChart(currencyInflationData, natural, xLabel:"Month", yLabel:"Gold Index"), sunk)
+
+moderationTab = TabItem("moderation", "Moderation & Queue", moderationContent)
+moderationContent = Card(modAlert, modRow, gap:m, variant:clear)
+modAlert = Alert("Moderation Queue Warning", "Player reports increased by 18% over the last 4 hours following the ranked reset.", warning)
+modRow = Card(reportsCard, appealsCard, direction:row, gap:m, variant:clear)
+reportsCard = Card(Heading("Player Reports Awaiting Review (412 Pending)", h3), Table(playerReportsData), Buttons(Button("Open Moderation Queue", primary, size:small), Button("Bulk Dismiss Bot Spam", secondary, size:small)), sunk)
+appealsCard = Card(Heading("Ban Appeals Awaiting Review (87 Pending)", h3), Table(banAppealsData), Buttons(Button("Review Appeals Queue", primary, size:small), Button("Export Audit Log", tertiary, size:small)), sunk)
+
+liveEventsTab = TabItem("events", "Live Events & A/B Tests", eventsContent)
+eventsContent = Card(eventsRow, experimentsRow, gap:m, variant:clear)
+eventsRow = Card(Heading("Active & Upcoming Live Events", h3), Table(liveEventsData), sunk)
+experimentsRow = Card(Heading("Running Live Experiments (2 Active)", h3), exp1Card, exp2Card, direction:row, gap:m, variant:clear)
+exp1Card = Card(Heading("EXP-104: Dynamic Daily Login Rewards", h4), Badge("Variant B Winning (+6.8% D7)", success), Table(exp1Data), sunk)
+exp2Card = Card(Heading("EXP-109: Matchmaking MMR Soft Floor", h4), Badge("Neutral (-0.4% Queue Time)", secondary), Table(exp2Data), sunk)
+
+releasesTab = TabItem("ops", "Ops Quick Actions", opsContent)
+opsContent = Card(opsHeader, opsRow, gap:m, variant:clear)
+opsHeader = CardHeader("Release Operations & Diagnostics", "Direct control over deployments and live operational flags")
+opsRow = Card(opsHotfixCard, opsPatchCard, direction:row, gap:m, variant:clear)
+opsHotfixCard = Card(Heading("Emergency Hotfix Status", h3), TextContent("Current production build is **v2.4.0-build891**. No pending rollbacks."), hotfixDialog, sunk)
+opsPatchCard = Card(Heading("Client Patch Communications", h3), TextContent("Last patch broadcasted 3 days ago. Next scheduled maintenance in 48 hours."), patchNotesDrawer, sunk)
+
+sessionLengthData = |Day|AvgMinutes
+|D-13|28.4
+|D-12|29.1
+|D-11|31.0
+|D-10|30.5
+|D-09|27.8
+|D-08|28.9
+|D-07|35.2
+|D-06|36.8
+|D-05|32.1
+|D-04|31.4
+|D-03|29.9
+|D-02|30.2
+|D-01|34.5
+|Today|33.8
+
+serverHealthData = |Region|ActiveShards|CCU:n|AvgLatency|HealthStatus
+|NA-East|64|52400|24ms|Healthy
+|NA-West|48|34100|28ms|Healthy
+|EU-Central|56|38200|31ms|Healthy
+|AP-East|32|14500|68ms|Degraded
+|SA-East|16|3690|45ms|Healthy
+
+crashRateData = |AppVersion|ActiveUsers:n|CrashCount:n|CrashFreeRate|Status
+|v2.4.0 (Latest)|982000|1865|99.81%|Optimal
+|v2.3.9|194000|737|99.62%|Stable
+|v2.3.8|48000|499|98.96%|Investigate
+|v2.3.5 (Legacy)|16000|352|97.80%|Deprecated
+
+crashChartData = |Version|CrashRate
+|v2.4.0|0.19
+|v2.3.9|0.38
+|v2.3.8|1.04
+|v2.3.5|2.20
+
+bestSellersData = |ItemName|Rarity|Category|UnitsSold:n|GrossRevenue
+|BattlePass S4|Mythic|Bundle|48290|$482,900
+|Voidwalker Skin|Legendary|Cosmetic|18420|$184,200
+|500 Gem Pack|Rare|Currency|15110|$75,550
+|Solar Eclipse Cloak|Epic|Cosmetic|9870|$49,350
+|XP Booster 7D|Common|Consumable|8320|$16,640
+
+bestSellersChartData = |Item|Units
+|BattlePass S4|48290
+|Voidwalker Skin|18420
+|500 Gem Pack|15110
+|Solar Cloak|9870
+|XP Booster 7D|8320
+
+currencyInflationData = |Month|FaucetSupply|SinkBurn|NetInflationIndex
+|Nov|100|88|100
+|Dec|118|96|108
+|Jan|135|102|119
+|Feb|142|115|124
+|Mar|158|120|136
+|Apr|164|138|142
+
+playerReportsData = |ReportID|ReportedPlayer|Reason|ReportsCount:n|Priority
+|#REP-9821|xX_SniperGod_Xx|Speed / Aim Exploit|14|Critical
+|#REP-9819|ToxicViper|Hate Speech / Chat|8|High
+|#REP-9815|AFK_Farmer99|Botting / Automation|6|Medium
+|#REP-9804|ShadowBlade|Team Griefing|4|Medium
+|#REP-9799|LootGoblin01|Economy Exploit|3|Low
+
+banAppealsData = |AppealID|PlayerHandle|OriginalBanReason|BanDate|Status
+|#APP-4421|VortexRider|Third-Party Tool|2025-04-10|Pending Agent
+|#APP-4418|KronoX|Harassment in Voice|2025-04-11|Pending Agent
+|#APP-4412|NightStalker|Marketplace Exploit|2025-04-12|Escalated
+|#APP-4401|PixelQueen|False Positive Flag|2025-04-13|Under Review
+
+liveEventsData = |EventName|Status|StartsAt|EndsAt|TargetModifier
+|Blood Moon Weekend|Active (Live)|2025-04-12 00:00|2025-04-15 23:59|2x XP & Drop Rate
+|Cyber Siege Tournament|Active (Live)|2025-04-14 12:00|2025-04-18 20:00|Custom Ranked Queue
+|Spring Equinox Festival|Upcoming|2025-04-20 00:00|2025-05-04 23:59|Event Store & Quests
+|Guild Wars Clash S2|Upcoming|2025-04-25 18:00|2025-04-27 23:59|GvG Bracket
+
+exp1Data = |Group|CohortSize:n|D1Ret|D7Ret|Conversion
+|Control (Static)|50000|44.2%|21.1%|3.8%
+|Variant B (Dynamic)|50000|46.8%|23.9%|4.4%
+
+exp2Data = |Group|CohortSize:n|AvgQueueSec:n|FairnessScore|D3Ret
+|Control (Strict)|40000|42.5s|94.2|28.1%
+|Variant B (SoftFloor)|40000|38.1s|92.8|27.9%

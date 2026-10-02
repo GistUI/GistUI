@@ -1,0 +1,34 @@
+root = Card(headerRow, kpiRow, mainContent, largeTxCard, gap:l)
+headerRow = Card(CardHeader("Month-End Financial Close", "Comprehensive overview of runway, burn rate, and capital allocation"), headerControls, direction:row, justify:between, align:center, variant:clear)
+headerControls = Card(monthFilter, downloadButtons, direction:row, gap:m, align:center, variant:clear)
+monthFilter = Select("month_picker", SelectItem("2024-10", "October 2024"), SelectItem("2024-09", "September 2024"), SelectItem("2024-08", "August 2024"), SelectItem("2024-07", "July 2024"), value:"2024-10", size:small)
+downloadButtons = Buttons(Button("Download Statement", primary, size:small), Button("Export CSV", secondary, size:small))
+kpiRow = Card(cashCard, burnCard, runwayCard, netRevCard, direction:row, gap:m, variant:clear)
+cashCard = Card(TextContent("Cash on Hand", size:small), Heading("$2,450,000", h2), Tag("+3.2% vs prior month", success, size:sm), sunk)
+burnCard = Card(TextContent("Net Monthly Burn", size:small), Heading("$115,000", h2), Tag("-8.5% burn reduction", success, size:sm), sunk)
+runwayCard = Card(TextContent("Runway Remaining", size:small), Heading("21.3 Months", h2), Tag("Target: >18 mos", info, size:sm), sunk)
+netRevCard = Card(TextContent("Monthly Inflows", size:small), Heading("$68,400", h2), Tag("+14% MoM growth", success, size:sm), sunk)
+mainContent = Card(chartSection, breakdownSection, direction:row, gap:m, variant:clear)
+chartSection = Card(CardHeader("Burn & Runway Trajectory", "Historical 6-month net burn vs gross operating cash flow"), LineChart(burnTrendData, natural, xLabel:"Month", yLabel:"USD ($)"), sunk)
+breakdownSection = Card(CardHeader("Expenses by Category", "October 2024 total operating expenditure: $183,400"), PieChart(expenseData.Category, expenseData.Amount, variant:donut), sunk)
+largeTxCard = Card(largeTxHeader, Table(largeTxTable), sunk)
+largeTxHeader = CardHeader("Material Transactions (> $10,000)", "All single disbursements and capital expenditures exceeding $10k this billing cycle")
+expenseData = |Category|Amount
+|Payroll & Benefits|112000
+|Cloud & Infrastructure|28500
+|Sales & Marketing|21400
+|Office & Facilities|12000
+|Legal & Professional|9500
+burnTrendData = |Month|Gross Expense|Revenue
+|May|172000|45000
+|Jun|178000|51000
+|Jul|185000|54000
+|Aug|190000|59000
+|Sep|181000|62000
+|Oct|183400|68400
+largeTxTable = |Date|Description|Category|Amount:n|Status
+|2024-10-01|Gusto Semi-Monthly Payroll|Payroll & Benefits|$56,000|Cleared
+|2024-10-15|Gusto Semi-Monthly Payroll|Payroll & Benefits|$56,000|Cleared
+|2024-10-18|Amazon Web Services (Annual Commit)|Cloud & Infrastructure|$24,500|Cleared
+|2024-10-22|Google Ads Q4 Campaign Batch|Sales & Marketing|$14,200|Cleared
+|2024-10-27|Cooley LLP - Series A Counsel|Legal & Professional|$10,800|Cleared

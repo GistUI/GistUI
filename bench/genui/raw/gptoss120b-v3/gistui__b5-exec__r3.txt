@@ -1,0 +1,89 @@
+root = Card(header, controls, summarySection, quarterChartsSection, budgetSection, headcountSection, risksSection, initiativesSection, runwaySection, salesPipelineSection, winRateSection, customerSection, npsSection, itemsSection, actionsSection)
+
+header = CardHeader("Quarterly Command View", "CEO Dashboard")
+
+controls = Card(quarterSelect, regionSelect, direction:row, gap:s)
+
+summarySection = Card(Heading("Key Metrics", h2), revenueCard, costsCard, profitCard, direction:column, gap:m)
+
+revenueCard = Card(Heading("Revenue", h3), revenueText, sunk)
+
+costsCard = Card(Heading("Costs", h3), costsText, sunk)
+
+profitCard = Card(Heading("Profit", h3), profitText, sunk)
+
+quarterChartsSection = Card(Heading("Quarterly Trends", h2), revenueChart, costsChart, direction:column, gap:m)
+
+budgetSection = Card(Heading("Budget vs Plan", h2), budgetTable)
+
+headcountSection = Card(Heading("Headcount by Department", h2), headcountTable)
+
+risksSection = Card(Heading("Top Risks", h2), risksTable)
+
+initiativesSection = Card(Heading("Strategic Initiatives", h2), initiativesTable)
+
+runwaySection = Card(Heading("Months of Runway", h2), runwayText)
+
+salesPipelineSection = Card(Heading("Sales Pipeline Value", h2), salesPipelineText)
+
+winRateSection = Card(Heading("Win Rate", h2), winRateText)
+
+customerSection = Card(Heading("Customers", h2), customerTable)
+
+npsSection = Card(Heading("NPS", h2), npsText)
+
+itemsSection = Card(Heading("Next Board Meeting Items", h2), itemsListBlock)
+
+actionsSection = Card(actionButtons)
+
+actionButtons = Buttons(exportButton, shareButton, direction:row)
+
+exportButton = Button("Export Pack", primary)
+
+shareButton = Button("Share", secondary)
+
+quarterSelect = Select("quarter", SelectItem("Q1","Q1"), SelectItem("Q2","Q2"), SelectItem("Q3","Q3"), SelectItem("Q4","Q4"), placeholder:"Select quarter", value:"Q2")
+
+regionSelect = Select("region", SelectItem("North America","NA"), SelectItem("EMEA","EMEA"), SelectItem("APAC","APAC"), placeholder:"Select region", value:"North America")
+
+revenueChart = BarChart(revenueQuarterRows, grouped, xLabel:"Quarter", yLabel:"USD")
+
+costsChart = BarChart(costsQuarterRows, grouped, xLabel:"Quarter", yLabel:"USD")
+
+budgetTable = Table(Col("Department", data:["Engineering","Marketing","Sales","Support"], type:string), Col("Budget", data:[5000000,2000000,3000000,1000000], type:number), Col("Plan", data:[4500000,2500000,2800000,1200000], type:number))
+
+headcountTable = Table(Col("Department", data:["Engineering","Marketing","Sales","Support"], type:string), Col("Headcount", data:[120,30,45,20], type:number))
+
+risksTable = Table(Col("Risk", data:["Supply chain delay","Regulatory change","Talent turnover"], type:string), Col("Owner", data:["CFO","Legal","HR"], type:string))
+
+initiativesTable = Table(Col("Initiative", data:["Expand to APAC","Launch new product","Improve NPS"], type:string), Col("Status", data:["On Track","Delayed","On Track"], type:string))
+
+customerTable = Table(Col("Metric", data:["Total Customers","Churn Rate"], type:string), Col("Value", data:["15,200","5%"], type:string))
+
+itemsListBlock = ListBlock(ListItem("Review Q2 financials"), ListItem("Approve budget for Q3"), ListItem("Discuss strategic initiatives"), variant:number)
+
+revenueText = TextContent("$12.4M", size:large)
+
+costsText = TextContent("$7.3M", size:large)
+
+profitText = TextContent("$5.1M", size:large)
+
+runwayText = TextContent("14 months", size:large)
+
+salesPipelineText = TextContent("$8.2M", size:large)
+
+winRateText = TextContent("27%", size:large)
+
+npsText = TextContent("68", size:large)
+
+revenueQuarterRows = |Quarter|Revenue
+|Q1|3100000
+|Q2|3300000
+|Q3|3400000
+|Q4|3500000
+
+costsQuarterRows = |Quarter|Cost
+|Q1|2100000
+|Q2|2200000
+|Q3|2250000
+|Q4|2300000

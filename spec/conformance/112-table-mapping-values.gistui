@@ -1,0 +1,2 @@
+root = Plot(weeks, Series("Web", [10, 12]), totals:[10, 12])
+weeks = ["W1", "W2"]

@@ -1,0 +1,88 @@
+root = Card(enrollmentCard, applicationsCard, acceptanceCard, tuitionCard, courseFillCard, teachingLoadCard, riskCard, scholarshipCard, housingCard, eventsCard, alumniGivingCard, controlsCard, semesterCompareCard, waitlistCard, approveCourseCard, messageGroupCard)
+enrollmentCard = Card(CardHeader("Total Enrollment", "2023"), TextContent("**12,340** students", size:large), enrollmentChart)
+applicationsCard = Card(CardHeader("Applications by Program"), applicationsChart)
+acceptanceCard = Card(CardHeader("Acceptance Rate"), acceptanceCallout)
+tuitionCard = Card(CardHeader("Tuition Revenue 2023"), tuitionText)
+courseFillCard = Card(CardHeader("Course Offering Fill Rates"), courseFillChart)
+teachingLoadCard = Card(CardHeader("Teaching Load by Faculty"), teachingLoadChart)
+riskCard = Card(CardHeader("Students at Academic Risk"), riskTable)
+scholarshipCard = Card(CardHeader("Scholarship Budget Usage"), scholarshipChart)
+housingCard = Card(CardHeader("Housing Occupancy"), housingChart)
+eventsCard = Card(CardHeader("Campus Events This Month"), eventsList)
+alumniGivingCard = Card(CardHeader("Alumni Giving (Last 4 Years)"), alumniGivingChart)
+controlsCard = Card(CardHeader("Filters & Actions"), departmentSelect)
+semesterCompareCard = Card(CardHeader("This Semester vs Last"), semesterCompareChart)
+waitlistCard = Card(CardHeader("Waitlisted Students by Program"), waitlistChart)
+approveCourseCard = Card(CardHeader("Approve New Course"), approveButtons)
+messageGroupCard = Card(CardHeader("Message Student Group"), messageButtons)
+enrollmentChart = LineChart(enrollmentData, linear, xLabel:"Year", yLabel:"Students")
+applicationsChart = BarChart(applicationsData, grouped, xLabel:"Program", yLabel:"Applications")
+acceptanceCallout = TextCallout("Acceptance Rate", "68%", success)
+tuitionText = TextContent("$4.2M", size:large)
+courseFillChart = HorizontalBarChart(courseFillData, grouped, xLabel:"Fill %", yLabel:"Course")
+teachingLoadChart = BarChart(teachingLoadData, grouped, xLabel:"Faculty", yLabel:"Courses")
+riskTable = Table(riskNameCol, riskScoreCol, riskAdvisorCol)
+scholarshipChart = SingleStackedBarChart(scholarshipData)
+housingChart = HorizontalBarChart(housingData, grouped, xLabel:"Occupancy %", yLabel:"Residence")
+eventsList = ListBlock(event1, event2, event3, variant:number)
+alumniGivingChart = LineChart(alumniGivingData, linear, xLabel:"Year", yLabel:"Donations")
+departmentSelect = Select("department", SelectItem("Engineering","Engineering"), SelectItem("Arts","Arts"), SelectItem("Science","Science"), placeholder:"Select department", size:medium)
+semesterCompareChart = BarChart(semesterCompareData, grouped, xLabel:"Metric", yLabel:"Value")
+waitlistChart = BarChart(waitlistData, grouped, xLabel:"Program", yLabel:"Waitlist")
+approveButtons = Buttons(approveButton)
+messageButtons = Buttons(messageButton)
+approveButton = Button("Approve Course", primary)
+messageButton = Button("Send Message", primary)
+event1 = ListItem("Guest Lecture: AI Ethics", "Sept 12, 3pm", "Details")
+event2 = ListItem("Homecoming Parade", "Sept 20, 10am", "Details")
+event3 = ListItem("Career Fair", "Sept 25, 9am-4pm", "Details")
+enrollmentData = |Year|Students
+|2019|11000
+|2020|11250
+|2021|11500
+|2022|11900
+|2023|12340
+applicationsData = |Program|Applications
+|Engineering|2500
+|Arts|1800
+|Science|2100
+|Business|1600
+|Education|900
+teachingLoadData = |Faculty|Courses
+|Dr. Smith|4
+|Prof. Lee|3
+|Dr. Patel|5
+|Dr. Gomez|2
+|Prof. Chen|3
+courseFillData = |Course|Fill %
+|Math 101|95
+|History 202|80
+|Biology 303|88
+|CS 404|92
+|Art 505|70
+housingData = |Residence|Occupancy %
+|Maple Hall|92
+|Oak Hall|85
+|Pine Hall|78
+|Cedar Hall|88
+scholarshipData = |Category|Value
+|Used|75
+|Remaining|25
+alumniGivingData = |Year|Donations
+|2020|500000
+|2021|550000
+|2022|600000
+|2023|650000
+semesterCompareData = |Metric|This Semester|Last Semester
+|Enrollment|12340|11900
+|Revenue|4200|4000
+|Applications|9000|8500
+waitlistData = |Program|Waitlisted
+|Engineering|120
+|Arts|80
+|Science|95
+|Business|60
+|Education|30
+riskNameCol = Col("Student", data:["Alice Johnson","Bob Lee","Catherine Wu"], type:string)
+riskScoreCol = Col("Risk Score", data:[85,78,92], type:number)
+riskAdvisorCol = Col("Advisor", data:["Dr. Smith","Prof. Lee","Dr. Patel"], type:string)

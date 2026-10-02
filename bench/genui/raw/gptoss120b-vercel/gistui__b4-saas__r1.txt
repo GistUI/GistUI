@@ -1,0 +1,71 @@
+root = Card(mrrCard, arrCard, churnCard, signupsChart, planPie, topCustomersTable, riskTable, paymentsTable, featureAdoptionChart, npsCard, periodForm, seatUtilChart, inviteForm)
+
+mrrCard = Card(CardHeader("Monthly Recurring Revenue"), TextContent("$1.2M", size:large), clear)
+arrCard = Card(CardHeader("Annual Recurring Revenue"), TextContent("$14.4M", size:large), clear)
+churnCard = Card(CardHeader("Churn This Month"), TextContent("3.2%", size:large), clear)
+
+signupsChart = Card(CardHeader("New Signups (Last 90 Days)"), LineChart(signupsRows, natural, xLabel:"Date", yLabel:"Signups"), clear)
+
+planPie = Card(CardHeader("Customers by Plan"), PieChart(planLabels, planValues, donut, circular), clear)
+
+topCustomersTable = Card(CardHeader("Top 10 Customers"), Table(customerCol, seatsCol, spendCol), clear)
+
+riskTable = Card(CardHeader("Accounts at Risk"), Table(riskCustomerCol, reasonCol, actionCol), clear)
+
+paymentsTable = Card(CardHeader("Failed Payments"), Table(paymentCustomerCol, amountCol, retryCol), clear)
+
+featureAdoptionChart = Card(CardHeader("Adoption of New Features"), BarChart(featureLabels, featureSeries, grouped, xLabel:"Feature", yLabel:"Adoption %"), clear)
+
+npsCard = Card(CardHeader("Current NPS"), TextContent("68", size:large), clear)
+
+periodForm = Card(CardHeader("Reporting Period"), Form(periodFormName, periodButtons, periodSelectControl))
+periodFormName = Form("reporting-period", periodButtons, periodSelectControl)
+periodButtons = Buttons(Button("Apply"), direction:row)
+periodSelectControl = FormControl("Period", periodSelect)
+periodSelect = Select("period", SelectItem("last_30_days","Last 30 days"), SelectItem("last_90_days","Last 90 days"), SelectItem("last_year","Last Year"), placeholder:"Select period", value:"last_30_days")
+
+seatUtilChart = Card(CardHeader("Seat Utilization"), HorizontalBarChart(seatLabels, seatSeries, stacked, xLabel:"Seats Used", yLabel:"Department"), clear)
+
+inviteForm = Card(CardHeader("Invite Admin"), Form(inviteFormName, inviteButtons, inviteEmailControl))
+inviteFormName = Form("invite-admin", inviteButtons, inviteEmailControl)
+inviteButtons = Buttons(Button("Send Invite", primary), direction:row)
+inviteEmailControl = FormControl("Admin Email", Input("admin_email", "email@example.com", type:email))
+
+signupsRows = |Date|Signups
+|2023-06-01|45
+|2023-06-08|52
+|2023-06-15|48
+|2023-06-22|55
+|2023-07-01|60
+|2023-07-08|58
+|2023-07-15|62
+|2023-07-22|59
+|2023-08-01|65
+|2023-08-08|70
+|2023-08-15|68
+|2023-08-22|73
+|2023-09-01|80
+|2023-09-08|78
+|2023-09-15|85
+|2023-09-22|82
+
+planLabels = ["Basic","Pro","Enterprise"]
+planValues = [1200,3400,5400]
+
+customerCol = Col("Customer", data:["Acme Corp","Beta LLC","Gamma Inc","Delta Co","Epsilon Ltd","Zeta Group","Eta Ventures","Theta Studios","Iota Solutions","Kappa Enterprises"], type:string)
+seatsCol = Col("Seats", data:[250,180,320,210,190,275,150,130,115,140], type:number)
+spendCol = Col("Spend", data:["$300k","$540k","$960k","$630k","$570k","$825k","$450k","$390k","$345k","$420k"], type:string)
+
+riskCustomerCol = Col("Customer", data:["Omega Corp","Sigma LLC"], type:string)
+reasonCol = Col("Reason", data:["Low usage","Payment issues"], type:string)
+actionCol = Col("Action", data:["Review","Contact"], type:action)
+
+paymentCustomerCol = Col("Customer", data:["Alpha Ltd","Beta Ltd"], type:string)
+amountCol = Col("Amount", data:["$1,200","$800"], type:string)
+retryCol = Col("Retry", data:["Retry","Retry"], type:action)
+
+featureLabels = ["Feature A","Feature B","Feature C"]
+featureSeries = Series("Adoption", values:[70,55,40])
+
+seatLabels = ["Engineering","Sales","Marketing","Support","HR"]
+seatSeries = Series("Seats Used", values:[480,150,120,80,60])

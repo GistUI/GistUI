@@ -1,0 +1,75 @@
+root = Card(viewersCard, titlesCard, watchTimeCard, subsCard, genrePerfCard, bufferingCard, deliveryCard, releasesCard, licensesCard, recClickCard, searchFailCard, revenueCard, deviceCard, regionFocusCard, flagsCard, promoteCard)
+
+viewersCard = Card(CardHeader("Current Viewers", "Live count"), TextContent("1,342 viewers watching now", large), clear)
+
+titlesCard = Card(CardHeader("Top Titles (Hours Watched)"), Table(titleCol, hoursCol), clear)
+titleCol = Col("Title", ["Show A","Show B","Show C","Show D"], string)
+hoursCol = Col("Hours", [1240, 1120, 987, 845], number)
+
+watchTimeCard = Card(CardHeader("Watch Time - Last 30 Days"), LineChart(watchRows, linear, xLabel:"Date", yLabel:"Hours"), clear)
+watchRows = |Date|Hours
+|2024-08-01|5400
+|2024-08-08|5620
+|2024-08-15|5890
+|2024-08-22|6100
+|2024-08-29|6350
+
+subsCard = Card(CardHeader("Subscribers vs Cancellations"), BarChart(subRows, grouped, xLabel:"Date", yLabel:"Count"), clear)
+subRows = |Date|New Subscribers|Cancellations
+|2024-08-01|340|120
+|2024-08-08|380|150
+|2024-08-15|410|130
+|2024-08-22|395|140
+|2024-08-29|420|110
+
+genrePerfCard = Card(CardHeader("Performance by Genre"), HorizontalBarChart(genreRows, stacked, xLabel:"Hours", yLabel:"Genre"), clear)
+genreRows = |Genre|Hours
+|Drama|15200
+|Comedy|13400
+|Action|11900
+|Documentary|8700
+|Kids|5600
+
+bufferingCard = Card(CardHeader("Buffering Rate"), TextContent("Avg buffering: 2.3 s per hour", small), clear)
+
+deliveryCard = Card(CardHeader("Delivery Health by Region"), Table(regionCol, healthCol), clear)
+regionCol = Col("Region", ["North America","Europe","Asia","South America","Africa"], string)
+healthCol = Col("Health Score", [96, 92, 88, 85, 80], number)
+
+releasesCard = Card(CardHeader("Releases This Month"), ListBlock(release1, release2, release3, variant:number))
+release1 = ListItem("Series X – Episode 5")
+release2 = ListItem("Movie Y Premiere")
+release3 = ListItem("Documentary Z Part 2")
+
+licensesCard = Card(CardHeader("Licenses Expiring Soon"), ListBlock(license1, license2, variant:number))
+license1 = ListItem("Show A – expires 2024‑09‑15")
+license2 = ListItem("Movie B – expires 2024‑09‑30")
+
+recClickCard = Card(CardHeader("Recommendation Click‑Through Rate"), TextContent("Overall CTR: 4.7 %", small), clear)
+
+searchFailCard = Card(CardHeader("Searches Without Playback"), Table(searchCol, countCol), clear)
+searchCol = Col("Search Term", ["Action movies","Romantic comedies","Kids shows"], string)
+countCol = Col("No‑Play Count", [320, 275, 190], number)
+
+revenueCard = Card(CardHeader("Revenue Split by Plan"), PieChart(planLabels, planValues, donut, circular), clear)
+planLabels = ["Free","Basic","Standard","Premium"]
+planValues = [0, 420000, 860000, 720000]
+
+deviceCard = Card(CardHeader("Viewing Split by Device"), RadarChart(deviceLabels, deviceSeries), clear)
+deviceLabels = ["Mobile","Desktop","TV","Tablet","Console"]
+deviceSeries = Series("Viewers", [3400, 2600, 1900, 800, 500])
+
+regionFocusCard = Card(CardHeader("Focus Region"), Tabs(regionTabUS, regionTabEU, regionTabAS), clear)
+regionTabUS = TabItem("us", "North America", TextContent("Details for North America...", small))
+regionTabEU = TabItem("eu", "Europe", TextContent("Details for Europe...", small))
+regionTabAS = TabItem("as", "Asia", TextContent("Details for Asia...", small))
+
+flagsCard = Card(CardHeader("Feature Flags"), Table(flagCol, stateCol), clear)
+flagCol = Col("Feature", ["New UI","Live Chat","Beta Recommendations"], string)
+stateCol = Col("Enabled", ["Yes","No","Yes"], string)
+
+promoteCard = Card(CardHeader("Promote Title"), Form("promote-form", promoButtons, promoTitleField, promoDescField, promoDateField))
+promoTitleField = FormControl("Title to Promote", Input("title", "Enter title"))
+promoDescField = FormControl("Description", TextArea("desc", "Enter description", rows:3))
+promoDateField = FormControl("Start Date", DatePicker("start", mode:single))
+promoButtons = Buttons(Button("Promote", primary), Button("Cancel", tertiary))

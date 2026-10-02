@@ -1,0 +1,3 @@
+root = Stack(a, b)
+a = Text("this string never closes
+b = Text("the next line still parses")

@@ -1,0 +1,41 @@
+root = Card(overallOEE, unitsTarget, linesSection, defectChart, downtimeChart, maintenanceTable, stockTable, deliveriesTable, shiftComparison, safetySection, holdBatches, energyCard, workOrdersTable, scheduleForm, focusLineButton, andonAlerts, exportButtons)
+
+overallOEE = Card(CardHeader("Overall Equipment Effectiveness"), TextContent("OEE: **85%**", size:large), clear)
+
+unitsTarget = Card(CardHeader("Production Today"), TextContent("Units produced: **12,340** / Target: **15,000**", size:default), clear)
+
+linesSection = Card(CardHeader("Production Lines"), HorizontalBarChart(["Line A","Line B","Line C","Line D"], Series("Rate", [110,95,78,102]), variant:grouped, xLabel:"Units/hr", yLabel:"Line"), TagBlock(["Running","Stopped","Maintenance"]), clear)
+
+defectChart = Card(CardHeader("Defect Rate (Last 30 days)"), LineChart(|Date|Defect %\n|2023-08-01|2.1\n|2023-08-08|1.8\n|2023-08-15|2.4\n|2023-08-22|1.9\n|2023-08-29|2.0|, linear, xLabel:"Date", yLabel:"Defect %"), clear)
+
+downtimeChart = Card(CardHeader("Downtime by Cause"), PieChart(["Mechanical","Electrical","Setup","Changeover"], [40,25,20,15], donut, circular), clear)
+
+maintenanceTable = Card(CardHeader("Machines Due for Maintenance"), Table(Col("Machine ID", ["M-101","M-204","M-309"], type:string), Col("Due Date", ["2023-09-15","2023-09-20","2023-09-25"], type:string), Col("Priority", ["High","Medium","Low"], type:string)), clear)
+
+stockTable = Card(CardHeader("Material Stock"), Table(Col("Material", ["Steel","Resin","Packaging"], type:string), Col("Qty (units)", [1200,800,1500], type:number)), clear)
+
+deliveriesTable = Card(CardHeader("Supplier Deliveries Due This Week"), Table(Col("Supplier", ["SteelCo","ResinLtd","PackInc"], type:string), Col("Expected Date", ["2023-09-12","2023-09-13","2023-09-14"], type:string), Col("Qty", [500,300,400], type:number)), clear)
+
+shiftComparison = Card(CardHeader("Shift Output Comparison"), BarChart(|Shift|Output\n|Shift 1|4000\n|Shift 2|3800\n|Shift 3|4200|, grouped, xLabel:"Shift", yLabel:"Units"), clear)
+
+safetySection = Card(CardHeader("Safety Incidents (Year)"), TextContent("Incidents: **3**\nDays since last: **45**", size:default), clear)
+
+holdBatches = Card(CardHeader("Batches on Quality Hold"), Table(Col("Batch ID", ["B-001","B-007"], type:string), Col("Reason", ["Surface defect","Material variance"], type:string)), clear)
+
+energyCard = Card(CardHeader("Energy Use Today"), TextContent("Energy consumed: **1,250 kWh**", size:default), clear)
+
+workOrdersTable = Card(CardHeader("Open Work Orders"), Table(Col("WO ID", ["WO-112","WO-118","WO-124"], type:string), Col("Priority", ["High","Medium","High"], type:string), Col("Description", ["Repair line B motor","Calibrate sensor C","Replace filter D"], type:string)), clear)
+
+scheduleForm = Form("schedule-maintenance", scheduleButtons, machineField, dateField)
+
+machineField = FormControl("Machine ID", Select("machine_id", SelectItem("M-101","M-101"), SelectItem("M-204","M-204"), SelectItem("M-309","M-309"), placeholder:"Select machine", value:"", size:medium))
+
+dateField = FormControl("Maintenance Date", Input("date", "YYYY-MM-DD", type:text), "Enter planned date")
+
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", secondary))
+
+focusLineButton = Buttons(Button("Focus on Line A", primary))
+
+andonAlerts = Card(CardHeader("Live Andon Alerts"), ListBlock(ListItem("Line B - Stoppage", "Mechanical failure", "Acknowledge", []), ListItem("Line D - Quality Alert", "High defect rate", "Acknowledge", []), variant:number), clear)
+
+exportButtons = Buttons(Button("Export Shift Report", primary))

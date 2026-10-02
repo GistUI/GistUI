@@ -1,0 +1,29 @@
+root = Card(courseHeader, progressSection, modulesSection, nextLessonSection, ratingSection, actions)
+
+courseHeader = CardHeader("Mastering Data Science", "Prof. Jane Doe")
+
+progressSection = Card(Heading("Overall Progress", h3), progressBar)
+
+modulesSection = Card(Heading("Modules", h3), modulesTable)
+
+nextLessonSection = Card(Heading("Next Lesson", h3), nextLessonCallout)
+
+ratingSection = Card(Heading("Average Rating", h3), ratingTag)
+
+actions = Buttons(continueBtn, viewBtn)
+
+progressBar = Progress(75, "75%")
+
+nextLessonCallout = Callout(variant:info, "Next Lesson", "Modeling – Decision Trees")
+
+ratingTag = Tag("4.5 ★", variant:info)
+
+continueBtn = Button("Continue", variant:primary)
+
+viewBtn = Button("View Course", variant:secondary)
+
+modulesTable = Table(moduleCol, statusCol)
+
+moduleCol = Col("Module", data:["Intro","Data Cleaning","Modeling","Evaluation","Deployment"], type:string)
+
+statusCol = Col("Status", data:["Completed","Completed","In Progress","Locked","Locked"], type:string)

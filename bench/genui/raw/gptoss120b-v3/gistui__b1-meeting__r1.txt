@@ -1,0 +1,8 @@
+root = Card(meetingHeader, attendeesSection, joinActions)
+meetingHeader = CardHeader("Team Sync", "Sep 30, 2026, 10:00 AM")
+attendeesSection = Card(Heading("Attendees", h3), attendeesList)
+attendeesList = ListBlock(attendee1, attendee2, attendee3)
+attendee1 = ListItem("Alice Johnson", "Product Manager")
+attendee2 = ListItem("Bob Smith", "Engineer")
+attendee3 = ListItem("Carol Lee", "Designer")
+joinActions = Buttons(Button("Join Call", primary))

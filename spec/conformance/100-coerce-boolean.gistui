@@ -1,0 +1,3 @@
+root = Row(Table(t, sort:"true"), Table(t, sort:false), Table(t, sort:1), Table(t, sort:"yes"))
+t = |a
+|1

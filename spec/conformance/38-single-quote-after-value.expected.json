@@ -1,0 +1,42 @@
+{
+  "tree": {
+    "type": "Text",
+    "props": {
+      "content": "a"
+    }
+  },
+  "errors": [
+    {
+      "code": "parse-failed",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "parse-failed",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "excess-args",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": true
+  }
+}

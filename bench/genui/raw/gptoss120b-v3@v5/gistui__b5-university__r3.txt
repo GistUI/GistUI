@@ -1,0 +1,105 @@
+root = Card(header, deptFilter, enrollmentTrend, applicationsChart, acceptancePie, tuitionRevenue, courseFullness, teachingLoad, riskTable, scholarshipPie, housingChart, eventsList, alumniGiving, semesterCompare, waitlistChart, actions)
+
+header = CardHeader("University Overview", "Key metrics and actions")
+
+deptFilter = Form("dept-select", filterButtons, deptSelect)
+
+deptSelect = Select("department", SelectItem("all", "All Departments"), SelectItem("science", "Science"), SelectItem("arts", "Arts"), SelectItem("engineering", "Engineering"), placeholder:"Select department", value:"all")
+
+filterButtons = Buttons(Button("Filter", primary))
+
+enrollmentTrend = Card(Heading("Total Enrollment (5 years)", h3), LineChart(enrollmentData, linear, xLabel:"Year", yLabel:"Students"))
+
+enrollmentData = |Year|Enrollment
+|2019|15200
+|2020|15800
+|2021|16250
+|2022|16700
+|2023|17120
+
+applicationsChart = Card(Heading("Applications by Program", h3), BarChart(applicationsData, grouped, xLabel:"Program", yLabel:"Applications"))
+
+applicationsData = |Program|Applications
+|Engineering|4200
+|Science|3800
+|Arts|2100
+|Business|3300
+|Education|1900
+
+acceptancePie = Card(Heading("Overall Acceptance Rate", h3), PieChart(acceptanceLabels, acceptanceValues, donut, circular))
+
+acceptanceLabels = |Category|
+|Accepted|
+|Rejected|
+
+acceptanceValues = |Value|
+|68|
+|32|
+
+tuitionRevenue = Card(Heading("Tuition Revenue (Current Year)", h3), TextContent("$12.4M", size:large))
+
+courseFullness = Card(Heading("Course Offering Capacity Utilization", h3), HorizontalBarChart(courseLabels, Series("Utilization", courseUtil), stacked, xLabel:"% Full", yLabel:"Course"))
+
+courseLabels = ["Math 101","Physics 201","Chemistry 301","History 101","Economics 202"]
+courseUtil = [92,85,78,88,81]
+
+teachingLoad = Card(Heading("Teaching Load by Faculty", h3), BarChart(facultyLoadData, grouped, xLabel:"Faculty", yLabel:"Courses"))
+
+facultyLoadData = |Faculty|Courses
+|Dr. Smith|3
+|Prof. Lee|4
+|Dr. Patel|2
+|Prof. Gomez|5
+|Dr. Nguyen|3
+
+riskTable = Card(Heading("Students at Academic Risk", h3), Table(riskCol1, riskCol2, riskCol3))
+
+riskCol1 = Col("Student ID", ["S1023","S1087","S1150","S1199"], type:string)
+riskCol2 = Col("Name", ["Alice","Bob","Carlos","Diana"], type:string)
+riskCol3 = Col("GPA", [2.1,2.3,2.0,2.2], type:number)
+
+scholarshipPie = Card(Heading("Scholarship Budget Used", h3), PieChart(scholarshipLabels, scholarshipValues, pie, circular))
+
+scholarshipLabels = |Category|
+|Used|
+|Remaining|
+
+scholarshipValues = |Value|
+|45|
+|55|
+
+housingChart = Card(Heading("Housing Occupancy", h3), HorizontalBarChart(housingLabels, Series("Occupancy", housingVals), grouped, xLabel:"% Occupied", yLabel:"Residence Hall"))
+
+housingLabels = ["North Hall","East Hall","South Hall","West Hall"]
+housingVals = [94,88,76,81]
+
+eventsList = Card(Heading("Campus Events This Month", h3), ListBlock(event1, event2, event3, variant:number))
+
+event1 = ListItem("Research Symposium", "Jan 12, 10am", "Details")
+event2 = ListItem("Alumni Reunion", "Jan 20, 6pm", "Details")
+event3 = ListItem("Winter Concert", "Jan 28, 7pm", "Details")
+
+alumniGiving = Card(Heading("Alumni Giving (Past 4 Years)", h3), LineChart(alumniData, natural, xLabel:"Year", yLabel:"Donations"))
+
+alumniData = |Year|Donations
+|2020|1.2M
+|2021|1.35M
+|2022|1.5M
+|2023|1.68M
+
+semesterCompare = Card(Heading("Current vs Last Semester", h3), TextContent("Enrollment increased by 3.5% compared to the previous semester.", size:default))
+
+waitlistChart = Card(Heading("Waitlisted Students per Program", h3), BarChart(waitlistData, grouped, xLabel:"Program", yLabel:"Waitlisted"))
+
+waitlistData = |Program|Waitlisted
+|Engineering|120
+|Science|95
+|Arts|40
+|Business|70
+|Education|30
+
+actions = Card(Buttons(approveButton, messageButton, direction:row))
+
+approveButton = Button("Approve New Course", primary)
+
+messageButton = Button("Message Student Group", primary)

@@ -1,0 +1,41 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Callout",
+        "props": {
+          "content": "Heads up",
+          "tone": "warning"
+        }
+      },
+      {
+        "type": "Stat",
+        "props": {
+          "label": "a",
+          "value": "b",
+          "delta": "c"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "positional-optional",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "excess-args",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "tree": {
+    "type": "Header",
+    "props": {
+      "title": "Billing",
+      "subtitle": "2026"
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

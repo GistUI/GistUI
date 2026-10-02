@@ -1,0 +1,71 @@
+root = Card(header, kpiRow, mainTabs, gap:l)
+header = Card(CardHeader("HR & Talent Acquisition Dashboard", "Q2 Headcount, Recruitment Pipeline & Retention Overview"), newRoleDialog, direction:row, justify:between, align:center)
+
+newRoleDialog = DialogBlock("Open New Role", "Create a New Job Requisition", newRoleForm, description:"Fill out role details and requirements to open a new requisition.", triggerVariant:default)
+newRoleForm = Form("new-role-form", newRoleButtons, roleTitleField, deptField, seniorityField, hiringManagerField)
+roleTitleField = FormControl("Job Title", Input("job_title", "e.g. Senior Frontend Engineer"))
+deptField = FormControl("Department", deptSelect)
+deptSelect = Select("dept", SelectItem("eng", "Engineering"), SelectItem("product", "Product & Design"), SelectItem("sales", "Sales & Marketing"), SelectItem("ops", "Operations & HR"), SelectItem("finance", "Finance & Legal"), placeholder:"Select department")
+seniorityField = FormControl("Level", senioritySelect)
+senioritySelect = Select("level", SelectItem("ic_mid", "Mid IC"), SelectItem("ic_sr", "Senior IC"), SelectItem("lead", "Team Lead / Staff"), SelectItem("mgr", "Manager / Director"), placeholder:"Select seniority level")
+hiringManagerField = FormControl("Hiring Manager Email", Input("hm_email", "hiring.manager@company.com", email))
+newRoleButtons = Buttons(Button("Publish Requisition", primary), Button("Save Draft", secondary))
+
+kpiRow = Card(kpiHeadcount, kpiTimeHire, kpiInterviewsWeek, kpiOpenRoles, direction:row, gap:m)
+kpiHeadcount = Card("### 342", "Current Headcount (+14 this quarter)", Tag("94% to target", success), sunk)
+kpiTimeHire = Card("### 28.5 Days", "Average Time to Hire", Tag("-4.2 days vs Q1", info), sunk)
+kpiInterviewsWeek = Card("### 34", "Interviews Scheduled This Week", Tag("8 final rounds", warning), sunk)
+kpiOpenRoles = Card("### 18", "Active Open Positions", Tag("Across 5 departments", neutral), sunk)
+
+mainTabs = Tabs(pipelineTab, rolesTab, headcountTab, retentionTab)
+
+pipelineTab = TabItem("pipeline", "Candidate Pipeline", pipelineCard, interviewsCard)
+pipelineCard = Card(Heading("Candidates at Each Pipeline Stage", h3), BarChart(pipelineData, variant:grouped, xLabel:"Stage", yLabel:"Candidates"), sunk)
+pipelineData = |Stage|Active Candidates
+|Sourced|142
+|Screening|68
+|Technical / Case|34
+|Hiring Manager|19
+|Final Round|11
+|Offer Extended|5
+
+interviewsCard = Card(Heading("Interviews Scheduled This Week (34 Total)", h3), Table(interviewScheduleData), sunk)
+interviewScheduleData = |Day|Candidate|Role|Interviewer|Stage
+|Mon 10:00 AM|Alex Rivera|Staff Data Engineer|P. Chen|Technical Interview
+|Mon 02:30 PM|Sarah Lindqvist|Senior Product Designer|M. Davis|Portfolio Review
+|Tue 11:00 AM|Kevin Zhang|Account Executive|L. Harris|HM Screening
+|Tue 03:00 PM|Elena Rostova|Engineering Manager|E. Thorne (CTO)|Final Executive
+|Wed 01:30 PM|David Kim|Senior DevOps Engineer|J. Wu|Technical Deep Dive
+|Thu 10:30 AM|Maya Patel|Financial Analyst|R. Vance (CFO)|Final Round
+|Fri 04:00 PM|Tom Miller|Product Marketing Lead|S. Gomez (VP Mkt)|Offer Discussion
+
+rolesTab = TabItem("open_roles", "Open Roles & Departments", openRolesTableCard)
+openRolesTableCard = Card(Heading("Active Open Requisitions", h3), Table(openRolesData), sunk)
+openRolesData = |Requisition ID|Role Title|Department|Open Date|Time in Funnel|Applicants
+|REQ-204|Staff Backend Architect|Engineering|Apr 02|26 days|48
+|REQ-208|Senior Product Designer|Product & Design|Apr 14|14 days|32
+|REQ-211|Enterprise AE (EMEA)|Sales & Marketing|Mar 18|41 days|29
+|REQ-215|Senior Security Engineer|Engineering|Apr 08|20 days|19
+|REQ-219|HR People Partner|Operations & HR|Apr 20|8 days|54
+|REQ-222|Staff Data Engineer|Engineering|Mar 28|31 days|22
+|REQ-224|Strategic Finance Analyst|Finance & Legal|Apr 11|17 days|18
+|REQ-226|Fullstack Engineer (Core)|Engineering|Apr 19|9 days|63
+
+headcountTab = TabItem("headcount", "Headcount Breakdown", deptHCSplitCard)
+deptHCSplitCard = Card(Heading("Headcount Split by Department", h3), HorizontalBarChart(deptHCData, variant:grouped, xLabel:"Department", yLabel:"Employees"), sunk)
+deptHCData = |Department|Current Headcount
+|Engineering|148
+|Sales & Marketing|96
+|Product & Design|44
+|Operations & HR|31
+|Finance & Legal|23
+
+retentionTab = TabItem("retention", "Attrition & Retention", attritionCard)
+attritionCard = Card(Heading("Attrition Over Past Six Months", h3), LineChart(attritionData, variant:natural, xLabel:"Month", yLabel:"Departures"), sunk)
+attritionData = |Month|Voluntary Departures|Involuntary Departures
+|Nov|3|1
+|Dec|2|0
+|Jan|4|1
+|Feb|2|1
+|Mar|1|0
+|Apr|2|0

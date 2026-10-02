@@ -1,0 +1,121 @@
+root = Card(CardHeader("Emergency Response Coordination Center"), mainSections, actions)
+
+mainSections = SectionBlock(incidentsSection, summarySection, resourcesSection, sheltersSection, routesSection, weatherSection, casualtiesSection, volunteersSection, donationsSection, aidRequestsSection, commsSection, roadsSection, hospitalsSection, tasksSection, focusSection, reportSection, isFoldable)
+
+incidentsSection = SectionItem("incidents", "Active Incidents", incidentsTable, severityChart)
+incidentsTable = Table(
+  Col("Zone", data:["North","South","East","West"], type:string),
+  Col("Severity", data:["High","Medium","Low","Medium"], type:string),
+  Col("Count", data:[5,3,2,4], type:number)
+)
+severityChart = HorizontalBarChart(labels:["High","Medium","Low"], Series("Incidents", values:[5,9,6]), variant:stacked, xLabel:"Count", yLabel:"Severity")
+
+summarySection = SectionItem("summary", "Overall Severity Summary", summaryChart)
+summaryChart = PieChart(labels:["High","Medium","Low"], values:[5,9,6], variant:donut, appearance:circular)
+
+resourcesSection = SectionItem("resources", "Available Vehicles, Personnel, Supplies", resourcesTable)
+resourcesTable = Table(
+  Col("Resource", data:["Vehicles","Personnel","Supplies"], type:string),
+  Col("Available", data:[12,45,300], type:number)
+)
+
+sheltersSection = SectionItem("shelters", "Shelters Capacity & Occupancy", sheltersTable)
+sheltersTable = Table(
+  Col("Shelter", data:["Shelter A","Shelter B","Shelter C"], type:string),
+  Col("Capacity", data:[100,150,80], type:number),
+  Col("Occupied", data:[75,120,60], type:number)
+)
+
+routesSection = SectionItem("routes", "Evacuation Route Status", routesTable)
+routesTable = Table(
+  Col("Route", data:["Route 1","Route 2","Route 3"], type:string),
+  Col("Status", data:["Open","Closed","Open"], type:string)
+)
+
+weatherSection = SectionItem("weather", "48‑Hour Weather Forecast", weatherTable)
+weatherTable = Table(
+  Col("Time", data:["Now","+12h","+24h","+36h","+48h"], type:string),
+  Col("Forecast", data:["Rain","Clear","Storm","Clear","Rain"], type:string),
+  Col("Temp (°C)", data:[22,20,18,19,21], type:number)
+)
+
+casualtiesSection = SectionItem("casualties", "People Rescued & Casualties", casualtiesTable)
+casualtiesTable = Table(
+  Col("Metric", data:["Rescued","Casualties"], type:string),
+  Col("Count", data:[340,12], type:number)
+)
+
+volunteersSection = SectionItem("volunteers", "Volunteers on Duty", volunteersTable)
+volunteersTable = Table(
+  Col("Volunteer", data:["Alice","Bob","Charlie"], type:string),
+  Col("Assignment", data:["Logistics","Medical","Transport"], type:string)
+)
+
+donationsSection = SectionItem("donations", "Donations Received", donationsTable)
+donationsTable = Table(
+  Col("Donor", data:["Corp A","Indiv B","Org C"], type:string),
+  Col("Amount ($)", data:[50000,12000,30000], type:number)
+)
+
+aidRequestsSection = SectionItem("aidRequests", "Aid Requests Awaiting Action", aidRequestsTable)
+aidRequestsTable = Table(
+  Col("Request ID", data:["REQ-001","REQ-002","REQ-003"], type:string),
+  Col("Location", data:["North","East","South"], type:string),
+  Col("Needed", data:["Water","Food","Medical Supplies"], type:string)
+)
+
+commsSection = SectionItem("comms", "Communication Channels Status", commsTable)
+commsTable = Table(
+  Col("Channel", data:["Radio","Satellite","Cellular"], type:string),
+  Col("Status", data:["Up","Down","Up"], type:string)
+)
+
+roadsSection = SectionItem("roads", "Closed Roads", roadsTable)
+roadsTable = Table(
+  Col("Road", data:["Highway 5","Main St","Bridge X"], type:string),
+  Col("Reason", data:["Flood","Landslide","Damage"], type:string)
+)
+
+hospitalsSection = SectionItem("hospitals", "Nearby Hospitals with Free Beds", hospitalsTable)
+hospitalsTable = Table(
+  Col("Hospital", data:["General Hospital","City Clinic"], type:string),
+  Col("Free Beds", data:[12,5], type:number)
+)
+
+tasksSection = SectionItem("tasks", "Open Tasks", tasksTable)
+tasksTable = Table(
+  Col("Task", data:["Assess Zone North","Restock Shelter B"], type:string),
+  Col("Assignee", data:["Team A","Team B"], type:string)
+)
+
+focusSection = SectionItem("focus", "Focus on One Zone", focusForm)
+focusForm = Form("focus-zone", focusButtons, focusSelect)
+focusSelect = Select("zone", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Select zone")
+focusButtons = Buttons(Button("Set Focus", primary))
+
+reportSection = SectionItem("report", "File Situation Report", reportForm)
+reportForm = Form("situation-report", reportButtons, reportText)
+reportText = FormControl("Report", TextArea("report", "Enter details...", "", rows:5))
+reportButtons = Buttons(Button("Submit Report", primary))
+
+actions = Buttons(
+  Button("Request Resources", secondary),
+  Button("Broadcast Update", secondary),
+  Button("Open Tasks", secondary),
+  direction:row
+)
+
+requestResources = DialogBlock("Request Resources", "Add Resources", 
+  Form("resource-request", requestButtons, typeSelect, qtyInput), 
+  description:"Add more vehicles, personnel, or supplies", triggerVariant:primary)
+typeSelect = Select("type", SelectItem("Vehicle","Vehicle"), SelectItem("Personnel","Personnel"), SelectItem("Supply","Supply"), placeholder:"Resource type")
+qtyInput = FormControl("Quantity", Input("quantity", "Enter number...", type:number))
+requestButtons = Buttons(Button("Add", primary))
+
+broadcastUpdate = DialogBlock("Broadcast Update", "Send Update", 
+  Form("broadcast", broadcastButtons, messageInput), 
+  description:"Send a message to all channels", triggerVariant:primary)
+messageInput = FormControl("Message", TextArea("msg", "Enter update...", "", rows:4))
+broadcastButtons = Buttons(Button("Send", primary))
+
+actions = Buttons(Button("Request Resources", primary), Button("Broadcast Update", primary), direction:row)

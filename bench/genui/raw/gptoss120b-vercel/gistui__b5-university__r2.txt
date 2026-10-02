@@ -1,0 +1,118 @@
+root = Card(header, filterForm, sections, actions, clear)
+
+header = CardHeader("University Dashboard", "Overview of key metrics")
+
+filterForm = Form("dept-filter", formButtons, deptControl)
+deptControl = FormControl("Department", deptSelect)
+deptSelect = Select("department", SelectItem("All", "All Departments"), SelectItem("Science", "Science"), SelectItem("Arts", "Arts"), placeholder:"Select department")
+formButtons = Buttons(Button("Apply", primary))
+
+sections = SectionBlock(item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item13, item14, isFoldable)
+
+item1 = SectionItem("enrollment", "Enrollment", enrollmentTotal, enrollmentChart)
+enrollmentTotal = TextContent("Total enrollment: 12,345", size:large)
+enrollmentChart = LineChart(enrollmentTrend, natural, xLabel:"Year", yLabel:"Students")
+
+item2 = SectionItem("applications", "Applications by Program", applicationsChart)
+applicationsChart = BarChart(applicationsData, grouped, xLabel:"Program", yLabel:"Applications")
+
+item3 = SectionItem("acceptance", "Acceptance Rate", acceptanceChart)
+acceptanceChart = SingleStackedBarChart(acceptanceData)
+
+item4 = SectionItem("tuition", "Tuition Revenue", tuitionText)
+tuitionText = TextContent("Tuition revenue this year: $4.2M", size:large)
+
+item5 = SectionItem("coursefill", "Course Fill Rates", courseFillTable)
+
+item6 = SectionItem("teachingload", "Teaching Load by Faculty", teachingLoadChart)
+
+item7 = SectionItem("risk", "Students at Academic Risk", riskTable)
+
+item8 = SectionItem("scholarship", "Scholarship Budget Used", scholarshipChart)
+
+item9 = SectionItem("housing", "Housing Occupancy", housingTable)
+
+item10 = SectionItem("events", "Campus Events This Month", eventsList)
+
+item11 = SectionItem("alumni", "Alumni Giving (Past 4 Years)", alumniGivingChart)
+
+item13 = SectionItem("semestercomp", "This Semester vs Last", semesterCompChart)
+
+item14 = SectionItem("waitlist", "Waitlisted Students per Program", waitlistChart)
+
+actions = Buttons(approveButton, messageButton)
+
+approveButton = Button("Approve New Course", primary)
+messageButton = Button("Message Student Group", secondary)
+
+enrollmentTrend = |Year|Students
+|2019|11000
+|2020|11250
+|2021|11500
+|2022|11900
+|2023|12345
+
+applicationsData = |Program|Applications
+|Engineering|2500
+|Arts|1800
+|Science|2200
+|Business|2000
+|Education|1500
+
+acceptanceData = |Category|Amount
+|Accepted|68
+|Rejected|25
+|Waitlisted|7
+
+teachingLoadChart = BarChart(teachingLoadData, grouped, xLabel:"Faculty", yLabel:"Load (hrs)")
+
+teachingLoadData = |Faculty|Load
+|Dr. Smith|12
+|Prof. Lee|10
+|Dr. Patel|14
+|Prof. Gomez|9
+|Dr. Chen|11
+
+riskTable = Table(riskNameCol, riskLevelCol)
+riskNameCol = Col("Student", data:["Alice Johnson","Bob Lee","Carlos Martinez"], type:string)
+riskLevelCol = Col("Risk Level", data:["High","Medium","High"], type:string)
+
+scholarshipChart = SingleStackedBarChart(scholarshipData)
+
+scholarshipData = |Category|Amount
+|Used|1.2M
+|Remaining|0.8M
+
+housingTable = Table(housingHallCol, occupancyCol)
+housingHallCol = Col("Residence Hall", data:["Maple","Oak","Pine","Cedar"], type:string)
+occupancyCol = Col("Occupancy %", data:[92,85,78,88], type:number)
+
+eventsList = ListBlock(event1, event2, event3, variant:number)
+event1 = ListItem("Career Fair", "April 12", "Details")
+event2 = ListItem("Guest Lecture: AI", "April 15", "Details")
+event3 = ListItem("Homecoming", "April 20", "Details")
+
+alumniGivingChart = LineChart(alumniGivingData, natural, xLabel:"Year", yLabel:"Donations")
+alumniGivingData = |Year|Donations
+|2019|500000
+|2020|550000
+|2021|600000
+|2022|620000
+
+semesterCompChart = BarChart(semesterCompData, grouped, xLabel:"Metric", yLabel:"Count")
+semesterCompData = |Metric|Current|Previous
+|Enrollments|12345|11900
+|Applications|6000|5800
+|Revenue|4.2M|4.0M
+
+waitlistChart = BarChart(waitlistData, grouped, xLabel:"Program", yLabel:"Waitlisted")
+waitlistData = |Program|Waitlisted
+|Engineering|120
+|Arts|80
+|Science|95
+|Business|70
+|Education|60
+
+courseFillTable = Table(courseCol, fillCol)
+courseCol = Col("Course", data:["Math 101","History 201","Biology 150","Chemistry 210","Physics 101"], type:string)
+fillCol = Col("Fill %", data:[45,78,60,90,55], type:number)

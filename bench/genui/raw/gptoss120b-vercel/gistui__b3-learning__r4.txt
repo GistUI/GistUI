@@ -1,0 +1,53 @@
+root = Card(header, cohortSection, metricsRow, enrollmentChart, riskTable, engagementChart, messageForm)
+
+header = CardHeader("Training Platform Analytics")
+
+cohortSection = Card(TextContent("Select Cohort", size:default), cohortSelect)
+
+cohortSelect = Select("cohort", SelectItem("Cohort A","Cohort A"), SelectItem("Cohort B","Cohort B"), placeholder:"Select cohort")
+
+metricsRow = Card(metricActive, metricCompletion, metricQuiz, direction:row, gap:m, wrap)
+
+metricActive = Card(MarkDownRenderer("**Active Learners This Week**\n1245", variant:clear))
+
+metricCompletion = Card(MarkDownRenderer("**Course Completion Rate**\n78%", variant:clear))
+
+metricQuiz = Card(MarkDownRenderer("**Average Quiz Score**\n85%", variant:clear))
+
+enrollmentChart = HorizontalBarChart(enrollmentRows, variant:grouped, xLabel:"Enrollments", yLabel:"Course")
+
+enrollmentRows = |Course|Enrollments
+|Intro to AI|340
+|Data Science Basics|280
+|Advanced Python|210
+|UX Design|150
+|Project Management|120
+
+riskTable = Table(riskRows)
+
+riskRows = |Learner|Risk Score
+|Alice|85
+|Bob|78
+|Charlie|92
+|Dana|67
+|Evan|90
+
+engagementChart = LineChart(engagementRows, natural, xLabel:"Week", yLabel:"Engagement Score")
+
+engagementRows = |Week|Engagement
+|W1|65
+|W2|70
+|W3|68
+|W4|72
+|W5|74
+|W6|77
+|W7|79
+|W8|81
+
+messageForm = Form("cohort-message", messageButtons, messageControl)
+
+messageButtons = Buttons(Button("Send", primary))
+
+messageControl = FormControl("Message", messageArea)
+
+messageArea = TextArea("message", "Enter message to cohort...", "", rows:4)

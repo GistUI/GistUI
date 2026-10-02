@@ -1,0 +1,32 @@
+root = Card(cardHeader, dealInfo, activityTable, contactsTable, followupsTable, noteForm, renewalCallout, logCallBlock)
+
+cardHeader = CardHeader("Acme Corp – Account", "Owner: Jane Doe")
+
+dealInfo = Card(TextContent("**Total Deal Value:** $1.2M", large), TextContent("**Current Stage:** Negotiation", large), wrap)
+
+activityTable = Table(activityCol, dateCol, typeCol)
+activityCol = Col("Activity", ["Called client", "Sent proposal", "Meeting scheduled"], string)
+dateCol = Col("Date", ["2024-09-20", "2024-09-18", "2024-09-22"], string)
+typeCol = Col("Type", ["Call", "Email", "Meeting"], string)
+
+contactsTable = Table(nameCol, roleCol, emailCol)
+nameCol = Col("Name", ["John Smith", "Emily Davis"], string)
+roleCol = Col("Role", ["Decision Maker", "Technical Lead"], string)
+emailCol = Col("Email", ["john.smith@acme.com", "e.davis@acme.com"], string)
+
+followupsTable = Table(taskCol, dueCol, statusCol)
+taskCol = Col("Follow‑up", ["Prepare contract", "Review legal terms"], string)
+dueCol = Col("Due Date", ["2024-10-05", "2024-10-10"], string)
+statusCol = Col("Status", ["Open", "Open"], string)
+
+noteForm = Form("note", noteButtons, noteField)
+noteField = FormControl("Note", TextArea("note", "Enter note...", "", 4), "Add details about recent interactions")
+noteButtons = Buttons(Button("Save", primary))
+
+renewalCallout = Callout(warning, "Renewal Date Approaching", "Renewal on 2024-10-02 – less than 7 days left")
+
+logCallBlock = DialogBlock("Log Call", "Log a Call", callForm, description:"Record call details")
+callForm = Form("logcall", callButtons, callNotes, callResult)
+callNotes = FormControl("Notes", TextArea("call_notes", "Call summary...", "", 3))
+callResult = FormControl("Result", Select("call_result", SelectItem("Successful", "Successful"), SelectItem("Voicemail", "Voicemail"), SelectItem("No answer", "No answer"), placeholder:"Select result"))
+callButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))

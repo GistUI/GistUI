@@ -1,0 +1,3 @@
+root = Plot(rows)
+rows = |Name|Spend:n|Code:s
+|Ada|$1,200|007

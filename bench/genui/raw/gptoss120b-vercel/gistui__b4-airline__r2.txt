@@ -1,0 +1,72 @@
+root = Card(header, hubForm, performanceSection, flightsSection, delayedCallout, gateChangesSection, crewsSection, weatherSection, passengerLoadSection, connectionsSection, rebookForm, cancellationsSection, turnaroundSection)
+
+header = CardHeader("Hub Operations Dashboard", "Select hub and monitor status")
+
+hubForm = Form("hub-switch", hubButtons, hubSelectControl)
+hubButtons = Buttons(Button("Switch Hub"))
+hubSelectControl = FormControl("Hub", hubSelectInput)
+hubSelectInput = Select("hub", SelectItem("JFK", "JFK"), SelectItem("LAX", "LAX"), SelectItem("ORD", "ORD"), placeholder:"Select hub")
+
+performanceSection = Card(Heading("On-time Performance", h3), TextContent("**92%**", size:large))
+flightsSection = Card(Heading("Flights", h3), flightsTable)
+flightsTable = Table(flightsRows)
+
+delayedCallout = Callout(variant:warning, "Delayed Flights", "2 flights delayed: DL202, UA303")
+gateChangesSection = Card(Heading("Recent Gate Changes", h3), gateChangesTable)
+gateChangesTable = Table(gateChangesRows)
+
+crewsSection = Card(Heading("Crews Available", h3), crewsTable)
+crewsTable = Table(crewsRows)
+
+weatherSection = Card(Heading("Weather Advisories", h3), weatherCallout)
+weatherCallout = Callout(variant:info, "Advisories", "Wind: Strong crosswinds at 15 kt\nVisibility: Reduced to 2 km")
+
+passengerLoadSection = Card(Heading("Average Passenger Load", h3), passengerLoadTable)
+passengerLoadTable = Table(passengerLoadRows)
+
+connectionsSection = Card(Heading("Connections at Risk", h3), connectionsTable)
+connectionsTable = Table(connectionsRows)
+
+rebookForm = Form("rebook-passenger", rebookButtons, passengerNameField, newFlightField)
+rebookButtons = Buttons(Button("Rebook Passenger", primary))
+passengerNameField = FormControl("Passenger name", Input("passenger_name", placeholder:"Enter name"))
+newFlightField = FormControl("New flight", newFlightSelect)
+newFlightSelect = Select("new_flight", SelectItem("AA101", "AA101"), SelectItem("DL202", "DL202"), placeholder:"Select flight")
+
+cancellationsSection = Card(Heading("Cancellations Today", h3), cancellationsTable)
+cancellationsTable = Table(cancellationsRows)
+
+turnaroundSection = Card(Heading("Average Turnaround Time", h3), turnaroundTable)
+turnaroundTable = Table(turnaroundRows)
+
+flightsRows = |Flight|Route|Gate|Status
+|AA101|NYC → LAX|A12|On Time
+|DL202|ATL → JFK|B5|Delayed
+|UA303|ORD → SFO|C3|On Time
+|SW404|DAL → MIA|D7|Cancelled
+
+gateChangesRows = |Flight|Old Gate|New Gate|Time
+|AA101|A12|A14|08:15
+|SW404|D7|D9|09:30
+
+crewsRows = |Crew ID|Available Since|Role
+|C001|07:00|Pilot
+|C002|07:15|Co-Pilot
+|C003|07:30|Flight Attendant
+
+weatherRows = |Advisory|Detail
+|Wind|Strong crosswinds at 15 kt
+|Visibility|Reduced to 2 km
+
+passengerLoadRows = |Metric|Value
+|Average Load|78%
+
+connectionsRows = |Flight|Connection|Risk
+|DL202|JFK → BOS|High
+|UA303|SFO → SEA|Medium
+
+cancellationsRows = |Flight|Route|Reason
+|SW404|DAL → MIA|Mechanical
+
+turnaroundRows = |Metric|Value
+|Average Turnaround|45 min

@@ -1,0 +1,41 @@
+root = Card(header, regionSelect, curtailButton, loadChart, capacityBar, genPie, plantsTable, outagesList, forecastChart, priceInfo, emissionsInfo, maintenanceTable, alertsList, clear)
+
+header = CardHeader("Power Network Operator Console", "Real‑time overview")
+
+regionSelect = Select("region", SelectItem("north", "North Region"), SelectItem("south", "South Region"), SelectItem("east", "East Region"), SelectItem("west", "West Region"), placeholder:"Select region")
+
+curtailButton = Button("Order Curtailment", primary)
+
+loadChart = HorizontalBarChart(labels:["Current Load"], Series("Load", values:[7500]), variant:grouped, xLabel:"MW", yLabel:"Load")
+
+capacityBar = HorizontalBarChart(labels:["Capacity"], Series("Used", values:[7500]), Series("Remaining", values:[2500]), variant:stacked, xLabel:"MW", yLabel:"Capacity")
+
+genPie = PieChart(labels:["Coal","Gas","Wind","Solar","Hydro"], values:[3000,2000,1500,800,700], variant:donut, appearance:circular)
+
+plantsTable = Table(
+  Col("Plant", data:["Plant A","Plant B","Plant C","Plant D"], type:string),
+  Col("Output (MW)", data:[1200,800,500,300], type:number),
+  Col("Status", data:["Online","Online","Offline","Online"], type:string)
+)
+
+outagesList = ListBlock(
+  ListItem("Outage 1", "North Region – 2 MW lost"),
+  ListItem("Outage 2", "South Region – 5 MW lost")
+, variant:number)
+
+forecastChart = LineChart(labels:["00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"], Series("Forecast", values:[7200,7300,7400,7500,7600,7700,7800,7900,8000,8100,8200,8300,8400,8500,8600,8700,8800,8900,9000,9100,9200,9300,9400,9500]), variant:linear, xLabel:"Hour", yLabel:"MW")
+
+priceInfo = TextContent("Current price: **$45 /MWh**", size:large)
+
+emissionsInfo = TextContent("Emissions today: **1,200 t CO₂**", size:small)
+
+maintenanceTable = Table(
+  Col("Plant", data:["Plant B","Plant D"], type:string),
+  Col("Planned Date", data:["2024‑10‑12","2024‑10‑20"], type:string),
+  Col("Details", data:["Turbine inspection","Transformer upgrade"], type:string)
+)
+
+alertsList = ListBlock(
+  ListItem("High load alert", "Load at 95% of capacity"),
+  ListItem("Voltage dip", "Region East experiencing dip")
+, variant:number)

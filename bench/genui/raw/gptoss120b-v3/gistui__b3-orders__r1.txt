@@ -1,0 +1,52 @@
+root = Card(metricsSection, filtersSection, recentOrdersSection, volumeChartSection, refundRateSection, actions)
+
+metricsSection = Card(CardHeader("Today's Summary"), ordersMetric, revenueMetric, aovMetric, gap:s)
+
+ordersMetric = TextContent("**Orders placed today:** 124", large)
+revenueMetric = TextContent("**Revenue today:** $8,560", large)
+aovMetric = TextContent("**Average order value:** $69.19", large)
+
+filtersSection = Card(CardHeader("Filters"), filterForm, gap:s)
+
+filterForm = Form("order-filters", filterButtons, statusField, searchField)
+
+statusField = FormControl("Order status", statusSelect)
+statusSelect = Select("status", 
+    SelectItem("all", "All"), 
+    SelectItem("pending", "Pending"), 
+    SelectItem("shipped", "Shipped"), 
+    SelectItem("refunded", "Refunded"), 
+    placeholder:"Select status")
+
+searchField = FormControl("Customer name", Input("customerSearch", placeholder:"Search customer...", type:text))
+
+filterButtons = Buttons(Button("Apply filters", primary), Button("Clear", secondary))
+
+recentOrdersSection = Card(CardHeader("Recent Orders"), recentOrdersTable, gap:s)
+
+recentOrdersTable = Table(
+    Col("Order ID", data:["#1023","#1022","#1021","#1020"], type:string),
+    Col("Customer", data:["Alice","Bob","Carol","Dave"], type:string),
+    Col("Total", data:["$120","$85","$45","$230"], type:string),
+    Col("Status", data:["Pending","Shipped","Refunded","Pending"], type:string),
+    Col("Action", data:["","","", ""], type:action)
+)
+
+volumeChartSection = Card(CardHeader("Order Volume (Last 4 Weeks)"), orderVolumeChart, gap:s)
+
+orderVolumeChart = BarChart(
+    |Week|Orders
+    |W1|340
+    |W2|410
+    |W3|380
+    |W4|425,
+    variant:grouped,
+    xLabel:"Week",
+    yLabel:"Number of Orders"
+)
+
+refundRateSection = Card(CardHeader("Refund Rate This Month"), refundRateMetric, gap:s)
+
+refundRateMetric = TextContent("**Refund rate:** 2.3 %", large)
+
+actions = Buttons(Button("Mark selected as fulfilled", primary))

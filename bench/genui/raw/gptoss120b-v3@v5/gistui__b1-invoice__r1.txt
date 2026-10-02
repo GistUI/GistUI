@@ -1,0 +1,5 @@
+root = Card(cardHeader, amountDue, dueDate, payNow)
+cardHeader = CardHeader("Invoice", "Freelancer Services")
+amountDue = TextContent("**Amount Due:** $1,200 USD", size:large)
+dueDate = TextContent("**Due Date:** September 30, 2026", size:default)
+payNow = Buttons(Button("Pay Now", primary))

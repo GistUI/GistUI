@@ -1,0 +1,71 @@
+root = Card(portfolioHeader, healthSummary, activeProjects, overdueMilestones, budgetChart, utilizationChart, risksTable, upcomingDeadlines, deliveryPaceChart, blockedItems, quarterSelect, requestForm, actions)
+
+portfolioHeader = CardHeader("Project Portfolio Review", "Quarterly Overview")
+
+healthSummary = TextContent("Overall portfolio health: **Stable** with 85% projects on track.", size:large)
+
+activeProjects = Card(Heading("Active Projects", h3), Table(projectOwnerCol, projectDeadlineCol, projectHealthCol))
+
+projectOwnerCol = Col("Project", ["Project Alpha","Project Beta","Project Gamma"], type:string)
+projectDeadlineCol = Col("Owner", ["Alice","Bob","Carol"], type:string)
+projectHealthCol = Col("Health", ["🟢","🟡","🔴"], type:string)
+
+overdueMilestones = Card(Heading("Overdue Milestones", h3), Table(milestoneProjectCol, milestoneDueCol, milestoneStatusCol))
+
+milestoneProjectCol = Col("Project", ["Project Beta"], type:string)
+milestoneDueCol = Col("Milestone", ["Phase 2"], type:string)
+milestoneStatusCol = Col("Status", ["Overdue"], type:string)
+
+budgetChart = Card(Heading("Budget Spend vs Allocation", h3), BarChart(budgetData, variant:grouped, xLabel:"Project", yLabel:"USD"))
+
+budgetData = |Project|Spent|Allocated
+|Project Alpha|120000|150000
+|Project Beta|90000|100000
+|Project Gamma|75000|80000
+
+utilizationChart = Card(Heading("Team Utilization", h3), PieChart(utilLabels, utilValues, variant:donut, appearance:circular))
+
+utilLabels = ["Project Alpha","Project Beta","Project Gamma"]
+utilValues = [70,55,80]
+
+risksTable = Card(Heading("Risks", h3), Table(riskProjectCol, riskSeverityCol, riskDescCol))
+
+riskProjectCol = Col("Project", ["Project Gamma"], type:string)
+riskSeverityCol = Col("Severity", ["High"], type:string)
+riskDescCol = Col("Description", ["Resource dependency on external vendor"], type:string)
+
+upcomingDeadlines = Card(Heading("Deadlines Next 2 Weeks", h3), Table(deadlineProjectCol, deadlineDateCol))
+
+deadlineProjectCol = Col("Project", ["Project Alpha","Project Beta"], type:string)
+deadlineDateCol = Col("Deadline", ["2024-10-05","2024-10-12"], type:string)
+
+deliveryPaceChart = Card(Heading("Delivery Pace (Last 6 Sprints)", h3), LineChart(paceData, linear, xLabel:"Sprint", yLabel:"Completed Stories"))
+
+paceData = |Sprint|Stories Completed
+|Sprint 1|45
+|Sprint 2|48
+|Sprint 3|42
+|Sprint 4|50
+|Sprint 5|47
+|Sprint 6|44
+
+blockedItems = Card(Heading("Blocked Work Items", h3), Table(blockProjectCol, blockItemCol, blockReasonCol))
+
+blockProjectCol = Col("Project", ["Project Beta"], type:string)
+blockItemCol = Col("Item", ["Integration API"], type:string)
+blockReasonCol = Col("Reason", ["Awaiting third‑party approval"], type:string)
+
+quarterSelect = Card(Heading("Select Quarter", h3), Form("quarter-select", quarterButtons, quarterField))
+
+quarterField = FormControl("Quarter", Select("quarter", SelectItem("Q1-2024","Q1 2024"), SelectItem("Q2-2024","Q2 2024"), SelectItem("Q3-2024","Q3 2024"), placeholder:"Choose quarter", value:"Q3-2024", size:small, rules:[]))
+
+quarterButtons = Buttons(Button("Apply", [], primary))
+
+requestForm = Card(Heading("Request Additional Resources", h3), Form("resource-request", requestButtons, requestProjectField, requestPeopleField, requestJustificationField))
+
+requestProjectField = FormControl("Project", Select("req_project", SelectItem("Project Alpha","Project Alpha"), SelectItem("Project Beta","Project Beta"), placeholder:"Select project", value:"Project Alpha", size:small, rules:[]))
+requestPeopleField = FormControl("Number of People", Input("req_people", "e.g., 2", "", type:number, rules:[]))
+requestJustificationField = FormControl("Justification", TextArea("req_just", "Why needed?", "", rows:3, rules:[]))
+requestButtons = Buttons(Button("Submit Request", [], primary), Button("Cancel", [], secondary))
+
+actions = Buttons(Button("Export Review", [], primary), Button("Archive Finished Project", [], secondary))

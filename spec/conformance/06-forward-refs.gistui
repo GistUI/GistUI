@@ -1,0 +1,5 @@
+# Top-down order: refs may be used before they are defined.
+root = Page(head, body)
+body = Card(content)
+content = Text("Defined last")
+head = Header("First")

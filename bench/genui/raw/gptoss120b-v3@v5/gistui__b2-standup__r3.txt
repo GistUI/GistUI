@@ -1,0 +1,22 @@
+root = Card(dateHeader, updatesSection, blockedSection, missingSection, postForm)
+
+dateHeader = CardHeader("Async Standup", "2026-09-30")
+
+updatesSection = Card(Heading("Team updates", h3), updatesList)
+
+updatesList = ListBlock(updateItem1, updateItem2, updateItem3, updateItem4, variant:number)
+
+updateItem1 = ListItem("Alice", "Completed UI mockups, reviewing PRs")
+updateItem2 = ListItem("Bob", "Deployed backend services, monitoring")
+updateItem3 = ListItem("Carol", "Writing test cases for new features")
+updateItem4 = ListItem("Dave", "Researching caching strategies")
+
+blockedSection = Card(Callout(variant:warning, "Blocked", "Bob is waiting on API keys from external vendor"))
+
+missingSection = Card(TextContent("Updates missing: 1", size:small))
+
+postForm = Form("standup-update", postButtons, updateField)
+
+updateField = FormControl("Your update", Input("update", "Type your update here...", type:text))
+
+postButtons = Buttons(Button("Post update", primary))

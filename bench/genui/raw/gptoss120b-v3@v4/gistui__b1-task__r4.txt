@@ -1,0 +1,6 @@
+root = Card(taskHeader, deadline, statusTag, actions, variant:card)
+taskHeader = CardHeader("Urgent Task: Prepare quarterly report", "Due: 2024-10-05")
+deadline = TextContent("**Deadline:** 5 Oct 2024", size:small)
+statusTag = Tag("In Progress", variant:info, size:md)
+actions = Buttons(markDoneBtn, direction:row)
+markDoneBtn = Button("Mark as Done", primary)

@@ -1,0 +1,9 @@
+# State, queries, mutations and actions stay runtime expressions (evaluated in Phase 4).
+$range = "30d"
+$goal = 100
+root = Page(filter, chart, form)
+sales = @query("get_sales", {range:$range}, default:{rows:[]}, every:60)
+save = @mutation("update_goal", {goal:$goal})
+filter = Select("range", "Range", ["7d", "30d", "90d"], bind:$range)
+chart = Chart(sales.rows, type:line)
+form = Form("goal", Input("goal", "Goal", type:number, bind:$goal), Button("Save", do:[@run(save), @set($tab, "done"), @send("Goal saved")]))

@@ -1,0 +1,47 @@
+root = Card(header, performance, flightsSection, delayedCallout, gateChangesSection, crewsSection, weatherCallout, loadText, connectionsSection, rebookDialog, hubSwitchSection, cancellationsSection, turnaroundText, actions)
+
+header = CardHeader("Hub Operations Desk", "Current Hub: JFK")
+performance = TextContent("On‑time performance today: 87%", size:large)
+
+flightsSection = Card(Heading("Flights", h3), flightsTable)
+gateChangesSection = Card(Heading("Recent Gate Changes", h3), gateChangesTable)
+crewsSection = Card(Heading("Available Crews", h3), crewsTable)
+weatherCallout = Callout(variant:info, "Weather Advisory", "Thunderstorms expected, possible delays")
+loadText = TextContent("Average passenger load today: 78%", size:default)
+connectionsSection = Card(Heading("Connections at Risk", h3), connectionsTable)
+rebookDialog = DialogBlock("Rebook", "Rebook Passengers", TextContent("Select passengers to rebook."), rebookButtons, description:"Rebook affected passengers", triggerVariant:primary)
+hubSwitchSection = Card(Heading("Switch Hub", h3), hubSelect)
+cancellationsSection = Card(Heading("Cancellations Today", h3), cancellationsTable)
+turnaroundText = TextContent("Average turnaround time: 42 min", size:default)
+
+delayedCallout = Callout(variant:warning, "Delayed Flights", "AA202, DL404")
+actions = Buttons(Button("Refresh", primary), direction:row)
+
+rebookButtons = Buttons(Button("Confirm", primary), Button("Cancel", tertiary))
+hubSelect = Select("hub_select", SelectItem("JFK", "JFK"), SelectItem("LAX", "LAX"), SelectItem("ORD", "ORD"), placeholder:"Select hub", size:medium, value:"JFK")
+
+flightsTable = Table(flightCol, routeCol, gateCol, statusCol)
+gateChangesTable = Table(changeFlightCol, oldGateCol, newGateCol, timeCol)
+crewsTable = Table(crewIdCol, crewNameCol, statusCol)
+connectionsTable = Table(connectionCol, riskCol, etaCol)
+cancellationsTable = Table(cancelFlightCol, reasonCol, timeCol)
+
+flightCol = Col("Flight", ["AA101","DL202","UA303"], type:string)
+routeCol = Col("Route", ["JFK‑LAX","JFK‑ORD","JFK‑MIA"], type:string)
+gateCol = Col("Gate", ["A12","B4","C7"], type:string)
+statusCol = Col("Status", ["On Time","Delayed","On Time"], type:string)
+
+changeFlightCol = Col("Flight", ["DL404","UA210"], type:string)
+oldGateCol = Col("Old Gate", ["B2","C5"], type:string)
+newGateCol = Col("New Gate", ["B4","C7"], type:string)
+timeCol = Col("Time", ["10:15","11:40"], type:string)
+
+crewIdCol = Col("Crew ID", ["C01","C02","C03"], type:string)
+crewNameCol = Col("Name", ["Smith","Lee","Patel"], type:string)
+
+connectionCol = Col("Connection", ["AA101 → DL202","UA303 → SW456"], type:string)
+riskCol = Col("Risk", ["High","Medium"], type:string)
+etaCol = Col("ETA Impact", ["15 min","10 min"], type:string)
+
+cancelFlightCol = Col("Flight", ["AA150","DL220"], type:string)
+reasonCol = Col("Reason", ["Weather","Technical"], type:string)

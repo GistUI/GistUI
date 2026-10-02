@@ -1,0 +1,78 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Stat",
+        "props": {
+          "label": "Revenue"
+        }
+      },
+      {
+        "type": "#unknown",
+        "props": {
+          "component": "Zzzzzz",
+          "title": "t"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "x"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Chart",
+        "props": {
+          "data": {
+            "table": [
+              "x:s",
+              "y:n"
+            ],
+            "rows": [
+              [
+                "a",
+                1
+              ]
+            ]
+          },
+          "type": "bar"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "unresolved-ref",
+      "severity": "error",
+      "stmt": "root",
+      "line": 2,
+      "fixed": true
+    },
+    {
+      "code": "missing-required",
+      "severity": "error",
+      "stmt": "a",
+      "line": 3
+    },
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "b",
+      "line": 4
+    },
+    {
+      "code": "invalid-enum",
+      "severity": "error",
+      "stmt": "c",
+      "line": 5,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

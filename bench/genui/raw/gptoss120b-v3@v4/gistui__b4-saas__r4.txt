@@ -1,0 +1,63 @@
+root = Card(mrr_section, arr_section, churn_section, signups_section, plan_section, top_customers_section, risk_accounts_section, failed_payments_section, feature_adoption_section, nps_section, reporting_period_section, seat_util_section, invite_admin_section)
+
+mrr_section = Card(Heading("Monthly Recurring Revenue", h2), TextContent("$120,000", size:large))
+arr_section = Card(Heading("Annual Recurring Revenue", h2), TextContent("$1,440,000", size:large))
+churn_section = Card(Heading("Churn This Month", h2), TextContent("2.3 %", size:large))
+signups_section = Card(Heading("New Signups (Last 90 Days)", h3), LineChart(signups_rows, linear, xLabel:"Date", yLabel:"Signups"))
+plan_section = Card(Heading("Customers by Plan", h3), BarChart(plan_rows, grouped, xLabel:"Plan", yLabel:"Customers"))
+top_customers_section = Card(Heading("Top 10 Customers", h3), top_customers)
+risk_accounts_section = Card(Heading("Accounts at Risk", h3), risk_accounts)
+failed_payments_section = Card(Heading("Failed Payments", h3), failed_payments)
+feature_adoption_section = Card(Heading("Adoption of New Features", h3), HorizontalBarChart(feature_rows, Series("Adoption", feature_vals), grouped, xLabel:"Adoption %", yLabel:"Feature"))
+nps_section = Card(Heading("Current NPS", h3), TextContent("68", size:large))
+reporting_period_section = Card(Heading("Reporting Period", h3), report_form)
+seat_util_section = Card(Heading("Seat Utilization", h3), BarChart(seat_rows, grouped, xLabel:"Department", yLabel:"Seats Used"))
+invite_admin_section = Card(Heading("Invite Another Admin", h3), invite_form)
+
+report_form = Form("report-period", report_buttons, period_control)
+period_control = FormControl("Period", Select("period", SelectItem("30d","Last 30 Days"), SelectItem("90d","Last 90 Days"), SelectItem("ytd","Year‑to‑Date"), placeholder:"Select period", value:"30d", size:small))
+report_buttons = Buttons(Button("Apply", primary))
+
+invite_form = Form("invite-admin", invite_buttons, email_control)
+email_control = FormControl("Admin email", Input("admin_email", "email@example.com", type:email))
+invite_buttons = Buttons(Button("Send Invite", primary))
+
+top_customers = Table(col_cust, col_seats, col_spend)
+col_cust = Col("Customer", ["Acme Corp","Globex","Initech","Umbrella","Stark Industries","Wayne Enterprises","Oscorp","Hooli","Pied Piper","Vandelay Industries"], type:string)
+col_seats = Col("Seats", [450,320,210,180,150,140,130,120,110,100], type:number)
+col_spend = Col("Spend ($)", [54000,42000,31000,28000,25000,23000,21000,19000,17000,15000], type:number)
+
+risk_accounts = Table(col_risk_cust, col_reason)
+col_risk_cust = Col("Customer", ["Beta Ltd","Gamma Co","Delta Inc"], type:string)
+col_reason = Col("Risk Reason", ["Low usage","Payment overdue","Support tickets"], type:string)
+
+failed_payments = Table(col_fp_cust, col_fp_amount, col_fp_action)
+col_fp_cust = Col("Customer", ["Acme Corp","Globex","Initech"], type:string)
+col_fp_amount = Col("Amount ($)", [1200,850,430], type:number)
+col_fp_action = Col("Action", ["Retry","Retry","Retry"], type:action)
+
+signups_rows = |Date|Signups
+|2023‑06‑01|45
+|2023‑06‑08|52
+|2023‑06‑15|48
+|2023‑06‑22|55
+|2023‑06‑29|60
+
+plan_rows = |Plan|Customers
+|Basic|120
+|Pro|80
+|Enterprise|30
+
+feature_rows = |Feature|Adoption%
+|Feature A|45
+|Feature B|30
+|Feature C|20
+
+feature_vals = [45,30,20]
+
+seat_rows = |Department|Seats Used
+|Engineering|350
+|Sales|120
+|Support|80
+|Marketing|60
+|HR|40

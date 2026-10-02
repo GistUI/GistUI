@@ -1,0 +1,45 @@
+root = Card(activeSection, completionSection, quizSection, enrollmentSection, riskSection, filterSection, engagementSection, messageSection)
+
+activeSection = Card(Heading("Active Learners This Week", h3), TextContent("**1,245**", size:large))
+completionSection = Card(Heading("Course Completion Rate", h3), PieChart(completionData, variant:donut))
+quizSection = Card(Heading("Average Quiz Score", h3), TextContent("**84%**", size:large))
+enrollmentSection = Card(Heading("Courses Ranked by Enrollment", h3), BarChart(enrollmentData, variant:grouped, xLabel:"Course", yLabel:"Enrollments"))
+riskSection = Card(Heading("Learners At Risk of Dropping Out", h3), riskTable)
+filterSection = Card(Heading("Filter by Cohort", h3), filterForm)
+engagementSection = Card(Heading("Engagement Past 8 Weeks", h3), LineChart(engagementData, variant:linear, xLabel:"Week", yLabel:"Engagement"))
+messageSection = Card(Heading("Message Cohort", h3), messageForm)
+
+filterForm = Form("cohort-filter", filterButtons, cohortSelectControl)
+cohortSelectControl = FormControl("Cohort", cohortSelect)
+cohortSelect = Select("cohort", SelectItem("Cohort A","Cohort A"), SelectItem("Cohort B","Cohort B"), placeholder:"Select cohort")
+filterButtons = Buttons(Button("Apply", primary))
+
+messageForm = Form("cohort-message", messageButtons, messageControl)
+messageControl = FormControl("Message", messageArea)
+messageArea = TextArea("message", placeholder:"Type your message...", rows:4)
+messageButtons = Buttons(Button("Send", primary))
+
+completionData = |Status|Value
+|Completed|70
+|In progress|30
+
+enrollmentData = |Course|Enrollments
+|Intro to AI|320
+|Data Science 101|280
+|Web Dev|250
+|Design Basics|200
+|Marketing|150
+
+riskCol1 = Col("Learner", ["Alice","Bob"], type:string)
+riskCol2 = Col("Risk Score", [0.8,0.75], type:number)
+riskTable = Table(riskCol1, riskCol2)
+
+engagementData = |Week|Engagement
+|W1|120
+|W2|130
+|W3|140
+|W4|150
+|W5|160
+|W6|155
+|W7|165
+|W8|170

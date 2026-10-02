@@ -1,0 +1,24 @@
+root = Card(CardHeader("Senior UI/UX Designer", "Design Team"), description, qualifications, salary, applyForm, shareButtons)
+
+description = Card(MarkDownRenderer("**Role Overview**\nWe are looking for a creative UI/UX Designer to lead the visual and interaction design of our product suite.", variant:clear))
+
+qualifications = Card(Heading("Main Qualifications", h3), qualificationsList)
+
+qualificationsList = ListBlock(qualItem1, qualItem2, qualItem3, qualItem4, variant:number)
+
+qualItem1 = ListItem("5+ years of professional UI/UX design experience")
+qualItem2 = ListItem("Strong portfolio showcasing web and mobile applications")
+qualItem3 = ListItem("Proficiency with design tools such as Figma, Sketch, or Adobe XD")
+qualItem4 = ListItem("Excellent communication and collaborative skills")
+
+salary = Card(Heading("Salary Range", h3), TextContent("$90,000 – $120,000 per year", size:small))
+
+applyForm = Form("apply", applyButtons, nameField, emailField, resumeField)
+
+nameField = FormControl("Full name", Input("name", placeholder:"Jane Doe"))
+emailField = FormControl("Email address", Input("email", placeholder:"jane@example.com", type:email))
+resumeField = FormControl("Resume link", Input("resume", placeholder:"https://example.com/resume.pdf", type:url))
+
+applyButtons = Buttons(Button("Apply now", primary), Button("Save for later", secondary))
+
+shareButtons = Buttons(Button("Share on LinkedIn", primary), Button("Copy link", secondary))

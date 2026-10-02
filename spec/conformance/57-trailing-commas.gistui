@@ -1,0 +1,1 @@
+root = Row(Text("a"), Select("n", "N", ["x", "y",],), style:{pad:1,},)

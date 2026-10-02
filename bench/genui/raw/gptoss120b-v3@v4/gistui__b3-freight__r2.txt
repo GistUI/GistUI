@@ -1,0 +1,60 @@
+root = Card(boardHeader, searchForm, ontimeCallout, delayedCallout, volumePie, avgCost, weeklyChart, flagDialog, refreshedText)
+
+boardHeader = CardHeader("Logistics Coordinator Board", "Operations Overview")
+
+searchForm = Form("search-route", searchButtons, routeField)
+
+routeField = FormControl("Route (origin → destination)", Input("route", "e.g. NYC → LA"))
+
+searchButtons = Buttons(Button("Search"))
+
+ontimeCallout = TextCallout("On‑time Delivery", "92% of shipments were on time this month", variant:success)
+
+delayedCallout = Callout(variant:warning, "Delayed Shipments", "3 shipments are delayed:\n- #1023: NYC → LA (ETA 2 days late)\n- #1045: CHI → HOU (ETA 1 day late)\n- #1089: ATL → SEA (ETA 3 days late)")
+
+volumePie = PieChart(carrierLabels, carrierValues, variant:donut, appearance:circular)
+
+carrierLabels = @each(carrierData, c => c.name)
+carrierValues = @each(carrierData, c => c.volume)
+
+avgCost = TextContent("**Average Cost per Shipment:** $145.30", size:large)
+
+weeklyChart = LineChart(weeklyRows, variant:linear, xLabel:"Week", yLabel:"Shipments")
+
+weeklyRows = |Week|Volume
+|2023‑09‑03|120
+|2023‑09‑10|135
+|2023‑09‑17|150
+|2023‑09‑24|140
+|2023‑10‑01|155
+|2023‑10‑08|160
+|2023‑10‑15|158
+|2023‑10‑22|162
+
+flagDialog = DialogBlock("Flag Shipment", "Flag a shipment", flagForm, description:"Enter shipment ID and reason for flagging.", triggerVariant:secondary)
+
+flagForm = Form("flag-shipment", flagButtons, idField, reasonField)
+
+idField = FormControl("Shipment ID", Input("shipment_id", "e.g. 1023"))
+
+reasonField = FormControl("Reason", TextArea("reason", "Enter reason...", "", rows:4))
+
+flagButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+refreshedText = TextContent("Data last refreshed: 2023‑10‑28 14:05 UTC", size:small)
+
+# Data tables
+carrierData = |Carrier|Volume
+|FastShip|420
+|QuickLog|310
+|ShipNow|275
+
+weeklyRows = |Week|Volume
+|2023‑09‑03|120
+|2023‑09‑10|135
+|2023‑09‑17|150
+|2023‑09‑24|140
+|2023‑10‑01|155
+|2023‑10‑08|160
+|2023‑10‑15|158
+|2023‑10‑22|162

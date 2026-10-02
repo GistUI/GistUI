@@ -1,0 +1,37 @@
+root = Card(filterSection, statsSection, enrollmentChart, riskTable, engagementChart, messageSection, direction:column, gap:m)
+filterSection = Card(filterForm, variant:clear)
+statsSection = Card(activeLearners, completionRate, avgQuizScore, direction:row, gap:s, wrap)
+enrollmentChart = HorizontalBarChart(enrollmentData, variant:grouped, xLabel:"Enrollments", yLabel:"Course")
+riskTable = Table(riskData)
+engagementChart = LineChart(engagementData, linear, xLabel:"Week", yLabel:"Engagement (min)")
+messageSection = Card(messageForm, variant:clear)
+activeLearners = TextContent("**Active learners this week:** 1,245", size:large)
+completionRate = TextContent("**Course completion rate:** 78%", size:large)
+avgQuizScore = TextContent("**Average quiz score:** 84%", size:large)
+filterForm = Form("cohort-filter", filterButtons, cohortSelectControl)
+cohortSelectControl = FormControl("Cohort", cohortSelect)
+cohortSelect = Select("cohort", SelectItem("Cohort A","Cohort A"), SelectItem("Cohort B","Cohort B"), placeholder:"Select cohort")
+filterButtons = Buttons(Button("Apply", primary))
+messageForm = Form("cohort-message", messageButtons, messageControl)
+messageControl = FormControl("Message", messageText)
+messageText = TextArea("message", "Enter message...", "", 4)
+messageButtons = Buttons(Button("Send", primary))
+enrollmentData = |Course|Enrollments
+|Intro to AI|320
+|Data Science 101|285
+|Python Basics|250
+|Advanced ML|210
+|UX Design|180
+riskData = |Learner|Risk Score|Last Activity
+|Alice|0.9|2023-09-20
+|Bob|0.85|2023-09-18
+|Charlie|0.8|2023-09-19
+engagementData = |Week|Engagement
+|W1|120
+|W2|135
+|W3|150
+|W4|160
+|W5|155
+|W6|165
+|W7|170
+|W8|180

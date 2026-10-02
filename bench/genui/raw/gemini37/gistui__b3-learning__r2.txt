@@ -1,0 +1,76 @@
+root = Card(header, filterCard, kpisCard, trendCard, midGrid, bottomGrid, gap:l)
+header = CardHeader("Learning Analytics & Cohort Performance", "Track engagement, completions, and intervene with at-risk learners")
+filterCard = Card(filterRow, sunk, gap:s)
+filterRow = Card(cohortSelectControl, messageCohortDrawer, direction:row, align:center, justify:between)
+cohortSelectControl = FormControl("Filter by Cohort", cohortSelect)
+cohortSelect = Select("cohort", SelectItem("all", "All Cohorts (Spring 2024 - Present)"), SelectItem("eng_q1", "Cohort 24-A (Engineering Onboarding)"), SelectItem("sales_q1", "Cohort 24-B (Enterprise Sales)"), SelectItem("pm_q1", "Cohort 24-C (Product Leadership)"), SelectItem("data_q2", "Cohort 24-D (Data Science Immersive)"), placeholder:"Select cohort", value:"all")
+messageCohortDrawer = DrawerBlock("Message Cohort", "Broadcast Announcement to Cohort", messageForm, description:"Send an email or in-app reminder directly to active and at-risk learners in this cohort.")
+messageForm = Form("msg_cohort", msgButtons, msgSubject, msgTarget, msgBody)
+msgSubject = FormControl("Subject", Input("subject", "Action Required: Weekly Learning Milestone Check-in"))
+msgTarget = FormControl("Audience", targetRadio)
+targetRadio = RadioGroup("target", RadioItem("all_members", "All cohort learners", "all_members"), RadioItem("at_risk_only", "At-risk learners only (< 50% pace or inactive > 10d)", "at_risk_only"), RadioItem("active_only", "Active learners this week", "active_only"), value:"at_risk_only")
+msgBody = FormControl("Message Content", TextArea("body", "Hi team, we noticed you might be falling behind on this week's modules. Join office hours tomorrow or reach out to your mentor for 1:1 support!", rows:4))
+msgButtons = Buttons(Button("Send Broadcast", primary), Button("Cancel", tertiary))
+kpisCard = Card(kpi1, kpi2, kpi3, direction:row, gap:m)
+kpi1 = Card(TextContent("Active Learners This Week", size:small), Heading("1,842", level:h2), Tag("+12.4% vs last week", success), sunk)
+kpi2 = Card(TextContent("Course Completion Rate", size:small), Heading("78.6%", level:h2), Progress(79, "Benchmark: 75%"), sunk)
+kpi3 = Card(TextContent("Average Quiz Score", size:small), Heading("84.2%", level:h2), Tag("Passing threshold: 70%", info), sunk)
+trendCard = Card(Heading("Weekly Engagement Trend (Past 8 Weeks)", level:h3), engagementTrendChart)
+engagementTrendChart = AreaChart(engagementData, natural, xLabel:"Week", yLabel:"Active Hours Logged")
+engagementData = |Week|Active Hours:n|Active Learners:n
+|W1|3120|1420
+|W2|3450|1510
+|W3|3280|1480
+|W4|4100|1690
+|W5|4320|1740
+|W6|3980|1620
+|W7|4650|1790
+|W8|4910|1842
+midGrid = Card(rankedCoursesCard, sunk)
+rankedCoursesCard = Card(Heading("Courses Ranked by Enrollment", level:h3), rankedCoursesChart)
+rankedCoursesChart = HorizontalBarChart(courseEnrollmentData, xLabel:"Enrolled Learners", yLabel:"Course Name")
+courseEnrollmentData = |Course|Enrolled:n
+|Full-Stack Web Dev|1240
+|Cloud Architecture (AWS)|980
+|Data Engineering Fundamentals|840
+|Product Management Essentials|620
+|Cybersecurity Operations|450
+|Agile Project Leadership|310
+bottomGrid = Card(atRiskHeader, atRiskTable, sunk)
+atRiskHeader = Card(Heading("Learners at Risk of Dropping Out", level:h3), TextContent("Identified by low login frequency, missed assignment deadlines, or quiz scores below 60%.", size:small))
+atRiskTable = Table(learnerCol, cohortCol, progressCol, lastActiveCol, riskCol)
+learnerCol = Col("Learner", learnerNames, type:string)
+cohortCol = Col("Cohort", cohortNames, type:string)
+progressCol = Col("Progress", progressValues, type:string)
+lastActiveCol = Col("Last Active", lastActiveValues, type:string)
+riskCol = Col("Risk Factor", riskFactors, type:string)
+learnerNames = |Learner
+|Marcus Vance
+|Elena Rostova
+|Devon Brooks
+|Amina Chen
+|Lucas Wright
+cohortNames = |Cohort
+|Cohort 24-A
+|Cohort 24-D
+|Cohort 24-B
+|Cohort 24-A
+|Cohort 24-C
+progressValues = |Progress
+|24% (3 modules behind)
+|18% (4 modules behind)
+|31% (2 modules behind)
+|12% (5 modules behind)
+|28% (3 modules behind)
+lastActiveValues = |Last Active
+|14 days ago
+|11 days ago
+|9 days ago
+|16 days ago
+|8 days ago
+riskFactors = |Risk Factor
+|Missed 2 major quizzes
+|Avg quiz score 48%
+|Zero video watch time (10d)
+|Inactive > 2 weeks
+|Failed Milestone 1 test

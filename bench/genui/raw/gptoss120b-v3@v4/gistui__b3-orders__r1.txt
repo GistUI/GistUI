@@ -1,0 +1,37 @@
+root = Card(CardHeader("E‑commerce Operations Desk"), filtersSection, metricsSection, volumeChart, recentOrdersSection, actions)
+
+filtersSection = Card(Heading("Filters", h3), statusFilter, searchFilter, clear)
+
+statusFilter = FormControl("Order status", Select("status_filter", SelectItem("all", "All"), SelectItem("pending", "Pending"), SelectItem("shipped", "Shipped"), SelectItem("canceled", "Canceled"), placeholder:"All statuses", value:"all", size:medium), "Filter orders by status")
+
+searchFilter = FormControl("Customer name", Input("search_customer", placeholder:"Search customer…"), "Search orders by customer name")
+
+metricsSection = Card(Heading("Key Metrics", h3), ordersToday, revenueToday, avgOrderValue, refundRate, clear)
+
+ordersToday = Card(Tag("Orders Today", neutral), TextContent("124", size:large-heavy))
+
+revenueToday = Card(Tag("Revenue Today", neutral), TextContent("$8,560", size:large-heavy))
+
+avgOrderValue = Card(Tag("Avg Order Value", neutral), TextContent("$69.2", size:large-heavy))
+
+refundRate = Card(Tag("Refund Rate (this month)", neutral), TextContent("2.3 %", size:large-heavy))
+
+volumeChart = Card(Heading("Order Volume – Last 4 Weeks", h3), BarChart(volumeData, grouped, xLabel:"Week", yLabel:"Orders"))
+
+volumeData = |Week|Orders
+|W1|320
+|W2|295
+|W3|340
+|W4|310
+
+recentOrdersSection = Card(Heading("Recent Orders", h3), recentOrdersTable, clear)
+
+recentOrdersTable = Table(orderIdCol, customerCol, totalCol, statusCol, actionCol)
+
+orderIdCol = Col("Order ID", ["#1023","#1022","#1021","#1020"], string)
+customerCol = Col("Customer", ["Alice","Bob","Charlie","Dana"], string)
+totalCol = Col("Total", [120.50, 85.00, 45.75, 210.00], number)
+statusCol = Col("Status", ["Pending","Shipped","Pending","Canceled"], string)
+actionCol = Col("Action", ["Mark Fulfilled","Mark Fulfilled","Mark Fulfilled","Mark Fulfilled"], string)
+
+actions = Buttons(Button("Mark Selected Fulfilled", primary), Button("Export CSV", secondary))

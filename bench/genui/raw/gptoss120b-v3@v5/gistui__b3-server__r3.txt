@@ -1,0 +1,31 @@
+root = Card(uptime, errorRate, regionSelect, usageChart, incidentsList, slowEndpoints, alertForm, variant:card)
+
+uptime = CardHeader("Uptime this quarter", "99.7%")
+
+errorRate = Callout(variant:warning, "Error Rate", "0.2% currently")
+
+regionSelect = Select("region", SelectItem("us-east", "US East"), SelectItem("us-west", "US West"), placeholder:"Select region")
+
+usageRows = |Time|CPU|Memory
+|00:00|30|45
+|04:00|45|55
+|08:00|50|60
+|12:00|55|65
+|16:00|40|50
+|20:00|35|45
+|24:00|30|40
+
+usageChart = LineChart(usageRows, variant:linear, xLabel:"Time", yLabel:"Usage %")
+
+incident1 = ListItem("Incident #123", "Severity: High", "Acknowledge")
+incident2 = ListItem("Incident #124", "Severity: Medium", "Acknowledge")
+incident3 = ListItem("Incident #125", "Severity: Low", "Acknowledge")
+incidentsList = ListBlock(incident1, incident2, incident3, variant:number)
+
+colEndpoint = Col("Endpoint", ["/api/v1/users","/api/v1/orders","/api/v1/payments","/api/v1/search","/api/v1/profile"], type:string)
+colLatency = Col("Latency (ms)", [350,420,480,510,590], type:number)
+slowEndpoints = Table(colEndpoint, colLatency)
+
+thresholdField = FormControl("Alert threshold (ms)", Input("threshold", "200", type:number))
+alertButtons = Buttons(Button("Set alert"))
+alertForm = Form("alert-threshold", alertButtons, thresholdField)

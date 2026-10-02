@@ -1,0 +1,53 @@
+root = Card(header, topControls, kpiGrid, trendSection, middleSplit, atRiskSection)
+header = CardHeader("Training Analytics Dashboard", "Monitor cohort progress, engagement trends, and learner retention")
+
+topControls = Card(cohortFilter, actionDrawer, direction:row, justify:between, align:center, variant:clear)
+cohortFilter = Form("filter-form", filterBtns, cohortSelect)
+filterBtns = Buttons(Button("Apply", primary, size:small))
+cohortSelect = FormControl("Select Cohort", Select("cohort", SelectItem("all", "All Active Cohorts"), SelectItem("eng-2024-q1", "Engineering Bootcamp Q1"), SelectItem("data-2024-feb", "Data Science Feb 2024"), SelectItem("pm-2024-spring", "Product Management Spring"), SelectItem("sales-onboarding", "Global Sales Onboarding"), value:"all"))
+
+actionDrawer = DrawerBlock("Message Cohort", "Send Cohort Announcement", messageForm, description:"Broadcast an announcement, reminder, or nudge directly to learner inboxes and platform notifications.", triggerVariant:default)
+messageForm = Form("msg-cohort", messageActions, cohortTargetField, channelField, subjectField, bodyField)
+cohortTargetField = FormControl("Recipient Cohort", Select("target_cohort", SelectItem("all", "All Cohorts (2,480 learners)"), SelectItem("eng-2024-q1", "Engineering Bootcamp Q1 (640 learners)"), SelectItem("data-2024-feb", "Data Science Feb 2024 (480 learners)"), SelectItem("pm-2024-spring", "Product Management Spring (310 learners)"), SelectItem("sales-onboarding", "Global Sales Onboarding (520 learners)"), value:"eng-2024-q1"))
+channelField = FormControl("Delivery Channel", RadioGroup("channel", RadioItem("Email & In-App", "Primary email plus student portal notification", "both"), RadioItem("In-App Only", "Deliver via notification center only", "inapp"), defaultValue:"both"))
+subjectField = FormControl("Subject", Input("msg_subject", "e.g. Mid-term reminder & office hours updates", type:text))
+bodyField = FormControl("Message Body", TextArea("msg_body", "Type your announcement or reminder here...", rows:4))
+messageActions = Buttons(Button("Send Message", primary), Button("Save Draft", secondary))
+
+kpiGrid = Card(kpiActive, kpiCompletion, kpiQuizScore, direction:row, gap:m, variant:clear)
+kpiActive = Card(Heading("Active Learners (This Week)", h4), TextContent("### 2,481", size:large), Tag("+12.4% vs last week", success), variant:sunk)
+kpiCompletion = Card(Heading("Course Completion Rate", h4), TextContent("### 78.6%", size:large), Tag("+3.1% target pace", info), variant:sunk)
+kpiQuizScore = Card(Heading("Average Quiz Score", h4), TextContent("### 84.2%", size:large), Tag("Benchmark: 80%", neutral), variant:sunk)
+
+trendSection = Card(Heading("Weekly Engagement (Past 8 Weeks)", h3), TextContent("Active student logins and learning module completions per week", size:small), LineChart(trendData, natural, xLabel:"Week", yLabel:"Count"), variant:sunk)
+
+middleSplit = Card(topCoursesCard, variant:clear)
+topCoursesCard = Card(Heading("Top Courses Ranked by Enrollment", h3), TextContent("Ranked by total enrolled students across all active cohorts", size:small), HorizontalBarChart(topCoursesData, xLabel:"Enrolled Learners", yLabel:"Course"), variant:sunk)
+
+atRiskSection = Card(Heading("Learners at Risk of Dropping Out", h3), atRiskAlert, Table(atRiskData), variant:sunk)
+atRiskAlert = Alert("Intervention Recommended", "5 learners flagged with high inactivity, missing deadlines, or critically low quiz scores.", warning)
+
+trendData = |Week|Logins:n|Module Completions:n
+|Week 1|1420|2100
+|Week 2|1580|2350
+|Week 3|1840|2890
+|Week 4|1910|3120
+|Week 5|2150|3400
+|Week 6|2290|3680
+|Week 7|2380|3890
+|Week 8|2481|4120
+
+topCoursesData = |Course|Learners:n
+|Full-Stack Web Dev|920
+|Data Engineering Fundamentals|760
+|Product Strategy Masterclass|540
+|Enterprise Cloud Architecture|430
+|Applied Machine Learning|390
+|Cybersecurity Essentials|280
+
+atRiskData = |Learner|Cohort|Last Active|Avg Score:n|Risk Factor|Status
+|Marcus Vance|Engineering Bootcamp Q1|9 days ago|52%|Missing assignments (3)|High
+|Elena Rostova|Data Science Feb 2024|12 days ago|48%|Zero video progress|Critical
+|Devon Brooks|Product Management Spring|7 days ago|59%|Failed milestone quiz|High
+|Aisha Patel|Global Sales Onboarding|11 days ago|61%|Login dropoff >80%|Critical
+|Jordan Miller|Engineering Bootcamp Q1|8 days ago|55%|Incomplete core labs|High

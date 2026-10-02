@@ -1,0 +1,10 @@
+```gistui
+root = Card(signupCard, align:center)
+signupCard = Card(header, description, form, variant:card, gap:m)
+header = CardHeader("The Product Weekly", "One email, every Tuesday")
+description = TextContent("Every week you get one actionable product insight — real examples, no fluff — that you can apply before your next standup.")
+form = Form("newsletter-signup", subscribeButton, emailField)
+emailField = FormControl("Email address", emailInput, "We respect your inbox. Unsubscribe anytime.")
+emailInput = Input("email", "you@example.com", type:email, rules:["required", "email"])
+subscribeButton = Buttons(Button("Subscribe", primary, size:medium))
+```

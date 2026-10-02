@@ -1,0 +1,21 @@
+{
+  "tree": {
+    "type": "Card",
+    "props": {
+      "v": "clear"
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "I am a statement"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

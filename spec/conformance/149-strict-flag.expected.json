@@ -1,0 +1,20 @@
+{
+  "tree": {
+    "type": "Text",
+    "props": {
+      "content": "x"
+    }
+  },
+  "errors": [
+    {
+      "code": "patch-target-missing",
+      "severity": "error",
+      "stmt": "nope",
+      "line": 2
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

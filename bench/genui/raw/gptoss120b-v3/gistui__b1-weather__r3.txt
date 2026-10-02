@@ -1,0 +1,16 @@
+root = Card(currentSection, outlookSection, sunSection)
+
+currentSection = Card(CardHeader("Bengaluru Weather", "Current conditions"), MarkDownRenderer("**Temperature:** 28°C\n**Condition:** Partly Cloudy"))
+
+outlookSection = Card(Heading("3‑Day Outlook", h3), outlookTable)
+
+outlookTable = |Day|High|Low|Condition
+|Tomorrow|30°C|22°C|Sunny
+|Day after|31°C|23°C|Mostly Sunny
+|In 3 days|29°C|21°C|Showers
+
+sunSection = Card(Heading("Sunrise & Sunset", h3), sunTable)
+
+sunTable = |Event|Time
+|Sunrise|06:12 AM
+|Sunset|06:45 PM

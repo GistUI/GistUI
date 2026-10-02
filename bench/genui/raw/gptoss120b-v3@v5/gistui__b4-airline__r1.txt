@@ -1,0 +1,110 @@
+root = Card(header, hubSelect, performanceSection, flightsSection, delaysSection, gateChangesSection, crewsSection, weatherSection, loadSection, connectionsSection, rebookSection, cancellationsSection, turnaroundSection, actions)
+
+header = CardHeader("Hub Operations Desk", "Select hub and monitor live metrics")
+
+hubSelect = DialogBlock("Change Hub", "Select Hub", hubOptions, description:"Choose a different hub to view its dashboard", triggerVariant:default)
+
+hubOptions = MarkDownRenderer("- **JFK**\n- **LAX**\n- **ORD**", variant:clear)
+
+performanceSection = SectionBlock(performanceItem, isFoldable)
+
+performanceItem = SectionItem(performance, "On‑time Performance", performanceChart)
+
+performanceChart = HorizontalBarChart(labels:["On‑time","Delayed","Cancelled"], Series("Today", values:[85,10,5]), variant:grouped, xLabel:"Percent", yLabel:"Performance")
+
+flightsSection = SectionBlock(flightsItem, isFoldable)
+
+flightsItem = SectionItem(flights, "Flights Today", flightsTable, flightsTag)
+
+flightsTag = Tag("123 Flights", neutral, size:sm)
+
+flightsTable = Table(
+  Col("Flight", data:["AA101","DL202","UA303"], type:string),
+  Col("Route", data:["NYC‑LON","LAX‑SFO","ORD‑MIA"], type:string),
+  Col("Gate", data:["A12","B4","C7"], type:string),
+  Col("Status", data:["On‑time","Boarding","Delayed"], type:string)
+)
+
+delaysSection = SectionBlock(delaysItem, isFoldable)
+
+delaysItem = SectionItem(delays, "Delayed Flights", delaysTable)
+
+delaysTable = Table(
+  Col("Flight", data:["UA303","DL202"], type:string),
+  Col("Delay", data:["45 min","30 min"], type:string),
+  Col("Reason", data:["Weather","Crew"], type:string)
+)
+
+gateChangesSection = SectionBlock(gateChangesItem, isFoldable)
+
+gateChangesItem = SectionItem(gateChanges, "Recent Gate Changes", gateChangesTable)
+
+gateChangesTable = Table(
+  Col("Flight", data:["AA101","UA303"], type:string),
+  Col("Old Gate", data:["A10","C5"], type:string),
+  Col("New Gate", data:["A12","C7"], type:string),
+  Col("Time", data:["08:15","09:40"], type:string)
+)
+
+crewsSection = SectionBlock(crewsItem, isFoldable)
+
+crewsItem = SectionItem(crews, "Crews Available for Reassignment", crewsTable)
+
+crewsTable = Table(
+  Col("Crew ID", data:["C001","C014","C027"], type:string),
+  Col("Position", data:["Pilot","Flight Attendant","Engineer"], type:string),
+  Col("Available Since", data:["08:00","07:45","08:20"], type:string)
+)
+
+weatherSection = SectionBlock(weatherItem, isFoldable)
+
+weatherItem = SectionItem(weather, "Weather Advisories", weatherCallout)
+
+weatherCallout = Callout(variant:info, title:"Advisory", description:"Thunderstorms expected between 10:00‑12:00, possible low visibility.")
+
+loadSection = SectionBlock(loadItem, isFoldable)
+
+loadItem = SectionItem(load, "Average Passenger Load", loadChart)
+
+loadChart = BarChart(labels:["Flight"], Series("Load %", values:[78]), variant:grouped, xLabel:"Flight", yLabel:"Load %")
+
+connectionsSection = SectionBlock(connectionsItem, isFoldable)
+
+connectionsItem = SectionItem(connections, "Connections at Risk", connectionsTable)
+
+connectionsTable = Table(
+  Col("Connecting Flight", data:["DL202","UA303"], type:string),
+  Col("Origin Arrival", data:["09:10","09:45"], type:string),
+  Col("Connection Time", data:["15 min","10 min"], type:string),
+  Col("Risk", data:["High","Medium"], type:string)
+)
+
+rebookSection = SectionBlock(rebookItem, isFoldable)
+
+rebookItem = SectionItem(rebook, "Rebook Affected Passengers", rebookForm)
+
+rebookForm = Form("rebook", rebookButtons, passengerField, flightSelect)
+
+passengerField = FormControl("Passenger ID", Input("passenger_id", placeholder:"e.g. P12345"))
+
+flightSelect = Select("new_flight", SelectItem("AA101","AA101 – NYC‑LON"), SelectItem("DL202","DL202 – LAX‑SFO"), placeholder:"Select new flight", value:"", size:small)
+
+rebookButtons = Buttons(Button("Rebook", primary), Button("Cancel", tertiary))
+
+cancellationsSection = SectionBlock(cancellationsItem, isFoldable)
+
+cancellationsItem = SectionItem(cancellations, "Cancellations Today", cancellationsTable)
+
+cancellationsTable = Table(
+  Col("Flight", data:["DL202"], type:string),
+  Col("Reason", data:["Crew shortage"], type:string),
+  Col("Time", data:["11:20"], type:string)
+)
+
+turnaroundSection = SectionBlock(turnaroundItem, isFoldable)
+
+turnaroundItem = SectionItem(turnaround, "Average Turnaround Time", turnaroundChart)
+
+turnaroundChart = LineChart(labels:["Flight"], Series("Turnaround (min)", values:[55]), variant:linear, xLabel:"Flight", yLabel:"Minutes")
+
+actions = Buttons(Button("Refresh"), Button("Export Report", secondary))

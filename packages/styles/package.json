@@ -1,0 +1,39 @@
+{
+  "name": "@gistui/styles",
+  "version": "0.1.0",
+  "description": "GistUI design system: one plain-CSS stylesheet and tokens.",
+  "keywords": [
+    "gistui",
+    "css",
+    "design-system",
+    "generative-ui"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    "./styles.css": {
+      "gistui-source": "./src/styles.css",
+      "default": "./dist/styles.css"
+    },
+    "./styles.min.css": "./dist/styles.min.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun build.ts",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.0",
+    "tsdown": "^0.15.0",
+    "typescript": "^5.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

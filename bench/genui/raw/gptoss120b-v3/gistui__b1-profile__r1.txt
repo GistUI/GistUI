@@ -1,0 +1,6 @@
+root = Card(personHeader, bioText, contactForm)
+personHeader = CardHeader("Jane Doe", "Senior Engineer")
+bioText = TextContent("Jane has over 10 years of experience in software development, specializing in cloud-native applications.", size:default)
+contactForm = Form("contact-form", formButtons, messageField)
+formButtons = Buttons(Button("Send", variant:primary))
+messageField = FormControl("Message", Input("msg", "Type your message...", type:text))

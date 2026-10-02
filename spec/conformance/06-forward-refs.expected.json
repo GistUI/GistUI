@@ -1,0 +1,29 @@
+{
+  "tree": {
+    "type": "Page",
+    "children": [
+      {
+        "type": "Header",
+        "props": {
+          "title": "First"
+        }
+      },
+      {
+        "type": "Card",
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "Defined last"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

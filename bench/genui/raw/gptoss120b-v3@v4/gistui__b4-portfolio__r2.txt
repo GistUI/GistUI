@@ -1,0 +1,84 @@
+root = Card(portfolioHeader, quarterSelect, healthSummary, activeProjects, overdueMilestones, budgetChart, utilizationChart, risksTable, upcomingDeadlines, deliveryPaceChart, blockedItems, actions, archiveSection)
+
+portfolioHeader = CardHeader("Project Portfolio Review", "Quarterly overview")
+quarterSelect = Select("quarter", SelectItem("Q1 2024", "Q1 2024"), SelectItem("Q2 2024", "Q2 2024"), SelectItem("Q3 2024", "Q3 2024"), SelectItem("Q4 2024", "Q4 2024"), placeholder:"Select quarter")
+healthSummary = TextContent("Overall portfolio health is **stable** with most projects on track.", size:default)
+
+activeProjects = Card(Heading("Active Projects", h3), activeProjectsTable)
+activeProjectsTable = Table(
+  Col("Project", [], type:string),
+  Col("Owner", [], type:string),
+  Col("Deadline", [], type:string),
+  Col("Health", [], type:string)
+)
+
+overdueMilestones = Card(Heading("Overdue Milestones", h3), overdueMilestonesTable)
+overdueMilestonesTable = Table(
+  Col("Milestone", [], type:string),
+  Col("Project", [], type:string),
+  Col("Due Date", [], type:string),
+  Col("Owner", [], type:string)
+)
+
+budgetChart = Card(Heading("Budget: Spent vs Allocation", h3), BarChart(
+  |Project|Spent|Allocation
+  |Alpha|120000|150000
+  |Beta|90000|100000
+  |Gamma|45000|60000
+  , variant:grouped, xLabel:"Project", yLabel:"USD"
+))
+
+utilizationChart = Card(Heading("Team Utilization", h3), PieChart(
+  ["Team A","Team B","Team C"], [70,55,80], variant:donut, appearance:circular
+))
+
+risksTable = Card(Heading("Risks", h3), risksTableData)
+risksTableData = Table(
+  Col("Risk", [], type:string),
+  Col("Project", [], type:string),
+  Col("Severity", [], type:string)
+)
+
+upcomingDeadlines = Card(Heading("Deadlines Next 2 Weeks", h3), upcomingDeadlinesTable)
+upcomingDeadlinesTable = Table(
+  Col("Project", [], type:string),
+  Col("Deadline", [], type:string),
+  Col("Owner", [], type:string)
+)
+
+deliveryPaceChart = Card(Heading("Delivery Pace (Last 6 Sprints)", h3), LineChart(
+  |Sprint|Completed Stories
+  |S1|24
+  |S2|27
+  |S3|22
+  |S4|30
+  |S5|28
+  |S6|31
+  , variant:linear, xLabel:"Sprint", yLabel:"Stories"
+))
+
+blockedItems = Card(Heading("Blocked Work Items", h3), blockedItemsTable)
+blockedItemsTable = Table(
+  Col("Item", [], type:string),
+  Col("Project", [], type:string),
+  Col("Reason", [], type:string)
+)
+
+actions = Buttons(
+  Button("Export Review", primary),
+  Button("Request More People", secondary),
+  Button("Archive Project", destructive)
+)
+
+archiveSection = Card(Heading("Archive Finished Project", h3), archiveForm)
+archiveForm = Form("archive-project", archiveButtons,
+  archiveSelect
+)
+archiveSelect = FormControl("Select project to archive", Select("project_id",
+  SelectItem("alpha", "Alpha"),
+  SelectItem("beta", "Beta"),
+  SelectItem("gamma", "Gamma"),
+  placeholder:"Choose project",
+  value:""
+))
+archiveButtons = Buttons(Button("Archive", destructive), Button("Cancel", tertiary))

@@ -1,0 +1,22 @@
+{
+  "tree": {
+    "type": "Row",
+    "props": {
+      "gap": "lg",
+      "wrap": false
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "a"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

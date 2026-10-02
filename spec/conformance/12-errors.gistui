@@ -1,0 +1,7 @@
+# Unrepairable errors: missing required prop, unknown component with no close match, bad enum.
+root = Stack(a, b, c, missing)
+a = Stat("Revenue")
+b = Zzzzzz("x", title:"t")
+c = Chart(t, type:sparkline)
+t = |x|y
+|a|1

@@ -1,0 +1,1 @@
+root = Row(Text(5), Text(true), Text(1.50), Text([1]))

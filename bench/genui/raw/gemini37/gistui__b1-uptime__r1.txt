@@ -1,0 +1,24 @@
+root = Card(header, summaryRow, recentIncident, servicesCard, metricsSection, actions, gap:m)
+header = CardHeader("Platform Engineering Status", "Real-time service health, uptime, and incident reports")
+summaryRow = Card(uptimeMetric, incidentMetric, mttdMetric, direction:row, gap:m, sunk)
+uptimeMetric = Card(TextContent("API Uptime (This Month)", small), Heading("99.94%", h2), Tag("Within SLA (99.9%)", success), gap:xs, clear)
+incidentMetric = Card(TextContent("Active Incidents", small), Heading("0", h2), Tag("All systems operational", info), gap:xs, clear)
+mttdMetric = Card(TextContent("Mean Time to Resolution", small), Heading("14m", h2), Tag("-3m vs last month", neutral), gap:xs, clear)
+recentIncident = Alert("Resolved Incident: elevated latency on Core API", "Identified memory saturation in the primary routing layer. Mitigation deployed and traffic normalized at 14:22 UTC on May 18 (Total duration: 18 minutes).", success)
+servicesCard = Card(Heading("Service Components", h3), Table(serviceStatusRows), sunk, gap:s)
+metricsSection = Card(Heading("API Latency & Availability Trend (Past 7 Days)", h3), AreaChart(latencyTrendRows, natural, xLabel:"Day", yLabel:"ms / Uptime %"), sunk, gap:s)
+actions = Buttons(Button("Subscribe to Updates", primary), Button("Incident History", secondary), Button("Export SLA Report", tertiary))
+serviceStatusRows = |Service|Status|Uptime (30d)|Latency (p95)
+|Core API Gateway|Operational|99.94%|42ms
+|Authentication Service|Operational|99.99%|18ms
+|Database Cluster (Primary)|Operational|100.0%|4ms
+|Background Worker Queue|Operational|99.91%|120ms
+|Webhooks Delivery|Operational|99.88%|65ms
+latencyTrendRows = |Day|Latency_ms|Uptime_pct
+|Mon|38|99.98
+|Tue|41|99.99
+|Wed|89|99.72
+|Thu|44|99.95
+|Fri|39|99.98
+|Sat|36|100.0
+|Sun|37|100.0

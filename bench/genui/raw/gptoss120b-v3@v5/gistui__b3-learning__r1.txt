@@ -1,0 +1,44 @@
+root = Card(CardHeader("Training Platform Analytics"), cohortFilter, statsSection, enrollmentChart, riskTable, engagementChart, messageForm, actions)
+
+cohortFilter = Select("cohort", SelectItem("all", "All cohorts"), SelectItem("2023-Q1", "2023 Q1"), SelectItem("2023-Q2", "2023 Q2"), placeholder:"Select cohort")
+
+statsSection = Card(Heading("Key Metrics", h3), activeLearners, completionRate, avgQuizScore)
+
+activeLearners = TextContent("**Active learners this week:** 1,254", size:large)
+
+completionRate = TextContent("**Course completion rate:** 78 %", size:large)
+
+avgQuizScore = TextContent("**Average quiz score:** 84 %", size:large)
+
+enrollmentChart = Card(Heading("Courses Ranked by Enrollment", h3), BarChart(|Course|Enrollments
+|Intro to AI|452
+|Data Science 101|389
+|Advanced Python|321
+|UX Design|274
+|Project Management|210
+, grouped, xLabel:"Enrollments", yLabel:"Course"))
+
+riskTable = Card(Heading("Learners at Risk of Dropping Out", h3), Table(
+Col("Learner", ["Alice Johnson","Bob Smith","Carlos Ruiz","Diana Lee"], string),
+Col("Progress", ["45%","38%","42%","39%"], string),
+Col("Risk Score", [78,82,80,79], number)
+))
+
+engagementChart = Card(Heading("Engagement Over Past 8 Weeks", h3), LineChart(|Week|Engagement
+|W1|68
+|W2|71
+|W3|73
+|W4|70
+|W5|74
+|W6|76
+|W7|78
+|W8|80
+, linear, xLabel:"Week", yLabel:"Engagement %"))
+
+messageForm = Form("cohort-message", messageButtons,
+FormControl("Message", TextArea("msg", "Enter your message...", "", rows:4))
+)
+
+messageButtons = Buttons(Button("Send", primary))
+
+actions = Buttons(Button("Export Data", secondary), Button("Refresh", tertiary))

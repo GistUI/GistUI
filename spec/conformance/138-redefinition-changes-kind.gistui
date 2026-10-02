@@ -1,0 +1,5 @@
+root = Row(a, Header(b))
+a = "text"
+a = [Text("x"), Text("y")]
+b = Text("component")
+b = "now text"

@@ -1,0 +1,114 @@
+root = Card(enrollmentSection, applicationsSection, acceptanceSection, tuitionSection, courseCapacitySection, teachingLoadSection, riskSection, scholarshipSection, housingSection, eventsSection, alumniSection, departmentFocus, semesterComparison, waitlistSection, approveCourseSection, messageSection)
+
+enrollmentSection = Card(CardHeader("Total Enrollment", "Trend over 5 years"), enrollmentChart, sunk)
+enrollmentChart = LineChart(enrollmentData, linear, xLabel:"Year", yLabel:"Students")
+
+enrollmentData = |Year|Enrollment
+|2019|12400
+|2020|13050
+|2021|13800
+|2022|14520
+|2023|15230
+
+applicationsSection = Card(CardHeader("Applications by Program"), applicationsChart, sunk)
+applicationsChart = BarChart(applicationsData, grouped, xLabel:"Program", yLabel:"Applications")
+
+applicationsData = |Program|Applications
+|Engineering|3200
+|Arts|1500
+|Science|2100
+|Business|1800
+|Education|900
+
+acceptanceSection = Card(CardHeader("Acceptance Rate"), acceptanceRate, sunk)
+acceptanceRate = TextContent("Overall acceptance rate: **68%**", size:large)
+
+tuitionSection = Card(CardHeader("Tuition Revenue (Current Year)"), tuitionRevenue, sunk)
+tuitionRevenue = TextContent("$45.2M", size:large-heavy)
+
+courseCapacitySection = Card(CardHeader("Course Offering Capacity"), courseCapacityChart, sunk)
+courseCapacityChart = HorizontalBarChart(courseLabels, Series("Filled", courseFilled), Series("Capacity", courseCap), stacked, xLabel:"Seats", yLabel:"Course")
+
+courseLabels = ["Math 101","History 202","Biology 303","CompSci 404","Economics 505"]
+courseFilled = [95,80,70,60,85]
+courseCap = [100,100,100,100,100]
+
+teachingLoadSection = Card(CardHeader("Teaching Load by Faculty"), teachingLoadChart, sunk)
+teachingLoadChart = BarChart(teachingLoadData, grouped, xLabel:"Faculty", yLabel:"Courses")
+
+teachingLoadData = |Faculty|Courses
+|Dr. Smith|4
+|Prof. Lee|3
+|Dr. Patel|5
+|Prof. Gomez|2
+|Dr. Chen|4
+
+riskSection = Card(CardHeader("Students at Academic Risk"), riskCount, sunk)
+riskCount = TextContent("120 students", size:large)
+
+scholarshipSection = Card(CardHeader("Scholarship Budget Usage"), scholarshipChart, sunk)
+scholarshipChart = PieChart(scholarshipLabels, scholarshipValues, donut, circular)
+
+scholarshipLabels = ["Used","Remaining"]
+scholarshipValues = [8.5,1.5]
+
+housingSection = Card(CardHeader("Housing Occupancy"), housingChart, sunk)
+housingChart = Progress(0.88, "88% occupied")
+
+eventsSection = Card(CardHeader("Campus Events This Month"), eventsList, sunk)
+eventsList = ListBlock(
+  ListItem("Science Fair", "April 12", "Details", []),
+  ListItem("Alumni Reunion", "April 20", "Details", []),
+  ListItem("Music Concert", "April 25", "Details", [])
+, variant:image)
+
+alumniSection = Card(CardHeader("Alumni Giving (Past 4 Years)"), alumniChart, sunk)
+alumniChart = LineChart(alumniData, linear, xLabel:"Year", yLabel:"Donations")
+
+alumniData = |Year|Donations
+|2020|3.2M
+|2021|3.5M
+|2022|4.0M
+|2023|4.3M
+
+departmentFocus = Card(CardHeader("Focus on Department"), deptSelect, sunk)
+deptSelect = Select("department", 
+  SelectItem("eng","Engineering"),
+  SelectItem("arts","Arts"),
+  SelectItem("sci","Science"),
+  SelectItem("bus","Business"),
+  SelectItem("edu","Education"),
+  placeholder:"Select department", 
+  value:"eng"
+)
+
+semesterComparison = Card(CardHeader("This Semester vs Last"), semesterChart, sunk)
+semesterChart = BarChart(semesterData, grouped, xLabel:"Metric", yLabel:"Value")
+
+semesterData = |Metric|This Semester|Last Semester
+|Enrollments|15230|14520
+|Applications|10200|9500
+|Revenue|45.2M|44.0M
+
+waitlistSection = Card(CardHeader("Waitlisted Students per Program"), waitlistChart, sunk)
+waitlistChart = BarChart(waitlistData, grouped, xLabel:"Program", yLabel:"Waitlisted")
+
+waitlistData = |Program|Waitlisted
+|Engineering|120
+|Arts|45
+|Science|80
+|Business|60
+|Education|30
+
+approveCourseSection = Card(CardHeader("Approve New Course"), approveButtons, sunk)
+approveButtons = Buttons(Button("Approve", [], primary), Button("Reject", [], secondary))
+
+messageSection = Card(CardHeader("Send Message to Student Group"), messageSelect, messageButton, sunk)
+messageSelect = Select("student_group",
+  SelectItem("freshmen","Freshmen"),
+  SelectItem("seniors","Seniors"),
+  SelectItem("scholarship","Scholarship Recipients"),
+  placeholder:"Select group", 
+  value:"freshmen"
+)
+messageButton = Buttons(Button("Send", [], primary))

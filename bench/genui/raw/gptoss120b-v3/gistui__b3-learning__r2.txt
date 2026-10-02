@@ -1,0 +1,72 @@
+root = Card(cardHeader, cohortFilter, metricsSection, coursesChart, riskChart, engagementChart, messageCohort, followUps, gap:l)
+
+cardHeader = CardHeader("Training Platform Analytics", "Overview of learner activity")
+
+cohortFilter = Form("cohort-filter", filterButtons, cohortSelect)
+
+filterButtons = Buttons(Button("Apply", primary))
+
+cohortSelect = Select("cohort", SelectItem("All", "All cohorts"), SelectItem("Cohort A", "Cohort A"), SelectItem("Cohort B", "Cohort B"), placeholder:"Select cohort")
+
+metricsSection = Card(Heading("Key Metrics", h3),
+    Card(
+        TextContent("**Active learners this week**\n\n1,254", large),
+        TextContent("**Course completion rate**\n\n78%", large),
+        TextContent("**Average quiz score**\n\n84%", large),
+        direction:row, gap:s, wrap
+    )
+)
+
+coursesChart = Card(Heading("Courses Ranked by Enrollment", h3),
+    BarChart(
+        |Course|Enrollments
+        |Intro to AI|542
+        |Data Science 101|489
+        |Python Basics|376
+        |Advanced ML|312
+        |UX Design|254
+        , grouped, xLabel:"Course", yLabel:"Enrollments"
+    )
+)
+
+riskChart = Card(Heading("Learners at Risk of Dropping Out", h3),
+    HorizontalBarChart(
+        |Learner|Risk Score
+        |Alice|92
+        |Bob|88
+        |Charlie|85
+        |Diana|80
+        |Evan|78
+        , stacked, xLabel:"Risk Score", yLabel:"Learner"
+    )
+)
+
+engagementChart = Card(Heading("Engagement Over Past 8 Weeks", h3),
+    LineChart(
+        |Week|Engagement Index
+        |W1|68
+        |W2|71
+        |W3|73
+        |W4|75
+        |W5|77
+        |W6|78
+        |W7|80
+        |W8|82
+        , linear, xLabel:"Week", yLabel:"Engagement"
+    )
+)
+
+messageCohort = DialogBlock("Message Cohort", "Send Message to Cohort",
+    Form("message-form", messageButtons,
+        FormControl("Message", TextArea("msg", "Enter your message...", "", rows:4))
+    ),
+    description:"Compose a message to the selected cohort.",
+    triggerVariant:primary
+)
+
+messageButtons = Buttons(Button("Send", primary), Button("Cancel", tertiary))
+
+followUps = FollowUpBlock(
+    FollowUpItem("View detailed learner profiles"),
+    FollowUpItem("Download full analytics report")
+)

@@ -1,0 +1,37 @@
+root = Card(header, totalDeal, stage, activitySection, contactsSection, followupsSection, noteForm, callForm)
+
+header = CardHeader("Acme Corp", "Owner: Jane Doe")
+totalDeal = TextContent("**Total Deal Value:** $250,000", size:large)
+stage = TextContent("**Current Stage:** Negotiation", size:default)
+
+activitySection = Card(Heading("Recent Activity", h3), activityList)
+activityList = ListBlock(activityItem1, activityItem2, activityItem3, variant:number)
+
+activityItem1 = ListItem("Call with prospect", "Discussed pricing", "View")
+activityItem2 = ListItem("Email sent", "Sent proposal PDF", "View")
+activityItem3 = ListItem("Meeting scheduled", "Next week demo", "View")
+
+contactsSection = Card(Heading("Contacts", h3), contactsTable)
+
+contactsTable = |
+Name|Role
+John Smith|Decision Maker
+Emily Davis|Technical Lead
+
+followupsSection = Card(Heading("Open Follow-ups", h3), followupsTable, renewalCallout)
+
+followupsTable = |
+Task|Due Date
+Send proposal|2023-10-15
+Prepare contract|2023-10-20
+
+renewalCallout = Callout(variant:warning, "Renewal Date Approaching", "Renewal on 2023-10-18")
+
+noteForm = Form("note", noteButtons, noteField)
+noteField = FormControl("Note", TextArea("note", "Enter note...", "", rows:4, rules:[]))
+noteButtons = Buttons(Button("Save Note", primary))
+
+callForm = Form("logcall", callButtons, callTypeField, callResultField)
+callTypeField = FormControl("Call Type", Select("call_type", SelectItem("intro", "Intro Call"), SelectItem("followup", "Follow-up"), placeholder:"Select type", rules:[], value:"", size:small))
+callResultField = FormControl("Result", Input("result", "Outcome...", "", type:text, rules:[]))
+callButtons = Buttons(Button("Log Call", primary), Button("Cancel", tertiary))

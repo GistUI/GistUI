@@ -1,0 +1,30 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Icon",
+        "props": {
+          "name": "star"
+        }
+      },
+      {
+        "type": "Icon",
+        "props": {
+          "name": "plane"
+        }
+      },
+      {
+        "type": "Icon",
+        "props": {
+          "name": "user"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

@@ -1,0 +1,4 @@
+root = Card(taskHeader, statusTag, doneButtons, direction:column, gap:s)
+taskHeader = CardHeader("Finish quarterly report", "Due: Sep 5, 2026")
+statusTag = Tag("In Progress", variant:info, size:md)
+doneButtons = Buttons(Button("Mark as Done", primary))

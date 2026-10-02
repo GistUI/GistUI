@@ -1,0 +1,72 @@
+root = Card(headerBar, kpiRow, mainTabs, reorderDrawer)
+headerBar = Card(CardHeader("Store #104 — Downtown Flagship", "Manager on Duty: Sarah Jenkins | Real-time Operations Console"), storeSelector, direction:row, justify:between, align:center)
+storeSelector = Select("store_switch", SelectItem("104", "Store #104 — Downtown Flagship (Current)"), SelectItem("108", "Store #108 — North Galleria"), SelectItem("112", "Store #112 — West End Mall"), SelectItem("115", "Store #115 — Metro Center"), placeholder:"Switch Store Location", value:"104", size:small)
+kpiRow = Card(salesCard, trafficCard, basketCard, returnsCard, direction:row, gap:m)
+salesCard = Card(Heading("Sales Today vs Target", h4), TextContent("## $14,850 / $16,500"), Progress(90, "90% of Daily Goal ($1,650 to target)"), Tag("On Track", success), sunk)
+trafficCard = Card(Heading("Foot Traffic Today", h4), TextContent("## 1,280 visitors"), TextContent("Peak hour: 1:00 PM – 2:00 PM (+14% vs avg)"), Tag("High Volume", info), sunk)
+basketCard = Card(Heading("Avg Basket Size", h4), TextContent("## $64.20"), TextContent("3.4 items/transaction (+8.5% today)"), Tag("+8.5%", success), sunk)
+returnsCard = Card(Heading("Returns This Week", h4), TextContent("## 42 items ($2,180)"), TextContent("Return rate: 2.1% of gross sales"), Tag("Normal Rate", neutral), sunk)
+mainTabs = Tabs(overviewTab, inventoryTab, staffOpsTab, promoTab)
+overviewTab = TabItem("overview", "Overview & Trends", overviewGrid)
+overviewGrid = Card(trafficSection, weeklyComparisonSection, gap:m)
+trafficSection = Card(Heading("Hourly Foot Traffic vs Target", h3), LineChart(trafficTable, natural, xLabel:"Time of Day", yLabel:"Shoppers"), sunk)
+weeklyComparisonSection = Card(Heading("This Week vs Last Week Performance", h3), BarChart(weekComparisonTable, grouped, xLabel:"Day", yLabel:"Sales ($)"), sunk)
+inventoryTab = TabItem("inventory", "Inventory & Reorder", inventoryGrid)
+inventoryGrid = Card(bestSellersCard, outOfStockCard, gap:m)
+bestSellersCard = Card(Heading("Today's Best Sellers", h3), Table(bestSellerCol1, bestSellerCol2, bestSellerCol3, bestSellerCol4), sunk)
+bestSellerCol1 = Col("Product Name", ["Classic Crewneck Tee - L", "Slim Fit Denim 32x32", "Canvas Tote Bag", "Merino Wool Beanie", "Leather Card Wallet"])
+bestSellerCol2 = Col("SKU", ["APP-0941", "DEN-4421", "ACC-1029", "ACC-8832", "ACC-5510"])
+bestSellerCol3 = Col("Units Sold", [48, 36, 29, 24, 21], number)
+bestSellerCol4 = Col("Revenue ($)", [1440, 2880, 725, 840, 945], number)
+outOfStockCard = Card(Heading("Stock Alerts & Out of Stock Items", h3), Alert("Restock Required", "3 urgent stockouts detected today; immediate distributor reorder suggested.", destructive), Table(oosCol1, oosCol2, oosCol3, oosCol4), sunk)
+oosCol1 = Col("Product Name", ["Cotton Oxford Shirt - Blue / M", "Waterproof Rain Shell - Black / L", "Ribbed Knit Socks - White", "Suede Belt - Brown / 34"])
+oosCol2 = Col("SKU", ["APP-3104", "OUT-7712", "ACC-2091", "ACC-6643"])
+oosCol3 = Col("Stock Level", [0, 0, 0, 0], number)
+oosCol4 = Col("Status", ["Out of Stock", "Out of Stock", "Out of Stock", "Out of Stock"])
+staffOpsTab = TabItem("operations", "Registers & Shifts", opsGrid)
+opsGrid = Card(shiftCard, registerCard, direction:row, gap:m)
+shiftCard = Card(Heading("Who is on Shift Today (8 Staff)", h3), ListBlock(shift1, shift2, shift3, shift4, shift5), sunk)
+shift1 = ListItem("Sarah Jenkins (Store Manager)", "Shift: 08:00 - 17:00 • Floor Lead", "On Duty")
+shift2 = ListItem("Marcus Brody (Assistant Manager)", "Shift: 10:00 - 19:00 • Customer Service", "On Duty")
+shift3 = ListItem("Elena Rostova (Lead Cashier)", "Shift: 08:30 - 16:30 • Register 1", "On Duty")
+shift4 = ListItem("Liam Nguyen (Sales Associate)", "Shift: 09:00 - 17:30 • Fitting Rooms", "On Duty")
+shift5 = ListItem("Chloe Kim (Cashier)", "Shift: 12:00 - 20:30 • Register 3", "On Duty")
+registerCard = Card(Heading("Register Terminals Status", h3), Table(regCol1, regCol2, regCol3, regCol4), sunk)
+regCol1 = Col("Register ID", ["Reg #01 - Front Left", "Reg #02 - Front Center", "Reg #03 - Front Right", "Reg #04 - Customer Service", "Reg #05 - Express Bay"])
+regCol2 = Col("Cashier Assigned", ["Elena Rostova", "Unassigned", "Chloe Kim", "Marcus Brody", "Self-Checkout"])
+regCol3 = Col("Current Status", ["OPEN", "CLOSED", "OPEN", "OPEN", "OPEN"])
+regCol4 = Col("Transactions Today", [142, 0, 98, 41, 185], number)
+promoTab = TabItem("promotions", "Running Promotions", promoContent)
+promoContent = Card(Heading("Active Promotion Performance", h3), Table(promoCol1, promoCol2, promoCol3, promoCol4, promoCol5), sunk)
+promoCol1 = Col("Promotion Campaign", ["Spring Outerwear 20% Off", "Buy 2 Basics Get 1 Free", "Loyalty $10 Off $75+", "Footwear Clearance Flash"])
+promoCol2 = Col("Code / Tag", ["SPRING20", "B2G1-TEE", "LOYAL10", "FLASH-SHOE"])
+promoCol3 = Col("Redemptions", [184, 126, 92, 45], number)
+promoCol4 = Col("Promo Sales Volume ($)", [9200, 4410, 6900, 2250], number)
+promoCol5 = Col("Conversion Rate", ["18.4%", "14.1%", "22.6%", "9.8%"])
+reorderDrawer = DrawerBlock("Quick Reorder Item", "Inventory Reorder Form", reorderForm, description:"Submit an expedited restock order directly to regional warehouse.")
+reorderForm = Form("quick_reorder", formActions, skuField, qtyField, priorityField, notesField)
+skuField = FormControl("Select Item to Reorder", skuSelect)
+skuSelect = Select("reorder_sku", SelectItem("APP-3104", "Cotton Oxford Shirt - Blue / M (0 in stock)"), SelectItem("OUT-7712", "Waterproof Rain Shell - Black / L (0 in stock)"), SelectItem("ACC-2091", "Ribbed Knit Socks - White (0 in stock)"), SelectItem("ACC-6643", "Suede Belt - Brown / 34 (0 in stock)"), SelectItem("APP-0941", "Classic Crewneck Tee - L (Low Stock - 4 left)"), placeholder:"Select product SKU")
+qtyField = FormControl("Order Quantity (Units)", Input("order_qty", "50", type:number))
+priorityField = FormControl("Fulfillment Urgency", priorityRadio)
+priorityRadio = RadioGroup("order_priority", RadioItem("Standard", "2-3 business days", "std"), RadioItem("Overnight Rush", "Next morning delivery ($25 fee)", "rush"), defaultValue:"rush", value:"rush")
+notesField = FormControl("Purchase Order Notes", TextArea("po_notes", "Urgent restock due to high foot traffic surge.", rows:3))
+formActions = Buttons(Button("Submit Purchase Order", primary), Button("Cancel", tertiary))
+trafficTable = |Hour|Shoppers
+|09:00|45
+|10:00|92
+|11:00|140
+|12:00|210
+|13:00|265
+|14:00|220
+|15:00|175
+|16:00|150
+|17:00|185
+weekComparisonTable = |Day|This Week|Last Week
+|Mon|12400|11200
+|Tue|13100|12800
+|Wed|14200|13500
+|Thu|14850|13900
+|Fri|18900|17400
+|Sat|24500|22100
+|Sun|19800|18600

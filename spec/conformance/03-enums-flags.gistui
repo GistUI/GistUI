@@ -1,0 +1,8 @@
+# Bare words: enums only in key:WORD position of an enum prop; flags from boolean props.
+root = Stack(a, b, c, d)
+a = Row(t1, wrap, gap:xl)
+b = Input("email", "Email", type:email, required, min:3)
+c = Card(wrap)
+d = Row(gap:2xl)
+t1 = Text("t")
+wrap = Text("an id named like a flag is only a ref where the component has no such flag")

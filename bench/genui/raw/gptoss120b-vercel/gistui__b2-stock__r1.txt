@@ -1,0 +1,8 @@
+root = Card(form, thresholdInfo, lowList, wrap)
+form = Form("low-inv-search", formButtons, searchField)
+searchField = FormControl("Search items", Input("search", placeholder:"Search items...", type:text))
+formButtons = Buttons(Button("Search"))
+thresholdInfo = TextContent("Threshold: items are flagged when stock falls below the set minimum.", size:small)
+lowList = ListBlock(item1, item2, variant:number)
+item1 = ListItem("Widget A", "Remaining: 5 (threshold 10)", "Reorder")
+item2 = ListItem("Gadget B", "Remaining: 2 (threshold 5)", "Reorder")

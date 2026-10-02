@@ -1,0 +1,17 @@
+root = Card(searchForm, lowTable)
+
+searchForm = Form("low-search", searchButtons, searchField)
+
+searchField = FormControl("Search items", Input("search", placeholder:"Enter item name"))
+
+searchButtons = Buttons(Button("Search"))
+
+lowTable = Table(itemCol, remainingCol, thresholdCol, actionCol)
+
+itemCol = Col("Item", ["Widget","Gadget"], string)
+
+remainingCol = Col("Remaining", [5,2], number)
+
+thresholdCol = Col("Threshold", [10,5], number)
+
+actionCol = Col("Reorder", ["Reorder","Reorder"], action)

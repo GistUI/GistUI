@@ -1,0 +1,40 @@
+{
+  "tree": {
+    "type": "Row",
+    "props": {
+      "wrap": true
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "shown"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "reserved-id",
+      "severity": "warning",
+      "stmt": "wrap",
+      "line": 2
+    },
+    {
+      "code": "reserved-id",
+      "severity": "warning",
+      "stmt": "sort",
+      "line": 3
+    },
+    {
+      "code": "unreachable",
+      "severity": "warning",
+      "stmt": "wrap",
+      "line": 2
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

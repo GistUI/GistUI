@@ -1,0 +1,41 @@
+root = Card(header, days, agendaCard, speakersCard, ticketsCard, registerCard)
+
+header = CardHeader("TechFuture 2027", "June 15-17, San Francisco Convention Center")
+
+days = Callout(variant:info, "Only 30 days left!", "Register soon to secure your spot.")
+
+agendaCard = Card(Heading("Agenda", h3), agendaTable)
+
+agendaTable = |Time|Session
+|09:00 AM|Opening Keynote
+|10:30 AM|AI in Healthcare
+|12:00 PM|Lunch Break
+|01:30 PM|Blockchain Workshop
+|03:00 PM|Panel Discussion
+|05:00 PM|Networking Reception
+
+speakersCard = Card(Heading("Speakers", h3), speakersList)
+
+speakersList = ListBlock(speaker1, speaker2, speaker3, speaker4, variant:number)
+
+speaker1 = ListItem("Dr. Maya Patel", "AI researcher, MIT")
+speaker2 = ListItem("Luis Gomez", "Blockchain entrepreneur")
+speaker3 = ListItem("Sara Liu", "CTO, CloudNova")
+speaker4 = ListItem("Tom Reed", "Product design lead, InnovateX")
+
+ticketsCard = Card(Heading("Ticket Tiers", h3), ticketsTable)
+
+ticketsTable = |Tier|Price
+|General Admission|$199
+|Student|$99
+|VIP|$399
+
+registerCard = Card(Heading("Register", h3), registerForm)
+
+registerForm = Form("event-register", registerButtons, nameField, emailField)
+
+nameField = FormControl("Full Name", Input("name", placeholder:"Your name"))
+
+emailField = FormControl("Email", Input("email", placeholder:"you@example.com", type:email))
+
+registerButtons = Buttons(Button("Submit", primary))

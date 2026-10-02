@@ -1,0 +1,2677 @@
+[
+ {
+  "fmt": "gistui",
+  "scenario": "b1-invoice",
+  "repeat": 1,
+  "tokens": 62,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 6
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-invoice",
+  "repeat": 2,
+  "tokens": 96,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 14
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-invoice",
+  "repeat": 3,
+  "tokens": 88,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 9
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-invoice",
+  "repeat": 4,
+  "tokens": 90,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 11
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-meeting",
+  "repeat": 1,
+  "tokens": 121,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 10
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-meeting",
+  "repeat": 2,
+  "tokens": 111,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 9
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-meeting",
+  "repeat": 3,
+  "tokens": 85,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-meeting",
+  "repeat": 4,
+  "tokens": 125,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 11
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-newsletter",
+  "repeat": 1,
+  "tokens": 78,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 7
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-newsletter",
+  "repeat": 2,
+  "tokens": 93,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-newsletter",
+  "repeat": 3,
+  "tokens": 130,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 11
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-newsletter",
+  "repeat": 4,
+  "tokens": 112,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 10
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-order",
+  "repeat": 1,
+  "tokens": 201,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 17
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-order",
+  "repeat": 2,
+  "tokens": 118,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "reportProblem:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-order",
+  "repeat": 3,
+  "tokens": 285,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 22
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-order",
+  "repeat": 4,
+  "tokens": 149,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 11
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-poll",
+  "repeat": 1,
+  "tokens": 122,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 10
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-poll",
+  "repeat": 2,
+  "tokens": 47,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 6
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-poll",
+  "repeat": 3,
+  "tokens": 47,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 6
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-poll",
+  "repeat": 4,
+  "tokens": 45,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 6
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-profile",
+  "repeat": 1,
+  "tokens": 99,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-profile",
+  "repeat": 2,
+  "tokens": 105,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-profile",
+  "repeat": 3,
+  "tokens": 123,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 9
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-profile",
+  "repeat": 4,
+  "tokens": 143,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 12
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-revenue",
+  "repeat": 1,
+  "tokens": 67,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 4
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-revenue",
+  "repeat": 2,
+  "tokens": 113,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 6
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-revenue",
+  "repeat": 3,
+  "tokens": 96,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 6
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-revenue",
+  "repeat": 4,
+  "tokens": 80,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 6
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-task",
+  "repeat": 1,
+  "tokens": 59,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 5
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-task",
+  "repeat": 2,
+  "tokens": 59,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 6
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-task",
+  "repeat": 3,
+  "tokens": 58,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 5
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-task",
+  "repeat": 4,
+  "tokens": 54,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 5
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-uptime",
+  "repeat": 1,
+  "tokens": 59,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 4
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-uptime",
+  "repeat": 2,
+  "tokens": 102,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-uptime",
+  "repeat": 3,
+  "tokens": 73,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 4
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-uptime",
+  "repeat": 4,
+  "tokens": 81,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 7
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-weather",
+  "repeat": 1,
+  "tokens": 168,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 9
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-weather",
+  "repeat": 2,
+  "tokens": 146,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 9
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-weather",
+  "repeat": 3,
+  "tokens": 162,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-weather",
+  "repeat": 4,
+  "tokens": 158,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 10
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-budget",
+  "repeat": 1,
+  "tokens": 225,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "monthForm:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "monthSelect:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-budget",
+  "repeat": 2,
+  "tokens": 459,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 32
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-budget",
+  "repeat": 3,
+  "tokens": 248,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "splitChart:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "splitChart:missing-required"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "required-field"
+  ],
+  "n": 12
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-budget",
+  "repeat": 4,
+  "tokens": 220,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 15
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-cafe",
+  "repeat": 1,
+  "tokens": 254,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 18
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-cafe",
+  "repeat": 2,
+  "tokens": 306,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 16
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-cafe",
+  "repeat": 3,
+  "tokens": 340,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 19
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-cafe",
+  "repeat": 4,
+  "tokens": 307,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 16
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-course",
+  "repeat": 1,
+  "tokens": 142,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 10
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-course",
+  "repeat": 2,
+  "tokens": 133,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 7
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-course",
+  "repeat": 3,
+  "tokens": 173,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 13
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-course",
+  "repeat": 4,
+  "tokens": 181,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 14
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-event",
+  "repeat": 1,
+  "tokens": 398,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 29
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-event",
+  "repeat": 2,
+  "tokens": 374,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 30
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-event",
+  "repeat": 3,
+  "tokens": 374,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 23
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-event",
+  "repeat": 4,
+  "tokens": 369,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 26
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-fitness",
+  "repeat": 1,
+  "tokens": 306,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 26
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-fitness",
+  "repeat": 2,
+  "tokens": 313,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 25
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-fitness",
+  "repeat": 3,
+  "tokens": 171,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 13
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-fitness",
+  "repeat": 4,
+  "tokens": 194,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 15
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-job",
+  "repeat": 1,
+  "tokens": 284,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 24
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-job",
+  "repeat": 2,
+  "tokens": 358,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 31
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-job",
+  "repeat": 3,
+  "tokens": 286,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 23
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-job",
+  "repeat": 4,
+  "tokens": 371,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 28
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-sales",
+  "repeat": 1,
+  "tokens": 270,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 19
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-sales",
+  "repeat": 2,
+  "tokens": 247,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 18
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-sales",
+  "repeat": 3,
+  "tokens": 227,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 15
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-sales",
+  "repeat": 4,
+  "tokens": 218,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 17
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-standup",
+  "repeat": 1,
+  "tokens": 221,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 13
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-standup",
+  "repeat": 2,
+  "tokens": 201,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "blockedSection:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "blockedSection:missing-required"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "required-field"
+  ],
+  "n": 16
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-standup",
+  "repeat": 3,
+  "tokens": 200,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 13
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-standup",
+  "repeat": 4,
+  "tokens": 176,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 13
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-stock",
+  "repeat": 1,
+  "tokens": 185,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 15
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-stock",
+  "repeat": 2,
+  "tokens": 154,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 11
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-stock",
+  "repeat": 3,
+  "tokens": 183,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 12
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-stock",
+  "repeat": 4,
+  "tokens": 143,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 10
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-support",
+  "repeat": 1,
+  "tokens": 230,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 15
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-support",
+  "repeat": 2,
+  "tokens": 221,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 19
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-support",
+  "repeat": 3,
+  "tokens": 264,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 20
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-support",
+  "repeat": 4,
+  "tokens": 226,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 13
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-clinic",
+  "repeat": 1,
+  "tokens": 321,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 16
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-clinic",
+  "repeat": 2,
+  "tokens": 301,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 17
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-clinic",
+  "repeat": 3,
+  "tokens": 301,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 21
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-clinic",
+  "repeat": 4,
+  "tokens": 334,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 25
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-content",
+  "repeat": 1,
+  "tokens": 629,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "dateField:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 44
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-content",
+  "repeat": 2,
+  "tokens": 772,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 32
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-content",
+  "repeat": 3,
+  "tokens": 534,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 40
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-content",
+  "repeat": 4,
+  "tokens": 567,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 33
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-crm",
+  "repeat": 1,
+  "tokens": 372,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 25
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-crm",
+  "repeat": 2,
+  "tokens": 380,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 34
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-crm",
+  "repeat": 3,
+  "tokens": 506,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 42
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-crm",
+  "repeat": 4,
+  "tokens": 528,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 35
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-finance",
+  "repeat": 1,
+  "tokens": 386,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 28
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-finance",
+  "repeat": 2,
+  "tokens": 277,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 22
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-finance",
+  "repeat": 3,
+  "tokens": 287,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 24
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-finance",
+  "repeat": 4,
+  "tokens": 376,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "monthField:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 34
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-freight",
+  "repeat": 1,
+  "tokens": 581,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "delayedTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "delayedTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "originDCol:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "destinationDCol:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "statusDCol:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "carrierRows:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 22
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-freight",
+  "repeat": 2,
+  "tokens": 492,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 20
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-freight",
+  "repeat": 3,
+  "tokens": 404,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": "statusCol:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "statusCol:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "delayedCallout:excess-args"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "statsSection:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "statsSection:excess-args"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "statsSection:excess-args"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 18
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-freight",
+  "repeat": 4,
+  "tokens": 488,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 20
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-hr",
+  "repeat": 1,
+  "tokens": 480,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "headcountDept:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 38
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-hr",
+  "repeat": 2,
+  "tokens": 529,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 34
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-hr",
+  "repeat": 3,
+  "tokens": 440,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 33
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-hr",
+  "repeat": 4,
+  "tokens": 630,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "headcountValueCol:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 34
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-learning",
+  "repeat": 1,
+  "tokens": 593,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "messageDialog:invalid-enum"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentData:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskData:unreachable"
+   }
+  ],
+  "classes": [
+   "enum-mismatch",
+   "reference-graph"
+  ],
+  "n": 31
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-learning",
+  "repeat": 2,
+  "tokens": 588,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "messageCohort:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 37
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-learning",
+  "repeat": 3,
+  "tokens": 482,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 27
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-learning",
+  "repeat": 4,
+  "tokens": 492,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 37
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-marketing",
+  "repeat": 1,
+  "tokens": 749,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 29
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-marketing",
+  "repeat": 2,
+  "tokens": 765,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 21
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-marketing",
+  "repeat": 3,
+  "tokens": 527,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 28
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-marketing",
+  "repeat": 4,
+  "tokens": 829,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 31
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-orders",
+  "repeat": 1,
+  "tokens": 502,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 37
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-orders",
+  "repeat": 2,
+  "tokens": 468,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 33
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-orders",
+  "repeat": 3,
+  "tokens": 489,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 28
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-orders",
+  "repeat": 4,
+  "tokens": 490,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 32
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-server",
+  "repeat": 1,
+  "tokens": 539,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "regionFilter:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "regionSelect:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 33
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-server",
+  "repeat": 2,
+  "tokens": 464,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 26
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-server",
+  "repeat": 3,
+  "tokens": 509,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 40
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-server",
+  "repeat": 4,
+  "tokens": 635,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 40
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-airline",
+  "repeat": 1,
+  "tokens": 801,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 60
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-airline",
+  "repeat": 2,
+  "tokens": 933,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 67
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-airline",
+  "repeat": 3,
+  "tokens": 938,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "delayedCallout:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 68
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-airline",
+  "repeat": 4,
+  "tokens": 615,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 32
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-bank",
+  "repeat": 1,
+  "tokens": 836,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 59
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-bank",
+  "repeat": 2,
+  "tokens": 891,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "alertsCheckbox:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 65
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-bank",
+  "repeat": 3,
+  "tokens": 762,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 48
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-bank",
+  "repeat": 4,
+  "tokens": 977,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 78
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-creator",
+  "repeat": 1,
+  "tokens": 500,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "datetimeField:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 38
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-creator",
+  "repeat": 2,
+  "tokens": 718,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 47
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-creator",
+  "repeat": 3,
+  "tokens": 767,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 58
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-creator",
+  "repeat": 4,
+  "tokens": 791,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 44
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-hospital",
+  "repeat": 1,
+  "tokens": 948,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 62
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-hospital",
+  "repeat": 2,
+  "tokens": 1173,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 84
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-hospital",
+  "repeat": 3,
+  "tokens": 859,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "incidentDialog:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 71
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-hospital",
+  "repeat": 4,
+  "tokens": 882,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "admissionsChart:invalid-enum"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "admissionsChart:unknown-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "admissionsChart:unknown-prop"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "deptBarChart:invalid-enum"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "deptBarChart:unknown-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "deptBarChart:unknown-prop"
+   }
+  ],
+  "classes": [
+   "enum-mismatch",
+   "signature-mismatch"
+  ],
+  "n": 57
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-portfolio",
+  "repeat": 1,
+  "tokens": 1028,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "requestButton:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 63
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-portfolio",
+  "repeat": 2,
+  "tokens": 1151,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 78
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-portfolio",
+  "repeat": 3,
+  "tokens": 1095,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 55
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-portfolio",
+  "repeat": 4,
+  "tokens": 1048,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "requestDialog:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 59
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-power",
+  "repeat": 1,
+  "tokens": 992,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 64
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-power",
+  "repeat": 2,
+  "tokens": 754,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "alert2:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 43
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-power",
+  "repeat": 3,
+  "tokens": 1064,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 64
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-power",
+  "repeat": 4,
+  "tokens": 806,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 68
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-retail",
+  "repeat": 1,
+  "tokens": 939,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 62
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-retail",
+  "repeat": 2,
+  "tokens": 824,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "salesSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "trafficSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "bestSellersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "outOfStockSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shiftSection:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "returnsSection:excess-args"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "promotionsSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "registersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "comparisonSection:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 71
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-retail",
+  "repeat": 3,
+  "tokens": 560,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "salesSection:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 44
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-retail",
+  "repeat": 4,
+  "tokens": 944,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 73
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-saas",
+  "repeat": 1,
+  "tokens": 1066,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 59
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-saas",
+  "repeat": 2,
+  "tokens": 1214,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "planLabels:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "planValues:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 71
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-saas",
+  "repeat": 3,
+  "tokens": 991,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "npsCallout:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "npsCallout:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 62
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-saas",
+  "repeat": 4,
+  "tokens": 1184,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 72
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-city",
+  "repeat": 1,
+  "tokens": 1248,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "waterSection:unknown-prop"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "dispatchDialog:invalid-enum"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "enum-mismatch"
+  ],
+  "n": 88
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-city",
+  "repeat": 2,
+  "tokens": 1323,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "alertDialog:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 93
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-city",
+  "repeat": 3,
+  "tokens": 1232,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "dispatchDialog:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 98
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-city",
+  "repeat": 4,
+  "tokens": 1520,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "districtTab1:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "districtTab2:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "districtTab3:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 106
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-disaster",
+  "repeat": 1,
+  "tokens": 1265,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "requestResources:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 93
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-disaster",
+  "repeat": 2,
+  "tokens": 896,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 24
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-disaster",
+  "repeat": 3,
+  "tokens": 1322,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "focusDialog:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 106
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-disaster",
+  "repeat": 4,
+  "tokens": 1325,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 103
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-exec",
+  "repeat": 1,
+  "tokens": 985,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 81
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-exec",
+  "repeat": 2,
+  "tokens": 948,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 78
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-exec",
+  "repeat": 3,
+  "tokens": 1013,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 77
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-exec",
+  "repeat": 4,
+  "tokens": 1204,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 87
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-fund",
+  "repeat": 1,
+  "tokens": 1116,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 99
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-fund",
+  "repeat": 2,
+  "tokens": 1432,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "varSection:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 100
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-fund",
+  "repeat": 3,
+  "tokens": 1436,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 86
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-fund",
+  "repeat": 4,
+  "tokens": 1216,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "gainersLosersCard:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "gainersLosersCard:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "strategyReturnCard:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 82
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-game",
+  "repeat": 1,
+  "tokens": 1234,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 82
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-game",
+  "repeat": 2,
+  "tokens": 1295,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 87
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-game",
+  "repeat": 3,
+  "tokens": 1171,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 82
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-game",
+  "repeat": 4,
+  "tokens": 1153,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 86
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-plant",
+  "repeat": 1,
+  "tokens": 1392,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 90
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-plant",
+  "repeat": 2,
+  "tokens": 911,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 56
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-plant",
+  "repeat": 3,
+  "tokens": 1103,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 92
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-plant",
+  "repeat": 4,
+  "tokens": 1163,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "focus_line_section:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch"
+  ],
+  "n": 82
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-streaming",
+  "repeat": 1,
+  "tokens": 1671,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "promoteSection:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "promoteSection:missing-required"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "required-field"
+  ],
+  "n": 91
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-streaming",
+  "repeat": 2,
+  "tokens": 1171,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "regionFocusDialog:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "regionFocusDialog:missing-required"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "promoteTitleDialog:invalid-enum"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "required-field",
+   "enum-mismatch"
+  ],
+  "n": 77
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-streaming",
+  "repeat": 3,
+  "tokens": 1272,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 85
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-streaming",
+  "repeat": 4,
+  "tokens": 1348,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "viewersItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "viewersItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "mostWatchedItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "mostWatchedItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "watchTimeItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "watchTimeItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "subsCancelItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "subsCancelItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "genrePerfItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "genrePerfItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "bufferingItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "bufferingItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "deliveryHealthItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "deliveryHealthItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "releasesItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "releasesItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "licensesItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "licensesItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "recClicksItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "recClicksItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "failedSearchesItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "failedSearchesItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "revenuePlanItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "revenuePlanItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "deviceSplitItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "deviceSplitItem:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "featureFlagsItem:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "featureFlagsItem:missing-required"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "promoteDialog:invalid-enum"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "startDateInput:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "required-field",
+   "enum-mismatch"
+  ],
+  "n": 64
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-university",
+  "repeat": 1,
+  "tokens": 1440,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 96
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-university",
+  "repeat": 2,
+  "tokens": 1156,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 70
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-university",
+  "repeat": 3,
+  "tokens": 1267,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "messageItem:invalid-enum"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "enum-mismatch"
+  ],
+  "n": 56
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-university",
+  "repeat": 4,
+  "tokens": 1216,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "acceptancePie:excess-args"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "acceptancePie:excess-args"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "scholarshipPie:excess-args"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "scholarshipPie:excess-args"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "approveCourseDialog:invalid-enum"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "enum-mismatch"
+  ],
+  "n": 59
+ }
+]

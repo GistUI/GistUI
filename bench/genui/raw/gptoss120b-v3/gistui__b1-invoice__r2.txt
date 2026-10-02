@@ -1,0 +1,5 @@
+root = Card(amountSection, dueSection, paySection, actions)
+amountSection = Card(CardHeader("Invoice Amount"), TextContent("$2,450 USD", size:large))
+dueSection = Card(CardHeader("Due Date"), TextContent("September 15, 2026", size:default))
+paySection = Card(CardHeader("Pay Now"), Buttons(Button("Pay Now", primary), Button("Download PDF", secondary)))
+actions = Buttons(Button("Send Reminder", tertiary))

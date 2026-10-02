@@ -1,0 +1,133 @@
+root = Card(headerRow, kpiBar, tabsSection)
+headerRow = Card(CardHeader("Live-Ops War Room", "Real-time game telemetries, infrastructure health & operations control"), liveActions, direction:row, justify:between, align:center, variant:clear)
+liveActions = Buttons(regionFocusDrawer, hotfixDialog, patchNotesDialog)
+regionFocusDrawer = DrawerBlock("Focus Region", "Region Deep Dive & Override", regionSelectForm, description:"Select a specific server realm to isolate metrics, route traffic, or inspect incident logs.")
+regionSelectForm = Form("region_focus_form", regionDrawerButtons, regionSelectControl, regionStatusText)
+regionSelectControl = FormControl("Active Target Region", Select("target_region", SelectItem("all", "Global (All Regions)"), SelectItem("na_east", "NA-East (Virginia)"), SelectItem("na_west", "NA-West (Oregon)"), SelectItem("eu_central", "EU-Central (Frankfurt)"), SelectItem("ap_east", "AP-East (Tokyo)"), SelectItem("sa_east", "SA-East (São Paulo)"), placeholder:"Select realm..."))
+regionStatusText = TextContent("⚡ Selecting an isolated region applies strict live-tail telemetry to this dashboard.")
+regionDrawerButtons = Buttons(Button("Apply Regional Filter", primary), Button("Reset", tertiary))
+hotfixDialog = AlertDialogBlock("🚨 Ship Hotfix", "Emergency Hotfix Deployment", "You are about to push a synchronous client/server hotfix payload to all active matchmaking instances. Active matches will receive hot-reload assets.", confirmLabel:"Deploy Hotfix", cancelLabel:"Abort", triggerVariant:destructive)
+patchNotesDialog = DialogBlock("📝 Draft Patch Notes", "Patch Notes Editor", patchNotesForm, description:"Draft, review, and broadcast in-game and launcher patch changelogs.")
+patchNotesForm = Form("patch_notes_form", patchButtons, patchVerControl, patchTitleControl, patchBodyControl, patchTargetControl)
+patchVerControl = FormControl("Target Build Version", Input("build_ver", "v2.14.3-hotfix.1", type:text))
+patchTitleControl = FormControl("Changelog Headline", Input("patch_title", "Server Stability & Economy Rebalance", type:text))
+patchBodyControl = FormControl("Patch Body (Markdown)", TextArea("patch_body", "### Highlights\n- Fixed gold drop exploit in Dungeon Tier 4\n- Server latency improvements for EU-Central\n- Rebalanced weapon durability", rows:6))
+patchTargetControl = FormControl("Publish Channel", Select("channel", SelectItem("all", "Launcher & In-Game Newsfeed"), SelectItem("launcher", "Launcher Only"), SelectItem("discord", "Discord Webhook & Socials"), placeholder:"Select distribution channel"))
+patchButtons = Buttons(Button("Publish Immediately", primary), Button("Save as Draft", secondary))
+kpiBar = Card(kpiCcu, kpiDauMau, kpiRevToday, kpiArpu, kpiReports, direction:row, gap:m, wrap)
+kpiCcu = Card(Heading("CCU Right Now", h4), TextContent("## 142,890"), Tag("🟢 +8.4% vs peak yesterday", success), variant:sunk)
+kpiDauMau = Card(Heading("DAU / MAU", h4), TextContent("## 842K / 4.12M"), Tag("DAU/MAU Ratio: 20.4%", info), variant:sunk)
+kpiRevToday = Card(Heading("Revenue Today", h4), TextContent("## $128,450"), Tag("+14.2% vs target", success), variant:sunk)
+kpiArpu = Card(Heading("ARPDAU / ARPU", h4), TextContent("## $0.152 / $3.12"), Tag("Stable", neutral), variant:sunk)
+kpiReports = Card(Heading("Moderation Backlog", h4), TextContent("## 342 Reports / 28 Appeals"), Tag("Requires Review", warning), variant:sunk)
+tabsSection = Tabs(telemetryTab, economyTab, liveEventsTab, moderationTab)
+telemetryTab = TabItem("tab_telemetry", "🎮 Players & Stability", telemetryGrid)
+telemetryGrid = Card(telemetryTopRow, telemetryBottomRow, variant:clear, gap:m)
+telemetryTopRow = Card(sessionTrendCard, serverHealthCard, direction:row, gap:m)
+sessionTrendCard = Card(CardHeader("Average Session Length (Past 14 Days)", "Measured in continuous active playtime minutes"), LineChart(sessionTable, natural, xLabel:"Day", yLabel:"Minutes"), variant:card)
+serverHealthCard = Card(CardHeader("Server Regions & Health Matrix", "Real-time edge realm cluster status"), Table(serverCols), sunk)
+serverCols = Table(serverColName, serverColPing, serverColLoad, serverColStatus)
+serverColName = Col("Region", serverTable)
+serverColPing = Col("Latency", serverTable)
+serverColLoad = Col("Capacity", serverTable)
+serverColStatus = Col("Health", serverTable)
+telemetryBottomRow = Card(CardHeader("Crash Rate by App Build Version", "Crashes per 1,000 active sessions (Threshold: < 2.0%)"), BarChart(crashTable, grouped, xLabel:"Build Version", yLabel:"Crash %"), variant:card)
+economyTab = TabItem("tab_economy", "💰 Economy & Storefront", economyGrid)
+economyGrid = Card(economyTopRow, economyBottomRow, variant:clear, gap:m)
+economyTopRow = Card(itemsCard, inflationCard, direction:row, gap:m)
+itemsCard = Card(CardHeader("Top-Selling Store Items Today", "Total unit volumes & gross sales"), Table(itemCols), sunk)
+itemCols = Table(itemColName, itemColUnits, itemColRev, itemColRarity)
+itemColName = Col("Item SKU", itemTable)
+itemColUnits = Col("Units Sold", itemTable)
+itemColRev = Col("Gross Revenue", itemTable)
+itemColRarity = Col("Rarity Tier", itemTable)
+inflationCard = Card(CardHeader("In-Game Currency Inflation (Gold Sink vs Source)", "Net currency expansion rate: +3.2% (Target < 5.0%)"), AreaChart(inflationTable, natural, xLabel:"Day", yLabel:"Gold (M)"), variant:card)
+economyBottomRow = Card(CardHeader("Running A/B Experiments (Live)", "Active multivariate tests on in-game mechanics and pricing"), experimentsCard, variant:card)
+experimentsCard = Card(exp1Row, Separator(orientation:horizontal), exp2Row, variant:sunk, gap:m)
+exp1Row = Card(Heading("EXP-402: Dynamic Battle Pass Pricing (Tier 1 vs Tier 2 Anchoring)", h4), exp1Details, exp1Progress, direction:column, gap:xs, variant:clear)
+exp1Details = TextContent("**Variant B (Dynamic Anchor)** leads with **+11.8% conversion** (p = 0.003). Sample size: 120,400 players.")
+exp1Progress = Progress(78, "Confidence: 78% towards statutory significance")
+exp2Row = Card(Heading("EXP-409: Post-Match Loot Drop Rework (Guaranteed Shard vs RNG Pack)", h4), exp2Details, exp2Progress, direction:column, gap:xs, variant:clear)
+exp2Details = TextContent("**Variant A (Guaranteed Shard)** lifts **Day 7 Retention by +2.4%** with neutral economy impact. Sample: 95,000 players.")
+exp2Progress = Progress(94, "Confidence: 94% (Near completion)")
+liveEventsTab = TabItem("tab_events", "⚡ Live Events & Seasons", eventsGrid)
+eventsGrid = Card(CardHeader("Active & Scheduled Live Events", "Manage in-game event triggers, world bosses, and boost periods"), Table(eventCols), variant:card)
+eventCols = Table(evColName, evColType, evColStatus, evColSchedule, evColImpact)
+evColName = Col("Event Name", eventsTable)
+evColType = Col("Category", eventsTable)
+evColStatus = Col("State", eventsTable)
+evColSchedule = Col("Timeline", eventsTable)
+evColImpact = Col("Modifier / Objective", eventsTable)
+moderationTab = TabItem("tab_moderation", "🛡️ Trust & Safety", moderationGrid)
+moderationGrid = Card(moderationAlert, moderationCardsRow, variant:clear, gap:m)
+moderationAlert = Alert("High Toxicity Queue Spike", "Automated chat report backlog surged 24% after Clan Wars reset. Automated filters active.", warning)
+moderationCardsRow = Card(reportsCard, appealsCard, direction:row, gap:m)
+reportsCard = Card(CardHeader("Player Reports Awaiting Review (342 pending)", "Prioritized by machine-learning severity score"), Table(reportCols), sunk)
+reportCols = Table(repColId, repColTarget, repColReason, repColSeverity, repColAction)
+repColId = Col("Ticket", reportsTable)
+repColTarget = Col("Reported User", reportsTable)
+repColReason = Col("Category", reportsTable)
+repColSeverity = Col("Risk Score", reportsTable)
+repColAction = Col("Status", reportsTable)
+appealsCard = Card(CardHeader("Ban Appeals Awaiting Review (28 pending)", "User appeals against suspension or permanent bans"), Table(appealCols), sunk)
+appealCols = Table(appColId, appColUser, appColType, appColDate, appColStatus)
+appColId = Col("Appeal ID", appealsTable)
+appColUser = Col("Player Handle", appealsTable)
+appColType = Col("Original Infraction", appealsTable)
+appColDate = Col("Ban Date", appealsTable)
+appColStatus = Col("Verdict State", appealsTable)
+sessionTable = |Day|Avg Minutes
+|D-14|48.2
+|D-13|49.1
+|D-12|52.0
+|D-11|51.4
+|D-10|47.8
+|D-09|46.5
+|D-08|53.2
+|D-07|58.4
+|D-06|61.1
+|D-05|54.0
+|D-04|50.8
+|D-03|49.5
+|D-02|56.2
+|D-01|57.9
+serverTable = |Region|Latency|Capacity|Health
+|NA-East (Virginia)|22ms|84%|Operational
+|NA-West (Oregon)|38ms|72%|Operational
+|EU-Central (Frankfurt)|18ms|91%|Degraded Ping
+|AP-East (Tokyo)|64ms|68%|Operational
+|SA-East (São Paulo)|115ms|45%|Operational
+crashTable = |Version|Crash Rate %
+|v2.14.0|2.84
+|v2.14.1|1.92
+|v2.14.2|0.82
+|v2.14.3-b|0.41
+itemTable = |Item SKU|Units Sold|Gross Revenue|Rarity Tier
+|Shadowblade Skin Bundle|4,820|$96,400|Legendary
+|Season 6 Battle Pass|3,190|$31,900|Seasonal
+|500 Astral Shards Pack|2,450|$24,500|Currency
+|Cybernetic Valkyrie Wing|1,840|$18,400|Epic
+|XP Booster 7-Day|1,210|$6,050|Utility
+inflationTable = |Day|Gold Minted|Gold Sunk
+|May 10|45.2|41.0
+|May 11|48.0|43.5
+|May 12|52.1|46.8
+|May 13|50.4|47.2
+|May 14|55.8|51.0
+|May 15|58.2|52.9
+|May 16|61.0|56.4
+eventsTable = |Event Name|Category|State|Timeline|Modifier / Objective
+|Solar Eclipse Raid|World Event|Running|Ends in 4h 12m|2x Exotic Drop Rate
+|Double XP Weekend|Global Buff|Running|Ends Sun 23:59 UTC|+100% Account Mastery
+|Dragon's Hoard Incursion|Dungeon|Upcoming|Starts in 1d 08h|Guild Leaderboard Race
+|Summer Solstice Carnival|Seasonal Festival|Upcoming|June 1 - June 15|Exclusive Cosmetic Tree
+reportsTable = |Ticket|Reported User|Category|Risk Score|Status
+|#REP-9081|xX_SniperKing_Xx|Aimbot / Memory Hook|0.98|High Priority
+|#REP-9079|VortexPlayer44|Hate Speech (Global Chat)|0.91|Under Review
+|#REP-9075|ShadowRogue|Economy Trade Glitch|0.84|Investigating
+|#REP-9068|NovaPulse|AFK Match Griefing|0.62|Queued
+appealsTable = |Appeal ID|Player Handle|Original Infraction|Ban Date|Verdict State
+|#APP-412|GhostRider99|Third-party Automation|May 12|Awaiting Evidence
+|#APP-409|KitsuneFox|Chargeback Fraud Flag|May 14|Billing Check
+|#APP-405|BlinkDagger|Toxic Chat Behavior|May 15|Ready for Review
+|#APP-398|OmegaZero|Speedhack False Positive|May 16|Logs Escalated

@@ -1,0 +1,74 @@
+root = Card(headerRow, alertsBox, kpiMetricsRow, mainTabs)
+headerRow = Card(titleBlock, headerControls, direction:row, justify:between, align:center, variant:clear)
+titleBlock = Card(Heading("National Grid Dispatch & Operations Console", level:h2), TextContent("Live telemetry • Frequency: 50.02 Hz • Area Control Error: +14 MW", size:small), variant:clear, gap:xs)
+headerControls = Card(regionFilter, curtailmentModal, direction:row, align:center, gap:s, variant:clear)
+regionFilter = Select("focus_region", SelectItem("all", "All Regions (National)"), SelectItem("north", "Northern Zone"), SelectItem("central", "Central Industrial"), SelectItem("south", "Southern Metro"), SelectItem("east", "Eastern Coastal"), SelectItem("west", "Western Highlands"), placeholder:"Filter Region", value:"all")
+curtailmentModal = DialogBlock("Order Emergency Curtailment", "Emergency Curtailment Protocol", curtailmentForm, triggerVariant:destructive, description:"Issue binding dispatch shedding or industrial curtailment instructions.")
+curtailmentForm = Form("curtailment-form", curtailButtons, curtRegionCtrl, curtAmountCtrl, curtTypeCtrl, curtReasonCtrl)
+curtRegionCtrl = FormControl("Target Zone / Grid Segment", Select("curt_zone", SelectItem("all", "System-Wide Pro-Rata"), SelectItem("north", "Northern Zone"), SelectItem("central", "Central Industrial"), SelectItem("south", "Southern Metro"), SelectItem("west", "Western Highlands"), value:"central"))
+curtAmountCtrl = FormControl("Curtailment Volume (MW)", Slider("curt_mw", min:50, max:3000, step:50, defaultValue:[250], variant:discrete), "Selected instruction step: 250 MW")
+curtTypeCtrl = FormControl("Action Type", RadioGroup("curt_action_type", RadioItem("Industrial DSR", "Demand Side Response triggers", "dsr"), RadioItem("Renewable Export Limit", "Curtail inverter active power", "res_curt"), RadioItem("Firm Load Shedding", "Substation feeder rotation", "shed"), defaultValue:"dsr"))
+curtReasonCtrl = FormControl("Dispatch Order Rationale", TextArea("curt_reason", "Thermal constraint on 400kV North-Central tie-line during peak ramp.", rows:2))
+curtailButtons = Buttons(Button("Execute Binding Curtailment", variant:primary, type:destructive), Button("Cancel", variant:secondary))
+alertsBox = Card(alert1, alert2, direction:row, gap:m, variant:clear)
+alert1 = Alert("Primary Alert: 400kV Substation Trip", "Substation Alpha-12 busbar differential protection operated. 280 MW auto-transferred.", variant:warning)
+alert2 = Alert("Price Spike Warning", "Wholesale spot price surged past $145/MWh due to rapid evening ramping demand.", variant:info)
+kpiMetricsRow = Card(kpiLoad, kpiCapacity, kpiPrice, kpiEmissions, direction:row, gap:m, variant:clear)
+kpiLoad = Card(CardHeader("Current Load", "Real-time demand"), Heading("34,820 MW", level:h3), Progress(81, "81.4% of total capacity"), Tag("+2.4% vs forecast", variant:warning, size:sm), variant:sunk)
+kpiCapacity = Card(CardHeader("Available Headroom", "Spinning & fast reserve"), Heading("7,980 MW", level:h3), TextContent("**Installed Cap:** 42,800 MW\n**Operating Margin:** 18.6%"), Tag("Adequate Reserves", variant:success, size:sm), variant:sunk)
+kpiPrice = Card(CardHeader("Wholesale Spot Price", "Real-time balancing"), Heading("$158.40 / MWh", level:h3), TextContent("**Avg Day-Ahead:** $92.10\n**Peak Hour:** 19:00"), Tag("High Volatility", variant:danger, size:sm), variant:sunk)
+kpiEmissions = Card(CardHeader("Emissions Today", "Grid carbon intensity"), Heading("6,840 tCO2e", level:h3), TextContent("**Avg Intensity:** 184 g/kWh\n**Renewable Share:** 52.8%"), Tag("Clean Peak Met", variant:success, size:sm), variant:sunk)
+mainTabs = Tabs(tabOverview, tabGeneration, tabOutages, tabMaintenance)
+tabOverview = TabItem("overview", "Demand Forecast & Generation Mix", overviewContent)
+overviewContent = Card(forecastSection, mixSection, direction:row, gap:l, variant:clear)
+forecastSection = Card(Heading("Next 24 Hours Demand & Reserve Forecast (MW)", level:h4), LineChart(forecastTable, variant:natural, xLabel:"Time", yLabel:"MW"), variant:sunk)
+mixSection = Card(Heading("Generation Split by Source", level:h4), PieChart(sourceSplitTable, variant:donut), variant:sunk)
+tabGeneration = TabItem("generation", "Power Plants Status", plantSection)
+plantSection = Card(Heading("Generation Fleet Dispatch & Operational Status", level:h4), Table(plantTableColName, plantTableColType, plantTableColRegion, plantTableColCap, plantTableColOut, plantTableColStatus), variant:sunk)
+plantTableColName = Col("Power Station", ["Bayswater Gen 1-4", "Torrens Island Gas A", "Hornsdale Wind Farm", "Darlington Solar Array", "Snowy Hydro Unit 3", "Loy Yang B Coal", "Riverina Battery BESS", "Pelican Point Combined"])
+plantTableColType = Col("Fuel / Technology", ["Supercritical Coal", "Open Cycle Gas", "Onshore Wind", "Utility Solar PV", "Pumped Hydro", "Lignite Coal", "Grid Battery BESS", "CCGT Gas"])
+plantTableColRegion = Col("Region", ["Northern Zone", "Southern Metro", "Western Highlands", "Eastern Coastal", "Southern Metro", "Central Industrial", "Western Highlands", "Southern Metro"])
+plantTableColCap = Col("Capacity (MW)", [2640, 600, 315, 400, 1500, 1000, 150, 480], type:number)
+plantTableColOut = Col("Current Output (MW)", [2410, 480, 275, 360, 920, 890, 120, 440], type:number)
+plantTableColStatus = Col("Operational Status", ["Online - Base Load", "Online - Peaking", "Online - Full Resource", "Online - Ramping Down", "Online - Spinning Reserve", "Online - Base Load", "Online - Discharging", "Online - Base Load"])
+tabOutages = TabItem("outages", "Active Outages & Grid Alerts", outageSection)
+outageSection = Card(Heading("Active Transmission & Generation Outages", level:h4), Table(outColId, outColAsset, outColRegion, outColType, outColLost, outColEta, outColSev), variant:sunk)
+outColId = Col("Incident ID", ["OUT-8821", "OUT-8834", "OUT-8840", "OUT-8845"])
+outColAsset = Col("Affected Asset", ["Alpha-12 400kV Busbar", "Silverton Wind Feeder 2", "Valley Creek 275/132kV Transformer", "Warragamba Unit 1 Turbine"])
+outColRegion = Col("Affected Region", ["Northern Zone", "Western Highlands", "Central Industrial", "Southern Metro"])
+outColType = Col("Outage Type", ["Forced - Trip", "Forced - Line Fault", "Unplanned - Oil Leak", "Forced - Thermal Trip"])
+outColLost = Col("Lost Capacity (MW)", [450, 110, 220, 340], type:number)
+outColEta = Col("Est. Restoration", ["Today 21:30", "Tomorrow 04:00", "Today 23:00", "In 3 Days"])
+outColSev = Col("Impact Level", ["High - Critical", "Medium", "High - Redundancy Lost", "Medium - Reserve Called"])
+tabMaintenance = TabItem("maintenance", "Planned Maintenance (This Month)", maintSection)
+maintSection = Card(Heading("Approved Monthly Maintenance Schedule (Next 30 Days)", level:h4), Table(maintColId, maintColAsset, maintColRegion, maintColDates, maintColCap, maintColStatus), variant:sunk)
+maintColId = Col("Permit ID", ["MNT-2024-041", "MNT-2024-042", "MNT-2024-049", "MNT-2024-055", "MNT-2024-061"])
+maintColAsset = Col("Station / Circuit", ["Torrens Gas Unit 2 Major Overhaul", "Coastal 500kV Double-Circuit Wash", "Snowy Unit 2 Penstock Inspection", "Darlington Solar Inverter Upgrade", "Bayswater Unit 3 Boiler Recert"])
+maintColRegion = Col("Grid Region", ["Southern Metro", "Eastern Coastal", "Southern Metro", "Eastern Coastal", "Northern Zone"])
+maintColDates = Col("Window Schedule", ["Oct 04 - Oct 18", "Oct 12 - Oct 14", "Oct 15 - Oct 22", "Oct 20 - Oct 25", "Oct 26 - Nov 05"])
+maintColCap = Col("Capacity Offline (MW)", [300, 0, 500, 100, 660], type:number)
+maintColStatus = Col("Approval State", ["Approved - On Track", "Approved - Scheduled", "Pending Final Dispatch", "Approved - Scheduled", "Reviewing System Security"])
+forecastTable = |Hour|Demand MW|Forecast MW|Reserve Margin MW
+|16:00|33200|33000|8400
+|17:00|34100|34000|8100
+|18:00|35900|35600|7600
+|19:00|37400|37200|6900
+|20:00|36800|36500|7200
+|21:00|35100|34900|7800
+|22:00|32400|32600|8600
+|23:00|29800|30100|9400
+|00:00|27200|27400|10500
+|02:00|24100|24300|11800
+|04:00|23500|23600|12100
+|06:00|26800|26500|10900
+|08:00|31200|31000|9200
+|10:00|33500|33200|8500
+|12:00|34200|34100|8300
+|14:00|33900|33800|8450
+sourceSplitTable = |Source|Output MW
+|Solar PV|10400
+|Wind|8650
+|Natural Gas|6200
+|Coal|5800
+|Hydro & Pumped|2950
+|Battery BESS|820

@@ -1,0 +1,81 @@
+root = Card(header, storeSelect, salesSection, trafficSection, bestSellersSection, outOfStockSection, shiftSection, basketSection, returnsSection, promotionsSection, registersSection, compareSection, actions)
+
+header = CardHeader("Store Manager Console", "Daily Overview")
+
+storeSelect = Form("store-switch", storeButtons, storeSelectControl)
+storeSelectControl = FormControl("Store", Select("store", SelectItem("store1", "Main St."), SelectItem("store2", "Mall"), placeholder:"Select store", value:"store1", size:medium))
+storeButtons = Buttons(Button("Switch Store"))
+
+salesSection = Card(Heading("Sales Today vs Target", h3), salesChart, salesInfo)
+
+salesChart = BarChart(salesData, grouped, xLabel:"Metric", yLabel:"USD")
+salesData = |Metric|Today|Target
+|Sales|12000|15000
+|Orders|300|400
+
+salesInfo = TextContent("Sales are **$12,000** today, achieving 80% of the target.", size:default)
+
+trafficSection = Card(Heading("Foot Traffic Today", h3), trafficChart)
+
+trafficChart = LineChart(trafficData, natural, xLabel:"Hour", yLabel:"Visitors")
+trafficData = |Hour|Visitors
+|08:00|30
+|10:00|120
+|12:00|200
+|14:00|180
+|16:00|150
+|18:00|90
+|20:00|40
+
+bestSellersSection = Card(Heading("Best Sellers", h3), bestSellersTable)
+
+bestSellersTable = Table(productCol, unitsCol)
+productCol = Col("Product", data:["Widget A","Gadget B","Thingamajig C"], type:string)
+unitsCol = Col("Units Sold", data:[250,180,150], type:number)
+
+outOfStockSection = Card(Heading("Out of Stock Items", h3), outOfStockList, reorderButton)
+
+outOfStockList = ListBlock(item1, item2, item3, variant:number)
+item1 = ListItem("Widget X")
+item2 = ListItem("Gadget Y")
+item3 = ListItem("Tool Z")
+
+reorderButton = Buttons(Button("Reorder Selected", primary))
+
+shiftSection = Card(Heading("Staff on Shift", h3), shiftList)
+
+shiftList = ListBlock(staff1, staff2, staff3, variant:number)
+staff1 = ListItem("Alice - Cashier")
+staff2 = ListItem("Bob - Floor")
+staff3 = ListItem("Carol - Manager")
+
+basketSection = Card(Heading("Average Basket Size", h3), TextContent("Average basket size: **$45.20**", size:large))
+
+returnsSection = Card(Heading("Returns This Week", h3), TextContent("Total returns: **$1,200** (5 items)", size:default))
+
+promotionsSection = Card(Heading("Running Promotions", h3), promotionsTable)
+
+promotionsTable = Table(promoCol, salesCol, progressCol)
+promoCol = Col("Promotion", data:["10% Off","Buy 1 Get 1"], type:string)
+salesCol = Col("Sales", data:[5000,3000], type:number)
+progressCol = Col("Progress", data:[80,60], type:number)
+
+registersSection = Card(Heading("Register Status", h3), registersTable)
+
+registersTable = Table(regCol, statusCol)
+regCol = Col("Register", data:["Reg 1","Reg 2","Reg 3"], type:string)
+statusCol = Col("Open", data:["Yes","No","Yes"], type:string)
+
+compareSection = Card(Heading("This Week vs Last Week", h3), compareChart)
+
+compareChart = BarChart(compareData, grouped, xLabel:"Day", yLabel:"Sales")
+compareData = |Day|This Week|Last Week
+|Mon|8000|7500
+|Tue|9500|9000
+|Wed|11000|10500
+|Thu|12000|11500
+|Fri|13000|12500
+|Sat|14000|13500
+|Sun|9000|8500
+
+actions = Buttons(Button("Refresh Data", primary), Button("Logout", secondary))

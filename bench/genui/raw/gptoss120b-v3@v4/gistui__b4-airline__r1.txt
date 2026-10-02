@@ -1,0 +1,47 @@
+root = Card(header, hubSelect, ontimeChart, flightsTable, delayedCallout, gateChangesTable, crewsList, weatherCallout, passengerLoad, connectionsTable, rebookForm, cancellationsTable, turnaroundText, direction:column)
+header = CardHeader("Hub Operations Desk")
+hubSelect = Select("hub", SelectItem("JFK","JFK"), SelectItem("LAX","LAX"), placeholder:"Select hub", rules:[], value:"JFK", size:medium)
+ontimeChart = SingleStackedBarChart(ontimeData)
+flightsTable = Table(flightCol, routeCol, gateCol, statusCol)
+delayedCallout = Callout(variant:warning, "Delayed Flights", "These flights are currently delayed.")
+gateChangesTable = Table(gateChangeFlightCol, oldGateCol, newGateCol, timeCol)
+crewsList = ListBlock(crew1, crew2, crew3)
+weatherCallout = Callout(variant:info, "Weather Advisory", "Fog expected, low visibility.")
+passengerLoad = TextContent("Average passenger load today: 78%", size:large)
+connectionsTable = Table(connFlightCol, connDestCol, minutesCol)
+rebookForm = Form("rebook", rebookButtons, nameField, flightField, newFlightField, reasonField)
+cancellationsTable = Table(cancelFlightCol, cancelRouteCol, cancelGateCol, cancelReasonCol)
+turnaroundText = TextContent("Average turnaround time: 45 min", size:default)
+
+rebookButtons = Buttons(Button("Rebook Passenger", primary), Button("Cancel", tertiary))
+nameField = FormControl("Passenger name", Input("passenger_name", placeholder:"John Doe"))
+flightField = FormControl("Current flight", Input("current_flight", placeholder:"AA101"))
+newFlightField = FormControl("New flight", Input("new_flight", placeholder:"AA202"))
+reasonField = FormControl("Reason", Input("reason", placeholder:"Delay"))
+
+crew1 = ListItem("Crew #123","Available")
+crew2 = ListItem("Crew #124","Available")
+crew3 = ListItem("Crew #125","Available")
+
+flightCol = Col("Flight", ["AA101","DL202","UA303"], string)
+routeCol = Col("Route", ["NYC-LAX","NYC-ORD","NYC-MIA"], string)
+gateCol = Col("Gate", ["A12","B4","C7"], string)
+statusCol = Col("Status", ["On Time","Delayed","On Time"], string)
+
+gateChangeFlightCol = Col("Flight", ["DL202","UA303"], string)
+oldGateCol = Col("Old Gate", ["B4","C7"], string)
+newGateCol = Col("New Gate", ["B5","C8"], string)
+timeCol = Col("Time", ["10:15","11:30"], string)
+
+connFlightCol = Col("Flight", ["AA101","DL202"], string)
+connDestCol = Col("Connection", ["LHR","CDG"], string)
+minutesCol = Col("Minutes to gate", [5,12], number)
+
+cancelFlightCol = Col("Flight", ["UA404","AA505"], string)
+cancelRouteCol = Col("Route", ["NYC-SEA","NYC-DEN"], string)
+cancelGateCol = Col("Gate", ["D2","E3"], string)
+cancelReasonCol = Col("Reason", ["Mechanical","Crew shortage"], string)
+
+ontimeData = |Status|Value
+|On-time|85
+|Delayed|15

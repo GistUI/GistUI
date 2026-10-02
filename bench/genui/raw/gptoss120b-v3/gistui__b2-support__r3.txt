@@ -1,0 +1,22 @@
+root = Card(statsHeader, statsSection, filterSection, ticketsSection, actionsSection)
+
+statsHeader = CardHeader("Support Lead – Morning Dashboard")
+statsSection = Card(TextContent("Open tickets: **124**", size:large), TextContent("Avg. first‑response time: **2h 15m**", size:large), sunk)
+
+filterSection = Card(Heading("Filter tickets", h3), Buttons(highPriorityBtn, allBtn, direction:row), clear)
+
+highPriorityBtn = Button("High priority only", primary)
+allBtn = Button("All tickets", secondary)
+
+ticketsSection = Card(Heading("Recent tickets", h3), ticketsTable, clear)
+
+ticketsTable = Table(
+  Col("Ticket ID", data:["#1023","#1022","#1021","#1020","#1019"], type:string),
+  Col("Subject", data:["Login issue","Payment failure","Bug report","Feature request","Account lock"], type:string),
+  Col("Priority", data:["High","Medium","Low","High","Medium"], type:string),
+  Col("Status", data:["Open","Open","Open","Open","Open"], type:string)
+)
+
+actionsSection = Card(Buttons(newTicketBtn, direction:row), clear)
+
+newTicketBtn = Button("New ticket", primary)

@@ -1,0 +1,19 @@
+root = Card(statsSection, filterSection, ticketsSection, actions)
+
+statsSection = Card(CardHeader("Support Dashboard"), openTickets, avgResponse)
+
+openTickets = TextContent("Open tickets: **42**", size:large)
+
+avgResponse = TextContent("Average first‑response time: **3h 12m**", size:large)
+
+filterSection = Card(Button("Show high‑priority only", primary), wrap)
+
+ticketsSection = Card(Heading("Recent tickets", h3), ticketsTable)
+
+ticketsTable = Table(
+  Col("Ticket", data:["#1024","#1023","#1022","#1021","#1020"], type:string),
+  Col("Priority", data:["High","Medium","Low","High","Medium"], type:string),
+  Col("Opened", data:["2024‑09‑30 08:15","2024‑09‑30 07:42","2024‑09‑30 07:05","2024‑09‑30 06:50","2024‑09‑30 06:30"], type:string)
+)
+
+actions = Card(Button("New ticket", primary))

@@ -1,0 +1,17 @@
+{
+  "tree": {
+    "type": "Text"
+  },
+  "errors": [
+    {
+      "code": "missing-required",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

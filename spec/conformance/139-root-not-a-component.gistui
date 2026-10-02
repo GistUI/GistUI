@@ -1,0 +1,2 @@
+root = [Text("a")]
+x = Row(root)

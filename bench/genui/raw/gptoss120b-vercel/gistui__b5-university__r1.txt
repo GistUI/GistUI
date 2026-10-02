@@ -1,0 +1,85 @@
+root = Card(CardHeader("University Administration Overview"), enrollmentSection, applicationsSection, acceptanceSection, tuitionSection, courseFillSection, facultyLoadSection, riskSection, scholarshipSection, housingSection, eventsSection, alumniGivingSection, departmentFocusSection, semesterCompareSection, waitlistSection, approveCourseSection, messageGroupSection, actions)
+
+enrollmentSection = Card(Heading("Total Enrollment (5‑Year Trend)", h3), LineChart(enrollmentTrend, natural, xLabel:"Year", yLabel:"Students"))
+enrollmentTrend = |Year|Enrollment
+|2019|15200
+|2020|15800
+|2021|16350
+|2022|16900
+|2023|17420
+
+applicationsSection = Card(Heading("Applications by Program", h3), BarChart(applicationsData, grouped, xLabel:"Program", yLabel:"Applications"))
+applicationsData = |Program|Applications
+|Engineering|4200
+|Business|3800
+|Arts|2100
+|Sciences|3300
+|Education|1500
+
+acceptanceSection = Card(Heading("Acceptance Rate", h3), PieChart(acceptanceLabels, acceptanceValues, donut, circular))
+acceptanceLabels = ["Accepted","Rejected"]
+acceptanceValues = [0.62,0.38]
+
+tuitionSection = Card(Heading("Tuition Revenue (Current Year)", h3), TextContent("$12.4 M", size:large))
+ 
+courseFillSection = Card(Heading("Course Offering Fill Rates", h3), HorizontalBarChart(courseLabels, Series("Fill %", courseFillValues), stacked, xLabel:"Course", yLabel:"Fill %"))
+courseLabels = ["Math 101","History 210","Chem 301","CS 101","Psych 150"]
+courseFillValues = [0.95,0.88,0.92,0.97,0.81]
+
+facultyLoadSection = Card(Heading("Teaching Load by Faculty", h3), BarChart(facultyLoadData, stacked, xLabel:"Faculty", yLabel:"Courses Taught"))
+facultyLoadData = |Faculty|Courses
+|Dr. Smith|4
+|Prof. Lee|3
+|Dr. Patel|5
+|Prof. Gomez|2
+|Dr. Chen|4
+
+riskSection = Card(Heading("Students at Academic Risk", h3), Table(riskCol))
+riskCol = Col("Student ID", data:["S1023","S1087","S1104","S1150"], type:string), Col("GPA", data:[2.1,1.9,2.0,1.8], type:number), Col("Alert", data:["Low GPA","Low GPA","Low GPA","Low GPA"], type:string)
+
+scholarshipSection = Card(Heading("Scholarship Budget Usage", h3), SingleStackedBarChart(scholarshipLabels, scholarshipValues))
+scholarshipLabels = ["Used","Remaining"]
+scholarshipValues = [0.73,0.27]
+
+housingSection = Card(Heading("Housing Occupancy", h3), RadarChart(housingLabels, Series("Occupancy %", housingValues)))
+housingLabels = ["Dorm A","Dorm B","Dorm C","Dorm D","Dorm E"]
+housingValues = [0.88,0.92,0.85,0.90,0.80]
+
+eventsSection = Card(Heading("Campus Events This Month", h3), ListBlock(eventItem1, eventItem2, eventItem3, variant:number))
+eventItem1 = ListItem("Science Fair", "Oct 5", "View", [])
+eventItem2 = ListItem("Alumni Reunion", "Oct 12", "View", [])
+eventItem3 = ListItem("Homecoming", "Oct 20", "View", [])
+
+alumniGivingSection = Card(Heading("Alumni Giving (4‑Year Trend)", h3), LineChart(alumniTrend, natural, xLabel:"Year", yLabel:"Donations"))
+alumniTrend = |Year|Donations
+|2020|1.2M
+|2021|1.4M
+|2022|1.6M
+|2023|1.8M
+
+departmentFocusSection = Card(Heading("Focus on Department", h3), DialogBlock("Select Department", "Choose Department", SelectDept, description:"Pick a department to filter the view", triggerVariant:secondary))
+SelectDept = Select("dept_select", SelectItem("ENG","Engineering"), SelectItem("BUS","Business"), SelectItem("ART","Arts"), placeholder:"Select department", value:"ENG", size:medium)
+
+semesterCompareSection = Card(Heading("Current vs. Last Semester", h3), BarChart(semesterData, grouped, xLabel:"Metric", yLabel:"Value"))
+semesterData = |Metric|Current|Last
+|Enrollment|17420|16900
+|Applications|15800|15200
+|Revenue|12.4M|11.9M
+
+waitlistSection = Card(Heading("Waitlisted Students per Program", h3), Table(waitlistCol))
+waitlistCol = Col("Program", data:["Engineering","Business","Arts","Sciences","Education"], type:string), Col("Waitlisted", data:[120,95,45,80,30], type:number)
+
+approveCourseSection = Card(Heading("Approve New Course", h3), DialogBlock("Approve Course", "New Course Request", approveForm, description:"Enter details to approve a new course", triggerVariant:primary))
+approveForm = Form("approve_course", approveButtons, courseNameField, departmentField, creditsField)
+courseNameField = FormControl("Course Name", Input("course_name", "Enter course title"))
+departmentField = FormControl("Department", SelectDept)
+creditsField = FormControl("Credits", Input("credits", "Number of credits", type:number))
+approveButtons = Buttons(Button("Approve", primary), Button("Cancel", secondary))
+
+messageGroupSection = Card(Heading("Send Message to Student Group", h3), DialogBlock("Message Students", "Compose Message", messageForm, description:"Select group and type your message", triggerVariant:secondary))
+messageForm = Form("msg_group", msgButtons, groupSelectField, messageField)
+groupSelectField = FormControl("Student Group", Select("group_select", SelectItem("Freshmen","Freshmen"), SelectItem("Seniors","Seniors"), placeholder:"Select group"))
+messageField = FormControl("Message", TextArea("msg_body", "Your message here", rows:5))
+msgButtons = Buttons(Button("Send", primary), Button("Cancel", secondary))
+
+actions = Buttons(Button("Refresh Data", primary), Button("Export Report", secondary))

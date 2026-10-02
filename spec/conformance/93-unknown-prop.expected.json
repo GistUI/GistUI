@@ -1,0 +1,31 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "a"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "unknown-prop",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "unknown-prop",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

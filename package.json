@@ -1,0 +1,39 @@
+{
+  "name": "gistui",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.11",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "bench:parser": "bun run --filter @gistui/core bench",
+    "dev": "bun run --filter @gistui/playground dev",
+    "audit:responsive": "node bench/overflow-audit.mjs",
+    "skill": "bun scripts/gen-skill.ts",
+    "bench:genui:setup": "sh bench/genui/setup.sh",
+    "bench:genui": "bun bench/genui/compare.ts",
+    "bench:genui:run": "bun bench/genui/run.ts",
+    "bench:genui:score": "bun bench/genui/score.ts",
+    "size": "bun scripts/size.ts",
+    "bench:tier-a": "bun bench/genui/tier-a.ts",
+    "test:visual": "playwright test -c tests/visual/playwright.config.ts",
+    "test:parity": "playwright test -c tests/visual/parity.config.ts",
+    "test:shadcn": "playwright test -c tests/visual/shadcn.config.ts",
+    "release:check": "bun scripts/release.ts",
+    "test:pack": "bun tests/pack/smoke.ts",
+    "release": "bun scripts/release.ts --publish"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/bun": "^1.4.2",
+    "playwright": "^1.63.0",
+    "turbo": "^2.5.0",
+    "typescript": "^5.9.0"
+  }
+}

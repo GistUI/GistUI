@@ -1,0 +1,87 @@
+root = Card(header, periodForm, mrrSection, arrSection, churnSection, signupsSection, planChart, topCustomersTable, riskTable, paymentsTable, featureAdoptionChart, npsSection, seatUtilChart, inviteAdminForm)
+
+header = CardHeader("Admin Overview", "Key metrics and actions")
+
+periodForm = Form("report-period", periodButtons, periodSelect)
+
+periodSelect = Select("period", SelectItem("last_30_days","Last 30 days"), SelectItem("last_90_days","Last 90 days"), SelectItem("year_to_date","Year to date"), placeholder:"Select period", value:"last_30_days", size:medium)
+
+periodButtons = Buttons(Button("Apply", primary))
+
+mrrSection = Card(Heading("Monthly Recurring Revenue", h3), TextContent("$1.2M", size:large))
+
+arrSection = Card(Heading("Annual Recurring Revenue", h3), TextContent("$14.4M", size:large))
+
+churnSection = Card(Heading("Churn This Month", h3), TextContent("4.2%", size:large))
+
+signupsSection = Card(Heading("New Signups (90 days)", h3), LineChart(signupsRows, linear, xLabel:"Date", yLabel:"Signups"))
+
+signupsRows = |Date|Signups
+|2023-06-01|45
+|2023-06-08|52
+|2023-06-15|48
+|2023-06-22|55
+|2023-07-01|60
+|2023-07-08|58
+|2023-07-15|62
+|2023-07-22|59
+|2023-08-01|65
+|2023-08-08|70
+|2023-08-15|68
+|2023-08-22|73
+|2023-09-01|80
+|2023-09-08|78
+|2023-09-15|82
+|2023-09-22|85
+
+planChart = Card(Heading("Customers by Plan", h3), PieChart(planLabels, planValues, donut, circular))
+
+planLabels = |Plan|
+|Free|
+|Pro|
+|Enterprise|
+
+planValues = |Value|
+|1200|
+|750|
+|250|
+
+topCustomersTable = Card(Heading("Top 10 Customers", h3), Table(colCustomer, colSeats, colSpend))
+
+colCustomer = Col("Customer", ["Acme Corp","Beta Ltd","Gamma Inc","Delta Co","Epsilon LLC","Zeta Group","Eta Studios","Theta Enterprises","Iota Solutions","Kappa Systems"], string)
+
+colSeats = Col("Seats", [420,380,350,330,310,300,295,280,260,250], number)
+
+colSpend = Col("Spend ($)", [84000,76000,70000,66000,62000,60000,59000,56000,52000,50000], number)
+
+riskTable = Card(Heading("Accounts at Risk", h3), Table(colRiskCustomer, colReason))
+
+colRiskCustomer = Col("Customer", ["Omega Corp","Sigma Ltd","Lambda Inc"], string)
+
+colReason = Col("Reason", ["Low usage","Payment issues","Support tickets"], string)
+
+paymentsTable = Card(Heading("Failed Payments", h3), Table(colPayCustomer, colAmount, colRetry))
+
+colPayCustomer = Col("Customer", ["Acme Corp","Beta Ltd","Gamma Inc"], string)
+
+colAmount = Col("Amount ($)", [1200,950,800], number)
+
+colRetry = Col("Retry", ["Retry","Retry","Retry"], action)
+
+failedPaymentsChart = HorizontalBarChart(["Acme Corp","Beta Ltd","Gamma Inc"], Series("Failed", [1200,950,800]), stacked, xLabel:"Amount ($)", yLabel:"Customer")
+
+featureAdoptionChart = Card(Heading("Adoption of New Features", h3), BarChart(featureLabels, Series("Adoption", featureValues), grouped, xLabel:"Feature", yLabel:"Users"))
+
+featureLabels = ["Feature A","Feature B","Feature C"]
+
+featureValues = [3400,2750,1900]
+
+npsSection = Card(Heading("Current NPS", h3), TextContent("68", size:large))
+
+seatUtilChart = Card(Heading("Seat Utilization", h3), SingleStackedBarChart(["Used","Available"], [8500,1500]))
+
+inviteAdminForm = Card(Heading("Invite Another Admin", h3), Form("invite-admin", inviteButtons, emailField))
+
+emailField = FormControl("Admin email", Input("admin_email", "email@example.com", type:email))
+
+inviteButtons = Buttons(Button("Send Invite", primary))

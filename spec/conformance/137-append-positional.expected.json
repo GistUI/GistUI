@@ -1,0 +1,33 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Header",
+        "props": {
+          "title": "title",
+          "subtitle": "subtitle"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "a"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "excess-args",
+      "severity": "error",
+      "stmt": "t",
+      "line": 4,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": true
+  }
+}

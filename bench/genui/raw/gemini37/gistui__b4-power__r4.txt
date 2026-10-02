@@ -1,0 +1,59 @@
+root = Card(headerRow, alertsSection, kpiGrid, mainTabs)
+headerRow = Card(titleBlock, controlActions, direction:row, justify:between, align:center, variant:clear)
+titleBlock = Card(Heading("National Grid Dispatch & Operations Console", level:h2), Tag("Grid Status: Normal Operations", variant:success), direction:row, align:center, gap:s, variant:clear)
+controlActions = Card(regionSelectControl, curtailmentDialog, direction:row, align:center, gap:m, variant:clear)
+regionSelectControl = Select("selected_region", SelectItem("all", "All Regions (National)"), SelectItem("north", "Northern Intertie"), SelectItem("central", "Central Industrial Hub"), SelectItem("east", "Eastern Coastal Zone"), SelectItem("west", "Western Highlands"), SelectItem("south", "Southern Metro"), value:"all", placeholder:"Focus Region")
+curtailmentDialog = DialogBlock("Order Curtailment", "Emergency / Economic Load Curtailment Order", curtailmentForm, description:"Issue direct curtailment instructions to regional industrial feeders or generation units.", triggerVariant:destructive)
+curtailmentForm = Form("curtailment-form", curtailmentButtons, curtailRegionField, curtailAmountField, curtailReasonField)
+curtailRegionField = FormControl("Target Zone / Substation", Select("curtail_zone", SelectItem("central-ind", "Central Industrial Feeders (Zone 4)"), SelectItem("north-heavy", "Northern Smelter Bus A"), SelectItem("east-port", "East Metro Pumping Units"), placeholder:"Select substation/feeder"))
+curtailAmountField = FormControl("Curtailment Target (MW)", Input("curtail_mw", "e.g. 250", type:number))
+curtailReasonField = FormControl("Curtailment Reason", RadioGroup("curtail_reason", RadioItem("freq", "Frequency Stabilization", "freq"), RadioItem("thermal", "Thermal Overload Relief", "thermal"), RadioItem("econ", "Economic Dispatch Cap", "econ"), defaultValue:"freq"))
+curtailmentButtons = Buttons(Button("Issue Curtailment Dispatch", primary, type:destructive), Button("Cancel", tertiary))
+alertsSection = Card(alert1, alert2, direction:row, gap:m, variant:clear)
+alert1 = Alert("Thermal Warning: Substation 114B", "Transformer T-2 winding temp at 88°C under heavy cross-zonal flow.", variant:warning)
+alert2 = Alert("Reserve Margin Notice", "Spinning reserve healthy at 14.2% (1,450 MW above N-1 requirement).", variant:info)
+kpiGrid = Card(kpiLoadCard, kpiCapacityCard, kpiPriceCard, kpiEmissionsCard, direction:row, gap:m, variant:clear)
+kpiLoadCard = Card(TextContent("Current System Load", size:small), Heading("38,420 MW", level:h2), Progress(83, "83.5% of peak capacity"), variant:card)
+kpiCapacityCard = Card(TextContent("Total Available Capacity", size:small), Heading("46,000 MW", level:h2), Tag("Headroom: 7,580 MW", variant:info), variant:card)
+kpiPriceCard = Card(TextContent("Real-Time Clearing Price", size:small), Heading("$42.80 / MWh", level:h2), Tag("+$3.10 vs Day-Ahead", variant:warning), variant:card)
+kpiEmissionsCard = Card(TextContent("Emissions Today (CO₂e)", size:small), Heading("142.6 kt", level:h2), Tag("Intensity: 218 g/kWh", variant:success), variant:card)
+mainTabs = Tabs(overviewTab, plantsTab, gridHealthTab)
+overviewTab = TabItem("overview", "Overview & Forecast", overviewSplit)
+overviewSplit = Card(forecastCard, mixCard, direction:row, gap:m, variant:clear)
+forecastCard = Card(CardHeader("Demand Forecast (Next 24 Hours)", "Projected vs actual system demand (MW)"), LineChart(forecastData, natural, xLabel:"Time", yLabel:"MW"), variant:card)
+mixCard = Card(CardHeader("Generation Split by Source", "Current active fuel mix"), PieChart(mixData.Source, mixData.Output_MW, variant:donut), variant:card)
+plantsTab = TabItem("plants", "Generators & Plants", plantsCard)
+plantsCard = Card(CardHeader("Active Generation Assets", "Real-time output and operational status by unit"), Table(plantTableCol1, plantTableCol2, plantTableCol3, plantTableCol4, plantTableCol5), variant:card)
+plantTableCol1 = Col("Plant Name", ["Highland Hydro 1", "Pine Valley Nuclear Unit 2", "Cedar Creek CCGT", "SunValley Solar Array A", "Breeze Ridge Wind Phase 1", "Eastside Peaker Gas"])
+plantTableCol2 = Col("Fuel Type", ["Hydro", "Nuclear", "Natural Gas", "Solar PV", "Wind", "Gas OCGT"])
+plantTableCol3 = Col("Region", ["Western Highlands", "Northern Intertie", "Central Hub", "Southern Metro", "Eastern Coastal", "Central Hub"])
+plantTableCol4 = Col("Current Output (MW)", ["1,420 / 1,500", "2,200 / 2,200", "840 / 900", "620 / 750", "480 / 600", "0 / 350"])
+plantTableCol5 = Col("Status", ["Online (Baseload)", "Online (Baseload)", "Online (Load Following)", "Online (Variable)", "Online (Curtailed 10%)", "Standby (Cold 15m)"])
+gridHealthTab = TabItem("grid_health", "Outages & Maintenance", healthSplit)
+healthSplit = Card(outagesCard, maintenanceCard, direction:row, gap:m, variant:clear)
+outagesCard = Card(CardHeader("Active Transmission & Grid Outages", "Lines and substations currently offline"), Table(outageCol1, outageCol2, outageCol3, outageCol4), variant:card)
+outageCol1 = Col("Asset / Feeder", ["Line 504 (North-Central 500kV)", "Substation 72 Sw-Bay 3", "Line 211 (West Metro 230kV)"])
+outageCol2 = Col("Affected Region", ["Northern Intertie", "Central Industrial Hub", "Southern Metro"])
+outageCol3 = Col("Capacity Impact", ["-1,200 MW transfer limit", "-350 MW local feeder", "-400 MW redundancy"])
+outageCol4 = Col("Est. Restoration", ["Today, 18:30 UTC", "Tomorrow, 04:00 UTC", "In Assessment"])
+maintenanceCard = Card(CardHeader("Planned Maintenance (This Month)", "Approved upcoming scheduled outages"), Table(maintCol1, maintCol2, maintCol3, maintCol4), variant:card)
+maintCol1 = Col("Asset", ["Kettle Rapids Unit 3 Turbine", "Line 880 Intertie Inspection", "Osprey Point CCGT Overhaul", "Bayfront 115kV Transformer"])
+maintCol2 = Col("Scheduled Window", ["Oct 12 - Oct 18", "Oct 15 (08:00 - 16:00)", "Oct 22 - Nov 04", "Oct 28 - Oct 29"])
+maintCol3 = Col("Region", ["Western Highlands", "Eastern Coastal", "Central Hub", "Southern Metro"])
+maintCol4 = Col("Scope & Approval", ["Major bearing refit (Approved)", "Drone thermal survey (Approved)", "Combustor inspection (Pending)", "Bushing replacement (Approved)"])
+forecastData = |Hour|Actual MW:n|Forecast MW:n
+|00:00|31200|31000
+|03:00|28900|29100
+|06:00|32400|32000
+|09:00|37800|37500
+|12:00|38420|38600
+|15:00||39800
+|18:00||42100
+|21:00||36500
+mixData = |Source|Output_MW:n
+|Nuclear|12400
+|Natural Gas|11200
+|Hydroelectric|7800
+|Wind|3800
+|Solar PV|2600
+|Biomass & Other|620

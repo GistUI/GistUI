@@ -1,0 +1,95 @@
+root = Card(CardHeader("Admin Overview"), periodControl, metrics, signupsChart, planPieChart, topCustomersTable, riskAccountsTable, failedPaymentsTable, featureAdoptionChart, seatUtilChart, inviteForm)
+
+periodControl = FormControl("Reporting period", periodSelect)
+periodSelect = Select("period", SelectItem("last_month","Last month"), SelectItem("last_quarter","Last quarter"), SelectItem("ytd","Year to date"), placeholder:"Select period")
+
+metrics = Card(
+  TextContent("**Monthly Recurring Revenue:** $120,000", large),
+  TextContent("**Annual Recurring Revenue:** $1,440,000", large),
+  TextContent("**Churn this month:** 2.5%", large),
+  TextContent("**Current NPS:** +45", large)
+)
+
+signupsChart = Card(
+  Heading("New Signups (90 days)", h3),
+  LineChart(signupsData, linear, xLabel:"Date", yLabel:"Signups")
+)
+signupsData = |Date|Signups
+|2023-06-01|30
+|2023-06-08|45
+|2023-06-15|40
+|2023-06-22|50
+|2023-07-01|55
+|2023-07-08|60
+|2023-07-15|58
+|2023-07-22|62
+|2023-08-01|70
+|2023-08-08|68
+|2023-08-15|73
+|2023-08-22|75
+|2023-09-01|80
+|2023-09-08|78
+|2023-09-15|82
+|2023-09-22|85
+
+planPieChart = Card(
+  Heading("Customers by Plan", h3),
+  PieChart(planData.labels, planData.values, donut)
+)
+planData = |Plan|Customers
+|Basic|120
+|Pro|80
+|Enterprise|20
+
+topCustomersTable = Card(
+  Heading("Top 10 Customers", h3),
+  Table(
+    Col("Customer", ["Acme Corp","Beta LLC","Gamma Inc","Delta Co","Epsilon Ltd","Zeta GmbH","Eta SA","Theta Pty","Iota BV","Kappa LLC"], string),
+    Col("Seats", [250,200,180,150,140,130,120,110,100,90], number),
+    Col("Spend", ["$30,000","$24,000","$21,600","$18,000","$16,800","$15,600","$14,400","$13,200","$12,000","$10,800"], string)
+  )
+)
+
+riskAccountsTable = Card(
+  Heading("Accounts at Risk", h3),
+  Table(
+    Col("Customer", ["Gamma Inc","Delta Co"], string),
+    Col("Reason", ["Low usage","Payment failures"], string)
+  )
+)
+
+failedPaymentsTable = Card(
+  Heading("Failed Payments", h3),
+  Table(
+    Col("Invoice", ["INV001","INV002","INV003"], string),
+    Col("Amount", ["$500","$750","$300"], string),
+    Col("Reason", ["Card declined","Insufficient funds","Expired card"], string)
+  )
+)
+
+featureAdoptionChart = Card(
+  Heading("Adoption of Newest Features", h3),
+  BarChart(featureData, grouped, xLabel:"Feature", yLabel:"Adoption %")
+)
+featureData = |Feature|Adoption%
+|Feature A|70
+|Feature B|55
+|Feature C|40
+
+seatUtilChart = Card(
+  Heading("Seat Utilization by Department", h3),
+  HorizontalBarChart(seatData.labels, Series("Utilization", seatData.values), grouped, xLabel:"Utilization %", yLabel:"Department")
+)
+seatData = |Department|Utilization%
+|Engineering|85
+|Sales|70
+|Support|60
+|Marketing|65
+|HR|50
+
+inviteForm = Card(
+  Heading("Invite Another Admin", h3),
+  Form("invite-admin", inviteButtons, emailField)
+)
+emailField = FormControl("Admin email", Input("email","", type:email))
+inviteButtons = Buttons(Button("Invite", primary))

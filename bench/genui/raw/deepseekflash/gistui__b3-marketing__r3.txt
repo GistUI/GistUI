@@ -1,0 +1,65 @@
+root = Card(headerRow, dateRangeCard, kpiRow, visitorsCard, trafficCard, campaignsCard, subscribersCard)
+headerRow = Card(direction:row, variant:clear, justify:between, align:center, headerText, exportButtons)
+headerText = CardHeader("Marketing Dashboard", "Weekly overview")
+exportButtons = Buttons(Button("Export report", primary))
+dateRangeCard = Card(Heading("Date Range", h3), dateForm, sunk)
+dateForm = Form("date-range", dateButtons, dateField)
+dateButtons = Buttons(Button("Apply", primary))
+dateField = FormControl("Date range", DatePicker("date_range", mode:range))
+kpiRow = Card(direction:row, variant:clear, gap:xl, align:center, visitorsStat, kpiSeparator, conversionStat)
+visitorsStat = TextContent("**84,203** visitors", large-heavy)
+kpiSeparator = Separator(orientation:vertical)
+conversionStat = TextContent("**3.2%** conversion rate", large-heavy)
+visitorsCard = Card(Heading("Site Visitors — Last 30 Days", h3), AreaChart(visitorRows, natural, xLabel:"Day", yLabel:"Visitors"), sunk)
+trafficCard = Card(Heading("Top Traffic Sources", h3), HorizontalBarChart(trafficRows, xLabel:"Share (%)", yLabel:"Source"), sunk)
+campaignsCard = Card(Heading("Running Campaigns", h3), bestCampaignCallout, Table(campaignRows), sunk)
+bestCampaignCallout = Callout(variant:success, title:"Best performer", description:"Retargeting leads with 5.1x ROAS and $6,200 spend")
+subscribersCard = Card(Heading("Email Subscriber Growth — This Month", h3), AreaChart(subscriberRows, natural, xLabel:"Week", yLabel:"Subscribers"), sunk)
+visitorRows = |Day|Visitors
+|D1|2410
+|D2|2380
+|D3|2560
+|D4|2710
+|D5|2640
+|D6|2890
+|D7|3120
+|D8|3050
+|D9|2980
+|D10|3210
+|D11|3340
+|D12|3180
+|D13|3420
+|D14|3650
+|D15|3480
+|D16|3290
+|D17|3510
+|D18|3720
+|D19|3890
+|D20|3760
+|D21|4010
+|D22|4230
+|D23|3980
+|D24|4150
+|D25|4380
+|D26|4520
+|D27|4310
+|D28|4560
+|D29|4720
+|D30|4890
+trafficRows = |Source|Share
+|Organic Search|38.2
+|Direct|24.6
+|Paid Ads|18.4
+|Social|11.3
+|Email|7.5
+campaignRows = |Campaign|Spend|Impressions|Conversions|ROAS
+|Spring Sale|$12,400|842k|1,204|4.2
+|Brand Push|$8,900|612k|843|3.8
+|Retargeting|$6,200|398k|712|5.1
+|Newsletter|$4,100|210k|356|2.9
+|Social Boost|$3,700|184k|289|3.3
+subscriberRows = |Week|Subscribers
+|Week 1|12400
+|Week 2|13150
+|Week 3|14200
+|Week 4|15680

@@ -1,0 +1,100 @@
+root = Card(overviewHeader, oeeSection, productionTargetSection, linesSection, defectChartSection, downtimeChartSection, maintenanceTableSection, stockTableSection, deliveriesTableSection, shiftOutputSection, safetySection, qualityHoldSection, energySection, workOrdersSection, scheduleMaintenanceDialog, focusLineDialog, andonAlertsSection, exportButtons)
+
+overviewHeader = CardHeader("Factory Floor Supervisor Console", "Real‑time operations overview")
+
+oeeSection = Card(Heading("Overall Equipment Effectiveness (OEE)", h3), TextContent("OEE: 78 % (target 85 %)", size:large))
+
+productionTargetSection = Card(Heading("Units Produced vs. Today’s Target", h3), HorizontalBarChart(labels:["Produced","Target"], Series("Units",[values:[1200,1500]]), variant:grouped, xLabel:"Units", yLabel:""))
+
+linesSection = Card(Heading("Production Lines – Rate & Status", h3), Table(lineNameCol, lineRateCol, lineStatusCol))
+
+lineNameCol = Col("Line", data:["Line A","Line B","Line C"], type:string)
+lineRateCol = Col("Rate (pcs/h)", data:[850,920,780], type:number)
+lineStatusCol = Col("Status", data:["Running","Running","Stopped"], type:string)
+
+defectChartSection = Card(Heading("Defect Rate – Last 30 Days", h3), LineChart(defectRows, natural, xLabel:"Date", yLabel:"Defect %"))
+
+defectRows = |Date|Defect %|
+|2024‑08‑01|1.2|
+|2024‑08‑08|1.0|
+|2024‑08‑15|0.9|
+|2024‑08‑22|1.1|
+|2024‑08‑29|0.8|
+
+downtimeChartSection = Card(Heading("Downtime Split by Cause", h3), BarChart(downtimeRows, stacked, xLabel:"Hours", yLabel:"Cause"))
+
+downtimeRows = |Cause|Hours|
+|Mechanical|12|
+|Electrical|8|
+|Changeover|5|
+|Quality|3|
+
+maintenanceTableSection = Card(Heading("Machines Due for Maintenance", h3), Table(machineCol, dueDateCol, priorityCol))
+
+machineCol = Col("Machine", data:["M‑101","M‑207","M‑312"], type:string)
+dueDateCol = Col("Due Date", data:["2024‑10‑05","2024‑09‑20","2024‑10‑12"], type:string)
+priorityCol = Col("Priority", data:["High","Medium","Low"], type:string)
+
+stockTableSection = Card(Heading("Current Stock Levels", h3), Table(stockItemCol, qtyCol, uomCol))
+
+stockItemCol = Col("Item", data:["Steel","Resin","Packaging"], type:string)
+qtyCol = Col("Quantity", data:[12000,8500,23000], type:number)
+uomCol = Col("UoM", data:["kg","kg","pcs"], type:string)
+
+deliveriesTableSection = Card(Heading("Supplier Deliveries Due This Week", h3), Table(supplierCol, dueCol, qtyDelCol))
+
+supplierCol = Col("Supplier", data:["Acme Metals","PolyResin Co.","PackIt Ltd."], type:string)
+dueCol = Col("Due Date", data:["2024‑09‑03","2024‑09‑04","2024‑09‑05"], type:string)
+qtyDelCol = Col("Qty", data:[5000,3000,15000], type:number)
+
+shiftOutputSection = Card(Heading("Shift Output Comparison", h3), Table(shiftCol, outputCol, targetCol, diffCol))
+
+shiftCol = Col("Shift", data:["Morning","Afternoon","Night"], type:string)
+outputCol = Col("Output (pcs)", data:[4000,3800,3500], type:number)
+targetCol = Col("Target (pcs)", data:[4200,4000,3800], type:number)
+diffCol = Col("Δ", data:["-200","-200","-300"], type:number)
+
+safetySection = Card(Heading("Safety Incidents – This Year", h3), TextContent("Incidents: 3  | Days since last: 45", size:large))
+
+qualityHoldSection = Card(Heading("Batches on Quality Hold", h3), Table(batchCol, reasonCol, qtyHoldCol))
+
+batchCol = Col("Batch", data:["B‑1023","B‑1087"], type:string)
+reasonCol = Col("Reason", data:["Surface defect","Material variance"], type:string)
+qtyHoldCol = Col("Qty (pcs)", data:[250,180], type:number)
+
+energySection = Card(Heading("Energy Use Today", h3), TextContent("Energy consumed: 1,240 kWh", size:large))
+
+workOrdersSection = Card(Heading("Open Work Orders – Priority", h3), Table(woIdCol, woDescCol, woPrioCol))
+
+woIdCol = Col("WO ID", data:["WO‑001","WO‑004","WO‑007"], type:string)
+woDescCol = Col("Description", data:["Calibrate sensor","Replace belt","Inspect motor"], type:string)
+woPrioCol = Col("Priority", data:["High","Medium","Low"], type:string)
+
+scheduleMaintenanceDialog = DialogBlock("Schedule Maintenance", "Schedule Maintenance", maintenanceForm, description:"Select machine and date", triggerVariant:primary)
+
+maintenanceForm = Form("schedule-maint", scheduleButtons, machineSelectControl, datePickerControl)
+
+machineSelectControl = FormControl("Machine", machineSelect)
+machineSelect = Select("machine", SelectItem("M‑101","M‑101"), SelectItem("M‑207","M‑207"), SelectItem("M‑312","M‑312"), placeholder:"Choose machine", value:"", size:small)
+
+datePickerControl = FormControl("Date", maintenanceDatePicker)
+maintenanceDatePicker = DatePicker("date", mode:single, value:[], rules:[])
+
+scheduleButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))
+
+focusLineDialog = DialogBlock("Focus Line", "Focus on a Production Line", focusLineForm, description:"Select line to monitor closely", triggerVariant:secondary)
+
+focusLineForm = Form("focus-line", focusButtons, lineSelectControl)
+
+lineSelectControl = FormControl("Line", lineSelect)
+lineSelect = Select("line", SelectItem("Line A","Line A"), SelectItem("Line B","Line B"), SelectItem("Line C","Line C"), placeholder:"Choose line", value:"", size:small)
+
+focusButtons = Buttons(Button("Set Focus", primary), Button("Cancel", tertiary))
+
+andonAlertsSection = Card(Heading("Live ANDON Alerts", h3), Table(alertIdCol, alertDescCol, alertTimeCol))
+
+alertIdCol = Col("Alert ID", data:["A‑12","A‑35"], type:string)
+alertDescCol = Col("Description", data:["Overheat on Line B","Material shortage on Line C"], type:string)
+alertTimeCol = Col("Since", data:["5 min","12 min"], type:string)
+
+exportButtons = Buttons(Button("Export Shift Report", primary))

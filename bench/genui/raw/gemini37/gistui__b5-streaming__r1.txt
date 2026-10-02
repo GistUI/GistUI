@@ -1,0 +1,138 @@
+root = Card(header, liveAlert, quickControls, overviewMetrics, mainTabs)
+header = CardHeader("Streaming Ops Room", "Real-time edge telemetry, catalog management, and audience distribution")
+liveAlert = Alert("Live Broadcast Spike", "World Championship final currently streaming in EU-Central. CDN edge cache hit ratio steady at 98.4%.", info)
+
+quickControls = Card(qcRow, sunk)
+qcRow = Card(regionFocusControl, promoDrawer, direction:row, justify:between, align:center, variant:clear)
+regionFocusControl = FormControl("Focus Region Filter", regionSelect, "Live switch for dashboard routing and CDN drill-down")
+regionSelect = Select("region_scope", SelectItem("global", "Global (All Regions)"), SelectItem("na_east", "NA-East (Virginia)"), SelectItem("na_west", "NA-West (Oregon)"), SelectItem("eu_west", "EU-West (Ireland)"), SelectItem("eu_central", "EU-Central (Frankfurt)"), SelectItem("ap_southeast", "AP-Southeast (Singapore)"), SelectItem("latam", "LATAM (São Paulo)"), value:"global")
+
+promoDrawer = DrawerBlock("Promote Title to Hero Banner", "Spotlight & Hero Curation", promoForm, description:"Push a catalog title directly to the top-tier hero banner or trending rail across target client surfaces.")
+promoForm = Form("promo_form", promoFormButtons, promoTitleField, promoPlacementField, promoAudienceField, promoExpiryField)
+promoTitleField = FormControl("Catalog Title", Input("promo_title", "e.g. Cyber City Chronicles Season 3"))
+promoPlacementField = FormControl("Surface Placement", Select("promo_slot", SelectItem("hero_carousel", "Top Hero Carousel (Slot 1)"), SelectItem("trending_rail", "Trending Row Top 3"), SelectItem("modal_takeover", "App Launch Interstitial"), value:"hero_carousel"))
+promoAudienceField = FormControl("Target Segment", Select("target_tier", SelectItem("all", "All Active Subscribers"), SelectItem("churn_risk", "High Churn Risk Cohort"), SelectItem("ad_supported", "Standard with Ads Only"), value:"all"))
+promoExpiryField = FormControl("Promotion Window (Hours)", Slider("promo_hours", continuous, 1, 72, defaultValue:[24], step:1))
+promoFormButtons = Buttons(Button("Publish Promotion", primary), Button("Cancel", tertiary))
+
+overviewMetrics = Card(kpiGrid, direction:row, justify:between, wrap, variant:clear)
+kpiGrid = Card(m1, m2, m3, m4, direction:row, justify:between, wrap, variant:clear)
+m1 = Card(Heading("2,842,190", h2), Badge("Live Viewers Now", default), Tag("● +8.4% vs last hour", success, sm), sunk)
+m2 = Card(Heading("0.38%", h2), Badge("Global Buffering Rate", outline), Tag("Target < 0.50%", success, sm), sunk)
+m3 = Card(Heading("24.8%", h2), Badge("Recs Click-Through Rate", default), Tag("+1.6% w/w", success, sm), sunk)
+m4 = Card(Heading("11.2%", h2), Badge("Zero-Playback Search Rate", destructive), Tag("Spike in Anime queries", warning, sm), sunk)
+
+mainTabs = Tabs(telemetryTab, catalogContentTab, businessTab, configTab)
+
+telemetryTab = TabItem("telemetry", "Streaming & Infrastructure", liveStreamGrid, deliveryGrid)
+liveStreamGrid = Card(watchTrendCard, bufferCard, direction:row, wrap, variant:clear)
+watchTrendCard = Card(Heading("Watch Time Trend (Past 30 Days)", h3), MarkDownRenderer("Total aggregate viewing hours across global edge CDN nodes (in Millions of Hours)."), AreaChart(watchTimeData, natural, xLabel:"Day", yLabel:"Hours (M)"), sunk)
+bufferCard = Card(Heading("Buffering Rate & Playback Failures (%)", h3), MarkDownRenderer("Real-time video stall events per 100 playback hours by region."), BarChart(bufferByRegionData, grouped, xLabel:"Region", yLabel:"Buffering %"), sunk)
+
+deliveryGrid = Card(cdnHealthCard, searchRecHealthCard, direction:row, wrap, variant:clear)
+cdnHealthCard = Card(Heading("Delivery Health by Region", h3), Table(cdnHealthData), sunk)
+searchRecHealthCard = Card(Heading("Discovery Health: Rec CTR & Zero-Playback Searches", h3), LineChart(discoveryMetricData, linear, xLabel:"Hour (UTC)", yLabel:"Rate (%)"), MarkDownRenderer("**Top zero-playback search queries today:** `cyber punk s2`, `world cup 4k stream`, `offline download ios`"), sunk)
+
+catalogContentTab = TabItem("catalog", "Titles & Licensing", catalogGrid)
+catalogGrid = Card(titlesCard, releasesAndLicensingCard, direction:row, wrap, variant:clear)
+titlesCard = Card(Heading("Most-Watched Titles (Past 30 Days)", h3), HorizontalBarChart(topTitlesData, grouped, xLabel:"Hours Streamed (M)", yLabel:"Title"), MarkDownRenderer("**Top performer:** *Shadow Realm (Season 4)* continues to dominate peak hours."), sunk)
+releasesAndLicensingCard = Card(genrePerfSection, upcomingReleasesSection, expiringLicensesSection, sunk)
+genrePerfSection = Card(Heading("Performance by Genre (Avg Mins/User/Day)", h4), RadarChart(genrePerfData), variant:clear)
+upcomingReleasesSection = Card(Heading("Upcoming Releases This Month", h4), Table(upcomingReleasesData), variant:clear)
+expiringLicensesSection = Card(Heading("Licenses Expiring Soon (< 30 Days)", h4), Table(expiringLicensesData), variant:clear)
+
+businessTab = TabItem("business", "Subscribers & Audience", businessGrid)
+businessGrid = Card(subsCard, revenueDeviceCard, direction:row, wrap, variant:clear)
+subsCard = Card(Heading("New Subscribers vs Cancellations (Past 4 Weeks)", h3), BarChart(subChurnData, grouped, xLabel:"Week", yLabel:"Users (k)"), TextCallout("Net Subscriber Growth", "Net addition of +44k users across global markets over the last 30 days.", success), sunk)
+revenueDeviceCard = Card(revenueSplitCard, deviceSplitCard, direction:row, wrap, variant:clear)
+revenueSplitCard = Card(Heading("Revenue Split by Plan", h4), PieChart(revenueSplitData, donut), sunk)
+deviceSplitCard = Card(Heading("Viewing Split by Device", h4), PieChart(deviceSplitData, donut), sunk)
+
+configTab = TabItem("flags", "Feature Flags & Edge Ops", flagsCard)
+flagsCard = Card(Heading("Operations Feature Flags", h3), MarkDownRenderer("Manage runtime feature toggles across client SDKs and backend ingest endpoints."), Table(featureFlagsData), sunk)
+
+watchTimeData = |Day|Hours Streamed
+|Day 1|14.2
+|Day 5|16.8
+|Day 10|15.4
+|Day 15|19.1
+|Day 20|18.3
+|Day 25|22.6
+|Day 30|24.9
+
+bufferByRegionData = |Region|Buffering Rate|Error Rate
+|NA-East|0.28|0.04
+|NA-West|0.31|0.05
+|EU-West|0.35|0.06
+|EU-Central|0.42|0.08
+|AP-Southeast|0.58|0.12
+|LATAM|0.64|0.15
+
+cdnHealthData = |Region:s|Edge Status:s|Latency:s|Cache Hit Ratio:s|Avg Bitrate:s
+|NA-East (Virginia)|Operational|18ms|99.1%|6.8 Mbps (4K)
+|NA-West (Oregon)|Operational|22ms|98.8%|6.5 Mbps (4K)
+|EU-West (Ireland)|Operational|24ms|98.4%|6.4 Mbps (4K)
+|EU-Central (Frankfurt)|Degraded (Traffic Spike)|38ms|95.2%|5.9 Mbps (1080p)
+|AP-Southeast (Singapore)|Operational|41ms|97.6%|5.4 Mbps (1080p)
+|LATAM (São Paulo)|Operational|49ms|96.9%|5.1 Mbps (1080p)
+
+discoveryMetricData = |Hour|Rec Click CTR|Zero-Playback Searches
+|00:00|22.1|10.4
+|04:00|20.8|11.9
+|08:00|24.2|9.8
+|12:00|26.5|8.9
+|16:00|28.1|11.2
+|20:00|24.8|13.5
+
+topTitlesData = |Title|Watch Hours (M)
+|Shadow Realm S4|64.2
+|Velocity Express|51.8
+|Midnight Diner Tokyo|42.5
+|The Deep Blue Documentary|36.1
+|Galactic Squad Kids|29.4
+|Standup Special: Live NYC|21.0
+
+genrePerfData = |Genre|Engagement Score
+|Drama|88
+|Sci-Fi & Fantasy|94
+|Documentary|62
+|Comedy|76
+|Animation|81
+|Crime & Thriller|85
+
+upcomingReleasesData = |Title:s|Format:s|Release Date:s|Expected Traffic Tier:s
+|The Orbital Heist|Original Movie|Oct 18|Ultra High (Hero)
+|Chronicles of Mars S2|Series Premiere|Oct 22|High
+|Nordic Crime Files S1|Acquisition|Oct 25|Medium
+|Champions League Live Matchday|Live Event|Oct 28|Peak Load
+
+expiringLicensesData = |Title:s|Studio Partner:s|Expires In:s|Renewal Status:s
+|The Bourne Trilogy|Universal Studios|6 Days|Negotiation Ongoing
+|Classic Detective Series|Paramount|14 Days|Dropping Catalog
+|Tokyo Racing Legends|Toho Co.|21 Days|Auto-Renew Signed
+|Family Comedy Hour|Warner Bros.|29 Days|Under Review
+
+subChurnData = |Week|New Subscribers|Cancellations
+|Week 1|38.2|26.1
+|Week 2|42.5|28.4
+|Week 3|49.1|27.8
+|Week 4|54.3|29.2
+
+revenueSplitData = |Plan|Revenue Share
+|Premium 4K ($19.99)|48
+|Standard 1080p ($14.99)|32
+|Standard with Ads ($7.99)|16
+|Mobile Only ($4.99)|4
+
+deviceSplitData = |Device|Share
+|Smart TV & Consoles|54
+|Mobile & Tablets|26
+|Web Browsers|14
+|Streaming Sticks (Roku/Fire)|6
+
+featureFlagsData = |Feature Flag Key:s|Environment:s|Target Platform:s|Rollout:s|State:s
+|av1_codec_stream_v2|Production|Smart TVs & Web|100%|Enabled
+|ai_recommendations_v4|Production|All Platforms|50% (A/B Test)|Active
+|low_latency_live_hls|Staging|Mobile Apps|15% Canary|Canary
+|spatial_audio_atmos|Production|Apple TV & Shield|100%|Enabled
+|p2p_mesh_edge_cdn|Internal|QA Testbeds|0%|Disabled

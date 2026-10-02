@@ -1,0 +1,5 @@
+root = Card(CardHeader("Invoice #INV-2025-001", "Freelance Web Design Services"), Tag("Open", info), amountSection, dueSection, payActions, paymentNote)
+amountSection = Card(TextContent("Amount due", size:small), TextContent("**$2,450.00 USD**", size:large-heavy), sunk)
+dueSection = Card(TextContent("Due date", size:small), TextContent("**December 31, 2025**", size:default), sunk)
+payActions = Buttons(Button("Pay now", primary))
+paymentNote = Callout(info, "Secure payment", "This invoice can be paid by credit card or ACH bank transfer.")

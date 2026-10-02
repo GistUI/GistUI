@@ -1,0 +1,102 @@
+root = Card(overallOEE, unitsProduced, productionLines, defectRate, downtime, maintenanceDue, stock, deliveries, shiftOutput, safety, qualityHold, energy, workOrders, scheduleMaintenance, focusLine, liveAndon, exportShift)
+
+overallOEE = Card(Heading("Overall Equipment Effectiveness", h2), TextContent("OEE: 87 %", size:large))
+
+unitsProduced = Card(Heading("Units Produced vs Today’s Target", h2), HorizontalBarChart(unitsRows, variant:grouped, xLabel:"Units", yLabel:""))
+
+productionLines = Card(Heading("Production Lines – Rate & Status", h2), Table(linesRows))
+
+defectRate = Card(Heading("Defect Rate – Past Month", h2), LineChart(defectRows, linear, xLabel:"Date", yLabel:"Defect %"))
+
+downtime = Card(Heading("Downtime Split by Cause", h2), PieChart(downtimeRows, donut, appearance:circular))
+
+maintenanceDue = Card(Heading("Machines Due for Maintenance", h2), Table(maintenanceRows))
+
+stock = Card(Heading("Current Stock – Steel, Resin, Packaging", h2), Table(stockRows))
+
+deliveries = Card(Heading("Supplier Deliveries Due This Week", h2), Table(deliveriesRows))
+
+shiftOutput = Card(Heading("Shift Output Comparison", h2), BarChart(shiftRows, grouped, xLabel:"Shift", yLabel:"Units"))
+
+safety = Card(Heading("Safety Incidents – This Year", h2), TextContent("Incidents this year: 3", size:default), TextContent("Days since last incident: 45", size:default))
+
+qualityHold = Card(Heading("Batches on Quality Hold", h2), Table(qualityRows))
+
+energy = Card(Heading("Energy Use Today", h2), TextContent("Energy consumed: 1 200 kWh", size:default))
+
+workOrders = Card(Heading("Open Work Orders – Priority", h2), Table(workOrdersRows))
+
+scheduleMaintenance = Card(Heading("Schedule Maintenance", h2), Form("schedule-maint", buttons:scheduleButtons, machineField, dateField))
+
+focusLine = Card(Heading("Focus on a Production Line", h2), Form("focus-line", buttons:focusButtons, lineSelect))
+
+liveAndon = Card(Heading("Live Andon Alerts", h2), Table(alertsRows))
+
+exportShift = Card(Heading("Export Shift Report", h2), Buttons(Button("Export CSV", primary)))
+
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", secondary))
+
+focusButtons = Buttons(Button("Set Focus", primary), Button("Clear", secondary))
+
+machineField = FormControl("Machine", Select("machine", SelectItem("Line A","Line A"), SelectItem("Line B","Line B"), SelectItem("Line C","Line C"), placeholder:"Select machine"))
+
+dateField = FormControl("Date", Input("date", "YYYY-MM-DD", type:text), "Enter maintenance date")
+
+lineSelect = FormControl("Line", Select("line", SelectItem("Line A","Line A"), SelectItem("Line B","Line B"), SelectItem("Line C","Line C"), placeholder:"Select line"))
+
+unitsRows = |Metric|Units
+|Produced|1200
+|Target|1500
+
+linesRows = |Line|Rate (units/hr)|Status
+|Line A|120|Running
+|Line B|95|Idle
+|Line C|110|Running
+
+defectRows = |Date|Defect%
+|2023-08-01|2.1
+|2023-08-08|1.9
+|2023-08-15|1.7
+|2023-08-22|2.0
+|2023-08-29|1.8
+
+downtimeRows = |Cause|Minutes
+|Mechanical|120
+|Electrical|45
+|Setup|30
+|Quality|15
+
+maintenanceRows = |Machine|Due Date
+|Cutter 1|2023‑09‑15
+|Press 2|2023‑09‑20
+|Welder 3|2023‑09‑25
+
+stockRows = |Item|Quantity
+|Steel (tonnes)|85
+|Resin (tonnes)|40
+|Packaging (boxes)|12 000
+
+deliveriesRows = |Supplier|Delivery Due
+|SteelCo|2023‑10‑02
+|ResinInc|2023‑10‑03
+|PackSupply|2023‑10‑04
+
+shiftRows = |Shift|Units
+|Morning|1500
+|Afternoon|1400
+|Night|1300
+
+qualityRows = |Batch ID|Status
+|B-1023|On Hold
+|B-1045|On Hold
+|B-1089|On Hold
+
+workOrdersRows = |Order ID|Priority|Description
+|WO123|High|Replace belt on Line B
+|WO124|Medium|Calibrate sensor on Line A
+|WO125|Low|Inspect safety guard on Line C
+
+alertsRows = |Alert|Line|Severity
+|Overheat|Line B|Critical
+|Low Speed|Line C|Warning
+|Power Loss|Line A|Info

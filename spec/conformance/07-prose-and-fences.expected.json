@@ -1,0 +1,29 @@
+{
+  "tree": {
+    "type": "Card",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "Prose lines and fences are stripped with a warning."
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "prose-ignored",
+      "severity": "warning",
+      "line": 1
+    },
+    {
+      "code": "prose-ignored",
+      "severity": "warning",
+      "line": 6
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

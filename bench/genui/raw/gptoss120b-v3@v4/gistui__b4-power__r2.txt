@@ -1,0 +1,68 @@
+root = Card(loadSection, capacitySection, generationSection, plantsSection, outagesSection, forecastSection, priceSection, maintenanceSection, alertsSection, focusSection, curtailSection, emissionsSection)
+
+loadSection = Card(Heading("Current Load", h3), TextContent("**1,850 MW**", size:large))
+
+capacitySection = Card(Heading("Capacity Utilization", h3), Progress(78, "78 % of capacity"))
+
+generationSection = Card(Heading("Generation Mix", h3), generationTable)
+
+plantsSection = Card(Heading("Plant Output & Status", h3), plantsTable)
+
+outagesSection = Card(Heading("Current Outages", h3), outagesTable)
+
+forecastSection = Card(Heading("24‑Hour Demand Forecast", h3), forecastTable)
+
+priceSection = Card(Heading("Current Price", h3), TextContent("**$45 /MWh**", size:large))
+
+maintenanceSection = Card(Heading("Planned Maintenance (This Month)", h3), maintenanceTable)
+
+alertsSection = Card(Heading("Live Alerts", h3), alertsList)
+
+focusSection = Card(Heading("Focus on Region", h3), regionSelectFocus)
+
+curtailSection = Card(Heading("Order Curtailment", h3), curtailForm)
+
+emissionsSection = Card(Heading("Emissions Today", h3), emissionsTable)
+
+generationCol1 = Col("Source", ["Coal","Gas","Wind","Solar"], type:string)
+generationCol2 = Col("Output (MW)", [800,600,300,150], type:number)
+generationTable = Table(generationCol1, generationCol2)
+
+plantsCol1 = Col("Plant", ["Plant A","Plant B","Plant C","Plant D"], type:string)
+plantsCol2 = Col("Output (MW)", [400,250,150,100], type:number)
+plantsCol3 = Col("Status", ["Online","Online","Maintenance","Offline"], type:string)
+plantsTable = Table(plantsCol1, plantsCol2, plantsCol3)
+
+outagesCol1 = Col("Region", ["North","South"], type:string)
+outagesCol2 = Col("Start Time", ["2023-09-30 08:00","2023-09-30 09:30"], type:string)
+outagesCol3 = Col("Duration", ["2 h","1.5 h"], type:string)
+outagesCol4 = Col("Reason", ["Line fault","Transformer issue"], type:string)
+outagesTable = Table(outagesCol1, outagesCol2, outagesCol3, outagesCol4)
+
+forecastCol1 = Col("Hour", ["00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"], type:string)
+forecastCol2 = Col("Demand (MW)", [1800,1750,1700,1650,1600,1580,1650,1750,1850,1950,2000,2050,2100,2150,2200,2250,2300,2350,2400,2400,2350,2300,2250,2200], type:number)
+forecastTable = Table(forecastCol1, forecastCol2)
+
+maintenanceCol1 = Col("Plant", ["Plant C","Plant D"], type:string)
+maintenanceCol2 = Col("Date", ["2023-10-15","2023-10-20"], type:string)
+maintenanceCol3 = Col("Description", ["Turbine inspection","Control system upgrade"], type:string)
+maintenanceTable = Table(maintenanceCol1, maintenanceCol2, maintenanceCol3)
+
+emissionsCol1 = Col("Pollutant", ["CO2","NOx","SO2"], type:string)
+emissionsCol2 = Col("Tonnes", [1200,300,150], type:number)
+emissionsTable = Table(emissionsCol1, emissionsCol2)
+
+alertItem1 = ListItem("Line overload in North region", "Load exceeds 95 %")
+alertItem2 = ListItem("Generator B offline", "Unexpected shutdown at 07:45")
+alertItem3 = ListItem("Price spike", "Price rose to $55/MWh")
+alertsList = ListBlock(alertItem1, alertItem2, alertItem3, variant:number)
+
+regionSelectFocus = Select("region_focus", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Select region")
+
+regionControl = FormControl("Region", regionSelectFocus)
+
+amountControl = FormControl("Curtailment (MW)", Input("curtail_amount", placeholder:"Enter MW", type:number))
+
+curtailButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+curtailForm = Form("curtail-order", curtailButtons, regionControl, amountControl)

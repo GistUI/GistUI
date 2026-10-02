@@ -1,0 +1,31 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Card",
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "x"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "Summary",
+      "line": 2,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

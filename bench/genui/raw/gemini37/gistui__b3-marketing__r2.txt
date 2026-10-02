@@ -1,0 +1,45 @@
+root = Card(headerRow, filterRow, bestCampaignCallout, kpiRow, chartsRow, lowerRow, actionsRow, gap:m)
+headerRow = Card(CardHeader("Weekly Marketing Dashboard", "Performance summary, acquisition channels, and campaign metrics"), Tag("Active Quarter", info), direction:row, justify:between, align:center, variant:clear)
+filterRow = Card(rangePicker, filterSelect, direction:row, gap:m, align:center, variant:sunk)
+rangePicker = DatePicker("date_range", mode:range)
+filterSelect = Select("view_scope", SelectItem("all", "All Channels & Traffic"), SelectItem("paid", "Paid Ads Only"), SelectItem("organic", "Organic & Direct"), placeholder:"Channel View", value:"all")
+bestCampaignCallout = Callout(success, "Best Performing Campaign: Q3 Product Launch", "ROAS reached 4.8x with $14,200 spend, generating 1,420 total conversions (4.6% CVR).")
+kpiRow = Card(kpiVisitors, kpiCvr, kpiSubscribers, kpiSpend, direction:row, gap:m, variant:clear)
+kpiVisitors = Card(Heading("142.8k", h2), TextContent("Site Visitors (30d)"), Tag("+12.4% vs last mo", success), variant:card)
+kpiCvr = Card(Heading("3.42%", h2), TextContent("Overall Conversion Rate"), Tag("+0.38% WoW", success), variant:card)
+kpiSubscribers = Card(Heading("+4,850", h2), TextContent("New Subscribers (MTD)"), Progress(81, "81% of monthly goal"), variant:card)
+kpiSpend = Card(Heading("$41,200", h2), TextContent("Active Ad Spend"), Tag("On budget", neutral), variant:card)
+chartsRow = Card(visitorTrendCard, trafficSourcesCard, direction:row, gap:m, variant:clear)
+visitorTrendCard = Card(Heading("Site Visitors (Last 30 Days)", h3), AreaChart(visitorData, natural, xLabel:"Day", yLabel:"Daily Visitors"), variant:card)
+trafficSourcesCard = Card(Heading("Top 5 Traffic Sources", h3), HorizontalBarChart(trafficData, xLabel:"Traffic Share (%)", yLabel:"Source"), variant:card)
+lowerRow = Card(campaignsCard, subscriberCard, direction:row, gap:m, variant:clear)
+campaignsCard = Card(Heading("Running Campaigns & Spend", h3), Table(campaignColName, campaignColStatus, campaignColSpend, campaignColConv, campaignColCvr, campaignColRoas), variant:card)
+campaignColName = Col("Campaign", ["Q3 Product Launch", "Search Brand Terms", "Retargeting Tier 1", "Creator Affiliate Blast", "Newsletter Sponsorships"], string)
+campaignColStatus = Col("Status", ["Active", "Active", "Active", "Active", "Active"], string)
+campaignColSpend = Col("Spend", ["$14,200", "$9,500", "$8,300", "$5,700", "$3,500"], string)
+campaignColConv = Col("Conversions", [1420, 890, 620, 310, 180], number)
+campaignColCvr = Col("CVR", ["4.6%", "3.9%", "3.1%", "2.4%", "2.1%"], string)
+campaignColRoas = Col("ROAS", ["4.8x", "3.4x", "2.9x", "2.1x", "1.8x"], string)
+subscriberCard = Card(Heading("Email Subscriber Growth", h3), LineChart(subscriberData, step, xLabel:"Week", yLabel:"Net New Subscribers"), variant:card)
+actionsRow = Card(exportDialog, shareButton, direction:row, gap:s, justify:end, variant:clear)
+exportDialog = AlertDialogBlock("Export Weekly Report", "Confirm Report Export", "Generate and download a comprehensive CSV & PDF package of all traffic sources, campaigns, and conversions for this period.", "Download Package", "Cancel", default)
+shareButton = Button("Share Dashboard Link", secondary)
+visitorData = |Day|Visitors
+|Day 1|3800
+|Day 5|4100
+|Day 10|4450
+|Day 15|4900
+|Day 20|4600
+|Day 25|5300
+|Day 30|5820
+trafficData = |Source|Share
+|Organic Search|38
+|Paid Search (SEM)|24
+|Direct Traffic|18
+|Social Media|12
+|Email Marketing|8
+subscriberData = |Week|Subscribers
+|Week 1|950
+|Week 2|1180
+|Week 3|1320
+|Week 4|1400

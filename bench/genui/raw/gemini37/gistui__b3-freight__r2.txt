@@ -1,0 +1,46 @@
+root = Card(header, topAlert, kpiSection, searchAndFilters, mainTabs, footerInfo)
+header = CardHeader("Logistics Operations Hub", "Live coordination board for freight, transit tracking, and carrier metrics")
+topAlert = Alert("3 Active Shipments Delayed", "Shipments SH-8821, SH-8834, and SH-8840 are experiencing port and customs delays requiring immediate review.", destructive)
+kpiSection = Card(kpiRow, variant:sunk)
+kpiRow = Card(kpi1, kpi2, kpi3, kpi4, direction:row, gap:m)
+kpi1 = Card(TextContent("### 94.2%\n**On-Time Delivery** (This Month)\n\n+1.8% vs last month", size:default))
+kpi2 = Card(TextContent("### $1,420\n**Avg Cost / Shipment**\n\n-3.4% MoM efficiency", size:default))
+kpi3 = Card(TextContent("### 142\n**Active Shipments**\n\n18 In-Transit, 3 Delayed", size:default))
+kpi4 = Card(TextContent("### 8 Weeks\n**Tracking Horizon**\n\n3,860 Total Units Moved", size:default))
+searchAndFilters = Card(searchForm, variant:clear)
+searchForm = Form("route_search", searchActions, originInput, destInput, carrierSelect)
+originInput = FormControl("Origin Port/Hub", Input("origin", "e.g. Shanghai, Rotterdam, Chicago"))
+destInput = FormControl("Destination Port/Hub", Input("dest", "e.g. Los Angeles, Hamburg, Dallas"))
+carrierSelect = FormControl("Carrier Filter", Select("carrier", SelectItem("all", "All Carriers"), SelectItem("maersk", "Maersk"), SelectItem("hapag", "Hapag-Lloyd"), SelectItem("msc", "MSC"), SelectItem("cma", "CMA CGM"), SelectItem("fedex", "FedEx Freight"), placeholder:"Filter carrier"))
+searchActions = Buttons(Button("Search Route", variant:primary), Button("Reset", variant:secondary), flagDrawer)
+flagDrawer = DrawerBlock("Flag Shipment for Review", "Flag a Shipment Issue", flagForm, description:"Submit an expedited alert to customs and routing teams.")
+flagForm = Form("flag_form", flagButtons, flagShipmentId, flagReason, flagPriority)
+flagShipmentId = FormControl("Shipment ID", Input("shipment_id", "e.g. SH-8821"))
+flagReason = FormControl("Flag Reason", Select("reason", SelectItem("delay", "Severe Delay / Port Congestion"), SelectItem("customs", "Customs Clearance Hold"), SelectItem("damage", "Reported Cargo Damage"), SelectItem("reroute", "Route Diversion Request"), placeholder:"Select primary reason"))
+flagPriority = FormControl("Priority Level", RadioGroup("priority", RadioItem("High Priority", "Notify terminal manager", "high"), RadioItem("Critical", "Escalate to VP Logistics", "critical"), defaultValue:"high"))
+flagButtons = Buttons(Button("Submit Flag", variant:primary))
+mainTabs = Tabs(shipmentsTab, analyticsTab)
+shipmentsTab = TabItem("active_shipments", "Active Shipments in Transit", shipmentsTable)
+shipmentsTable = Table(shipmentIdCol, originCol, destCol, carrierCol, etaCol, statusCol, costCol)
+shipmentIdCol = Col("Shipment ID", ["SH-8821", "SH-8834", "SH-8840", "SH-8845", "SH-8849", "SH-8852", "SH-8855"], type:string)
+originCol = Col("Origin", ["Shanghai (CNSHA)", "Rotterdam (NLRTM)", "Busan (KRPUS)", "Hamburg (DEHAM)", "Chicago (USCHI)", "Yokohama (JPYOK)", "Antwerp (BEANR)"], type:string)
+destCol = Col("Destination", ["Los Angeles (USLAX)", "New York (USNYC)", "Long Beach (USLGB)", "Savannah (USSAV)", "Dallas (USDFW)", "Seattle (USSEA)", "Charleston (USCHS)"], type:string)
+carrierCol = Col("Carrier", ["Maersk", "MSC", "Hapag-Lloyd", "CMA CGM", "FedEx Freight", "ONE", "Cosco"], type:string)
+etaCol = Col("ETA", ["Oct 24 (Delayed +3d)", "Oct 25 (Delayed +1d)", "Oct 26 (Delayed +2d)", "Oct 27 (On Schedule)", "Oct 28 (On Schedule)", "Oct 29 (On Schedule)", "Oct 31 (On Schedule)"], type:string)
+statusCol = Col("Status", ["Delayed - Port Congestion", "Delayed - Customs Hold", "Delayed - Weather", "In Transit - Normal", "In Transit - Normal", "In Transit - Normal", "In Transit - Normal"], type:string)
+costCol = Col("Est. Cost", ["$1,540", "$1,820", "$1,310", "$1,250", "$980", "$1,450", "$1,600"], type:number)
+analyticsTab = TabItem("trends_and_carriers", "Volume Trends & Carrier Split", analyticsGrid)
+analyticsGrid = Card(chartRow, variant:clear)
+chartRow = Card(weeklyVolumeCard, carrierSplitCard, direction:row, gap:m)
+weeklyVolumeCard = Card(Heading("Weekly Volume (Past 2 Months)", level:h3), BarChart(weeklyVolumeData, variant:grouped, xLabel:"Week", yLabel:"Shipments Moved"))
+carrierSplitCard = Card(Heading("Volume Split by Carrier", level:h3), PieChart(["Maersk", "MSC", "Hapag-Lloyd", "CMA CGM", "Other Carriers"], [38, 26, 18, 12, 6], variant:donut))
+weeklyVolumeData = |Week|Shipments:n
+|W1 (Aug)|420
+|W2 (Aug)|455
+|W3 (Aug)|470
+|W4 (Aug)|490
+|W5 (Sep)|465
+|W6 (Sep)|510
+|W7 (Sep)|525
+|W8 (Sep)|525
+footerInfo = Card(TextContent("Numbers last refreshed: **Today at 14:32:05 UTC** • Live telemetry auto-syncs every 5 minutes", size:small), variant:clear)

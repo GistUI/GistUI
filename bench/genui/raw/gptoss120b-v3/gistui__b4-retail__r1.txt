@@ -1,0 +1,92 @@
+root = Card(salesSection, footTrafficSection, bestSellersSection, outOfStockSection, shiftSection, avgBasketSection, returnsSection, promotionsSection, registersSection, reorderSection, storeSection, comparisonSection, direction:column, gap:m)
+
+salesSection = Card(salesHeading, salesTable)
+salesHeading = Heading("Sales vs Target", h3)
+
+footTrafficSection = Card(footTrafficHeading, footTrafficChart)
+footTrafficHeading = Heading("Foot Traffic Today", h3)
+
+bestSellersSection = Card(bestSellersHeading, bestSellers)
+bestSellersHeading = Heading("Best Sellers", h3)
+
+outOfStockSection = Card(outOfStockHeading, outOfStock)
+outOfStockHeading = Heading("Out of Stock Items", h3)
+
+shiftSection = Card(shiftHeading, shiftList)
+shiftHeading = Heading("Today's Shift", h3)
+
+avgBasketSection = Card(avgBasketHeading, avgBasket)
+avgBasketHeading = Heading("Average Basket Size", h3)
+
+returnsSection = Card(returnsHeading, returnsTable)
+returnsHeading = Heading("Returns This Week", h3)
+
+promotionsSection = Card(promotionsHeading, promotions)
+promotionsHeading = Heading("Promotion Performance", h3)
+
+registersSection = Card(registersHeading, registers)
+registersHeading = Heading("Register Status", h3)
+
+reorderSection = Card(reorderHeading, reorderButton)
+reorderHeading = Heading("Reorder Item", h3)
+
+storeSection = Card(storeHeading, storeSelect)
+storeHeading = Heading("Switch Store", h3)
+
+comparisonSection = Card(comparisonHeading, comparisonChart)
+comparisonHeading = Heading("This Week vs Last Week", h3)
+
+salesTable = Table(metricCol, valueCol)
+metricCol = Col("Metric", data:["Sales Today","Target"], type:string)
+valueCol = Col("Value", data:["$12,300","$15,000"], type:string)
+
+footTrafficChart = LineChart(footRows, linear, xLabel:"Hour", yLabel:"Visitors")
+footRows = |Hour|Visitors
+|9am|45
+|10am|78
+|11am|120
+|12pm|200
+|1pm|180
+|2pm|150
+|3pm|130
+|4pm|110
+|5pm|95
+
+bestSellers = Table(productCol, unitsCol)
+productCol = Col("Product", data:["T-Shirt","Jeans","Sneakers"], type:string)
+unitsCol = Col("Units Sold", data:[120,85,60], type:number)
+
+outOfStock = Table(itemCol, statusCol)
+itemCol = Col("Item", data:["Hat","Belt"], type:string)
+statusCol = Col("Status", data:["Out of stock","Out of stock"], type:string)
+
+shiftList = ListBlock(shift1, shift2, shift3, variant:number)
+shift1 = ListItem("Alice", "Cashier")
+shift2 = ListItem("Bob", "Floor")
+shift3 = ListItem("Cara", "Manager")
+
+avgBasket = TextContent("Average basket size: $45.20", size:small)
+
+returnsTable = Table(weekCol, returnsCol)
+weekCol = Col("Week", data:["This week","Last week"], type:string)
+returnsCol = Col("Returns", data:["$1,200","$900"], type:string)
+
+promotions = Table(promoCol, performanceCol)
+promoCol = Col("Promotion", data:["10% Off Shoes","Buy 1 Get 1 Coffee"], type:string)
+performanceCol = Col("Units Sold", data:[200,150], type:number)
+
+registers = Table(regCol, openCol)
+regCol = Col("Register", data:["Reg 1","Reg 2","Reg 3"], type:string)
+openCol = Col("Open", data:["Yes","No","Yes"], type:string)
+
+reorderButton = Buttons(Button("Reorder selected", primary))
+
+storeSelect = Form("store-switch", storeButtons, storeSelectControl)
+storeSelectControl = FormControl("Store", Select("store", SelectItem("001","Main St"), SelectItem("002","Second St"), placeholder:"Select store", value:"001"))
+storeButtons = Buttons(Button("Switch", primary))
+
+comparisonChart = BarChart(compRows, grouped, xLabel:"Metric", yLabel:"Amount")
+compRows = |Metric|This Week|Last Week
+|Sales|12300|11500
+|Foot Traffic|1200|1100
+|Returns|1200|900

@@ -1,0 +1,11 @@
+root = Card(personHeader, bioSection, messageForm)
+
+personHeader = CardHeader("Jane Doe", "Senior Engineer")
+
+bioSection = Card(MarkDownRenderer("Jane has over 10 years of experience in software development, specializing in backend systems and cloud infrastructure.", variant:clear))
+
+messageForm = Form("contact-jane", formButtons, messageField)
+
+messageField = FormControl("Message", TextArea("message", placeholder:"Write your message here...", rows:4))
+
+formButtons = Buttons(Button("Send", primary))

@@ -1,0 +1,5 @@
+root = Card(CardHeader("Where should we go for lunch on Friday?"), lunchForm)
+lunchForm = Form("lunch-poll", pollButtons, restaurantField)
+restaurantField = FormControl("Pick a restaurant", restaurantRadio)
+restaurantRadio = RadioGroup("restaurant", RadioItem("Sushi Place", "Fresh sushi and sashimi", "sushi"), RadioItem("Taco Stand", "Street tacos and burritos", "tacos"), RadioItem("Burger Joint", "Burgers, fries, and shakes", "burgers"))
+pollButtons = Buttons(Button("Vote", primary), Button("Skip", tertiary))

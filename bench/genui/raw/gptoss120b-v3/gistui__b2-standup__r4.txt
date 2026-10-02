@@ -1,0 +1,19 @@
+root = Card(dateHeader, updatesList, blockedCallout, missingCount, postForm)
+
+dateHeader = Heading("2026-09-30", h2)
+
+updatesList = ListBlock(aliceItem, bobItem, carolItem, variant:number)
+
+aliceItem = ListItem("Alice", "Working on API")
+bobItem = ListItem("Bob", "Reviewing PRs")
+carolItem = ListItem("Carol", "No update yet")
+
+blockedCallout = Callout(variant:warning, "Blocked", "Bob is blocked on database migration")
+
+missingCount = TextContent("Updates missing: 1", size:small)
+
+postForm = Form("standup-update", formButtons, updateControl)
+
+updateControl = FormControl("Your update", Input("update", "Type your update..."))
+
+formButtons = Buttons(Button("Post", primary))

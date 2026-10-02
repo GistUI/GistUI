@@ -1,0 +1,1106 @@
+{
+ "gistui__b1-uptime__r1": {
+  "input": 3966,
+  "output": 303,
+  "reasoning": 197,
+  "cost": 0.0005481
+ },
+ "gistui__b1-profile__r1": {
+  "input": 3960,
+  "output": 159,
+  "reasoning": 47,
+  "cost": 0.00044165
+ },
+ "gistui__b1-uptime__r4": {
+  "input": 3961,
+  "output": 155,
+  "reasoning": 46,
+  "cost": 0.00067725
+ },
+ "gistui__b1-uptime__r3": {
+  "input": 3966,
+  "output": 207,
+  "reasoning": 133,
+  "cost": 0.0005001
+ },
+ "gistui__b1-uptime__r2": {
+  "input": 3960,
+  "output": 248,
+  "reasoning": 166,
+  "cost": 0.0007428
+ },
+ "gistui__b1-invoice__r2": {
+  "input": 3956,
+  "output": 186,
+  "reasoning": 125,
+  "cost": 0.0001722
+ },
+ "gistui__b1-invoice__r1": {
+  "input": 3957,
+  "output": 152,
+  "reasoning": 60,
+  "cost": 0.00020415
+ },
+ "gistui__b1-profile__r2": {
+  "input": 3957,
+  "output": 229,
+  "reasoning": 135,
+  "cost": 0.00019815
+ },
+ "gistui__b1-invoice__r3": {
+  "input": 3959,
+  "output": 216,
+  "reasoning": 153,
+  "cost": 0.0004843
+ },
+ "gistui__b1-invoice__r4": {
+  "input": 3958,
+  "output": 166,
+  "reasoning": 119,
+  "cost": 0.0006834
+ },
+ "gistui__b1-newsletter__r3": {
+  "input": 3955,
+  "output": 147,
+  "reasoning": 52,
+  "cost": 0.00020085
+ },
+ "gistui__b1-newsletter__r4": {
+  "input": 3954,
+  "output": 154,
+  "reasoning": 75,
+  "cost": 0.0000999
+ },
+ "gistui__b1-newsletter__r1": {
+  "input": 3961,
+  "output": 248,
+  "reasoning": 197,
+  "cost": 0.0005201
+ },
+ "gistui__b1-profile__r3": {
+  "input": 3957,
+  "output": 1007,
+  "reasoning": 990,
+  "cost": 0.00119775
+ },
+ "gistui__b1-meeting__r1": {
+  "input": 3965,
+  "output": 287,
+  "reasoning": 158,
+  "cost": 0.00025655
+ },
+ "gistui__b1-meeting__r2": {
+  "input": 3964,
+  "output": 233,
+  "reasoning": 144,
+  "cost": 0.0007245
+ },
+ "gistui__b1-revenue__r1": {
+  "input": 3953,
+  "output": 200,
+  "reasoning": 132,
+  "cost": 0.00071295
+ },
+ "gistui__b1-meeting__r3": {
+  "input": 3969,
+  "output": 225,
+  "reasoning": 182,
+  "cost": 0.0005094
+ },
+ "gistui__b1-revenue__r2": {
+  "input": 3952,
+  "output": 419,
+  "reasoning": 339,
+  "cost": 0.0002586
+ },
+ "gistui__b1-profile__r4": {
+  "input": 3957,
+  "output": 1685,
+  "reasoning": 1791,
+  "cost": 0.00160455
+ },
+ "gistui__b1-newsletter__r2": {
+  "input": 3954,
+  "output": 1064,
+  "reasoning": 1103,
+  "cost": 0.0012315
+ },
+ "gistui__b1-revenue__r4": {
+  "input": 3954,
+  "output": 278,
+  "reasoning": 189,
+  "cost": 0.00075
+ },
+ "gistui__b1-task__r1": {
+  "input": 3966,
+  "output": 201,
+  "reasoning": 100,
+  "cost": 0.0004971
+ },
+ "gistui__b1-task__r3": {
+  "input": 3960,
+  "output": 179,
+  "reasoning": 43,
+  "cost": 0.0007014
+ },
+ "gistui__b1-task__r4": {
+  "input": 3959,
+  "output": 325,
+  "reasoning": 248,
+  "cost": 0.00020325
+ },
+ "gistui__b1-meeting__r4": {
+  "input": 3962,
+  "output": 1146,
+  "reasoning": 1033,
+  "cost": 0.0012819
+ },
+ "gistui__b1-weather__r2": {
+  "input": 3958,
+  "output": 264,
+  "reasoning": 57,
+  "cost": 0.0007422
+ },
+ "gistui__b1-revenue__r3": {
+  "input": 3955,
+  "output": 552,
+  "reasoning": 462,
+  "cost": 0.0008031
+ },
+ "gistui__b1-weather__r1": {
+  "input": 3959,
+  "output": 396,
+  "reasoning": 247,
+  "cost": 0.0003377
+ },
+ "gistui__b1-task__r2": {
+  "input": 3959,
+  "output": 1228,
+  "reasoning": 1228,
+  "cost": 0.00133065
+ },
+ "gistui__b1-weather__r3": {
+  "input": 3963,
+  "output": 411,
+  "reasoning": 231,
+  "cost": 0.0006018
+ },
+ "gistui__b1-order__r4": {
+  "input": 3960,
+  "output": 294,
+  "reasoning": 124,
+  "cost": 0.0007704
+ },
+ "gistui__b1-order__r2": {
+  "input": 3959,
+  "output": 632,
+  "reasoning": 473,
+  "cost": 0.00038745
+ },
+ "gistui__b1-order__r1": {
+  "input": 3961,
+  "output": 286,
+  "reasoning": 173,
+  "cost": 0.00075585
+ },
+ "gistui__b1-order__r3": {
+  "input": 3959,
+  "output": 2129,
+  "reasoning": 2208,
+  "cost": 0.00187125
+ },
+ "gistui__b1-poll__r4": {
+  "input": 3957,
+  "output": 132,
+  "reasoning": 81,
+  "cost": 0.0001043
+ },
+ "gistui__b1-weather__r4": {
+  "input": 3957,
+  "output": 211,
+  "reasoning": 46,
+  "cost": 0.00072015
+ },
+ "gistui__b1-poll__r2": {
+  "input": 3955,
+  "output": 151,
+  "reasoning": 102,
+  "cost": 0.00068385
+ },
+ "gistui__b2-sales__r2": {
+  "input": 3976,
+  "output": 256,
+  "reasoning": 58,
+  "cost": 0.0001644
+ },
+ "gistui__b1-poll__r1": {
+  "input": 3961,
+  "output": 515,
+  "reasoning": 512,
+  "cost": 0.0006536
+ },
+ "gistui__b2-sales__r4": {
+  "input": 3976,
+  "output": 305,
+  "reasoning": 97,
+  "cost": 0.0001842
+ },
+ "gistui__b1-poll__r3": {
+  "input": 3954,
+  "output": 606,
+  "reasoning": 633,
+  "cost": 0.0009567
+ },
+ "gistui__b2-sales__r3": {
+  "input": 3978,
+  "output": 311,
+  "reasoning": 49,
+  "cost": 0.0007734
+ },
+ "gistui__b2-support__r4": {
+  "input": 3981,
+  "output": 537,
+  "reasoning": 322,
+  "cost": 0.00033375
+ },
+ "gistui__b2-support__r3": {
+  "input": 3982,
+  "output": 714,
+  "reasoning": 451,
+  "cost": 0.0005451
+ },
+ "gistui__b2-sales__r1": {
+  "input": 3976,
+  "output": 1701,
+  "reasoning": 1643,
+  "cost": 0.001617
+ },
+ "gistui__b2-fitness__r1": {
+  "input": 3969,
+  "output": 384,
+  "reasoning": 98,
+  "cost": 0.00081585
+ },
+ "gistui__b2-support__r1": {
+  "input": 3983,
+  "output": 649,
+  "reasoning": 432,
+  "cost": 0.00097695
+ },
+ "gistui__b2-fitness__r4": {
+  "input": 3967,
+  "output": 367,
+  "reasoning": 111,
+  "cost": 0.00022965
+ },
+ "gistui__b2-job__r3": {
+  "input": 3987,
+  "output": 475,
+  "reasoning": 191,
+  "cost": 0.00040245
+ },
+ "gistui__b2-fitness__r2": {
+  "input": 3967,
+  "output": 2141,
+  "reasoning": 1901,
+  "cost": 0.00187965
+ },
+ "gistui__b2-job__r1": {
+  "input": 3988,
+  "output": 618,
+  "reasoning": 356,
+  "cost": 0.0009591
+ },
+ "gistui__b2-job__r4": {
+  "input": 3986,
+  "output": 936,
+  "reasoning": 722,
+  "cost": 0.0005739
+ },
+ "gistui__b2-fitness__r3": {
+  "input": 3968,
+  "output": 689,
+  "reasoning": 359,
+  "cost": 0.0010032
+ },
+ "gistui__b2-job__r2": {
+  "input": 3986,
+  "output": 2283,
+  "reasoning": 2124,
+  "cost": 0.0019677
+ },
+ "gistui__b2-cafe__r1": {
+  "input": 3967,
+  "output": 360,
+  "reasoning": 89,
+  "cost": 0.00080115
+ },
+ "gistui__b2-support__r2": {
+  "input": 3981,
+  "output": 1679,
+  "reasoning": 1557,
+  "cost": 0.00160455
+ },
+ "gistui__b2-budget__r1": {
+  "input": 3982,
+  "output": 292,
+  "reasoning": 79,
+  "cost": 0.0005442
+ },
+ "gistui__b2-cafe__r4": {
+  "input": 3968,
+  "output": 297,
+  "reasoning": 47,
+  "cost": 0.00022435
+ },
+ "gistui__b2-budget__r2": {
+  "input": 3982,
+  "output": 399,
+  "reasoning": 116,
+  "cost": 0.0005977
+ },
+ "gistui__b2-budget__r3": {
+  "input": 3978,
+  "output": 477,
+  "reasoning": 80,
+  "cost": 0.00036515
+ },
+ "gistui__b2-cafe__r2": {
+  "input": 3968,
+  "output": 583,
+  "reasoning": 358,
+  "cost": 0.00044365
+ },
+ "gistui__b2-cafe__r3": {
+  "input": 3972,
+  "output": 641,
+  "reasoning": 255,
+  "cost": 0.0007177
+ },
+ "gistui__b2-budget__r4": {
+  "input": 3982,
+  "output": 323,
+  "reasoning": 92,
+  "cost": 0.0005597
+ },
+ "gistui__b2-course__r2": {
+  "input": 3979,
+  "output": 243,
+  "reasoning": 79,
+  "cost": 0.00018975
+ },
+ "gistui__b2-course__r1": {
+  "input": 3983,
+  "output": 547,
+  "reasoning": 444,
+  "cost": 0.0006718
+ },
+ "gistui__b2-course__r3": {
+  "input": 3979,
+  "output": 622,
+  "reasoning": 458,
+  "cost": 0.0004676
+ },
+ "gistui__b2-stock__r4": {
+  "input": 3974,
+  "output": 425,
+  "reasoning": 246,
+  "cost": 0.00032575
+ },
+ "gistui__b2-stock__r3": {
+  "input": 3971,
+  "output": 435,
+  "reasoning": 301,
+  "cost": 0.00027105
+ },
+ "gistui__b2-standup__r1": {
+  "input": 3972,
+  "output": 435,
+  "reasoning": 227,
+  "cost": 0.0002712
+ },
+ "gistui__b2-course__r4": {
+  "input": 3977,
+  "output": 530,
+  "reasoning": 368,
+  "cost": 0.00091455
+ },
+ "gistui__b2-stock__r1": {
+  "input": 3972,
+  "output": 504,
+  "reasoning": 368,
+  "cost": 0.00037062
+ },
+ "gistui__b2-standup__r4": {
+  "input": 3974,
+  "output": 467,
+  "reasoning": 200,
+  "cost": 0.0008664
+ },
+ "gistui__b2-event__r2": {
+  "input": 3983,
+  "output": 467,
+  "reasoning": 101,
+  "cost": 0.00035007
+ },
+ "gistui__b2-standup__r3": {
+  "input": 3974,
+  "output": 386,
+  "reasoning": 143,
+  "cost": 0.0008178
+ },
+ "gistui__b2-event__r3": {
+  "input": 3982,
+  "output": 479,
+  "reasoning": 120,
+  "cost": 0.0002991
+ },
+ "gistui__b2-stock__r2": {
+  "input": 3971,
+  "output": 1166,
+  "reasoning": 1048,
+  "cost": 0.00129525
+ },
+ "gistui__b3-marketing__r2": {
+  "input": 4006,
+  "output": 782,
+  "reasoning": 83,
+  "cost": 0.0010701
+ },
+ "gistui__b2-event__r1": {
+  "input": 3982,
+  "output": 1151,
+  "reasoning": 820,
+  "cost": 0.0012879
+ },
+ "gistui__b2-event__r4": {
+  "input": 3984,
+  "output": 540,
+  "reasoning": 140,
+  "cost": 0.0009117
+ },
+ "gistui__b3-marketing__r3": {
+  "input": 4005,
+  "output": 1021,
+  "reasoning": 203,
+  "cost": 0.00062775
+ },
+ "gistui__b3-orders__r3": {
+  "input": 4009,
+  "output": 1282,
+  "reasoning": 921,
+  "cost": 0.00078495
+ },
+ "gistui__b3-orders__r2": {
+  "input": 4010,
+  "output": 1240,
+  "reasoning": 796,
+  "cost": 0.0013455
+ },
+ "gistui__b3-marketing__r1": {
+  "input": 4005,
+  "output": 3576,
+  "reasoning": 2686,
+  "cost": 0.00274635
+ },
+ "gistui__b3-orders__r1": {
+  "input": 4009,
+  "output": 1980,
+  "reasoning": 1670,
+  "cost": 0.00178935
+ },
+ "gistui__b2-standup__r2": {
+  "input": 3972,
+  "output": 1676,
+  "reasoning": 1617,
+  "cost": 0.0016014
+ },
+ "gistui__b3-marketing__r4": {
+  "input": 4007,
+  "output": 1224,
+  "reasoning": 749,
+  "cost": 0.00132555
+ },
+ "gistui__b3-orders__r4": {
+  "input": 4011,
+  "output": 882,
+  "reasoning": 328,
+  "cost": 0.00112095
+ },
+ "gistui__b3-hr__r1": {
+  "input": 4000,
+  "output": 551,
+  "reasoning": 67,
+  "cost": 0.00042285
+ },
+ "gistui__b3-hr__r3": {
+  "input": 4000,
+  "output": 625,
+  "reasoning": 116,
+  "cost": 0.00047035
+ },
+ "gistui__b3-server__r2": {
+  "input": 4013,
+  "output": 1266,
+  "reasoning": 737,
+  "cost": 0.0009604
+ },
+ "gistui__b3-hr__r2": {
+  "input": 4004,
+  "output": 1294,
+  "reasoning": 721,
+  "cost": 0.0010474
+ },
+ "gistui__b3-server__r1": {
+  "input": 4013,
+  "output": 928,
+  "reasoning": 406,
+  "cost": 0.0007069
+ },
+ "gistui__b3-server__r4": {
+  "input": 4017,
+  "output": 585,
+  "reasoning": 97,
+  "cost": 0.0006942
+ },
+ "gistui__b3-crm__r2": {
+  "input": 4013,
+  "output": 578,
+  "reasoning": 266,
+  "cost": 0.0006903
+ },
+ "gistui__b3-crm__r1": {
+  "input": 4013,
+  "output": 600,
+  "reasoning": 331,
+  "cost": 0.0007013
+ },
+ "gistui__b3-server__r3": {
+  "input": 4017,
+  "output": 946,
+  "reasoning": 563,
+  "cost": 0.0008747
+ },
+ "gistui__b3-clinic__r2": {
+  "input": 3995,
+  "output": 539,
+  "reasoning": 324,
+  "cost": 0.00033705
+ },
+ "gistui__b3-clinic__r1": {
+  "input": 3996,
+  "output": 432,
+  "reasoning": 83,
+  "cost": 0.0008586
+ },
+ "gistui__b3-hr__r4": {
+  "input": 4004,
+  "output": 953,
+  "reasoning": 459,
+  "cost": 0.0008769
+ },
+ "gistui__b3-clinic__r3": {
+  "input": 3997,
+  "output": 346,
+  "reasoning": 82,
+  "cost": 0.00079725
+ },
+ "gistui__b3-crm__r3": {
+  "input": 4009,
+  "output": 1333,
+  "reasoning": 877,
+  "cost": 0.00104545
+ },
+ "gistui__b3-content__r2": {
+  "input": 4004,
+  "output": 1460,
+  "reasoning": 688,
+  "cost": 0.000891
+ },
+ "gistui__b3-content__r1": {
+  "input": 4005,
+  "output": 1326,
+  "reasoning": 747,
+  "cost": 0.00091575
+ },
+ "gistui__b3-crm__r4": {
+  "input": 4006,
+  "output": 2024,
+  "reasoning": 1740,
+  "cost": 0.0018153
+ },
+ "gistui__b3-content__r3": {
+  "input": 4007,
+  "output": 709,
+  "reasoning": 205,
+  "cost": 0.00054205
+ },
+ "gistui__b3-content__r4": {
+  "input": 4006,
+  "output": 714,
+  "reasoning": 128,
+  "cost": 0.0010194
+ },
+ "gistui__b3-freight__r3": {
+  "input": 4013,
+  "output": 1030,
+  "reasoning": 596,
+  "cost": 0.00063435
+ },
+ "gistui__b3-clinic__r4": {
+  "input": 3995,
+  "output": 2013,
+  "reasoning": 1826,
+  "cost": 0.00180705
+ },
+ "gistui__b3-freight__r2": {
+  "input": 4014,
+  "output": 567,
+  "reasoning": 76,
+  "cost": 0.0009423
+ },
+ "gistui__b3-finance__r3": {
+  "input": 3990,
+  "output": 629,
+  "reasoning": 286,
+  "cost": 0.0009759
+ },
+ "gistui__b3-finance__r4": {
+  "input": 3989,
+  "output": 565,
+  "reasoning": 155,
+  "cost": 0.00035175
+ },
+ "gistui__b3-finance__r1": {
+  "input": 3991,
+  "output": 799,
+  "reasoning": 537,
+  "cost": 0.00106815
+ },
+ "gistui__b3-freight__r4": {
+  "input": 4016,
+  "output": 772,
+  "reasoning": 328,
+  "cost": 0.0005902
+ },
+ "gistui__b3-freight__r1": {
+  "input": 4013,
+  "output": 3197,
+  "reasoning": 2738,
+  "cost": 0.00252015
+ },
+ "gistui__b3-learning__r2": {
+  "input": 3996,
+  "output": 496,
+  "reasoning": 81,
+  "cost": 0.0008871
+ },
+ "gistui__b3-learning__r1": {
+  "input": 3997,
+  "output": 569,
+  "reasoning": 95,
+  "cost": 0.00043605
+ },
+ "gistui__b3-learning__r4": {
+  "input": 3995,
+  "output": 872,
+  "reasoning": 232,
+  "cost": 0.00112245
+ },
+ "gistui__b4-saas__r1": {
+  "input": 4046,
+  "output": 1712,
+  "reasoning": 771,
+  "cost": 0.0010485
+ },
+ "gistui__b3-finance__r2": {
+  "input": 3989,
+  "output": 2528,
+  "reasoning": 2379,
+  "cost": 0.00211515
+ },
+ "gistui__b4-saas__r2": {
+  "input": 4048,
+  "output": 1097,
+  "reasoning": 509,
+  "cost": 0.0012555
+ },
+ "gistui__b3-learning__r3": {
+  "input": 3994,
+  "output": 3029,
+  "reasoning": 2467,
+  "cost": 0.0024165
+ },
+ "gistui__b4-hospital__r2": {
+  "input": 4023,
+  "output": 1151,
+  "reasoning": 129,
+  "cost": 0.00070845
+ },
+ "gistui__b4-hospital__r3": {
+  "input": 4030,
+  "output": 1430,
+  "reasoning": 486,
+  "cost": 0.001118
+ },
+ "gistui__b4-saas__r3": {
+  "input": 4046,
+  "output": 3629,
+  "reasoning": 2964,
+  "cost": 0.0027843
+ },
+ "gistui__b4-retail__r3": {
+  "input": 4033,
+  "output": 1011,
+  "reasoning": 197,
+  "cost": 0.00075835
+ },
+ "gistui__b4-retail__r1": {
+  "input": 4033,
+  "output": 1071,
+  "reasoning": 205,
+  "cost": 0.00081615
+ },
+ "gistui__b4-hospital__r1": {
+  "input": 4026,
+  "output": 1144,
+  "reasoning": 112,
+  "cost": 0.0008702
+ },
+ "gistui__b4-hospital__r4": {
+  "input": 4026,
+  "output": 1495,
+  "reasoning": 378,
+  "cost": 0.00112225
+ },
+ "gistui__b4-retail__r4": {
+  "input": 4033,
+  "output": 1053,
+  "reasoning": 212,
+  "cost": 0.00080265
+ },
+ "gistui__b4-saas__r4": {
+  "input": 4046,
+  "output": 3543,
+  "reasoning": 2568,
+  "cost": 0.0027327
+ },
+ "gistui__b4-retail__r2": {
+  "input": 4030,
+  "output": 3676,
+  "reasoning": 2947,
+  "cost": 0.0028101
+ },
+ "gistui__b4-bank__r1": {
+  "input": 4040,
+  "output": 958,
+  "reasoning": 353,
+  "cost": 0.000883
+ },
+ "gistui__b4-portfolio__r1": {
+  "input": 4059,
+  "output": 957,
+  "reasoning": 104,
+  "cost": 0.0008844
+ },
+ "gistui__b4-portfolio__r2": {
+  "input": 4059,
+  "output": 1139,
+  "reasoning": 230,
+  "cost": 0.0009754
+ },
+ "gistui__b4-portfolio__r3": {
+  "input": 4059,
+  "output": 1152,
+  "reasoning": 154,
+  "cost": 0.0009819
+ },
+ "gistui__b4-portfolio__r4": {
+  "input": 4059,
+  "output": 1472,
+  "reasoning": 809,
+  "cost": 0.0011419
+ },
+ "gistui__b4-power__r2": {
+  "input": 4037,
+  "output": 916,
+  "reasoning": 116,
+  "cost": 0.00056955
+ },
+ "gistui__b4-bank__r2": {
+  "input": 4034,
+  "output": 931,
+  "reasoning": 99,
+  "cost": 0.0006831
+ },
+ "gistui__b4-bank__r4": {
+  "input": 4034,
+  "output": 734,
+  "reasoning": 83,
+  "cost": 0.000501045
+ },
+ "gistui__b4-power__r3": {
+  "input": 4037,
+  "output": 1051,
+  "reasoning": 190,
+  "cost": 0.00063135
+ },
+ "gistui__b4-power__r4": {
+  "input": 4037,
+  "output": 865,
+  "reasoning": 178,
+  "cost": 0.00053895
+ },
+ "gistui__b4-airline__r2": {
+  "input": 4030,
+  "output": 778,
+  "reasoning": 182,
+  "cost": 0.0004857
+ },
+ "gistui__b4-airline__r4": {
+  "input": 4030,
+  "output": 639,
+  "reasoning": 157,
+  "cost": 0.0003855
+ },
+ "gistui__b4-bank__r3": {
+  "input": 4035,
+  "output": 1040,
+  "reasoning": 299,
+  "cost": 0.00121935
+ },
+ "gistui__b4-power__r1": {
+  "input": 4039,
+  "output": 991,
+  "reasoning": 109,
+  "cost": 0.000657
+ },
+ "gistui__b4-creator__r1": {
+  "input": 4030,
+  "output": 847,
+  "reasoning": 87,
+  "cost": 0.00056925
+ },
+ "gistui__b4-airline__r3": {
+  "input": 4032,
+  "output": 1048,
+  "reasoning": 173,
+  "cost": 0.00062895
+ },
+ "gistui__b4-airline__r1": {
+  "input": 4032,
+  "output": 1273,
+  "reasoning": 95,
+  "cost": 0.00082515
+ },
+ "gistui__b4-creator__r2": {
+  "input": 4028,
+  "output": 3433,
+  "reasoning": 2917,
+  "cost": 0.002664
+ },
+ "gistui__b4-creator__r3": {
+  "input": 4028,
+  "output": 3381,
+  "reasoning": 2614,
+  "cost": 0.0026328
+ },
+ "gistui__b5-exec__r1": {
+  "input": 4057,
+  "output": 3651,
+  "reasoning": 2502,
+  "cost": 0.00279915
+ },
+ "gistui__b4-creator__r4": {
+  "input": 4028,
+  "output": 3260,
+  "reasoning": 2666,
+  "cost": 0.0025602
+ },
+ "gistui__b5-city__r2": {
+  "input": 4064,
+  "output": 1395,
+  "reasoning": 186,
+  "cost": 0.000861
+ },
+ "gistui__b5-exec__r3": {
+  "input": 4064,
+  "output": 1395,
+  "reasoning": 320,
+  "cost": 0.0011039
+ },
+ "gistui__b5-exec__r4": {
+  "input": 4058,
+  "output": 1249,
+  "reasoning": 135,
+  "cost": 0.000830655
+ },
+ "gistui__b5-city__r4": {
+  "input": 4065,
+  "output": 1193,
+  "reasoning": 230,
+  "cost": 0.00077691
+ },
+ "gistui__b5-city__r3": {
+  "input": 4065,
+  "output": 1967,
+  "reasoning": 111,
+  "cost": 0.00178455
+ },
+ "gistui__b5-city__r1": {
+  "input": 4065,
+  "output": 2384,
+  "reasoning": 1179,
+  "cost": 0.00149151
+ },
+ "gistui__b5-exec__r2": {
+  "input": 4057,
+  "output": 3546,
+  "reasoning": 2880,
+  "cost": 0.00273615
+ },
+ "gistui__b5-game__r4": {
+  "input": 4067,
+  "output": 1133,
+  "reasoning": 26,
+  "cost": 0.00086605
+ },
+ "gistui__b5-fund__r1": {
+  "input": 4079,
+  "output": 1366,
+  "reasoning": 178,
+  "cost": 0.001042
+ },
+ "gistui__b5-fund__r2": {
+  "input": 4079,
+  "output": 1467,
+  "reasoning": 275,
+  "cost": 0.00110175
+ },
+ "gistui__b5-game__r3": {
+  "input": 4064,
+  "output": 5139,
+  "reasoning": 4214,
+  "cost": 0.003693
+ },
+ "gistui__b5-game__r1": {
+  "input": 4064,
+  "output": 4469,
+  "reasoning": 3416,
+  "cost": 0.003291
+ },
+ "gistui__b5-game__r2": {
+  "input": 4064,
+  "output": 4744,
+  "reasoning": 3659,
+  "cost": 0.003456
+ },
+ "gistui__b5-fund__r4": {
+  "input": 4079,
+  "output": 1058,
+  "reasoning": 86,
+  "cost": 0.000811
+ },
+ "gistui__b5-fund__r3": {
+  "input": 4076,
+  "output": 4113,
+  "reasoning": 2801,
+  "cost": 0.0030792
+ },
+ "gistui__b5-university__r2": {
+  "input": 4067,
+  "output": 1618,
+  "reasoning": 245,
+  "cost": 0.0012298
+ },
+ "gistui__b5-plant__r2": {
+  "input": 4086,
+  "output": 1230,
+  "reasoning": 136,
+  "cost": 0.0010236
+ },
+ "gistui__b5-university__r3": {
+  "input": 4071,
+  "output": 1269,
+  "reasoning": 200,
+  "cost": 0.0010416
+ },
+ "gistui__b5-university__r4": {
+  "input": 4071,
+  "output": 1296,
+  "reasoning": 166,
+  "cost": 0.0010551
+ },
+ "gistui__b5-plant__r1": {
+  "input": 4086,
+  "output": 1324,
+  "reasoning": 63,
+  "cost": 0.0010706
+ },
+ "gistui__b5-university__r1": {
+  "input": 4064,
+  "output": 4233,
+  "reasoning": 2951,
+  "cost": 0.0031494
+ },
+ "gistui__b5-plant__r3": {
+  "input": 4086,
+  "output": 1480,
+  "reasoning": 66,
+  "cost": 0.0011486
+ },
+ "gistui__b5-streaming__r4": {
+  "input": 4061,
+  "output": 1413,
+  "reasoning": 211,
+  "cost": 0.00092937
+ },
+ "gistui__b5-disaster__r1": {
+  "input": 4100,
+  "output": 1456,
+  "reasoning": 250,
+  "cost": 0.000903
+ },
+ "gistui__b5-plant__r4": {
+  "input": 4081,
+  "output": 1222,
+  "reasoning": 180,
+  "cost": 0.0008019
+ },
+ "gistui__b5-streaming__r3": {
+  "input": 4062,
+  "output": 1188,
+  "reasoning": 54,
+  "cost": 0.00071295
+ },
+ "gistui__b5-disaster__r2": {
+  "input": 4101,
+  "output": 1307,
+  "reasoning": 182,
+  "cost": 0.00139935
+ },
+ "gistui__b5-streaming__r2": {
+  "input": 4062,
+  "output": 1248,
+  "reasoning": 62,
+  "cost": 0.00074895
+ },
+ "gistui__b5-disaster__r3": {
+  "input": 4100,
+  "output": 1215,
+  "reasoning": 136,
+  "cost": 0.0007584
+ },
+ "gistui__b5-streaming__r1": {
+  "input": 4062,
+  "output": 1600,
+  "reasoning": 282,
+  "cost": 0.00102585
+ },
+ "gistui__b5-disaster__r4": {
+  "input": 4100,
+  "output": 6152,
+  "reasoning": 5226,
+  "cost": 0.0043062
+ }
+}

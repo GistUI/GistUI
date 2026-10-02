@@ -1,0 +1,33 @@
+root = Card(CardHeader("E‑commerce Operations Desk"), filters, statsRow, volumeChart, recentOrdersCard)
+
+filters = Card(Row(statusSelect, searchInput, wrap))
+
+statusSelect = Select("status_filter", SelectItem("all","All"), SelectItem("pending","Pending"), SelectItem("fulfilled","Fulfilled"), SelectItem("refunded","Refunded"), placeholder:"Status", value:"all")
+
+searchInput = Input("customer_search", placeholder:"Search customer", type:text)
+
+statsRow = Card(Row(ordersToday, revenueToday, avgOrderValue, refundRate, wrap))
+
+ordersToday = TextContent("Orders today: **123**", size:large)
+
+revenueToday = TextContent("Revenue today: **$4,560**", size:large)
+
+avgOrderValue = TextContent("Avg order value: **$37.2**", size:large)
+
+refundRate = TextContent("Refund rate (this month): **2.3%**", size:large)
+
+volumeChart = BarChart(labels:["W1","W2","W3","W4"], Series("Orders", values:[500,620,580,710]), variant:grouped, xLabel:"Week", yLabel:"Orders")
+
+recentOrdersCard = Card(Heading("Recent Orders", h3), recentOrders, wrap)
+
+recentOrders = Table(idCol, customerCol, totalCol, statusCol, actionCol)
+
+idCol = Col("Order ID", data:["1001","1002","1003"], type:string)
+
+customerCol = Col("Customer", data:["Alice","Bob","Charlie"], type:string)
+
+totalCol = Col("Total", data:["$120","$80","$200"], type:string)
+
+statusCol = Col("Status", data:["Pending","Fulfilled","Refunded"], type:string)
+
+actionCol = Col("Action", data:["Mark fulfilled","-","-"], type:action)

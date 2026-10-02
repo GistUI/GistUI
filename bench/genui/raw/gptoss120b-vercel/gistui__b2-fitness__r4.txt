@@ -1,0 +1,20 @@
+root = Card(stepsSection, caloriesSection, workoutsSection, actions)
+
+stepsSection = Card(CardHeader("Steps", "Goal: 10,000"), Progress(75, "7,500/10,000"))
+
+caloriesSection = Card(CardHeader("Calories Burned", "Today"), TextContent("$560 kcal", size:large))
+
+workoutsSection = Card(CardHeader("Workouts This Week"), workoutsChart, sunk)
+
+workoutsChart = BarChart(workoutsRows, stacked, xLabel:"Day", yLabel:"Minutes")
+
+actions = Buttons(Button("Log Workout", primary))
+
+workoutsRows = |Day|Minutes
+|Mon|30
+|Tue|45
+|Wed|20
+|Thu|0
+|Fri|35
+|Sat|50
+|Sun|25

@@ -1,0 +1,1051 @@
+{
+  "$comment": "Index of the GistUI Format conformance cases. See README.md in this folder.",
+  "gistui": "1.0",
+  "catalog": "library.json",
+  "mode": "document",
+  "cases": [
+    {
+      "file": "01-dashboard.gistui",
+      "expected": "01-dashboard.expected.json",
+      "title": "A dashboard: components, text children, enum values, flags and tables",
+      "section": "11",
+      "profile": "core"
+    },
+    {
+      "file": "02-named-args.gistui",
+      "expected": "02-named-args.expected.json",
+      "title": "Named arguments in any place, written with : or =",
+      "section": "6.2",
+      "profile": "core"
+    },
+    {
+      "file": "03-enums-flags.gistui",
+      "expected": "03-enums-flags.expected.json",
+      "title": "Enum values and flags as bare words",
+      "section": "11.2",
+      "profile": "core"
+    },
+    {
+      "file": "04-text-children.gistui",
+      "expected": "04-text-children.expected.json",
+      "title": "Text, numbers and booleans in child position",
+      "section": "11.5",
+      "profile": "core"
+    },
+    {
+      "file": "05-tables.gistui",
+      "expected": "05-tables.expected.json",
+      "title": "Tables: type hints, separator rows, escaped pipes, number cells",
+      "section": "12",
+      "profile": "core"
+    },
+    {
+      "file": "06-forward-refs.gistui",
+      "expected": "06-forward-refs.expected.json",
+      "title": "References to statements defined later",
+      "section": "10.3",
+      "profile": "core"
+    },
+    {
+      "file": "07-prose-and-fences.gistui",
+      "expected": "07-prose-and-fences.expected.json",
+      "title": "Prose lines and fence lines around a program",
+      "section": "4.4",
+      "profile": "core"
+    },
+    {
+      "file": "08-state-actions.gistui",
+      "expected": "08-state-actions.expected.json",
+      "title": "State, a query, a mutation, bindings and an action list are kept as expressions",
+      "section": "10.2",
+      "profile": "tools"
+    },
+    {
+      "file": "09-each-ternary.gistui",
+      "expected": "09-each-ternary.expected.json",
+      "title": "@each, a conditional, operators and built-ins are kept as expressions",
+      "section": "10.2",
+      "profile": "interactive"
+    },
+    {
+      "file": "10-edit-ops.gistui",
+      "expected": "10-edit-ops.expected.json",
+      "title": "Patch, append, delete and redefine",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "11-repair.gistui",
+      "expected": "11-repair.expected.json",
+      "title": "Closest component, enum aliases and close values, coercions, extra arguments",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "12-errors.gistui",
+      "expected": "12-errors.expected.json",
+      "title": "Errors that are not repaired",
+      "section": "22.3",
+      "profile": "core"
+    },
+    {
+      "file": "13-cycle.gistui",
+      "expected": "13-cycle.expected.json",
+      "title": "A cycle between two component statements is cut",
+      "section": "15",
+      "profile": "core"
+    },
+    {
+      "file": "14-shared-dag.gistui",
+      "expected": "14-shared-dag.expected.json",
+      "title": "A statement referenced from several places",
+      "section": "13.4",
+      "profile": "core"
+    },
+    {
+      "file": "15-unterminated-string.gistui",
+      "expected": "15-unterminated-string.expected.json",
+      "title": "R3: a string left open at a line end",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "16-multiline-comments.gistui",
+      "expected": "16-multiline-comments.expected.json",
+      "title": "A call over several lines, with trailing comments",
+      "section": "4.7",
+      "profile": "core"
+    },
+    {
+      "file": "17-spread.gistui",
+      "expected": "17-spread.expected.json",
+      "title": "Lists in child position are spread",
+      "section": "11.5",
+      "profile": "core"
+    },
+    {
+      "file": "18-unicode.gistui",
+      "expected": "18-unicode.expected.json",
+      "title": "Text outside ASCII",
+      "section": "4.1",
+      "profile": "core"
+    },
+    {
+      "file": "19-unreachable-noroot.gistui",
+      "expected": "19-unreachable-noroot.expected.json",
+      "title": "No root statement: the first component is the root",
+      "section": "15",
+      "profile": "core"
+    },
+    {
+      "file": "20-patch-enum.gistui",
+      "expected": "20-patch-enum.expected.json",
+      "title": "A patch value is resolved against the prop of its target",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "21-bom.gistui",
+      "expected": "21-bom.expected.json",
+      "title": "A byte order mark at the start is skipped",
+      "section": "4.1",
+      "profile": "core"
+    },
+    {
+      "file": "22-crlf.gistui",
+      "expected": "22-crlf.expected.json",
+      "title": "CR LF ends a line; CR is whitespace",
+      "section": "4.2",
+      "profile": "core"
+    },
+    {
+      "file": "23-cr-alone.gistui",
+      "expected": "23-cr-alone.expected.json",
+      "title": "A lone CR is not a line terminator",
+      "section": "4.2",
+      "profile": "core"
+    },
+    {
+      "file": "24-leading-whitespace.gistui",
+      "expected": "24-leading-whitespace.expected.json",
+      "title": "A statement line can be indented",
+      "section": "4.4",
+      "profile": "core"
+    },
+    {
+      "file": "25-body-on-next-line.gistui",
+      "expected": "25-body-on-next-line.expected.json",
+      "title": "The body of a statement can start on a later line",
+      "section": "4.7",
+      "profile": "core"
+    },
+    {
+      "file": "26-prose-lines.gistui",
+      "expected": "26-prose-lines.expected.json",
+      "title": "Lines that are not statements are prose",
+      "section": "4.4",
+      "profile": "core"
+    },
+    {
+      "file": "27-comments.gistui",
+      "expected": "27-comments.expected.json",
+      "title": "Comment lines, trailing comments, and # inside a string",
+      "section": "4.6",
+      "profile": "core"
+    },
+    {
+      "file": "28-pragma.gistui",
+      "expected": "28-pragma.expected.json",
+      "title": "The version pragma is a comment",
+      "section": "26.2",
+      "profile": "core"
+    },
+    {
+      "file": "29-pragma-unknown-major.gistui",
+      "expected": "29-pragma-unknown-major.expected.json",
+      "title": "A pragma with an unknown major version is reported",
+      "section": "26.2",
+      "profile": "core"
+    },
+    {
+      "file": "30-fence-any-tag.gistui",
+      "expected": "30-fence-any-tag.expected.json",
+      "title": "Document mode drops every fence line, whatever its tag",
+      "section": "4.5",
+      "profile": "core"
+    },
+    {
+      "file": "31-fence-too-short.gistui",
+      "expected": "31-fence-too-short.expected.json",
+      "title": "Two backticks, or inline code, are not a fence",
+      "section": "4.5",
+      "profile": "core"
+    },
+    {
+      "file": "32-fence-inside-open-call.gistui",
+      "expected": "32-fence-inside-open-call.expected.json",
+      "title": "A fence line ends a statement that is still open",
+      "section": "4.5",
+      "profile": "core"
+    },
+    {
+      "file": "33-string-escapes.gistui",
+      "expected": "33-string-escapes.expected.json",
+      "title": "JSON escapes in strings",
+      "section": "5.3",
+      "profile": "core"
+    },
+    {
+      "file": "34-string-unknown-escape.gistui",
+      "expected": "34-string-unknown-escape.expected.json",
+      "title": "R14: an unknown escape is the character itself",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "35-string-bad-unicode-escape.gistui",
+      "expected": "35-string-bad-unicode-escape.expected.json",
+      "title": "R14: a bad \\u escape is dropped",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "36-string-raw-tab.gistui",
+      "expected": "36-string-raw-tab.expected.json",
+      "title": "R15: a raw control character in a string is kept",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "37-string-single-quoted.gistui",
+      "expected": "37-string-single-quoted.expected.json",
+      "title": "R10: single quotes where a value can start",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "38-single-quote-after-value.gistui",
+      "expected": "38-single-quote-after-value.expected.json",
+      "title": "A single quote where no value can start is an unexpected character",
+      "section": "8.1",
+      "profile": "core"
+    },
+    {
+      "file": "39-string-open-at-end.gistui",
+      "expected": "39-string-open-at-end.expected.json",
+      "title": "R3: a string still open at the end of the stream",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "40-string-backslash-newline.gistui",
+      "expected": "40-string-backslash-newline.expected.json",
+      "title": "R3: a backslash before the line end does not keep the string open",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "41-numbers.gistui",
+      "expected": "41-numbers.expected.json",
+      "title": "Number literals",
+      "section": "5.4",
+      "profile": "core"
+    },
+    {
+      "file": "42-number-leading-zero.gistui",
+      "expected": "42-number-leading-zero.expected.json",
+      "title": "R9: leading zeros are read in base ten",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "43-number-leading-dot.gistui",
+      "expected": "43-number-leading-dot.expected.json",
+      "title": "R8: .5 is 0.5",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "44-number-plus-sign.gistui",
+      "expected": "44-number-plus-sign.expected.json",
+      "title": "R7: a plus sign before a number is ignored",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "45-number-trailing-dot.gistui",
+      "expected": "45-number-trailing-dot.expected.json",
+      "title": "1. is a number followed by a dot: a syntax error",
+      "section": "8.2",
+      "profile": "core"
+    },
+    {
+      "file": "46-words.gistui",
+      "expected": "46-words.expected.json",
+      "title": "Digit-led words are text",
+      "section": "5.5",
+      "profile": "core"
+    },
+    {
+      "file": "47-capitalised-id.gistui",
+      "expected": "47-capitalised-id.expected.json",
+      "title": "R16: a capitalised statement id",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "48-keyword-case.gistui",
+      "expected": "48-keyword-case.expected.json",
+      "title": "Keywords are case-sensitive",
+      "section": "5.7",
+      "profile": "core"
+    },
+    {
+      "file": "49-invalid-edit-heads.gistui",
+      "expected": "49-invalid-edit-heads.expected.json",
+      "title": "A state variable cannot be appended to; a patch cannot use +=",
+      "section": "8.2",
+      "profile": "core"
+    },
+    {
+      "file": "50-operator-precedence.gistui",
+      "expected": "50-operator-precedence.expected.json",
+      "title": "Precedence, associativity and the canonical text of expressions",
+      "section": "6.2",
+      "profile": "interactive"
+    },
+    {
+      "file": "51-conditional.gistui",
+      "expected": "51-conditional.expected.json",
+      "title": "Conditionals nest to the right",
+      "section": "6.2",
+      "profile": "interactive"
+    },
+    {
+      "file": "52-lambda-forms.gistui",
+      "expected": "52-lambda-forms.expected.json",
+      "title": "Lambda parameter lists",
+      "section": "6.2",
+      "profile": "interactive"
+    },
+    {
+      "file": "53-member-index.gistui",
+      "expected": "53-member-index.expected.json",
+      "title": "Member and index access",
+      "section": "6.2",
+      "profile": "interactive"
+    },
+    {
+      "file": "54-object-literal.gistui",
+      "expected": "54-object-literal.expected.json",
+      "title": "Object keys and the shorthand entry",
+      "section": "6.2",
+      "profile": "core"
+    },
+    {
+      "file": "55-object-equals.gistui",
+      "expected": "55-object-equals.expected.json",
+      "title": "R23: = in an object entry",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "56-named-argument-forms.gistui",
+      "expected": "56-named-argument-forms.expected.json",
+      "title": "Named arguments: : and =, any place, the last one wins",
+      "section": "6.2",
+      "profile": "core"
+    },
+    {
+      "file": "57-trailing-commas.gistui",
+      "expected": "57-trailing-commas.expected.json",
+      "title": "A trailing comma in arguments, lists and objects",
+      "section": "6.2",
+      "profile": "core"
+    },
+    {
+      "file": "58-open-call-next-statement.gistui",
+      "expected": "58-open-call-next-statement.expected.json",
+      "title": "R1: a call left open ends where the next statement begins",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "59-open-call-continuation-lines.gistui",
+      "expected": "59-open-call-continuation-lines.expected.json",
+      "title": "R1 does not apply to an indented line or after a comma",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "60-open-call-state-head.gistui",
+      "expected": "60-open-call-state-head.expected.json",
+      "title": "R1 with blank lines and a state declaration",
+      "section": "7",
+      "profile": "interactive"
+    },
+    {
+      "file": "61-open-call-patch-head.gistui",
+      "expected": "61-open-call-patch-head.expected.json",
+      "title": "R1 before a patch statement",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "62-open-brackets-at-end.gistui",
+      "expected": "62-open-brackets-at-end.expected.json",
+      "title": "R2: brackets open at the end of the stream",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "63-empty-argument.gistui",
+      "expected": "63-empty-argument.expected.json",
+      "title": "R4: an empty argument is left out",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "64-empty-argument-required.gistui",
+      "expected": "64-empty-argument-required.expected.json",
+      "title": "R4 in a required position leaves the prop unset",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "65-json-style-key.gistui",
+      "expected": "65-json-style-key.expected.json",
+      "title": "R5: a JSON-style named argument",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "66-lowercase-call.gistui",
+      "expected": "66-lowercase-call.expected.json",
+      "title": "R6: a component name in lower case",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "67-semicolon.gistui",
+      "expected": "67-semicolon.expected.json",
+      "title": "R11: a semicolon is ignored",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "68-missing-comma-arguments.gistui",
+      "expected": "68-missing-comma-arguments.expected.json",
+      "title": "R12: a missing comma between arguments",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "69-missing-comma-list.gistui",
+      "expected": "69-missing-comma-list.expected.json",
+      "title": "R12: a missing comma between list items",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "70-missing-comma-object.gistui",
+      "expected": "70-missing-comma-object.expected.json",
+      "title": "R12: a missing comma between object entries",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "71-slash-comment.gistui",
+      "expected": "71-slash-comment.expected.json",
+      "title": "R13: a // comment inside a statement",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "72-capitalised-key.gistui",
+      "expected": "72-capitalised-key.expected.json",
+      "title": "R17: a capitalised argument name",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "73-list-without-brackets.gistui",
+      "expected": "73-list-without-brackets.expected.json",
+      "title": "R18: values separated by commas after the head are a list",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "74-trailing-comma-statement.gistui",
+      "expected": "74-trailing-comma-statement.expected.json",
+      "title": "R19: a comma after the value of a statement is ignored",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "75-extra-closing-bracket.gistui",
+      "expected": "75-extra-closing-bracket.expected.json",
+      "title": "R20: an extra closing bracket is ignored",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "76-ellipsis-character.gistui",
+      "expected": "76-ellipsis-character.expected.json",
+      "title": "R21: an ellipsis character is ignored",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "77-ellipsis-dots.gistui",
+      "expected": "77-ellipsis-dots.expected.json",
+      "title": "R21: three dots are ignored",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "78-rows-inside-call.gistui",
+      "expected": "78-rows-inside-call.expected.json",
+      "title": "R22: table rows written inside a call",
+      "section": "7",
+      "profile": "core"
+    },
+    {
+      "file": "79-unexpected-character.gistui",
+      "expected": "79-unexpected-character.expected.json",
+      "title": "A character that cannot start a token is skipped",
+      "section": "8.1",
+      "profile": "core"
+    },
+    {
+      "file": "80-text-after-value.gistui",
+      "expected": "80-text-after-value.expected.json",
+      "title": "Text after the value of a statement is ignored",
+      "section": "8.1",
+      "profile": "core"
+    },
+    {
+      "file": "81-dropped-statement.gistui",
+      "expected": "81-dropped-statement.expected.json",
+      "title": "A fatal syntax error drops only its statement",
+      "section": "8.2",
+      "profile": "core"
+    },
+    {
+      "file": "82-failed-redefinition.gistui",
+      "expected": "82-failed-redefinition.expected.json",
+      "title": "A redefinition that fails leaves the earlier definition",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "83-dropped-statement-one-diagnostic.gistui",
+      "expected": "83-dropped-statement-one-diagnostic.expected.json",
+      "title": "A dropped statement reports exactly one diagnostic",
+      "section": "8.2",
+      "profile": "core"
+    },
+    {
+      "file": "84-nesting-limit.gistui",
+      "expected": "84-nesting-limit.expected.json",
+      "title": "A statement nested deeper than 100 is dropped",
+      "section": "21.1",
+      "profile": "core"
+    },
+    {
+      "file": "85-bare-enum-word.gistui",
+      "expected": "85-bare-enum-word.expected.json",
+      "title": "A bare enum value sets the one prop that has it",
+      "section": "11.2",
+      "profile": "core"
+    },
+    {
+      "file": "86-enum-word-or-statement.gistui",
+      "expected": "86-enum-word-or-statement.expected.json",
+      "title": "A statement with the same name wins over an enum word",
+      "section": "11.2",
+      "profile": "core"
+    },
+    {
+      "file": "87-positional-enum-open.gistui",
+      "expected": "87-positional-enum-open.expected.json",
+      "title": "A bare word in the positional place of an open enum",
+      "section": "11.2",
+      "profile": "core"
+    },
+    {
+      "file": "88-hyphenated-words.gistui",
+      "expected": "88-hyphenated-words.expected.json",
+      "title": "Hyphen-joined words are one enum value",
+      "section": "11.2",
+      "profile": "core"
+    },
+    {
+      "file": "89-enum-alias-and-case.gistui",
+      "expected": "89-enum-alias-and-case.expected.json",
+      "title": "Enum aliases and letter case are accepted silently",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "90-enum-close-value.gistui",
+      "expected": "90-enum-close-value.expected.json",
+      "title": "A close enum value is corrected with a warning",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "91-enum-not-text.gistui",
+      "expected": "91-enum-not-text.expected.json",
+      "title": "An enum value that is not text, or not close to any value",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "92-prop-lookup.gistui",
+      "expected": "92-prop-lookup.expected.json",
+      "title": "Prop names are matched without regard to case, and through aliases",
+      "section": "11.3",
+      "profile": "core"
+    },
+    {
+      "file": "93-unknown-prop.gistui",
+      "expected": "93-unknown-prop.expected.json",
+      "title": "An argument that names no prop is ignored",
+      "section": "11.3",
+      "profile": "core"
+    },
+    {
+      "file": "94-positional-optional.gistui",
+      "expected": "94-positional-optional.expected.json",
+      "title": "Extra positional values fill props that are not positional",
+      "section": "11.3",
+      "profile": "core"
+    },
+    {
+      "file": "95-null-optional-positional.gistui",
+      "expected": "95-null-optional-positional.expected.json",
+      "title": "null skips an optional positional",
+      "section": "11.3",
+      "profile": "core"
+    },
+    {
+      "file": "96-null-required.gistui",
+      "expected": "96-null-required.expected.json",
+      "title": "null for a required prop leaves it missing",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "97-null-named.gistui",
+      "expected": "97-null-named.expected.json",
+      "title": "null for a named prop leaves it unset",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "98-coerce-string.gistui",
+      "expected": "98-coerce-string.expected.json",
+      "title": "Numbers and booleans become text for a string prop",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "99-coerce-number.gistui",
+      "expected": "99-coerce-number.expected.json",
+      "title": "Text that reads as a number is a number",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "100-coerce-boolean.gistui",
+      "expected": "100-coerce-boolean.expected.json",
+      "title": "Boolean props: true, false, their text, and nothing else",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "101-coerce-data.gistui",
+      "expected": "101-coerce-data.expected.json",
+      "title": "A data prop takes a table or a list",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "102-array-type.gistui",
+      "expected": "102-array-type.expected.json",
+      "title": "An array prop takes a list",
+      "section": "11.4",
+      "profile": "core"
+    },
+    {
+      "file": "103-style-and-children-keys.gistui",
+      "expected": "103-style-and-children-keys.expected.json",
+      "title": "style is accepted on every component; children: adds children in place",
+      "section": "11.6",
+      "profile": "core"
+    },
+    {
+      "file": "104-child-data-values.gistui",
+      "expected": "104-child-data-values.expected.json",
+      "title": "A data statement in child position is spread",
+      "section": "11.5",
+      "profile": "core"
+    },
+    {
+      "file": "105-child-object-literal.gistui",
+      "expected": "105-child-object-literal.expected.json",
+      "title": "An object literal in child position is not drawn",
+      "section": "11.5",
+      "profile": "core"
+    },
+    {
+      "file": "106-child-type-restriction.gistui",
+      "expected": "106-child-type-restriction.expected.json",
+      "title": "A child the parent does not accept is reported and kept",
+      "section": "11.5",
+      "profile": "core"
+    },
+    {
+      "file": "107-unknown-component-nested.gistui",
+      "expected": "107-unknown-component-nested.expected.json",
+      "title": "An unknown component keeps its children and named arguments",
+      "section": "11.7",
+      "profile": "core"
+    },
+    {
+      "file": "108-unknown-component-runtime-prop.gistui",
+      "expected": "108-unknown-component-runtime-prop.expected.json",
+      "title": "A runtime value on an unknown component goes to dyn",
+      "section": "11.7",
+      "profile": "interactive"
+    },
+    {
+      "file": "109-closest-name-limits.gistui",
+      "expected": "109-closest-name-limits.expected.json",
+      "title": "The closest-name rule: one edit for short names, two for long ones",
+      "section": "9.5",
+      "profile": "core"
+    },
+    {
+      "file": "110-node-prop.gistui",
+      "expected": "110-node-prop.expected.json",
+      "title": "A component passed as a prop, inline or by reference",
+      "section": "11.3",
+      "profile": "core"
+    },
+    {
+      "file": "111-table-mapping-series.gistui",
+      "expected": "111-table-mapping-series.expected.json",
+      "title": "A table mapping: labels, values, and one child for each column",
+      "section": "11.9",
+      "profile": "core"
+    },
+    {
+      "file": "112-table-mapping-values.gistui",
+      "expected": "112-table-mapping-values.expected.json",
+      "title": "A component with a table mapping can still be written in parts",
+      "section": "11.9",
+      "profile": "core"
+    },
+    {
+      "file": "113-table-mapping-type-hint.gistui",
+      "expected": "113-table-mapping-type-hint.expected.json",
+      "title": "A table mapping passes the type hint of a column",
+      "section": "11.9",
+      "profile": "core"
+    },
+    {
+      "file": "114-reserved-id.gistui",
+      "expected": "114-reserved-id.expected.json",
+      "title": "A statement named like a flag",
+      "section": "11.2",
+      "profile": "core"
+    },
+    {
+      "file": "115-bare-text.gistui",
+      "expected": "115-bare-text.expected.json",
+      "title": "A bare word that nothing defines is text in a string prop",
+      "section": "15",
+      "profile": "core"
+    },
+    {
+      "file": "116-bare-word-defined-later.gistui",
+      "expected": "116-bare-word-defined-later.expected.json",
+      "title": "A bare word in a string prop is a reference when a statement defines it",
+      "section": "10.3",
+      "profile": "core"
+    },
+    {
+      "file": "117-table-ragged-rows.gistui",
+      "expected": "117-table-ragged-rows.expected.json",
+      "title": "Rows with too many or too few cells",
+      "section": "12.3",
+      "profile": "core"
+    },
+    {
+      "file": "118-table-duplicate-columns.gistui",
+      "expected": "118-table-duplicate-columns.expected.json",
+      "title": "Duplicate and empty column names are kept",
+      "section": "12.2",
+      "profile": "core"
+    },
+    {
+      "file": "119-table-separator-rows.gistui",
+      "expected": "119-table-separator-rows.expected.json",
+      "title": "Separator rows are skipped wherever they are",
+      "section": "12.1",
+      "profile": "core"
+    },
+    {
+      "file": "120-table-empty-cells.gistui",
+      "expected": "120-table-empty-cells.expected.json",
+      "title": "Empty cells, a row of empty cells, and a lone pipe",
+      "section": "12.1",
+      "profile": "core"
+    },
+    {
+      "file": "121-table-type-hints.gistui",
+      "expected": "121-table-type-hints.expected.json",
+      "title": "Column type hints",
+      "section": "12.2",
+      "profile": "core"
+    },
+    {
+      "file": "122-table-number-forms.gistui",
+      "expected": "122-table-number-forms.expected.json",
+      "title": "Which cells read as numbers",
+      "section": "12.3",
+      "profile": "core"
+    },
+    {
+      "file": "123-table-blank-and-indented-rows.gistui",
+      "expected": "123-table-blank-and-indented-rows.expected.json",
+      "title": "Blank lines between rows, and indented rows",
+      "section": "4.7",
+      "profile": "core"
+    },
+    {
+      "file": "124-table-ends-at-other-line.gistui",
+      "expected": "124-table-ends-at-other-line.expected.json",
+      "title": "The first line that is not a row ends the table",
+      "section": "4.7",
+      "profile": "core"
+    },
+    {
+      "file": "125-table-header-only.gistui",
+      "expected": "125-table-header-only.expected.json",
+      "title": "A table with a header and no rows",
+      "section": "12.2",
+      "profile": "core"
+    },
+    {
+      "file": "126-table-escaped-pipe.gistui",
+      "expected": "126-table-escaped-pipe.expected.json",
+      "title": "\\| is a pipe; no other escape exists",
+      "section": "12.1",
+      "profile": "core"
+    },
+    {
+      "file": "127-table-plain-text-cells.gistui",
+      "expected": "127-table-plain-text-cells.expected.json",
+      "title": "Quotes, brackets and # are ordinary text in a table",
+      "section": "12.1",
+      "profile": "core"
+    },
+    {
+      "file": "128-table-append.gistui",
+      "expected": "128-table-append.expected.json",
+      "title": "A table cannot be appended to or patched",
+      "section": "12.4",
+      "profile": "core"
+    },
+    {
+      "file": "129-redefinition-discards-patches.gistui",
+      "expected": "129-redefinition-discards-patches.expected.json",
+      "title": "A redefinition discards earlier patches and appends",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "130-delete-then-define.gistui",
+      "expected": "130-delete-then-define.expected.json",
+      "title": "An id that is deleted and defined again exists again",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "131-delete-undefined.gistui",
+      "expected": "131-delete-undefined.expected.json",
+      "title": "Deleting an id that is never defined drops its references silently",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "132-patch-before-definition.gistui",
+      "expected": "132-patch-before-definition.expected.json",
+      "title": "A patch or append before its target is defined is ignored",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "133-patch-alias-and-case.gistui",
+      "expected": "133-patch-alias-and-case.expected.json",
+      "title": "A patch finds its prop by alias and without regard to case",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "134-patch-children.gistui",
+      "expected": "134-patch-children.expected.json",
+      "title": "id.children replaces the children",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "135-patch-null.gistui",
+      "expected": "135-patch-null.expected.json",
+      "title": "A patch with null removes the prop",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "136-append-to-list.gistui",
+      "expected": "136-append-to-list.expected.json",
+      "title": "Appending to a list statement",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "137-append-positional.gistui",
+      "expected": "137-append-positional.expected.json",
+      "title": "An appended value is one more positional argument",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "138-redefinition-changes-kind.gistui",
+      "expected": "138-redefinition-changes-kind.expected.json",
+      "title": "A redefinition can change the kind of a statement",
+      "section": "14",
+      "profile": "core"
+    },
+    {
+      "file": "139-root-not-a-component.gistui",
+      "expected": "139-root-not-a-component.expected.json",
+      "title": "A root statement that is not a component gives no root",
+      "section": "15",
+      "profile": "core"
+    },
+    {
+      "file": "140-root-runtime-expression.gistui",
+      "expected": "140-root-runtime-expression.expected.json",
+      "title": "The root can be a runtime statement",
+      "section": "15",
+      "profile": "interactive"
+    },
+    {
+      "file": "141-empty-program.gistui",
+      "expected": "141-empty-program.expected.json",
+      "title": "A program with no statement has no root",
+      "section": "15",
+      "profile": "core"
+    },
+    {
+      "file": "142-unresolved-in-prop.gistui",
+      "expected": "142-unresolved-in-prop.expected.json",
+      "title": "A reference that nothing defines is dropped from props and lists",
+      "section": "15",
+      "profile": "core"
+    },
+    {
+      "file": "143-cycle-self.gistui",
+      "expected": "143-cycle-self.expected.json",
+      "title": "A component that contains itself",
+      "section": "15",
+      "profile": "core"
+    },
+    {
+      "file": "144-cycle-data.gistui",
+      "expected": "144-cycle-data.expected.json",
+      "title": "A data statement that contains itself",
+      "section": "10.3",
+      "profile": "core"
+    },
+    {
+      "file": "145-cycle-node-prop.gistui",
+      "expected": "145-cycle-node-prop.expected.json",
+      "title": "A cycle through a component prop",
+      "section": "15",
+      "profile": "core"
+    },
+    {
+      "file": "146-unused-state-and-query.gistui",
+      "expected": "146-unused-state-and-query.expected.json",
+      "title": "Unused state, data and queries are reported",
+      "section": "15",
+      "profile": "tools"
+    },
+    {
+      "file": "147-used-through-expression.gistui",
+      "expected": "147-used-through-expression.expected.json",
+      "title": "A statement read by a runtime expression is used",
+      "section": "15",
+      "profile": "interactive"
+    },
+    {
+      "file": "148-diagnostic-order.gistui",
+      "expected": "148-diagnostic-order.expected.json",
+      "title": "The order of diagnostics",
+      "section": "22.2",
+      "profile": "core"
+    },
+    {
+      "file": "149-strict-flag.gistui",
+      "expected": "149-strict-flag.expected.json",
+      "title": "An error that is not fixed makes the program not strict",
+      "section": "17",
+      "profile": "core"
+    }
+  ]
+}

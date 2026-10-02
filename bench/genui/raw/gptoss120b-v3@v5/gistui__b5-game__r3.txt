@@ -1,0 +1,45 @@
+root = Card(CardHeader("Live Ops Dashboard"), overview, sessionCard, bestSellingCard, regionCard, crashCard, eventsCard, reportsCard, bansCard, inflationCard, experimentsCard, patchCard, actionsCard)
+overview = Card(MarkDownRenderer("# Overview\n- Players online: **12,345**\n- Daily active players: **456,789**\n- Monthly active players: **1,234,567**\n- Revenue today: **$23,456**\n- Revenue per user: **$1.90**"))
+sessionCard = Card(Heading("Session Length (past 2 weeks)", h3), LineChart(sessionData, linear, xLabel:"Date", yLabel:"Minutes"))
+bestSellingCard = Card(Heading("Best-selling Items", h3), bestItemsTable)
+regionCard = Card(Heading("Server Region Health", h3), HorizontalBarChart(["NA","EU","ASIA","SA"], Series("Health", [95,88,92,80]), variant:grouped, xLabel:"Health %", yLabel:"Region"), regionSelect)
+crashCard = Card(Heading("Crash Rate by App Version", h3), BarChart(["1.0","1.1","1.2","1.3"], Series("Crash Rate", [2.5,1.8,1.2,0.9]), variant:grouped, xLabel:"Version", yLabel:"Crashes per 1k"))
+eventsCard = Card(Heading("Live Events", h3), eventsList)
+reportsCard = Card(Heading("Player Reports Awaiting Review", h3), reportsTable)
+bansCard = Card(Heading("Ban Appeals Awaiting Review", h3), bansTable)
+inflationCard = Card(Heading("In-game Currency Inflation", h3), LineChart(inflationData, linear, xLabel:"Date", yLabel:"Inflation %"))
+experimentsCard = Card(Heading("Experiment Results", h3), BarChart(["Engagement","Retention","Revenue"], expSeriesA, expSeriesB, variant:grouped, xLabel:"Metric", yLabel:"Score"))
+patchCard = Card(Heading("Draft Patch Notes", h3), patchForm)
+actionsCard = Card(actionButtons)
+regionSelect = Select("region_focus", SelectItem("NA","North America"), SelectItem("EU","Europe"), SelectItem("ASIA","Asia"), SelectItem("SA","South America"), placeholder:"Select region", value:"NA", size:small)
+patchForm = Form("patch-draft", patchButtons, patchNoteField)
+patchNoteField = FormControl("Patch notes", TextArea("notes", "Enter patch notes...", "", 6))
+patchButtons = Buttons(Button("Submit Patch", [], primary), Button("Cancel", [], secondary))
+actionButtons = Buttons(Button("Focus Region", [], primary), Button("Ship Hotfix", [], destructive))
+expSeriesA = Series("Experiment A", [85,70,90])
+expSeriesB = Series("Experiment B", [78,68,80])
+bestItemsTable = Table(Col("Item", ["Sword of Dawn","Shield of Valor","Health Potion","Gem Pack"], string), Col("Units Sold", [1200,950,8000,5300], number))
+reportsTable = Table(Col("Report ID", [101,102,103], number), Col("Player", ["UserA","UserB","UserC"], string), Col("Reason", ["Cheating","Abuse","Bug Exploit"], string))
+bansTable = Table(Col("Appeal ID", [201,202], number), Col("Player", ["UserX","UserY"], string), Col("Reason", ["Wrong ban","Insufficient evidence"], string))
+eventsList = ListBlock(ListItem("Double XP Weekend", "Sep 20-22", "View", []), ListItem("Halloween Event", "Oct 25-31", "View", []))
+sessionData = |Date|Avg Session (min)
+|2023-09-16|35
+|2023-09-17|38
+|2023-09-18|36
+|2023-09-19|40
+|2023-09-20|42
+|2023-09-21|39
+|2023-09-22|41
+|2023-09-23|44
+|2023-09-24|43
+|2023-09-25|45
+|2023-09-26|46
+|2023-09-27|44
+|2023-09-28|47
+|2023-09-29|48
+inflationData = |Date|Inflation %
+|2023-09-01|1.02
+|2023-09-08|1.05
+|2023-09-15|1.08
+|2023-09-22|1.10
+|2023-09-29|1.12

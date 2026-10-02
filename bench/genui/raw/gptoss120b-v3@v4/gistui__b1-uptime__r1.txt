@@ -1,0 +1,7 @@
+root = Card(header, uptime, incident)
+
+header = CardHeader("Platform Status", "Live overview")
+
+uptime = Card(Heading("API Uptime (This Month)", h3), TextContent("**99.7%**", size:large))
+
+incident = Callout(variant:warning, "Recent Incident", "Outage on 2023-09-12 resolved at 14:30 UTC. Affected login API.")

@@ -1,0 +1,39 @@
+root = Card(cardHeader, daysRemaining, agendaSection, speakersSection, ticketsSection, registrationSection, gap:m)
+
+cardHeader = CardHeader("Tech Innovators Summit 2024", "June 15‑17, 2024 • Grand Hall, City Convention Center")
+
+daysRemaining = Callout(info, "Days Remaining", "7 days left until the event")
+
+agendaSection = Card(Heading("Agenda", h3), agendaTable, sunk)
+
+agendaTable = |Time|Session
+|09:00 AM|Opening Keynote
+|10:30 AM|Panel: AI in Healthcare
+|12:00 PM|Lunch Break
+|01:30 PM|Workshop: Cloud Native Apps
+|03:00 PM|Breakout Sessions
+|05:00 PM|Closing Remarks
+
+speakersSection = Card(Heading("Speakers", h3), speakersList, sunk)
+
+speakersList = ListBlock(speaker1, speaker2, speaker3, variant:number)
+
+speaker1 = ListItem("Dr. Alice Nguyen", "AI researcher, Future Labs")
+speaker2 = ListItem("Mr. Carlos Rivera", "CTO, CloudWorks")
+speaker3 = ListItem("Ms. Priya Patel", "Product Lead, InnovateX")
+
+ticketsSection = Card(Heading("Ticket Tiers", h3), ticketsTable, sunk)
+
+ticketsTable = |Tier|Price
+|Standard|$199
+|Premium|$349
+|VIP|$499
+
+registrationSection = Card(Heading("Register", h3), registrationForm, sunk)
+
+registrationForm = Form("event-registration", formButtons, nameField, emailField)
+
+nameField = FormControl("Full name", Input("name", "Your name"))
+emailField = FormControl("Email address", Input("email", "you@example.com", type:email))
+
+formButtons = Buttons(Button("Register", primary))

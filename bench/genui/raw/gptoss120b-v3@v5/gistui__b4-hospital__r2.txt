@@ -1,0 +1,36 @@
+root = Card(bedSection, erSection, admissionsSection, deptSection, staffSection, criticalSection, dischargeSection, orSection, suppliesSection, incidentSection, dateNavSection, transferSection)
+
+bedSection = Card(CardHeader("Bed Occupancy"), HorizontalBarChart(labels:["ICU","General Ward","Recovery"], Series("Occupied", values:[80,150,60]), Series("Available", values:[20,50,40]), variant:grouped, xLabel:"Beds", yLabel:"Count"))
+
+erSection = Card(CardHeader("Current ER Wait"), TextContent("**Average wait time:** 42 minutes\n**Patients waiting:** 18", size:default))
+
+admissionsSection = Card(CardHeader("Admissions (Last 2 Weeks)"), LineChart(labels:["Day -13","Day -12","Day -11","Day -10","Day -9","Day -8","Day -7","Day -6","Day -5","Day -4","Day -3","Day -2","Day -1","Today"], Series("Admissions", values:[12,15,9,14,11,13,16,10,12,14,15,13,17,20]), variant:linear, xLabel:"Date", yLabel:"Patients"))
+
+deptSection = Card(CardHeader("Patients per Department"), BarChart(labels:["Cardiology","Neurology","Oncology","Pediatrics","Surgery"], Series("Patients", values:[45,38,27,50,33]), variant:grouped, xLabel:"Department", yLabel:"Count"))
+
+staffSection = Card(CardHeader("Staff on Shift"), Table(Col("Name", data:["Dr. Smith","Nurse Lee","Tech Patel","Dr. Gomez"], type:string), Col("Role", data:["Surgeon","RN","Technician","Physician"], type:string), Col("Shift", data:["Day","Night","Day","Night"], type:string)))
+
+criticalSection = Card(Callout(variant:warning, title:"Critical Patients", description:"5 patients in ICU require immediate attention"))
+
+dischargeSection = Card(CardHeader("Patients Ready for Discharge"), Table(Col("Patient ID", data:["P1023","P1045","P1089"], type:string), Col("Name", data:["John Doe","Jane Roe","Alice Smith"], type:string), Col("Room", data:["302","405","210"], type:string)))
+
+orSection = Card(CardHeader("Today's OR Bookings"), Table(Col("OR", data:["OR1","OR2","OR3"], type:string), Col("Time", data:["08:00-10:00","10:30-12:30","13:00-15:00"], type:string), Col("Procedure", data:["Appendectomy","Hip Replacement","C-Section"], type:string)))
+
+suppliesSection = Card(CardHeader("Supplies Running Low"), Table(Col("Supply", data:["Surgical Masks","Gloves","IV Bags"], type:string), Col("Remaining", data:["120","85","40"], type:string)))
+
+incidentSection = Card(CardHeader("Report an Incident"), Form("incident-report", incidentButtons, incidentDesc, incidentType, incidentUrgency))
+
+incidentDesc = FormControl("Description", Input("desc", "Brief description...", , text, []))
+incidentType = FormControl("Type", Select("type", SelectItem("Safety","Safety"), SelectItem("Equipment","Equipment"), SelectItem("Medication","Medication"), placeholder:"Select type", value:"", size:small, rules:[]))
+incidentUrgency = FormControl("Urgency", RadioGroup("urgency", RadioItem("Low","Low impact","low"), RadioItem("Medium","Potential impact","medium"), RadioItem("High","Immediate action required","high"), defaultValue:"low", rules:[]))
+incidentButtons = Buttons(Button("Submit", [], primary), Button("Cancel", [], secondary))
+
+dateNavSection = Card(CardHeader("Navigate Date"), Buttons(Button("Previous Day", [], secondary), Button("Next Day", [], secondary), direction:row))
+
+transferSection = Card(CardHeader("Request Patient Transfer"), Form("transfer-request", transferButtons, transferPatient, transferFrom, transferTo, transferReason))
+
+transferPatient = FormControl("Patient ID", Input("patient_id", "Enter ID...", , text, []))
+transferFrom = FormControl("From Department", Select("from_dept", SelectItem("ICU","ICU"), SelectItem("General Ward","General Ward"), placeholder:"Select", value:"", size:small, rules:[]))
+transferTo = FormControl("To Department", Select("to_dept", SelectItem("ICU","ICU"), SelectItem("General Ward","General Ward"), placeholder:"Select", value:"", size:small, rules:[]))
+transferReason = FormControl("Reason", TextArea("reason", "Explain reason...", , 3, []))
+transferButtons = Buttons(Button("Request Transfer", [], primary), Button("Cancel", [], secondary))

@@ -1,0 +1,76 @@
+root = Card(header, sections, actions)
+header = CardHeader("Emergency Response Coordination Center")
+sections = SectionBlock(incidentsItem, summaryItem, resourcesItem, sheltersItem, routesItem, weatherItem, rescueItem, volunteersItem, donationsItem, aidRequestsItem, commItem, roadsItem, hospitalsItem, tasksItem, isFoldable)
+incidentsItem = SectionItem("incidents", "Active Incidents by Zone", incidentsTable)
+incidentsTable = |Zone|Incident|Severity|
+|North|Fire|High|
+|South|Flood|Medium|
+|East|Power Outage|Low|
+|West|Chemical Leak|Critical|
+summaryItem = SectionItem("summary", "Overall Severity Summary", summaryChart)
+summaryChart = HorizontalBarChart(labels:["Critical","High","Medium","Low"], Series("Count", values:[1,2,1,0]), variant:grouped, xLabel:"Severity", yLabel:"Incidents")
+resourcesItem = SectionItem("resources", "Vehicles, Personnel & Supplies", resourcesTable)
+resourcesTable = |Resource|Available|
+|Vehicles|12|
+|Personnel|45|
+|Supplies|300 units|
+sheltersItem = SectionItem("shelters", "Shelters Capacity & Occupancy", sheltersTable)
+sheltersTable = |Shelter|Capacity|Occupancy|
+|Shelter A|150|80|
+|Shelter B|200|150|
+|Shelter C|100|60|
+routesItem = SectionItem("routes", "Evacuation Route Status", routesTable)
+routesTable = |Route|Status|
+|Route 1|Open|
+|Route 2|Closed for maintenance|
+|Route 3|Open|
+weatherItem = SectionItem("weather", "48‑Hour Weather Forecast", weatherTable)
+weatherTable = |Time|Forecast|
+|Now|Sunny, 22°C|
+|6h|Partly Cloudy, 24°C|
+|12h|Rain, 18°C|
+|18h|Storm, 16°C|
+|24h|Clear, 20°C|
+|30h|Sunny, 23°C|
+|36h|Rain, 19°C|
+|42h|Cloudy, 21°C|
+|48h|Clear, 22°C|
+rescueItem = SectionItem("rescue", "People Rescued & Casualties", rescueTable)
+rescueTable = |Metric|Count|
+|Rescued|340|
+|Casualties|12|
+volunteersItem = SectionItem("volunteers", "Volunteers on Duty", volunteersTable)
+volunteersTable = |Name|Assignment|
+|Alice|Medical Aid|
+|Bob|Logistics|
+|Carol|Search & Rescue|
+donationsItem = SectionItem("donations", "Donations Received", donationsTable)
+donationsTable = |Donor|Amount|
+|Company X|$15,000|
+|Individual Y|$500|
+|NGO Z|$8,000|
+aidRequestsItem = SectionItem("aidRequests", "Aid Requests Awaiting Action", aidRequestsTable)
+aidRequestsTable = |Request|Location|Priority|
+|Food Supplies|North Zone|High|
+|Medical Kits|South Zone|Critical|
+|Shelter Beds|East Zone|Medium|
+commItem = SectionItem("comm", "Communication Channels Status", commTable)
+commTable = |Channel|Status|
+|Radio|Up|
+|Satellite|Down|
+|Cellular|Up|
+roadsItem = SectionItem("roads", "Roads Closed", roadsTable)
+roadsTable = |Road|Reason|
+|Highway 5|Landslide|
+|Main St|Construction|
+hospitalsItem = SectionItem("hospitals", "Nearby Hospitals with Free Beds", hospitalsTable)
+hospitalsTable = |Hospital|Free Beds|
+|General Hospital|12|
+|City Clinic|5|
+|Regional Medical Center|20|
+tasksItem = SectionItem("tasks", "Open Tasks", tasksTable)
+tasksTable = |Task|Assignee|Status|
+|Check water levels|Dave|In Progress|
+|Setup triage|Eve|Pending|
+|Distribute supplies|Frank|Completed|
+actions = Buttons(Button("Request Resources", primary), Button("Broadcast Update", secondary), Button("Focus Zone", secondary), Button("File Situation Report", secondary))

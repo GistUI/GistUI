@@ -1,0 +1,27 @@
+root = Card(cashCallout, burnCallout, runwayCallout, expenseChart, transactions, controlsSection, actions)
+
+expenseChart = PieChart(expenseTable, donut, circular)
+
+controlsSection = Card(Heading("Select month", h3), monthSelect)
+
+actions = Buttons(downloadButton)
+
+cashCallout = Callout(info, "Cash on Hand", "$250,000")
+burnCallout = Callout(info, "Monthly Burn", "$45,000")
+runwayCallout = Callout(info, "Runway", "5.5 months")
+
+monthSelect = Select("month", SelectItem("2023-08", "August 2023"), SelectItem("2023-09", "September 2023"), placeholder:"Select month", value:"2023-09", size:medium)
+
+downloadButton = Button("Download Statement", [], primary)
+
+expenseTable = |Category|Amount
+|Salaries|150000
+|Rent|30000
+|Marketing|20000
+|Software|10000
+
+transData = |Date|Description|Amount
+|2023-09-05|Equipment purchase|12000
+|2023-09-20|Consulting fee|15000
+
+transactions = Table(transData)

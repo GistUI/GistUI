@@ -1,0 +1,5 @@
+root = Table(t)
+t = |A
+|1
+t += |2
+t.x = 1

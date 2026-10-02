@@ -1,0 +1,7 @@
+root = Card(header, avatar, bio, messageForm, gap:m)
+header = CardHeader("Jane Doe", "Senior Engineer")
+avatar = Image("Jane Doe", "https://picsum.photos/seed/jane/200/200")
+bio = TextContent("Jane has over 10 years of experience in software development, specializing in cloud infrastructure and DevOps.", size:default)
+messageForm = Form("message-form", formButtons, messageField)
+messageField = FormControl("Message", Input("msg", placeholder:"Type your message...", type:text))
+formButtons = Buttons(Button("Send", primary))

@@ -1,0 +1,46 @@
+root = Card(header, filters, kpis, volumeChart, recentTable)
+
+header = CardHeader("E‑commerce Operations", "Today’s snapshot")
+
+filters = Card(form)
+
+form = Form("order-filters", filterButtons, statusField, searchField)
+
+statusField = FormControl("Status", statusSelect)
+statusSelect = Select("status",
+  SelectItem("all","All"),
+  SelectItem("pending","Pending"),
+  SelectItem("fulfilled","Fulfilled"),
+  SelectItem("refunded","Refunded"),
+  placeholder:"All statuses")
+
+searchField = FormControl("Customer", Input("customer", "Search name...", type:text))
+
+filterButtons = Buttons(Button("Apply"), Button("Reset", secondary))
+
+kpis = Card(kpiOrders, kpiRevenue, kpiAOV, kpiRefund, direction:row, gap:s)
+
+kpiOrders = TextContent("Orders placed today: 124", size:large)
+kpiRevenue = TextContent("Revenue today: $5,430", size:large)
+kpiAOV = TextContent("Avg order value: $43.9", size:large)
+kpiRefund = TextContent("Refund rate this month: 2.3%", size:large)
+
+volumeData = |Week|Orders
+|W1|320
+|W2|280
+|W3|350
+|W4|300
+
+volumeSeries = Series("Orders", values:[320,280,350,300])
+volumeChart = BarChart(volumeData, volumeSeries, variant:grouped, xLabel:"Week", yLabel:"Orders")
+
+colId = Col("Order ID", data:["#1023","#1024","#1025"], type:string)
+colCust = Col("Customer", data:["Alice","Bob","Carol"], type:string)
+colTotal = Col("Total", data:["$120","$85","$230"], type:string)
+colStatus = Col("Status", data:["Pending","Fulfilled","Refunded"], type:string)
+fulfillBtn1 = Button("Mark fulfilled", primary)
+fulfillBtn2 = Button("Mark fulfilled", primary)
+fulfillBtn3 = Button("Mark fulfilled", primary)
+colAction = Col("Action", data:[fulfillBtn1, fulfillBtn2, fulfillBtn3], type:action)
+
+recentTable = Table(colId, colCust, colTotal, colStatus, colAction)

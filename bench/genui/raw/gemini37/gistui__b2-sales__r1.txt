@@ -1,0 +1,20 @@
+root = Card(header, topKpis, mainGrid, bottomActions, gap:l)
+header = CardHeader("Monthly Sales Pulse", "Performance overview and revenue health check")
+topKpis = Card(kpiRevenue, kpiConversion, direction:row, gap:m)
+kpiRevenue = Card(Tag("Current Month", variant:success), Heading("$84,250", level:h1), TextContent("+12.4% vs last month • **Target: $80,000**", size:small), variant:sunk)
+kpiConversion = Card(Tag("Storewide", variant:info), Heading("3.82%", level:h1), TextContent("+0.45% from previous cycle • **2,205 orders**", size:small), variant:sunk)
+mainGrid = Card(trendSection, productsSection, direction:row, gap:m)
+trendSection = Card(Heading("6-Month Revenue Trend", level:h3), LineChart(monthlyRev, variant:natural, xLabel:"Month", yLabel:"Revenue ($)"), variant:sunk)
+productsSection = Card(Heading("Top 3 Best-Selling Products", level:h3), Table(topProducts), variant:sunk)
+bottomActions = Buttons(Button("Download CSV Report", variant:primary), Button("Download PDF Summary", variant:secondary))
+monthlyRev = |Month|Revenue
+|Nov|58200
+|Dec|74500
+|Jan|62100
+|Feb|69400
+|Mar|74900
+|Apr|84250
+topProducts = |Product|Units Sold:n|Revenue:n
+|Pro Workspace Annual|412|$57680
+|Team Starter Plan|285|$14250
+|Add-on Storage Pack|194|$3880

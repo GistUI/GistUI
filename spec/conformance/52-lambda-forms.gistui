@@ -1,0 +1,5 @@
+root = Stack(a, b, c)
+rows = [1, 2]
+a = @each(rows, r => Text("" + r))
+b = @each(rows, (r, i) => Text("" + i))
+c = @each(rows, () => Text("x"))

@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gistui.com/schemas/1.0/catalog.schema.json",
+  "title": "GistUI catalog manifest",
+  "description": "A catalog exchanged as JSON (GistUI Format 1.0, section 9). components, unions, textComponent and textProp are what a processor uses; the other fields identify the catalog and carry prompt material. The constraints of section 9.3 apply in addition to this schema.",
+  "type": "object",
+  "required": ["gistui", "id", "version", "components"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "$comment": { "type": "string" },
+    "gistui": { "description": "The format version this catalog targets.", "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "id": { "description": "A URI that names the catalog. It need not resolve.", "type": "string", "minLength": 1 },
+    "version": { "description": "major.minor.patch (section 26.6).", "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z.-]+)?$" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "components": { "type": "array", "items": { "$ref": "#/$defs/component" } },
+    "unions": {
+      "description": "Named groups of components, for children.of and node props.",
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Z][A-Za-z0-9_]*$" },
+      "additionalProperties": { "type": "array", "items": { "$ref": "#/$defs/componentName" } }
+    },
+    "textComponent": { "description": "Component used for text written in child position. Default: Text.", "$ref": "#/$defs/componentName" },
+    "textProp": { "description": "Prop of the text component that receives the text. Default: content.", "$ref": "#/$defs/propName" },
+    "guide": { "description": "Design guidance for a generator, as prompt text.", "type": "string" },
+    "examples": { "description": "Example programs written with this catalog.", "type": "array", "items": { "type": "string" } },
+    "notes": {
+      "description": "Usage notes by component group, as prompt text.",
+      "type": "object",
+      "additionalProperties": { "type": "array", "items": { "type": "string" } }
+    }
+  },
+  "$defs": {
+    "componentName": { "type": "string", "pattern": "^[A-Z][A-Za-z0-9_]*$" },
+    "propName": { "type": "string", "pattern": "^[a-z_][A-Za-z0-9_]*$" },
+    "component": {
+      "type": "object",
+      "required": ["name", "props"],
+      "properties": {
+        "name": { "$ref": "#/$defs/componentName" },
+        "description": { "type": "string" },
+        "group": { "description": "Heading under which a prompt lists the component.", "type": "string" },
+        "args": {
+          "description": "Positional props in order. name? marks an optional positional (only on components without children, and only after the required ones).",
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z_][A-Za-z0-9_]*\\??$" }
+        },
+        "children": {
+          "description": "true: any component can be a child. {of}: only these components or unions.",
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": { "of": { "type": "array", "items": { "$ref": "#/$defs/componentName" } } }
+            }
+          ]
+        },
+        "props": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z_][A-Za-z0-9_]*$" },
+          "additionalProperties": { "$ref": "#/$defs/prop" }
+        },
+        "aliases": {
+          "description": "Other names accepted for a prop, mapped to the prop name.",
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/propName" }
+        },
+        "table": { "$ref": "#/$defs/tableMapping" }
+      }
+    },
+    "propType": {
+      "description": "The type of a prop or of the items of an array prop.",
+      "type": "object",
+      "required": ["type"],
+      "oneOf": [
+        {
+          "properties": {
+            "type": { "const": "string" },
+            "format": { "description": "url: a URL that loads without a click (section 23.4).", "enum": ["url"] }
+          }
+        },
+        { "properties": { "type": { "enum": ["number", "boolean", "data", "object", "action", "state", "any"] } } },
+        {
+          "required": ["type", "values"],
+          "properties": {
+            "type": { "const": "enum" },
+            "values": { "type": "array", "items": { "type": "string" } },
+            "aliases": { "type": "object", "additionalProperties": { "type": "string" } },
+            "open": { "description": "Any other text is accepted too.", "type": "boolean" },
+            "examples": { "description": "Values to show in a prompt for an open enum.", "type": "array", "items": { "type": "string" } }
+          }
+        },
+        {
+          "properties": {
+            "type": { "enum": ["node", "nodes"] },
+            "of": { "type": "array", "items": { "$ref": "#/$defs/componentName" } }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "array" },
+            "items": { "$ref": "#/$defs/propType" }
+          }
+        }
+      ]
+    },
+    "prop": {
+      "allOf": [
+        { "$ref": "#/$defs/propType" },
+        {
+          "properties": {
+            "required": { "type": "boolean" },
+            "default": { "description": "Value used when the prop is not given or is invalid." },
+            "description": { "type": "string" }
+          }
+        }
+      ]
+    },
+    "tableMapping": {
+      "description": "How a table passed to the component becomes its props and children (section 11.9).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "labels": { "$ref": "#/$defs/propName" },
+        "values": { "$ref": "#/$defs/propName" },
+        "columns": {
+          "type": "object",
+          "required": ["component", "label", "values"],
+          "additionalProperties": false,
+          "properties": {
+            "component": { "$ref": "#/$defs/componentName" },
+            "label": { "$ref": "#/$defs/propName" },
+            "values": { "$ref": "#/$defs/propName" },
+            "numeric": { "type": "boolean" },
+            "type": { "$ref": "#/$defs/propName" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+root = Card(header, invoiceInfo, payArea, clear)
+header = CardHeader("Invoice", "Freelancer Services")
+invoiceInfo = Card(Heading("Amount Due", h3), TextContent("$1,200 USD", size:large), Heading("Due Date", h3), TextContent("2024-10-15", size:default))
+payArea = Card(payButtons, clear)
+payButtons = Buttons(Button("Pay Now", primary))

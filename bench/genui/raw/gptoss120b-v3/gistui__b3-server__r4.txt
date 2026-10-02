@@ -1,0 +1,52 @@
+root = Card(header, regionSelect, uptimeSection, cpuMemChart, errorRate, incidentsSection, slowEndpointsSection, alertThresholdSection, sunk)
+
+header = CardHeader("Service Health Dashboard", "On‑call view")
+
+regionSelect = Select("region", SelectItem("us-east-1", "US East 1"), SelectItem("us-west-2", "US West 2"), SelectItem("eu-central-1", "EU Central 1"), placeholder:"Select region")
+
+uptimeSection = Card(Heading("Uptime – This Quarter", h3), TextContent("99.97%"), clear)
+
+cpuMemChart = Card(Heading("CPU & Memory – Last 24h", h3), LineChart(cpuMemRows, linear, xLabel:"Time", yLabel:"%"), clear)
+
+cpuMemRows = |Time|CPU|Memory
+|00:00|45|62
+|04:00|38|58
+|08:00|52|70
+|12:00|61|75
+|16:00|55|68
+|20:00|48|64
+|24:00|42|60
+
+errorRate = Card(Heading("Current Error Rate", h3), TextContent("0.23%"), clear)
+
+incidentsSection = Card(Heading("Open Incidents", h3), incidentsTable, clear)
+
+incidentsTable = Table(idCol, severityCol, descCol, actionCol)
+
+idCol = Col("ID", data:["INC-101","INC-102","INC-103"], type:string)
+
+severityCol = Col("Severity", data:["critical","high","medium"], type:string)
+
+descCol = Col("Description", data:["Database timeout","Service X latency spike","Cache miss surge"], type:string)
+
+actionCol = Col("Action", data:[ackBtn1, ackBtn2, ackBtn3], type:string)
+
+ackBtn1 = Button("Acknowledge", action:[], variant:primary, type:normal, size:small)
+
+ackBtn2 = Button("Acknowledge", action:[], variant:primary, type:normal, size:small)
+
+ackBtn3 = Button("Acknowledge", action:[], variant:primary, type:normal, size:small)
+
+slowEndpointsSection = Card(Heading("5 Slowest Endpoints", h3), slowEndpointsTable, clear)
+
+slowEndpointsTable = Table(endpointCol, latencyCol)
+
+endpointCol = Col("Endpoint", data:["/api/v1/report","/api/v2/search","/api/v1/export","/api/v3/metrics","/api/v1/login"], type:string)
+
+latencyCol = Col("Latency (ms)", data:[420,389,375,360,355], type:number)
+
+alertThresholdSection = Card(Heading("Set Alert Threshold", h3), Form("alert-form", alertButtons, thresholdField))
+
+thresholdField = FormControl("Latency threshold (ms)", Input("latency_threshold", "Enter ms", "", number))
+
+alertButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))

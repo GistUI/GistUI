@@ -1,0 +1,3 @@
+root = Card(header, actions)
+header = CardHeader("$1,200 USD", "Due: 2023-10-15")
+actions = Buttons(Button("Pay now", primary))

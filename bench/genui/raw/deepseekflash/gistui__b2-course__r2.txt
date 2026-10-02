@@ -1,0 +1,11 @@
+root = Card(courseIntro, progressCard, modulesCard, nextCard, ratingCard, direction:column, gap:l)
+courseIntro = Card(CardHeader("Design Systems in Practice", "Instructor: Jordan Blake"), Tag("Design", variant:info), Tag("24 lessons", variant:neutral), clear)
+progressCard = Card(Heading("Overall progress", h3), Progress(value:68, label:"68% complete"), sunk)
+modulesCard = Card(Heading("Modules", h3), Table(moduleRows))
+nextCard = Card(Heading("Next lesson", h3), Alert("Module 3 · Lesson 4", "Low-fidelity wireframes", info), TextContent("Estimated time: 12 min", size:small), Buttons(Button("Continue learning", primary), Button("Review curriculum", secondary)))
+ratingCard = Card(Heading("Average learner rating", h3), TextContent("**4.8 / 5**", size:large), TextContent("Based on 1,204 learner reviews", size:small))
+moduleRows = |Module|Status
+|Module 1: Foundations|Completed
+|Module 2: Research|Completed
+|Module 3: Prototyping|In progress
+|Module 4: Testing|Not started

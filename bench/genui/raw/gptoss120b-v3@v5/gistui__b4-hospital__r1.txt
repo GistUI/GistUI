@@ -1,0 +1,99 @@
+root = Card(header, occupancyCard, erWaitCard, admissionsCard, deptPatientsCard, staffShiftCard, criticalCard, dischargeCard, orBookingsCard, suppliesCard, actionsCard, dateNavCard, transferCard)
+
+header = CardHeader("Hospital Operations Dashboard", "Real‑time overview")
+
+occupancyCard = Card(CardHeader("Bed Occupancy"), bedChart, sunk)
+
+bedChart = HorizontalBarChart(labels:["General Ward","ICU","Pediatrics","Maternity"], Series("Occupied", values:[85, 70, 60, 45]), Series("Available", values:[15, 30, 40, 55]), variant:stacked, xLabel:"Beds", yLabel:"Ward")
+
+erWaitCard = Card(CardHeader("Current ER Wait Times"), erTable, sunk)
+
+erTable = Table(
+  Col("Location", data:["Triage","Treatment","Observation"], type:string),
+  Col("Avg Wait (min)", data:[15, 30, 45], type:number)
+)
+
+admissionsCard = Card(CardHeader("Admissions – Last 2 Weeks"), admissionsChart, sunk)
+
+admissionsChart = BarChart(labels:["Week 1","Week 2","Week 3","Week 4"], Series("Admissions", values:[120, 135, 150, 160]), variant:grouped, xLabel:"Week", yLabel:"Patients")
+
+deptPatientsCard = Card(CardHeader("Patients per Department"), deptPie, sunk)
+
+deptPie = PieChart(labels:["Cardiology","Oncology","Neurology","Surgery","Emergency"], values:[200,150,120,180,220], variant:donut, appearance:circular)
+
+staffShiftCard = Card(CardHeader("Staff on Shift"), staffTable, sunk)
+
+staffTable = Table(
+  Col("Name", data:["Dr. Lee","Nurse Patel","Tech Gomez","Dr. Smith"], type:string),
+  Col("Role", data:["Cardiologist","RN","Radiology Tech","Surgeon"], type:string),
+  Col("Shift", data:["Day","Night","Day","Evening"], type:string)
+)
+
+criticalCard = Card(CardHeader("Critical Patients"), criticalList, sunk)
+
+criticalList = ListBlock(
+  ListItem("John Doe", "ICU - Cardiac Arrest", "View", image:[]),
+  ListItem("Maria Ruiz", "ER - Severe Trauma", "View", image:[])
+, variant:number)
+
+dischargeCard = Card(CardHeader("Patients Ready for Discharge"), dischargeTable, sunk)
+
+dischargeTable = Table(
+  Col("Patient", data:["Alice Kim","Mark Taylor"], type:string),
+  Col("Ward", data:["General","Surgery"], type:string),
+  Col("Ready Since", data:["08:00","09:30"], type:string)
+)
+
+orBookingsCard = Card(CardHeader("Today's OR Bookings"), orTable, sunk)
+
+orTable = Table(
+  Col("Room", data:["OR1","OR2","OR3"], type:string),
+  Col("Procedure", data:["Appendectomy","Hip Replacement","C-section"], type:string),
+  Col("Time", data:["09:00","11:30","14:00"], type:string)
+)
+
+suppliesCard = Card(CardHeader("Supplies Running Low"), suppliesTable, sunk)
+
+suppliesTable = Table(
+  Col("Item", data:["Syringes","Gloves","IV Bags"], type:string),
+  Col("Remaining", data:[120, 200, 45], type:number)
+)
+
+actionsCard = Card(CardHeader("Actions"), actionButtons, sunk)
+
+actionButtons = Buttons(
+  Button("File Incident", [], primary),
+  Button("Request Transfer", [], primary)
+)
+
+dateNavCard = Card(CardHeader("Navigate Date"), dateButtons, sunk)
+
+dateButtons = Buttons(
+  Button("Previous Day", [], secondary),
+  Button("Today", [], primary),
+  Button("Next Day", [], secondary)
+)
+
+transferCard = Card(CardHeader("Patient Transfer Request"), transferForm, sunk)
+
+transferForm = Form("transfer", transferButtons,
+  FormControl("Patient ID", Input("patient_id", "e.g. 12345")),
+  FormControl("From Department", Select("from_dept",
+    SelectItem("ER","Emergency"),
+    SelectItem("ICU","Intensive Care"),
+    SelectItem("Ward A","General Ward A"),
+    placeholder:"Select source", value:"", rules:[])
+  ),
+  FormControl("To Department", Select("to_dept",
+    SelectItem("ICU","Intensive Care"),
+    SelectItem("Ward B","General Ward B"),
+    SelectItem("Surgery","Operating Room"),
+    placeholder:"Select destination", value:"", rules:[])
+  ),
+  FormControl("Reason", TextArea("reason", "Brief reason", "", rows:4, rules:[]))
+)
+
+transferButtons = Buttons(
+  Button("Submit Transfer", [], primary),
+  Button("Cancel", [], secondary)
+)

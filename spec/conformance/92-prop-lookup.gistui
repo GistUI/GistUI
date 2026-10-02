@@ -1,0 +1,3 @@
+root = Row(Card("x", variant:sunk), Table(t, pagesize:5, sOrT:true))
+t = |a
+|1

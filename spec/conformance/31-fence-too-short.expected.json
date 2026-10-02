@@ -1,0 +1,24 @@
+{
+  "tree": {
+    "type": "Text",
+    "props": {
+      "content": "x"
+    }
+  },
+  "errors": [
+    {
+      "code": "prose-ignored",
+      "severity": "warning",
+      "line": 1
+    },
+    {
+      "code": "prose-ignored",
+      "severity": "warning",
+      "line": 2
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

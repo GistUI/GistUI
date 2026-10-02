@@ -1,0 +1,43 @@
+root = Card(dateForm, visitorsSection, conversionCallout, trafficSection, campaignsSection, bestCampaignCallout, subscriberSection, exportButtons)
+
+dateForm = Form("date-range", dateButtons, datePickerControl)
+datePickerControl = FormControl("Date range", DatePicker("date_range", mode:range, value:["2023-09-01","2023-09-30"]))
+dateButtons = Buttons(Button("Apply", primary))
+
+visitorsSection = Card(Heading("Site Visitors (Last 30 days)", h3), visitorsChart)
+visitorsChart = LineChart(visitorsData, variant:linear, xLabel:"Date", yLabel:"Visitors")
+visitorsData = |Date|Visitors
+|2023-09-01|1200
+|2023-09-02|1350
+|2023-09-03|1100
+|2023-09-04|1400
+|2023-09-05|1500
+
+conversionCallout = Callout("Conversion Rate", "2.4%", variant:info)
+
+trafficSection = Card(Heading("Top 5 Traffic Sources", h3), trafficChart)
+trafficChart = HorizontalBarChart(trafficData, variant:grouped, xLabel:"Share %", yLabel:"Source")
+trafficData = |Source|Share
+|Direct|30
+|Referral|25
+|Organic|20
+|Social|15
+|Email|10
+
+campaignsSection = Card(Heading("Running Campaigns", h3), campaignsTable)
+campaignsTable = Table(campaignCol, spendCol)
+campaignCol = Col("Campaign", data:["Campaign A","Campaign B","Campaign C"], type:string)
+spendCol = Col("Spend", data:["$1,200","$800","$1,500"], type:string)
+
+bestCampaignCallout = Callout("Top Campaign", "Campaign C – $1,500 spend, 4.5% conversion", variant:success)
+
+subscriberSection = Card(Heading("Email Subscriber Growth (This Month)", h3), subscriberChart)
+subscriberChart = BarChart(subscriberData, variant:grouped, xLabel:"Date", yLabel:"Subscribers")
+subscriberData = |Date|Subscribers
+|2023-09-01|120
+|2023-09-08|150
+|2023-09-15|180
+|2023-09-22|210
+|2023-09-30|250
+
+exportButtons = Buttons(Button("Export PDF", primary), Button("Export CSV", secondary))

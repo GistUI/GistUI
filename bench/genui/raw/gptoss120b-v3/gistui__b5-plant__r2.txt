@@ -1,0 +1,85 @@
+root = Card(overallOEE, unitsTarget, linesSection, defectChart, downtimeChart, maintenanceTable, stockTable, deliveriesTable, shiftComparison, safetySection, qualityHoldTable, energyUse, workOrdersTable, scheduleForm, focusLineButtons, andonAlerts, exportButtons, gap:m, direction:column)
+
+overallOEE = Callout(info, "Overall Equipment Effectiveness", "OEE: 87%")
+unitsTarget = TextContent("Units Produced: 4,200 / Target: 5,000", size:large)
+
+linesSection = Card(Heading("Production Lines", h3), linesTable, wrap)
+
+linesTable = Table(
+  Col("Line", data:["Line A","Line B","Line C"], type:string),
+  Col("Rate (units/hr)", data:[120,95,110], type:number),
+  Col("Status", data:["Running","Stopped","Running"], type:string)
+)
+
+defectChart = PieChart(labels:["Critical","Minor","None"], values:[5,15,80], variant:donut, appearance:circular)
+
+downtimeChart = HorizontalBarChart(labels:["Mechanical","Electrical","Setup","Changeover"], 
+  Series("Downtime (hrs)", values:[12,8,5,3]), variant:grouped, xLabel:"Hours", yLabel:"Cause")
+
+maintenanceTable = Table(
+  Col("Machine", data:["M-101","M-202","M-303"], type:string),
+  Col("Due Date", data:["2024-10-12","2024-10-18","2024-10-20"], type:string),
+  Col("Priority", data:["High","Medium","Low"], type:string)
+)
+
+stockTable = Table(
+  Col("Material", data:["Steel","Resin","Packaging"], type:string),
+  Col("Quantity", data:[1200,800,1500], type:number),
+  Col("Unit", data:["tons","tons","units"], type:string)
+)
+
+deliveriesTable = Table(
+  Col("Supplier", data:["Alpha Metals","Beta Polymers","Gamma Pack"], type:string),
+  Col("Delivery Due", data:["2024-09-28","2024-09-30","2024-10-01"], type:string)
+)
+
+shiftComparison = BarChart(labels:["Shift 1","Shift 2","Shift 3"], 
+  Series("Output", values:[3500,4200,3800]), variant:grouped, xLabel:"Shift", yLabel:"Units")
+
+safetySection = Card(
+  Callout(warning, "Safety Incidents (Year)", "12 incidents"),
+  TextContent("Days since last incident: 45", size:default)
+)
+
+qualityHoldTable = Table(
+  Col("Batch", data:["B-001","B-007","B-012"], type:string),
+  Col("Reason", data:["Contamination","Dimensional","Surface"], type:string)
+)
+
+energyUse = TextContent("Energy Consumption Today: 3,200 kWh", size:large)
+
+workOrdersTable = Table(
+  Col("Work Order", data:["WO-1001","WO-1005","WO-1010"], type:string),
+  Col("Priority", data:["High","High","Medium"], type:string),
+  Col("Description", data:["Replace motor","Calibrate sensor","Inspect belt"], type:string)
+)
+
+scheduleForm = Form("schedule-maintenance", scheduleButtons,
+  machineField,
+  dateField
+)
+
+machineField = FormControl("Machine", Select("machine", 
+  SelectItem("M-101","M-101"),
+  SelectItem("M-202","M-202"),
+  SelectItem("M-303","M-303"),
+  placeholder:"Select machine"
+))
+
+dateField = FormControl("Date", Input("date", "YYYY-MM-DD", , type:text, rules:[]), "Planned maintenance date")
+
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+
+focusLineButtons = Buttons(
+  Button("Focus Line A", primary),
+  Button("Focus Line B", primary),
+  Button("Focus Line C", primary),
+  direction:row
+)
+
+andonAlerts = Card(
+  Callout(error, "Andon Alert", "Line B stopped due to jam"),
+  Callout(error, "Andon Alert", "Line C low speed")
+)
+
+exportButtons = Buttons(Button("Export Shift Report", primary))

@@ -1,0 +1,47 @@
+root = Card(headerCard, renewalAlert, metricsRow, mainTabs, actionRow, gap:m)
+headerCard = Card(accountHeader, Card(quickMeta, wrap, direction:row, gap:m, align:center, variant:clear), variant:sunk, gap:s)
+accountHeader = CardHeader("Acme Corporation", "Enterprise Tier • Tier 1 Strategic Account")
+quickMeta = TagBlock(tags:["Owner: Sarah Jenkins (Senior AE)", "Region: North America", "Health: Good"])
+renewalAlert = Alert("Renewal Date: Nov 15, 2024 (18 Days Remaining)", "Annual Enterprise Contract expires soon. Renewal negotiations should be initiated immediately.", warning)
+metricsRow = Card(metric1, metric2, metric3, direction:row, gap:m, wrap, variant:clear)
+metric1 = Card(Heading("Total Deal Value", h4), TextContent("### $240,000 ARR", size:large-heavy), Tag("Expansion: +$45k", success), sunk)
+metric2 = Card(Heading("Current Deal Stage", h4), TextContent("### Stage 4: Proposal / Negotiation", size:large-heavy), Progress(75, "75% to Close"), sunk)
+metric3 = Card(Heading("Contract Renewal", h4), TextContent("### Nov 15, 2024", size:large-heavy), Badge("Action Required", destructive), sunk)
+mainTabs = Tabs(activityTab, contactsTab, followupsTab)
+activityTab = TabItem("activity", "Recent Activity", activityList)
+activityList = ListBlock(act1, act2, act3, act4)
+act1 = ListItem("Product Demo & Security Review", "Today at 2:15 PM • Sarah Jenkins & Tech Lead (Marcus Vance) • Shared SOC2 report and pricing tiers", "Completed")
+act2 = ListItem("Inbound Email: Contract Terms", "Yesterday at 4:30 PM • From: Elena Rostova (VP Procurement) • Inquired about SLA uptime guarantees", "Email")
+act3 = ListItem("Executive Alignment Call", "Oct 24, 2024 • Sarah Jenkins & David Sterling (CEO) • Discussed multi-year discount structure", "Call")
+act4 = ListItem("Discovery Call", "Oct 18, 2024 • Initial qualification call covering migration timeline and seat requirements", "Call")
+contactsTab = TabItem("contacts", "Contacts & Stakeholders", contactsTable)
+contactsTable = Table(contactData)
+contactData = |Name|Role|Email|Phone|Influence
+|David Sterling|Chief Executive Officer (CEO)|david@acme.com|+1 (555) 234-5678|Economic Buyer
+|Elena Rostova|VP of Procurement|elena.r@acme.com|+1 (555) 345-6789|Decision Maker
+|Marcus Vance|Head of Infrastructure|m.vance@acme.com|+1 (555) 456-7890|Technical Evaluator
+|Rachel Kim|Director of Operations|rachel.k@acme.com|+1 (555) 567-8901|Champion
+followupsTab = TabItem("followups", "Open Follow-ups", followupsTable)
+followupsTable = Table(taskData)
+taskData = |Task / Action Item|Assigned To|Due Date|Priority|Status
+|Send updated MSA with redline revisions|Sarah Jenkins|Tomorrow (Oct 29)|High|Pending
+|Deliver custom SLA guarantee document|Marcus Vance|Oct 31, 2024|Medium|In Progress
+|Schedule Final Security Sign-off|Sarah Jenkins|Nov 02, 2024|High|Not Started
+|Prepare Renewal & Expansion Order Form|Sarah Jenkins|Nov 05, 2024|Critical|Not Started
+actionRow = Card(Heading("Quick Actions & Account Updates", h3), Card(callModal, noteModal, direction:row, gap:m, variant:clear), sunk, gap:s)
+callModal = DialogBlock("Log a Call", "Log Customer Call", callForm, description:"Record details from your latest conversation with Acme Corp.", triggerVariant:default)
+callForm = Form("log-call-form", callButtons, callContactField, callTypeField, callOutcomeField, callNotesField)
+callContactField = FormControl("Contact", callContactSelect)
+callContactSelect = Select("contact_select", SelectItem("david", "David Sterling (CEO)"), SelectItem("elena", "Elena Rostova (VP Procurement)"), SelectItem("marcus", "Marcus Vance (Head of Infra)"), SelectItem("rachel", "Rachel Kim (Dir Ops)"), placeholder:"Select contact")
+callTypeField = FormControl("Call Type", callTypeRadio)
+callTypeRadio = RadioGroup("call_type", RadioItem("Outbound", "Cold or scheduled outreach", "outbound"), RadioItem("Inbound", "Customer initiated", "inbound"), RadioItem("Discovery / Demo", "Solution presentation", "demo"))
+callOutcomeField = FormControl("Outcome", callOutcomeSelect)
+callOutcomeSelect = Select("call_outcome", SelectItem("connected", "Connected / Productive"), SelectItem("left_vm", "Left Voicemail"), SelectItem("rescheduled", "Meeting Rescheduled"), SelectItem("gatekeeper", "Reached Gatekeeper"), placeholder:"Select outcome")
+callNotesField = FormControl("Call Summary & Key Takeaways", TextArea("call_notes", "Discussed terms, next steps agreed...", rows:3))
+callButtons = Buttons(Button("Save Call Log", primary), Button("Cancel", tertiary))
+noteModal = DialogBlock("Jot a Note", "Add Quick Account Note", noteForm, description:"Save internal notes, context, or insights for this account.", triggerVariant:outline)
+noteForm = Form("quick-note-form", noteButtons, noteCategoryField, noteContentField)
+noteCategoryField = FormControl("Note Category", noteCategorySelect)
+noteCategorySelect = Select("note_category", SelectItem("general", "General Context"), SelectItem("pricing", "Pricing & Commercials"), SelectItem("risk", "Deal Risk / Blocker"), SelectItem("competitor", "Competitor Intel"), placeholder:"Select category")
+noteContentField = FormControl("Note Details", TextArea("note_text", "Jot down details, executive preferences, or blockers...", rows:4))
+noteButtons = Buttons(Button("Save Note", primary), Button("Cancel", tertiary))

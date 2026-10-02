@@ -1,0 +1,35 @@
+root = Card(salesSection, trafficSection, bestSellersSection, outOfStockSection, shiftSection, basketSizeSection, returnsSection, promotionsSection, registersSection, reorderSection, storeSwitchSection, comparisonSection)
+
+salesSection = Card(Heading("Sales Today vs Target", h3), HorizontalBarChart(labels:["Today","Target"], Series("Sales", values:[1200,1500]), variant:grouped, xLabel:"Amount ($)", yLabel:"Category"))
+
+trafficSection = Card(Heading("Foot Traffic Throughout the Day", h3), LineChart(labels:["8am","10am","12pm","2pm","4pm","6pm","8pm"], Series("Visitors", values:[30,80,150,200,180,120,60]), variant:linear, xLabel:"Time", yLabel:"Visitors"))
+
+bestSellersSection = Card(Heading("Best Sellers (Units Sold)", h3), Table(Col("Item", data:["Shirt","Jeans","Sneakers"], type:string), Col("Units", data:[45,38,27], type:number)))
+
+outOfStockSection = Card(Heading("Out of Stock Items", h3), Table(Col("Item", data:["Hat","Socks","Belt"], type:string), Col("Restock ETA", data:["2 days","5 days","1 day"], type:string)))
+
+shiftSection = Card(Heading("Staff on Shift Today", h3), ListBlock(ListItem("Alice Johnson","Cashier"), ListItem("Bob Smith","Floor Manager"), ListItem("Cara Lee","Sales Associate"), variant:number))
+
+basketSizeSection = Card(Heading("Average Basket Size", h3), TextContent("Average basket size is $45.20", size:large))
+
+returnsSection = Card(Heading("Returns This Week", h3), BarChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("Returns", values:[5,3,4,2,6,1,0]), variant:grouped, xLabel:"Day", yLabel:"Count"))
+
+promotionsSection = Card(Heading("Running Promotions Performance", h3), Table(Col("Promotion", data:["10% Off Shoes","Buy 1 Get 1 Free T-Shirts"], type:string), Col("Units Sold", data:[120,85], type:number), Col("Revenue", data:["$12,000","$8,500"], type:string)))
+
+registersSection = Card(Heading("Register Status", h3), Table(Col("Register", data:["Reg 1","Reg 2","Reg 3","Reg 4"], type:string), Col("Open", data:["Yes","No","Yes","No"], type:string)))
+
+reorderSection = Card(Heading("Reorder Item", h3), Form("reorder-form", reorderButtons, reorderItemField, reorderQtyField))
+
+reorderItemField = FormControl("Item SKU", Input("sku", placeholder:"Enter SKU"))
+
+reorderQtyField = FormControl("Quantity", Input("qty", placeholder:"Enter quantity", type:number))
+
+reorderButtons = Buttons(Button("Submit Reorder", primary), Button("Cancel", tertiary))
+
+storeSwitchSection = Card(Heading("Switch Store", h3), Form("store-switch", storeSwitchButtons, storeSelectField))
+
+storeSelectField = FormControl("Store", Select("store", SelectItem("001","Downtown"), SelectItem("002","Uptown"), SelectItem("003","Suburb"), placeholder:"Select store", value:"001"))
+
+storeSwitchButtons = Buttons(Button("Switch", primary))
+
+comparisonSection = Card(Heading("This Week vs Last Week", h3), BarChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("This Week", values:[1200,1300,1250,1400,1500,1600,1550]), Series("Last Week", values:[1100,1150,1200,1300,1350,1450,1500]), variant:grouped, xLabel:"Day", yLabel:"Sales ($)"))

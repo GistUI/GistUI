@@ -1,0 +1,58 @@
+root = Card(CardHeader("Hub Operations Desk", "Operations at selected hub"), hubSelect, onTimeCard, flightsSection, delayedCallout, gateChangesSection, crewsSection, weatherSection, loadCard, connectionsSection, rebookForm, cancellationsSection, turnaroundCard, sunk)
+
+onTimeCard = Card(TextContent("On‑time performance today: 92%", large))
+
+hubSelect = Select("hub_select", SelectItem("JFK","JFK"), SelectItem("LAX","LAX"), SelectItem("ORD","ORD"), placeholder:"Select hub")
+
+flightsSection = Card(Heading("Flights", h3), flightsTable)
+
+flightsTable = |Number|Route|Gate|Status
+|AA101|NYC‑LAX|A12|On Time
+|BA202|LHR‑ORD|B5|Delayed
+|DL303|ATL‑SFO|C3|On Time
+|UA404|ORD‑MIA|D2|Cancelled
+
+delayedCallout = Callout(warning, "Delayed Flights", "2 flights delayed: BA202, DL303")
+
+gateChangesSection = Card(Heading("Recent Gate Changes", h3), gateChangesTable)
+
+gateChangesTable = |Flight|Old Gate|New Gate|Time
+|UA404|C3|C7|10:15
+|DL303|D1|D4|11:05
+
+crewsSection = Card(Heading("Crews Available for Reassignment", h3), crewsTable)
+
+crewsTable = |Crew ID|Available Since|Location
+|C001|08:30|Hub
+|C002|09:15|Hub
+|C003|07:45|Hub
+
+weatherSection = Card(Heading("Weather Advisories", h3), weatherTable)
+
+weatherTable = |Advisory|Detail
+|Thunderstorms|Low visibility, possible delays
+|Wind|Gusts up to 30 kt
+
+loadCard = Card(TextContent("Average passenger load today: 78 %", large))
+
+connectionsSection = Card(Heading("Connections at Risk", h3), connectionsRiskTable)
+
+connectionsRiskTable = |Connection|Risk Reason
+|NYC‑LAX|Late arrival of inbound flight
+|ORD‑MIA|Tight transfer window
+
+rebookForm = Form("rebook", rebookButtons, passengerField, flightField)
+
+passengerField = FormControl("Passenger name", Input("passenger", "Enter name"))
+
+flightField = FormControl("New flight", Input("flight", "Enter flight number"))
+
+rebookButtons = Buttons(Button("Rebook", primary))
+
+cancellationsSection = Card(Heading("Cancellations Today", h3), cancellationsTable)
+
+cancellationsTable = |Flight|Reason|Time
+|AA101|Mechanical issue|09:00
+|BA202|Crew shortage|10:30
+
+turnaroundCard = Card(TextContent("Average turnaround time: 42 min", large))

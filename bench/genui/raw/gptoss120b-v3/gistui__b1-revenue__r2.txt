@@ -1,0 +1,6 @@
+root = Card(header, summary, revTable, clear)
+header = CardHeader("Today's Revenue", "Mid‑morning check")
+summary = TextContent("**Revenue so far today:** $5,200\n**Compared to same time yesterday:** $4,800 (up 8%)", size:default)
+revTable = Table(periodCol, revenueCol)
+periodCol = Col("Period", data:["Today","Yesterday"], type:string)
+revenueCol = Col("Revenue", data:["$5,200","$4,800"], type:string)

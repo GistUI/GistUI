@@ -1,0 +1,47 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Row"
+      },
+      {
+        "type": "Row"
+      },
+      {
+        "type": "Callout",
+        "props": {
+          "content": "x",
+          "tone": "info"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "invalid-enum",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "invalid-enum",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "invalid-enum",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": true
+  }
+}

@@ -1,0 +1,3345 @@
+/*
+ * GistUI design system. One stylesheet for every framework: templates render the same classes
+ * (`gistui-*`), Zag.js parts (`data-part`, `data-state`) and `data-gistui="<Component>"` hooks.
+ * Everything lives in `@layer gistui`, so any unlayered user CSS wins without !important.
+ *
+ * Customising, from least to most control:
+ *   1. Tokens: set any `--gistui-*` variable on `.gistui` (or pass `theme` tokens to <GistUI>).
+ *   2. Presets: `data-gistui-color` (theme), `data-gistui-radius`, `data-gistui-density`.
+ *   3. Hooks: every component has `data-gistui="Name"` and variant attributes (`data-v`, `data-tone`).
+ */
+
+/*
+ * Layer order, so GistUI works with Tailwind (v4) and shadcn/ui: above Tailwind's reset (`base`),
+ * below its utilities, so utility classes passed through `classNames` still win. Import GistUI's
+ * stylesheet before your Tailwind CSS (the first declaration of a layer fixes its place). Without
+ * Tailwind these are empty layers and change nothing.
+ */
+@layer theme, base, gistui, components, utilities;
+
+@layer gistui {
+  /* ─── Tokens ─────────────────────────────────────────────────────────── */
+
+  .gistui {
+    /* Type */
+    --gistui-font: "Inter", "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --gistui-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --gistui-text-xs: 12.5px;
+    --gistui-text-sm: 14px;
+    --gistui-text-md: 15px;
+    --gistui-text-lg: 17px;
+    --gistui-text-xl: 20px;
+    --gistui-text-2xl: 24px;
+    --gistui-text-3xl: 30px;
+    --gistui-leading: 1.55;
+    --gistui-tracking-tight: -0.011em;
+    --gistui-tracking-tighter: -0.022em;
+
+    /* Space: one scale, multiplied by density */
+    --gistui-density: 1;
+    --gistui-space-none: 0px;
+    --gistui-space-xs: calc(4px * var(--gistui-density));
+    --gistui-space-sm: calc(8px * var(--gistui-density));
+    --gistui-space-md: calc(12px * var(--gistui-density));
+    --gistui-space-lg: calc(24px * var(--gistui-density));
+    --gistui-space-xl: calc(32px * var(--gistui-density));
+    --gistui-pad: calc(20px * var(--gistui-density));
+
+    /* Shape: one scale, multiplied by the radius factor */
+    --gistui-rounding: 1;
+    --gistui-radius-xs: calc(4px * var(--gistui-rounding));
+    --gistui-radius-sm: calc(7px * var(--gistui-rounding));
+    --gistui-radius-md: calc(10px * var(--gistui-rounding));
+    --gistui-radius-lg: calc(16px * var(--gistui-rounding));
+    --gistui-radius-xl: calc(20px * var(--gistui-rounding));
+    --gistui-radius-full: 999px;
+
+    /* Neutrals */
+    --gistui-bg: #ffffff;
+    --gistui-surface: #ffffff;
+    --gistui-surface-sunk: #f7f7f8;
+    --gistui-surface-hover: #f1f1f3;
+    --gistui-surface-active: #eaeaed;
+    --gistui-surface-overlay: rgb(255 255 255 / 0.86);
+    --gistui-canvas: #ebecef;
+    --gistui-fg: #0b0b0d;
+    --gistui-fg-muted: #5c5d66;
+    --gistui-fg-subtle: #8c8d96;
+    --gistui-border: rgb(12 12 20 / 0.07);
+    --gistui-border-strong: rgb(12 12 20 / 0.13);
+    --gistui-grid: rgb(12 12 20 / 0.06);
+
+    /* Primary action (ink) and accent (links, focus, selection) */
+    --gistui-primary: #16161a;
+    --gistui-primary-hover: #2b2b31;
+    --gistui-primary-fg: #ffffff;
+    --gistui-accent: #2a78d6;
+    --gistui-accent-hover: #1f63b8;
+    --gistui-accent-fg: #ffffff;
+    --gistui-accent-soft: color-mix(in srgb, var(--gistui-accent) 10%, var(--gistui-surface));
+    --gistui-focus: 0 0 0 3px color-mix(in srgb, var(--gistui-accent) 24%, transparent);
+
+    /* Elevation: a hairline ring plus soft layered shadows */
+    --gistui-ring: 0 0 0 1px var(--gistui-border);
+    --gistui-shadow-xs: 0 1px 2px rgb(16 16 24 / 0.03);
+    --gistui-shadow-sm: 0 1px 2px rgb(16 16 24 / 0.03), 0 1px 3px rgb(16 16 24 / 0.02);
+    --gistui-shadow-md: 0 1px 2px rgb(16 16 24 / 0.04), 0 8px 24px -6px rgb(16 16 24 / 0.12);
+    --gistui-shadow-lg: 0 2px 4px rgb(16 16 24 / 0.04), 0 18px 48px -12px rgb(16 16 24 / 0.22);
+
+    /* Status (text-safe steps) */
+    --gistui-info: #1f63b8;
+    --gistui-success: #16794a;
+    --gistui-warning: #a35a00;
+    --gistui-danger: #c93636;
+    /* Text on a danger fill (white fails contrast on the lighter dark-theme red). */
+    --gistui-danger-fg: #ffffff;
+    --gistui-neutral: #54555e;
+    --gistui-info-soft: #edf4fd;
+    --gistui-success-soft: #eaf6ef;
+    --gistui-warning-soft: #fdf4e4;
+    --gistui-danger-soft: #fdeeee;
+    --gistui-neutral-soft: #f2f2f4;
+
+    /*
+     * Categorical chart palette: soft, even in lightness, in a fixed order. Checked for
+     * colour-vision deficiency (adjacent pairs under protan and deutan), a lightness band, a chroma
+     * floor and 3:1 against the surface. Re-check after changing a value or the order.
+     */
+    --gistui-chart-1: #3b74d9;
+    --gistui-chart-2: #e06a3b;
+    --gistui-chart-3: #1a9c80;
+    --gistui-chart-4: #6f5bd6;
+    --gistui-chart-5: #c27d00;
+    --gistui-chart-6: #d6588e;
+    --gistui-chart-7: #1787b8;
+    --gistui-chart-8: #d14b4b;
+
+    /* Motion: quick ease-out for things entering, a gentle in-out for things that move */
+    --gistui-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --gistui-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --gistui-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --gistui-ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
+    /* Panels that slide in from an edge: fast at first, a long soft landing, never past the end. */
+    --gistui-ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+    --gistui-duration-fast: 120ms;
+    --gistui-duration: 180ms;
+    --gistui-duration-slow: 280ms;
+    --gistui-duration-slower: 560ms;
+
+    color-scheme: light;
+    container: gistui / inline-size;
+    /* Positioned, so visually hidden inputs and overlays stay inside GistUI and never grow the page. */
+    position: relative;
+    /* Its own stacking context: no z-index inside can rise above the host page. */
+    isolation: isolate;
+    min-width: 0;
+    overflow-wrap: break-word;
+    background: var(--gistui-bg);
+    color: var(--gistui-fg);
+    font-family: var(--gistui-font);
+    font-size: var(--gistui-text-md);
+    line-height: var(--gistui-leading);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  .gistui[data-gistui-theme="dark"] {
+    --gistui-bg: #141414;
+    --gistui-surface: #1b1b1b;
+    --gistui-surface-sunk: #222222;
+    --gistui-surface-hover: #282828;
+    --gistui-surface-active: #303030;
+    --gistui-surface-overlay: rgb(32 32 32 / 0.9);
+    --gistui-canvas: #0f0f0f;
+    --gistui-fg: #f5f5f5;
+    --gistui-fg-muted: #a3a3a3;
+    --gistui-fg-subtle: #787878;
+    --gistui-border: rgb(255 255 255 / 0.065);
+    --gistui-border-strong: rgb(255 255 255 / 0.12);
+    --gistui-grid: rgb(255 255 255 / 0.06);
+    --gistui-primary: #f5f5f5;
+    --gistui-primary-hover: #dcdcdc;
+    --gistui-primary-fg: #141414;
+    --gistui-accent: #3987e5;
+    --gistui-accent-hover: #5c9ded;
+    --gistui-accent-fg: #0b0b0d;
+    --gistui-shadow-xs: 0 0 #0000;
+    --gistui-shadow-sm: 0 0 #0000;
+    --gistui-shadow-md: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 28px -6px rgb(0 0 0 / 0.55);
+    --gistui-shadow-lg: 0 2px 4px rgb(0 0 0 / 0.3), 0 20px 52px -12px rgb(0 0 0 / 0.7);
+    --gistui-info: #6aa8f0;
+    --gistui-success: #4cc285;
+    --gistui-warning: #e8a93e;
+    --gistui-danger: #f07575;
+    --gistui-danger-fg: #0b0b0d;
+    --gistui-neutral: #a3a3a3;
+    --gistui-info-soft: #14233a;
+    --gistui-success-soft: #12271c;
+    --gistui-warning-soft: #2a200e;
+    --gistui-danger-soft: #2e1516;
+    --gistui-neutral-soft: #262626;
+    --gistui-chart-1: #5a8ee6;
+    --gistui-chart-2: #d26f48;
+    --gistui-chart-3: #2fa58c;
+    --gistui-chart-4: #8a7ae6;
+    --gistui-chart-5: #b88a2e;
+    --gistui-chart-6: #d06f9e;
+    --gistui-chart-7: #2e9fc9;
+    --gistui-chart-8: #cf6666;
+    color-scheme: dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .gistui[data-gistui-theme="system"] {
+      --gistui-bg: #141414;
+      --gistui-surface: #1b1b1b;
+      --gistui-surface-sunk: #222222;
+      --gistui-surface-hover: #282828;
+      --gistui-surface-active: #303030;
+      --gistui-surface-overlay: rgb(32 32 32 / 0.9);
+      --gistui-canvas: #0f0f0f;
+      --gistui-fg: #f5f5f5;
+      --gistui-fg-muted: #a3a3a3;
+      --gistui-fg-subtle: #787878;
+      --gistui-border: rgb(255 255 255 / 0.065);
+      --gistui-border-strong: rgb(255 255 255 / 0.12);
+      --gistui-grid: rgb(255 255 255 / 0.06);
+      --gistui-primary: #f5f5f5;
+      --gistui-primary-hover: #dcdcdc;
+      --gistui-primary-fg: #141414;
+      --gistui-accent: #3987e5;
+      --gistui-accent-hover: #5c9ded;
+      --gistui-accent-fg: #0b0b0d;
+      --gistui-shadow-xs: 0 0 #0000;
+      --gistui-shadow-sm: 0 0 #0000;
+      --gistui-shadow-md: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 28px -6px rgb(0 0 0 / 0.55);
+      --gistui-shadow-lg: 0 2px 4px rgb(0 0 0 / 0.3), 0 20px 52px -12px rgb(0 0 0 / 0.7);
+      --gistui-info: #6aa8f0;
+      --gistui-success: #4cc285;
+      --gistui-warning: #e8a93e;
+      --gistui-danger: #f07575;
+      --gistui-danger-fg: #0b0b0d;
+      --gistui-neutral: #a3a3a3;
+      --gistui-info-soft: #14233a;
+      --gistui-success-soft: #12271c;
+      --gistui-warning-soft: #2a200e;
+      --gistui-danger-soft: #2e1516;
+      --gistui-neutral-soft: #262626;
+      --gistui-chart-1: #5a8ee6;
+      --gistui-chart-2: #d26f48;
+      --gistui-chart-3: #2fa58c;
+      --gistui-chart-4: #8a7ae6;
+      --gistui-chart-5: #b88a2e;
+      --gistui-chart-6: #d06f9e;
+      --gistui-chart-7: #2e9fc9;
+      --gistui-chart-8: #cf6666;
+      color-scheme: dark;
+    }
+  }
+
+  /*
+   * Colour themes (like shadcn/ui): `data-gistui-color` on the root or on any section.
+   * Neutral themes tint the greys; colour themes set the primary action, focus ring and first chart colour.
+   */
+  /* Neutral tints (`neutral` and `zinc` are the default greys), on the root or on a section. */
+  .gistui:not([data-gistui-theme="dark"]) [data-gistui-color="slate"], .gistui[data-gistui-color="slate"]:not([data-gistui-theme="dark"]) { --gistui-surface-sunk: #f6f8fa; --gistui-surface-hover: #eef2f6; --gistui-fg: #0b1220; --gistui-fg-muted: #526077; --gistui-primary: #0f172a; --gistui-primary-hover: #1e293b; --gistui-border: rgb(15 23 42 / 0.09); --gistui-border-strong: rgb(15 23 42 / 0.16); }
+  .gistui:not([data-gistui-theme="dark"]) [data-gistui-color="stone"], .gistui[data-gistui-color="stone"]:not([data-gistui-theme="dark"]) { --gistui-surface-sunk: #f8f7f5; --gistui-surface-hover: #f2f0ed; --gistui-fg: #0e0c0a; --gistui-fg-muted: #5f5a54; --gistui-primary: #1c1917; --gistui-primary-hover: #292524; --gistui-border: rgb(28 25 23 / 0.09); --gistui-border-strong: rgb(28 25 23 / 0.16); }
+  [data-gistui-color="rose"] { --gistui-accent-fg: #fff; --gistui-primary: #e11d48; --gistui-primary-hover: #be123c; --gistui-primary-fg: #fff; --gistui-accent: #e11d48; --gistui-accent-hover: #be123c; --gistui-chart-1: #e11d48; }
+  [data-gistui-color="pink"] { --gistui-accent-fg: #fff; --gistui-primary: #db2777; --gistui-primary-hover: #be185d; --gistui-primary-fg: #fff; --gistui-accent: #db2777; --gistui-accent-hover: #be185d; --gistui-chart-1: #db2777; }
+  [data-gistui-color="violet"] { --gistui-accent-fg: #fff; --gistui-primary: #7c3aed; --gistui-primary-hover: #6d28d9; --gistui-primary-fg: #fff; --gistui-accent: #7c3aed; --gistui-accent-hover: #6d28d9; --gistui-chart-1: #7c3aed; }
+  [data-gistui-color="indigo"] { --gistui-accent-fg: #fff; --gistui-primary: #4f46e5; --gistui-primary-hover: #4338ca; --gistui-primary-fg: #fff; --gistui-accent: #4f46e5; --gistui-accent-hover: #4338ca; --gistui-chart-1: #4f46e5; }
+  [data-gistui-color="blue"] { --gistui-accent-fg: #fff; --gistui-primary: #2563eb; --gistui-primary-hover: #1d4ed8; --gistui-primary-fg: #fff; --gistui-accent: #2563eb; --gistui-accent-hover: #1d4ed8; --gistui-chart-1: #2563eb; }
+  [data-gistui-color="teal"] { --gistui-accent-fg: #fff; --gistui-primary: #0f766e; --gistui-primary-hover: #115e59; --gistui-primary-fg: #fff; --gistui-accent: #0f766e; --gistui-accent-hover: #115e59; --gistui-chart-1: #0d9488; }
+  [data-gistui-color="green"] { --gistui-accent-fg: #fff; --gistui-primary: #15803d; --gistui-primary-hover: #166534; --gistui-primary-fg: #fff; --gistui-accent: #15803d; --gistui-accent-hover: #166534; --gistui-chart-1: #16a34a; }
+  [data-gistui-color="orange"] { --gistui-accent-fg: #fff; --gistui-primary: #c2410c; --gistui-primary-hover: #9a3412; --gistui-primary-fg: #fff; --gistui-accent: #c2410c; --gistui-accent-hover: #9a3412; --gistui-chart-1: #ea580c; }
+  [data-gistui-color="amber"] { --gistui-accent-fg: #fff; --gistui-primary: #f59e0b; --gistui-primary-hover: #fbbf24; --gistui-primary-fg: #1c1917; --gistui-accent: #b45309; --gistui-accent-hover: #92400e; --gistui-chart-1: #f59e0b; }
+  [data-gistui-color="red"] { --gistui-accent-fg: #fff; --gistui-primary: #dc2626; --gistui-primary-hover: #b91c1c; --gistui-primary-fg: #fff; --gistui-accent: #dc2626; --gistui-accent-hover: #b91c1c; --gistui-chart-1: #dc2626; }
+
+  /* Dark steps of the same themes. */
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="slate"], .gistui[data-gistui-theme="dark"][data-gistui-color="slate"] { --gistui-bg: #0a0f1a; --gistui-surface: #0f1624; --gistui-surface-sunk: #141c2c; --gistui-surface-hover: #1a2334; --gistui-fg: #f1f5f9; --gistui-fg-muted: #94a3b8; --gistui-primary: #f1f5f9; --gistui-primary-hover: #cbd5e1; --gistui-border: rgb(148 163 184 / 0.12); --gistui-border-strong: rgb(148 163 184 / 0.2); }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="stone"], .gistui[data-gistui-theme="dark"][data-gistui-color="stone"] { --gistui-bg: #0f0d0c; --gistui-surface: #171412; --gistui-surface-sunk: #1d1a17; --gistui-surface-hover: #24201d; --gistui-fg: #f5f5f4; --gistui-fg-muted: #a8a29e; --gistui-primary: #f5f5f4; --gistui-primary-hover: #d6d3d1; --gistui-border: rgb(245 245 244 / 0.09); --gistui-border-strong: rgb(245 245 244 / 0.16); }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="rose"], .gistui[data-gistui-theme="dark"][data-gistui-color="rose"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #f43f5e; --gistui-primary-hover: #fb7185; --gistui-primary-fg: #0b0b0d; --gistui-accent: #fb7185; --gistui-chart-1: #f43f5e; }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="pink"], .gistui[data-gistui-theme="dark"][data-gistui-color="pink"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #ec4899; --gistui-primary-hover: #f472b6; --gistui-primary-fg: #0b0b0d; --gistui-accent: #f472b6; --gistui-chart-1: #ec4899; }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="violet"], .gistui[data-gistui-theme="dark"][data-gistui-color="violet"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #8b5cf6; --gistui-primary-hover: #a78bfa; --gistui-primary-fg: #0b0b0d; --gistui-accent: #a78bfa; --gistui-chart-1: #8b5cf6; }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="indigo"], .gistui[data-gistui-theme="dark"][data-gistui-color="indigo"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #6366f1; --gistui-primary-hover: #818cf8; --gistui-primary-fg: #0b0b0d; --gistui-accent: #818cf8; --gistui-chart-1: #6366f1; }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="blue"], .gistui[data-gistui-theme="dark"][data-gistui-color="blue"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #3b82f6; --gistui-primary-hover: #60a5fa; --gistui-primary-fg: #0b0b0d; --gistui-accent: #60a5fa; --gistui-chart-1: #3b82f6; }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="teal"], .gistui[data-gistui-theme="dark"][data-gistui-color="teal"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #14b8a6; --gistui-primary-hover: #2dd4bf; --gistui-primary-fg: #04201d; --gistui-accent: #2dd4bf; --gistui-chart-1: #14b8a6; }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="green"], .gistui[data-gistui-theme="dark"][data-gistui-color="green"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #22c55e; --gistui-primary-hover: #4ade80; --gistui-primary-fg: #052e14; --gistui-accent: #4ade80; --gistui-chart-1: #22c55e; }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="orange"], .gistui[data-gistui-theme="dark"][data-gistui-color="orange"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #f97316; --gistui-primary-hover: #fb923c; --gistui-primary-fg: #0b0b0d; --gistui-accent: #fb923c; --gistui-chart-1: #f97316; }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="amber"], .gistui[data-gistui-theme="dark"][data-gistui-color="amber"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #fbbf24; --gistui-primary-hover: #fcd34d; --gistui-primary-fg: #1c1917; --gistui-accent: #fbbf24; --gistui-chart-1: #f59e0b; }
+  .gistui[data-gistui-theme="dark"] [data-gistui-color="red"], .gistui[data-gistui-theme="dark"][data-gistui-color="red"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #ef4444; --gistui-primary-hover: #f87171; --gistui-primary-fg: #0b0b0d; --gistui-accent: #f87171; --gistui-chart-1: #ef4444; }
+  @media (prefers-color-scheme: dark) {
+    .gistui[data-gistui-theme="system"] [data-gistui-color="slate"], .gistui[data-gistui-theme="system"][data-gistui-color="slate"] { --gistui-bg: #0a0f1a; --gistui-surface: #0f1624; --gistui-surface-sunk: #141c2c; --gistui-surface-hover: #1a2334; --gistui-fg: #f1f5f9; --gistui-fg-muted: #94a3b8; --gistui-primary: #f1f5f9; --gistui-primary-hover: #cbd5e1; --gistui-border: rgb(148 163 184 / 0.12); --gistui-border-strong: rgb(148 163 184 / 0.2); }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="stone"], .gistui[data-gistui-theme="system"][data-gistui-color="stone"] { --gistui-bg: #0f0d0c; --gistui-surface: #171412; --gistui-surface-sunk: #1d1a17; --gistui-surface-hover: #24201d; --gistui-fg: #f5f5f4; --gistui-fg-muted: #a8a29e; --gistui-primary: #f5f5f4; --gistui-primary-hover: #d6d3d1; --gistui-border: rgb(245 245 244 / 0.09); --gistui-border-strong: rgb(245 245 244 / 0.16); }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="rose"], .gistui[data-gistui-theme="system"][data-gistui-color="rose"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #f43f5e; --gistui-primary-hover: #fb7185; --gistui-primary-fg: #0b0b0d; --gistui-accent: #fb7185; --gistui-chart-1: #f43f5e; }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="pink"], .gistui[data-gistui-theme="system"][data-gistui-color="pink"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #ec4899; --gistui-primary-hover: #f472b6; --gistui-primary-fg: #0b0b0d; --gistui-accent: #f472b6; --gistui-chart-1: #ec4899; }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="violet"], .gistui[data-gistui-theme="system"][data-gistui-color="violet"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #8b5cf6; --gistui-primary-hover: #a78bfa; --gistui-primary-fg: #0b0b0d; --gistui-accent: #a78bfa; --gistui-chart-1: #8b5cf6; }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="indigo"], .gistui[data-gistui-theme="system"][data-gistui-color="indigo"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #6366f1; --gistui-primary-hover: #818cf8; --gistui-primary-fg: #0b0b0d; --gistui-accent: #818cf8; --gistui-chart-1: #6366f1; }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="blue"], .gistui[data-gistui-theme="system"][data-gistui-color="blue"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #3b82f6; --gistui-primary-hover: #60a5fa; --gistui-primary-fg: #0b0b0d; --gistui-accent: #60a5fa; --gistui-chart-1: #3b82f6; }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="teal"], .gistui[data-gistui-theme="system"][data-gistui-color="teal"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #14b8a6; --gistui-primary-hover: #2dd4bf; --gistui-primary-fg: #04201d; --gistui-accent: #2dd4bf; --gistui-chart-1: #14b8a6; }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="green"], .gistui[data-gistui-theme="system"][data-gistui-color="green"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #22c55e; --gistui-primary-hover: #4ade80; --gistui-primary-fg: #052e14; --gistui-accent: #4ade80; --gistui-chart-1: #22c55e; }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="orange"], .gistui[data-gistui-theme="system"][data-gistui-color="orange"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #f97316; --gistui-primary-hover: #fb923c; --gistui-primary-fg: #0b0b0d; --gistui-accent: #fb923c; --gistui-chart-1: #f97316; }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="amber"], .gistui[data-gistui-theme="system"][data-gistui-color="amber"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #fbbf24; --gistui-primary-hover: #fcd34d; --gistui-primary-fg: #1c1917; --gistui-accent: #fbbf24; --gistui-chart-1: #f59e0b; }
+    .gistui[data-gistui-theme="system"] [data-gistui-color="red"], .gistui[data-gistui-theme="system"][data-gistui-color="red"] { --gistui-accent-fg: #0b0b0d; --gistui-primary: #ef4444; --gistui-primary-hover: #f87171; --gistui-primary-fg: #0b0b0d; --gistui-accent: #f87171; --gistui-chart-1: #ef4444; }
+  }
+
+  /* Rounding and density presets. */
+  [data-gistui-radius="none"] { --gistui-rounding: 0; }
+  [data-gistui-radius="sm"] { --gistui-rounding: 0.55; }
+  [data-gistui-radius="md"] { --gistui-rounding: 1; }
+  [data-gistui-radius="lg"] { --gistui-rounding: 1.35; }
+  [data-gistui-radius="xl"] { --gistui-rounding: 1.75; }
+  [data-gistui-density="compact"] { --gistui-density: 0.75; }
+  [data-gistui-density="comfortable"] { --gistui-density: 1; }
+  [data-gistui-density="spacious"] { --gistui-density: 1.3; }
+
+  .gistui *,
+  .gistui *::before,
+  .gistui *::after {
+    box-sizing: border-box;
+  }
+
+  /*
+   * An element the design layer positions (`style:{pos:absolute, …}`) stays inside its parent: the
+   * parent is its containing block and clips it. A program cannot paint over the rest of the page.
+   */
+  .gistui :has(> [style*="position: absolute"]) {
+    position: relative;
+    overflow: clip;
+  }
+
+  /* The `hidden` attribute always wins over a component's display (inactive tab panels, closed items). */
+  .gistui [hidden] {
+    display: none !important;
+  }
+
+  .gistui :focus-visible {
+    /* Transparent normally; forced-colours mode (Windows high contrast) drops box-shadow and draws the outline. */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: var(--gistui-focus);
+  }
+
+  .gistui ::selection {
+    background: color-mix(in srgb, var(--gistui-accent) 22%, transparent);
+  }
+
+  .gistui-icon {
+    display: inline-block;
+    flex: none;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+  }
+
+  /* ─── Streaming entrance ─────────────────────────────────────────────── */
+
+  /* While a message streams, each part eases in as it arrives. Static renders do not animate. */
+  .gistui[aria-busy="true"] [data-gistui] {
+    animation: gistui-enter var(--gistui-duration-slow) var(--gistui-ease-out) backwards;
+  }
+  .gistui[aria-busy="true"] [data-gistui] [data-gistui] {
+    animation-name: gistui-fade;
+  }
+
+  @keyframes gistui-enter {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes gistui-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes gistui-pop-in {
+    from { opacity: 0; transform: translateY(-4px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes gistui-shimmer {
+    to { background-position: -200% 0; }
+  }
+  @keyframes gistui-blink {
+    0%, 45% { opacity: 1; }
+    55%, 100% { opacity: 0; }
+  }
+
+  /* ─── Layout ─────────────────────────────────────────────────────────── */
+
+  .gistui-page,
+  .gistui-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gistui-gap, var(--gistui-space-md));
+    min-width: 0;
+  }
+  .gistui-page {
+    --gistui-gap: var(--gistui-space-lg);
+  }
+  .gistui-page[data-width="narrow"] { max-width: 720px; margin-inline: auto; width: 100%; }
+  .gistui-page[data-width="wide"] { max-width: 1200px; margin-inline: auto; width: 100%; }
+
+  .gistui-row {
+    display: flex;
+    flex-direction: row;
+    gap: var(--gistui-gap, var(--gistui-space-md));
+    align-items: stretch;
+    min-width: 0;
+  }
+  .gistui-row > * {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  /* Tags, buttons and other content-sized items keep their size; cards and fields share the rest. */
+  .gistui-row > :is(.gistui-tag, .gistui-button, .gistui-buttons, .gistui-avatar, .gistui-checkbox, .gistui-switch, .gistui-icon, .gistui-icon-badge) {
+    flex: 0 0 auto;
+  }
+  .gistui-row[data-wrap] {
+    flex-wrap: wrap;
+  }
+  .gistui-row[data-wrap] > * {
+    flex: 1 1 260px;
+  }
+
+  /*
+   * Responsive by construction: `cols` columns when there is room, fewer as the space narrows (never
+   * narrower than --gistui-grid-min per item), one column on a phone. No breakpoints needed.
+   */
+  .gistui-grid {
+    --gistui-grid-min: 220px;
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(100%, max(var(--gistui-grid-min), calc((100% - (var(--gistui-cols, 3) - 1) * var(--gistui-gap, var(--gistui-space-md))) / var(--gistui-cols, 3)))), 1fr)
+    );
+    gap: var(--gistui-gap, var(--gistui-space-md));
+  }
+  .gistui-grid > [data-span] { grid-column: span min(var(--gistui-span, 1), var(--gistui-cols, 3)); }
+  /*
+   * A span wider than the columns that fit would add a column outside the grid. The grid is its own
+   * query container, so a nested grid (in a card, in a column) is measured by its own width.
+   */
+  .gistui-grid { container: gistui-grid / inline-size; }
+  .gistui-box[data-dir="row"] > .gistui-grid { flex: 1 1 0; min-width: 0; }
+  @container gistui-grid (max-width: 927px) {
+    .gistui-grid > [data-span] { grid-column: span min(var(--gistui-span, 1), var(--gistui-cols, 3), 3); }
+  }
+  @container gistui-grid (max-width: 691px) {
+    .gistui-grid > [data-span] { grid-column: span min(var(--gistui-span, 1), var(--gistui-cols, 3), 2); }
+  }
+  @container gistui-grid (max-width: 455px) {
+    .gistui-grid > [data-span] { grid-column: 1 / -1; }
+  }
+  .gistui-grid > [data-row-span] { grid-row: span var(--gistui-row-span, 1); }
+
+  /* Box: the free-form layout primitive. */
+  .gistui-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gistui-gap, var(--gistui-space-md));
+    min-width: 0;
+    border-radius: var(--gistui-radius-lg);
+  }
+  .gistui-box[data-dir="row"] { flex-direction: row; }
+  .gistui-box[data-dir="row"] > * { min-width: 0; }
+  .gistui-box[data-dir="row"][data-wrap] { flex-wrap: wrap; }
+  .gistui-box[data-grow] > * { flex: 1 1 0; }
+  .gistui-box[data-pad="none"] { padding: 0; }
+  .gistui-box[data-pad="sm"] { padding: var(--gistui-space-sm); }
+  .gistui-box[data-pad="md"] { padding: var(--gistui-space-md); }
+  .gistui-box[data-pad="lg"] { padding: var(--gistui-pad); }
+  .gistui-box[data-pad="xl"] { padding: var(--gistui-space-xl); }
+  .gistui-box[data-surface="card"] { background: var(--gistui-surface); box-shadow: var(--gistui-ring), var(--gistui-shadow-sm); }
+  .gistui-box[data-surface="sunk"] { background: var(--gistui-surface-sunk); }
+  .gistui-box[data-surface="tint"] { background: var(--gistui-accent-soft); }
+  .gistui-box[data-surface="outline"] { box-shadow: inset 0 0 0 1px var(--gistui-border); }
+  .gistui-box[data-surface="inverse"] { background: var(--gistui-primary); color: var(--gistui-primary-fg); --gistui-fg-muted: color-mix(in srgb, var(--gistui-primary-fg) 70%, transparent); }
+  .gistui-box[data-surface="accent"] { background: var(--gistui-accent); color: var(--gistui-accent-fg); --gistui-fg-muted: color-mix(in srgb, var(--gistui-accent-fg) 78%, transparent); }
+  /* Only when a program asks for surface:gradient; --gistui-surface-gradient restyles it. */
+  .gistui-box[data-surface="gradient"] {
+    background: var(
+      --gistui-surface-gradient,
+      radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--gistui-accent) 16%, transparent) 0%, transparent 55%),
+      radial-gradient(120% 140% at 100% 100%, color-mix(in srgb, var(--gistui-chart-5) 12%, transparent) 0%, transparent 55%),
+      var(--gistui-surface)
+    );
+    box-shadow: var(--gistui-ring);
+  }
+
+  .gistui-spacer { flex: 1 1 auto; }
+
+  /* Scoped to GistUI with `:where()`, which adds no specificity: a host page's own `data-gap` is left alone. */
+  :where(.gistui) [data-gap="none"] { --gistui-gap: var(--gistui-space-none); }
+  :where(.gistui) [data-gap="xs"] { --gistui-gap: var(--gistui-space-xs); }
+  :where(.gistui) [data-gap="sm"] { --gistui-gap: var(--gistui-space-sm); }
+  :where(.gistui) [data-gap="md"] { --gistui-gap: var(--gistui-space-md); }
+  :where(.gistui) [data-gap="lg"] { --gistui-gap: var(--gistui-space-lg); }
+  :where(.gistui) [data-gap="xl"] { --gistui-gap: var(--gistui-space-xl); }
+
+  :where(.gistui) [data-align="start"] { align-items: flex-start; }
+  :where(.gistui) [data-align="center"] { align-items: center; }
+  :where(.gistui) [data-align="end"] { align-items: flex-end; }
+  :where(.gistui) [data-align="stretch"] { align-items: stretch; }
+  :where(.gistui) [data-align="between"] { justify-content: space-between; align-items: center; }
+  /* In a column, `between` spreads the children top to bottom; they keep their full width. */
+  .gistui-stack[data-align="between"] { align-items: stretch; }
+  :where(.gistui) [data-justify="start"] { justify-content: flex-start; }
+  :where(.gistui) [data-justify="center"] { justify-content: center; }
+  :where(.gistui) [data-justify="end"] { justify-content: flex-end; }
+  :where(.gistui) [data-justify="between"] { justify-content: space-between; }
+  :where(.gistui) [data-justify="around"] { justify-content: space-around; }
+  :where(.gistui) [data-text-align="start"] { text-align: start; }
+  :where(.gistui) [data-text-align="center"] { text-align: center; }
+  :where(.gistui) [data-text-align="end"] { text-align: end; }
+
+  .gistui-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gistui-gap, var(--gistui-space-md));
+    padding: var(--gistui-pad);
+    background: var(--gistui-surface);
+    border-radius: var(--gistui-radius-lg);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-sm);
+    min-width: 0;
+    container-type: inline-size;
+  }
+  .gistui-card[data-v="sunk"] {
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+  }
+  .gistui-card[data-v="outline"] {
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+  }
+  .gistui-card[data-v="clear"] {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .gistui-header {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .gistui-header__eyebrow {
+    color: var(--gistui-fg-muted);
+    font-size: var(--gistui-text-xs);
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .gistui-header__title {
+    margin: 0;
+    font-size: var(--gistui-text-lg);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: var(--gistui-tracking-tight);
+    text-wrap: balance;
+  }
+  .gistui-page > .gistui-header .gistui-header__title,
+  .gistui-header[data-size="lg"] .gistui-header__title {
+    font-size: var(--gistui-text-2xl);
+    letter-spacing: var(--gistui-tracking-tighter);
+    line-height: 1.2;
+  }
+  .gistui-header[data-size="xl"] .gistui-header__title {
+    font-size: var(--gistui-text-3xl);
+    letter-spacing: var(--gistui-tracking-tighter);
+    line-height: 1.15;
+  }
+  .gistui-header[data-size="sm"] .gistui-header__title { font-size: var(--gistui-text-md); }
+  .gistui-header__subtitle {
+    margin: 0;
+    color: var(--gistui-fg-muted);
+    font-size: var(--gistui-text-sm);
+    text-wrap: pretty;
+  }
+  .gistui-page > .gistui-header .gistui-header__subtitle,
+  .gistui-header[data-size="lg"] .gistui-header__subtitle,
+  .gistui-header[data-size="xl"] .gistui-header__subtitle {
+    font-size: var(--gistui-text-md);
+  }
+
+  .gistui-separator {
+    border: 0;
+    border-top: 1px solid var(--gistui-border);
+    margin: var(--gistui-space-xs) 0;
+    width: 100%;
+  }
+
+  /* Tabs (Zag.js parts): a sliding indicator and a content fade. */
+  .gistui-tabs { display: flex; flex-direction: column; min-width: 0; }
+  .gistui-tabs [data-scope="tabs"][data-part="list"] {
+    position: relative;
+    display: flex;
+    gap: var(--gistui-space-lg);
+    box-shadow: inset 0 -1px 0 var(--gistui-border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .gistui-tabs [data-scope="tabs"][data-part="trigger"] {
+    appearance: none;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 0;
+    margin: 0;
+    padding: var(--gistui-space-sm) 0 10px;
+    color: var(--gistui-fg-muted);
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-tabs [data-scope="tabs"][data-part="trigger"]:hover { color: var(--gistui-fg); }
+  .gistui-tabs [data-scope="tabs"][data-part="trigger"][data-selected] { color: var(--gistui-fg); }
+  .gistui-tabs__label { display: inline-grid; }
+  .gistui-tabs__label::after { content: attr(data-text); height: 0; overflow: hidden; visibility: hidden; font-weight: 600; user-select: none; pointer-events: none; }
+  .gistui-tabs [data-scope="tabs"][data-part="trigger"][data-selected] .gistui-tabs__label { font-weight: 600; }
+  .gistui-tabs [data-scope="tabs"][data-part="trigger"]:focus-visible { box-shadow: none; outline: 2px solid color-mix(in srgb, var(--gistui-accent) 55%, transparent); outline-offset: 2px; border-radius: var(--gistui-radius-xs); }
+  .gistui-tabs__indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--gistui-primary);
+    pointer-events: none;
+    transition: transform var(--gistui-duration-slow) var(--gistui-ease-out), width var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  .gistui-tabs:not([data-v="pills"]) .gistui-tabs__indicator { top: auto; bottom: 0; }
+  /* Before the first measurement, the selected trigger draws its own underline. */
+  .gistui-tabs:not([data-measured]):not([data-v="pills"]) [data-scope="tabs"][data-part="trigger"][data-selected]::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--gistui-fg);
+  }
+  .gistui-tabs [data-scope="tabs"][data-part="content"] {
+    padding-top: var(--gistui-space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gistui-space-md);
+    animation: gistui-tab-in var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  .gistui-tabs[data-v="pills"] [data-scope="tabs"][data-part="list"] {
+    gap: 2px;
+    align-self: flex-start;
+    padding: 3px;
+    border: 0;
+    border-radius: var(--gistui-radius-md);
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+  }
+  .gistui-tabs[data-v="pills"] [data-scope="tabs"][data-part="trigger"] {
+    z-index: 1;
+    padding: 5px 12px;
+    border-radius: calc(var(--gistui-radius-md) - 3px);
+    font-size: var(--gistui-text-sm);
+  }
+  .gistui-tabs[data-v="pills"] [data-scope="tabs"][data-part="trigger"][data-selected]::after { content: none; }
+  .gistui-tabs[data-v="pills"] .gistui-tabs__indicator {
+    z-index: 0;
+    border-radius: calc(var(--gistui-radius-md) - 3px);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-sm);
+  }
+  .gistui-tabs[data-v="pills"]:not([data-measured]) [data-scope="tabs"][data-part="trigger"][data-selected] { background: var(--gistui-surface); box-shadow: var(--gistui-ring); }
+  @keyframes gistui-tab-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Accordion (Zag.js parts): content height animates between 0fr and 1fr. */
+  .gistui-accordion {
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring);
+    overflow: hidden;
+  }
+  .gistui-accordion [data-scope="accordion"][data-part="item"] + [data-part="item"] {
+    border-top: 1px solid var(--gistui-border);
+  }
+  .gistui-accordion [data-scope="accordion"][data-part="item-trigger"] {
+    appearance: none;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gistui-space-md);
+    min-height: 44px;
+    padding: 10px 16px;
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: background var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-accordion [data-scope="accordion"][data-part="item-trigger"]:hover {
+    background: color-mix(in srgb, var(--gistui-surface-hover) 60%, transparent);
+  }
+  .gistui-accordion [data-scope="accordion"][data-part="item-trigger"][data-state="open"] { color: var(--gistui-fg); }
+  .gistui-accordion [data-scope="accordion"][data-part="item-trigger"]:focus-visible { box-shadow: inset var(--gistui-focus); }
+  .gistui-accordion [data-scope="accordion"][data-part="item-indicator"] {
+    display: inline-flex;
+    color: var(--gistui-fg-subtle);
+    transition: transform var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  .gistui-accordion [data-scope="accordion"][data-part="item-indicator"][data-state="open"] {
+    transform: rotate(180deg);
+  }
+  .gistui-collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows var(--gistui-duration-slow) var(--gistui-ease-in-out),
+      opacity var(--gistui-duration-slow) var(--gistui-ease);
+  }
+  .gistui-collapse[data-state="open"] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+  .gistui-collapse > * {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .gistui-accordion [data-scope="accordion"][data-part="item-content"] > div > div {
+    padding: 4px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .gistui-accordion [data-scope="accordion"][data-part="item-content"] > div > div > .gistui-text { color: var(--gistui-fg-muted); }
+  .gistui-card .gistui-accordion { box-shadow: inset 0 0 0 1px var(--gistui-border); background: transparent; }
+
+  /* Carousel: horizontal scroll-snap strip. */
+  .gistui-carousel {
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--gistui-slide, minmax(240px, 32%));
+    gap: var(--gistui-space-md);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4px;
+    scroll-behavior: smooth;
+    /* Room for the cards' shadows, which the scroller would otherwise clip. */
+    padding: 4px 4px 14px;
+    margin: -4px -4px -14px;
+    scrollbar-width: none;
+  }
+  .gistui-carousel::-webkit-scrollbar { display: none; }
+  .gistui-carousel > * { scroll-snap-align: start; min-width: 0; }
+
+  /* ─── Content ────────────────────────────────────────────────────────── */
+
+  .gistui-md {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+  .gistui-md > :first-child { margin-top: 0; }
+  .gistui-md > :last-child { margin-bottom: 0; }
+  .gistui-md p { margin: 0 0 var(--gistui-space-sm); }
+  .gistui-md h1, .gistui-md h2, .gistui-md h3, .gistui-md h4, .gistui-md h5, .gistui-md h6 {
+    margin: var(--gistui-space-lg) 0 var(--gistui-space-xs);
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: var(--gistui-tracking-tight);
+    text-wrap: balance;
+  }
+  .gistui-md h1 { font-size: var(--gistui-text-2xl); letter-spacing: var(--gistui-tracking-tighter); }
+  .gistui-md h2 { font-size: var(--gistui-text-xl); letter-spacing: var(--gistui-tracking-tighter); }
+  .gistui-md h3 { font-size: var(--gistui-text-lg); }
+  .gistui-md h4, .gistui-md h5, .gistui-md h6 { font-size: var(--gistui-text-md); }
+  .gistui-md a {
+    color: var(--gistui-accent);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--gistui-accent) 35%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-md a:hover { text-decoration-color: currentColor; }
+  .gistui-md strong { font-weight: 600; }
+  .gistui-md ul, .gistui-md ol { margin: 0 0 var(--gistui-space-sm); padding-left: 1.3em; }
+  .gistui-md li { padding-left: 0.2em; }
+  .gistui-md li + li { margin-top: 4px; }
+  .gistui-md li::marker { color: var(--gistui-fg-subtle); }
+  .gistui-md li:has(> input[type="checkbox"]) { list-style: none; }
+  .gistui-md li > input[type="checkbox"] { margin: 0 6px 0 -1.2em; vertical-align: -1px; accent-color: var(--gistui-accent); }
+  .gistui-md blockquote {
+    margin: 0 0 var(--gistui-space-sm);
+    padding: 2px var(--gistui-space-md);
+    border-left: 2px solid var(--gistui-border-strong);
+    color: var(--gistui-fg-muted);
+  }
+  .gistui-md hr { border: 0; border-top: 1px solid var(--gistui-border); margin: var(--gistui-space-lg) 0; }
+  .gistui-md code {
+    font-family: var(--gistui-font-mono);
+    font-size: 0.86em;
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    border-radius: var(--gistui-radius-xs);
+    padding: 0.12em 0.4em;
+  }
+  .gistui-md pre {
+    margin: 0 0 var(--gistui-space-sm);
+    padding: 14px 16px;
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    border-radius: var(--gistui-radius-md);
+    overflow-x: auto;
+    font-size: var(--gistui-text-sm);
+    line-height: 1.6;
+  }
+  .gistui-md pre code { background: none; box-shadow: none; padding: 0; font-size: inherit; }
+  .gistui-md table { border-collapse: collapse; margin: 0 0 var(--gistui-space-sm); font-size: var(--gistui-text-sm); font-variant-numeric: tabular-nums; }
+  .gistui-md th, .gistui-md td { border-bottom: 1px solid var(--gistui-border); padding: 8px 12px; text-align: left; }
+  .gistui-md th { color: var(--gistui-fg-muted); font-weight: 500; }
+  .gistui-md img { max-width: 100%; border-radius: var(--gistui-radius-md); }
+
+  .gistui-text[data-size="lg"] { font-size: var(--gistui-text-lg); line-height: 1.6; }
+  .gistui-text[data-size="sm"] { font-size: var(--gistui-text-sm); }
+  .gistui-text[data-muted] { color: var(--gistui-fg-muted); }
+  /* A caret follows the text while it streams. */
+  .gistui-text[data-streaming] .gistui-md > :last-child::after {
+    content: "";
+    display: inline-block;
+    width: 0.5em;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -0.12em;
+    border-radius: 2px;
+    background: var(--gistui-fg);
+    opacity: 0.7;
+    animation: gistui-blink 1s steps(1) infinite;
+  }
+
+  .gistui-callout {
+    --tone: var(--gistui-info);
+    --tone-soft: var(--gistui-info-soft);
+    display: flex;
+    gap: var(--gistui-space-md);
+    padding: 14px 16px;
+    background: var(--tone-soft);
+    border-radius: var(--gistui-radius-md);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 16%, transparent);
+  }
+  .gistui-callout__icon { color: var(--tone); font-size: 18px; line-height: 1; margin-top: 1px; }
+  .gistui-callout__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+  .gistui-callout__title { font-weight: 600; color: var(--gistui-fg); }
+  .gistui-callout__body .gistui-md { color: color-mix(in srgb, var(--gistui-fg) 82%, var(--tone)); }
+  .gistui-callout[data-v="bar"] {
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 2px 0 2px 16px;
+    border-left: 2px solid var(--tone);
+  }
+  .gistui-callout[data-v="bar"] .gistui-callout__title { color: var(--tone); }
+  /* A neutral note: its title reads as a title (the neutral tone is the muted grey). */
+  .gistui-callout[data-v="bar"][data-tone="neutral"] { border-left-color: var(--gistui-fg); }
+  .gistui-callout[data-v="bar"][data-tone="neutral"] .gistui-callout__title { color: var(--gistui-fg); }
+  .gistui-callout[data-v="bar"] .gistui-callout__body .gistui-md { color: var(--gistui-fg); }
+
+  :where(.gistui) [data-tone="neutral"] { --tone: var(--gistui-neutral); --tone-soft: var(--gistui-neutral-soft); }
+  :where(.gistui) [data-tone="info"] { --tone: var(--gistui-info); --tone-soft: var(--gistui-info-soft); }
+  :where(.gistui) [data-tone="success"] { --tone: var(--gistui-success); --tone-soft: var(--gistui-success-soft); }
+  :where(.gistui) [data-tone="warning"] { --tone: var(--gistui-warning); --tone-soft: var(--gistui-warning-soft); }
+  :where(.gistui) [data-tone="danger"] { --tone: var(--gistui-danger); --tone-soft: var(--gistui-danger-soft); }
+  :where(.gistui) [data-tone="accent"] { --tone: var(--gistui-accent); --tone-soft: var(--gistui-accent-soft); }
+
+  .gistui-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  /* :where() keeps the default at zero specificity, so a data-tone on the tag always wins. */
+  :where(.gistui-tag) {
+    --tone: var(--gistui-neutral);
+    --tone-soft: var(--gistui-neutral-soft);
+  }
+  .gistui-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 26px;
+    padding: 0 9px;
+    border-radius: var(--gistui-radius-sm);
+    background: var(--tone-soft);
+    color: var(--tone);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .gistui-tag[data-shape="pill"] { border-radius: var(--gistui-radius-full); }
+
+  .gistui-image { margin: 0; display: flex; flex-direction: column; gap: var(--gistui-space-sm); min-width: 0; }
+  .gistui-image__frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+  }
+  .gistui-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transition: opacity var(--gistui-duration-slower) var(--gistui-ease);
+  }
+  .gistui-image img[data-loaded] { opacity: 1; }
+  .gistui-image[data-ratio] img { height: 100%; aspect-ratio: var(--gistui-ratio); object-fit: cover; }
+  .gistui-image figcaption { color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); }
+
+  /* Media card: an image with a tag and an overlay or below caption. */
+  .gistui-media {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-sm);
+    color: inherit;
+    text-decoration: none;
+    isolation: isolate;
+    transition: box-shadow var(--gistui-duration-slow) var(--gistui-ease), transform var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  .gistui-media__img {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--gistui-ratio, 4 / 3);
+    background: var(--gistui-surface-sunk);
+  }
+  .gistui-media__img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity var(--gistui-duration-slower) var(--gistui-ease), transform 900ms var(--gistui-ease-out);
+  }
+  .gistui-media__img img[data-loaded] { opacity: 1; transform: none; }
+  .gistui-media__tag {
+    position: absolute;
+    z-index: 2;
+    top: 12px;
+    left: 12px;
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 9px;
+    border-radius: var(--gistui-radius-sm);
+    background: rgb(12 12 16 / 0.55);
+    color: #fff;
+    font-size: var(--gistui-text-xs);
+    font-weight: 500;
+    backdrop-filter: blur(10px) saturate(1.4);
+    -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  }
+  .gistui-media__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 14px 16px 16px;
+    min-width: 0;
+  }
+  .gistui-media__title { font-weight: 600; letter-spacing: var(--gistui-tracking-tight); line-height: 1.35; }
+  .gistui-media__subtitle { color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); }
+  .gistui-media__meta { margin-top: 6px; color: var(--gistui-fg-subtle); font-size: var(--gistui-text-xs); }
+  .gistui-media[data-v="overlay"] .gistui-media__img { aspect-ratio: var(--gistui-ratio, 3 / 4); }
+  .gistui-media[data-v="overlay"] .gistui-media__body {
+    position: absolute;
+    z-index: 2;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 12px 14px;
+    border-radius: var(--gistui-radius-md);
+    background: var(--gistui-surface-overlay);
+    box-shadow: var(--gistui-shadow-md);
+    backdrop-filter: blur(16px) saturate(1.5);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  }
+  .gistui-media[data-v="cover"] .gistui-media__img { aspect-ratio: var(--gistui-ratio, 3 / 4); }
+  .gistui-media[data-v="cover"] .gistui-media__img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgb(0 0 0 / 0.72) 100%);
+  }
+  .gistui-media[data-v="cover"] .gistui-media__body {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #fff;
+    padding: 18px;
+  }
+  .gistui-media[data-v="cover"] .gistui-media__subtitle,
+  .gistui-media[data-v="cover"] .gistui-media__meta { color: rgb(255 255 255 / 0.78); }
+  .gistui-media[data-v="cover"] .gistui-media__title { font-size: var(--gistui-text-lg); }
+  a.gistui-media:hover,
+  button.gistui-media:hover { transform: translateY(-2px); box-shadow: var(--gistui-ring), var(--gistui-shadow-md); }
+  a.gistui-media:hover .gistui-media__img img,
+  button.gistui-media:hover .gistui-media__img img { transform: scale(1.035); }
+  button.gistui-media { appearance: none; border: 0; padding: 0; font: inherit; text-align: left; cursor: pointer; }
+
+  /* Tile: an icon, a title and subtitle, and a value on the right (KPI rows, features, sources). */
+  .gistui-tile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 12px 14px;
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    color: inherit;
+    text-decoration: none;
+    transition: background var(--gistui-duration) var(--gistui-ease), box-shadow var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration) var(--gistui-ease-out);
+  }
+  .gistui-tile[data-v="card"] { background: var(--gistui-surface); box-shadow: var(--gistui-ring), var(--gistui-shadow-xs); }
+  .gistui-tile[data-v="plain"] { background: none; box-shadow: none; padding: 6px 0; }
+  .gistui-tile[data-align="start"] { align-items: flex-start; }
+  a.gistui-tile:hover,
+  button.gistui-tile:hover { background: var(--gistui-surface-hover); box-shadow: inset 0 0 0 1px var(--gistui-border-strong); }
+  button.gistui-tile { appearance: none; border: 0; font: inherit; text-align: left; cursor: pointer; width: 100%; }
+  a.gistui-tile:active, button.gistui-tile:active { transform: scale(0.99); }
+  :where(.gistui-tile__icon) {
+    --tone: var(--gistui-fg);
+    --tone-soft: var(--gistui-surface-hover);
+  }
+  .gistui-tile__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--gistui-radius-md);
+    background: var(--tone-soft);
+    color: var(--tone);
+    font-size: 17px;
+    overflow: hidden;
+  }
+  .gistui-tile__icon img { width: 100%; height: 100%; object-fit: cover; }
+  .gistui-tile__icon[data-letter] { font-size: var(--gistui-text-sm); font-weight: 600; }
+  .gistui-tile__main { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+  .gistui-tile__title { font-weight: 500; line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gistui-tile__subtitle { color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gistui-tile[data-wrap] .gistui-tile__title,
+  .gistui-tile[data-wrap] .gistui-tile__subtitle { white-space: normal; }
+  .gistui-tile__body { margin-top: 8px; color: var(--gistui-fg); font-size: var(--gistui-text-md); line-height: var(--gistui-leading); }
+  .gistui-tile__end { display: flex; flex-direction: column; align-items: flex-end; flex: none; text-align: right; }
+  .gistui-tile__value { font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.4; }
+  .gistui-tile__value[data-trend="up"] { color: var(--gistui-success); }
+  .gistui-tile__value[data-trend="down"] { color: var(--gistui-danger); }
+  .gistui-tile__note { color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); line-height: 1.4; }
+  .gistui-tile__chevron { color: var(--gistui-fg-subtle); flex: none; transition: transform var(--gistui-duration) var(--gistui-ease-out); }
+  a.gistui-tile:hover .gistui-tile__chevron { transform: translateX(2px); color: var(--gistui-fg-muted); }
+
+  /* Timeline / steps from a table. */
+  .gistui-timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .gistui-timeline__item { position: relative; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 0 12px; padding-bottom: var(--gistui-space-lg); }
+  .gistui-timeline__item:last-child { padding-bottom: 0; }
+  .gistui-timeline__item::before {
+    content: "";
+    position: absolute;
+    left: 13.5px;
+    top: 28px;
+    bottom: 2px;
+    width: 1px;
+    background: var(--gistui-border-strong);
+  }
+  .gistui-timeline__item:last-child::before { content: none; }
+  .gistui-timeline__dot {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gistui-surface-hover);
+    color: var(--gistui-fg-muted);
+    font-size: var(--gistui-text-xs);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .gistui-timeline__item[data-state="done"] .gistui-timeline__dot { background: var(--gistui-primary); color: var(--gistui-primary-fg); box-shadow: none; }
+  .gistui-timeline__item[data-state="current"] .gistui-timeline__dot { box-shadow: inset 0 0 0 2px var(--gistui-accent), 0 0 0 4px var(--gistui-accent-soft); color: var(--gistui-accent); }
+  .gistui-timeline__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; min-height: 28px; padding-top: 3px; }
+  .gistui-timeline__title { font-weight: 600; letter-spacing: var(--gistui-tracking-tight); }
+  .gistui-timeline__meta { color: var(--gistui-fg-subtle); font-size: var(--gistui-text-sm); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .gistui-timeline__detail { grid-column: 2; color: var(--gistui-fg-muted); font-size: var(--gistui-text-md); }
+
+  .gistui-quote {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gistui-space-sm);
+  }
+  .gistui-quote blockquote {
+    margin: 0;
+    font-size: var(--gistui-text-lg);
+    line-height: 1.55;
+    letter-spacing: var(--gistui-tracking-tight);
+    text-wrap: pretty;
+  }
+  .gistui-quote blockquote::before { content: "“"; }
+  .gistui-quote blockquote::after { content: "”"; }
+  .gistui-quote figcaption { color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); }
+
+  .gistui-followups { display: flex; flex-wrap: wrap; gap: var(--gistui-space-sm); }
+  .gistui-followup {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 34px;
+    padding: 6px 14px 6px 12px;
+    border: 0;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-xs);
+    color: var(--gistui-fg);
+    font: inherit;
+    font-size: var(--gistui-text-sm);
+    text-align: left;
+    cursor: pointer;
+    transition: background var(--gistui-duration) var(--gistui-ease), box-shadow var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration) var(--gistui-ease-out);
+  }
+  .gistui-followup .gistui-icon { color: var(--gistui-fg-subtle); transition: transform var(--gistui-duration) var(--gistui-ease-out), color var(--gistui-duration) var(--gistui-ease); }
+  .gistui-followup:hover:not(:disabled) { background: var(--gistui-surface-hover); box-shadow: 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-sm); }
+  .gistui-followup:hover:not(:disabled) .gistui-icon { color: var(--gistui-fg); transform: translate(1px, -1px); }
+  .gistui-followup:active:not(:disabled) { transform: scale(0.98); }
+
+  /* ─── Data ───────────────────────────────────────────────────────────── */
+
+  .gistui-table {
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring);
+    overflow: hidden;
+    min-width: 0;
+  }
+  .gistui-table__scroll { overflow-x: auto; }
+  /* Inside a Card the card is the frame: the table has no ring or fill of its own, and its first and last columns line up with the card's content. */
+  .gistui-card > .gistui-table { background: none; box-shadow: none; border-radius: 0; overflow: visible; }
+  .gistui-card > .gistui-table :is(th, td):first-child { padding-left: 2px; }
+  .gistui-card > .gistui-table :is(th, td):last-child { padding-right: 2px; }
+  .gistui-table table { width: 100%; border-collapse: collapse; font-size: var(--gistui-text-sm); font-variant-numeric: tabular-nums; }
+  .gistui-table th {
+    height: 44px;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--gistui-border);
+    color: var(--gistui-fg-muted);
+    font-size: var(--gistui-text-sm);
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: left;
+  }
+  .gistui-table td {
+    height: 50px;
+    padding: 6px 16px;
+    border-bottom: 1px solid var(--gistui-border);
+    transition: background var(--gistui-duration-fast) var(--gistui-ease);
+  }
+  /* Short cells (a name, a date, an amount) stay on one line; only long text wraps. */
+  .gistui-table td { white-space: nowrap; }
+  .gistui-table td[data-wrap] { white-space: normal; min-width: 24ch; }
+  .gistui-table tbody tr:last-child td { border-bottom: 0; }
+  .gistui-table tbody tr:hover td { background: var(--gistui-surface-hover); }
+  .gistui-table[data-striped] tbody tr:nth-child(even) td { background: var(--gistui-surface-sunk); }
+  .gistui-table [data-align="right"] { text-align: right; }
+  .gistui-table td:first-child { font-weight: 500; }
+  .gistui-table td[data-trend="up"] { color: var(--gistui-success); }
+  .gistui-table td[data-trend="down"] { color: var(--gistui-danger); }
+  .gistui-table__sort {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 -6px;
+    padding: 4px 6px;
+    background: none;
+    border: 0;
+    border-radius: var(--gistui-radius-xs);
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    transition: background var(--gistui-duration) var(--gistui-ease), color var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-table__sort:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-table__sort .gistui-icon { opacity: 0; transition: opacity var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration) var(--gistui-ease-out); }
+  .gistui-table__sort:hover .gistui-icon { opacity: 0.5; }
+  .gistui-table__sort[data-sort] { color: var(--gistui-fg); }
+  .gistui-table__sort[data-sort] .gistui-icon { opacity: 1; }
+  .gistui-table__sort[data-sort="desc"] .gistui-icon { transform: rotate(180deg); }
+  .gistui-table__pager {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gistui-space-sm);
+    padding: 8px 14px;
+    border-top: 1px solid var(--gistui-border);
+    color: var(--gistui-fg-muted);
+    font-size: var(--gistui-text-xs);
+  }
+  .gistui-table__pager .gistui-button { height: 30px; padding: 0 10px; font-size: var(--gistui-text-xs); }
+  /* Table toolbar: search and column filters (opt-in). */
+  .gistui-table__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--gistui-border);
+  }
+  .gistui-table__search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 200px;
+    max-width: 320px;
+  }
+  .gistui-table__search .gistui-icon { position: absolute; left: 10px; color: var(--gistui-fg-subtle); pointer-events: none; }
+  .gistui-table__search input { min-height: 32px; padding: 5px 10px 5px 32px; font-size: var(--gistui-text-sm); }
+  .gistui-table__chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; overflow-x: auto; scrollbar-width: none; }
+  .gistui-table__chips::-webkit-scrollbar { display: none; }
+  .gistui-chip {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 30px;
+    padding: 0 11px;
+    border: 0;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-surface);
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong);
+    color: var(--gistui-fg-muted);
+    font: inherit;
+    font-size: var(--gistui-text-xs);
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--gistui-duration) var(--gistui-ease), color var(--gistui-duration) var(--gistui-ease), box-shadow var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-chip:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-chip[aria-pressed="true"] { background: var(--gistui-primary); color: var(--gistui-primary-fg); box-shadow: none; }
+  .gistui-chip__count { opacity: 0.6; font-variant-numeric: tabular-nums; }
+  .gistui-table__filter-label { color: var(--gistui-fg-subtle); font-size: var(--gistui-text-xs); margin-right: 2px; }
+  .gistui-table__pages { display: flex; align-items: center; gap: 2px; }
+  .gistui-page-btn {
+    appearance: none;
+    display: inline-grid;
+    place-items: center;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: none;
+    color: var(--gistui-fg-muted);
+    font: inherit;
+    font-size: var(--gistui-text-xs);
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: background var(--gistui-duration) var(--gistui-ease), color var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-page-btn:hover:not(:disabled) { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-page-btn[aria-current="page"] { background: var(--gistui-surface); color: var(--gistui-fg); box-shadow: var(--gistui-ring), var(--gistui-shadow-xs); font-weight: 600; }
+  .gistui-page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .gistui-table tbody[data-animate] tr { animation: gistui-fade var(--gistui-duration-slow) var(--gistui-ease) both; }
+  .gistui-table__empty { padding: var(--gistui-space-lg); color: var(--gistui-fg-subtle); text-align: center; }
+  .gistui-table .gistui-tag { height: 22px; }
+
+  .gistui-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: var(--gistui-space-md);
+  }
+  .gistui-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 18px;
+    background: var(--gistui-surface);
+    border-radius: var(--gistui-radius-lg);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-xs);
+    min-width: 0;
+  }
+  .gistui-card .gistui-stat { background: var(--gistui-surface-sunk); box-shadow: inset 0 0 0 1px var(--gistui-border); }
+  .gistui-stat__label { display: flex; align-items: center; gap: 6px; color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); font-weight: 500; }
+  .gistui-stat__value {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: var(--gistui-tracking-tighter);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+  .gistui-stat__foot { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: var(--gistui-text-xs); color: var(--gistui-fg-subtle); }
+  .gistui-stat__delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    color: var(--gistui-fg-muted);
+    font-size: var(--gistui-text-xs);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .gistui-stat__delta[data-trend="up"] { color: var(--gistui-success); }
+  .gistui-stat__delta[data-trend="down"] { color: var(--gistui-danger); }
+  .gistui-stat__spark { display: block; width: 100%; height: 34px; margin-top: 2px; overflow: visible; }
+
+  .gistui-progress { display: flex; flex-direction: column; gap: 8px; }
+  .gistui-progress__head { display: flex; justify-content: space-between; gap: 12px; font-size: var(--gistui-text-sm); }
+  .gistui-progress__head span:first-child { font-weight: 500; }
+  .gistui-progress__head span:last-child { color: var(--gistui-fg-muted); font-variant-numeric: tabular-nums; }
+  .gistui-progress__track {
+    height: 6px;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-surface-active);
+    overflow: hidden;
+  }
+  .gistui-progress__bar {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--tone, var(--gistui-primary));
+    transform-origin: left;
+    transition: width var(--gistui-duration-slower) var(--gistui-ease-out);
+    animation: gistui-grow-x var(--gistui-duration-slower) var(--gistui-ease-out) both;
+  }
+  @keyframes gistui-grow-x {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes gistui-grow-y {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  /* ─── Charts (drawn by @gistui/widgets; series colors come from --gistui-chart-1…8) ─── */
+
+  .gistui-chart {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    color: var(--gistui-fg-subtle);
+    font-size: var(--gistui-text-xs);
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .gistui-chart__svg { display: block; width: 100%; overflow: visible; }
+  .gistui-chart__grid { color: var(--gistui-fg); }
+  .gistui-chart__grid-line { stroke: var(--gistui-grid); stroke-opacity: 1; stroke-dasharray: 3 4; shape-rendering: crispEdges; }
+  .gistui-chart__zero { stroke: var(--gistui-border-strong); }
+  .gistui-chart__axis { color: var(--gistui-fg-subtle); }
+  .gistui-chart__tick { font-size: 12px; }
+  .gistui-chart__axis-title { font-size: 12px; font-weight: 500; fill: var(--gistui-fg-muted); }
+  .gistui-chart__bar,
+  .gistui-chart__slice,
+  .gistui-chart__point {
+    cursor: pointer;
+    transition: opacity var(--gistui-duration) var(--gistui-ease), filter var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-chart__line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .gistui-chart__area { stroke: none; }
+  .gistui-chart__point { stroke: var(--gistui-surface); stroke-width: 2; }
+  .gistui-chart__slice { stroke: var(--gistui-surface); stroke-width: 2; stroke-linejoin: round; transition: opacity var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration-slow) var(--gistui-ease-out); transform-box: view-box; }
+  .gistui-chart__total { fill: var(--gistui-fg); font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+  .gistui-chart__total-label { fill: var(--gistui-fg-muted); font-size: 11px; }
+  .gistui-chart__band { fill: var(--gistui-fg); fill-opacity: 0.04; pointer-events: none; }
+
+  /* Hover: the active series or row stays, the rest recede. */
+  .gistui-chart[data-hovering] .gistui-chart__bar:not([data-active]),
+  .gistui-chart[data-hovering] .gistui-chart__slice:not([data-active]) { opacity: 0.45; }
+  .gistui-chart .gistui-chart__slice[data-active] { transform: scale(1.03); }
+  .gistui-chart[data-dense] .gistui-chart__point:not([data-active]):not([data-selected]):not([data-solo]) { display: none; }
+  .gistui-chart .gistui-chart__point { opacity: 0; }
+  /* A point with no neighbour to draw a line to (one row, or gaps on both sides) is always shown. */
+  .gistui-chart .gistui-chart__point[data-solo],
+  .gistui-chart .gistui-chart__point[data-active],
+  .gistui-chart .gistui-chart__point[data-selected],
+  .gistui-chart .gistui-chart__point:focus-visible { opacity: 1; }
+  .gistui-chart[data-gistui-chart-type="scatter"] .gistui-chart__point { opacity: 0.85; }
+  .gistui-chart[data-has-selection] [data-key]:not([data-selected]) { opacity: 0.35; }
+  .gistui-chart [data-selected] { stroke: var(--gistui-fg); stroke-width: 2; }
+  /*
+   * Keyboard focus on a mark is drawn on the mark itself: an outline on an SVG shape is a rectangle
+   * around its bounding box, which cuts across a pie slice or a line.
+   */
+  .gistui-chart svg :focus,
+  .gistui-chart [tabindex]:focus-visible { outline: none; box-shadow: none; }
+  /* Not after a click: the chart puts focus back on the clicked mark when it redraws (`data-pointer`), and that is not keyboard focus. */
+  .gistui-chart:not([data-pointer]) svg [tabindex]:focus-visible { stroke: var(--gistui-fg); stroke-width: 2px; stroke-opacity: 0.9; paint-order: stroke; }
+  .gistui-chart [aria-disabled="true"] [data-key],
+  .gistui-chart[aria-disabled="true"] [data-key] { cursor: default; }
+  .gistui-chart__crosshair { stroke: var(--gistui-border-strong); stroke-width: 1; pointer-events: none; }
+  .gistui-chart__brush,
+  .gistui-chart__range {
+    fill: color-mix(in srgb, var(--gistui-accent) 12%, transparent);
+    stroke: color-mix(in srgb, var(--gistui-accent) 55%, transparent);
+    pointer-events: none;
+  }
+  .gistui-chart__range { fill: color-mix(in srgb, var(--gistui-accent) 18%, transparent); }
+
+  /* Entry animation, once, when the data is complete: lines draw, areas and bars grow, slices sweep. */
+  /*
+   * Entry animations hold their first frame while they wait (`backwards`) and let go when they end.
+   * With `both`, the last frame (opacity 1, no transform) would stay forever and win over the hover
+   * and selection styles below it in the cascade.
+   */
+  .gistui-chart[data-animate] .gistui-chart__line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: gistui-draw 900ms var(--gistui-ease-in-out) forwards;
+    animation-delay: calc(var(--gistui-s, 0) * 70ms);
+  }
+  .gistui-chart[data-animate] .gistui-chart__area {
+    animation: gistui-area-in 900ms var(--gistui-ease-out) backwards;
+    animation-delay: calc(120ms + var(--gistui-s, 0) * 70ms);
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+  }
+  .gistui-chart[data-animate] .gistui-chart__bar {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: gistui-grow-y 700ms var(--gistui-ease-out) backwards;
+    animation-delay: calc(var(--gistui-i, 0) * 28ms + var(--gistui-s, 0) * 50ms);
+  }
+  .gistui-chart[data-animate] .gistui-chart__bar[data-neg] { transform-origin: 50% 0%; }
+  .gistui-chart[data-animate][data-gistui-chart-type="hbar"] .gistui-chart__bar {
+    transform-origin: 0% 50%;
+    animation-name: gistui-grow-x;
+  }
+  .gistui-chart[data-animate] .gistui-chart__slice {
+    transform-origin: 50% 50%;
+    animation: gistui-slice-in 700ms var(--gistui-ease-out) backwards;
+    animation-delay: calc(var(--gistui-i, 0) * 60ms);
+  }
+  .gistui-chart[data-animate] .gistui-chart__total,
+  .gistui-chart[data-animate] .gistui-chart__total-label { animation: gistui-fade 500ms var(--gistui-ease) 300ms backwards; }
+  @keyframes gistui-draw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes gistui-area-in {
+    from { opacity: 0; transform: scaleY(0.6); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes gistui-slice-in {
+    from { opacity: 0; transform: scale(0.86) rotate(-8deg); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .gistui-chart__legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px 14px;
+    margin-top: var(--gistui-space-sm);
+  }
+  .gistui-chart__legend-item {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 3px 6px;
+    background: none;
+    border: 0;
+    border-radius: var(--gistui-radius-xs);
+    color: var(--gistui-fg-muted);
+    font: inherit;
+    cursor: pointer;
+    transition: color var(--gistui-duration) var(--gistui-ease), opacity var(--gistui-duration) var(--gistui-ease), background var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-chart__legend-item:hover { color: var(--gistui-fg); background: var(--gistui-surface-hover); }
+  .gistui-chart__legend-item[aria-pressed="false"] { opacity: 0.45; }
+  .gistui-chart__legend-item[aria-pressed="false"] .gistui-chart__legend-label { text-decoration: line-through; }
+  .gistui-chart__legend-value { margin-left: auto; padding-left: 12px; color: var(--gistui-fg); font-weight: 500; }
+  .gistui-chart__swatch {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    flex: none;
+    border-radius: 3px;
+    background: currentColor;
+  }
+  .gistui-chart__swatch[data-shape="line"] { width: 12px; height: 2.5px; border-radius: 2px; }
+
+  /* Pie and donut: legend on the side when there is room. */
+  .gistui-chart[data-layout="side"] { display: grid; grid-template-columns: minmax(0, 1fr) minmax(160px, 40%); align-items: center; gap: var(--gistui-space-lg); }
+  .gistui-chart[data-layout="side"] .gistui-chart__legend { flex-direction: column; flex-wrap: nowrap; justify-content: center; margin: 0; gap: 2px; }
+  .gistui-chart[data-layout="side"] .gistui-chart__legend-item { width: 100%; padding: 5px 8px; font-size: var(--gistui-text-sm); }
+  .gistui-chart[data-layout="side"] .gistui-chart__legend-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; color: var(--gistui-fg); }
+
+  /* Tooltip: glides between points instead of jumping. */
+  .gistui-chart__tooltip {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    min-width: 132px;
+    padding: 8px 10px;
+    background: var(--gistui-surface-overlay);
+    border-radius: var(--gistui-radius-md);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-lg);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    color: var(--gistui-fg);
+    font-size: var(--gistui-text-xs);
+    line-height: 1.5;
+    white-space: nowrap;
+    opacity: 0;
+    transition:
+      transform var(--gistui-duration-slow) var(--gistui-ease-out),
+      opacity var(--gistui-duration) var(--gistui-ease);
+    will-change: transform, opacity;
+  }
+  .gistui-chart__tooltip[data-visible] { opacity: 1; }
+  .gistui-chart__tooltip[data-instant] { transition: opacity var(--gistui-duration) var(--gistui-ease); }
+  .gistui-chart__tooltip-title { font-weight: 600; margin-bottom: 4px; color: var(--gistui-fg); }
+  .gistui-chart__tooltip-row { display: flex; align-items: center; gap: 7px; }
+  .gistui-chart__tooltip-row + .gistui-chart__tooltip-row { margin-top: 2px; }
+  .gistui-chart__tooltip-name { color: var(--gistui-fg-muted); flex: 1; }
+  .gistui-chart__tooltip-value { font-weight: 600; margin-left: 14px; font-variant-numeric: tabular-nums; }
+  .gistui-chart__empty {
+    display: grid;
+    place-items: center;
+    min-height: 120px;
+    color: var(--gistui-fg-subtle);
+    font-size: var(--gistui-text-sm);
+  }
+  .gistui-chart__sr,
+  .gistui-sr-only {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ─── Forms ──────────────────────────────────────────────────────────── */
+
+  .gistui-form { display: flex; flex-direction: column; gap: var(--gistui-space-lg); }
+
+  .gistui-field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+  .gistui-field__label { font-size: var(--gistui-text-sm); font-weight: 500; color: var(--gistui-fg); }
+  .gistui-field__label[data-required]::after { content: " *"; color: var(--gistui-fg-subtle); }
+  .gistui-field__hint { color: var(--gistui-fg-subtle); font-size: var(--gistui-text-xs); }
+
+  .gistui-input,
+  .gistui-textarea,
+  .gistui-select [data-part="trigger"] {
+    appearance: none;
+    width: 100%;
+    min-height: 38px;
+    padding: 8px 12px;
+    background: var(--gistui-surface);
+    border: 0;
+    border-radius: var(--gistui-radius-md);
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-xs);
+    color: var(--gistui-fg);
+    font: inherit;
+    transition: box-shadow var(--gistui-duration) var(--gistui-ease), background var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-textarea { resize: vertical; min-height: 88px; line-height: var(--gistui-leading); }
+  .gistui-input::placeholder, .gistui-textarea::placeholder { color: var(--gistui-fg-subtle); }
+  .gistui-input:hover, .gistui-textarea:hover, .gistui-select [data-part="trigger"]:hover:not([data-disabled]) {
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gistui-fg) 28%, transparent), var(--gistui-shadow-xs);
+  }
+  .gistui-input:focus, .gistui-textarea:focus, .gistui-select [data-part="trigger"][data-focus], .gistui-select [data-part="trigger"][data-state="open"] {
+    outline: none;
+    box-shadow: inset 0 0 0 1px var(--gistui-accent), var(--gistui-focus);
+  }
+  .gistui-input:disabled, .gistui-textarea:disabled, .gistui-select [data-part="trigger"][data-disabled] {
+    background: var(--gistui-surface-sunk);
+    color: var(--gistui-fg-subtle);
+    cursor: not-allowed;
+  }
+  .gistui-input[data-locked], .gistui-textarea[data-locked] { cursor: progress; }
+
+  .gistui-select [data-part="trigger"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gistui-space-sm);
+    text-align: left;
+    cursor: pointer;
+  }
+  .gistui-select [data-part="value-text"][data-placeholder-shown] { color: var(--gistui-fg-subtle); }
+  .gistui-select [data-part="indicator"] { display: inline-flex; color: var(--gistui-fg-subtle); transition: transform var(--gistui-duration-slow) var(--gistui-ease-out); }
+  .gistui-select [data-part="indicator"][data-state="open"] { transform: rotate(180deg); }
+
+  /* Popovers (select content, menus): fade and zoom in from the trigger. */
+  .gistui [data-scope="select"][data-part="content"],
+  .gistui-popover {
+    z-index: 50;
+    min-width: var(--reference-width, 180px);
+    max-height: min(300px, var(--available-height, 300px));
+    overflow-y: auto;
+    /* The list is a <ul>: without this the browser's own 1em margins sit between the field and the list. */
+    margin: 0;
+    list-style: none;
+    padding: 4px;
+    background: var(--gistui-surface);
+    border-radius: var(--gistui-radius-md);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-lg);
+    outline: none;
+    transform-origin: var(--transform-origin, top center);
+  }
+  .gistui [data-scope="select"][data-part="content"][data-state="open"],
+  .gistui-popover[data-state="open"] {
+    animation: gistui-pop-in var(--gistui-duration) var(--gistui-ease-out);
+  }
+  .gistui [data-scope="select"][data-part="positioner"] { z-index: 60; }
+  .gistui [data-scope="select"][data-part="item"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gistui-space-sm);
+    padding: 7px 8px 7px 10px;
+    border-radius: var(--gistui-radius-sm);
+    cursor: pointer;
+    transition: background var(--gistui-duration-fast) var(--gistui-ease);
+  }
+  .gistui [data-scope="select"][data-part="item"][data-highlighted] { background: var(--gistui-surface-hover); }
+  .gistui [data-scope="select"][data-part="item"][data-state="checked"] { font-weight: 500; }
+  .gistui [data-scope="select"][data-part="item-indicator"] { display: inline-flex; color: var(--gistui-fg); }
+
+  /* Option rows shared by Select and Combobox popovers. */
+  .gistui-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gistui-space-sm);
+    min-height: 34px;
+    padding: 6px 8px 6px 10px;
+    border-radius: var(--gistui-radius-sm);
+    cursor: pointer;
+    transition: background var(--gistui-duration-fast) var(--gistui-ease);
+  }
+  .gistui-option[data-highlighted] { background: var(--gistui-surface-hover); }
+  .gistui-option[data-state="checked"] { font-weight: 500; }
+  .gistui-option[data-empty] { color: var(--gistui-fg-subtle); cursor: default; justify-content: center; }
+  .gistui-option__check { display: inline-flex; color: var(--gistui-primary); }
+  .gistui [data-scope="combobox"][data-part="positioner"] { z-index: 60; }
+  .gistui [data-scope="combobox"][data-part="content"] { max-height: min(300px, var(--available-height, 300px)); }
+
+  /* Combobox */
+  .gistui-combobox__control { position: relative; display: flex; align-items: center; }
+  .gistui-combobox__control .gistui-input { padding-left: 34px; padding-right: 36px; }
+  .gistui-combobox__search { position: absolute; left: 12px; color: var(--gistui-fg-subtle); pointer-events: none; }
+  .gistui-combobox__trigger {
+    appearance: none;
+    position: absolute;
+    right: 6px;
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--gistui-radius-xs);
+    background: none;
+    color: var(--gistui-fg-subtle);
+    cursor: pointer;
+    transition: transform var(--gistui-duration-slow) var(--gistui-ease-out), background var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-combobox__trigger:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-combobox__trigger[data-state="open"] { transform: rotate(180deg); }
+  .gistui-combobox__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .gistui-combobox__remove {
+    appearance: none;
+    display: inline-grid;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    margin-right: -4px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  .gistui-combobox__remove:hover { opacity: 1; background: color-mix(in srgb, currentColor 14%, transparent); }
+
+  /*
+   * Choice groups (RadioGroup, CheckboxGroup): list, cards, segmented (radio) and chips (checkbox).
+   * Radio controls are circles with a dot; checkbox controls are squares in lists and ticked circles
+   * on cards, so the kind of choice is always visible.
+   */
+  .gistui-choice { position: relative; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .gistui-choice[data-dir="row"] { flex-direction: row; flex-wrap: wrap; gap: 8px 20px; }
+  .gistui-choice__item { position: relative; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; user-select: none; }
+  .gistui-choice__item[data-disabled] { opacity: 0.5; cursor: not-allowed; }
+  .gistui-choice__body { display: flex; flex-direction: column; gap: 10px; min-width: 0; flex: 1; }
+  .gistui-choice__text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .gistui-choice__title { display: inline-flex; align-items: center; gap: 7px; line-height: 1.4; }
+  .gistui-choice__hint { color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); line-height: 1.45; }
+
+  /* Controls */
+  .gistui-choice__control {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: var(--gistui-surface);
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-xs);
+    color: var(--gistui-primary-fg);
+    transition: background var(--gistui-duration) var(--gistui-ease), box-shadow var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-choice__control[data-type="radio"]::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gistui-primary-fg);
+    transform: scale(0);
+    transition: transform var(--gistui-duration-slow) var(--gistui-ease-spring);
+  }
+  .gistui-choice__control[data-type="checkbox"] { border-radius: 5px; }
+  .gistui-choice__control svg { width: 12px; height: 12px; }
+  .gistui-choice__control path { stroke-dasharray: 14; stroke-dashoffset: 14; transition: stroke-dashoffset var(--gistui-duration-slow) var(--gistui-ease-out); }
+  .gistui-choice__item:hover .gistui-choice__control:not([data-state="checked"]) { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gistui-fg) 38%, transparent); }
+  .gistui-choice__control[data-state="checked"] { background: var(--gistui-primary); box-shadow: none; }
+  .gistui-choice__control[data-state="checked"]::after { transform: scale(1); }
+  .gistui-choice__control[data-state="checked"] path { stroke-dashoffset: 0; }
+  .gistui-choice__control[data-focus-visible],
+  .gistui-choice__item:has(> input:focus-visible) .gistui-choice__control { box-shadow: var(--gistui-focus); }
+
+  /* Cards: a grid of options; the control sits in the top-right corner. */
+  /* Like Grid: up to `cols` columns, fewer as the space narrows (never under --gistui-choice-min each). */
+  .gistui-choice[data-v="cards"] {
+    --gistui-choice-min: 170px;
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(100%, max(var(--gistui-choice-min), calc((100% - (var(--gistui-choice-cols, 4) - 1) * 10px) / var(--gistui-choice-cols, 4)))), 1fr)
+    );
+    gap: 10px;
+  }
+  .gistui-choice[data-v="cards"] .gistui-choice__item {
+    flex-direction: column;
+    gap: 0;
+    padding: 14px 44px 14px 16px;
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-surface);
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-xs);
+    transition: box-shadow var(--gistui-duration) var(--gistui-ease), background var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration-fast) var(--gistui-ease);
+  }
+  .gistui-choice[data-v="cards"] .gistui-choice__item:has(.gistui-choice__media) { padding: 0; overflow: hidden; }
+  /* On image cards the ring is drawn above the photo, so the selection outline is never covered. */
+  .gistui-choice[data-v="cards"] .gistui-choice__item:has(.gistui-choice__media)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong);
+    pointer-events: none;
+    transition: box-shadow var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-choice[data-v="cards"] .gistui-choice__item:has(.gistui-choice__media)[data-state="checked"]::after { box-shadow: inset 0 0 0 2px var(--gistui-primary); }
+  .gistui-choice[data-v="cards"] .gistui-choice__item:has(.gistui-choice__media) .gistui-choice__control { z-index: 2; }
+  .gistui-choice[data-v="cards"] .gistui-choice__item:has(.gistui-choice__media) .gistui-choice__text { padding: 12px 44px 14px 14px; }
+  .gistui-choice[data-v="cards"] .gistui-choice__item:hover { background: var(--gistui-surface-hover); }
+  .gistui-choice[data-v="cards"] .gistui-choice__item:active { transform: scale(0.99); }
+  .gistui-choice[data-v="cards"] .gistui-choice__item[data-state="checked"] {
+    background: color-mix(in srgb, var(--gistui-primary) 5%, var(--gistui-surface));
+    box-shadow: inset 0 0 0 2px var(--gistui-primary), var(--gistui-shadow-sm);
+  }
+  .gistui-choice[data-v="cards"] .gistui-choice__item[data-focus-visible],
+  .gistui-choice[data-v="cards"] .gistui-choice__item:has(> input:focus-visible) { box-shadow: inset 0 0 0 2px var(--gistui-primary), var(--gistui-focus); }
+  .gistui-choice[data-v="cards"] .gistui-choice__control { position: absolute; z-index: 1; top: 14px; right: 14px; margin: 0; }
+  .gistui-choice[data-v="cards"] .gistui-choice__item:has(.gistui-choice__media) .gistui-choice__control { box-shadow: inset 0 0 0 1px var(--gistui-border-strong), 0 1px 4px rgb(0 0 0 / 0.25); }
+  /* On cards a checkbox is a ticked circle, like a radio's shape but with a tick. */
+  .gistui-choice[data-v="cards"] .gistui-choice__control[data-type="checkbox"] { border-radius: 50%; }
+  .gistui-choice[data-v="cards"] .gistui-choice__title { font-weight: 600; }
+  .gistui-choice__icon {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 10px;
+    border-radius: var(--gistui-radius-md);
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    color: var(--gistui-fg);
+    font-size: 18px;
+  }
+  .gistui-choice__item[data-state="checked"] .gistui-choice__icon { color: var(--gistui-primary); }
+  .gistui-choice__media { display: block; aspect-ratio: var(--gistui-choice-ratio, 16 / 10); background: var(--gistui-surface-sunk); }
+  .gistui-choice__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Segmented (radio) */
+  .gistui-choice[data-v="segmented"] {
+    flex-direction: row;
+    align-self: flex-start;
+    gap: 2px;
+    max-width: 100%;
+    padding: 3px;
+    border-radius: var(--gistui-radius-md);
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .gistui-choice[data-v="segmented"] .gistui-choice__item {
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 0 14px;
+    border-radius: calc(var(--gistui-radius-md) - 3px);
+    color: var(--gistui-fg-muted);
+    font-size: var(--gistui-text-sm);
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-choice[data-v="segmented"] .gistui-choice__item:hover,
+  .gistui-choice[data-v="segmented"] .gistui-choice__item[data-state="checked"] { color: var(--gistui-fg); }
+  .gistui-choice[data-v="segmented"] .gistui-choice__item[data-focus-visible] { box-shadow: var(--gistui-focus); }
+  .gistui-radio__thumb {
+    z-index: 0;
+    top: var(--top);
+    left: var(--left);
+    width: var(--width);
+    height: var(--height);
+    border-radius: calc(var(--gistui-radius-md) - 3px);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-sm);
+    --transition-duration: var(--gistui-duration-slow);
+    --transition-timing-function: var(--gistui-ease-out);
+  }
+  .gistui-radio__thumb[hidden] ~ .gistui-choice__item[data-state="checked"] { background: var(--gistui-surface); box-shadow: var(--gistui-ring), var(--gistui-shadow-sm); }
+
+  /* Chips (checkbox): toggle pills. */
+  .gistui-choice[data-v="chips"] { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .gistui-choice[data-v="chips"] .gistui-choice__item {
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 0 13px;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-surface);
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong);
+    color: var(--gistui-fg-muted);
+    font-size: var(--gistui-text-sm);
+    font-weight: 500;
+    transition: background var(--gistui-duration) var(--gistui-ease), color var(--gistui-duration) var(--gistui-ease), box-shadow var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-choice[data-v="chips"] .gistui-choice__body { flex: none; }
+  .gistui-choice[data-v="chips"] .gistui-choice__item:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-choice[data-v="chips"] .gistui-choice__item[data-state="checked"] { background: var(--gistui-primary); color: var(--gistui-primary-fg); box-shadow: none; }
+  .gistui-choice[data-v="chips"] .gistui-choice__item:has(> input:focus-visible) { box-shadow: var(--gistui-focus); }
+
+  /* Sizes for choice groups. */
+  .gistui-field[data-size="sm"] .gistui-choice__title { font-size: var(--gistui-text-sm); }
+  .gistui-field[data-size="sm"] .gistui-choice__hint { font-size: var(--gistui-text-xs); }
+  .gistui-field[data-size="sm"] .gistui-choice[data-v="cards"] .gistui-choice__item { border-radius: var(--gistui-radius-md); }
+  .gistui-field[data-size="sm"] .gistui-choice[data-v="cards"] .gistui-choice__item:not(:has(.gistui-choice__media)) { padding: 10px 38px 10px 12px; }
+  .gistui-field[data-size="sm"] .gistui-choice[data-v="cards"] .gistui-choice__control { top: 10px; right: 10px; }
+  .gistui-field[data-size="sm"] .gistui-choice[data-v="segmented"] .gistui-choice__item,
+  .gistui-field[data-size="sm"] .gistui-choice[data-v="chips"] .gistui-choice__item { min-height: 26px; padding: 0 10px; font-size: var(--gistui-text-xs); }
+  .gistui-field[data-size="lg"] .gistui-choice__title { font-size: var(--gistui-text-lg); }
+  .gistui-field[data-size="lg"] .gistui-choice[data-v="cards"] .gistui-choice__item { border-radius: var(--gistui-radius-xl); }
+  .gistui-field[data-size="lg"] .gistui-choice[data-v="cards"] .gistui-choice__item:not(:has(.gistui-choice__media)) { padding: 20px 52px 20px 20px; }
+  .gistui-field[data-size="lg"] .gistui-choice[data-v="cards"] .gistui-choice__item:has(.gistui-choice__media) .gistui-choice__text { padding: 16px 52px 18px 18px; }
+  .gistui-field[data-size="lg"] .gistui-choice[data-v="cards"] .gistui-choice__control { top: 18px; right: 18px; width: 22px; height: 22px; }
+  .gistui-field[data-size="lg"] .gistui-choice[data-v="cards"] { --gistui-choice-min: 220px; }
+  .gistui-field[data-size="sm"] .gistui-choice[data-v="cards"] { --gistui-choice-min: 140px; }
+  .gistui-field[data-size="lg"] .gistui-choice__icon { width: 44px; height: 44px; font-size: 22px; }
+  .gistui-field[data-size="lg"] .gistui-choice[data-v="segmented"] .gistui-choice__item,
+  .gistui-field[data-size="lg"] .gistui-choice[data-v="chips"] .gistui-choice__item { min-height: 38px; padding: 0 18px; font-size: var(--gistui-text-md); }
+
+  /* TagInput: chips inside the field. */
+  .gistui-taginput {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 5px 8px;
+    border-radius: var(--gistui-radius-md);
+    background: var(--gistui-surface);
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-xs);
+    cursor: text;
+    transition: box-shadow var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-taginput:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gistui-fg) 28%, transparent), var(--gistui-shadow-xs); }
+  .gistui-taginput:focus-within { box-shadow: inset 0 0 0 1px var(--gistui-accent), var(--gistui-focus); }
+  .gistui-taginput .gistui-tag { animation: gistui-pop-in var(--gistui-duration) var(--gistui-ease-out); }
+  .gistui-taginput__input { flex: 1 1 80px; min-width: 80px; height: 26px; padding: 0 4px; border: 0; outline: none; background: none; color: var(--gistui-fg); font: inherit; }
+  .gistui-taginput__input::placeholder { color: var(--gistui-fg-subtle); }
+  /* The field shows the focus ring; the inner input must not draw a second one. */
+  .gistui-taginput__input:focus-visible { box-shadow: none; outline: none; }
+  .gistui-taginput__suggest { display: flex; flex-wrap: wrap; gap: 6px; }
+  .gistui-taginput__suggest .gistui-chip { height: 26px; padding: 0 9px 0 7px; }
+  .gistui-taginput__suggest .gistui-chip:hover:not(:disabled) { background: var(--gistui-accent-soft); color: var(--gistui-accent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gistui-accent) 35%, transparent); }
+  /* Selection chips (tags in TagInput and a multiple Combobox) follow the accent. */
+  .gistui-taginput .gistui-tag, .gistui-combobox__chips .gistui-tag { height: 26px; padding: 0 6px 0 10px; font-size: var(--gistui-text-sm); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gistui-accent) 30%, transparent); }
+  .gistui-field[data-size="sm"] .gistui-taginput { min-height: 32px; padding: 3px 6px; }
+  .gistui-field[data-size="lg"] .gistui-taginput { min-height: 46px; padding: 8px 10px; }
+
+  /* Field sizes: sm, md (default), lg. */
+  .gistui-field[data-size="sm"] .gistui-input,
+  .gistui-field[data-size="sm"] .gistui-textarea,
+  .gistui-field[data-size="sm"] [data-part="trigger"]:not(.gistui-combobox__trigger) { min-height: 32px; padding-top: 5px; padding-bottom: 5px; font-size: var(--gistui-text-sm); border-radius: var(--gistui-radius-sm); }
+  .gistui-field[data-size="sm"] .gistui-field__label { font-size: var(--gistui-text-xs); }
+  .gistui-field[data-size="lg"] .gistui-input,
+  .gistui-field[data-size="lg"] .gistui-textarea,
+  .gistui-field[data-size="lg"] [data-part="trigger"]:not(.gistui-combobox__trigger) { min-height: 46px; padding-top: 11px; padding-bottom: 11px; font-size: var(--gistui-text-lg); border-radius: var(--gistui-radius-lg); }
+  .gistui-field[data-size="lg"] .gistui-field__label { font-size: var(--gistui-text-md); }
+
+  /* ─── Validation states ─── */
+
+  .gistui-field__error {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--gistui-danger);
+    font-size: var(--gistui-text-xs);
+    font-weight: 500;
+    animation: gistui-pop-in var(--gistui-duration) var(--gistui-ease-out);
+  }
+  .gistui-field[data-invalid] .gistui-input,
+  .gistui-field[data-invalid] .gistui-textarea,
+  .gistui-field[data-invalid] [data-part="trigger"]:not(.gistui-combobox__trigger),
+  .gistui-field[data-invalid] .gistui-taginput {
+    box-shadow: inset 0 0 0 1px var(--gistui-danger), 0 0 0 3px color-mix(in srgb, var(--gistui-danger) 14%, transparent);
+  }
+  .gistui-field[data-invalid] .gistui-field__label { color: var(--gistui-danger); }
+  .gistui-field[data-invalid] .gistui-choice__control:not([data-state="checked"]),
+  .gistui-field[data-invalid] .gistui-checkbox [data-part="control"]:not([data-state="checked"]) { box-shadow: inset 0 0 0 1px var(--gistui-danger); }
+  .gistui-field[data-invalid] .gistui-choice[data-v="cards"] .gistui-choice__item:not([data-state="checked"]) { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gistui-danger) 60%, transparent); }
+  .gistui-input-wrap { position: relative; display: flex; align-items: center; }
+  .gistui-input-wrap[data-type="password"] .gistui-input { padding-right: 40px; }
+  .gistui-input-reveal {
+    appearance: none;
+    position: absolute;
+    right: 6px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--gistui-radius-xs);
+    background: none;
+    color: var(--gistui-fg-subtle);
+    cursor: pointer;
+  }
+  .gistui-input-reveal:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+
+  /* ─── Form chrome: nav bar, step forms, success ─── */
+
+  .gistui-form__nav { display: flex; align-items: center; gap: 10px; padding-top: 4px; }
+  .gistui-form__count { color: var(--gistui-fg-subtle); font-size: var(--gistui-text-xs); font-variant-numeric: tabular-nums; }
+  .gistui-form__step { display: flex; flex-direction: column; gap: var(--gistui-space-lg); animation: gistui-tab-in var(--gistui-duration-slow) var(--gistui-ease-out); }
+  .gistui-step { display: flex; flex-direction: column; gap: var(--gistui-space-lg); min-width: 0; margin: 0; padding: 0; border: 0; }
+  .gistui-step__hint { margin: 0; color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); }
+  .gistui-stepper { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; padding: 0; list-style: none; overflow-x: auto; scrollbar-width: none; }
+  .gistui-stepper__item { display: flex; align-items: center; gap: 8px; flex: none; color: var(--gistui-fg-subtle); font-size: var(--gistui-text-sm); font-weight: 500; }
+  .gistui-stepper__item + .gistui-stepper__item::before { content: ""; width: 28px; height: 1px; background: var(--gistui-border-strong); }
+  .gistui-stepper__dot {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong);
+    font-size: var(--gistui-text-xs);
+    font-variant-numeric: tabular-nums;
+    transition: background var(--gistui-duration) var(--gistui-ease), box-shadow var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-stepper__item[data-state="current"] { color: var(--gistui-fg); }
+  .gistui-stepper__item[data-state="current"] .gistui-stepper__dot { box-shadow: inset 0 0 0 2px var(--gistui-primary), 0 0 0 4px color-mix(in srgb, var(--gistui-primary) 12%, transparent); color: var(--gistui-fg); }
+  .gistui-stepper__item[data-state="done"] { color: var(--gistui-fg-muted); }
+  .gistui-stepper__item[data-state="done"] .gistui-stepper__dot { background: var(--gistui-primary); color: var(--gistui-primary-fg); box-shadow: none; }
+  .gistui-form__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--gistui-text-sm, 0.875rem);
+  color: var(--gistui-success);
+  animation: gistui-fade 0.2s var(--gistui-ease);
+}
+.gistui-form__status svg {
+  width: 16px;
+  height: 16px;
+}
+.gistui-form__done {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 28px 16px;
+    text-align: center;
+    animation: gistui-pop-in var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  .gistui-form__done p { margin: 0; font-size: var(--gistui-text-lg); font-weight: 600; }
+  .gistui-form__done-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--gistui-success-soft); color: var(--gistui-success); font-size: 22px; }
+
+  /* ─── Dialog and drawer ─── */
+
+  .gistui-dialog {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 16px;
+    border: 0;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    color: var(--gistui-fg);
+    font-family: var(--gistui-font);
+    /*
+     * Never a scroll container: a panel sliding in from an edge is outside the dialog for a moment,
+     * and with `overflow: auto` that put scrollbars on the dialog, which made the panel narrower and
+     * then jump back when they went away. The panel fits the viewport and scrolls its own body.
+     * `clip`, not `hidden`: a hidden box can still be scrolled by the browser, and it is when focus
+     * moves to a field in a panel that is still on its way in, which shoves the panel sideways.
+     */
+    overflow: hidden;
+    overflow: clip;
+    overscroll-behavior: contain;
+  }
+  .gistui-dialog:not([open]) { display: none; }
+  .gistui-dialog::backdrop { background: rgb(0 0 0 / 0.45); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); animation: gistui-fade var(--gistui-duration-slow) var(--gistui-ease) both; }
+  .gistui-dialog[data-closing]::backdrop { animation: gistui-fade-out 200ms var(--gistui-ease) both; }
+  .gistui-dialog__panel {
+    display: flex;
+    flex-direction: column;
+    width: min(100%, var(--gistui-dialog-w, 520px));
+    max-height: calc(100dvh - 32px);
+    overflow: hidden;
+    border-radius: var(--gistui-radius-xl);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-lg);
+    animation: gistui-dialog-in var(--gistui-duration-slow) var(--gistui-ease-out) backwards;
+    /* Only the transform and the opacity move, on their own layer. */
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+  .gistui-dialog[data-size="sm"] { --gistui-dialog-w: 400px; }
+  .gistui-dialog[data-size="lg"] { --gistui-dialog-w: 720px; }
+  .gistui-dialog[data-size="xl"] { --gistui-dialog-w: 960px; }
+  .gistui-dialog[data-closing] .gistui-dialog__panel { animation: gistui-dialog-out 200ms var(--gistui-ease) both; }
+  .gistui-dialog__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 20px 20px 4px; }
+  .gistui-dialog__title { margin: 0; font-size: var(--gistui-text-lg); font-weight: 600; letter-spacing: var(--gistui-tracking-tight); }
+  .gistui-dialog__subtitle { margin: 4px 0 0; color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); }
+  .gistui-dialog__close {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 30px;
+    height: 30px;
+    margin: -4px -6px 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: none;
+    color: var(--gistui-fg-muted);
+    cursor: pointer;
+    transition: background var(--gistui-duration) var(--gistui-ease), color var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-dialog__close:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-dialog__body { display: flex; flex-direction: column; gap: var(--gistui-space-lg); padding: 16px 20px 20px; overflow-y: auto; }
+  /* Drawer: a full-height panel from the side (or a bottom sheet). */
+  .gistui-dialog[data-v="drawer"] { padding: 0; place-items: stretch end; }
+  .gistui-dialog[data-v="drawer"][data-side="left"] { place-items: stretch start; }
+  .gistui-dialog[data-v="drawer"][data-side="bottom"] { place-items: end stretch; }
+  .gistui-dialog[data-v="drawer"] .gistui-dialog__panel { width: min(100vw, var(--gistui-dialog-w, 440px)); height: 100dvh; max-height: none; border-radius: 0; animation-name: gistui-drawer-in; animation-duration: 340ms; animation-timing-function: var(--gistui-ease-sheet); }
+  .gistui-dialog[data-v="drawer"][data-side="left"] .gistui-dialog__panel { animation-name: gistui-drawer-in-left; }
+  .gistui-dialog[data-v="drawer"][data-side="bottom"] .gistui-dialog__panel { width: 100%; height: auto; max-height: 85dvh; border-radius: var(--gistui-radius-xl) var(--gistui-radius-xl) 0 0; animation-name: gistui-sheet-in; }
+  .gistui-dialog[data-v="drawer"][data-closing] .gistui-dialog__panel { animation-name: gistui-drawer-out; animation-duration: 200ms; animation-timing-function: var(--gistui-ease); animation-fill-mode: both; }
+  .gistui-dialog[data-v="drawer"][data-side="left"][data-closing] .gistui-dialog__panel { animation-name: gistui-drawer-out-left; }
+  .gistui-dialog[data-v="drawer"][data-side="bottom"][data-closing] .gistui-dialog__panel { animation-name: gistui-sheet-out; }
+  @keyframes gistui-fade-out { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes gistui-dialog-in { from { opacity: 0; transform: translateY(8px) scale(0.97); } to { opacity: 1; transform: none; } }
+  @keyframes gistui-dialog-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(4px) scale(0.98); } }
+  @keyframes gistui-drawer-in { from { transform: translateX(100%); } to { transform: none; } }
+  @keyframes gistui-drawer-out { from { transform: none; } to { transform: translateX(100%); } }
+  @keyframes gistui-drawer-in-left { from { transform: translateX(-100%); } to { transform: none; } }
+  @keyframes gistui-drawer-out-left { from { transform: none; } to { transform: translateX(-100%); } }
+  @keyframes gistui-sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+  @keyframes gistui-sheet-out { from { transform: none; } to { transform: translateY(100%); } }
+
+  .gistui-checkbox,
+  .gistui-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    font-size: var(--gistui-text-md);
+  }
+  .gistui-checkbox [data-part="control"] {
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    flex: none;
+    border-radius: 5px;
+    background: var(--gistui-surface);
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-xs);
+    color: var(--gistui-primary-fg);
+    transition: background var(--gistui-duration) var(--gistui-ease), box-shadow var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration-fast) var(--gistui-ease);
+  }
+  .gistui-checkbox:hover [data-part="control"]:not([data-state="checked"]) { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gistui-fg) 35%, transparent); }
+  .gistui-checkbox:active [data-part="control"] { transform: scale(0.92); }
+  .gistui-checkbox [data-part="control"][data-state="checked"] { background: var(--gistui-primary); box-shadow: none; }
+  .gistui-checkbox [data-part="control"][data-focus-visible] { box-shadow: var(--gistui-focus); }
+  .gistui-checkbox [data-part="control"] path {
+    stroke-dasharray: 14;
+    stroke-dashoffset: 14;
+    transition: stroke-dashoffset var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  .gistui-checkbox [data-part="control"][data-state="checked"] path { stroke-dashoffset: 0; }
+  .gistui-switch [data-part="control"] {
+    position: relative;
+    width: 36px;
+    height: 21px;
+    flex: none;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-surface-active);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    transition: background var(--gistui-duration-slow) var(--gistui-ease);
+  }
+  .gistui-switch [data-part="control"][data-state="checked"] { background: var(--gistui-primary); box-shadow: none; }
+  .gistui-switch [data-part="control"][data-focus-visible] { box-shadow: var(--gistui-focus); }
+  .gistui-switch [data-part="thumb"] {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: var(--gistui-surface);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.2), 0 0 0 0.5px rgb(0 0 0 / 0.06);
+    transition: transform var(--gistui-duration-slow) var(--gistui-ease-spring), width var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-switch:active [data-part="thumb"] { width: 20px; }
+  .gistui-switch [data-part="thumb"][data-state="checked"] { transform: translateX(15px); background: var(--gistui-primary-fg); }
+  .gistui-switch:active [data-part="thumb"][data-state="checked"] { transform: translateX(12px); }
+  .gistui-checkbox[data-disabled], .gistui-switch[data-disabled] { opacity: 0.55; cursor: not-allowed; }
+
+  .gistui-buttons { display: flex; flex-wrap: wrap; gap: var(--gistui-space-sm); align-items: center; }
+  .gistui-buttons[data-align="end"] { justify-content: flex-end; }
+  .gistui-button {
+    appearance: none;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 36px;
+    padding: 0 15px;
+    border: 0;
+    border-radius: var(--gistui-radius-md);
+    background: var(--gistui-primary);
+    box-shadow: var(--gistui-shadow-xs), inset 0 1px 0 rgb(255 255 255 / 0.08);
+    color: var(--gistui-primary-fg);
+    font: inherit;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      background var(--gistui-duration) var(--gistui-ease),
+      box-shadow var(--gistui-duration) var(--gistui-ease),
+      transform var(--gistui-duration-fast) var(--gistui-ease),
+      opacity var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-button:hover:not(:disabled) { background: var(--gistui-primary-hover); }
+  .gistui-button:active:not(:disabled) { transform: scale(0.97); }
+  .gistui-button .gistui-icon { font-size: 15px; }
+  .gistui-button[data-v="accent"] { background: var(--gistui-accent); color: var(--gistui-accent-fg); }
+  .gistui-button[data-v="accent"]:hover:not(:disabled) { background: var(--gistui-accent-hover); }
+  .gistui-button[data-v="secondary"] { background: var(--gistui-surface); color: var(--gistui-fg); box-shadow: inset 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-xs); }
+  .gistui-button[data-v="secondary"]:hover:not(:disabled) { background: var(--gistui-surface-hover); }
+  .gistui-button[data-v="ghost"] { background: transparent; color: var(--gistui-fg); box-shadow: none; }
+  .gistui-button[data-v="ghost"]:hover:not(:disabled) { background: var(--gistui-surface-hover); }
+  .gistui-button[data-v="link"] { background: transparent; color: var(--gistui-accent); box-shadow: none; height: auto; padding: 0; }
+  .gistui-button[data-v="link"]:hover:not(:disabled) { background: transparent; text-decoration: underline; text-underline-offset: 3px; }
+  .gistui-button[data-v="danger"] { background: var(--gistui-danger); color: var(--gistui-danger-fg); }
+  .gistui-button[data-v="danger"]:hover:not(:disabled) { background: color-mix(in srgb, var(--gistui-danger) 88%, #000); }
+  .gistui-button[data-size="sm"] { height: 30px; padding: 0 11px; font-size: var(--gistui-text-sm); border-radius: var(--gistui-radius-sm); }
+  .gistui-button[data-size="lg"] { height: 44px; padding: 0 20px; font-size: var(--gistui-text-lg); }
+  .gistui-button[data-full] { width: 100%; }
+  .gistui-button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .gistui-button[data-locked] { cursor: progress; }
+
+  /* ─── Slides (presentations and report decks) ───────────────────────── */
+
+  .gistui-slides {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+  .gistui-slides__stage {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--gistui-slide-ratio, 16 / 9);
+    border-radius: var(--gistui-radius-xl);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-md);
+    container-type: size;
+  }
+  .gistui-slides[data-ratio="auto"] .gistui-slides__stage { aspect-ratio: auto; min-height: 420px; }
+  .gistui-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(24px, 6cqw, 64px);
+    /* A page never scrolls: content that does not fit is scaled down (see useAutofit). */
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(calc(var(--gistui-dir, 1) * 36px));
+    transition:
+      opacity 420ms var(--gistui-ease),
+      transform 520ms var(--gistui-ease-out),
+      visibility 0s linear 520ms;
+  }
+  .gistui-slides[data-ratio="auto"] .gistui-slide { position: relative; inset: auto; }
+  .gistui-slides[data-ratio="auto"] .gistui-slide:not([data-state="active"]) { position: absolute; inset: 0; }
+  .gistui-slide[data-state="active"] { opacity: 1; visibility: visible; transform: none; transition: opacity 420ms var(--gistui-ease), transform 520ms var(--gistui-ease-out), visibility 0s; }
+  .gistui-slide[data-state="before"] { transform: translateX(calc(var(--gistui-dir, 1) * -36px)); }
+  .gistui-slide__content { display: flex; flex-direction: column; gap: var(--gistui-space-lg); flex: none; min-width: 0; transform-origin: top left; }
+  .gistui-slide[data-fit] { justify-content: flex-start; }
+  .gistui-slide[data-layout="center"] .gistui-slide__content { align-items: center; text-align: center; }
+  .gistui-slide[data-layout="top"] { justify-content: flex-start; }
+  .gistui-slide[data-layout="split"] .gistui-slide__content { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: clamp(20px, 4cqw, 48px); }
+  /* Report pages: a running footer with the title and page number. */
+  .gistui-slide__foot {
+    position: absolute;
+    left: 68px;
+    right: 68px;
+    bottom: 28px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 10px;
+    border-top: 1px solid var(--gistui-border);
+    color: var(--gistui-fg-subtle);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+  .gistui-slide[data-gistui="Sheet"]:has(> .gistui-slide__foot) { padding-bottom: 84px; }
+  .gistui-slide[data-bg="inverse"] { background: var(--gistui-primary); color: var(--gistui-primary-fg); --gistui-fg-muted: color-mix(in srgb, var(--gistui-primary-fg) 70%, transparent); }
+  .gistui-slide[data-bg="accent"] { background: var(--gistui-accent); color: var(--gistui-accent-fg); --gistui-fg-muted: color-mix(in srgb, var(--gistui-accent-fg) 78%, transparent); }
+  .gistui-slide[data-bg="gradient"] {
+    background:
+      radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--gistui-accent) 22%, transparent), transparent 60%),
+      radial-gradient(90% 120% at 100% 100%, color-mix(in srgb, var(--gistui-chart-5) 18%, transparent), transparent 60%),
+      var(--gistui-surface);
+  }
+  .gistui-slide[data-bg="image"] { color: #fff; --gistui-fg-muted: rgb(255 255 255 / 0.78); }
+  .gistui-slide:is([data-bg="inverse"], [data-bg="accent"], [data-bg="image"]) .gistui-header__eyebrow,
+  .gistui-box:is([data-surface="inverse"], [data-surface="accent"]) .gistui-header__eyebrow { color: inherit; opacity: 0.72; }
+  .gistui-slide__bg { position: absolute; inset: 0; z-index: -1; }
+  .gistui-slide__bg { overflow: hidden; }
+  .gistui-slide__bg img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .gistui-slide__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 0.25), rgb(0 0 0 / 0.7)); }
+  .gistui-slide { isolation: isolate; }
+  .gistui-slide .gistui-header .gistui-header__title { font-size: clamp(22px, 4.2cqw, 48px); letter-spacing: -0.03em; line-height: 1.1; }
+  .gistui-slide .gistui-header[data-size="lg"] .gistui-header__title { font-size: clamp(26px, 5cqw, 60px); }
+  .gistui-slide .gistui-header[data-size="xl"] .gistui-header__title { font-size: clamp(30px, 6.4cqw, 84px); letter-spacing: -0.035em; line-height: 1.02; }
+  .gistui-slide .gistui-header .gistui-header__subtitle { font-size: clamp(14px, 1.9cqw, 22px); }
+  .gistui-slide .gistui-header[data-size="xl"] .gistui-header__subtitle { font-size: clamp(15px, 2.2cqw, 26px); }
+  .gistui-slide .gistui-header .gistui-header__eyebrow { font-size: clamp(11px, 1.2cqw, 14px); }
+  .gistui-slide .gistui-header[data-size="sm"] .gistui-header__title { font-size: clamp(14px, 1.9cqw, 20px); letter-spacing: -0.01em; }
+  .gistui-slide .gistui-header[data-size="sm"] .gistui-header__subtitle { font-size: clamp(12px, 1.4cqw, 15px); }
+  .gistui-slide .gistui-md { font-size: clamp(14px, 1.7cqw, 19px); }
+  .gistui-slide[data-state="active"] > .gistui-slide__content > * { animation: gistui-enter 560ms var(--gistui-ease-out) backwards; }
+  .gistui-slide[data-state="active"] > .gistui-slide__content > *:nth-child(2) { animation-delay: 60ms; }
+  .gistui-slide[data-state="active"] > .gistui-slide__content > *:nth-child(3) { animation-delay: 120ms; }
+  .gistui-slide[data-state="active"] > .gistui-slide__content > *:nth-child(4) { animation-delay: 180ms; }
+  .gistui-slide[data-state="active"] > .gistui-slide__content > *:nth-child(n + 5) { animation-delay: 240ms; }
+  .gistui-slides__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .gistui-slides__dots { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .gistui-slides__dot {
+    appearance: none;
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-border-strong);
+    cursor: pointer;
+    transition: width var(--gistui-duration-slow) var(--gistui-ease-out), background var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-slides__dot[aria-current="true"] { width: 22px; background: var(--gistui-fg); }
+  .gistui-slides__nav { display: flex; align-items: center; gap: 8px; }
+  .gistui-slides__count { min-width: 56px; text-align: center; color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); font-variant-numeric: tabular-nums; }
+  .gistui-icon-btn {
+    appearance: none;
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-xs);
+    color: var(--gistui-fg);
+    cursor: pointer;
+    transition: background var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration-fast) var(--gistui-ease), opacity var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-icon-btn:hover:not(:disabled) { background: var(--gistui-surface-hover); }
+  .gistui-icon-btn:active:not(:disabled) { transform: scale(0.94); }
+  .gistui-icon-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .gistui-slides__progress { height: 2px; border-radius: 2px; background: var(--gistui-surface-active); overflow: hidden; }
+  .gistui-slides__progress > div { height: 100%; background: var(--gistui-fg); transition: width var(--gistui-duration-slower) var(--gistui-ease-out); }
+  /* Fullscreen: the stage takes the largest size that fits the screen at its aspect ratio. */
+  .gistui-slides:fullscreen { justify-content: center; align-items: center; padding: 24px; background: var(--gistui-bg); }
+  .gistui-slides:fullscreen .gistui-slides__stage {
+    width: min(100%, calc((100dvh - 110px) * var(--gistui-slide-aspect, 1.7778)));
+    max-width: none;
+    margin-inline: auto;
+  }
+  .gistui-slides:fullscreen .gistui-slides__progress,
+  .gistui-slides:fullscreen .gistui-slides__bar { width: min(100%, calc((100dvh - 110px) * var(--gistui-slide-aspect, 1.7778))); }
+
+  /* Slides and sheets are fixed-size canvases: grids keep the columns they ask for. */
+  /* Slides are laid out at a fixed size and scaled: their grids keep the spans as written. */
+  .gistui-slide .gistui-grid { --gistui-grid-min: 110px; container-type: normal; }
+  .gistui-slide .gistui-stats { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  .gistui-slide .gistui-choice[data-v="cards"] { --gistui-choice-min: 120px; }
+  /* Pages have room for full titles: tiles wrap instead of truncating. */
+  .gistui-slide .gistui-tile__title, .gistui-slide .gistui-tile__subtitle { white-space: normal; }
+  .gistui-slide[data-gistui="Sheet"] .gistui-stat__value { font-size: 24px; }
+  .gistui-slide[data-gistui="Sheet"] .gistui-table td, .gistui-slide[data-gistui="Sheet"] .gistui-table th { height: 36px; }
+
+  /* Slides and sheets rendered as static pages (viewer pages and thumbnails). */
+  .gistui-slide[data-static] { opacity: 1; visibility: visible; transform: none; transition: none; }
+  .gistui-slide[data-static="thumb"],
+  .gistui-slide[data-static="thumb"] * { animation: none !important; transition: none !important; }
+  .gistui-slide[data-gistui="Sheet"] { justify-content: flex-start; padding: 64px 68px; font-size: 14px; }
+  .gistui-slide[data-gistui="Sheet"] > .gistui-slide__content { gap: 18px; }
+  .gistui-slide[data-gistui="Sheet"][data-layout="center"] { justify-content: center; }
+  .gistui-slide[data-gistui="Sheet"] .gistui-header .gistui-header__title { font-size: 24px; letter-spacing: -0.02em; }
+  .gistui-slide[data-gistui="Sheet"] .gistui-header[data-size="xl"] .gistui-header__title { font-size: 44px; line-height: 1.05; }
+  .gistui-slide[data-gistui="Sheet"] .gistui-header[data-size="lg"] .gistui-header__title { font-size: 30px; }
+  .gistui-slide[data-gistui="Sheet"] .gistui-header .gistui-header__subtitle { font-size: 15px; }
+  .gistui-slide[data-gistui="Sheet"] .gistui-header[data-size="sm"] .gistui-header__title { font-size: 15px; }
+  .gistui-slide[data-gistui="Sheet"] .gistui-header[data-size="sm"] .gistui-header__subtitle { font-size: 12.5px; }
+  .gistui-slide[data-gistui="Sheet"] .gistui-md { font-size: 14px; }
+
+  /* ─── Viewer: Report and Slides(v:viewer) ─── */
+
+  .gistui-viewer { display: flex; flex-direction: column; gap: 12px; min-width: 0; outline: none; }
+  .gistui-viewer__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .gistui-viewer__title { margin: 0; font-size: var(--gistui-text-lg); font-weight: 600; letter-spacing: var(--gistui-tracking-tight); }
+  .gistui-viewer__subtitle { margin: 2px 0 0; color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); }
+  .gistui-viewer__body {
+    display: grid;
+    grid-template-columns: calc(var(--gistui-thumb, 136px) + 28px) minmax(0, 1fr);
+    gap: 14px;
+    height: var(--gistui-viewer-h, min(80vh, 860px));
+    min-height: 440px;
+  }
+  .gistui-viewer__rail {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    overflow-y: auto;
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    scrollbar-width: thin;
+  }
+  .gistui-viewer__thumb {
+    appearance: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border: 0;
+    border-radius: var(--gistui-radius-md);
+    background: none;
+    color: var(--gistui-fg-muted);
+    font: inherit;
+    font-size: var(--gistui-text-xs);
+    cursor: pointer;
+    transition: background var(--gistui-duration) var(--gistui-ease), box-shadow var(--gistui-duration) var(--gistui-ease), color var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-viewer__thumb:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-viewer__thumb[aria-current="true"] { background: var(--gistui-surface); color: var(--gistui-fg); box-shadow: inset 0 0 0 2px var(--gistui-primary), var(--gistui-shadow-sm); }
+  .gistui-viewer__mini { display: block; overflow: hidden; border-radius: 4px; box-shadow: 0 0 0 1px var(--gistui-border), var(--gistui-shadow-xs); pointer-events: none; }
+  .gistui-viewer__num { font-variant-numeric: tabular-nums; font-weight: 500; }
+  .gistui-viewer__main {
+    position: relative;
+    min-width: 0;
+    overflow: auto;
+    padding: 20px 20px 0;
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-canvas);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    overscroll-behavior: contain;
+  }
+  .gistui-viewer__pages { display: flex; flex-direction: column; align-items: center; gap: 20px; min-height: calc(100% - 72px); justify-content: center; }
+  .gistui-viewer[data-all] .gistui-viewer__pages { justify-content: flex-start; }
+  .gistui-viewer__frame { flex: none; animation: gistui-fade var(--gistui-duration-slow) var(--gistui-ease) both; }
+  .gistui-viewer__scaled { position: relative; overflow: hidden; border-radius: var(--gistui-radius-sm); background: var(--gistui-surface); box-shadow: var(--gistui-ring), var(--gistui-shadow-md); }
+  .gistui-viewer__mini .gistui-viewer__scaled { border-radius: 0; box-shadow: none; }
+  /* Each page is its own `gistui` container, so phone-width rules never reach inside a page. */
+  .gistui-viewer__inner { position: absolute; top: 0; left: 0; transform-origin: 0 0; container: gistui / size; }
+  .gistui-slides__stage .gistui-viewer__scaled { background: none; box-shadow: none; border-radius: 0; }
+  .gistui-viewer[data-kind="report"] .gistui-viewer__scaled { border-radius: 2px; }
+  .gistui-viewer__bar {
+    position: sticky;
+    bottom: 12px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 16px auto 12px;
+    padding: 5px;
+    overflow-x: auto;
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-surface-overlay);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-lg);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    scrollbar-width: none;
+  }
+  .gistui-viewer__btn, .gistui-viewer__zoom {
+    appearance: none;
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: none;
+    color: var(--gistui-fg);
+    font: inherit;
+    font-size: var(--gistui-text-sm);
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: background var(--gistui-duration) var(--gistui-ease), opacity var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-viewer__zoom { min-width: 54px; font-weight: 500; }
+  .gistui-viewer__btn:hover:not(:disabled), .gistui-viewer__zoom:hover { background: var(--gistui-surface-hover); }
+  .gistui-viewer__btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .gistui-viewer__count { flex: none; min-width: 58px; padding: 0 6px; text-align: center; font-size: var(--gistui-text-sm); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .gistui-viewer__count span { color: var(--gistui-fg-muted); font-weight: 400; }
+  .gistui-viewer__sep { flex: none; width: 1px; height: 20px; margin: 0 4px; background: var(--gistui-border-strong); }
+  .gistui-viewer__toggle { position: relative; display: inline-flex; align-items: center; gap: 8px; flex: none; padding: 0 8px; font-size: var(--gistui-text-sm); font-weight: 500; white-space: nowrap; cursor: pointer; }
+  .gistui-viewer__toggle input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .gistui-viewer__switch { position: relative; width: 30px; height: 18px; border-radius: var(--gistui-radius-full); background: var(--gistui-surface-active); box-shadow: inset 0 0 0 1px var(--gistui-border); transition: background var(--gistui-duration-slow) var(--gistui-ease); }
+  .gistui-viewer__switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--gistui-surface); box-shadow: 0 1px 2px rgb(0 0 0 / 0.25); transition: transform var(--gistui-duration-slow) var(--gistui-ease-spring); }
+  .gistui-viewer__toggle input:checked + .gistui-viewer__switch { background: var(--gistui-primary); box-shadow: none; }
+  .gistui-viewer__toggle input:checked + .gistui-viewer__switch::after { transform: translateX(12px); background: var(--gistui-primary-fg); }
+  .gistui-viewer__toggle input:focus-visible + .gistui-viewer__switch { box-shadow: var(--gistui-focus); }
+
+  /* Present: fullscreen, no rail, the page as large as the screen allows. */
+  .gistui-viewer:fullscreen { padding: 16px; background: var(--gistui-bg); }
+  .gistui-viewer:fullscreen .gistui-viewer__head,
+  .gistui-viewer:fullscreen .gistui-viewer__rail { display: none; }
+  .gistui-viewer:fullscreen .gistui-viewer__body { grid-template-columns: minmax(0, 1fr); height: 100%; }
+  .gistui-viewer:fullscreen .gistui-viewer__main { box-shadow: none; background: none; }
+
+  /* Media: a round chevron on linked cards (top right). */
+  .gistui-media__go {
+    position: absolute;
+    z-index: 2;
+    top: 12px;
+    right: 12px;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--gistui-radius-full);
+    background: rgb(12 12 16 / 0.5);
+    color: #fff;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform var(--gistui-duration) var(--gistui-ease-out), background var(--gistui-duration) var(--gistui-ease);
+  }
+  a.gistui-media:hover .gistui-media__go,
+  button.gistui-media:hover .gistui-media__go { transform: translateX(2px); background: rgb(12 12 16 / 0.7); }
+  .gistui-media__body .gistui-tags { margin-top: 8px; }
+
+  /* Icon standalone. */
+  :where(.gistui-icon-badge) {
+    --tone: var(--gistui-fg);
+    --tone-soft: var(--gistui-surface-sunk);
+  }
+  .gistui-icon-badge {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: var(--gistui-icon-box, 40px);
+    height: var(--gistui-icon-box, 40px);
+    border-radius: var(--gistui-radius-md);
+    background: var(--tone-soft);
+    color: var(--tone);
+    font-size: calc(var(--gistui-icon-box, 40px) * 0.48);
+  }
+  .gistui-icon-badge[data-size="sm"] { --gistui-icon-box: 28px; border-radius: var(--gistui-radius-sm); }
+  .gistui-icon-badge[data-size="lg"] { --gistui-icon-box: 52px; border-radius: var(--gistui-radius-lg); }
+  .gistui-icon-plain { color: var(--tone, currentColor); font-size: 20px; display: inline-flex; }
+  .gistui-icon[data-glyph] { width: auto; height: auto; font-size: 1em; line-height: 1; font-style: normal; }
+
+  /* ─── Streaming states ───────────────────────────────────────────────── */
+
+  /* Locked while the message streams (§6.4): looks normal, cannot be used. */
+  .gistui [data-locked] { cursor: progress; }
+
+  .gistui-skeleton {
+    min-height: 56px;
+    border-radius: var(--gistui-radius-lg);
+    background:
+      linear-gradient(100deg, transparent 20%, color-mix(in srgb, var(--gistui-surface) 70%, transparent) 50%, transparent 80%) var(--gistui-surface-sunk);
+    background-size: 200% 100%;
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    animation: gistui-shimmer 1.6s var(--gistui-ease-in-out) infinite, gistui-fade var(--gistui-duration-slow) var(--gistui-ease) both;
+  }
+  .gistui-skeleton[data-expected="Chart"] { aspect-ratio: 16 / 7; min-height: 160px; }
+  .gistui-skeleton[data-expected="Stats"] { min-height: 96px; }
+  .gistui-skeleton[data-expected="Table"] { min-height: 180px; }
+  .gistui-skeleton[data-expected="Header"] { min-height: 44px; max-width: 60%; }
+  .gistui-skeleton[data-expected="Text"] { min-height: 20px; border-radius: var(--gistui-radius-sm); }
+  .gistui-skeleton[data-expected="Media"],
+  .gistui-skeleton[data-expected="Image"] { aspect-ratio: 4 / 3; }
+  .gistui-skeleton[data-expected="Tile"] { min-height: 62px; }
+
+  .gistui-error {
+    overflow-wrap: anywhere;
+    padding: var(--gistui-space-md) var(--gistui-space-lg);
+    border: 1px dashed color-mix(in srgb, var(--gistui-danger) 45%, transparent);
+    border-radius: var(--gistui-radius-md);
+    color: var(--gistui-danger);
+    font-size: var(--gistui-text-sm);
+  }
+
+  .gistui-unknown { display: flex; flex-direction: column; gap: var(--gistui-space-sm); }
+
+  /* ─── Carousel page indicators ─── */
+
+  .gistui-carousel-wrap { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .gistui-carousel__nav { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 10px; }
+  .gistui-carousel__dot {
+    appearance: none;
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-border-strong);
+    cursor: pointer;
+    transition: width var(--gistui-duration-slow) var(--gistui-ease-out), background var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-carousel__dot:hover { background: color-mix(in srgb, var(--gistui-fg) 45%, transparent); }
+  .gistui-carousel__dot[aria-current] { width: 22px; background: var(--gistui-primary); }
+  .gistui-carousel__nav[data-nav="bars"] { gap: 4px; }
+  .gistui-carousel__nav[data-nav="bars"] .gistui-carousel__dot { width: 28px; height: 3px; border-radius: 2px; }
+  .gistui-carousel__nav[data-nav="bars"] .gistui-carousel__dot[aria-current] { width: 44px; }
+  .gistui-carousel__count { color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); font-variant-numeric: tabular-nums; }
+
+  /* ─── Gallery and lightbox ─── */
+
+  .gistui-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, max(120px, calc((100% - (var(--gistui-cols, 3) - 1) * 8px) / var(--gistui-cols, 3)))), 1fr));
+    gap: 8px;
+  }
+  .gistui-gallery[data-v="strip"] { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 2px; }
+  .gistui-gallery[data-v="strip"] .gistui-gallery__item { flex: 0 0 clamp(120px, 28%, 220px); scroll-snap-align: start; }
+  .gistui-gallery__item {
+    appearance: none;
+    position: relative;
+    display: block;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    aspect-ratio: var(--gistui-ratio, 1 / 1);
+    border-radius: var(--gistui-radius-md);
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    cursor: zoom-in;
+    isolation: isolate;
+  }
+  .gistui-gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity var(--gistui-duration-slower) var(--gistui-ease), transform 700ms var(--gistui-ease-out);
+  }
+  .gistui-gallery__item img[data-loaded] { opacity: 1; }
+  .gistui-gallery__item:hover img { transform: scale(1.05); }
+  .gistui-gallery__item:focus-visible { box-shadow: var(--gistui-focus); }
+  .gistui-gallery__zoom {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--gistui-radius-full);
+    background: rgb(12 12 16 / 0.55);
+    color: #fff;
+    font-size: 14px;
+    opacity: 0;
+    transform: scale(0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: opacity var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  .gistui-gallery__item:hover .gistui-gallery__zoom,
+  .gistui-gallery__item:focus-visible .gistui-gallery__zoom,
+  .gistui-image__zoom:hover .gistui-gallery__zoom,
+  .gistui-image__zoom:focus-visible .gistui-gallery__zoom { opacity: 1; transform: none; }
+  .gistui-gallery__caption {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 18px 10px 8px;
+    background: linear-gradient(180deg, transparent, rgb(0 0 0 / 0.65));
+    color: #fff;
+    font-size: var(--gistui-text-xs);
+    text-align: left;
+    opacity: 0;
+    transition: opacity var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-gallery__item:hover .gistui-gallery__caption { opacity: 1; }
+  .gistui-image__zoom { appearance: none; display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in; font: inherit; }
+  .gistui-media[data-zoom] { cursor: zoom-in; }
+
+  .gistui-lightbox {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    background: rgb(8 8 10 / 0.9);
+    color: #fff;
+    font-family: var(--gistui-font);
+    overscroll-behavior: contain;
+    animation: gistui-fade var(--gistui-duration-slow) var(--gistui-ease) both;
+  }
+  .gistui-lightbox:not([open]) { display: none; }
+  .gistui-lightbox::backdrop { background: rgb(0 0 0 / 0.4); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .gistui-lightbox__top { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; }
+  .gistui-lightbox__count { color: rgb(255 255 255 / 0.75); font-size: var(--gistui-text-sm); font-variant-numeric: tabular-nums; }
+  .gistui-lightbox__btn {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--gistui-radius-full);
+    background: rgb(255 255 255 / 0.1);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration-fast) var(--gistui-ease);
+  }
+  .gistui-lightbox__btn:hover { background: rgb(255 255 255 / 0.2); }
+  .gistui-lightbox__btn:active { transform: scale(0.94); }
+  .gistui-lightbox__btn:focus-visible { box-shadow: 0 0 0 3px rgb(255 255 255 / 0.5); outline: none; }
+  .gistui-lightbox__stage { position: relative; display: grid; place-items: center; min-height: 0; padding: 0 72px; }
+  .gistui-lightbox__figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+    max-height: 100%;
+    animation: gistui-lightbox-in 420ms var(--gistui-ease-out) both;
+  }
+  .gistui-lightbox__figure img {
+    display: block;
+    max-width: min(100%, 1400px);
+    max-height: calc(100dvh - 190px);
+    object-fit: contain;
+    border-radius: var(--gistui-radius-md);
+    box-shadow: 0 24px 80px rgb(0 0 0 / 0.5);
+  }
+  .gistui-lightbox__figure figcaption { color: rgb(255 255 255 / 0.8); font-size: var(--gistui-text-sm); text-align: center; max-width: 70ch; }
+  .gistui-lightbox__nav { position: absolute; top: 50%; transform: translateY(-50%); }
+  .gistui-lightbox__nav:active { transform: translateY(-50%) scale(0.94); }
+  .gistui-lightbox__nav[data-side="start"] { left: 16px; }
+  .gistui-lightbox__nav[data-side="end"] { right: 16px; }
+  .gistui-lightbox__thumbs { display: flex; justify-content: safe center; gap: 8px; padding: 12px 16px 18px; overflow-x: auto; scrollbar-width: none; }
+  .gistui-lightbox__thumb {
+    appearance: none;
+    flex: none;
+    width: 56px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    border-radius: 6px;
+    background: rgb(255 255 255 / 0.08);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity var(--gistui-duration) var(--gistui-ease), box-shadow var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-lightbox__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gistui-lightbox__thumb:hover { opacity: 0.85; }
+  .gistui-lightbox__thumb[aria-current="true"] { opacity: 1; box-shadow: 0 0 0 2px #fff; }
+  @keyframes gistui-lightbox-in {
+    from { opacity: 0; transform: translateX(calc(var(--gistui-dir, 1) * 24px)) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+  /* The lightbox fills the viewport, so it follows the viewport width, not the GistUI container. */
+  @media (max-width: 640px) {
+    .gistui-lightbox__stage { padding: 0 8px; }
+    .gistui-lightbox__nav { top: auto; bottom: -56px; transform: none; }
+  }
+
+  /* ─── Scroll edges: soft fades and arrows wherever a strip or table can scroll ─── */
+
+  .gistui-scroll { position: relative; min-width: 0; }
+  .gistui-scroll__view {
+    --gistui-fade-start: 0px;
+    --gistui-fade-end: 0px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--gistui-fade-start), #000 calc(100% - var(--gistui-fade-end)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--gistui-fade-start), #000 calc(100% - var(--gistui-fade-end)), transparent 100%);
+  }
+  .gistui-scroll[data-can-start] > .gistui-scroll__view { --gistui-fade-start: var(--gistui-fade, 48px); }
+  .gistui-scroll[data-can-end] > .gistui-scroll__view { --gistui-fade-end: var(--gistui-fade, 48px); }
+  .gistui-scroll__arrow {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-md);
+    color: var(--gistui-fg);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) scale(0.85);
+    transition: opacity var(--gistui-duration) var(--gistui-ease), transform var(--gistui-duration-slow) var(--gistui-ease-out), background var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-scroll__arrow[data-side="start"] { left: 6px; }
+  .gistui-scroll__arrow[data-side="end"] { right: 6px; }
+  .gistui-scroll__arrow:hover { background: var(--gistui-surface-hover); }
+  .gistui-scroll__arrow:active { transform: translateY(-50%) scale(0.92); }
+  .gistui-scroll[data-can-start] > .gistui-scroll__arrow[data-side="start"],
+  .gistui-scroll[data-can-end] > .gistui-scroll__arrow[data-side="end"] { opacity: 1; pointer-events: auto; transform: translateY(-50%); }
+  .gistui-scroll[data-arrows="hover"]:not(:hover, :focus-within) > .gistui-scroll__arrow { opacity: 0; pointer-events: none; }
+  .gistui-table .gistui-scroll__arrow { top: 22px; transform: translateY(-50%) scale(0.85); width: 28px; height: 28px; }
+  .gistui-table .gistui-scroll[data-can-start] > .gistui-scroll__arrow[data-side="start"],
+  .gistui-table .gistui-scroll[data-can-end] > .gistui-scroll__arrow[data-side="end"] { transform: translateY(-50%); }
+  .gistui-tabs .gistui-scroll { --gistui-fade: 32px; }
+  .gistui-table__chips-wrap { --gistui-fade: 28px; min-width: 0; max-width: 100%; }
+
+  /* ─── Icon buttons ─── */
+  .gistui-button[data-icon-only] { padding: 0; width: 36px; aspect-ratio: 1; justify-content: center; }
+  .gistui-button[data-icon-only][data-size="sm"] { width: 30px; }
+  .gistui-button[data-icon-only][data-size="lg"] { width: 44px; }
+
+  /* ─── Slider ─── */
+  .gistui-slider__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--gistui-space-sm); }
+  .gistui-slider__value { font-size: var(--gistui-text-sm); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--gistui-fg); }
+  .gistui-slider__input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 22px;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  .gistui-slider__input::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: var(--gistui-radius-full);
+    background: linear-gradient(to right, var(--gistui-primary) var(--gistui-fill, 0%), var(--gistui-surface-sunk) var(--gistui-fill, 0%));
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+  }
+  .gistui-slider__input::-moz-range-track { height: 6px; border-radius: var(--gistui-radius-full); background: var(--gistui-surface-sunk); box-shadow: inset 0 0 0 1px var(--gistui-border); }
+  .gistui-slider__input::-moz-range-progress { height: 6px; border-radius: var(--gistui-radius-full); background: var(--gistui-primary); }
+  .gistui-slider__input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    margin-top: -6px;
+    border-radius: 50%;
+    background: var(--gistui-surface);
+    box-shadow: 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-sm);
+    transition: transform var(--gistui-duration-fast) var(--gistui-ease-out);
+  }
+  .gistui-slider__input::-moz-range-thumb { width: 18px; height: 18px; border: 0; border-radius: 50%; background: var(--gistui-surface); box-shadow: 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-sm); }
+  .gistui-slider__input:active::-webkit-slider-thumb { transform: scale(1.12); }
+  .gistui-slider__input:focus-visible { outline: none; box-shadow: none; }
+  .gistui-slider__input:focus-visible::-webkit-slider-thumb { box-shadow: var(--gistui-focus); }
+  .gistui-slider__input:focus-visible::-moz-range-thumb { box-shadow: var(--gistui-focus); }
+  .gistui-slider__input:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  /* ─── Code ─── */
+  .gistui-code {
+    margin: 0;
+    min-width: 0;
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    overflow: hidden;
+  }
+  .gistui-code__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gistui-space-sm);
+    padding: 6px 8px 6px 14px;
+    border-bottom: 1px solid var(--gistui-border);
+    font-size: var(--gistui-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--gistui-fg-muted);
+  }
+  .gistui-code__copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: transparent;
+    color: var(--gistui-fg-muted);
+    font: inherit;
+    cursor: pointer;
+    transition: background var(--gistui-duration-fast) var(--gistui-ease-out), color var(--gistui-duration-fast) var(--gistui-ease-out);
+  }
+  .gistui-code__copy:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-code__copy svg { width: 14px; height: 14px; }
+  .gistui-code__body { display: flex; overflow-x: auto; }
+  .gistui-code__body pre { margin: 0; padding: 14px 16px; flex: 1; min-width: max-content; }
+  .gistui-code__body code, .gistui-code__lines { font: 13px/1.6 var(--gistui-font-mono); color: var(--gistui-fg); white-space: pre; }
+  .gistui-code__lines { padding: 14px 0 14px 14px; color: var(--gistui-fg-subtle); text-align: right; user-select: none; }
+  .gistui-code .tok-k { color: var(--gistui-accent); font-weight: 500; }
+  .gistui-code .tok-s { color: var(--gistui-success); }
+  .gistui-code .tok-n { color: var(--gistui-warning); }
+  .gistui-code .tok-c { color: var(--gistui-fg-subtle); font-style: italic; }
+  .gistui-code .tok-f { color: var(--gistui-info); }
+  .gistui-code .tok-t { color: var(--gistui-danger); }
+  .gistui-code .tok-a { color: var(--gistui-chart-5, var(--gistui-accent)); }
+  .gistui-code .tok-p { color: var(--gistui-fg-muted); }
+
+  /* ─── Math and diagrams ─── */
+  .gistui-math { overflow-x: auto; max-width: 100%; font-size: 1.1em; }
+  .gistui-math:not([data-inline]) { display: block; text-align: center; padding: var(--gistui-space-sm) 0; }
+  .gistui-math[data-inline] { display: inline; }
+  .gistui-math[data-loading] code { opacity: 0.6; }
+  .gistui-math math { font-size: 1.15em; }
+  .gistui-diagram { margin: 0; display: flex; flex-direction: column; gap: var(--gistui-space-sm); min-width: 0; }
+  .gistui-diagram__title { font-weight: 600; font-size: var(--gistui-text-sm); }
+  .gistui-diagram__svg {
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+    padding: var(--gistui-space-lg);
+    border-radius: var(--gistui-radius-lg);
+    background: var(--gistui-canvas-pattern, none), var(--gistui-surface-sunk);
+    box-shadow: inset 0 0 0 1px var(--gistui-border);
+    animation: gistui-fade var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  .gistui-diagram__svg svg { max-width: 100%; height: auto; }
+  .gistui-diagram__loading { height: 180px; border-radius: var(--gistui-radius-lg); }
+  .gistui-diagram__src { margin: 0; padding: 14px 16px; border-radius: var(--gistui-radius-lg); background: var(--gistui-surface-sunk); box-shadow: inset 0 0 0 1px var(--gistui-border); font: 13px/1.6 var(--gistui-font-mono); color: var(--gistui-fg-muted); overflow-x: auto; }
+
+  /* ─── Video ─── */
+  .gistui-video { margin: 0; display: flex; flex-direction: column; gap: var(--gistui-space-sm); min-width: 0; }
+  .gistui-video__frame { position: relative; aspect-ratio: var(--gistui-ratio, 16 / 9); border-radius: var(--gistui-radius-lg); overflow: hidden; background: #000; box-shadow: var(--gistui-shadow-sm); }
+  .gistui-video__frame > iframe, .gistui-video__frame > video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .gistui-video__title { font-size: var(--gistui-text-sm); color: var(--gistui-fg-muted); }
+
+  /* ─── Avatar ─── */
+  .gistui-avatar { display: inline-flex; align-items: center; gap: 10px; min-width: 0; --gistui-avatar: 36px; }
+  .gistui-avatar[data-size="sm"] { --gistui-avatar: 28px; }
+  .gistui-avatar[data-size="lg"] { --gistui-avatar: 48px; }
+  .gistui-avatar__pic {
+    flex: none;
+    width: var(--gistui-avatar);
+    height: var(--gistui-avatar);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    font-size: calc(var(--gistui-avatar) * 0.38);
+    font-weight: 600;
+    color: hsl(var(--gistui-avatar-hue, 210) 55% 32%);
+    background: hsl(var(--gistui-avatar-hue, 210) 70% 90%);
+  }
+  .gistui[data-gistui-theme="dark"] .gistui-avatar__pic { color: hsl(var(--gistui-avatar-hue, 210) 70% 82%); background: hsl(var(--gistui-avatar-hue, 210) 35% 24%); }
+  @media (prefers-color-scheme: dark) {
+    .gistui[data-gistui-theme="system"] .gistui-avatar__pic { color: hsl(var(--gistui-avatar-hue, 210) 70% 82%); background: hsl(var(--gistui-avatar-hue, 210) 35% 24%); }
+  }
+  .gistui-avatar__pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gistui-avatar__text { display: flex; flex-direction: column; min-width: 0; }
+  .gistui-avatar__name { font-weight: 600; font-size: var(--gistui-text-sm); color: var(--gistui-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .gistui-avatar__sub { font-size: var(--gistui-text-xs); color: var(--gistui-fg-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ─── KeyValue ─── */
+  .gistui-kv { margin: 0; display: grid; grid-template-columns: repeat(var(--gistui-cols, 1), minmax(0, 1fr)); column-gap: var(--gistui-space-lg); }
+  .gistui-kv__row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--gistui-space-md); padding: 9px 0; border-bottom: 1px solid var(--gistui-border); min-width: 0; }
+  .gistui-kv dt { color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); }
+  .gistui-kv dd { margin: 0; font-weight: 600; font-size: var(--gistui-text-sm); text-align: right; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+
+  /* ─── Pricing ─── */
+  .gistui-pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: var(--gistui-space-md); align-items: stretch; }
+  .gistui-pricing__plan {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gistui-space-sm);
+    padding: var(--gistui-space-lg);
+    border-radius: var(--gistui-radius-xl);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-sm);
+  }
+  .gistui-pricing__plan[data-featured] { box-shadow: 0 0 0 2px var(--gistui-accent), var(--gistui-shadow-md); }
+  .gistui-pricing__badge { position: absolute; top: -10px; right: 16px; padding: 2px 10px; border-radius: var(--gistui-radius-full); background: var(--gistui-accent); color: var(--gistui-accent-fg); font-size: var(--gistui-text-xs); font-weight: 600; }
+  .gistui-pricing__name { margin: 0; font-size: var(--gistui-text-md); font-weight: 600; }
+  .gistui-pricing__price { display: flex; align-items: baseline; gap: 4px; }
+  .gistui-pricing__price span { font-size: var(--gistui-text-3xl); font-weight: 700; letter-spacing: var(--gistui-tracking-tight); }
+  .gistui-pricing__price small { color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); }
+  .gistui-pricing__note { margin: 0; color: var(--gistui-fg-muted); font-size: var(--gistui-text-sm); }
+  .gistui-pricing__features { list-style: none; margin: var(--gistui-space-xs) 0 var(--gistui-space-md); padding: 0; display: flex; flex-direction: column; gap: 8px; flex: 1; font-size: var(--gistui-text-sm); }
+  .gistui-pricing__features li { display: flex; gap: 8px; align-items: flex-start; }
+  .gistui-pricing__features svg { flex: none; width: 16px; height: 16px; margin-top: 2px; color: var(--gistui-success); }
+
+  /* ─── Hero ─── */
+  .gistui-hero { display: grid; gap: var(--gistui-space-xl); align-items: center; padding: var(--gistui-space-xl) 0; }
+  .gistui-hero[data-image] { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .gistui-hero[data-align="center"] { text-align: center; justify-items: center; }
+  .gistui-hero__text { display: flex; flex-direction: column; gap: var(--gistui-space-md); max-width: 680px; }
+  .gistui-hero[data-align="center"] .gistui-hero__text { align-items: center; }
+  .gistui-hero__text .gistui-button { align-self: flex-start; }
+  .gistui-hero[data-align="center"] .gistui-hero__text .gistui-button { align-self: center; }
+  .gistui-hero__eyebrow { font-size: var(--gistui-text-xs); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gistui-accent); }
+  .gistui-hero__title { margin: 0; font-size: clamp(1.9rem, 1.2rem + 3cqi, 3.4rem); line-height: 1.08; letter-spacing: var(--gistui-tracking-tighter); font-weight: 700; text-wrap: balance; }
+  .gistui-hero__subtitle { margin: 0; font-size: var(--gistui-text-lg); color: var(--gistui-fg-muted); text-wrap: pretty; }
+  .gistui-hero__media { border-radius: var(--gistui-radius-xl); overflow: hidden; aspect-ratio: 4 / 3; box-shadow: var(--gistui-shadow-md); }
+  .gistui-hero__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ─── DatePicker / TimePicker ─── */
+  .gistui-dp__control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 0 4px 0 12px;
+    background: var(--gistui-surface);
+    border-radius: var(--gistui-radius-md);
+    box-shadow: inset 0 0 0 1px var(--gistui-border-strong), var(--gistui-shadow-xs);
+    transition: box-shadow var(--gistui-duration) var(--gistui-ease);
+  }
+  .gistui-dp__control:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gistui-fg) 28%, transparent), var(--gistui-shadow-xs); }
+  .gistui-dp__control:focus-within { box-shadow: inset 0 0 0 1px var(--gistui-accent), var(--gistui-focus); }
+  .gistui-field[data-invalid] .gistui-dp__control { box-shadow: inset 0 0 0 1px var(--gistui-danger); }
+  .gistui-dp__input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    padding: 8px 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--gistui-fg);
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+  .gistui-dp__input::placeholder { color: var(--gistui-fg-subtle); }
+  .gistui .gistui-dp__input:focus-visible { box-shadow: none; }
+  .gistui-dp__to { display: grid; place-items: center; color: var(--gistui-fg-subtle); }
+  .gistui-dp__to svg { width: 14px; height: 14px; }
+  .gistui-dp__time-chip { flex: none; padding: 2px 8px; border-radius: var(--gistui-radius-full); background: var(--gistui-surface-sunk); font-size: var(--gistui-text-xs); font-weight: 600; color: var(--gistui-fg-muted); }
+  .gistui-dp__trigger {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: transparent;
+    color: var(--gistui-fg-muted);
+    cursor: pointer;
+    transition: background var(--gistui-duration-fast) var(--gistui-ease-out), color var(--gistui-duration-fast) var(--gistui-ease-out);
+  }
+  .gistui-dp__trigger:hover, .gistui-dp__trigger[data-state="open"] { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-dp__trigger svg { width: 16px; height: 16px; }
+
+  .gistui-popover.gistui-dp__content {
+    display: flex;
+    gap: 0;
+    padding: 0;
+    max-height: none;
+    overflow: hidden;
+    min-width: 0;
+    border-radius: var(--gistui-radius-lg);
+  }
+  .gistui-dp__content[hidden] { display: none; }
+  .gistui-dp__presets { display: flex; flex-direction: column; gap: 2px; padding: 10px; border-right: 1px solid var(--gistui-border); background: var(--gistui-surface-sunk); }
+  .gistui-dp__preset {
+    padding: 7px 10px;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: transparent;
+    color: var(--gistui-fg-muted);
+    font: inherit;
+    font-size: var(--gistui-text-sm);
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background var(--gistui-duration-fast) var(--gistui-ease-out), color var(--gistui-duration-fast) var(--gistui-ease-out);
+  }
+  .gistui-dp__preset:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-dp__main { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .gistui-dp__nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .gistui-dp__title {
+    padding: 5px 10px;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: transparent;
+    color: var(--gistui-fg);
+    font: inherit;
+    font-weight: 600;
+    font-size: var(--gistui-text-sm);
+    cursor: pointer;
+  }
+  button.gistui-dp__title:hover { background: var(--gistui-surface-hover); }
+  .gistui-dp__navbtn {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: transparent;
+    color: var(--gistui-fg-muted);
+    cursor: pointer;
+  }
+  .gistui-dp__navbtn:hover:not([disabled]) { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+  .gistui-dp__navbtn[disabled] { opacity: 0.35; cursor: default; }
+  .gistui-dp__navbtn svg { width: 16px; height: 16px; }
+  .gistui-dp__months { display: flex; gap: 20px; }
+  .gistui-dp__table { border-collapse: separate; border-spacing: 0 2px; }
+  .gistui-dp__table th { width: 36px; height: 28px; font-size: var(--gistui-text-xs); font-weight: 500; color: var(--gistui-fg-subtle); text-align: center; }
+  .gistui-dp__table td { padding: 0; }
+  .gistui-dp__day {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--gistui-radius-sm);
+    font-size: var(--gistui-text-sm);
+    font-variant-numeric: tabular-nums;
+    color: var(--gistui-fg);
+    cursor: pointer;
+    user-select: none;
+    transition: background var(--gistui-duration-fast) var(--gistui-ease-out), color var(--gistui-duration-fast) var(--gistui-ease-out), transform var(--gistui-duration-fast) var(--gistui-ease-out);
+  }
+  .gistui-dp__day:hover:not([data-disabled]):not([data-selected]) { background: var(--gistui-surface-hover); }
+  .gistui-dp__day:active:not([data-disabled]) { transform: scale(0.94); }
+  .gistui-dp__day[data-disabled]:not([data-outside-range]), .gistui-dp__day[data-unavailable] { color: var(--gistui-fg-subtle); opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+  .gistui-dp__day[data-outside-range] { color: var(--gistui-fg-subtle); opacity: 0.4; cursor: default; }
+  /* Two months side by side: each shows only its own days. */
+  .gistui-dp__content[data-range] .gistui-dp__day[data-outside-range] { visibility: hidden; }
+  .gistui-dp__day[data-today]::after { content: ""; position: absolute; bottom: 5px; width: 4px; height: 4px; border-radius: 50%; background: var(--gistui-accent); }
+  .gistui-dp__day[data-in-range], .gistui-dp__day[data-in-hover-range] { border-radius: 0; background: var(--gistui-accent-soft); color: var(--gistui-fg); }
+  .gistui-dp__day[data-range-start], .gistui-dp__day[data-hover-range-start] { border-radius: var(--gistui-radius-sm) 0 0 var(--gistui-radius-sm); }
+  .gistui-dp__day[data-range-end], .gistui-dp__day[data-hover-range-end] { border-radius: 0 var(--gistui-radius-sm) var(--gistui-radius-sm) 0; }
+  .gistui-dp__day[data-selected] { background: var(--gistui-primary); color: var(--gistui-primary-fg); font-weight: 600; }
+  .gistui-dp__day[data-selected][data-today]::after { background: var(--gistui-primary-fg); }
+  .gistui-dp__day[data-focus] { box-shadow: var(--gistui-focus); }
+  .gistui-dp__grid { border-collapse: separate; border-spacing: 4px; width: 100%; }
+  .gistui-dp__grid td { padding: 0; }
+  .gistui-dp__cell {
+    display: grid;
+    place-items: center;
+    height: 44px;
+    min-width: 64px;
+    border-radius: var(--gistui-radius-sm);
+    font-size: var(--gistui-text-sm);
+    cursor: pointer;
+    transition: background var(--gistui-duration-fast) var(--gistui-ease-out);
+  }
+  .gistui-dp__cell:hover:not([data-disabled]) { background: var(--gistui-surface-hover); }
+  .gistui-dp__cell[data-selected] { background: var(--gistui-primary); color: var(--gistui-primary-fg); font-weight: 600; }
+  .gistui-dp__cell[data-disabled] { opacity: 0.35; cursor: not-allowed; }
+  .gistui-dp__foot { display: flex; justify-content: space-between; padding-top: 6px; border-top: 1px solid var(--gistui-border); }
+  .gistui-dp__link { padding: 4px 8px; border: 0; border-radius: var(--gistui-radius-sm); background: transparent; color: var(--gistui-accent); font: inherit; font-size: var(--gistui-text-sm); font-weight: 500; cursor: pointer; }
+  .gistui-dp__link:hover { background: var(--gistui-accent-soft); }
+  .gistui-dp__times { display: flex; flex-direction: column; gap: 2px; width: 104px; max-height: 336px; overflow-y: auto; padding: 10px 8px; border-left: 1px solid var(--gistui-border); scrollbar-width: thin; }
+  .gistui-dp__time {
+    flex: none;
+    padding: 7px 8px;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: transparent;
+    color: var(--gistui-fg);
+    font: inherit;
+    font-size: var(--gistui-text-sm);
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+  .gistui-dp__time:hover { background: var(--gistui-surface-hover); }
+  .gistui-dp__time[data-selected] { background: var(--gistui-primary); color: var(--gistui-primary-fg); font-weight: 600; }
+  .gistui-tp__list { max-height: 260px; }
+
+  /* Mermaid diagrams: rounded, lightly lifted nodes. */
+  .gistui-diagram__svg .node rect, .gistui-diagram__svg .node polygon, .gistui-diagram__svg .node circle { rx: 10px; ry: 10px; stroke-width: 1.5px; filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.08)); }
+  .gistui-diagram__svg .edgeLabel, .gistui-diagram__svg .edgeLabel rect { border-radius: 6px; }
+
+  /* ─── Motion and depth ──────────────────────────────────────────────────
+     Blocks rise in once when they first appear (streamed or not), staggered across a row or grid.
+     The fill mode is "backwards" on purpose: once the entrance ends nothing stays applied, so no block
+     keeps a stacking context (a popover inside one card must paint over the next card).
+     --gistui-enter-animation: none turns entrances off; reduced motion always does. */
+  @media (prefers-reduced-motion: no-preference) {
+    .gistui :is(.gistui-card, .gistui-stat, .gistui-tile, .gistui-media, .gistui-callout, .gistui-pricing__plan, .gistui-hero__text, .gistui-hero__media, .gistui-code, .gistui-video, .gistui-avatar, .gistui-timeline__item, .gistui-kv__row) {
+      animation: var(--gistui-enter-animation, gistui-rise) 560ms var(--gistui-ease-out) backwards;
+    }
+    .gistui :is(.gistui-grid, .gistui-row, .gistui-stats, .gistui-pricing, .gistui-timeline, .gistui-kv) > :nth-child(2) { animation-delay: 50ms; }
+    .gistui :is(.gistui-grid, .gistui-row, .gistui-stats, .gistui-pricing, .gistui-timeline, .gistui-kv) > :nth-child(3) { animation-delay: 100ms; }
+    .gistui :is(.gistui-grid, .gistui-row, .gistui-stats, .gistui-pricing, .gistui-timeline, .gistui-kv) > :nth-child(4) { animation-delay: 150ms; }
+    .gistui :is(.gistui-grid, .gistui-row, .gistui-stats, .gistui-pricing, .gistui-timeline, .gistui-kv) > :nth-child(5) { animation-delay: 200ms; }
+    .gistui :is(.gistui-grid, .gistui-row, .gistui-stats, .gistui-pricing, .gistui-timeline, .gistui-kv) > :nth-child(6) { animation-delay: 250ms; }
+    .gistui :is(.gistui-grid, .gistui-row, .gistui-stats, .gistui-pricing, .gistui-timeline, .gistui-kv) > :nth-child(n + 7) { animation-delay: 300ms; }
+    .gistui-hero__media { animation-delay: 120ms; }
+  }
+  @keyframes gistui-rise {
+    from { opacity: 0; transform: translateY(12px) scale(0.985); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .gistui-card, .gistui-stat, .gistui-tile, .gistui-media, .gistui-pricing__plan {
+    transition:
+      box-shadow var(--gistui-duration-slow) var(--gistui-ease-out),
+      transform var(--gistui-duration-slow) var(--gistui-ease-out),
+      background var(--gistui-duration) var(--gistui-ease);
+  }
+  /* Plain cards are not clickable, so they do not react to hover unless a theme asks
+     (--gistui-card-hover, e.g. a deeper shadow) or a program does (style:{hover:"lift"}). */
+  .gistui-card:where(:not([data-v="sunk"], [data-v="clear"])):hover { box-shadow: var(--gistui-card-hover, var(--gistui-ring), var(--gistui-shadow-sm)); }
+  /* Things you can click lift toward the pointer (--gistui-lift sets how far; 0 turns it off). */
+  .gistui :is(a.gistui-tile, button.gistui-tile, a.gistui-media, button.gistui-media, .gistui-pricing__plan, .gistui-source):hover {
+    transform: translateY(var(--gistui-lift, -3px));
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-lg);
+  }
+  .gistui :is(a.gistui-tile, button.gistui-tile, a.gistui-media, button.gistui-media):active { transform: translateY(-1px) scale(0.995); }
+
+  /* Buttons: flat by default; a sheen (--gistui-button-sheen) and a hover glow (--gistui-button-glow)
+     are theme tokens. A press always answers. */
+  .gistui-button:where([data-v="primary"], [data-v="accent"], [data-v="danger"], :not([data-v])) { background-image: var(--gistui-button-sheen, none); }
+  .gistui-button:where([data-v="primary"], [data-v="accent"], :not([data-v])):hover:not(:disabled) { box-shadow: var(--gistui-button-glow, var(--gistui-shadow-sm)); }
+  .gistui-button:active:not(:disabled) { transform: scale(0.97); }
+
+  /* Stats: tabular numbers, so counting does not wobble. */
+  .gistui-stat__value { font-variant-numeric: tabular-nums; }
+
+  /* Hero: plain by default. Theme tokens add a backdrop (--gistui-hero-glow), a headline fill
+     (--gistui-heading-fill, a colour or a gradient) and an image tilt (--gistui-media-tilt). */
+  .gistui-hero { position: relative; isolation: isolate; }
+  .gistui-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -12% 0 -6% 0;
+    background: var(--gistui-hero-glow, none);
+    pointer-events: none;
+  }
+  .gistui-hero__title {
+    background: var(--gistui-heading-fill, var(--gistui-fg));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @media (forced-colors: active) {
+    .gistui-hero__title { background: none; color: CanvasText; }
+  }
+  .gistui-hero__media {
+    box-shadow: var(--gistui-media-shadow, var(--gistui-shadow-md));
+    transform: var(--gistui-media-tilt, none);
+    transition: transform 700ms var(--gistui-ease-out);
+  }
+  .gistui-hero__media:hover { transform: none; }
+
+  /* The featured plan: a ring in the accent colour. --gistui-featured-ring (a colour or a gradient)
+     and --gistui-featured-glow change it; --gistui-badge-fill colours the badge. */
+  .gistui-pricing__plan[data-featured] {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--gistui-surface), var(--gistui-surface)) padding-box, var(--gistui-featured-ring, var(--gistui-accent)) border-box;
+    box-shadow: var(--gistui-featured-glow, var(--gistui-shadow-md));
+  }
+  .gistui-pricing__badge { background: var(--gistui-badge-fill, var(--gistui-accent)); }
+
+  /* People: a ring that separates photos from any background. */
+  .gistui-avatar__pic { box-shadow: 0 0 0 2px var(--gistui-surface), 0 0 0 3px var(--gistui-border); transition: transform var(--gistui-duration) var(--gistui-ease-out); }
+  .gistui-avatar:hover .gistui-avatar__pic { transform: scale(1.06); }
+
+  /* ─── Design layer (style:{…}, Frame) ─── */
+  .gistui-frame { display: flex; flex-direction: column; min-width: 0; position: relative; }
+  .gistui [data-overlay] > * { grid-area: 1 / 1; }
+  .gistui [data-styled] { min-width: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .gistui [data-enter="fade"] { animation: gistui-fade 480ms var(--gistui-ease-out) backwards; }
+    .gistui [data-enter="rise"] { animation: gistui-rise 560ms var(--gistui-ease-out) backwards; }
+    .gistui [data-enter="scale"] { animation: gistui-pop-in 420ms var(--gistui-ease-out) backwards; }
+    .gistui [data-enter="none"] { animation: none; }
+    .gistui [data-hover] { transition: transform var(--gistui-duration-slow) var(--gistui-ease-out), box-shadow var(--gistui-duration-slow) var(--gistui-ease-out), opacity var(--gistui-duration) var(--gistui-ease); }
+    .gistui [data-hover="lift"]:hover { transform: translateY(-3px); box-shadow: var(--gistui-ring), var(--gistui-shadow-lg); }
+    .gistui [data-hover="glow"]:hover { box-shadow: 0 0 0 1px color-mix(in srgb, var(--gistui-accent) 40%, transparent), 0 12px 32px -12px color-mix(in srgb, var(--gistui-accent) 55%, transparent); }
+    .gistui [data-hover="scale"]:hover { transform: scale(1.02); }
+    .gistui [data-hover="dim"]:hover { opacity: 0.8; }
+  }
+
+  /* ─── Narrow screens (last, so they win; the root is a container, so this follows the space GistUI gets) ─── */
+  @container gistui (max-width: 640px) {
+    .gistui-row { flex-wrap: wrap; }
+    .gistui-kv { grid-template-columns: 1fr; }
+    .gistui-dp__months > :nth-child(2) { display: none; }
+    .gistui-dp__presets { display: none; }
+    .gistui-row > * { flex: 1 1 100%; }
+    .gistui-row:has(> .gistui-button, > .gistui-buttons, > .gistui-tag, > .gistui-icon-badge) > * { flex: 0 1 auto; }
+    .gistui-grid > [data-span] { grid-column: 1 / -1; }
+    .gistui-box[data-dir="row"][data-grow] { flex-direction: column; }
+    .gistui-box[data-dir="row"] { flex-wrap: wrap; }
+    .gistui-box[data-pad="xl"] { padding: var(--gistui-space-lg); }
+    .gistui-card { padding: 16px; }
+    .gistui-page > .gistui-header .gistui-header__title,
+    .gistui-header[data-size="lg"] .gistui-header__title { font-size: 21px; }
+    .gistui-header[data-size="xl"] .gistui-header__title { font-size: 25px; }
+    .gistui-tile { padding: 11px 12px; gap: 10px; }
+    .gistui-tile__title, .gistui-tile__subtitle { white-space: normal; }
+    .gistui-media[data-v="overlay"] .gistui-media__img,
+    .gistui-media[data-v="cover"] .gistui-media__img { aspect-ratio: var(--gistui-ratio, 4 / 3); }
+    .gistui-stats { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--gistui-space-sm); }
+    .gistui-stat { padding: 14px; }
+    .gistui-stat__value { font-size: 22px; }
+    .gistui-table__toolbar { flex-direction: column; align-items: stretch; }
+    /* In a column the flex basis would become a height: size the toolbar parts to their content. */
+    .gistui-table__search { max-width: none; flex: none; }
+    .gistui-table__chips-wrap { flex: none; }
+    .gistui-table__chips { flex-wrap: nowrap; }
+    .gistui-table__pager { flex-direction: column; align-items: flex-start; }
+    .gistui-carousel { grid-auto-columns: 82%; }
+    .gistui-viewer__body { grid-template-columns: minmax(0, 1fr); height: auto; min-height: 0; }
+    .gistui-viewer__rail { display: none; }
+    .gistui-viewer__main { max-height: 80vh; padding: 12px 12px 0; }
+    .gistui-slides__dots { display: none; }
+    .gistui-slides__bar { justify-content: center; }
+    .gistui-timeline__head { flex-direction: column; gap: 0; }
+    .gistui-form .gistui-row > * { flex-basis: 100%; }
+    .gistui-scroll__arrow { width: 30px; height: 30px; }
+  }
+  @container gistui (max-width: 420px) {
+    .gistui-buttons { flex-direction: column; align-items: stretch; }
+    .gistui-buttons > .gistui-button { width: 100%; }
+    .gistui-tile__end { max-width: 42%; }
+  }
+
+  /* Download PDF: print only the report's pages, one per sheet of paper. */
+  @media print {
+    /* A printed answer: fills and tints print as shown, and a card, tile, stat or table row is not cut in two. */
+    .gistui { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .gistui :is(.gistui-card, .gistui-tile, .gistui-stat, .gistui-callout, .gistui-media, .gistui-chart, tr, figure) { break-inside: avoid; }
+    .gistui :is(.gistui-header, h1, h2, h3) { break-after: avoid; }
+    body:has(.gistui-viewer[data-printing]) * { visibility: hidden; }
+    .gistui-viewer[data-printing], .gistui-viewer[data-printing] * { visibility: visible; }
+    .gistui-viewer[data-printing] { position: absolute; top: 0; left: 0; width: 100%; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .gistui-viewer[data-printing] .gistui-viewer__head,
+    .gistui-viewer[data-printing] .gistui-viewer__rail,
+    .gistui-viewer[data-printing] .gistui-viewer__bar { display: none; }
+    .gistui-viewer[data-printing] .gistui-viewer__body { display: block; height: auto; }
+    .gistui-viewer[data-printing] .gistui-viewer__main { overflow: visible; padding: 0; background: none; box-shadow: none; }
+    .gistui-viewer[data-printing] .gistui-viewer__pages { gap: 0; }
+    .gistui-viewer[data-printing] .gistui-viewer__frame { break-after: page; animation: none; }
+    /* No empty sheet after the last page. */
+    .gistui-viewer[data-printing] .gistui-viewer__frame:last-child { break-after: auto; }
+    .gistui-viewer[data-printing] .gistui-viewer__scaled { box-shadow: none; border-radius: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gistui *,
+    .gistui *::before,
+    .gistui *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      /* Looping animations (the streaming caret, skeleton shimmer) run once and stop. */
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Touch screens: iOS zooms the page when a focused field's text is under 16px. */
+  @media (pointer: coarse) {
+    .gistui :is(input:not([type="checkbox"], [type="radio"], [type="range"]), select, textarea) { font-size: 16px; }
+  }
+}

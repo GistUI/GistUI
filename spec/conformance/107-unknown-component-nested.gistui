@@ -1,0 +1,1 @@
+root = Foo("x", Bar(Text("y")), k:1, label:"L")

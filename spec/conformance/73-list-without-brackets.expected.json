@@ -1,0 +1,32 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "a"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "b"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "items",
+      "line": 2,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

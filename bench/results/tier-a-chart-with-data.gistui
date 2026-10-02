@@ -1,0 +1,11 @@
+root = Stack([TextContent("Revenue Dashboard", large-heavy), layout], column, l)
+layout = Stack([metricCard, chartCard], row, l, stretch, justify:start, wrap)
+metricCard = Card(CardHeader("Total Revenue", "Last 6 months"), TextContent("$1,284,000", large-heavy), TextCallout("Up 8.4%", "Compared to the previous 6 months", success), card)
+chartCard = Card(CardHeader("Monthly Revenue", "Last 6 months"), BarChart(revenueChartRows, grouped, xLabel:"Month", yLabel:"Revenue (USD)"), card)
+revenueChartRows = |Month|Revenue
+|Oct|198000
+|Nov|205000
+|Dec|214000
+|Jan|210000
+|Feb|223000
+|Mar|234000

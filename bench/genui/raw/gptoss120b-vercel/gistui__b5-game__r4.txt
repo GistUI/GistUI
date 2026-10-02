@@ -1,0 +1,66 @@
+root = Card(CardHeader("Live‑Ops Dashboard", "Game Studio"), onlineSection, dauSection, revTodaySection, rpuSection, sessionChartSection, bestItemsSection, regionHealthSection, crashRateSection, eventsSection, reportsSection, bansSection, inflationSection, experimentsSection, patchNotesSection, focusRegionSection, hotfixSection, actions)
+
+onlineSection = Card(Heading("Players Online", h3), TextContent("**1 234** players currently in‑game", size:large), clear)
+
+dauSection = Card(Heading("Active Players", h3), HorizontalBarChart(labels:["Daily Active","Monthly Active"], Series("Players", values:[5678, 21234]), variant:grouped, xLabel:"Players", yLabel:"Timeframe"), clear)
+
+revTodaySection = Card(Heading("Revenue Today", h3), TextContent("$12 340", size:large), clear)
+
+rpuSection = Card(Heading("Revenue per User", h3), TextContent("$9.87", size:large), clear)
+
+sessionChartSection = Card(Heading("Session Length (Past 2 Weeks)", h3), LineChart(|Date|Avg Session (min)
+|2023‑09‑16|34
+|2023‑09‑17|31
+|2023‑09‑18|29
+|2023‑09‑19|32
+|2023‑09‑20|30
+|2023‑09‑21|33
+|2023‑09‑22|35
+|2023‑09‑23|36
+|2023‑09‑24|34
+|2023‑09‑25|33
+|2023‑09‑26|32
+|2023‑09‑27|31
+|2023‑09‑28|30
+|2023‑09‑29|29, natural, xLabel:"Date", yLabel:"Minutes"), clear)
+
+bestItemsSection = Card(Heading("Best‑Selling Items", h3), Table(Col("Item", data:["Sword","Shield","Potion"], type:string), Col("Units Sold", data:[1240, 987, 1563], type:number)), clear)
+
+regionHealthSection = Card(Heading("Server Region Health", h3), Table(Col("Region", data:["NA","EU","ASIA"], type:string), Col("Health", data:["Good","Warning","Good"], type:string)), clear)
+
+crashRateSection = Card(Heading("Crash Rate by App Version", h3), BarChart(|Version|Crash Rate (%)|
+|1.2.0|2.3
+|1.2.1|1.8
+|1.3.0|1.1|, stacked, xLabel:"Version", yLabel:"Crash Rate"), clear)
+
+eventsSection = Card(Heading("Live Events", h3), ListBlock(ListItem("Double XP Weekend","Now until Sep 30","Join",[]), ListItem("Halloween Hunt","Starts Oct 15","Details",[]), variant:number), clear)
+
+reportsSection = Card(Heading("Player Reports Awaiting Review", h3), TextContent("42 reports pending", size:default), clear)
+
+bansSection = Card(Heading("Ban Appeals Awaiting Review", h3), TextContent("7 appeals pending", size:default), clear)
+
+inflationSection = Card(Heading("In‑Game Currency Inflation", h3), TextContent("Current inflation: 4.2 % YoY", size:default), clear)
+
+experimentsSection = Card(Heading("Running Experiments", h3), Table(Col("Experiment", data:["New UI","Loot Box Odds"], type:string), Col("Result", data:["Positive","Neutral"], type:string)), clear)
+
+patchNotesSection = Card(Heading("Draft Patch Notes", h3), Form("patch-notes", patchButtons, notesField), clear)
+
+notesField = FormControl("Patch notes (Markdown)", TextArea("notes", "Enter notes...", "", rows:8))
+
+patchButtons = Buttons(Button("Save Draft", primary), Button("Publish", secondary))
+
+focusRegionSection = Card(Heading("Focus on Region", h3), Form("focus-region", focusButtons, regionSelect), clear)
+
+regionSelect = FormControl("Select region", Select("region", SelectItem("NA","North America"), SelectItem("EU","Europe"), SelectItem("ASIA","Asia‑Pacific"), placeholder:"Choose region", value:"", size:medium))
+
+focusButtons = Buttons(Button("Filter Dashboard", primary))
+
+hotfixSection = Card(Heading("Ship Hotfix", h3), Form("hotfix", hotfixButtons, versionField, descriptionField), clear)
+
+versionField = FormControl("Version", Input("hotfix_version", "e.g. 1.3.1", "", type:text))
+
+descriptionField = FormControl("Description", TextArea("hotfix_desc", "Details of hotfix...", "", rows:5))
+
+hotfixButtons = Buttons(Button("Deploy", destructive), Button("Cancel", tertiary))
+
+actions = Buttons(Button("Refresh Data", primary), Button("Export CSV", secondary))

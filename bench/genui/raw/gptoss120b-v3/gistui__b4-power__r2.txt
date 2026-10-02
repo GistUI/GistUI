@@ -1,0 +1,80 @@
+root = Card(header, regionSelect, loadSection, generationChart, plantsTable, outagesTable, forecastChart, priceSection, maintenanceTable, alertsSection, emissionsSection, actions)
+
+header = CardHeader("Power Network Dashboard", "Real‑time overview")
+
+regionSelect = Select("region", SelectItem("North", "North"), SelectItem("South", "South"), SelectItem("East", "East"), SelectItem("West", "West"), placeholder:"Select region")
+
+loadSection = Card(Heading("Current Load", h3), TextContent("1,250 MW", size:large), Progress(value:78, label:"78 % of capacity"))
+
+generationChart = Card(Heading("Generation Mix", h3), PieChart(genData, variant:donut))
+
+plantsTable = Table(plantNameCol, plantOutputCol, plantStatusCol)
+
+plantNameCol = Col("Plant", data:["Plant A","Plant B","Plant C"], type:string)
+
+plantOutputCol = Col("Output (MW)", data:[500,300,150], type:number)
+
+plantStatusCol = Col("Status", data:["Online","Offline","Online"], type:string)
+
+outagesTable = Table(outageRegionCol, outageAffectedCol, outageReasonCol)
+
+outageRegionCol = Col("Region", data:["North","East"], type:string)
+
+outageAffectedCol = Col("Affected (MW)", data:[200,120], type:number)
+
+outageReasonCol = Col("Reason", data:["Transmission fault","Maintenance"], type:string)
+
+forecastChart = Card(Heading("24‑h Demand Forecast", h3), LineChart(forecastData, linear, xLabel:"Hour", yLabel:"MW"))
+
+forecastData = |Hour|Forecast MW
+|01|1200
+|02|1250
+|03|1300
+|04|1350
+|05|1400
+|06|1450
+|07|1500
+|08|1550
+|09|1600
+|10|1650
+|11|1700
+|12|1750
+|13|1800
+|14|1850
+|15|1900
+|16|1950
+|17|2000
+|18|2050
+|19|2100
+|20|2150
+|21|2200
+|22|2250
+|23|2300
+|24|2350
+
+priceSection = Card(Heading("Current Price", h3), TextContent("$45 /MWh", size:large))
+
+maintenanceTable = Table(maintPlantCol, maintDateCol, maintDescCol)
+
+maintPlantCol = Col("Plant", data:["Plant B","Plant C"], type:string)
+
+maintDateCol = Col("Planned Date", data:["2024‑10‑12","2024‑10‑20"], type:string)
+
+maintDescCol = Col("Description", data:["Turbine inspection","Transformer upgrade"], type:string)
+
+alertsSection = Card(Heading("Live Alerts", h3), alert1, alert2)
+
+alert1 = Alert("Overload in North", "Load exceeds 95 % capacity", warning)
+
+alert2 = Alert("Generator outage", "Plant B offline unexpectedly", error)
+
+emissionsSection = Card(Heading("Emissions Today", h3), TextContent("350,000 tCO₂", size:large))
+
+actions = Buttons(Button("Curtailment Order", primary), Button("Refresh", secondary))
+
+genData = |Source|MW
+|Coal|500
+|Gas|300
+|Wind|200
+|Solar|150
+|Hydro|100

@@ -1,0 +1,7 @@
+root = Card(CardHeader("Delivery Tracker"), location, estimate, reportIssue)
+
+location = TextContent("**Current location:** Warehouse A", size:default)
+
+estimate = TextContent("**Estimated delivery:** September 5, 2026", size:default)
+
+reportIssue = DialogBlock("Report issue", "Report a problem", Callout(variant:warning, "Report a problem", "Please describe the issue you encountered."), description:"We’ll investigate and get back to you.", triggerVariant:secondary)

@@ -1,0 +1,19 @@
+{
+  "tree": {
+    "type": "Text",
+    "props": {
+      "content": "x"
+    }
+  },
+  "errors": [
+    {
+      "code": "parse-failed",
+      "severity": "error",
+      "line": 2
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

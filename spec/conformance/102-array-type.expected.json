@@ -1,0 +1,25 @@
+{
+  "tree": {
+    "type": "Select",
+    "props": {
+      "name": "n",
+      "label": "N",
+      "options": [
+        "a"
+      ]
+    }
+  },
+  "errors": [
+    {
+      "code": "invalid-prop",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

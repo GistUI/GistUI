@@ -1,0 +1,39 @@
+root = Card(headerRow, overviewGrid, largestExpenseCard, breakdownSection, recentExpensesSection, gap:l)
+headerRow = Card(monthPickerForm, addExpenseDialog, direction:row, justify:between, align:center, variant:clear)
+monthPickerForm = Form("month-filter", filterBtn, monthField)
+monthField = FormControl("Period", monthSelect)
+monthSelect = Select("month", SelectItem("oct-2024", "October 2024 (Current)"), SelectItem("sep-2024", "September 2024"), SelectItem("aug-2024", "August 2024"), SelectItem("jul-2024", "July 2024"), value:"oct-2024")
+filterBtn = Buttons(Button("View Month", secondary, size:small))
+addExpenseDialog = DialogBlock("Add Expense", "Record New Expense", addExpenseForm, description:"Enter transaction details to update your current month budget.", triggerVariant:default)
+addExpenseForm = Form("new-expense", addExpenseActions, expAmountField, expCategoryField, expDescField, expDateField)
+expAmountField = FormControl("Amount ($)", Input("amount", "e.g. 120.00", type:number))
+expCategoryField = FormControl("Category", categorySelect)
+categorySelect = Select("category", SelectItem("housing", "Housing & Rent"), SelectItem("food", "Food & Groceries"), SelectItem("transport", "Transport & Auto"), SelectItem("utilities", "Utilities & Bills"), SelectItem("entertainment", "Entertainment"), SelectItem("shopping", "Shopping"), SelectItem("other", "Other"), placeholder:"Select category")
+expDescField = FormControl("Description / Merchant", Input("description", "e.g. Whole Foods"))
+expDateField = FormControl("Date", DatePicker("expense_date", mode:single))
+addExpenseActions = Buttons(Button("Save Expense", primary), Button("Cancel", tertiary))
+overviewGrid = Card(budgetCard, remainingCard, pacingCard, direction:row, gap:m, variant:clear)
+budgetCard = Card(TextContent("Total Spent / Budget", size:small), Heading("$3,240 / $4,000", level:h2), Progress(81, "81% of monthly budget used"), Tag("On track", success, size:sm), sunk)
+remainingCard = Card(TextContent("Remaining Budget", size:small), Heading("$760.00", level:h2), TextContent("10 days left in October (~$76.00/day)", size:small), Tag("Safe pace", info, size:sm), sunk)
+pacingCard = Card(TextContent("Monthly Net Saved", size:small), Heading("$1,160.00", level:h2), TextContent("Income: $4,400.00 vs Outflow: $3,240.00", size:small), Tag("+26.3% rate", success, size:sm), sunk)
+largestExpenseCard = Card(largestExpenseHeader, largestExpenseBody, sunk)
+largestExpenseHeader = Card(Heading("Single Largest Expense This Month", level:h3), Tag("Peak Expense", danger, size:md), direction:row, justify:between, align:center, variant:clear)
+largestExpenseBody = Card(largestExpenseAmount, largestExpenseDetails, direction:row, justify:between, align:center, variant:clear)
+largestExpenseAmount = Card(Heading("$1,650.00", level:h1), Badge("Housing", destructive), variant:clear)
+largestExpenseDetails = Card(TextContent("**Monthly Apartment Rent**\n*Paid to Beacon Property Mgmt on Oct 1, 2024 via ACH*"), TextContent("Represents **50.9%** of total monthly spending.", size:small), variant:clear)
+breakdownSection = Card(Heading("Spending Split by Category", level:h3), categoryChart, Table(categorySummaryData), sunk)
+categoryChart = HorizontalBarChart(categorySummaryData, xLabel:"Category", yLabel:"Amount Spent ($)")
+recentExpensesSection = Card(Heading("Top Expenses Breakdown", level:h3), Table(topExpensesData), sunk)
+categorySummaryData = |Category|Spent|Budget|Share
+|Housing|1650|1650|50.9%
+|Food & Groceries|620|700|19.1%
+|Transport & Auto|340|450|10.5%
+|Utilities & Bills|280|300|8.6%
+|Entertainment|210|400|6.5%
+|Shopping|140|500|4.3%
+topExpensesData = |Date|Description|Category|Amount
+|Oct 01, 2024|Apartment Rent|Housing|$1,650.00
+|Oct 08, 2024|Costco Wholesale|Food & Groceries|$245.80
+|Oct 15, 2024|Car Insurance Semi-Annual|Transport & Auto|$190.00
+|Oct 12, 2024|ConEdison Electric|Utilities & Bills|$145.20
+|Oct 19, 2024|Trader Joe's|Food & Groceries|$128.50

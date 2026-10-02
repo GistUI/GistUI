@@ -1,0 +1,12 @@
+root = Card(header, appointmentsCard, statsCard, roomsCard, nextCallout, actionsButtons
+header = CardHeader("Today's Schedule", "Clinic Reception")
+appointmentsCard = Card(Heading("Appointments", h3), appointmentsTable
+statsCard = Card(Heading("Stats", h3), expectedText, noShowText
+roomsCard = Card(Heading("Free Rooms", h3), Tag("Room 1", variant:success), Tag("Room 3", variant:success), Tag("Room 5", variant:success)
+nextCallout = Callout(info, "Next patient called", "Bob Lee at 13:15 PM")
+actionsButtons = Buttons(Button("Check in", primary), Button("Previous day"), Button("Next day")
+expectedText = TextContent("**Expected patients:** 20", size:large)
+noShowText = TextContent("**No-show rate (this month):** 5%", size:large)
+appointmentsTable = Table(timeCol, patientCol
+timeCol = Col("Time", ["08:00 AM","09:30 AM","11:00 AM","13:15 PM","15:00 PM"], type:string
+patientCol = Col("Patient", ["John Doe","Jane Smith","Alice Johnson","Bob Lee","Carol White"], type:string

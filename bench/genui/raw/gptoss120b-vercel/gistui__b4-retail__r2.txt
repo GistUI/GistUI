@@ -1,0 +1,80 @@
+root = Card(
+  CardHeader("Store Manager Console"),
+  Heading("1. Sales Today vs Target", h3),
+  Table(salesRows),
+  BarChart(salesRows, grouped, xLabel:"Metric", yLabel:"USD"),
+  Heading("2. Foot Traffic Through the Day", h3),
+  LineChart(footTrafficRows, natural, xLabel:"Hour", yLabel:"Visitors"),
+  Heading("3. Best Sellers", h3),
+  Table(bestSellersRows),
+  Buttons(Button("Reorder Item", primary)),
+  Heading("4. Items Out of Stock", h3),
+  Table(outOfStockRows),
+  Heading("5. Who Is On Shift Today", h3),
+  Table(shiftRows),
+  Heading("6. Average Basket Size", h3),
+  TextContent("$45.20", size:large),
+  Heading("7. Returns This Week", h3),
+  Table(returnsRows),
+  Heading("8. Promotion Performance", h3),
+  Table(promotionsRows),
+  Heading("9. Register Status", h3),
+  Table(registersRows),
+  Heading("10. Reorder an Item", h3),
+  Buttons(Button("Create Reorder", primary)),
+  Heading("11. View Different Store", h3),
+  storeSelect,
+  Heading("12. This Week vs Last Week", h3),
+  Table(weekCompareRows),
+  BarChart(weekCompareRows, grouped, xLabel:"Metric", yLabel:"Value")
+)
+
+salesRows = |Metric|Today|Target
+|Sales|$12,300|$15,000
+
+footTrafficRows = |Hour|Visitors
+|9am|45
+|10am|78
+|11am|102
+|12pm|150
+|1pm|130
+|2pm|115
+|3pm|140
+|4pm|160
+|5pm|180
+
+bestSellersRows = |Product|Units Sold
+|Widget A|120
+|Gadget B|95
+|Thingamajig C|80
+
+outOfStockRows = |Product|Category
+|Widget X|Electronics
+|Gadget Y|Home
+
+shiftRows = |Employee|Role
+|Alice|Cashier
+|Bob|Floor Manager
+|Carol|Supervisor
+
+returnsRows = |Day|Returns
+|Mon|2
+|Tue|1
+|Wed|3
+|Thu|0
+|Fri|1
+
+promotionsRows = |Promotion|Units Sold|Target
+|Spring Sale|300|500
+|Clearance|150|200
+
+registersRows = |Register|Status
+|Reg 1|Open
+|Reg 2|Closed
+|Reg 3|Open
+
+weekCompareRows = |Metric|This Week|Last Week
+|Sales|$12,300|$11,800
+|Foot Traffic|1,200|1,150
+
+storeSelect = Select("store", SelectItem("store1","Store 1"), SelectItem("store2","Store 2"), placeholder:"Select store")

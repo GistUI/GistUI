@@ -1,0 +1,76 @@
+root = Card(occupancySection, erWaitSection, admissionsSection, deptPatientsSection, staffShiftSection, criticalSection, dischargeSection, orBookingsSection, suppliesSection, incidentSection, dateNavSection, transferSection, actions)
+
+occupancySection = Card(CardHeader("Bed Occupancy"), HorizontalBarChart(labels:["ICU","General Ward","Recovery"], Series("Occupied", values:[85,230,45]), Series("Available", values:[15,70,55]), stacked, xLabel:"Beds", yLabel:"Count"))
+
+erWaitSection = Card(CardHeader("Current ER Wait"), TextContent("Patients waiting: **27**\nAverage wait time: **42 mins**", size:large))
+
+admissionsSection = Card(CardHeader("Admissions (Last 14 Days)"), LineChart(admissionsRows, linear, xLabel:"Date", yLabel:"Admissions"))
+
+deptPatientsSection = Card(CardHeader("Patients per Department"), HorizontalBarChart(labels:["Cardiology","Neurology","Oncology","Pediatrics","Surgery"], Series("Patients", values:[120,95,80,150,110]), grouped, xLabel:"Department", yLabel:"Patients"))
+
+staffShiftSection = Card(CardHeader("Staff on Shift"), Table(staffColName, staffColRole, staffColShift))
+
+criticalSection = Card(CardHeader("Critical Patients"), Callout(critical, "Critical Alerts", "3 patients in critical condition requiring immediate attention"))
+
+dischargeSection = Card(CardHeader("Patients Ready for Discharge"), Table(dischColName, dischColRoom, dischColExpected))
+
+orBookingsSection = Card(CardHeader("Today's Operating Room Bookings"), Table(orColRoom, orColProcedure, orColTime))
+
+suppliesSection = Card(CardHeader("Supplies Running Low"), Table(supColItem, supColQty, supColUnit))
+
+incidentSection = Card(CardHeader("File an Incident"), incidentForm)
+
+dateNavSection = Card(CardHeader("Select Date"), datePicker)
+
+transferSection = Card(CardHeader("Request Patient Transfer"), transferForm)
+
+actions = Buttons(Button("Refresh Data"), Button("Export Report", secondary))
+
+admissionsRows = |Date|Admissions
+|2024-09-16|45
+|2024-09-17|52
+|2024-09-18|48
+|2024-09-19|55
+|2024-09-20|60
+|2024-09-21|58
+|2024-09-22|62
+|2024-09-23|57
+|2024-09-24|64
+|2024-09-25|70
+|2024-09-26|68
+|2024-09-27|73
+|2024-09-28|71
+|2024-09-29|75
+
+staffColName = Col(Name, data:["Dr. Smith","Nurse Lee","Tech Patel","Dr. Gomez","Nurse Chen"], type:string)
+staffColRole = Col(Role, data:["Surgeon","RN","Lab Tech","Cardiologist","RN"], type:string)
+staffColShift = Col(Shift, data:["Day","Night","Day","Day","Night"], type:string)
+
+dischColName = Col(Patient, data:["John Doe","Maria Ruiz","Liu Wei"], type:string)
+dischColRoom = Col(Room, data:["302B","210A","415C"], type:string)
+dischColExpected = Col(Ready, data:["Today","Tomorrow","Today"], type:string)
+
+orColRoom = Col(Room, data:["OR1","OR2","OR3"], type:string)
+orColProcedure = Col(Procedure, data:["Appendectomy","Hip Replacement","CABG"], type:string)
+orColTime = Col(Time, data:["08:00","10:30","13:00"], type:string)
+
+supColItem = Col(Item, data:["Surgical Gloves","IV Bags","Bandages"], type:string)
+supColQty = Col(Quantity, data:[120,45,30], type:number)
+supColUnit = Col(Unit, data:["boxes","packs","rolls"], type:string)
+
+incidentForm = Form("incident", incidentButtons, incidentDesc, incidentType)
+
+incidentDesc = FormControl("Description", Input("desc", "Enter details...", "", text))
+incidentType = FormControl("Type", Select("type", SelectItem("Safety","Safety"), SelectItem("Equipment","Equipment"), SelectItem("Other","Other"), placeholder:"Select type", value:"Safety"))
+
+incidentButtons = Buttons(Button("Submit Incident", primary), Button("Cancel", tertiary))
+
+datePicker = DatePicker("date", single, [], [])
+
+transferForm = Form("transfer", transferButtons, patientSelect, targetDept, notesField)
+
+patientSelect = FormControl("Patient", Select("patient", SelectItem("12345","John Doe"), SelectItem("67890","Maria Ruiz"), placeholder:"Select patient", value:"12345"))
+targetDept = FormControl("Target Department", Select("dept", SelectItem("ICU","ICU"), SelectItem("Surgery","Surgery"), SelectItem("Cardiology","Cardiology"), placeholder:"Select department"))
+notesField = FormControl("Notes", TextArea("notes", "Optional notes...", "", 3))
+
+transferButtons = Buttons(Button("Request Transfer", primary), Button("Cancel", tertiary))

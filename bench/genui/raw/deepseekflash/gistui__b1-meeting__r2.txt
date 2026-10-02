@@ -1,0 +1,4 @@
+ root = Card(header, attendeesSection, joinActions)
+header = CardHeader("Design Sync", "Today at 3:30 PM")
+attendeesSection = Card(Heading("Attendees", h3), TagBlock(["Alice Chen", "Bob Patel", "Carol Nguyen", "David Kim"]), sunk)
+joinActions = Buttons(Button("Join call", primary))

@@ -1,0 +1,6 @@
+root = Row(
+  Text("a"),
+  Table(t)
+)
+t = |A|B
+|1|2

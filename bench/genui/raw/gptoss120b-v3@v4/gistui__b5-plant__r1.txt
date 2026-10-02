@@ -1,0 +1,46 @@
+root = Card(overviewSection, productionSection, qualitySection, resourcesSection, deliveriesSection, shiftsSection, safetySection, workOrdersSection, maintenanceSection, actions)
+
+overviewSection = Card(CardHeader("Overall Equipment Effectiveness", "Current OEE"), HorizontalBarChart(labels:["OEE"], Series("Current", values:[85]), variant:grouped, xLabel:"%", yLabel:"OEE"))
+
+productionSection = Card(CardHeader("Production Overview", "Today's target vs actual"), BarChart(labels:["Target","Produced"], Series("Units", values:[1000, 820]), variant:grouped, xLabel:"", yLabel:"Units"), LineChart(labels:["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7"], Series("Defect Rate", values:[2.1,1.8,2.5,2.0,1.9,2.2,1.7]), variant:linear, xLabel:"Date", yLabel:"% Defect"))
+
+qualitySection = Card(CardHeader("Line Details", "Rate & Status"), Table(lineCol, rateCol, statusCol), PieChart(labels:["Defect"], values:[5], variant:donut, appearance:circular), SingleStackedBarChart(labels:["Downtime"], values:[30]), TagBlock(tags:["Focus Line A"]), CardHeader("Batches on Quality Hold", ""), Table(batchCol, reasonCol))
+
+resourcesSection = Card(CardHeader("Materials & Energy", ""), Table(materialCol, stockCol, type:string), BarChart(labels:["Steel","Resin","Packaging"], Series("Stock", values:[5000,3000,2000]), variant:grouped, xLabel:"Material", yLabel:"Units"), HorizontalBarChart(labels:["Energy Use"], Series("Today", values:[1200]), variant:grouped, xLabel:"kWh", yLabel:""))
+
+deliveriesSection = Card(CardHeader("Supplier Deliveries", "Due this week"), Table(supplierCol, dueCol, type:string))
+
+shiftsSection = Card(CardHeader("Shift Output Comparison"), BarChart(labels:["Shift 1","Shift 2","Shift 3"], Series("Output", values:[300,350,320]), variant:grouped, xLabel:"Shift", yLabel:"Units"), Buttons(exportButton, direction:row))
+
+safetySection = Card(CardHeader("Safety Incidents", "Year to date"), TextContent("Incidents: 4"), TextContent("Days since last incident: 45"))
+
+workOrdersSection = Card(CardHeader("Open Work Orders", "Prioritized"), Table(woCol, priorityCol, statusCol, type:string))
+
+maintenanceSection = Card(CardHeader("Schedule Maintenance", ""), Form("schedule-maint", scheduleButtons, machineField, dateField))
+
+actions = Buttons(exportShiftReport, direction:row)
+
+lineCol = Col("Line", data:["Line A","Line B","Line C"], type:string)
+rateCol = Col("Rate (units/hr)", data:[120,95,110], type:number)
+statusCol = Col("Status", data:["Running","Stopped","Running"], type:string)
+
+batchCol = Col("Batch ID", data:["B123","B124"], type:string)
+reasonCol = Col("Hold Reason", data:["Quality Check"], type:string)
+
+materialCol = Col("Material", data:["Steel","Resin","Packaging"], type:string)
+stockCol = Col("Stock (units)", data:[5000,3000,2000], type:number)
+
+supplierCol = Col("Supplier", data:["Acme Metals","PolyResin Co","PackPro"], type:string)
+dueCol = Col("Due Date", data:["2026-10-02","2026-10-04","2026-10-05"], type:string)
+
+woCol = Col("Work Order", data:["WO-101","WO-102","WO-103"], type:string)
+priorityCol = Col("Priority", data:["High","Medium","Low"], type:string)
+statusCol = Col("Status", data:["Open","In Progress","Open"], type:string)
+
+exportButton = Button("Export Shift Report", [], primary, normal, medium)
+
+scheduleButtons = Buttons(Button("Save Schedule", [], primary, normal, medium), Button("Cancel", [], secondary, normal, medium))
+
+machineField = FormControl("Machine", Select("machine", SelectItem("Line A","Line A"), SelectItem("Line B","Line B"), SelectItem("Line C","Line C"), placeholder:"Select machine", value:"", rules:[], size:medium))
+
+dateField = FormControl("Date", Input("date", "YYYY-MM-DD", "", text, []), "Select maintenance date")

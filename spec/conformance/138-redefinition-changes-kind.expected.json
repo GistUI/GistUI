@@ -1,0 +1,30 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "x"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "y"
+        }
+      },
+      {
+        "type": "Header",
+        "props": {
+          "title": "now text"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

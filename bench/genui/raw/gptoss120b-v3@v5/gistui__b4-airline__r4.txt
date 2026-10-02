@@ -1,0 +1,44 @@
+root = Card(CardHeader("Hub Operations Desk", "Current Hub: JFK"), perfTag, loadText, turnaroundText, flightsTable, delayedCallout, gateChangesCallout, crewsTag, weatherCallout, riskCallout, rebookButtons, hubSelect, cancellationsCallout)
+
+perfTag = Tag("On‑time: 92%", success)
+
+loadText = TextContent("Average passenger load today: **78%**", size:large)
+
+turnaroundText = TextContent("Average turnaround time: **42 min**", size:large)
+
+flightsTable = Table(
+  Col("Flight", ["AA101","DL202","UA303","SW404"], type:string),
+  Col("Route", ["NYC‑LAX","NYC‑ATL","NYC‑ORD","NYC‑MIA"], type:string),
+  Col("Gate", ["A12","B7","C3","D5"], type:string),
+  Col("Status", ["On‑time","Delayed","On‑time","Cancelled"], type:string)
+)
+
+delayedCallout = Callout(warning, "Delayed Flights", "AA101 – 15 min, DL202 – 30 min")
+
+gateChangesCallout = Callout(info, "Recent Gate Changes", "UA303 moved from C3 to C5, SW404 moved from D5 to D2")
+
+crewsTag = TagBlock(["Crew A – Available","Crew B – Available","Crew C – Available"])
+
+weatherCallout = Callout(info, "Weather Advisory", "Fog reducing visibility; expect possible delays")
+
+riskCallout = Callout(warning, "Connections at Risk", "AA101 connection to DL202 may be missed")
+
+rebookButtons = Buttons(
+  Button("Rebook Passengers", primary),
+  Button("View Affected Flights", secondary)
+)
+
+hubSelect = Form("hub-switch", hubButtons,
+  hubControl
+)
+
+hubControl = FormControl("Select hub", Select("hub", 
+  SelectItem("JFK", "JFK"), 
+  SelectItem("LAX", "LAX"), 
+  SelectItem("ORD", "ORD"), 
+  placeholder:"Choose hub", value:"JFK"
+))
+
+hubButtons = Buttons(Button("Switch Hub", primary))
+
+cancellationsCallout = Callout(error, "Cancellations Today", "SW404 cancelled due to crew shortage")

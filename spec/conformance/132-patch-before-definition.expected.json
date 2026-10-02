@@ -1,0 +1,31 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "x"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "patch-target-missing",
+      "severity": "error",
+      "stmt": "a",
+      "line": 1
+    },
+    {
+      "code": "patch-target-missing",
+      "severity": "error",
+      "stmt": "root",
+      "line": 2
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

@@ -1,0 +1,25 @@
+root = Card(revenueSection, trendSection, topProductsSection, conversionSection, actions)
+
+revenueSection = Card(CardHeader("Revenue This Month"), revenueValue, clear)
+revenueValue = TextContent("$128,400", size:large)
+
+trendSection = Card(CardHeader("Revenue Last 6 Months"), revenueTrend, sunk)
+revenueTrend = LineChart(revenueTrendRows, linear, xLabel:"Month", yLabel:"Revenue")
+
+revenueTrendRows = |Month|Revenue
+|Jan|102000
+|Feb|110500
+|Mar|115300
+|Apr|120800
+|May|125600
+|Jun|128400
+
+topProductsSection = Card(CardHeader("Top‑Selling Products"), topProductsTable, clear)
+topProductsTable = Table(productCol, unitsCol)
+productCol = Col("Product", data:["Product A","Product B","Product C"], type:string)
+unitsCol = Col("Units Sold", data:[3400,2750,2100], type:number)
+
+conversionSection = Card(CardHeader("Conversion Rate"), conversionCallout, clear)
+conversionCallout = TextCallout("Conversion", "4.7 % of visitors made a purchase", variant:info)
+
+actions = Buttons(Button("Download CSV", primary), Button("Export PDF", secondary))

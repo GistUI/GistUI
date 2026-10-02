@@ -1,0 +1,1 @@
+root = Row(Panel(header:nope), Chart(missing), Stats([gone, 1]))

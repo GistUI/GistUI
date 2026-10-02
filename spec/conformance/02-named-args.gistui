@@ -1,0 +1,7 @@
+# Named args may appear anywhere, with `:` or `=`; optionals are always named.
+root = Stack(a, b, c, gap=sm)
+a = Row(gap:md, x, y, align:center)
+b = Button(v:ghost, "Cancel")
+c = Header("Title", subtitle:"By name")
+x = Text("x")
+y = Text("y")

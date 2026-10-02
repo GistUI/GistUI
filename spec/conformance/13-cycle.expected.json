@@ -1,0 +1,42 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Stack",
+        "children": [
+          {
+            "type": "Stack",
+            "children": [
+              {
+                "type": "Text",
+                "props": {
+                  "content": "b"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Text",
+            "props": {
+              "content": "a"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "cycle",
+      "severity": "error",
+      "stmt": "b",
+      "line": 4,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": true
+  }
+}

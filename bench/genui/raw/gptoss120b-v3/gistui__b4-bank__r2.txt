@@ -1,0 +1,89 @@
+root = Card(balancesSection, transactionsSection, spendingSection, billsSection, vacationSection, creditScoreSection, actionsSection, statementSection, alertsSection, disputeSection, gap:m, direction:column)
+
+balancesSection = Card(CardHeader("Account balances"), balancesTable, clear)
+
+balancesTable = Table(accountCol, balanceCol)
+
+accountCol = Col("Account", data:["Checking","Savings","Credit"], type:string)
+
+balanceCol = Col("Balance", data:["$2,340.00","$8,120.00","$1,200.00"], type:string)
+
+transactionsSection = Card(CardHeader("Recent transactions"), transactionsTable, clear)
+
+transactionsTable = Table(merchantCol, amountCol)
+
+merchantCol = Col("Merchant", data:["Coffee Shop","Grocery Store","Online Retailer","Gas Station"], type:string)
+
+amountCol = Col("Amount", data:["-$4.50","-$76.23","-$120.00","-$35.80"], type:string)
+
+spendingSection = Card(CardHeader("Spending by category (this month)"), spendingChart, clear)
+
+spendingChart = PieChart(spendingLabels, spendingValues, variant:donut)
+
+spendingLabels = |Category|
+|Food|
+|Groceries|
+|Shopping|
+|Transport|
+
+spendingValues = |Value|
+|15|
+|30|
+|25|
+|10|
+
+billsSection = Card(CardHeader("Bills due soon"), billsTable, clear)
+
+billsTable = Table(billCol, dueCol, amountBillCol)
+
+billCol = Col("Bill", data:["Electricity","Internet","Rent"], type:string)
+
+dueCol = Col("Due", data:["2024-10-05","2024-10-07","2024-10-01"], type:string)
+
+amountBillCol = Col("Amount", data:["$120.00","$60.00","$1,200.00"], type:string)
+
+vacationSection = Card(CardHeader("Vacation savings goal"), vacationProgress, clear)
+
+vacationProgress = Progress(4500, label:"$4,500 saved of $5,000 goal")
+
+creditScoreSection = Card(CardHeader("Credit score"), creditScoreText, clear)
+
+creditScoreText = TextContent("Your credit score: **720**", size:large)
+
+actionsSection = Card(CardHeader("Move money"), moveForm, freezeButton, clear)
+
+moveForm = Form("move-money", moveButtons, amountField, fromField, toField)
+
+amountField = FormControl("Amount", Input("amount", "$0.00", type:number))
+
+fromField = FormControl("From account", fromSelect)
+
+fromSelect = Select("from_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), placeholder:"Select account")
+
+toField = FormControl("To account", toSelect)
+
+toSelect = Select("to_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), placeholder:"Select account")
+
+moveButtons = Buttons(Button("Transfer", primary))
+
+freezeButton = Button("Freeze credit line", primary)
+
+statementSection = Card(CardHeader("Statement period"), statementSelect, clear)
+
+statementSelect = Select("statement_period", SelectItem("30d", "Last 30 days"), SelectItem("90d", "Last 90 days"), SelectItem("ytd", "Year to date"), placeholder:"Choose period")
+
+alertsSection = Card(CardHeader("Alert settings"), alertsForm)
+
+alertsForm = Form("alerts", alertsButtons, alertsCheckbox)
+
+alertsCheckbox = FormControl("Enable alerts for", CheckBoxGroup("alert_types", CheckBoxItem("Low balance", "When balance falls below $100", "low_balance", false), CheckBoxItem("Large transaction", "When a transaction exceeds $500", "large_tx", false), defaultChecked:[], value:[]))
+
+alertsButtons = Buttons(Button("Save", primary))
+
+disputeSection = Card(CardHeader("Dispute a transaction"), disputeForm)
+
+disputeForm = Form("dispute", disputeButtons, disputeSelect)
+
+disputeSelect = Select("dispute_tx", SelectItem("tx1", "Coffee Shop - $4.50"), SelectItem("tx2", "Grocery Store - $76.23"), placeholder:"Select transaction")
+
+disputeButtons = Buttons(Button("Submit dispute", primary))

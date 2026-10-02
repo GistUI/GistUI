@@ -1,0 +1,499 @@
+{
+  "$comment": "Component catalog for the conformance suite. Any GistUI implementation loads this library to run spec/conformance/*.gistui.",
+  "gistui": "1.0",
+  "id": "https://gistui.com/catalogs/conformance",
+  "version": "1.1.0",
+  "title": "GistUI conformance catalog",
+  "components": [
+    {
+      "name": "Page",
+      "group": "Layout",
+      "description": "Top-level page",
+      "children": {
+        "of": [
+          "Block"
+        ]
+      },
+      "props": {
+        "gap": {
+          "type": "enum",
+          "values": [
+            "none",
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ],
+          "aliases": {
+            "medium": "md",
+            "small": "sm",
+            "large": "lg"
+          }
+        }
+      }
+    },
+    {
+      "name": "Stack",
+      "group": "Layout",
+      "description": "Vertical stack",
+      "children": true,
+      "props": {
+        "gap": {
+          "type": "enum",
+          "values": [
+            "none",
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ],
+          "aliases": {
+            "medium": "md",
+            "small": "sm",
+            "large": "lg"
+          }
+        }
+      }
+    },
+    {
+      "name": "Row",
+      "group": "Layout",
+      "description": "Horizontal row",
+      "children": true,
+      "props": {
+        "gap": {
+          "type": "enum",
+          "values": [
+            "none",
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ],
+          "aliases": {
+            "medium": "md",
+            "small": "sm",
+            "large": "lg"
+          }
+        },
+        "wrap": {
+          "type": "boolean"
+        },
+        "align": {
+          "type": "enum",
+          "values": [
+            "start",
+            "center",
+            "end",
+            "stretch"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Card",
+      "group": "Layout",
+      "description": "Surface for grouped content",
+      "children": true,
+      "props": {
+        "v": {
+          "type": "enum",
+          "values": [
+            "card",
+            "sunk",
+            "clear"
+          ],
+          "default": "card"
+        }
+      },
+      "aliases": {
+        "variant": "v"
+      }
+    },
+    {
+      "name": "Header",
+      "group": "Layout",
+      "description": "Title with optional subtitle",
+      "args": [
+        "title",
+        "subtitle?"
+      ],
+      "props": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "subtitle": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "Text",
+      "group": "Content",
+      "description": "Markdown text",
+      "args": [
+        "content"
+      ],
+      "props": {
+        "content": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "Callout",
+      "group": "Content",
+      "args": [
+        "content"
+      ],
+      "props": {
+        "content": {
+          "type": "string",
+          "required": true
+        },
+        "tone": {
+          "type": "enum",
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ],
+          "default": "info"
+        }
+      }
+    },
+    {
+      "name": "Stat",
+      "group": "Data",
+      "description": "One KPI",
+      "args": [
+        "label",
+        "value",
+        "delta?"
+      ],
+      "props": {
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "value": {
+          "type": "string",
+          "required": true
+        },
+        "delta": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "Stats",
+      "group": "Data",
+      "description": "KPI row from a table (Label|Value|Delta)",
+      "args": [
+        "data"
+      ],
+      "props": {
+        "data": {
+          "type": "data",
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "Table",
+      "group": "Data",
+      "args": [
+        "data"
+      ],
+      "props": {
+        "data": {
+          "type": "data",
+          "required": true
+        },
+        "sort": {
+          "type": "boolean"
+        },
+        "pageSize": {
+          "type": "number"
+        }
+      }
+    },
+    {
+      "name": "Chart",
+      "group": "Charts",
+      "description": "Chart from a table: first column = x, others = series",
+      "args": [
+        "data"
+      ],
+      "props": {
+        "data": {
+          "type": "data",
+          "required": true
+        },
+        "type": {
+          "type": "enum",
+          "values": [
+            "bar",
+            "hbar",
+            "line",
+            "area",
+            "pie",
+            "donut",
+            "scatter"
+          ],
+          "default": "bar"
+        },
+        "x": {
+          "type": "string"
+        },
+        "y": {
+          "type": "string"
+        },
+        "zoom": {
+          "type": "boolean"
+        },
+        "bind": {
+          "type": "state"
+        }
+      }
+    },
+    {
+      "name": "Button",
+      "group": "Forms",
+      "args": [
+        "label"
+      ],
+      "props": {
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "do": {
+          "type": "action"
+        },
+        "v": {
+          "type": "enum",
+          "values": [
+            "primary",
+            "secondary",
+            "ghost"
+          ],
+          "default": "primary"
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "name": "Input",
+      "group": "Forms",
+      "args": [
+        "name",
+        "label"
+      ],
+      "props": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "type": {
+          "type": "enum",
+          "values": [
+            "text",
+            "email",
+            "number",
+            "password",
+            "url"
+          ],
+          "default": "text"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "min": {
+          "type": "number"
+        },
+        "bind": {
+          "type": "state"
+        }
+      }
+    },
+    {
+      "name": "Select",
+      "group": "Forms",
+      "args": [
+        "name",
+        "label",
+        "options"
+      ],
+      "props": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": true
+        },
+        "bind": {
+          "type": "state"
+        }
+      }
+    },
+    {
+      "name": "Form",
+      "group": "Forms",
+      "args": [
+        "name"
+      ],
+      "children": true,
+      "props": {
+        "name": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "Tabs",
+      "group": "Layout",
+      "children": {
+        "of": [
+          "Tab"
+        ]
+      },
+      "props": {
+        "bind": {
+          "type": "state"
+        }
+      }
+    },
+    {
+      "name": "Tab",
+      "group": "Layout",
+      "args": [
+        "label"
+      ],
+      "children": true,
+      "props": {
+        "label": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "Panel",
+      "group": "Layout",
+      "props": {
+        "header": {
+          "type": "node"
+        }
+      }
+    },
+    {
+      "name": "Icon",
+      "group": "Content",
+      "args": [
+        "name"
+      ],
+      "props": {
+        "name": {
+          "type": "enum",
+          "values": [
+            "star"
+          ],
+          "open": true,
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "Plot",
+      "group": "Charts",
+      "args": [
+        "labels"
+      ],
+      "children": {
+        "of": [
+          "Series"
+        ]
+      },
+      "props": {
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "required": true
+        },
+        "totals": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "table": {
+        "labels": "labels",
+        "values": "totals",
+        "columns": {
+          "component": "Series",
+          "label": "category",
+          "values": "values",
+          "numeric": true,
+          "type": "kind"
+        }
+      }
+    },
+    {
+      "name": "Series",
+      "group": "Charts",
+      "args": [
+        "category",
+        "values"
+      ],
+      "props": {
+        "category": {
+          "type": "string",
+          "required": true
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "required": true
+        },
+        "kind": {
+          "type": "enum",
+          "values": [
+            "string",
+            "number"
+          ]
+        }
+      }
+    }
+  ],
+  "unions": {
+    "Block": ["Header", "Text", "Card", "Row", "Stack", "Stats", "Table", "Chart", "Callout", "Form", "Tabs", "Stat", "Button", "Input", "Select"]
+  }
+}

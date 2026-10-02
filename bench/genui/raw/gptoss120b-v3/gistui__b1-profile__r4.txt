@@ -1,0 +1,8 @@
+root = Card(personHeader, bioSection, messageForm, actions)
+personHeader = CardHeader("Jane Doe", "Senior Engineer")
+bioSection = MarkDownRenderer("Jane has over 10 years of experience in software development, specializing in backend systems and cloud architecture.", variant:clear)
+messageForm = Form("send-message", formButtons, subjectField, bodyField)
+subjectField = FormControl("Subject", Input("subject", "Hello Jane"))
+bodyField = FormControl("Message", TextArea("message", "Hi Jane,\n\n", "", rows:5))
+formButtons = Buttons(Button("Send", primary), Button("Cancel", tertiary))
+actions = TagBlock(tags:["Engineering","Team Lead"])

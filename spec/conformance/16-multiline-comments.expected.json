@@ -1,0 +1,38 @@
+{
+  "tree": {
+    "type": "Page",
+    "props": {
+      "gap": "lg"
+    },
+    "children": [
+      {
+        "type": "Header",
+        "props": {
+          "title": "A # inside a string is not a comment"
+        }
+      },
+      {
+        "type": "Row",
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "one"
+            }
+          },
+          {
+            "type": "Text",
+            "props": {
+              "content": "two"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

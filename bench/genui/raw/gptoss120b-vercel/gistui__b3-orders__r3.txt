@@ -1,0 +1,48 @@
+root = Card(summarySection, filtersSection, recentSection, volumeSection, sunk)
+
+summarySection = Card(CardHeader("Today's Summary"), ordersCard, revenueCard, aovCard, refundCard, clear)
+
+ordersCard = Card(Tag("Orders Today", neutral), TextContent("125", large), clear)
+revenueCard = Card(Tag("Revenue Today", neutral), TextContent("$8,750", large), clear)
+aovCard = Card(Tag("Avg Order Value", neutral), TextContent("$70", large), clear)
+refundCard = Card(Tag("Refund Rate (this month)", neutral), TextContent("2.3%", large), clear)
+
+filtersSection = Card(CardHeader("Filters"), filterForm, clear)
+
+filterForm = Form("order-filters", filterButtons, statusControl, searchControl)
+
+statusControl = FormControl("Status", statusSelect)
+statusSelect = Select("status", 
+    SelectItem("all", "All"), 
+    SelectItem("pending", "Pending"), 
+    SelectItem("shipped", "Shipped"), 
+    SelectItem("cancelled", "Cancelled"), 
+    placeholder:"Select status", value:"all")
+
+searchControl = FormControl("Customer", Input("customer_search", "Search name...", "", type:text))
+
+filterButtons = Buttons(Button("Apply"), direction:row)
+
+recentSection = Card(CardHeader("Recent Orders"), ordersTable, clear)
+
+ordersTable = Table(
+    Col("Order ID", data:["#1023","#1022","#1021","#1020"], type:string),
+    Col("Customer", data:["Alice","Bob","Carol","Dave"], type:string),
+    Col("Total", data:["$120","$85","$60","$45"], type:string),
+    Col("Status", data:["Pending","Shipped","Pending","Cancelled"], type:string),
+    Col("Action", data:[
+        Button("Mark Fulfilled", primary, type:normal),
+        Button("Mark Fulfilled", primary, type:normal),
+        Button("Mark Fulfilled", primary, type:normal),
+        Button("Mark Fulfilled", primary, type:normal)
+    ], type:action)
+)
+
+volumeSection = Card(CardHeader("Order Volume (Last 4 Weeks)"), volumeChart, clear)
+
+volumeChart = BarChart(volumeRows, grouped, xLabel:"Week", yLabel:"Orders")
+volumeRows = |Week|Orders
+|W1|340
+|W2|410
+|W3|380
+|W4|425

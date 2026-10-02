@@ -1,0 +1,50 @@
+root = Card(balancesCard, transactionsCard, spendingCard, billsCard, goalCard, creditScoreCard, transferForm, freezeCard, statementCard, alertsCard, disputeCard, followup)
+
+balancesCard = Card(CardHeader("Balances"), Table(accountCol, balanceCol), variant:sunk)
+
+accountCol = Col("Account", ["Checking","Savings","Credit"], type:string)
+balanceCol = Col("Balance", ["$2,340.00","$5,120.50","$1,200.00"], type:string)
+
+transactionsCard = Card(CardHeader("Recent Transactions"), Table(merchantCol, amountCol), variant:sunk)
+
+merchantCol = Col("Merchant", ["Grocery Store","Coffee Shop","Online Retailer","Gas Station"], type:string)
+amountCol = Col("Amount", ["-$45.23","-$4.75","-$120.00","-$38.10"], type:string)
+
+spendingCard = Card(CardHeader("Spending by Category (This Month)"), PieChart(categoryLabels, categoryValues, donut), variant:sunk)
+
+categoryLabels = ["Food","Transport","Shopping","Entertainment","Bills"]
+categoryValues = [720,150,340,210,180]
+
+billsCard = Card(CardHeader("Bills Due Soon"), Table(billCol, dueCol, amountBillCol), variant:sunk)
+
+billCol = Col("Bill", ["Electricity","Internet","Credit Card"], type:string)
+dueCol = Col("Due Date", ["2024-10-05","2024-10-07","2024-10-10"], type:string)
+amountBillCol = Col("Amount", ["$90.00","$45.00","$200.00"], type:string)
+
+goalCard = Card(CardHeader("Vacation Savings Goal"), Progress(5600, label:"$5,600 of $10,000"), variant:sunk)
+
+creditScoreCard = Card(CardHeader("Credit Score"), TextContent("**720**", size:large), variant:sunk)
+
+transferForm = Form("money-transfer", transferButtons, amountField, fromAccountField, toAccountField)
+
+amountField = FormControl("Amount", Input("amount", "$", "", type:number, rules:[]))
+fromAccountField = FormControl("From", Select("from_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), placeholder:"Select account", value:"checking", size:medium, rules:[]))
+toAccountField = FormControl("To", Select("to_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit Card"), placeholder:"Select account", value:"savings", size:medium, rules:[]))
+transferButtons = Buttons(Button("Transfer", primary), Button("Cancel", tertiary))
+
+freezeCard = Card(CardHeader("Credit Line"), Buttons(Button("Freeze Credit", destructive)), variant:sunk)
+
+statementCard = Card(CardHeader("Statement Period"), DialogBlock("Select period", "Statement Period", DatePicker("statement_range", mode:range, rules:[], value:[]), description:"Choose start and end dates", triggerVariant:default))
+
+alertsCard = Card(CardHeader("Alert Settings"), DialogBlock("Manage alerts", "Alert Triggers", Form("alert-settings", alertButtons, alertToggle), description:"Select which alerts you receive", triggerVariant:default))
+
+alertToggle = FormControl("Enable Alerts", SwitchGroup("alerts", SwitchItem("spending"), SwitchItem("low_balance"), variant:clear, value:[]))
+alertButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))
+
+disputeCard = Card(CardHeader("Dispute Transaction"), DialogBlock("Dispute", "Dispute Transaction", Form("dispute-form", disputeButtons, disputeSelect, disputeDetails), description:"Select a transaction to dispute", triggerVariant:default))
+
+disputeSelect = FormControl("Transaction", Select("dispute_tx", SelectItem("tx1","Grocery Store - $45.23"), SelectItem("tx2","Coffee Shop - $4.75"), placeholder:"Select transaction", value:"tx1", size:medium, rules:[]))
+disputeDetails = FormControl("Details", TextArea("details", "Explain the issue", "", rows:4, rules:[]))
+disputeButtons = Buttons(Button("Submit Dispute", primary), Button("Cancel", tertiary))
+
+followup = FollowUpBlock(FollowUpItem("View all accounts"), FollowUpItem("Set new budget"))

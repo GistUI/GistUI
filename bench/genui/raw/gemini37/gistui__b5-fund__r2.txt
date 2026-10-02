@@ -1,0 +1,107 @@
+root = Card(header, topBar, mainTabs)
+header = Card(CardHeader("Global Alpha Trading Desk", "Morning Workspace & Execution Terminal"), headerBadges, wrap, direction:row, justify:between, align:center)
+headerBadges = Card(Tag("Market: OPEN", success), Tag("Session: US Pre-Close", info), Tag("Latency: 4ms", neutral), direction:row, gap:s)
+topBar = Card(kpiMetrics, quickBar, direction:row, justify:between, align:center, variant:sunk)
+kpiMetrics = Card(Tag("NAV: $148,250,000", lg, info), Tag("Today P&L: +$1,420,500 (+0.97%)", lg, success), Tag("99% 1D VaR: $2,850,000 (1.92%)", lg, warning), Tag("Margin Used: 42.8% ($63.4M / $148M)", lg, neutral), direction:row, gap:m)
+quickBar = Card(timeframeControl, rebalanceDialog, orderDrawer, direction:row, gap:s, align:center)
+timeframeControl = Select("tf_select", SelectItem("1D", "1 Day"), SelectItem("1W", "1 Week"), SelectItem("1M", "1 Month"), SelectItem("YTD", "Year to Date"), SelectItem("1Y", "1 Year (Past Year)"), value:"1D", placeholder:"Timeframe")
+rebalanceDialog = DialogBlock("Rebalance Portfolio", "Portfolio Target Rebalance", rebalanceContent, description:"Align sector and asset weights to algorithmic target models", triggerVariant:outline)
+rebalanceContent = Card(Alert("Model Drift Detected", "Tech exposure is +3.4% above benchmark cap. Quantitative models suggest re-centering.", warning), Table(rebalTable), rebalanceButtons)
+rebalanceButtons = Buttons(Button("Execute Rebalance", primary), Button("Cancel", tertiary))
+rebalTable = |Sector|Current Weight|Target Weight|Action
+|Information Tech|34.2%|30.0%|Sell $6.2M
+|Financials|18.5%|19.0%|Buy $0.7M
+|Healthcare|14.1%|15.0%|Buy $1.3M
+|Energy|8.2%|10.0%|Buy $2.6M
+|Consumer Disc|11.8%|12.0%|Buy $0.3M
+orderDrawer = DrawerBlock("New Order", "Order Entry Ticket", orderForm, description:"Direct Market Access routing for Equity, FX, and Derivatives")
+orderForm = Form("order_entry", orderButtons, tickerField, sideField, qtyField, orderTypeField)
+tickerField = FormControl("Ticker / Symbol", Input("order_ticker", "e.g. NVDA, AAPL, ESZ4"))
+sideField = FormControl("Side", sideRadio)
+sideRadio = RadioGroup("order_side", RadioItem("Buy / Long", "Execute on Ask", "BUY"), RadioItem("Sell / Short", "Execute on Bid", "SELL"), defaultValue:"BUY")
+qtyField = FormControl("Quantity / Lots", Input("order_qty", "e.g. 5000", type:number))
+orderTypeField = FormControl("Order Type", orderTypeSelect)
+orderTypeSelect = Select("order_type", SelectItem("MKT", "Market"), SelectItem("LMT", "Limit"), SelectItem("STP", "Stop Limit"), SelectItem("TWAP", "TWAP (Algo)"), SelectItem("VWAP", "VWAP (Algo)"), value:"LMT", placeholder:"Select type")
+orderButtons = Buttons(Button("Submit Order Route", primary), Button("Clear Ticket", tertiary))
+mainTabs = Tabs(positionsTab, ordersTab, riskTab, marketTab)
+positionsTab = TabItem("positions_tab", "Active Positions & Watchlist", positionsContainer)
+positionsContainer = Card(positionsCard, watchlistsCard, direction:row, gap:m)
+positionsCard = Card(Heading("Live Holdings & Positions", h3), Table(posTable), sunk)
+posTable = |Ticker|Size|Entry Price|Current Price|Unrealized PnL|Weight
+|NVDA|+25,000|$118.50|$129.40|+$272,500|2.18%
+|AAPL|+40,000|$222.10|$228.60|+$260,000|6.16%
+|MSFT|+15,000|$440.00|$448.20|+$123,000|4.53%
+|TSLA|-12,000|$255.40|$248.10|+$87,600|2.01%
+|AMZN|+30,000|$184.20|$181.90|-$69,000|3.68%
+|GOOGL|+18,000|$165.80|$169.30|+$63,000|2.05%
+|META|+10,000|$575.00|$592.40|+$174,000|3.99%
+watchlistsCard = Card(Heading("Instrument Watchlist", h3), Table(watchTable), sunk)
+watchTable = |Instrument|Type|Live Price|1D Chg|Day Range
+|SPY|ETF|$584.20|+0.82%|$580.10 - $585.30
+|QQQ|ETF|$495.60|+1.14%|$490.20 - $496.80
+|EUR/USD|FX|$1.0845|-0.12%|$1.0820 - $1.0865
+|BTC/USD|Crypto|$67,840|+2.45%|$65,900 - $68,200
+|10Y Yield|Bond|4.182%|+3.2 bps|4.148% - 4.195%
+|CL (WTI)|Commodity|$71.40|-1.35%|$70.80 - $72.30
+ordersTab = TabItem("orders_tab", "Working Orders & Movers", ordersMoversContainer)
+ordersMoversContainer = Card(workingOrdersCard, moversCard, direction:row, gap:m)
+workingOrdersCard = Card(Heading("Open & Working Orders", h3), Table(workingOrdersTable), sunk)
+workingOrdersTable = |Order ID|Ticker|Side|Qty|Filled|Limit Price|Status
+|ORD-8821|NVDA|BUY|5,000|2,200|$128.50|Partial Fill
+|ORD-8824|AAPL|SELL|10,000|0|$230.00|Working
+|ORD-8829|AMD|BUY|8,000|0|$152.00|Working
+|ORD-8833|META|BUY|3,000|3,000|$590.00|Filled
+|ORD-8835|TSLA|SELL|5,000|0|$252.00|Queued
+moversCard = Card(Heading("Today's Top Gainers & Losers", h3), Table(moversTable), sunk)
+moversTable = |Ticker|Direction|Price|Change|Volume
+|SMCI|Gainer|$48.60|+14.8%|32.4M
+|APP|Gainer|$242.10|+9.4%|11.2M
+|PLTR|Gainer|$44.80|+6.7%|45.8M
+|INTC|Loser|$21.90|-6.2%|58.1M
+|NKE|Loser|$78.30|-4.5%|18.7M
+|BA|Loser|$154.20|-3.8%|14.3M
+riskTab = TabItem("risk_tab", "Risk, Sector Exposure & Strategies", riskGrid)
+riskGrid = Card(riskAlertsCard, riskChartsRow, sunk)
+riskAlertsCard = Card(Heading("Risk Limits & Breach Warnings", h4), Alert("CRITICAL: Single Issuer Cap Breach Threat", "NVDA total exposure is at 9.4% of total AUM. Hard limit threshold is 10.0%.", destructive), Alert("WARNING: Daily VaR Threshold Near Limit", "Current 1D 99% VaR at $2.85M (95% of $3.0M Max Mandate).", warning), direction:column, gap:s)
+riskChartsRow = Card(exposureCard, drawdownCard, strategyCard, direction:row, gap:m)
+exposureCard = Card(Heading("Exposure by Sector", h4), PieChart(sectorData.Sector, sectorData.Exposure, donut), sunk)
+sectorData = |Sector|Exposure
+|Information Tech|34.2
+|Financials|18.5
+|Healthcare|14.1
+|Consumer Disc|11.8
+|Energy|8.2
+|Industrials|7.5
+|Cash/Other|5.7
+drawdownCard = Card(Heading("1-Year Drawdown History (%)", h4), AreaChart(drawdownData, linear, xLabel:"Month", yLabel:"Drawdown %"), sunk)
+drawdownData = |Month|Drawdown
+|Nov 23|-1.2
+|Jan 24|-3.8
+|Mar 24|-1.5
+|May 24|-4.6
+|Jul 24|-2.1
+|Sep 24|-5.4
+|Nov 24|-1.8
+strategyCard = Card(Heading("Strategy YTD Return (%)", h4), BarChart(strategyData, grouped, xLabel:"Strategy", yLabel:"Return %"), sunk)
+strategyData = |Strategy|Return
+|Stat Arb|+22.4
+|Macro Trend|+14.8
+|L/S Equity|+18.2
+|Vol Trading|+8.6
+|Fixed Income|+6.1
+marketTab = TabItem("market_tab", "News Sentiment & Economic Calendar", marketGrid)
+marketGrid = Card(newsCard, econCard, direction:row, gap:m)
+newsCard = Card(Heading("Market Headlines & Sentiment", h3), Table(newsTable), sunk)
+newsTable = |Time|Headline|Source|Sentiment
+|08:14|Fed signals measured pace on rate reductions; bond yields steady|Bloomberg|Neutral
+|07:55|Semiconductor capital expenditures projected to surge 18% in 2025|Reuters|Bullish
+|07:30|Oil slides as supply disruption concerns ease across major corridors|WSJ|Bearish
+|06:45|Big Tech AI infrastructure monetization ahead of consensus estimates|FT|Bullish
+|06:10|Eurozone industrial production drops more than anticipated in Q3|CNBC|Bearish
+econCard = Card(Heading("This Week's Economic Releases", h3), Table(econTable), sunk)
+econTable = |Day / Time|Event|Country|Forecast|Prior|Impact
+|Tue 08:30|Core CPI MoM|US|0.3%|0.3%|HIGH
+|Wed 14:00|FOMC Rate Decision|US|4.75%|5.00%|HIGH
+|Thu 08:30|Initial Jobless Claims|US|218K|215K|MEDIUM
+|Thu 10:00|ISM Manufacturing PMI|US|49.2|48.6|HIGH
+|Fri 08:30|Non-Farm Payrolls|US|165K|254K|HIGH

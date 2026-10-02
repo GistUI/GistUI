@@ -1,0 +1,21 @@
+root = Card(header, splitChart, largestCallout, monthForm, expenseForm)
+
+header = CardHeader("Monthly Budget Overview", "June 2024")
+splitChart = PieChart(["Rent","Food","Transport","Entertainment"], [1200,400,150,250], variant:pie)
+largestCallout = Callout("Largest expense", "Rent $1200", variant:info)
+
+monthForm = Form("month-select", monthButtons, monthSelectControl)
+monthButtons = Buttons(Button("View"))
+monthSelectControl = FormControl("Month", monthSelect)
+monthSelect = Select("month", SelectItem("2024-06","June 2024"), SelectItem("2024-05","May 2024"), placeholder:"Select month", value:"2024-06")
+
+expenseForm = Form("add-expense", expenseButtons, descField, amountField, categoryField, dateField)
+expenseButtons = Buttons(Button("Add expense", primary))
+descField = FormControl("Description", descInput)
+descInput = Input("desc", "Lunch")
+amountField = FormControl("Amount", amountInput)
+amountInput = Input("amount", "0", type:number)
+categoryField = FormControl("Category", categorySelect)
+categorySelect = Select("category", SelectItem("Rent","Rent"), SelectItem("Food","Food"), SelectItem("Transport","Transport"), SelectItem("Entertainment","Entertainment"), placeholder:"Choose category", value:"Rent")
+dateField = FormControl("Date", dateInput)
+dateInput = Input("date", "2024-06-15")

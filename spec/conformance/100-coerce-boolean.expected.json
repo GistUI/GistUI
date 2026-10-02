@@ -1,0 +1,89 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Table",
+        "props": {
+          "data": {
+            "table": [
+              "a:n"
+            ],
+            "rows": [
+              [
+                1
+              ]
+            ]
+          },
+          "sort": true
+        }
+      },
+      {
+        "type": "Table",
+        "props": {
+          "data": {
+            "table": [
+              "a:n"
+            ],
+            "rows": [
+              [
+                1
+              ]
+            ]
+          },
+          "sort": false
+        }
+      },
+      {
+        "type": "Table",
+        "props": {
+          "data": {
+            "table": [
+              "a:n"
+            ],
+            "rows": [
+              [
+                1
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "Table",
+        "props": {
+          "data": {
+            "table": [
+              "a:n"
+            ],
+            "rows": [
+              [
+                1
+              ]
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "invalid-prop",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "invalid-prop",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

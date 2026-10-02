@@ -1,0 +1,25 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "dyn": {
+          "content": "$tab"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

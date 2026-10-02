@@ -1,0 +1,9 @@
+root = Card(desc, subscribeForm)
+
+desc = TextContent("Get the latest product updates, tips, and exclusive offers every week.", size:small)
+
+subscribeForm = Form("newsletter", formButtons, emailField)
+
+emailField = FormControl("Email address", Input("email", placeholder:"you@example.com", type:email))
+
+formButtons = Buttons(Button("Subscribe", primary))

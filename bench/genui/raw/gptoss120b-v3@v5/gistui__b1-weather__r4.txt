@@ -1,0 +1,13 @@
+root = Card(header, current, outlookTable, sunTimes)
+
+header = CardHeader("Bengaluru Weather Brief", "Morning update")
+
+current = TextContent("**Current:** 28°C, partly cloudy", size:large)
+
+outlookTable = Table(dayCol, tempCol, condCol)
+
+dayCol = Col("Day", ["Today","Tomorrow","Day after"], type:string)
+tempCol = Col("Temp (°C)", [28,30,27], type:number)
+condCol = Col("Condition", ["Partly Cloudy","Sunny","Showers"], type:string)
+
+sunTimes = TextContent("**Sunrise:** 06:12 AM  \n**Sunset:** 06:45 PM", size:default)

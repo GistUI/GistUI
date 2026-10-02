@@ -1,0 +1,107 @@
+root = Card(header, zoneSelect, activeIncidentsTable, severitySummaryChart, resourcesTable, sheltersTable, routesTable, weatherChart, rescueChart, volunteersTable, donationsTable, aidRequestsTable, commChannelsTable, roadsClosedTable, hospitalsTable, openTasksTable, resourceRequestForm, broadcastForm, situationReportForm, focusSelect)
+header = CardHeader("Emergency Response Coordination", "Live dashboard")
+zoneSelect = Select("focus_zone", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), placeholder:"Select zone", size:small)
+focusSelect = TextContent("Use the selector above to focus on a specific zone.", size:small)
+
+activeIncidentsTable = Table(incidentsData)
+severitySummaryChart = PieChart(severityData, variant:pie)
+resourcesTable = Table(resourcesData)
+sheltersTable = Table(sheltersData)
+routesTable = Table(routesData)
+weatherChart = LineChart(weatherData, linear, xLabel:"Time (h)", yLabel:"Temp (°C)")
+rescueChart = SingleStackedBarChart(rescueData)
+volunteersTable = Table(volunteersData)
+donationsTable = Table(donationsData)
+aidRequestsTable = Table(aidRequestsData)
+commChannelsTable = Table(commChannelsData)
+roadsClosedTable = Table(roadsClosedData)
+hospitalsTable = Table(hospitalsData)
+openTasksTable = Table(openTasksData)
+
+resourceRequestForm = Form("resource-request", resourceFormButtons, typeField, quantityField)
+resourceFormButtons = Buttons(Button("Submit request", primary))
+typeField = FormControl("Resource type", typeSelect)
+quantityField = FormControl("Quantity", quantityInput)
+typeSelect = Select("resource_type", SelectItem("Vehicle","Vehicle"), SelectItem("Personnel","Personnel"), SelectItem("Supply","Supply"), placeholder:"Select type", value:"Vehicle", size:small)
+quantityInput = Input("quantity", "Enter quantity", type:number)
+
+broadcastForm = Form("broadcast", broadcastFormButtons, broadcastMessageControl)
+broadcastFormButtons = Buttons(Button("Broadcast", primary))
+broadcastMessageControl = FormControl("Update message", broadcastMessage)
+broadcastMessage = TextArea("broadcast_message", "Enter update...", rows:4)
+
+situationReportForm = Form("situation-report", situationFormButtons, situationReportControl)
+situationFormButtons = Buttons(Button("Submit report", primary))
+situationReportControl = FormControl("Situation Report", situationReportArea)
+situationReportArea = TextArea("situation_report", "Write report...", rows:6)
+
+incidentsData = |Zone|Incident|Severity
+|North|Fire|High
+|South|Flood|Medium
+|East|Power Outage|Low
+
+severityData = |Severity|Count
+|High|1
+|Medium|1
+|Low|1
+
+resourcesData = |Resource|Available
+|Vehicles|12
+|Personnel|45
+|Supplies|300 units
+
+sheltersData = |Shelter|Capacity|Occupancy
+|Shelter A|100|75
+|Shelter B|150|120
+
+routesData = |Route|Status
+|Route 1|Open
+|Route 2|Closed
+|Route 3|Restricted
+
+weatherData = |Hour|Temp
+|00:00|15
+|06:00|13
+|12:00|18
+|18:00|16
+|24:00|14
+|30:00|13
+|36:00|12
+|42:00|11
+|48:00|10
+
+rescueData = |Category|Count
+|Rescued|120
+|Casualties|5
+
+volunteersData = |Volunteer|Assignment
+|John Doe|Medical
+|Jane Smith|Logistics
+|Mike Lee|Transport
+
+donationsData = |Donor|Amount
+|Company A|$10,000
+|Individual B|$500
+|NGO C|$7,500
+
+aidRequestsData = |Request|Status
+|Food supplies|Pending
+|Medical kits|Pending
+|Evacuation support|Pending
+
+commChannelsData = |Channel|Status
+|Radio|Up
+|Satellite|Down
+|Cellular|Up
+
+roadsClosedData = |Road|Reason
+|Highway 1|Flood
+|Main St|Construction
+
+hospitalsData = |Hospital|Free Beds
+|General Hospital|5
+|City Clinic|2
+
+openTasksData = |Task|Assignee
+|Assess North zone|Team A
+|Repair water line|Team B

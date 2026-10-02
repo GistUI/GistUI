@@ -1,0 +1,123 @@
+root = Card(header, mrrSection, arrSection, churnSection, signupsSection, planSplitSection, topCustomersSection, riskAccountsSection, failedPaymentsSection, featureAdoptionSection, npsSection, reportingPeriodSection, seatUtilSection, inviteAdminSection, actions)
+
+header = CardHeader("Admin Overview", "Key SaaS metrics and controls")
+
+mrrSection = Card(Heading("Monthly Recurring Revenue (MRR)", h3), mrrTable, mrrChart, clear)
+
+mrrTable = Table(mrrCol)
+
+mrrCol = Col("Month", data:["Jan","Feb","Mar","Apr","May"], type:string)
+
+mrrChart = LineChart(mrrData, linear, xLabel:"Month", yLabel:"USD")
+
+mrrData = |Month|MRR
+|Jan|120000
+|Feb|125000
+|Mar|130000
+|Apr|135000
+|May|140000
+
+arrSection = Card(Heading("Annual Recurring Revenue (ARR)", h3), arrTable, clear)
+
+arrTable = Table(arrCol)
+
+arrCol = Col("Year", data:["2023","2024"], type:string)
+
+arrValueCol = Col("ARR", data:["1.44M","1.68M"], type:string)
+
+arrTable = Table(arrCol, arrValueCol)
+
+churnSection = Card(Heading("Churn This Month", h3), churnStat, clear)
+
+churnStat = TextContent("2.3%", size:large)
+
+signupsSection = Card(Heading("New Signups (Last 90 Days)", h3), signupsChart, clear)
+
+signupsChart = BarChart(signupsData, grouped, xLabel:"Date", yLabel:"Signups")
+
+signupsData = |Date|Signups
+|2024-06-01|45
+|2024-06-08|52
+|2024-06-15|48
+|2024-06-22|60
+|2024-06-29|55
+
+planSplitSection = Card(Heading("Customers by Plan", h3), planPie, clear)
+
+planPie = PieChart(planLabels, planValues, donut, circular)
+
+planLabels = ["Free","Pro","Enterprise"]
+
+planValues = [1200, 350, 80]
+
+planData = |Plan|Customers
+|Free|1200
+|Pro|350
+|Enterprise|80
+
+planPie = PieChart(planData, donut, circular)
+
+topCustomersSection = Card(Heading("Top 10 Customers", h3), topCustomersTable, clear)
+
+topCustomersTable = Table(custCol, seatsCol, spendCol)
+
+custCol = Col("Customer", data:["Acme Corp","Beta Ltd","Gamma Inc","Delta LLC","Epsilon Co","Zeta Group","Eta Studios","Theta LLC","Iota Partners","Kappa Enterprises"], type:string)
+
+seatsCol = Col("Seats", data:[250,200,180,150,140,130,120,110,100,95], type:number)
+
+spendCol = Col("Spend (USD)", data:[50000,42000,38000,34000,31000,30000,28000,26000,25000,24000], type:number)
+
+riskAccountsSection = Card(Heading("Accounts at Risk", h3), riskTable, clear)
+
+riskTable = Table(riskCustCol, reasonCol)
+
+riskCustCol = Col("Customer", data:["Sigma Corp","Omega Ltd"], type:string)
+
+reasonCol = Col("Reason", data:["Low usage","Payment issues"], type:string)
+
+failedPaymentsSection = Card(Heading("Failed Payments", h3), failedTable, clear)
+
+failedTable = Table(fpCustCol, amountCol, actionCol)
+
+fpCustCol = Col("Customer", data:["Alpha Inc","Beta Ltd"], type:string)
+
+amountCol = Col("Amount", data:["$1,200","$800"], type:string)
+
+actionCol = Col("Retry", data:[Button("Retry", primary), Button("Retry", primary)], type:action)
+
+featureAdoptionSection = Card(Heading("Adoption of New Features", h3), featureChart, clear)
+
+featureChart = HorizontalBarChart(featureLabels, Series("Feature A", values:[70]), Series("Feature B", values:[55]), Series("Feature C", values:[40]), stacked, xLabel:"Adoption %", yLabel:"Feature")
+
+featureLabels = ["Feature A","Feature B","Feature C"]
+
+npsSection = Card(Heading("Current NPS", h3), npsCallout, clear)
+
+npsCallout = Callout(success, "NPS", "68 – Excellent")
+
+reportingPeriodSection = Card(Heading("Reporting Period", h3), periodForm, clear)
+
+periodForm = Form("report-period", periodButtons, periodSelect)
+
+periodSelect = Select("period", SelectItem("last_30", "Last 30 days"), SelectItem("last_90", "Last 90 days"), SelectItem("year_to_date", "Year to Date"), placeholder:"Select period")
+
+periodButtons = Buttons(Button("Apply", primary))
+
+seatUtilSection = Card(Heading("Seat Utilization", h3), seatChart, clear)
+
+seatChart = AreaChart(seatData, linear, xLabel:"Month", yLabel:"Seats Utilized")
+
+seatData = |Month|Utilized
+|Jan|1800
+|Feb|1850
+|Mar|1900
+|Apr|1950
+|May|2000
+
+inviteAdminSection = Card(Heading("Invite Another Admin", h3), inviteForm, clear)
+
+inviteForm = Form("invite-admin", inviteButtons, emailField)
+
+emailField = FormControl("Admin Email", Input("email", "admin@example.com", type:email))
+
+inviteButtons = Buttons(Button("Send Invite", primary))

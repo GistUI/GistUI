@@ -1,0 +1,1 @@
+root = Text("quote \" slash \\ \/ tab\t nl\n e\u00e9 pair\ud83d\ude80")

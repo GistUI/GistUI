@@ -1,0 +1,172 @@
+root = Card(heading, overviewSection, sessionSection, salesSection, healthSection, crashSection, eventsSection, reportsSection, appealsSection, inflationSection, experimentsSection, patchSection, focusSection, hotfixSection, wrap)
+
+heading = CardHeader("Live‑Ops Dashboard", "Game Studio")
+
+overviewSection = SectionBlock(
+  overviewOnline,
+  overviewDAU,
+  overviewRevenue,
+  overviewRPU,
+  isFoldable
+)
+
+overviewOnline = SectionItem("online", "Players Online", TextContent("1,254"))
+overviewDAU = SectionItem("dau", "Daily / Monthly Active Players", TextContent("DAU: 45,321   MAU: 312,874"))
+overviewRevenue = SectionItem("rev_today", "Revenue Today", TextContent("$12,430"))
+overviewRPU = SectionItem("rev_per_user", "Revenue per User", TextContent("$0.27"))
+
+sessionSection = SectionBlock(
+  sessionChart,
+  isFoldable
+)
+
+sessionChart = SectionItem("session", "Session Length (Last 2 Weeks)", LineChart(sessionTable, natural, xLabel:"Date", yLabel:"Minutes"))
+
+sessionTable = |Date|Avg Session Length
+|2024‑09‑16|34
+|2024‑09‑17|31
+|2024‑09‑18|36
+|2024‑09‑19|33
+|2024‑09‑20|35
+|2024‑09‑21|32
+|2024‑09‑22|30
+|2024‑09‑23|34
+|2024‑09‑24|33
+|2024‑09‑25|37
+|2024‑09‑26|35
+|2024‑09‑27|38
+|2024‑09‑28|36
+|2024‑09‑29|39
+
+salesSection = SectionBlock(
+  bestSellingTable,
+  isFoldable
+)
+
+bestSellingTable = SectionItem("best_selling", "Best‑selling Items", Table(
+  Col("Item", data:["Sword","Shield","Potion","Skin"], type:string),
+  Col("Units Sold", data:[1240, 980, 765, 540], type:number)
+))
+
+healthSection = SectionBlock(
+  regionHealthTable,
+  isFoldable
+)
+
+regionHealthTable = SectionItem("region_health", "Server Regions & Health", Table(
+  Col("Region", data:["NA","EU","ASIA","SA"], type:string),
+  Col("Health", data:["Good","Fair","Good","Poor"], type:string)
+))
+
+crashSection = SectionBlock(
+  crashBarChart,
+  isFoldable
+)
+
+crashBarChart = SectionItem("crash_rate", "Crash Rate by App Version", BarChart(crashTable, grouped, xLabel:"Version", yLabel:"Crashes"))
+
+crashTable = |Version|Crashes
+|1.2.0|23
+|1.2.1|17
+|1.3.0|5
+|1.3.1|2
+
+eventsSection = SectionBlock(
+  liveEventsList,
+  upcomingEventsList,
+  isFoldable
+)
+
+liveEventsList = SectionItem("live_now", "Live Events Running", ListBlock(
+  ListItem("Double XP Weekend", "Ends Sep 30"),
+  ListItem("Halloween Event", "Ends Oct 15")
+, variant:image))
+
+upcomingEventsList = SectionItem("upcoming", "Upcoming Events", ListBlock(
+  ListItem("Winter Festival", "Starts Dec 1"),
+  ListItem("Spring Launch", "Starts Mar 20")
+, variant:number))
+
+reportsSection = SectionBlock(
+  reportsTable,
+  isFoldable
+)
+
+reportsTable = SectionItem("player_reports", "Player Reports Awaiting Review", Table(
+  Col("Report ID", data:[1012,1015,1020], type:number),
+  Col("Reason", data:["Harassment","Cheating","Abuse"], type:string)
+))
+
+appealsSection = SectionBlock(
+  appealsTable,
+  isFoldable
+)
+
+appealsTable = SectionItem("ban_appeals", "Ban Appeals Awaiting Review", Table(
+  Col("Appeal ID", data:[2001,2003], type:number),
+  Col("Player", data:["UserA","UserB"], type:string)
+))
+
+inflationSection = SectionBlock(
+  inflationChart,
+  isFoldable
+)
+
+inflationChart = SectionItem("currency_inflation", "In‑Game Currency Inflation", LineChart(inflationTable, natural, xLabel:"Date", yLabel:"Coins per $1"))
+
+inflationTable = |Date|Coins per $1
+|2024‑09‑01|1200
+|2024‑09‑08|1250
+|2024‑09‑15|1305
+|2024‑09‑22|1350
+|2024‑09‑29|1400
+
+experimentsSection = SectionBlock(
+  experimentsTable,
+  isFoldable
+)
+
+experimentsTable = SectionItem("experiments", "Running Experiments Results", Table(
+  Col("Experiment", data:["New UI","XP Boost"], type:string),
+  Col("Variant A", data:["15% ↑ Retention"], type:string),
+  Col("Variant B", data:["10% ↑ Revenue"], type:string)
+))
+
+patchSection = SectionBlock(
+  patchForm,
+  isFoldable
+)
+
+patchForm = SectionItem("draft_patch", "Draft Patch Notes", Form(
+  "patch-notes",
+  patchButtons,
+  patchTitleField,
+  patchBodyField
+))
+
+patchTitleField = FormControl("Title", Input("title", "Patch 1.4.0"))
+patchBodyField = FormControl("Details (Markdown)", TextArea("body", "Enter notes...", "", rows:6))
+patchButtons = Buttons(Button("Save Draft", primary), Button("Publish", secondary))
+
+focusSection = SectionBlock(
+  regionSelect,
+  isFoldable
+)
+
+regionSelect = SectionItem("focus_region", "Focus on Region", Select(
+  "region",
+  SelectItem("na", "North America"),
+  SelectItem("eu", "Europe"),
+  SelectItem("asia", "Asia‑Pacific"),
+  placeholder:"Select region"
+))
+
+hotfixSection = SectionBlock(
+  hotfixButtons,
+  isFoldable
+)
+
+hotfixButtons = SectionItem("hotfix", "Ship Hotfix", Buttons(
+  Button("Deploy Hotfix", primary),
+  Button("Rollback", secondary)
+))

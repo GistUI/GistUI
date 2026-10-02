@@ -1,0 +1,10 @@
+node_modules
+dist
+.turbo
+*.log
+.DS_Store
+coverage
+bench/.cache
+tests/visual/.output
+tests/pack/.work
+notes.txt

@@ -1,0 +1,51 @@
+root = Card(header, filterCard, kpiRow, trendsCard, coursesAndRiskRow, cohortMessageDrawer)
+header = CardHeader("Training Analytics & Learner Performance", "Real-time engagement, completion metrics, and cohort health tracking")
+filterCard = Card(filterRow, clear, direction:row, align:center, justify:between)
+filterRow = Form("filter-form", filterActions, cohortSelect)
+cohortSelect = FormControl("Filter by Cohort", cohortDropdown)
+cohortDropdown = Select("cohort", SelectItem("all", "All Active Cohorts"), SelectItem("eng_2024_q1", "Engineering - Q1 2024"), SelectItem("data_2024_q1", "Data Analytics - Q1 2024"), SelectItem("sales_2024_q2", "Sales Onboarding - Q2 2024"), SelectItem("lead_2024_q2", "Leadership Accelerator"), placeholder:"Select cohort", value:"all")
+filterActions = Buttons(Button("Apply Filter", primary, size:small))
+
+kpiRow = Card(kpiActive, kpiCompletion, kpiQuiz, clear, direction:row, gap:m)
+kpiActive = Card(Heading("Active Learners", h4), TextContent("## 1,428\n**+12.4%** vs last week", large), Tag("This Week", success), sunk)
+kpiCompletion = Card(Heading("Course Completion Rate", h4), TextContent("## 78.6%\nTarget: 75.0%", large), Progress(79, "Overall Progress"), sunk)
+kpiQuiz = Card(Heading("Average Quiz Score", h4), TextContent("## 84.2%\nAcross 32 modules", large), Tag("On Target", info), sunk)
+
+trendsCard = Card(Heading("Weekly Engagement Trend (Past 8 Weeks)", h3), LineChart(trendData, natural, xLabel:"Week", yLabel:"Hours / Submissions"), sunk)
+trendData = |Week|Active Learners:n|Quiz Submissions:n|Avg Study Hours:n
+|W1 (Feb 05)|980|1240|3800
+|W2 (Feb 12)|1050|1390|4100
+|W3 (Feb 19)|1120|1480|4350
+|W4 (Feb 26)|1180|1510|4600
+|W5 (Mar 04)|1260|1690|4900
+|W6 (Mar 11)|1310|1740|5150
+|W7 (Mar 18)|1390|1860|5400
+|W8 (Mar 25)|1428|1920|5620
+
+coursesAndRiskRow = Card(coursesRankedCard, atRiskCard, clear, direction:row, gap:m)
+coursesRankedCard = Card(Heading("Courses Ranked by Enrollment", h3), HorizontalBarChart(courseEnrollmentData, xLabel:"Learners", yLabel:"Course"), sunk)
+courseEnrollmentData = |Course|Enrollments:n
+|Data Engineering Fundamentals|482
+|Full-Stack Web Architecture|420
+|Applied Machine Learning|395
+|Product Management Basics|310
+|Cloud Infrastructure & DevOps|265
+|Cybersecurity Essentials|190
+
+atRiskCard = Card(Heading("Learners at Risk of Dropping Out", h3), Alert("Intervention Needed", "5 learners show no activity for >10 days and quiz scores <65%", warning), Table(atRiskTableData), sunk)
+atRiskTableData = |Learner|Cohort|Last Active|Avg Score|Risk Level
+|Marcus Vance|Engineering - Q1|14 days ago|52%|Critical
+|Sarah Jenkins|Data Analytics - Q1|12 days ago|58%|High
+|David Cho|Engineering - Q1|11 days ago|61%|High
+|Elena Rostova|Sales - Q2|10 days ago|64%|Moderate
+|Amira Patel|Leadership|10 days ago|63%|Moderate
+
+cohortMessageDrawer = DrawerBlock("Message a Cohort", "Broadcast Announcement or Nudge", messageForm, description:"Send an email notification, Slack ping, or platform nudge directly to enrolled learners in a cohort.", triggerVariant:default)
+messageForm = Form("cohort-broadcast", messageButtons, targetCohortControl, channelControl, subjectControl, messageBodyControl)
+targetCohortControl = FormControl("Target Cohort", targetCohortSelect)
+targetCohortSelect = Select("target_cohort", SelectItem("all", "All Active Cohorts"), SelectItem("eng_2024_q1", "Engineering - Q1 2024"), SelectItem("data_2024_q1", "Data Analytics - Q1 2024"), SelectItem("sales_2024_q2", "Sales Onboarding - Q2 2024"), SelectItem("at_risk", "Only At-Risk Learners (<70% Score / Inactive)"), placeholder:"Select target audience")
+channelControl = FormControl("Delivery Channel", channelRadio)
+channelRadio = RadioGroup("delivery_channel", RadioItem("Platform & Email", "Sends in-app notification and email", "email_app"), RadioItem("Slack Channel", "Posts directly into cohort channel", "slack"), RadioItem("Nudge Only", "In-app reminder banner on dashboard", "nudge"), defaultValue:"email_app")
+subjectControl = FormControl("Subject", Input("msg_subject", "e.g., Weekly Check-in: Staying on Track with Module 4", text))
+messageBodyControl = FormControl("Message Content", TextArea("msg_body", "Write your personalized update, reminder, or office hours announcement here...", 4))
+messageButtons = Buttons(Button("Send Message", primary), Button("Save Draft", secondary))

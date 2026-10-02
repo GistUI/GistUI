@@ -1,0 +1,45 @@
+root = Card(headerRow, statsRow, nextPatientCallout, mainContent, checkInDrawer)
+headerRow = Card(CardHeader("Receptionist Front Desk", "Clinic Day View & Patient Intake"), dateNav, clear, direction:row, justify:between, align:center)
+dateNav = Card(Buttons(Button("◀ Prev Day", secondary, size:small), Button("Today", primary, size:small), Button("Next Day ▶", secondary, size:small)), clear, direction:row, align:center, gap:s)
+statsRow = Card(kpiExpected, kpiCheckedIn, kpiNoShowRate, kpiFreeRooms, clear, direction:row, gap:m)
+kpiExpected = Card(CardHeader("Expected Today"), Heading("28 Patients", h2), Badge("4 completed", outline), sunk)
+kpiCheckedIn = Card(CardHeader("Waiting in Lobby"), Heading("3 Checked In", h2), Badge("Avg wait: 8m", secondary), sunk)
+kpiNoShowRate = Card(CardHeader("Monthly No-Show"), Heading("4.2%", h2), Tag("↓ 1.1% vs last mo", variant:success, size:sm), sunk)
+kpiFreeRooms = Card(CardHeader("Rooms Available"), Heading("3 / 6 Free", h2), Badge("Exam 2, 4, 6 ready", default), sunk)
+nextPatientCallout = Callout(info, "Next Patient Up: Sarah Jenkins (10:15 AM)", "Assigned to Dr. Martinez in Exam Room 1 • Arrived 5 mins ago • Charts verified")
+mainContent = Card(appointmentsSection, sidePanel, clear, direction:row, gap:m)
+appointmentsSection = Card(CardHeader("Today's Appointment Schedule", "Thursday, Oct 24 • Real-time patient queue"), appointmentsTable, sunk)
+appointmentsTable = Table(apptData)
+sidePanel = Card(roomStatusSection, quickCheckInSection, clear, direction:column, gap:m)
+roomStatusSection = Card(CardHeader("Room Status (Live)"), roomTable, sunk)
+quickCheckInSection = Card(CardHeader("Quick Patient Check-In", "Mark arrival & assign room"), quickCheckInForm, sunk)
+quickCheckInForm = Form("quick-checkin-form", checkInActions, patientField, roomField, notesField)
+patientField = FormControl("Select Patient", patientSelect, "Upcoming arrivals")
+patientSelect = Select("patient_id", SelectItem("p1", "10:30 AM - Robert Chen"), SelectItem("p2", "10:45 AM - Maria Garcia"), SelectItem("p3", "11:00 AM - David Kim"), SelectItem("p4", "11:15 AM - Emily Watson"), placeholder:"Choose patient...")
+roomField = FormControl("Assign Room", roomSelect)
+roomSelect = Select("room_id", SelectItem("r2", "Exam Room 2 (Clean)"), SelectItem("r4", "Exam Room 4 (Clean)"), SelectItem("r6", "Exam Room 6 (Clean)"), SelectItem("wait", "Lobby / Waiting Area"), placeholder:"Assign location...")
+notesField = FormControl("Intake Notes", Input("intake_notes", "e.g., Copay collected, updated insurance", type:text))
+checkInActions = Buttons(Button("Check In Patient", primary), Button("Scan ID Card", secondary))
+checkInDrawer = DrawerBlock("Open Full Check-In & Triage Form", "Patient Intake & Vitals Registration", intakeForm, description:"Complete intake paperwork, verify insurance, and log pre-exam vitals.")
+intakeForm = Form("intake-full-form", intakeButtons, fullNameCtrl, dobCtrl, docSelectCtrl, insuranceCtrl)
+fullNameCtrl = FormControl("Patient Full Name", Input("full_name", "Jane Doe", type:text))
+dobCtrl = FormControl("Date of Birth", Input("dob", "YYYY-MM-DD", type:text))
+docSelectCtrl = FormControl("Assigned Physician", Select("assigned_doc", SelectItem("m1", "Dr. Martinez (Internal Med)"), SelectItem("p1", "Dr. Patel (Pediatrics)"), SelectItem("w1", "Dr. Wilson (General)"), placeholder:"Select doctor..."))
+insuranceCtrl = FormControl("Insurance Status", Select("ins_status", SelectItem("v", "Verified Active"), SelectItem("p", "Pending Copay"), SelectItem("s", "Self-Pay"), placeholder:"Status..."))
+intakeButtons = Buttons(Button("Confirm Registration", primary), Button("Cancel", tertiary))
+apptData = |Time|Patient Name|Provider|Reason|Room|Status
+|09:30 AM|James Wilson|Dr. Martinez|Annual Checkup|Exam 1|Completed
+|09:45 AM|Elena Rostova|Dr. Patel|Follow-up|Exam 3|Completed
+|10:00 AM|Marcus Brody|Dr. Wilson|Lab Review|Exam 5|In Progress
+|10:15 AM|Sarah Jenkins|Dr. Martinez|Consultation|Exam 1|Next Up
+|10:30 AM|Robert Chen|Dr. Patel|Prescription Refill|Exam 2|Checked In
+|10:45 AM|Maria Garcia|Dr. Martinez|Blood Pressure Check|Waiting|Expected
+|11:00 AM|David Kim|Dr. Wilson|New Patient Exam|Waiting|Expected
+|11:15 AM|Emily Watson|Dr. Patel|Vaccination|Waiting|Expected
+roomTable = |Room|Status|Current Patient|Provider
+|Exam 1|Occupied|Sarah Jenkins|Dr. Martinez
+|Exam 2|Available|—|Dr. Patel
+|Exam 3|Occupied|Elena Rostova|Dr. Patel
+|Exam 4|Available|—|Unassigned
+|Exam 5|Occupied|Marcus Brody|Dr. Wilson
+|Exam 6|Available|—|Dr. Wilson

@@ -1,0 +1,87 @@
+root = Card(headerRow, kpiGrid, chartsRow, midRow, tabsSection)
+headerRow = Card(headerInfo, headerActions, direction:row, justify:between, align:center, variant:clear)
+headerInfo = Card(Heading("Executive SaaS Admin Console", h1), TextContent("Real-time revenue, subscription health, customer risk, and operational diagnostics.", size:small), variant:clear)
+headerActions = Card(periodControl, inviteAdminDialog, direction:row, gap:s, align:center, variant:clear)
+periodControl = Select("reporting_period", SelectItem("30d", "Last 30 Days"), SelectItem("90d", "Last 90 Days"), SelectItem("ytd", "Year to Date"), SelectItem("12m", "Last 12 Months"), value:"90d", placeholder:"Period", size:small)
+inviteAdminDialog = DialogBlock("Invite Admin", "Grant Administrative Access", inviteForm, description:"Send an invitation email with role-based permissions.", triggerVariant:default)
+inviteForm = Form("invite_admin_form", inviteFormButtons, inviteEmailField, inviteRoleField)
+inviteEmailField = FormControl("Work Email", Input("admin_email", "colleague@company.com", type:email))
+inviteRoleField = FormControl("Role & Scope", inviteRoleSelect)
+inviteRoleSelect = Select("admin_role", SelectItem("super", "Super Admin (Full Access)"), SelectItem("billing", "Billing & Finance Admin"), SelectItem("ops", "Operations & Support Admin"), value:"super", placeholder:"Select role")
+inviteFormButtons = Buttons(Button("Send Invitation", variant:primary), Button("Cancel", variant:tertiary))
+
+kpiGrid = Card(kpiMrr, kpiArr, kpiChurn, kpiNps, kpiUtilization, direction:row, gap:m, wrap, variant:clear)
+kpiMrr = Card(Tag("MRR", info, size:sm), Heading("$148,250", h2), TextContent("**+6.4%** vs last month", size:small), variant:card)
+kpiArr = Card(Tag("ARR", success, size:sm), Heading("$1.78M", h2), TextContent("**+18.2%** YoY projection", size:small), variant:card)
+kpiChurn = Card(Tag("Monthly Churn", danger, size:sm), Heading("1.18%", h2), TextContent("**-0.3%** improvement", size:small), variant:card)
+kpiNps = Card(Tag("Current NPS", info, size:sm), Heading("+58", h2), Progress(79, label:"79% Promoters (Benchmark +50)"), variant:card)
+kpiUtilization = Card(Tag("Seat Utilization", warning, size:sm), Heading("84.6%", h2), Progress(85, label:"12,690 / 15,000 active seats"), variant:card)
+
+chartsRow = Card(signupsCard, planSplitCard, featureCard, direction:row, gap:m, wrap, variant:clear)
+signupsCard = Card(Heading("New Signups (Past 90 Days)", h3), TextContent("Total **1,420** signups across self-serve and sales-assisted funnels.", size:small), LineChart(signupTrendData, natural, xLabel:"Week", yLabel:"New Accounts"), variant:card)
+planSplitCard = Card(Heading("Customers by Plan", h3), TextContent("Active paid accounts categorized by tier", size:small), PieChart(planDistData.Plan, planDistData.Customers, variant:donut), variant:card)
+featureCard = Card(Heading("Adoption: 3 Newest Features", h3), TextContent("Active weekly account usage percentage", size:small), BarChart(featureAdoptionData, grouped, xLabel:"Feature", yLabel:"% Accounts Adopted"), variant:card)
+
+midRow = Card(topTenCard, atRiskCard, direction:row, gap:m, wrap, variant:clear)
+topTenCard = Card(Heading("Top 10 Enterprise Customers", h3), TextContent("Ranked by Monthly Recurring Spend and Allocated Seats", size:small), Table(topCustomersData), variant:card)
+atRiskCard = Card(Heading("Accounts at Risk", h3), Alert("Early Intervention Needed", "3 critical accounts have flagged health scores this billing cycle.", warning), Table(atRiskData), variant:card)
+
+tabsSection = Tabs(failedPaymentsTab, auditTab)
+failedPaymentsTab = TabItem("failed_payments", "Failed Payments & Dunning", failedPaymentsContent)
+failedPaymentsContent = Card(Heading("Outstanding Failed Transactions", h3), Alert("Action Required", "2 automated retries exhausted. Manual re-trigger or dunning notification available.", destructive), Table(failedPaymentsData), retryBatchButtons, variant:clear)
+retryBatchButtons = Buttons(Button("Retry All Failed Charges", variant:primary), Button("Export Dunning Report", variant:secondary))
+
+auditTab = TabItem("admin_activity", "Admin Log & Notes", auditContent)
+auditContent = Card(Heading("Recent Administrative Events", h3), ListBlock(auditItem1, auditItem2, auditItem3), variant:clear)
+auditItem1 = ListItem("Security policy updated", "Role enforcement enabled for all billing admins by alex@company.com")
+auditItem2 = ListItem("Seat quota modified", "Acme Global expanded from 400 to 520 seats by sarah@company.com")
+auditItem3 = ListItem("Dunning workflow adjusted", "Grace period extended to 5 days for Enterprise tier")
+
+signupTrendData = |Week|Signups
+|W1 (90d)|85
+|W2|94
+|W3|110
+|W4|102
+|W5|125
+|W6|118
+|W7|134
+|W8|142
+|W9|138
+|W10|155
+|W11|152
+|W12|165
+
+planDistData = |Plan|Customers
+|Starter|420
+|Professional|680
+|Enterprise|185
+|Custom/Dedicated|35
+
+featureAdoptionData = |Feature|AdoptionPct
+|AI Workflow Engine|68
+|Audit Log Streaming|44
+|Granular RBAC v2|59
+
+topCustomersData = |Customer|Tier|Seats:n|Monthly Spend:n|Status
+|Acme Global Inc.|Enterprise|520|14200|Active
+|Starlight Cloud|Enterprise|450|12800|Active
+|Nexus FinTech|Enterprise|380|10900|Active
+|Hyperion Health|Enterprise|340|9800|Active
+|BlueSky Logistics|Enterprise|310|8900|Active
+|Vortex Media|Enterprise|280|8100|Active
+|OmniRetail Corp|Professional|240|6900|Active
+|Peak Analytics|Enterprise|220|6400|Active
+|Crestline Bio|Professional|190|5500|Active
+|Zenith AI Systems|Professional|175|5100|Active
+
+atRiskData = |Account|ARR Value|Health Score|Primary Risk Reason|Suggested Action
+|Hyperion Health|$117,600|42/100|Key sponsor departed; drop in login frequency|Executive outreach & CSM review
+|Crestline Bio|$66,000|48/100|Integration latency spike and unclosed support tickets|Escalate engineering ticket
+|DataPulse Tech|$42,000|35/100|Active seat usage dropped below 30% in 45 days|Schedule seat re-alignment call
+|Optima SaaS|$31,500|50/100|Billing admin dispute over tiered seat upgrades|Finance team follow-up
+
+failedPaymentsData = |Customer|Invoice ID|Amount:n|Failure Reason|Days Overdue:n|Action
+|Solaris Dynamics|INV-2024-8891|3400|Card Expired|4|Retry Payment
+|Kestrel Digital|INV-2024-8904|1250|Insufficient Funds|6|Retry Payment
+|Apex Systems LLC|INV-2024-8919|4800|Bank Gateway Timeout|2|Retry Payment
+|Mirage Studio|INV-2024-8922|850|Card Expired|8|Retry Payment

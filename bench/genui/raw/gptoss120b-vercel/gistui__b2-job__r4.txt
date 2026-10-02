@@ -1,0 +1,21 @@
+root = Card(header, desc, qual, salary, form, share)
+
+header = CardHeader("Senior Product Designer", "Design Team")
+
+desc = TextContent("We are looking for a creative Senior Product Designer to lead the visual and interaction design of our SaaS platform. Join a collaborative team to shape user experiences and brand identity.", size:large)
+
+qual = MarkDownRenderer("- 5+ years of product design experience\n- Strong portfolio with UI/UX case studies\n- Proficiency in Figma, Sketch, or Adobe XD\n- Ability to conduct user research and usability testing\n- Excellent communication and teamwork skills", variant:clear)
+
+salary = TextContent("Salary: $120k – $150k per year", size:default)
+
+form = Form("apply-form", formButtons, nameField, emailField, resumeField)
+
+nameField = FormControl("Full name", Input("name", "Your name"))
+
+emailField = FormControl("Email address", Input("email", "you@example.com", type:email))
+
+resumeField = FormControl("Resume link", Input("resume", "https://", type:url))
+
+formButtons = Buttons(Button("Apply now", primary), Button("Save for later", secondary))
+
+share = Buttons(Button("Share on LinkedIn", secondary), Button("Copy link", secondary))

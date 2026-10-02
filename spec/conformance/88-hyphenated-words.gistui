@@ -1,0 +1,1 @@
+root = Row(Icon(check-circle), Icon(name:map-pin), Icon(cloud-sun-rain), Icon(a - b))

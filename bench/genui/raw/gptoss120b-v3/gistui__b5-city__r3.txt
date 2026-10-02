@@ -1,0 +1,46 @@
+root = Card(congestionSection, transitSection, airQualitySection, energySection, waterSection, incidentsSection, vehiclesSection, parkingSection, eventsSection, reportsSection, backlogSection, weatherSection, districtControl, dispatchDialog, alertDialog, roadworksSection, jobsSection, focusDialog, actions)
+
+congestionSection = Card(CardHeader("Traffic Congestion", "Current status"), HorizontalBarChart(labels:["Downtown","Uptown","Midtown","Suburbs"], Series("Congestion", values:[78,55,62,40]), variant:grouped, xLabel:"Road", yLabel:"Congestion %"))
+
+transitSection = Card(CardHeader("Transit Punctuality", "Last 24h"), BarChart(labels:["Bus","Metro","Tram"], Series("On-time", values:[92,88,85]), variant:grouped, xLabel:"Mode", yLabel:"% On-time"))
+
+airQualitySection = Card(CardHeader("Air Quality by District", "PM2.5 μg/m³"), RadarChart(labels:["Downtown","Uptown","Midtown","Eastside","Westside"], Series("PM2.5", values:[35,28,30,22,40])))
+
+energySection = Card(CardHeader("Energy Use", "Past Week"), LineChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("kWh", values:[1200,1350,1280,1400,1500,1300,1250]), variant:linear, xLabel:"Day", yLabel:"kWh"))
+
+waterSection = Card(CardHeader("Water Use", "Today"), SingleStackedBarChart(labels:["Total"], values:[8500]), TextContent("Current consumption: 8,500 L"))
+
+incidentsSection = Card(CardHeader("Open Incidents", "Location & Severity"), Table(Col("ID", data:["I102","I87","I54"], type:string), Col("Location", data:["5th Ave","Main St","River Rd"], type:string), Col("Severity", data:["High","Medium","Low"], type:string)))
+
+vehiclesSection = Card(CardHeader("Emergency Vehicles Deployed"), Table(Col("Vehicle ID", data:["E-12","E-7","E-3"], type:string), Col("Type", data:["Ambulance","Fire Truck","Police Car"], type:string), Col("Location", data:["5th Ave","Central Park","Broadway"], type:string)))
+
+parkingSection = Card(CardHeader("Parking Availability Downtown"), TextContent("Available spots: 342 / 500", size:large))
+
+eventsSection = Card(CardHeader("Public Events This Weekend"), ListBlock(ListItem("Music Festival", "Central Plaza", "Details", ["https://picsum.photos/seed/music/800/500"]), ListItem("Art Fair", "Riverfront", "Details", ["https://picsum.photos/seed/art/800/500"]), variant:number))
+
+reportsSection = Card(CardHeader("Citizen Reports (Live)"), Table(Col("Report ID", data:["R201","R202"], type:string), Col("Topic", data:["Pothole","Street Light"], type:string), Col("Status", data:["New","In Progress"], type:string)))
+
+backlogSection = Card(CardHeader("Service Request Backlog"), Table(Col("Request ID", data:["S301","S302","S303"], type:string), Col("Category", data:["Road Repair","Water Leak","Signal Failure"], type:string), Col("Age (days)", data:[12,7,3], type:number)))
+
+weatherSection = Card(CardHeader("Current Weather"), MarkDownRenderer("**Sunny**, 27°C, Light breeze", variant:clear))
+
+districtControl = Form("district-select", formButtons, districtSelect)
+districtSelect = Select("district", SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("Midtown","Midtown"), placeholder:"Select district")
+formButtons = Buttons(Button("Apply", primary))
+
+dispatchDialog = DialogBlock("Dispatch Crew", "Dispatch Emergency Crew", TextContent("Select crew and location:"), Form("dispatch-form", dispatchButtons, crewSelect, locationInput), description:"Dispatch a crew to an incident", triggerVariant:primary)
+crewSelect = Select("crew", SelectItem("Team A","Team A"), SelectItem("Team B","Team B"), placeholder:"Choose crew")
+locationInput = Input("location", "Enter location", "", text)
+dispatchButtons = Buttons(Button("Send Dispatch", primary))
+
+alertDialog = DialogBlock("Send Alert", "Public Alert", TextContent("Compose alert message:"), Form("alert-form", alertButtons, alertMessage), description:"Broadcast a city-wide alert", triggerVariant:destructive)
+alertMessage = TextArea("alert", "Message...", "", 4)
+alertButtons = Buttons(Button("Send", primary), Button("Cancel", tertiary))
+
+roadworksSection = Card(CardHeader("Planned Roadworks This Month"), Table(Col("Project", data:["Main St Repave","5th Ave Bridge"], type:string), Col("Start", data:["2024-10-05","2024-10-12"], type:string), Col("End", data:["2024-10-20","2024-11-01"], type:string)))
+
+jobsSection = Card(CardHeader("Infrastructure Maintenance Jobs Due"), Table(Col("Asset", data:["Water Pump","Traffic Light"], type:string), Col("Due Date", data:["2024-10-15","2024-10-18"], type:string)))
+
+focusDialog = DialogBlock("Focus District", "District Focus", Select("focus-district", SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("Midtown","Midtown"), placeholder:"Choose district"), description:"Zoom into a specific district", triggerVariant:secondary)
+
+actions = Buttons(Button("Refresh Data"), Button("Export PDF", secondary))

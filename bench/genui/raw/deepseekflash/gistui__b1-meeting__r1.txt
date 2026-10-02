@@ -1,0 +1,5 @@
+root = Card(meetingHeader, attendeesSection, joinSection)
+meetingHeader = CardHeader("Design sync", "Today at 3:30 PM")
+attendeesSection = Card(Heading("Attendees", h3), attendeeList, sunk)
+attendeeList = ListBlock(ListItem("Ada Lovelace", "Product"), ListItem("Alan Turing", "Engineering"), ListItem("Grace Hopper", "Design"))
+joinSection = Buttons(Button("Join call", primary))

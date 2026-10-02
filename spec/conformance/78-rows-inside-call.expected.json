@@ -1,0 +1,42 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Chart",
+        "props": {
+          "data": {
+            "table": [
+              "Week:s",
+              "Volume:n"
+            ],
+            "rows": [
+              [
+                "W1",
+                30
+              ],
+              [
+                "W2",
+                45
+              ]
+            ]
+          },
+          "x": "Week"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "c",
+      "line": 2,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

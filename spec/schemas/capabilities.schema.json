@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gistui.com/schemas/1.0/capabilities.schema.json",
+  "title": "GistUI capability object",
+  "description": "What a host tells a generator about the processor, runtime, renderer, catalog and tools it will use (GistUI Format 1.0, section 26.4).",
+  "type": "object",
+  "required": ["gistui", "profiles", "catalog"],
+  "properties": {
+    "gistui": { "description": "The highest format version the processor implements.", "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "profiles": {
+      "description": "Profiles the host implements (section 3.2).",
+      "type": "array",
+      "minItems": 1,
+      "items": { "enum": ["core", "interactive", "tools"] }
+    },
+    "mode": { "description": "document: the whole answer is a program. inline: Markdown with gistui blocks.", "enum": ["document", "inline"] },
+    "edit": { "description": "True when the generator is to write edits to a program the host supplies.", "type": "boolean" },
+    "catalog": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string" },
+        "manifest": { "$ref": "https://gistui.com/schemas/1.0/catalog.schema.json" }
+      }
+    },
+    "tools": {
+      "description": "Tools a program can name in @query and @mutation.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "kind"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["query", "mutation"] },
+          "args": { "description": "A short summary of the arguments, for example {range:str}.", "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}

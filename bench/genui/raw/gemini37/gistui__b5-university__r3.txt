@@ -1,0 +1,86 @@
+root = Card(header, topBar, kpiRow, mainTabs, actionFooters)
+header = CardHeader("University Executive & Academic Operations Overview", "Academic Year 2024-2025 • Institutional Planning & Monitoring")
+topBar = Card(filterRow, quickActions, direction:row, justify:between, align:center, variant:sunk)
+filterRow = Row(deptFilter, semesterCompareTag)
+deptFilter = Select("dept_select", SelectItem("all", "All Departments (University-wide)"), SelectItem("cs", "Computer Science & Data"), SelectItem("eng", "School of Engineering"), SelectItem("bus", "School of Business"), SelectItem("art", "Humanities & Arts"), SelectItem("sci", "Natural Sciences"), placeholder:"Focus on Department", value:"all")
+semesterCompareTag = Tag("Fall 2024 vs Spring 2024: +4.2% Net Headcount", info)
+quickActions = Buttons(courseApprovalModal, messageGroupModal)
+courseApprovalModal = DialogBlock("Approve New Course", "Curriculum Committee: Course Proposal Approval", courseApprovalForm, description:"Review and approve pending department course requests for next term", triggerVariant:outline)
+courseApprovalForm = Form("course_approval", courseFormBtns, courseCodeControl, courseDeptControl, creditsControl)
+courseCodeControl = FormControl("Course Code & Title", Input("course_title", "e.g., CS-480: Advanced Machine Learning"))
+courseDeptControl = FormControl("Department", Select("app_dept", SelectItem("cs", "Computer Science"), SelectItem("eng", "Engineering"), SelectItem("bus", "Business"), placeholder:"Select Academic Unit"))
+creditsControl = FormControl("Credit Units & Capacity", Input("course_credits", "3 Credits / 45 Max Enrollment", number))
+courseFormBtns = Buttons(Button("Approve Course", primary), Button("Reject / Return", destructive))
+messageGroupModal = DialogBlock("Broadcast Student Message", "Targeted Student Cohort Communication", messageGroupForm, description:"Send urgent advisories or notifications to segmented student bodies", triggerVariant:outline)
+messageGroupForm = Form("student_broadcast", msgFormBtns, targetGroupControl, msgSubjectControl, msgBodyControl)
+targetGroupControl = FormControl("Recipient Group", Select("cohort", SelectItem("risk", "Students at Academic Risk (<2.0 GPA)"), SelectItem("waitlist", "Waitlisted Applicants (All Programs)"), SelectItem("honors", "Dean's List / Honors"), SelectItem("resident", "Dorm Residents (On-Campus)"), placeholder:"Choose Student Group"))
+msgSubjectControl = FormControl("Subject", Input("msg_subj", "Important: Academic Advising & Support Services"))
+msgBodyControl = FormControl("Message Content", TextArea("msg_body", "Type announcement here...", rows:4))
+msgFormBtns = Buttons(Button("Dispatch Message", primary), Button("Cancel", tertiary))
+kpiRow = Card(kpi1, kpi2, kpi3, kpi4, direction:row, gap:m, variant:clear)
+kpi1 = Card(Heading("Total Enrollment", h4), TextContent("18,420"), Badge("+3.8% vs LY", outline), variant:sunk)
+kpi2 = Card(Heading("Acceptance Rate", h4), TextContent("32.4%"), Badge("Selective (-1.1%)", secondary), variant:sunk)
+kpi3 = Card(Heading("Tuition Revenue (YTD)", h4), TextContent("$142.8M"), Badge("Target: $140M (102%)", default), variant:sunk)
+kpi4 = Card(Heading("Housing Occupancy", h4), TextContent("94.6%"), Progress(94.6, "4,730 / 5,000 Beds"), variant:sunk)
+mainTabs = Tabs(tabAdmissions, tabAcadFaculty, tabFinOps, tabCampusLife)
+tabAdmissions = TabItem("admissions", "Admissions & Enrollment Trend", admTrendCard, admAppWaitlistCard)
+admTrendCard = Card(Heading("5-Year Total Enrollment Trend", h3), LineChart(enrollmentTrendData, natural, xLabel:"Academic Year", yLabel:"Students Enrolled"), variant:card)
+admAppWaitlistCard = Card(Heading("Applications & Waitlist by Program", h3), BarChart(admissionsByProgData, grouped, xLabel:"Program", yLabel:"Applicant Count"), variant:card)
+tabAcadFaculty = TabItem("academics", "Curriculum, Faculty & Risk", riskSection, acadSplitCard)
+riskSection = Card(Heading("Students at Academic Risk (Term Standing < 2.0 GPA)", h3), TextCallout("Advising Alert", "78 students flagged across 4 colleges requiring intervention before midterms", warning), Table(riskTableData), variant:card)
+acadSplitCard = Card(courseCapCol, facultyLoadCol, direction:row, gap:m, variant:clear)
+courseCapCol = Card(Heading("Course Offering Fill Rates (% Capacity)", h4), HorizontalBarChart(courseFillData, xLabel:"Fill Rate %", yLabel:"Course"), variant:sunk)
+facultyLoadCol = Card(Heading("Teaching Load by Faculty Member", h4), Table(facultyLoadData), variant:sunk)
+tabFinOps = TabItem("finance", "Finance & Institutional Giving", finSplitCard)
+finSplitCard = Card(scholarshipCol, alumniCol, direction:row, gap:m, variant:clear)
+scholarshipCol = Card(Heading("Scholarship Budget Allocation", h4), TextContent("**$18.4M Used** of $24.0M Total Budget (76.6%)"), Progress(76.6, "Disbursed / Committed"), SingleStackedBarChart(scholarshipBarData), variant:sunk)
+alumniCol = Card(Heading("Alumni Giving Over Past 4 Years", h4), AreaChart(alumniGivingData, natural, xLabel:"Fiscal Year", yLabel:"Giving Amount ($M)"), variant:sunk)
+tabCampusLife = TabItem("campus", "Campus Events & Operations", eventsCard)
+eventsCard = Card(Heading("Campus Events This Month (October 2024)", h3), Table(campusEventsData), variant:card)
+actionFooters = Buttons(Button("Export Board Report (PDF)", primary), Button("Print Operational Summary", secondary), Button("System Audit Log", tertiary))
+enrollmentTrendData = |Year|Enrollment
+|2020|16200
+|2021|16850
+|2022|17300
+|2023|17750
+|2024|18420
+admissionsByProgData = |Program|Applications|Waitlisted
+|Computer Sci|4800|420
+|Engineering|3900|310
+|Business Admin|3400|260
+|Health Sciences|2800|190
+|Arts & Humanities|1950|85
+riskTableData = |Student ID|Student Name|Program|Year|Current GPA|Risk Factor
+|STU-9921|Alex Rivera|Computer Science|Sophomore|1.82|Failed Midterm 1
+|STU-8842|Jordan Lee|Mechanical Eng|Junior|1.74|Attendance < 60%
+|STU-7731|Marcus Chen|Finance|Freshman|1.90|Prereq Deficit
+|STU-6620|Taylor Brooks|Biology|Senior|1.65|Academic Probation
+|STU-5519|Samira Khan|Psychology|Sophomore|1.88|Incomplete Credits
+courseFillData = |Course|Fill %
+|CS 101 Intro Prog|98
+|BIO 200 Genetics|95
+|ENG 102 Expository|91
+|MATH 220 Calc III|86
+|BUS 305 Corp Fin|82
+|ART 110 Studio Art|64
+facultyLoadData = |Faculty Member|Department|Courses|Credit Hours|Student Count
+|Dr. Eleanor Vance|Computer Science|4|12|148
+|Prof. Robert Chen|Engineering|3|9|112
+|Dr. Sarah Jenkins|Business|4|12|135
+|Dr. Amit Patel|Natural Sciences|3|10|94
+|Prof. Clara Morales|Arts & Humanities|3|9|82
+scholarshipBarData = |Category|Amount
+|Need-Based Aid ($11.2M)|11.2
+|Merit-Based ($7.2M)|7.2
+|Remaining Reserve ($5.6M)|5.6
+alumniGivingData = |Fiscal Year|Contributions ($M)
+|FY 2021|14.2
+|FY 2022|16.8
+|FY 2023|19.5
+|FY 2024|22.4
+campusEventsData = |Date|Event Title|Location|Organizer|Expected Attendance
+|Oct 12|Fall Career & Internship Fair|Student Union Hall|Career Services|1,400
+|Oct 18|Homecoming Alumni Gala|Grand Pavilion|Alumni Relations|850
+|Oct 22|President's Faculty Address|Auditorium A|Office of President|350
+|Oct 27|Undergraduate Research Expo|Science Complex Atrium|Academic Affairs|600
+|Oct 31|Campus Cultural Fest|Campus Quad|Student Affairs|1,200

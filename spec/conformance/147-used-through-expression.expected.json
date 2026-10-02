@@ -1,0 +1,13 @@
+{
+  "tree": {
+    "type": "Text",
+    "dyn": {
+      "content": "\"n=\" + $n + total"
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

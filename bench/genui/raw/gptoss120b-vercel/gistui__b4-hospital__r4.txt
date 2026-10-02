@@ -1,0 +1,102 @@
+root = Card(header, bedSection, erWaitSection, admissionsSection, deptPatientsSection, staffShiftSection, criticalPatientsSection, dischargeSection, orBookingsSection, suppliesSection, incidentFormSection, datePickerSection, transferFormSection)
+
+header = CardHeader("Hospital Operations Command", "Real-time overview")
+
+bedSection = Card(Heading("Bed Occupancy", h3), PieChart(bedOccupancy, donut, appearance:circular))
+
+erWaitSection = Card(Heading("Current ER Wait Time", h3), TextContent("Average wait: **45 minutes**"))
+
+admissionsSection = Card(Heading("Admissions (Last 14 Days)", h3), LineChart(admissionsData, natural, xLabel:"Date", yLabel:"Admissions"))
+
+deptPatientsSection = Card(Heading("Patients per Department", h3), BarChart(deptPatientsData, grouped, xLabel:"Department", yLabel:"Patients"))
+
+staffShiftSection = Card(Heading("Staff on Shift", h3), Table(staffNameCol, staffRoleCol, staffDeptCol))
+
+criticalPatientsSection = Card(Heading("Critical Patients", h3), Table(critPatientCol, critConditionCol, critRoomCol))
+
+dischargeSection = Card(Heading("Ready for Discharge", h3), Table(dischargePatientCol, dischargeDeptCol, dischargeEtaCol))
+
+orBookingsSection = Card(Heading("Today's OR Bookings", h3), Table(orRoomCol, orTimeCol, orPatientCol))
+
+suppliesSection = Card(Heading("Supplies Running Low", h3), Table(supplyItemCol, supplyQtyCol, supplyUnitCol))
+
+incidentFormSection = Card(Heading("File an Incident", h3), incidentForm)
+
+incidentForm = Form("incident", incidentButtons, incidentTypeField, incidentDescField)
+
+incidentButtons = Buttons(Button("Submit", primary))
+
+incidentTypeField = FormControl("Incident type", incidentTypeSelect)
+
+incidentTypeSelect = Select("incident_type", SelectItem("Safety", "Safety"), SelectItem("Equipment", "Equipment"), SelectItem("Other", "Other"), placeholder:"Select type")
+
+incidentDescField = FormControl("Description", TextArea("incident_desc", "Describe...", rows:4))
+
+datePickerSection = Card(Heading("View Another Day", h3), datePicker)
+
+datePicker = DatePicker("view_date", mode:single)
+
+transferFormSection = Card(Heading("Request Patient Transfer", h3), transferForm)
+
+transferForm = Form("transfer", transferButtons, transferPatientIdField, transferFromDeptField, transferToDeptField, transferReasonField)
+
+transferButtons = Buttons(Button("Request Transfer", primary))
+
+transferPatientIdField = FormControl("Patient ID", Input("patient_id", placeholder:"Enter ID"))
+
+transferFromDeptField = FormControl("From Department", fromDeptSelect)
+
+fromDeptSelect = Select("from_dept", SelectItem("ER", "ER"), SelectItem("ICU", "ICU"), SelectItem("Ward A", "Ward A"), placeholder:"Select department")
+
+transferToDeptField = FormControl("To Department", toDeptSelect)
+
+toDeptSelect = Select("to_dept", SelectItem("ICU", "ICU"), SelectItem("Ward B", "Ward B"), placeholder:"Select department")
+
+transferReasonField = FormControl("Reason", TextArea("transfer_reason", "Enter reason...", rows:3))
+
+bedOccupancy = |Status|Beds
+|Occupied|120
+|Available|30
+
+admissionsData = |Date|Admissions
+|2023-09-01|20
+|2023-09-02|22
+|2023-09-03|18
+|2023-09-04|25
+|2023-09-05|19
+|2023-09-06|23
+|2023-09-07|21
+|2023-09-08|24
+|2023-09-09|20
+|2023-09-10|22
+|2023-09-11|19
+|2023-09-12|26
+|2023-09-13|24
+|2023-09-14|23
+
+deptPatientsData = |Department|Patients
+|Emergency|45
+|ICU|30
+|Surgery|25
+|Pediatrics|20
+|Cardiology|15
+
+staffNameCol = Col(Name, data:["Dr. Smith","Nurse Lee","Dr. Patel"], type:string)
+staffRoleCol = Col(Role, data:["Physician","Nurse","Physician"], type:string)
+staffDeptCol = Col(Department, data:["ER","ER","ICU"], type:string)
+
+critPatientCol = Col(Patient, data:["John Doe","Maria Garcia"], type:string)
+critConditionCol = Col(Condition, data:["Sepsis","Cardiac Arrest"], type:string)
+critRoomCol = Col(Room, data:["ICU-3","ICU-5"], type:string)
+
+dischargePatientCol = Col(Patient, data:["Alice Brown","Bob White"], type:string)
+dischargeDeptCol = Col(Department, data:["General","Orthopedics"], type:string)
+dischargeEtaCol = Col(ETA, data:["2h","3h"], type:string)
+
+orRoomCol = Col(Room, data:["OR1","OR2","OR3"], type:string)
+orTimeCol = Col(Time, data:["08:00-10:00","10:30-12:30","13:00-15:00"], type:string)
+orPatientCol = Col(Patient, data:["Emily Clark","David Kim","Sarah Lee"], type:string)
+
+supplyItemCol = Col(Item, data:["Syringes","Gloves","Bandages"], type:string)
+supplyQtyCol = Col(Quantity, data:["200","150","80"], type:string)
+supplyUnitCol = Col(Unit, data:["pcs","pcs","pcs"], type:string)

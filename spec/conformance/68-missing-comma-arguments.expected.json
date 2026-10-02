@@ -1,0 +1,50 @@
+{
+  "tree": {
+    "type": "Row",
+    "props": {
+      "gap": "lg",
+      "wrap": true
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "a"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "b"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

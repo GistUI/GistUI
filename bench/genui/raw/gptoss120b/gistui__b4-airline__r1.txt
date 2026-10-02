@@ -1,0 +1,63 @@
+root = Card(perfSection, flightsSection, delayedSection, gateChangesSection, crewsSection, weatherSection, loadSection, riskSection, rebookSection, hubSwitchSection, cancellationsSection, turnaroundSection, gap:lg)
+
+perfSection = Card(Heading("On‑time Performance Today", h3), MarkDownRenderer("**On‑time: 87%**\n\n*Target: 90%*"), sunk)
+
+flightsSection = Card(Heading("Flights", h3), flightsTable, sunk)
+
+flightsTable = Table(
+  Col("Flight", data:["AA101","DL202","UA303","SW404"], type:string),
+  Col("Route", data:["NYC‑LAX","ATL‑ORD","SFO‑SEA","MIA‑DFW"], type:string),
+  Col("Gate", data:["A12","B7","C3","D5"], type:string),
+  Col("Status", data:["On‑time","Delayed","On‑time","Boarding"], type:string)
+)
+
+delayedSection = Card(Heading("Delayed Flights", h3), delayedTable, sunk)
+
+delayedTable = Table(
+  Col("Flight", data:["DL202"], type:string),
+  Col("Delay", data:["45 min"], type:string),
+  Col("Reason", data:["Weather"], type:string)
+)
+
+gateChangesSection = Card(Heading("Recent Gate Changes", h3), gateChangesTable, sunk)
+
+gateChangesTable = Table(
+  Col("Flight", data:["AA101","SW404"], type:string),
+  Col("Old Gate", data:["A10","D3"], type:string),
+  Col("New Gate", data:["A12","D5"], type:string),
+  Col("Time", data:["08:15","09:40"], type:string)
+)
+
+crewsSection = Card(Heading("Crews Available for Reassignment", h3), crewsTable, sunk)
+
+crewsTable = Table(
+  Col("Crew ID", data:["C01","C02","C03"], type:string),
+  Col("Position", data:["Captain","First Officer","Cabin"], type:string),
+  Col("Available Since", data:["06:30","07:10","08:00"], type:string)
+)
+
+weatherSection = Card(Heading("Weather Advisories", h3), MarkDownRenderer("- Light rain, visibility 8 km\n- Wind 12 kt NW"), sunk)
+
+loadSection = Card(Heading("Average Passenger Load Today", h3), MarkDownRenderer("**78%** of seats occupied"), sunk)
+
+riskSection = Card(Heading("Connections at Risk", h3), riskTable, sunk)
+
+riskTable = Table(
+  Col("Connection", data:["AA101 LAX‑SFO","DL202 ORD‑MIA"], type:string),
+  Col("Risk", data:["High","Medium"], type:string),
+  Col("Reason", data:["Tight turnaround","Late arrival"], type:string)
+)
+
+rebookSection = Card(Heading("Rebook Affected Passengers", h3), Buttons(Button("Open Rebook Dialog", primary), direction:row), sunk)
+
+hubSwitchSection = Card(Heading("Switch Hub View", h3), Buttons(Button("Select Hub", secondary), direction:row), sunk)
+
+cancellationsSection = Card(Heading("Cancellations Today", h3), cancellationsTable, sunk)
+
+cancellationsTable = Table(
+  Col("Flight", data:["UA303"], type:string),
+  Col("Reason", data:["Technical"], type:string),
+  Col("Time", data:["10:20"], type:string)
+)
+
+turnaroundSection = Card(Heading("Average Turnaround Time", h3), MarkDownRenderer("**42 min**"), sunk)

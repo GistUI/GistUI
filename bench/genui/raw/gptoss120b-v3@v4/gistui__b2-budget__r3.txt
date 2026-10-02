@@ -1,0 +1,31 @@
+root = Card(header, monthSelect, totalCard, splitChart, largestCallout, addForm)
+
+header = CardHeader("Personal Budget", "Overview for selected month")
+
+monthSelect = Form("month-select", monthButtons, monthControl)
+monthButtons = Buttons(Button("Change month", primary))
+monthControl = FormControl("Month", Select("month", SelectItem("2023-08", "August 2023"), SelectItem("2023-09", "September 2023"), placeholder:"Select month", value:"2023-09", rules:[]))
+
+totalCard = Card(CardHeader("Total Spending", "Budget vs Actual"), totalTable, budgetBar)
+totalTable = Table(
+  Col("Metric", ["Budget","Spent"], type:string),
+  Col("Amount", ["$2,500","$1,870"], type:string)
+)
+budgetBar = HorizontalBarChart(labels:["Budget"], Series("Amount", [2500]), variant:grouped, xLabel:"USD", yLabel:"")
+
+splitChart = Card(CardHeader("Spending by Category"), pieChart)
+pieChart = PieChart(labels:["Housing","Food","Transport","Entertainment","Others"], values:[1200,350,200,120,0], variant:donut, appearance:circular)
+
+largestCallout = Callout(variant:info, "Largest Expense", "Transport: $200 on Uber rides")
+
+addForm = Form("add-expense", addButtons,
+  descField,
+  amountField,
+  categoryField,
+  dateField
+)
+addButtons = Buttons(Button("Add expense", primary))
+descField = FormControl("Description", Input("desc", placeholder:"e.g. Grocery shopping"))
+amountField = FormControl("Amount", Input("amt", placeholder:"e.g. 45.00", type:number, rules:[]))
+categoryField = FormControl("Category", Select("cat", SelectItem("Housing","Housing"), SelectItem("Food","Food"), SelectItem("Transport","Transport"), SelectItem("Entertainment","Entertainment"), SelectItem("Others","Others"), placeholder:"Select category", rules:[]))
+dateField = FormControl("Date", DatePicker("date", mode:single, rules:[], value:[]))

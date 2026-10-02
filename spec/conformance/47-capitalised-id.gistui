@@ -1,0 +1,2 @@
+root = Stack(Summary)
+Summary = Card("x")

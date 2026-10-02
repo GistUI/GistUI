@@ -1,0 +1,64 @@
+{
+  "tree": {
+    "type": "Page",
+    "children": [
+      {
+        "type": "Select",
+        "props": {
+          "name": "range",
+          "label": "Range",
+          "options": [
+            "7d",
+            "30d",
+            "90d"
+          ]
+        },
+        "dyn": {
+          "bind": "$range"
+        }
+      },
+      {
+        "type": "Chart",
+        "props": {
+          "type": "line"
+        },
+        "dyn": {
+          "data": "sales.rows"
+        }
+      },
+      {
+        "type": "Form",
+        "props": {
+          "name": "goal"
+        },
+        "children": [
+          {
+            "type": "Input",
+            "props": {
+              "name": "goal",
+              "label": "Goal",
+              "type": "number"
+            },
+            "dyn": {
+              "bind": "$goal"
+            }
+          },
+          {
+            "type": "Button",
+            "props": {
+              "label": "Save"
+            },
+            "dyn": {
+              "do": "[@run(save), @set($tab, \"done\"), @send(\"Goal saved\")]"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

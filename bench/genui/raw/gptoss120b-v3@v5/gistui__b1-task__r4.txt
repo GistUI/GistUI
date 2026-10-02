@@ -1,0 +1,5 @@
+root = Card(taskHeader, taskInfo, actions)
+taskHeader = CardHeader("Finish quarterly report", "Due Sep 15")
+taskInfo = MarkDownRenderer("**Deadline:** Sep 15, 2023\n**Status:** Draft", variant:clear)
+actions = Buttons(doneButton)
+doneButton = Button("Mark done", primary)

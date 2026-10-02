@@ -1,0 +1,13 @@
+root = Card(CardHeader("Delivery Tracker", "Track your package"), locationSection, dateSection, reportDialog, gap:m)
+
+locationSection = Card(Heading("Current Location", h3), TextContent("Your package is currently at the local distribution center in Springfield.", size:default))
+
+dateSection = Card(Heading("Estimated Delivery", h3), TextContent("Expected delivery date: **July 5, 2026**", size:default))
+
+reportDialog = DialogBlock("Report Issue", "Report a problem", reportForm, description:"If something's wrong with your delivery, let us know.", triggerVariant:link)
+
+reportForm = Form("report", reportButtons, descriptionField)
+
+descriptionField = FormControl("Issue description", TextArea("description", "Describe the issue...", "", rows:4))
+
+reportButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))

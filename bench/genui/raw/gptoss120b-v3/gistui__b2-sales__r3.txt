@@ -1,0 +1,25 @@
+root = Card(revenueSection, trendSection, topProductsSection, conversionSection, downloadSection, gap:m)
+
+revenueSection = Card(CardHeader("Revenue This Month"), revenueTable)
+revenueTable = |Metric|Value
+|Revenue|$124,300
+
+trendSection = Card(CardHeader("Revenue Last 6 Months"), revenueTrendChart)
+revenueTrendChart = LineChart(revenueTrendRows, linear, xLabel:"Month", yLabel:"Revenue")
+revenueTrendRows = |Month|Revenue
+|Jan|102500
+|Feb|108900
+|Mar|115200
+|Apr|119800
+|May|122400
+|Jun|124300
+
+topProductsSection = Card(CardHeader("Top‑Selling Products"), topProductsTable)
+topProductsTable = |Product|Units Sold
+|Product A|1,240
+|Product B|1,110
+|Product C|985
+
+conversionSection = Card(CardHeader("Conversion Rate"), TextContent("**Conversion:** 4.7 %"))
+
+downloadSection = Card(Buttons(Button("Download CSV", primary)))

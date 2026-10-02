@@ -1,0 +1,19 @@
+root = Card(header, kpiRow, trendCard, bottomGrid, actions, gap:l)
+header = CardHeader("Monthly Sales Pulse", "Performance overview for October 2024")
+kpiRow = Card(mrrKpi, conversionKpi, direction:row, gap:m, variant:clear)
+mrrKpi = Card("### Revenue this Month", "## $84,250", Tag("+12.4% vs last month", success), variant:sunk)
+conversionKpi = Card("### Conversion Rate", "## 3.82%", Tag("+0.4% vs last month", success), variant:sunk)
+trendCard = Card(Heading("6-Month Revenue Trend", h3), LineChart(trendData, natural, xLabel:"Month", yLabel:"USD ($)"), variant:sunk)
+bottomGrid = Card(Heading("Top 3 Best-Selling Products", h3), Table(topProductsData), variant:sunk)
+actions = Buttons(Button("Download CSV Report", primary), Button("Export PDF Summary", secondary))
+trendData = |Month|Revenue
+|May|62000
+|Jun|68500
+|Jul|71200
+|Aug|74800
+|Sep|79300
+|Oct|84250
+topProductsData = |Rank|Product|Units Sold|Revenue
+|#1|Pro Annual License|342|$68,400
+|#2|Starter Monthly Addon|518|$10,360
+|#3|Enterprise Support Pack|22|$5,490

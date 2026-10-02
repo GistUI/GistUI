@@ -1,0 +1,64 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Header",
+        "props": {
+          "title": "billing"
+        }
+      },
+      {
+        "type": "Chart",
+        "props": {
+          "data": {
+            "table": [
+              "a:n"
+            ],
+            "rows": [
+              [
+                1
+              ]
+            ]
+          },
+          "x": "month"
+        }
+      },
+      {
+        "type": "Select",
+        "props": {
+          "name": "n",
+          "label": "N",
+          "options": [
+            "red",
+            "green"
+          ]
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "bare-text",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "bare-text",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "bare-text",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

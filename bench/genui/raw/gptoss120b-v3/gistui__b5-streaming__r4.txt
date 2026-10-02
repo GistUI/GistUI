@@ -1,0 +1,80 @@
+root = Card(sectionBlock, promoteDialog, focusRegionDialog, actions)
+
+sectionBlock = SectionBlock(viewersItem, mostWatchedItem, watchTimeItem, subsCancelItem, genrePerfItem, bufferingItem, deliveryHealthItem, releasesItem, licensesItem, recClicksItem, failedSearchesItem, revenuePlanItem, deviceSplitItem, featureFlagsItem, isFoldable)
+
+viewersItem = SectionItem(viewers, "Current Viewers", TextContent("**{{viewersCount}}** viewers watching now", size:large))
+mostWatchedItem = SectionItem(mostWatched, "Most‑watched Titles", HorizontalBarChart(labels:["Title A","Title B","Title C","Title D"], Series("Hours", values:[1200,950,870,560]), variant:grouped, xLabel:"Hours", yLabel:"Title"))
+watchTimeItem = SectionItem(watchTime, "Watch Time (Last 30 days)", LineChart(watchTimeRows, linear, xLabel:"Date", yLabel:"Hours"))
+subsCancelItem = SectionItem(subsCancel, "Subscribers vs Cancellations", BarChart(subsCancelRows, grouped, xLabel:"Date", yLabel:"Count"))
+genrePerfItem = SectionItem(genrePerf, "Performance by Genre", RadarChart(labels:["Drama","Comedy","Action","Documentary","Kids"], Series("Views", values:[3400,2900,4100,2100,1800]), Series("Revenue", values:[56000,43000,72000,21000,15000])))
+bufferingItem = SectionItem(buffering, "Buffering Rate", SingleStackedBarChart(labels:["Buffering"], values:[7]))
+deliveryHealthItem = SectionItem(deliveryHealth, "Delivery Health by Region", Table(regionHealthCol, healthScoreCol))
+releasesItem = SectionItem(releases, "Releases This Month", Table(titleCol, releaseDateCol))
+licensesItem = SectionItem(licenses, "Licenses Expiring Soon", Table(titleCol, expiryDateCol))
+recClicksItem = SectionItem(recClicks, "Recommendation Click‑through", PieChart(recLabels, recValues, donut, appearance:circular))
+failedSearchesItem = SectionItem(failedSearches, "Searches Without Playback", Table(searchTermCol, countCol))
+revenuePlanItem = SectionItem(revenuePlan, "Revenue Split by Plan", PieChart(planLabels, planValues, pie, appearance:circular))
+deviceSplitItem = SectionItem(deviceSplit, "Viewing Split by Device", PieChart(deviceLabels, deviceValues, donut, appearance:circular))
+featureFlagsItem = SectionItem(featureFlags, "Feature Flags", Table(flagNameCol, flagStateCol))
+actions = Buttons(Button("Refresh", primary), Button("Export CSV", secondary))
+
+focusRegionDialog = DialogBlock("Select Region", "Focus on Region", SelectRegion, description:"Choose a region to drill‑down", triggerVariant:secondary)
+SelectRegion = Select("region", SelectItem("North America","North America"), SelectItem("Europe","Europe"), SelectItem("Asia","Asia"), placeholder:"Select region")
+
+promoteDialog = DialogBlock("Promote Title", "Feature a Title", promoteForm, description:"Select a title to highlight on the home screen", triggerVariant:primary)
+promoteForm = Form("promote", promoteButtons, titleSelect, startDateInput)
+titleSelect = FormControl("Title", Select("title", SelectItem("Show A","Show A"), SelectItem("Show B","Show B"), placeholder:"Choose title"))
+startDateInput = FormControl("Start Date", DatePicker("start_date", mode:single, placeholder:"YYYY‑MM‑DD"))
+promoteButtons = Buttons(Button("Promote", primary), Button("Cancel", tertiary))
+
+viewers = CardHeader("Live Viewers")
+mostWatched = CardHeader("Top Titles")
+watchTime = CardHeader("Monthly Watch Time")
+subsCancel = CardHeader("Subscribers vs Cancellations")
+genrePerf = CardHeader("Genre Performance")
+buffering = CardHeader("Buffering Rate")
+deliveryHealth = CardHeader("Delivery Health")
+releases = CardHeader("Upcoming Releases")
+licenses = CardHeader("Expiring Licenses")
+recClicks = CardHeader("Recommendation Click‑through")
+failedSearches = CardHeader("Failed Searches")
+revenuePlan = CardHeader("Revenue by Plan")
+deviceSplit = CardHeader("Device Distribution")
+featureFlags = CardHeader("Feature Flags")
+
+watchTimeRows = |Date|Hours
+|2024‑08‑01|1200
+|2024‑08‑08|1350
+|2024‑08‑15|1500
+|2024‑08‑22|1600
+|2024‑08‑29|1700
+
+subsCancelRows = |Date|Subscribers|Cancellations
+|2024‑08‑01|5000|120
+|2024‑08‑08|5200|130
+|2024‑08‑15|5400|115
+|2024‑08‑22|5600|100
+|2024‑08‑29|5800|90
+
+regionHealthCol = Col("Region", data:["North America","Europe","Asia"], type:string)
+healthScoreCol = Col("Health Score", data:[95,88,80], type:number)
+
+titleCol = Col("Title", data:["Show A","Show B","Show C"], type:string)
+releaseDateCol = Col("Release Date", data:["2024‑09‑05","2024‑09‑12","2024‑09‑20"], type:string)
+
+expiryDateCol = Col("Expiry Date", data:["2024‑10‑01","2024‑10‑15","2024‑11‑01"], type:string)
+
+recLabels = ["Clicked","Not Clicked"]
+recValues = [4200,7800]
+
+searchTermCol = Col("Search Term", data:["Mystery Quest","Space Odyssey","Comedy Night"], type:string)
+countCol = Col("No‑Play Count", data:[340,210,150], type:number)
+
+planLabels = ["Free","Standard","Premium"]
+planValues = [15000,34000,51000]
+
+deviceLabels = ["Mobile","Web","TV","Console"]
+deviceValues = [4800,3400,2100,700]
+
+flagNameCol = Col("Flag", data:["New UI","Beta Recommendations","Ads Free"], type:string)
+flagStateCol = Col("Enabled", data:["true","false","true"], type:string)

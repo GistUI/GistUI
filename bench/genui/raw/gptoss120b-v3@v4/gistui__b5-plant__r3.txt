@@ -1,0 +1,46 @@
+root = Card(oeeSection, productionTarget, lineRates, defectChart, downtimeChart, maintenanceTable, stockTable, deliveriesTable, shiftChart, safetySection, qualityHoldTable, energySection, workOrdersTable, scheduleForm, focusLineSection, andonAlerts, exportButtons)
+
+oeeSection = Card(CardHeader("Overall Equipment Effectiveness"), TextContent("OEE: 78.5% (target 85%)", size:large), sunk)
+
+productionTarget = Card(CardHeader("Units Produced vs Today’s Target"), HorizontalBarChart(labels:["Produced","Target"], Series("Units",[1200,1500]), variant:grouped, xLabel:"Units", yLabel:"Count"), sunk)
+
+lineRates = Card(CardHeader("Production Lines – Rate & Status"), HorizontalBarChart(labels:["Line A","Line B","Line C","Line D"], Series("Rate",[85,78,92,70]), variant:grouped, xLabel:"Rate (%)", yLabel:"Line"), TagBlock(tags:["Focus Line A"]), sunk)
+
+defectChart = Card(CardHeader("Defect Rate – Past Month"), LineChart(|Date|Defect Rate
+|2023-08-01|2.1
+|2023-08-08|1.8
+|2023-08-15|2.4
+|2023-08-22|1.9
+|2023-08-29|2.0|, linear, xLabel:"Week", yLabel:"% Defect"), sunk)
+
+downtimeChart = Card(CardHeader("Downtime Split by Cause"), PieChart(labels:["Mechanical","Electrical","Setup","Idle"], values:[30,20,25,25], variant:donut, appearance:circular), sunk)
+
+maintenanceTable = Card(CardHeader("Machines Due for Maintenance"), Table(Col("Machine ID",["M-101","M-203","M-307"],type:string), Col("Due Date",["2023-09-05","2023-09-12","2023-09-20"],type:string), Col("Priority",["High","Medium","Low"],type:string)), sunk)
+
+stockTable = Card(CardHeader("Current Stock"), Table(Col("Material",["Steel","Resin","Packaging"],type:string), Col("Quantity",["12,000 kg","8,500 L","4,200 pcs"],type:string)), sunk)
+
+deliveriesTable = Card(CardHeader("Supplier Deliveries Due This Week"), Table(Col("Supplier",["Alpha Metals","Beta Polymers","Gamma Pack"],type:string), Col("Material",["Steel","Resin","Packaging"],type:string), Col("Due Date",["2023-09-04","2023-09-06","2023-09-07"],type:string)), sunk)
+
+shiftChart = Card(CardHeader("Shift Output Comparison"), BarChart(|Shift|Output
+|Shift 1|3400
+|Shift 2|3150
+|Shift 3|3800|, grouped, xLabel:"Shift", yLabel:"Units Produced"), sunk)
+
+safetySection = Card(CardHeader("Safety Incidents – This Year"), TextContent("Incidents: 3", size:large), TextContent("Days since last incident: 45", size:default), sunk)
+
+qualityHoldTable = Card(CardHeader("Batches on Quality Hold"), Table(Col("Batch ID",["B-2101","B-2105"],type:string), Col("Reason",["Surface defect","Material variance"],type:string)), sunk)
+
+energySection = Card(CardHeader("Energy Use Today"), TextContent("Energy consumed: 1,250 kWh", size:large), sunk)
+
+workOrdersTable = Card(CardHeader("Open Work Orders – Priority"), Table(Col("Order ID",["WO-1001","WO-1003","WO-1010"],type:string), Col("Priority",["Critical","High","Medium"],type:string), Col("Description",["Repair Line B motor","Calibrate sensor C","Replace filter D"],type:string)), sunk)
+
+scheduleForm = Form("schedule-maintenance", scheduleButtons, machineField, dateField)
+machineField = FormControl("Machine ID", Input("machine_id", "e.g. M-101"))
+dateField = FormControl("Maintenance Date", Input("maint_date", "YYYY-MM-DD", type:date))
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+
+focusLineSection = Card(CardHeader("Focus On Line"), TextContent("Select a line to view detailed dashboard.", size:default), Buttons(Button("Line A", primary), Button("Line B", secondary), Button("Line C", secondary), Button("Line D", secondary)), sunk)
+
+andonAlerts = Card(CardHeader("Live Andon Alerts"), Table(Col("Line",["Line B","Line D"],type:string), Col("Alert",["Stop – Jam","Warning – Low Speed"],type:string), Col("Time",["08:45","09:12"],type:string)), sunk)
+
+exportButtons = Buttons(Button("Export Shift Report", primary))

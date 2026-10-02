@@ -1,0 +1,49 @@
+root = Card(CardHeader("Quarterly Command View", "CEO Dashboard"), controls, revSection, costSection, profitSection, revTrend, costTrend, budgetChart, headcountChart, risksTable, initiativesTable, runwayTag, pipelineTag, winRateTag, customersTable, npsTag, itemsList, sunk)
+controls = Card(quarterSelect, regionSelect, exportButton, variant:clear, direction:row, gap:s, align:center, justify:start)
+quarterSelect = Select("quarter", SelectItem("Q1 2024", "Q1 2024"), SelectItem("Q2 2024", "Q2 2024"), SelectItem("Q3 2024", "Q3 2024"), SelectItem("Q4 2024", "Q4 2024"), placeholder:"Select quarter", value:"Q2 2024")
+regionSelect = Select("region", SelectItem("North America", "North America"), SelectItem("EMEA", "EMEA"), SelectItem("APAC", "APAC"), placeholder:"Select region", value:"North America")
+exportButton = Button("Export Pack", primary)
+revSection = Card(Heading("Revenue", h3), revenueTable)
+revenueTable = Table(Col("Metric", ["Total Revenue"], string), Col("Amount", ["$12.4M"], number))
+costSection = Card(Heading("Costs", h3), costTable)
+costTable = Table(Col("Metric", ["Total Costs"], string), Col("Amount", ["$7.8M"], number))
+profitSection = Card(Heading("Profit", h3), profitTable)
+profitTable = Table(Col("Metric", ["Net Profit"], string), Col("Amount", ["$4.6M"], number))
+revTrend = Card(Heading("Revenue Over Four Quarters", h3), LineChart(revTrendRows, linear, xLabel:"Quarter", yLabel:"Revenue"))
+revTrendRows = |Quarter|Revenue
+|Q1|3.1
+|Q2|3.4
+|Q3|3.0
+|Q4|2.9
+costTrend = Card(Heading("Costs Over Four Quarters", h3), LineChart(costTrendRows, linear, xLabel:"Quarter", yLabel:"Costs"))
+costTrendRows = |Quarter|Costs
+|Q1|2.0
+|Q2|2.1
+|Q3|1.9
+|Q4|1.8
+budgetChart = Card(Heading("Budget vs Plan by Department", h3), BarChart(budgetRows, grouped, xLabel:"Department", yLabel:"Amount"))
+budgetRows = |Department|Budget|Plan
+|Engineering|5.0|5.5
+|Marketing|2.5|2.0
+|Sales|3.0|3.2
+|HR|1.0|1.0
+headcountChart = Card(Heading("Headcount by Department", h3), HorizontalBarChart(headcountRows, stacked, xLabel:"Headcount", yLabel:"Department"))
+headcountRows = |Department|Headcount
+|Engineering|45
+|Marketing|20
+|Sales|30
+|HR|10
+risksTable = Card(Heading("Top Risks", h3), Table(riskCols))
+riskCols = Col("Risk", ["Supply chain delay","Regulatory change","Talent shortage"], string), Col("Owner", ["Logistics Lead","Legal","HR Manager"], string)
+initiativesTable = Card(Heading("Strategic Initiatives", h3), Table(initiativeCols))
+initiativeCols = Col("Initiative", ["New product launch","Market expansion","AI integration"], string), Col("Status", ["On Track","Delayed","Completed"], string)
+runwayTag = Card(Tag("Runway: 8 months", info))
+pipelineTag = Card(Tag("Sales Pipeline: $9.2M", info))
+winRateTag = Card(Tag("Win Rate: 34%", success))
+customersTable = Card(Heading("Customers", h3), Table(customerCols))
+customerCols = Col("Count", ["12,400"], number), Col("Churn", ["5%"], string)
+npsTag = Card(Tag("NPS: 68", success))
+itemsList = Card(Heading("Next Board Meeting Items", h3), ListBlock(item1, item2, item3, variant:number))
+item1 = ListItem("Review Q2 financials")
+item2 = ListItem("Approve FY2025 budget")
+item3 = ListItem("Discuss AI integration roadmap")

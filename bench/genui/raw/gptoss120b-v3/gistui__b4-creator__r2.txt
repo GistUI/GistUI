@@ -1,0 +1,70 @@
+root = Card(header, filterSection, statsSection, bestPostsSection, audienceSection, scheduleSection, bestHourSection, commentsSection, earningsSection, collaborationSection, scheduleForm, followUp)
+
+header = CardHeader("Creator Studio Dashboard")
+
+filterSection = Card("Filter", filterSelect)
+
+filterSelect = Select("platform_filter", SelectItem("All", "All platforms"), SelectItem("Instagram", "Instagram"), SelectItem("YouTube", "YouTube"), SelectItem("TikTok", "TikTok"), placeholder:"Filter by platform")
+
+statsSection = Card(Heading("Followers", h3), followersTable, Heading("Engagement Rate", h3), TextContent("5.2%"))
+
+bestPostsSection = Card(Heading("Best Posts This Month", h3), bestPostsTable)
+
+audienceSection = Card(Heading("Audience Split by Platform", h3), HorizontalBarChart(labels:["Instagram","YouTube","TikTok"], Series("Audience", values:[55,30,15]), variant:grouped, xLabel:"Platform", yLabel:"%"))
+
+scheduleSection = Card(Heading("Posts Scheduled This Week", h3), scheduleTable)
+
+bestHourSection = Card(Heading("Best Hour to Post", h3), BarChart(bestHourTable, variant:grouped, xLabel:"Hour", yLabel:"Engagement Score"))
+
+commentsSection = Card(Heading("Comments Waiting for Reply", h3), commentsTable)
+
+earningsSection = Card(Heading("Earnings This Month", h3), earningsTable)
+
+collaborationSection = Card(Heading("Pending Collaboration Requests", h3), collabTable)
+
+scheduleForm = Form("schedule_post", formButtons, captionField, timeField, platformField)
+
+captionField = FormControl("Caption", TextArea("caption", placeholder:"Write your caption...", rows:4))
+
+timeField = FormControl("Publish Time", Input("time", placeholder:"HH:MM", type:text))
+
+platformField = FormControl("Platform", platformSelect)
+
+platformSelect = Select("platform", SelectItem("Instagram","Instagram"), SelectItem("YouTube","YouTube"), SelectItem("TikTok","TikTok"), placeholder:"Choose platform")
+
+formButtons = Buttons(Button("Schedule Post", primary), Button("Cancel", tertiary))
+
+followUp = FollowUpBlock(FollowUpItem("View detailed analytics"), FollowUpItem("Create new post"))
+
+followersTable = |Metric|Value
+|Total Followers|12,345
+|Growth (30d)|+8.2%
+
+bestPostsTable = |Post|Reach
+|Post A|45,000
+|Post B|38,200
+|Post C|33,500
+
+scheduleTable = |Day|Time|Caption
+|Mon|10:00|New product teaser
+|Tue|14:00|Behind the scenes
+|Wed|09:00|User testimonial
+
+commentsTable = |User|Comment|Platform
+|alice|Great post!|Instagram
+|bob|Love this!|TikTok
+
+earningsTable = |Metric|Amount
+|Revenue|$2,400
+|Payouts|$1,800
+|Net|$600
+
+collabTable = |Brand|Request Date|Status
+|BrandX|2023-09-10|Pending
+|BrandY|2023-09-12|Pending
+
+bestHourTable = |Hour|Score
+|8am|70
+|12pm|85
+|5pm|60
+|9pm|95

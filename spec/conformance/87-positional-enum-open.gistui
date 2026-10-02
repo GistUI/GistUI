@@ -1,0 +1,1 @@
+root = Row(Icon(star), Icon(plane), Icon("user"))

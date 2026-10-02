@@ -1,0 +1,23 @@
+root = Card(CardHeader("Today's Schedule", "Clinic Reception"), stats, appointments, rooms, nextPatient, actions)
+
+stats = Card(Heading("Stats", h3), TextContent("**Expected patients:** 24"), TextContent("**No-show rate this month:** 5%"))
+
+appointments = Card(Heading("Today's Appointments", h3), appointmentsTable)
+
+appointmentsTable = |Time|Patient|Room
+|09:00|Alice Smith|Room 1
+|09:30|Bob Jones|Room 2
+|10:00|Carol Lee|Room 1
+|10:30|John Doe|Room 2
+|11:00|Diana Patel|Room 3
+
+rooms = Card(Heading("Available Rooms", h3), freeRoomsTable)
+
+freeRoomsTable = |Room|Status
+|Room 4|Free
+|Room 5|Free
+|Room 6|Free
+
+nextPatient = Card(Heading("Next Patient", h3), TextContent("**John Doe** at 10:30 AM"), Button("Check In", primary))
+
+actions = Buttons(Button("Previous Day", secondary), Button("Next Day", secondary))

@@ -1,0 +1,3 @@
+root = Stack(a, b)
+a = $t == 1 ? "one" : $t == 2 ? "two" : "many"
+b = ($t ? 1 : 2) + 1

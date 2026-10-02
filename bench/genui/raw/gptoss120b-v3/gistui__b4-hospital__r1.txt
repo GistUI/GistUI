@@ -1,0 +1,71 @@
+root = Card(header, occupancy, er_wait, admissions, departments, staff, critical, discharge, or_bookings, supplies, incident_action, date_nav, transfer_action)
+
+header = CardHeader("Hospital Operations Command Center", "Real‑time overview")
+
+occupancy = Card(Heading("Bed Occupancy", h3), HorizontalBarChart(labels:["ICU","General Ward","Recovery"], Series("Occupied", values:[45,120,30]), Series("Available", values:[5,30,20]), variant:grouped, xLabel:"Beds", yLabel:"Count"))
+
+er_wait = Card(Heading("Current ER Wait", h3), TextContent("Patients waiting: **27**\nAverage wait time: **42 min**", size:large))
+
+admissions = Card(Heading("Admissions (Last 14 Days)", h3), LineChart(admissions_data, linear, xLabel:"Date", yLabel:"Admissions"))
+
+admissions_data = |Date|Admissions
+|2023-09-01|34
+|2023-09-02|28
+|2023-09-03|31
+|2023-09-04|27
+|2023-09-05|30
+|2023-09-06|33
+|2023-09-07|29
+|2023-09-08|35
+|2023-09-09|32
+|2023-09-10|26
+|2023-09-11|31
+|2023-09-12|28
+|2023-09-13|30
+|2023-09-14|34
+
+departments = Card(Heading("Patients per Department", h3), HorizontalBarChart(labels:["Cardiology","Oncology","Pediatrics","Surgery","Neurology"], Series("Patients", values:[58,42,37,49,33]), variant:grouped, xLabel:"Patients", yLabel:"Department"))
+
+staff = Card(Heading("Staff on Shift", h3), Table(
+  Col("Name", data:["Dr. Lee","Nurse Patel","Tech Gomez","Dr. Singh","Nurse O'Neil"], type:string),
+  Col("Role", data:["Cardiologist","RN","Radiology Tech","Surgeon","RN"], type:string),
+  Col("Dept", data:["Cardiology","ER","Radiology","Surgery","ER"], type:string)
+))
+
+critical = Card(Heading("Critical Patients", h3), ListBlock(
+  ListItem("John Doe", "Severe trauma, ICU", actionLabel:"View", image:[]),
+  ListItem("Maria Silva", "Post‑op complications", actionLabel:"View", image:[]),
+  ListItem("Ahmed Khan", "Cardiac arrest", actionLabel:"View", image:[])
+, variant:number))
+
+discharge = Card(Heading("Patients Ready for Discharge", h3), Table(
+  Col("Patient", data:["Emily Chen","Liam O'Brien","Sofia Rossi"], type:string),
+  Col("Room", data:["302B","210A","415C"], type:string),
+  Col("Expected Discharge", data:["10:00 AM","12:30 PM","2:00 PM"], type:string)
+))
+
+or_bookings = Card(Heading("Today's OR Bookings", h3), Table(
+  Col("Time", data:["08:00","10:30","13:00","15:45"], type:string),
+  Col("Procedure", data:["Appendectomy","Hip Replacement","CABG","C-section"], type:string),
+  Col("Surgeon", data:["Dr. Patel","Dr. Nguyen","Dr. Lee","Dr. Gomez"], type:string)
+))
+
+supplies = Card(Heading("Supplies Running Low", h3), Table(
+  Col("Item", data:["Surgical Gloves","IV Bags","Blood Units","Antibiotics"], type:string),
+  Col("Remaining", data:["120","45","8","22"], type:string),
+  Col("Reorder Level", data:["200","100","10","30"], type:string)
+))
+
+incident_action = Card(Heading("Report Incident", h3), Buttons(
+  Button("File Incident", primary)
+, direction:row))
+
+date_nav = Card(Heading("Select Date", h3), Buttons(
+  Button("< Previous Day", secondary),
+  Button("Today", primary),
+  Button("Next Day >", secondary)
+, direction:row))
+
+transfer_action = Card(Heading("Request Patient Transfer", h3), Buttons(
+  Button("Transfer Request", primary)
+, direction:row))

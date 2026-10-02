@@ -1,0 +1,36 @@
+root = Card(header, special, dietaryHeader, dietForm, menuHeader, drinksHeading, drinksTable, separator, foodHeading, foodTable, hoursHeader, hoursTable, gap:xl)
+header = CardHeader("Cafe Menu", "Fresh drinks & food")
+special = Callout(success, "Today's Special", "Mango Lassi — $4.50 · Vegetarian")
+dietaryHeader = CardHeader("Dietary Filter")
+dietForm = Form("diet-form", dietButtons, dietControl)
+dietButtons = Buttons(Button("Apply", primary), Button("Reset", tertiary))
+dietControl = FormControl("Dietary preference", dietRadio, "Choose 'Vegetarian only' to hide non-vegetarian items.")
+dietRadio = RadioGroup("diet", RadioItem("All items", "Show the full menu", "all"), RadioItem("Vegetarian only", "Show only vegetarian items", "veg"), defaultValue:"all")
+menuHeader = CardHeader("Menu")
+drinksHeading = Heading("Drinks", h3)
+drinksTable = |Drink|Price:n|Veg
+|Espresso|3.00|Yes
+|Cappuccino|3.50|Yes
+|Latte|4.00|Yes
+|Mango Lassi ★|4.50|Yes
+|Iced Tea|3.25|Yes
+|Fresh Orange Juice|4.00|Yes
+separator = Separator()
+foodHeading = Heading("Food", h3)
+foodTable = |Item|Price:n|Veg
+|Avocado Toast|7.50|Yes
+|Croissant|3.25|Yes
+|Veggie Panini|8.00|Yes
+|Caesar Salad|8.50|No
+|Ham & Cheese Croissant|6.50|No
+|Chicken Wrap|9.00|No
+|Cheesecake|5.50|Yes
+hoursHeader = CardHeader("Opening Hours", "Open every day")
+hoursTable = |Day|Hours
+|Monday|7:00 AM – 9:00 PM
+|Tuesday|7:00 AM – 9:00 PM
+|Wednesday|7:00 AM – 9:00 PM
+|Thursday|7:00 AM – 9:00 PM
+|Friday|7:00 AM – 10:00 PM
+|Saturday|8:00 AM – 10:00 PM
+|Sunday|8:00 AM – 8:00 PM

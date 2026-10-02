@@ -1,0 +1,51 @@
+root = Card(header, districtSelect, congestionSection, transitSection, airQualitySection, energySection, waterSection, incidentsSection, vehiclesSection, parkingSection, eventsSection, reportsSection, backlogSection, weatherSection, roadworksSection, infraSection, dispatchSection, alertDialog, direction:column, gap:m)
+
+header = CardHeader("City Operations Center")
+districtSelect = Select("district", SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("Midtown","Midtown"), placeholder:"Select district", value:"Downtown", size:medium)
+
+congestionSection = Card(Heading("Congestion Right Now", h3), congestionChart)
+congestionChart = HorizontalBarChart(labels:["Downtown","Uptown","Midtown"], Series("Congestion", values:[78,55,62]), variant:grouped, xLabel:"Congestion %", yLabel:"District")
+
+transitSection = Card(Heading("Transit Punctuality", h3), transitChart)
+transitChart = BarChart(labels:["Bus 1","Bus 2","Metro A"], Series("On‑time", values:[92,88,95]), variant:grouped, xLabel:"On‑time %", yLabel:"Line")
+
+airQualitySection = Card(Heading("Air Quality by District", h3), airQualityChart)
+airQualityChart = HorizontalBarChart(labels:["Downtown","Uptown","Midtown"], Series("AQI", values:[42,55,48]), variant:grouped, xLabel:"AQI", yLabel:"District")
+
+energySection = Card(Heading("Energy Use (Past Week)", h3), energyChart)
+energyChart = LineChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("Energy (MWh)", values:[1200,1150,1300,1250,1400,1500,1600]), variant:linear, xLabel:"Day", yLabel:"MWh")
+
+waterSection = Card(Heading("Water Use Today", h3), waterChart)
+waterChart = SingleStackedBarChart(labels:["Residential","Commercial","Industrial"], values:[300,180,120])
+
+incidentsSection = Card(Heading("Open Incidents", h3), incidentsTable)
+vehiclesSection = Card(Heading("Emergency Vehicles Deployed", h3), vehiclesTable)
+parkingSection = Card(Heading("Parking Availability Downtown", h3), parkingTable)
+eventsSection = Card(Heading("Public Events This Weekend", h3), eventsList)
+reportsSection = Card(Heading("Citizen Reports", h3), reportsTable)
+backlogSection = Card(Heading("Service Request Backlog", h3), backlogTable)
+weatherSection = Card(Heading("Current Weather", h3), weatherInfo)
+roadworksSection = Card(Heading("Roadworks Planned This Month", h3), roadworksTable)
+infraSection = Card(Heading("Infrastructure Jobs Due for Maintenance", h3), infraTable)
+
+dispatchSection = Card(Heading("Dispatch Crew", h3), Buttons(dispatchCrewButton))
+dispatchCrewButton = Button("Dispatch Crew", primary)
+
+alertDialog = DialogBlock("Send Alert", "Public Alert", alertForm, description:"Compose and send a public alert", triggerVariant:primary)
+
+alertForm = Form("public-alert", alertFormButtons, alertMessageControl)
+alertFormButtons = Buttons(sendAlertButton, cancelAlertButton)
+sendAlertButton = Button("Send", primary)
+cancelAlertButton = Button("Cancel", secondary)
+alertMessageControl = FormControl("Message", TextArea("alert_msg", "Enter alert message...", "", rows:4), "Public alert to be sent")
+
+weatherInfo = MarkDownRenderer("**Current Weather**\n- Temp: 72°F\n- Conditions: Sunny\n- Wind: 5 mph NE", variant:clear)
+
+incidentsTable = Table(Col("ID", data:["001","002"], type:string), Col("Location", data:["5th Ave & Main","Elm St"], type:string), Col("Severity", data:["High","Medium"], type:string), Col("Status", data:["Open","Open"], type:string))
+vehiclesTable = Table(Col("Vehicle ID", data:["V001","V002"], type:string), Col("Type", data:["Ambulance","Fire Truck"], type:string), Col("Location", data:["5th Ave","Central Park"], type:string), Col("Status", data:["On Duty","Available"], type:string))
+parkingTable = Table(Col("Lot", data:["Lot A","Lot B"], type:string), Col("Spaces Available", data:["12","5"], type:number), Col("Total", data:["50","30"], type:number))
+eventsList = ListBlock(ListItem("Music Festival","Sat","Downtown Plaza"), ListItem("Art Fair","Sun","Riverfront"), variant:number)
+reportsTable = Table(Col("Report ID", data:["R001","R002"], type:string), Col("Type", data:["Pothole","Noise"], type:string), Col("Submitted At", data:["10:15 AM","09:45 AM"], type:string), Col("Status", data:["New","In Review"], type:string))
+backlogTable = Table(Col("Request ID", data:["S001","S002"], type:string), Col("Category", data:["Street Light","Graffiti"], type:string), Col("Submitted", data:["2023-09-20","2023-09-18"], type:string), Col("Priority", data:["High","Low"], type:string), Col("Status", data:["Pending","Pending"], type:string))
+roadworksTable = Table(Col("Project", data:["Road Resurfacing","Bridge Repair"], type:string), Col("Start Date", data:["2023-10-01","2023-10-05"], type:string), Col("End Date", data:["2023-10-15","2023-10-20"], type:string), Col("Area", data:["East Side","North River"], type:string))
+infraTable = Table(Col("Job", data:["Water Pipe Inspection","Traffic Light Upgrade"], type:string), Col("Due Date", data:["2023-10-10","2023-10-12"], type:string), Col("Area", data:["South District","Central"], type:string), Col("Status", data:["Scheduled","Pending"], type:string))

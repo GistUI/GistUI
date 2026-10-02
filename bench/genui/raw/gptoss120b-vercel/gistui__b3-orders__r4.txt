@@ -1,0 +1,62 @@
+root = Card(CardHeader("E‑commerce Operations Desk"), filtersSection, summarySection, ordersChart, recentOrdersSection, actionsSection)
+
+filtersSection = Card(Heading("Filters", h3), statusFilter, searchFilter)
+
+statusFilter = Form("status-filter", filterButtons, statusControl)
+statusControl = FormControl("Order status", statusSelect)
+statusSelect = Select("status", 
+    SelectItem("all", "All"), 
+    SelectItem("pending", "Pending"), 
+    SelectItem("fulfilled", "Fulfilled"), 
+    SelectItem("canceled", "Canceled"), 
+    placeholder:"Select status")
+filterButtons = Buttons(Button("Apply", primary))
+
+searchFilter = Form("search-filter", searchButtons, searchControl)
+searchControl = FormControl("Customer name", Input("customer_search", placeholder:"Enter name"))
+searchButtons = Buttons(Button("Search", primary))
+
+summarySection = Card(
+    Heading("Today's Summary", h3),
+    ordersTodayCard,
+    revenueTodayCard,
+    avgOrderValueCard,
+    refundRateCard,
+    sunk)
+
+ordersTodayCard = Card(Tag("Orders Today", info), TextContent("124", size:large-heavy))
+revenueTodayCard = Card(Tag("Revenue Today", success), TextContent("$9,840", size:large-heavy))
+avgOrderValueCard = Card(Tag("Avg Order Value", neutral), TextContent("$79.35", size:large-heavy))
+refundRateCard = Card(Tag("Refund Rate (This Month)", warning), TextContent("2.3%", size:large-heavy), clear)
+
+ordersChart = Card(
+    Heading("Order Volume – Last 4 Weeks", h3),
+    BarChart(
+        |Week|Orders
+        |W1|340
+        |W2|415
+        |W3|389
+        |W4|452
+        , grouped, xLabel:"Week", yLabel:"Orders")
+    , clear)
+
+recentOrdersSection = Card(
+    Heading("Recent Orders", h3),
+    recentOrdersTable,
+    sunk)
+
+recentOrdersTable = Table(
+    Col("Order ID", data:["#1023","#1022","#1021","#1020"], type:string),
+    Col("Customer", data:["Alice","Bob","Charlie","Dana"], type:string),
+    Col("Total", data:["$120","$85","$210","$45"], type:string),
+    Col("Status", data:["Pending","Fulfilled","Pending","Canceled"], type:string),
+    Col("Action", data:["","Mark Fulfilled","",""], type:action)
+)
+
+actionsSection = Card(
+    Heading("Mark Order Fulfilled", h3),
+    fulfillmentForm)
+
+fulfillmentForm = Form("fulfill-order", fulfillButtons, orderIdControl)
+orderIdControl = FormControl("Order ID", Input("order_id", placeholder:"Enter Order ID"))
+fulfillButtons = Buttons(Button("Mark as Fulfilled", primary))

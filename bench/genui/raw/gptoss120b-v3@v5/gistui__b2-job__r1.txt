@@ -1,0 +1,21 @@
+root = Card(header, description, qualifications, salary, applyForm, shareButtons)
+
+header = CardHeader("Senior UX Designer", "Design Team")
+
+description = TextContent("We are looking for a creative Senior UX Designer to lead the design of our next generation products, collaborating closely with product and engineering teams.", size:default)
+
+qualifications = MarkDownRenderer("- 5+ years of UX design experience\n- Strong portfolio showcasing user‑centered design\n- Proficiency with Figma, Sketch, or Adobe XD\n- Excellent communication and collaboration skills", variant:clear)
+
+salary = Tag("$120k‑$150k", variant:info)
+
+applyForm = Form("apply", applyButtons, nameField, emailField, resumeField)
+
+nameField = FormControl("Full name", Input("name", "Your name"))
+
+emailField = FormControl("Email address", Input("email", "you@example.com", type:email))
+
+resumeField = FormControl("Resume URL", Input("resume", "https://", type:url))
+
+applyButtons = Buttons(Button("Apply", variant:primary), Button("Cancel", variant:secondary))
+
+shareButtons = Buttons(Button("Share on LinkedIn", variant:secondary), Button("Copy link", variant:secondary))

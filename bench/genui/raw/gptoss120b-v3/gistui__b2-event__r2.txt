@@ -1,0 +1,38 @@
+root = Card(header, agenda, speakers, tickets, register, countdown)
+
+header = Card(CardHeader("TechFuture Conference 2024", "June 15-17, 2024 • Grand Hall, City Center"), Tag("3 days left", danger))
+
+agenda = Card(Heading("Agenda", h3), agendaTable)
+
+agendaTable = Table(
+  Col("Time", data:["09:00 AM","10:30 AM","12:00 PM","02:00 PM","04:00 PM"], type:string),
+  Col("Session", data:["Opening Keynote","Panel: AI Ethics","Lunch Break","Workshop: Cloud Native","Closing Remarks"], type:string)
+)
+
+speakers = Card(Heading("Speakers", h3), speakersTable)
+
+speakersTable = Table(
+  Col("Speaker", data:["Dr. Alice Smith","Mr. Bob Lee","Prof. Carol Nguyen"], type:string),
+  Col("Topic", data:["Future of AI","Blockchain in Finance","Sustainable Tech"], type:string)
+)
+
+tickets = Card(Heading("Ticket Tiers", h3), ticketsTable)
+
+ticketsTable = Table(
+  Col("Tier", data:["Standard","Premium","VIP"], type:string),
+  Col("Price", data:["$199","$349","$599"], type:string)
+)
+
+register = Card(Heading("Register", h3), registrationForm)
+
+registrationForm = Form("event-register", registerButtons,
+  nameControl,
+  emailControl
+)
+
+nameControl = FormControl("Full Name", Input("full_name", placeholder:"Your name"))
+emailControl = FormControl("Email", Input("email", placeholder:"you@example.com", type:email))
+
+registerButtons = Buttons(Button("Submit", primary))
+
+countdown = Card(Callout(variant:info, title:"Countdown", description:"3 days remaining until the event"))

@@ -1,0 +1,1 @@
+root = Row(children:[Text("a"), Text("b")], Text("c"), style:{pad:4})

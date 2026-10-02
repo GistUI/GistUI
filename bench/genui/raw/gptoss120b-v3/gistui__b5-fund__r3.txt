@@ -1,0 +1,76 @@
+root = Card(portfolioHeader, pnlCard, positionsCard, exposureCard, varCard, gainersLosersCard, watchlistCard, ordersCard, marginCard, headlinesCard, econReleasesCard, strategiesCard, drawdownCard, riskLimitsCard, actionsCard, timeframeSelect, clear)
+
+portfolioHeader = CardHeader("Portfolio Value", "$12.4M")
+pnlCard = Card(Heading("Profit & Loss Today", h3), TextContent("$145,300", size:large), sunk)
+
+positionsCard = Card(Heading("Positions", h3), positionsTable, sunk)
+positionsTable = |Ticker|Size|Entry|Current
+|AAPL|120|$150.00|$158.20
+|MSFT|80|$280.00|$275.50
+|TSLA|50|$720.00|$735.10
+|AMZN|30|$3,300.00|$3,350.00
+
+exposureCard = Card(Heading("Exposure by Sector", h3), HorizontalBarChart(sectorLabels, sectorSeries, variant:grouped, xLabel:"Exposure ($M)", yLabel:"Sector"))
+sectorLabels = ["Technology","Consumer Discretionary","Healthcare","Financials","Energy"]
+sectorSeries = Series("Exposure", values:[3.2,2.1,1.5,0.9,0.7])
+
+varCard = Card(Heading("Value at Risk (VaR)", h3), TextContent("$210,000", size:large), sunk)
+
+gainersLosersCard = Card(Heading("Today's Biggest Gainers & Losers", h3), Table(gainersCol, losersCol))
+gainersCol = Col("Gainer", data:["NVDA (+3.2%)","AMD (+2.9%)","INTC (+2.5%)"], type:string)
+losersCol = Col("Loser", data:["IBM (-2.1%)","GE (-1.8%)","F (-1.5%)"], type:string)
+
+watchlistCard = Card(Heading("Watchlist", h3), Table(watchTickerCol, watchPriceCol))
+watchTickerCol = Col("Ticker", data:["NFLX","BABA","UBER"], type:string)
+watchPriceCol = Col("Price", data:["$540.00","$115.30","$42.10"], type:string)
+
+ordersCard = Card(Heading("Working Orders", h3), Table(orderIdCol, orderSideCol, orderQtyCol, orderStatusCol))
+orderIdCol = Col("Order ID", data:["#1023","#1024","#1025"], type:string)
+orderSideCol = Col("Side", data:["Buy","Sell","Buy"], type:string)
+orderQtyCol = Col("Qty", data:["100","50","200"], type:string)
+orderStatusCol = Col("Status", data:["Pending","Pending","Pending"], type:string)
+
+marginCard = Card(Heading("Margin in Use", h3), TextContent("68%", size:large), sunk)
+
+headlinesCard = Card(Heading("Market Headlines", h3), Table(headlineCol, sentimentCol))
+headlineCol = Col("Headline", data:["Fed signals rate hold","Tech earnings beat expectations","Oil prices dip"], type:string)
+sentimentCol = Col("Sentiment", data:["Neutral","Positive","Negative"], type:string)
+
+econReleasesCard = Card(Heading("Economic Releases This Week", h3), Table(econDateCol, econEventCol, econImpactCol))
+econDateCol = Col("Date", data:["Mon 09/30","Tue 10/01","Wed 10/02"], type:string)
+econEventCol = Col("Event", data:["CPI Release","Manufacturing PMI","Jobless Claims"], type:string)
+econImpactCol = Col("Impact", data:["High","Medium","Low"], type:string)
+
+strategiesCard = Card(Heading("Strategy Returns YTD", h3), BarChart(strategyLabels, strategySeries, variant:grouped, xLabel:"Return (%)", yLabel:"Strategy"))
+strategyLabels = ["Trend","Mean Reversion","Arbitrage","Macro"]
+strategySeries = Series("Return", values:[12.5,8.3,5.0,3.7])
+
+drawdownCard = Card(Heading("Drawdown Past Year", h3), LineChart(drawdownLabels, drawdownSeries, variant:linear, xLabel:"Month", yLabel:"Drawdown (%)"))
+drawdownLabels = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+drawdownSeries = Series("Drawdown", values:[-2.1,-3.4,-4.0,-5.2,-3.8,-2.5,-1.9,-2.2,-3.0,-4.5,-5.0,-4.3])
+
+riskLimitsCard = Card(Heading("Risk Limits Near Breach", h3), Table(limitTypeCol, currentCol, limitCol))
+limitTypeCol = Col("Limit", data:["Sector Exposure","VaR","Margin"], type:string)
+currentCol = Col("Current", data:["$3.2M","$210k","68%"], type:string)
+limitCol = Col("Threshold", data:["$3.5M","$250k","75%"], type:string)
+
+actionsCard = Card(Heading("Actions", h3), Buttons(rebalanceButton, placeOrderButton, direction:row))
+rebalanceButton = Button("Rebalance", primary)
+placeOrderButton = Button("Place Order", primary)
+
+timeframeSelect = Select("timeframe", SelectItem("1D","1 Day"), SelectItem("1W","1 Week"), SelectItem("1M","1 Month"), placeholder:"Select timeframe", value:"1D", size:small)
+
+# Form for rebalance (simplified)
+rebalanceForm = Form("rebalance", rebalanceButtons, rebalancePctField)
+rebalancePctField = FormControl("Rebalance %", Input("reb_pct", "10", type:number))
+rebalanceButtons = Buttons(Button("Execute", primary), Button("Cancel", tertiary))
+
+# Form for placing an order
+orderForm = Form("new-order", orderFormButtons, tickerField, sideField, qtyField)
+tickerField = FormControl("Ticker", Input("ticker", "AAPL"))
+sideField = FormControl("Side", Select("side", SelectItem("buy","Buy"), SelectItem("sell","Sell"), placeholder:"Select side", value:"buy"))
+qtyField = FormControl("Quantity", Input("qty", "100", type:number))
+orderFormButtons = Buttons(Button("Submit Order", primary), Button("Cancel", tertiary))
+
+# Include forms in actions card
+actionsCard = Card(Heading("Actions", h3), rebalanceForm, orderForm, Buttons(rebalanceButton, placeOrderButton, direction:row))

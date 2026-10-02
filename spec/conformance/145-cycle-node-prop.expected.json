@@ -1,0 +1,34 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Panel",
+        "props": {
+          "header": {
+            "type": "Panel"
+          }
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "x"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "cycle",
+      "severity": "error",
+      "stmt": "a",
+      "line": 3,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": true
+  }
+}

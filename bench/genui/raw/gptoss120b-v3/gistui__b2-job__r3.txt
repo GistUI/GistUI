@@ -1,0 +1,29 @@
+root = Card(cardHeader, description, qualifications, salaryTag, applyForm, shareButtons)
+
+cardHeader = CardHeader("Senior Product Designer", "Design Team")
+
+description = TextContent("We are looking for a creative senior product designer to lead the visual and interaction design of our next generation of web applications. You will work closely with product managers and engineers to craft intuitive user experiences.", size:default)
+
+qualifications = ListBlock(
+  ListItem("5+ years of product design experience"),
+  ListItem("Strong portfolio showcasing UI/UX work"),
+  ListItem("Proficiency with Figma, Sketch, or Adobe XD"),
+  ListItem("Experience conducting user research and testing"),
+  ListItem("Excellent communication and collaboration skills")
+, variant:number)
+
+salaryTag = Tag("Salary: $90k‑$110k", variant:info)
+
+applyForm = Form("apply", formButtons,
+  nameField,
+  emailField,
+  resumeField
+)
+
+nameField = FormControl("Full name", Input("name", "Your name"))
+emailField = FormControl("Email address", Input("email", "you@example.com", type:email))
+resumeField = FormControl("Resume URL", Input("resume", "https://", type:url))
+
+formButtons = Buttons(Button("Apply now", primary), Button("Cancel", tertiary))
+
+shareButtons = Buttons(Button("Share on LinkedIn"), Button("Copy link"))

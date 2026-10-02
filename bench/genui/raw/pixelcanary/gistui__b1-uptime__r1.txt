@@ -1,0 +1,5 @@
+
+
+root = Card(CardHeader("Platform status", "API uptime and most recent incident"), uptimeSection, incidentSection)
+uptimeSection = Card(Heading("Current API uptime this month", h3), Progress(99.98, label:"99.98% uptime"), TextContent("Measured from June 1 to June 15, 2026. Target: 99.90%.", small), sunk)
+incidentSection = Card(Heading("Most recent incident", h3), Callout(info, "Elevated API latency", "The API experienced elevated latency on June 12, 2026. The issue was resolved at 14:32 UTC."))

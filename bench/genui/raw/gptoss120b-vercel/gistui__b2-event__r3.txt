@@ -1,0 +1,41 @@
+root = Card(headerSection, countdownSection, agendaSection, speakersSection, ticketsSection, registerSection, gap:m)
+
+headerSection = Card(CardHeader("Tech Innovators Conference 2024", "June 15-17, 2024 • Silicon Valley Convention Center"))
+
+countdownSection = Card(Callout(variant:info, "Countdown", "45 days left until the conference"))
+
+agendaSection = Card(Heading("Agenda", h3), agendaTable)
+
+speakersSection = Card(Heading("Speakers", h3), speakersList)
+
+ticketsSection = Card(Heading("Ticket Tiers", h3), ticketsTable)
+
+registerSection = Card(Heading("Register", h3), registerForm)
+
+registerForm = Form("register", formButtons, nameField, emailField)
+
+nameField = FormControl("Full name", Input("name", "Your Name"))
+
+emailField = FormControl("Email", Input("email", "you@example.com", type:email))
+
+formButtons = Buttons(Button("Register", primary))
+
+agendaTable = Table(timeCol, sessionCol)
+
+timeCol = Col("Time", data:["09:00 AM","10:00 AM","11:30 AM","13:00 PM","14:00 PM","16:00 PM"], type:string)
+
+sessionCol = Col("Session", data:["Opening Remarks","Keynote: Future of AI","Panel: Ethics","Lunch Break","Workshop: ML Hands-on","Closing"], type:string)
+
+speakersList = ListBlock(speaker1, speaker2, speaker3, variant:number)
+
+speaker1 = ListItem("Dr. Alice Smith", "AI Researcher, OpenAI")
+
+speaker2 = ListItem("Mr. Bob Johnson", "CTO, TechCorp")
+
+speaker3 = ListItem("Ms. Carol Lee", "Founder, StartupX")
+
+ticketsTable = Table(tierCol, priceCol)
+
+tierCol = Col("Tier", data:["Standard","Premium","VIP"], type:string)
+
+priceCol = Col("Price", data:["$99","$199","$299"], type:string)

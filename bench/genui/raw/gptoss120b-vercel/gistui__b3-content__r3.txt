@@ -1,0 +1,72 @@
+root = Card(CardHeader("Editor Content Studio"), draftsSection, publishedSection, topArticleSection, readershipChart, filterSection, scheduleForm, commentsSection, newDraftButton)
+
+draftsSection = Card(Heading("Drafts", h2), draftsTable)
+
+draftsTable = |Title|Status
+|"Exploring AI"*|Draft
+|"Design Systems"*|Review
+|"Weekly Roundup"*|Pending
+
+publishedSection = Card(Heading("Published This Week", h2), publishedTable)
+
+publishedTable = |Title|Published Date
+|"AI Trends"*|2024-09-23
+|"Design Tips"*|2024-09-22
+|"Market Insights"*|2024-09-20
+
+topArticleSection = Card(Heading("Most‑Read Article This Month", h2), CardHeader("AI Trends", "12,345 reads"))
+
+readershipChart = Card(Heading("Readership (Last 30 Days)", h2), LineChart(readershipRows, natural, xLabel:"Date", yLabel:"Views"))
+
+readershipRows = |Date|Views
+|2024‑08‑31|850
+|2024‑09‑01|920
+|2024‑09‑02|880
+|2024‑09‑03|1020
+|2024‑09‑04|970
+|2024‑09‑05|1100
+|2024‑09‑06|1150
+|2024‑09‑07|1080
+|2024‑09‑08|1120
+|2024‑09‑09|1190
+|2024‑09‑10|1230
+|2024‑09‑11|1170
+|2024‑09‑12|1250
+|2024‑09‑13|1300
+|2024‑09‑14|1280
+|2024‑09‑15|1350
+|2024‑09‑16|1400
+|2024‑09‑17|1380
+|2024‑09‑18|1450
+|2024‑09‑19|1500
+|2024‑09‑20|1480
+|2024‑09‑21|1520
+|2024‑09‑22|1550
+|2024‑09‑23|1580
+|2024‑09‑24|1600
+|2024‑09‑25|1620
+|2024‑09‑26|1650
+|2024‑09‑27|1680
+|2024‑09‑28|1700
+|2024‑09‑29|1725
+|2024‑09‑30|1750
+
+filterSection = Card(Heading("Filter by Category", h2), categorySelect)
+
+categorySelect = Select("category", SelectItem("tech", "Tech"), SelectItem("design", "Design"), SelectItem("business", "Business"), placeholder:"All categories", value:"", size:medium)
+
+scheduleForm = Card(Heading("Schedule a Piece", h2), Form("schedule-piece", scheduleButtons, titleField, dateField))
+
+titleField = FormControl("Title", Input("title", "Enter title"))
+
+dateField = FormControl("Publish Date", Input("publish_date", "YYYY‑MM‑DD", type:date))
+
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+commentsSection = Card(Heading("Comments Awaiting Reply", h2), commentsTable)
+
+commentsTable = |Article|Commenter|Excerpt|Date
+|"AI Trends"*|Jane Doe|"...great insights!"*|2024‑09‑28
+|"Design Tips"*|John Smith|"...could you elaborate?"*|2024‑09‑27
+
+newDraftButton = Card(Buttons(Button("New Draft", primary)))

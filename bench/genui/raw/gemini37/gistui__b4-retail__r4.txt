@@ -1,0 +1,88 @@
+root = Card(headerRow, topMetrics, tabsContainer)
+headerRow = Card(CardHeader("Store Manager Console", "Store #104 - Downtown Flagship • Live Floor Overview"), storeSelectorDrawer, direction:row, justify:between, align:center)
+storeSelectorDrawer = DrawerBlock("Switch Store", "Select Location", storeSelectorContent, description:"Switch the current console view to another retail store location in your district.")
+storeSelectorContent = Card(storeSelectForm)
+storeSelectForm = Form("switch-store", storeButtons, storeField)
+storeField = FormControl("Target Store Location", storeOptions, "Real-time sync will reload for the selected branch.")
+storeOptions = Select("store_id", SelectItem("101", "Store #101 - West End Mall"), SelectItem("102", "Store #102 - Uptown Galleria"), SelectItem("103", "Store #103 - Metro Center"), SelectItem("104", "Store #104 - Downtown Flagship"), SelectItem("105", "Store #105 - Airport Terminal B"), placeholder:"Choose location", value:"104")
+storeButtons = Buttons(Button("Switch View", primary))
+
+topMetrics = Card(salesProgressCard, basketSizeCard, returnsCard, registersCard, direction:row, gap:m)
+salesProgressCard = Card(Heading("Sales Today vs Target", h4), TextContent("### $14,280 / $18,500\n**77.2%** of daily goal ($4,220 remaining)", large), Progress(77, "Daily Target Progress"), Tag("On Track", success), sunk)
+basketSizeCard = Card(Heading("Average Basket Size", h4), TextContent("### $64.50\n**+5.8%** vs yesterday\nAvg items/basket: **3.4 units**", large), Tag("Basket Value Up", info), sunk)
+returnsCard = Card(Heading("Returns This Week", h4), TextContent("### 38 items ($1,840)\n**2.1%** of gross sales\n-0.4% lower vs prior week", large), Tag("Healthy Rate", success), sunk)
+registersCard = Card(Heading("Point of Sale Registers", h4), Table(registersTable), sunk)
+
+registersTable = |Register|Cashier|Status
+|POS 01 - Main|Sarah Jenkins|Open
+|POS 02 - Express|Marcus Chen|Open
+|POS 03 - Main|Elena Rodriguez|Open
+|POS 04 - Express|Unassigned|Closed
+|POS 05 - Returns|David Kim|Open
+
+tabsContainer = Tabs(overviewTab, inventoryTab, staffPromosTab)
+
+overviewTab = TabItem("overview", "Floor & Trends", overviewGrid)
+overviewGrid = Card(trafficSection, weeklyCompSection, direction:column, gap:m)
+trafficSection = Card(Heading("Foot Traffic Through the Day (Hourly Visitors)", h3), LineChart(trafficTable, natural, xLabel:"Hour", yLabel:"Visitors"), sunk)
+trafficTable = |Hour|Today|Yesterday
+|08:00|35|28
+|10:00|110|95
+|12:00|245|210
+|14:00|190|180
+|16:00|280|250
+|18:00|320|290
+|20:00|140|125
+
+weeklyCompSection = Card(Heading("This Week vs Last Week Performance", h3), BarChart(weekComparisonTable, grouped, xLabel:"Day", yLabel:"Sales ($)"), sunk)
+weekComparisonTable = |Day|This Week|Last Week
+|Mon|12400|11800
+|Tue|13100|12600
+|Wed|14500|13900
+|Thu|15200|14800
+|Fri|18900|17400
+|Sat|22400|21100
+|Sun|14280|13500
+
+inventoryTab = TabItem("inventory", "Inventory & Reorder", inventoryGrid)
+inventoryGrid = Card(bestSellersCard, outOfStockCard, reorderActionCard, direction:column, gap:m)
+bestSellersCard = Card(Heading("Best Sellers Today (Units Sold)", h3), Table(bestSellersTable), sunk)
+bestSellersTable = |SKU|Product Name|Units Sold:n|Total Revenue
+|SKU-8821|Organic Roast Coffee Beans 1kg|84|$1,848.00
+|SKU-4410|Artisan Sourdough Loaf|72|$576.00
+|SKU-1092|Single-Origin Chocolate Bar|65|$389.35
+|SKU-7734|Cold Brew Concentrate 32oz|58|$869.42
+|SKU-3129|Eco Canvas Shopping Tote|44|$352.00
+
+outOfStockCard = Card(Heading("Items Out of Stock (Urgent Attention)", h3), Alert("Restock Alert", "3 critical items reached zero floor quantity today. Immediate vendor or warehouse reorder required.", destructive), Table(outOfStockTable), sunk)
+outOfStockTable = |SKU|Product Name|Category|Out Since|Restock ETA
+|SKU-2041|Almond Milk Barista Edition|Dairy Alternatives|09:30 AM|Tomorrow 8 AM
+|SKU-5832|Vanilla Bean Syrup 750ml|Beverage Supplies|11:15 AM|Warehouse Transfer
+|SKU-9904|Matcha Green Tea Powder 250g|Specialty Teas|01:00 PM|Supplier Out
+
+reorderActionCard = Card(Heading("Quick Item Reorder", h4), reorderForm, sunk)
+reorderForm = Form("quick-reorder", reorderButtons, itemSelectField, qtyField, supplierField)
+itemSelectField = FormControl("Select Item to Reorder", itemSelect)
+itemSelect = Select("reorder_sku", SelectItem("SKU-2041", "SKU-2041: Almond Milk Barista Edition (Stock: 0)"), SelectItem("SKU-5832", "SKU-5832: Vanilla Bean Syrup 750ml (Stock: 0)"), SelectItem("SKU-9904", "SKU-9904: Matcha Green Tea Powder 250g (Stock: 0)"), SelectItem("SKU-8821", "SKU-8821: Organic Roast Coffee Beans 1kg (Stock: 14)"), placeholder:"Select out-of-stock or low SKU")
+qtyField = FormControl("Reorder Quantity (Cases)", Input("reorder_qty", "e.g. 10", type:number))
+supplierField = FormControl("Priority Delivery Channel", priorityRadio)
+priorityRadio = RadioGroup("delivery_type", RadioItem("Express DC Transfer", "Delivers in 6 hours from regional DC", "dc_express"), RadioItem("Direct Supplier Order", "Standard 2-day vendor restock", "vendor_std"), defaultValue:"dc_express")
+reorderButtons = Buttons(Button("Submit Reorder", primary), Button("Check Central Warehouse Stock", secondary))
+
+staffPromosTab = TabItem("staff-promos", "Staff & Active Promotions", staffPromosGrid)
+staffPromosGrid = Card(staffShiftCard, promoCard, direction:column, gap:m)
+staffShiftCard = Card(Heading("Team On Shift Today", h3), Table(shiftTable), sunk)
+shiftTable = |Staff Member|Role|Shift Window|Section Assigned|Contact
+|Sarah Jenkins|Head Cashier|07:30 - 15:30|Registers & Front|Ext. 101
+|Marcus Chen|Cashier|08:00 - 16:00|Registers|Ext. 102
+|Elena Rodriguez|Floor Associate|09:00 - 17:00|Aisles 1-4 & Restock|Ext. 105
+|David Kim|Customer Service Lead|08:00 - 16:30|Returns & Inquiries|Ext. 108
+|Aisha Patel|Assistant Store Mgr|11:00 - 19:30|Floor Management|Ext. 110
+|Liam O'Connor|Inventory Specialist|06:00 - 14:00|Backroom & Receiving|Ext. 112
+
+promoCard = Card(Heading("Active Running Promotions Performance", h3), Table(promotionsTable), sunk)
+promotionsTable = |Promotion Campaign|Discount Offer|Uses Today:n|Promo Rev:n|Conversion vs Target
+|Morning Brew & Pastry Bundle|20% Off Pastry w/ Coffee|142|$1,245.00|118% (Target Exceeded)
+|Spring Snack BOGO|Buy 1 Get 1 50% Off|89|$980.50|94% (On Track)
+|Loyalty Double Points|2x Points on Organics|215|$3,620.00|143% (High Engagement)
+|Afternoon Tea Combo|15% Off Teas after 2 PM|34|$410.00|68% (Needs Signage Push)

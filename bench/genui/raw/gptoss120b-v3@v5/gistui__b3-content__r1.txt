@@ -1,0 +1,58 @@
+root = Card(header, filterSection, draftsSection, publishedSection, mostReadSection, readershipSection, scheduleSection, commentsSection, newDraftButton)
+
+header = CardHeader("Editor Content Studio")
+
+filterSection = Card(Heading("Filter by category", h3), categorySelect)
+
+categorySelect = Select("category_filter", SelectItem("all","All"), SelectItem("news","News"), SelectItem("opinion","Opinion"), SelectItem("features","Features"), placeholder:"Select category")
+
+draftsSection = Card(Heading("Drafts", h3), draftsTable)
+
+draftsTable = Table(draftsCol1, draftsCol2, draftsCol3)
+
+draftsCol1 = Col("Title", data:["Draft 1","Draft 2"], type:string)
+
+draftsCol2 = Col("Category", data:["News","Opinion"], type:string)
+
+draftsCol3 = Col("Status", data:["In review","Needs edit"], type:string)
+
+publishedSection = Card(Heading("Published This Week", h3), publishedTable)
+
+publishedTable = Table(pubCol1, pubCol2)
+
+pubCol1 = Col("Title", data:["Article A","Article B"], type:string)
+
+pubCol2 = Col("Date", data:["2024-09-20","2024-09-22"], type:string)
+
+mostReadSection = Card(Heading("Most-Read Article This Month", h3), CardHeader("The Big Story", "1.2M reads"))
+
+readershipSection = Card(Heading("Readership (Last 30 Days)", h3), readershipChart)
+
+readershipChart = LineChart(readershipRows, linear, xLabel:"Date", yLabel:"Readers")
+
+readershipRows = |Date|Readers
+|2024-08-31|12000
+|2024-09-07|15000
+|2024-09-14|18000
+|2024-09-21|21000
+|2024-09-28|24000
+
+scheduleSection = Card(Heading("Schedule a Piece", h3), scheduleForm)
+
+scheduleForm = Form("schedule_piece", scheduleButtons, titleField, dateField)
+
+titleField = FormControl("Title", Input("title", placeholder:"Enter title"))
+
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single))
+
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+commentsSection = Card(Heading("Comments Awaiting Reply", h3), commentsTable)
+
+commentsTable = Table(commentCol1, commentCol2)
+
+commentCol1 = Col("Article", data:["Article A","Article B"], type:string)
+
+commentCol2 = Col("Comments", data:["5 pending","2 pending"], type:string)
+
+newDraftButton = Buttons(Button("New Draft", primary))

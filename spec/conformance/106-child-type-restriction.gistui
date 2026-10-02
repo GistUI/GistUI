@@ -1,0 +1,2 @@
+root = Stack(Tabs(a, Text("x")))
+a = Tab("T", Text("y"))

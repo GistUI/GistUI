@@ -1,0 +1,104 @@
+root = Card(overallOEE, unitsTarget, linesSection, defectChart, downtimeChart, maintenanceTable, stockTable, deliveriesTable, shiftComparison, safetySection, qualityHoldTable, energyCard, workOrdersTable, scheduleForm, focusLineCard, andonAlerts, exportButtons)
+
+overallOEE = Card(CardHeader("Overall Equipment Effectiveness", "Current OEE"), MarkDownRenderer("**OEE:** 78.5%", variant:clear))
+
+unitsTarget = Card(CardHeader("Units Produced vs Target", "Today"), HorizontalBarChart(labels:["Produced","Target"], Series("Units", values:[1200,1500]), variant:grouped, xLabel:"Units", yLabel:"Count"))
+
+linesSection = Card(CardHeader("Production Lines", "Rate & Status"), Accordion(
+    LineItem1,
+    LineItem2,
+    LineItem3,
+    LineItem4
+))
+LineItem1 = AccordionItem("line1", "Line A", TextContent("Rate: 95 units/hr\nStatus: **Running**"))
+LineItem2 = AccordionItem("line2", "Line B", TextContent("Rate: 80 units/hr\nStatus: **Idle**"))
+LineItem3 = AccordionItem("line3", "Line C", TextContent("Rate: 110 units/hr\nStatus: **Running**"))
+LineItem4 = AccordionItem("line4", "Line D", TextContent("Rate: 70 units/hr\nStatus: **Maintenance**"))
+
+defectChart = Card(CardHeader("Defect Rate", "Past Month"), LineChart(
+    |Date|DefectRate
+    |2023-08-01|2.1
+    |2023-08-08|1.8
+    |2023-08-15|2.4
+    |2023-08-22|1.9
+    |2023-08-29|2.0
+    , variant:linear, xLabel:"Week", yLabel:"% Defect"
+))
+
+downtimeChart = Card(CardHeader("Downtime by Cause", "Last Month"), PieChart(
+    ["Setup","Breakdown","Changeover","Idle"], 
+    [120, 80, 45, 30],
+    variant:donut,
+    appearance:circular
+))
+
+maintenanceTable = Card(CardHeader("Machines Due for Maintenance"), Table(
+    Col("Machine", ["M-101","M-204","M-309"], type:string),
+    Col("Due Date", ["2023-09-15","2023-09-20","2023-09-25"], type:string),
+    Col("Priority", ["High","Medium","Low"], type:string)
+))
+
+stockTable = Card(CardHeader("Current Stock"), Table(
+    Col("Material", ["Steel","Resin","Packaging"], type:string),
+    Col("Quantity", [1200, 800, 1500], type:number)
+))
+
+deliveriesTable = Card(CardHeader("Supplier Deliveries Due This Week"), Table(
+    Col("Supplier", ["Alpha Metals","Beta Polymers","Gamma Pack"], type:string),
+    Col("Material", ["Steel","Resin","Packaging"], type:string),
+    Col("Due Date", ["2023-09-12","2023-09-13","2023-09-14"], type:string)
+))
+
+shiftComparison = Card(CardHeader("Shift Output Comparison"), BarChart(
+    |Shift|Output
+    |Shift 1|3400
+    |Shift 2|3100
+    |Shift 3|3600
+    , variant:grouped, xLabel:"Shift", yLabel:"Units"
+))
+
+safetySection = Card(CardHeader("Safety Incidents", "Year to Date"), Card(
+    TextContent("Incidents: 3"),
+    TextContent("Days since last incident: 45")
+))
+
+qualityHoldTable = Card(CardHeader("Batches on Quality Hold"), Table(
+    Col("Batch ID", ["B-1001","B-1023"], type:string),
+    Col("Reason", ["Surface defect","Material variance"], type:string)
+))
+
+energyCard = Card(CardHeader("Energy Use Today"), TextContent("Energy consumed: 5,200 kWh"))
+
+workOrdersTable = Card(CardHeader("Open Work Orders"), Table(
+    Col("Order ID", ["WO-001","WO-004","WO-007"], type:string),
+    Col("Priority", ["High","Medium","High"], type:string),
+    Col("Description", ["Replace conveyor belt","Calibrate sensor","Lubricate bearings"], type:string)
+))
+
+scheduleForm = Form("schedule-maint", scheduleButtons,
+    machineField,
+    dateField
+)
+machineField = FormControl("Machine", Select("machine", 
+    SelectItem("M-101","Machine 101"),
+    SelectItem("M-204","Machine 204"),
+    SelectItem("M-309","Machine 309"),
+    placeholder:"Select machine", value:"", rules:[])
+)
+dateField = FormControl("Date", Input("date", "YYYY-MM-DD", "", type:date, rules:[]))
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+focusLineCard = Card(CardHeader("Focus on a Production Line"), Tabs(
+    focusLine1,
+    focusLine2
+))
+focusLine1 = TabItem("lineA", "Line A", TextContent("Detailed metrics for Line A..."))
+focusLine2 = TabItem("lineB", "Line B", TextContent("Detailed metrics for Line B..."))
+
+andonAlerts = Card(CardHeader("Live ANDON Alerts"), Table(
+    Col("Alert", ["Overheat","Power loss"], type:string),
+    Col("Line", ["Line C","Line D"], type:string),
+    Col("Time", ["08:15","09:02"], type:string)
+))
+
+exportButtons = Buttons(Button("Export Shift Report", primary))

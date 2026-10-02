@@ -1,0 +1,66 @@
+root = Card(headerRow, filterRow, kpiRow, mainContent, bottomRow, gap:l)
+headerRow = Card(CardHeader("Creator Studio Pro", "Cross-platform insights, scheduling, and community hub"), headerActions, direction:row, justify:between, align:center, variant:clear)
+headerActions = Buttons(schedulePostModal, Button("Sync All Channels", secondary, size:small))
+schedulePostModal = DialogBlock("Schedule Post", "Create & Schedule Cross-Platform Post", scheduleForm, description:"Draft your caption, choose target networks, and pick your optimal publish time.", triggerVariant:default)
+scheduleForm = Form("create-post", scheduleFormBtns, networkSelectField, captionField, mediaTypeField, postDateField, bestTimeAlert)
+networkSelectField = FormControl("Target Platforms", CheckBoxGroup("networks", CheckBoxItem("YouTube", "Main Channel (@alexcreates)", "yt", defaultChecked), CheckBoxItem("Instagram", "Reels & Feed (@alex.lens)", "ig", defaultChecked), CheckBoxItem("TikTok", "Shorts & Trends (@alex.tok)", "tt", defaultChecked), CheckBoxItem("X / Twitter", "Updates (@alex_dev)", "x")))
+captionField = FormControl("Caption & Tags", TextArea("caption", "Write an engaging hook, tags, and description...", rows:4))
+mediaTypeField = FormControl("Content Format", Select("format", SelectItem("video", "Vertical Video (Reels/Shorts/TikTok)"), SelectItem("carousel", "Carousel Post (IG/LinkedIn)"), SelectItem("single", "Single Image + Long text"), SelectItem("text", "Text Thread (X/Threads)"), placeholder:"Select format"))
+postDateField = FormControl("Scheduled Date & Time", DatePicker("scheduled_date", mode:single))
+bestTimeAlert = Alert("Recommended Time Detected", "Based on your historical peak engagement, 6:00 PM EST is recommended.", info)
+scheduleFormBtns = Buttons(Button("Schedule Post", primary), Button("Save as Draft", secondary))
+filterRow = Card(filterLabel, platformSelect, dateBadge, direction:row, align:center, gap:m, variant:sunk)
+filterLabel = Tag("Platform Filter", info, size:md)
+platformSelect = Select("active_platform", SelectItem("all", "All Platforms (Cross-Network Aggregated)"), SelectItem("youtube", "YouTube Only"), SelectItem("instagram", "Instagram Only"), SelectItem("tiktok", "TikTok Only"), SelectItem("twitter", "X / Twitter Only"), value:"all", placeholder:"Filter platform", size:small)
+dateBadge = Badge("Last 30 Days (Oct 1 - Oct 31)", outline)
+kpiRow = Card(kpiFollowers, kpiEngagement, kpiEarnings, kpiBestHour, direction:row, gap:m, variant:clear)
+kpiFollowers = Card(CardHeader("Total Audience", "1,248,500 followers"), Tag("+42.3k (+3.5%) past month", success, size:sm), Progress(74, "Monthly goal: 50k new"), variant:card)
+kpiEngagement = Card(CardHeader("Avg Engagement Rate", "5.82%"), Tag("+0.6% vs benchmark (5.2%)", success, size:sm), Progress(85, "Industry top 10% tier"), variant:card)
+kpiEarnings = Card(CardHeader("Earnings This Month", "$14,820.00"), Tag("+$3,210 sponsorship & rev share", success, size:sm), Progress(92, "Goal: $16,000 / mo"), variant:card)
+kpiBestHour = Card(CardHeader("Optimal Posting Time", "6:00 PM - 8:00 PM"), Tag("Peak window: Thursday 6:30 PM", info, size:sm), TextContent("Historical high: +38% first-hour views", size:small), variant:card)
+mainContent = Card(leftCol, rightCol, direction:row, gap:m, variant:clear)
+leftCol = Card(followerGrowthCard, audienceSplitCard, bestPostsCard, gap:m, variant:clear)
+followerGrowthCard = Card(CardHeader("Cross-Platform Follower Growth", "Net new follower trajectory over 30 days"), LineChart(growthData, natural, xLabel:"Week", yLabel:"Followers"), variant:card)
+growthData = |Week|YouTube|Instagram|TikTok|Twitter
+|Week 1|340000|410000|390000|66000
+|Week 2|348000|416000|402000|67200
+|Week 3|355000|422000|414000|68100
+|Week 4|362000|431000|424000|69500
+audienceSplitCard = Card(CardHeader("Audience Split by Platform", "Total 1.25M active network share"), PieChart(splitData.Platform, splitData.Followers, donut), variant:card)
+splitData = |Platform|Followers
+|Instagram|431000
+|TikTok|424000
+|YouTube|362000
+|Twitter|69500
+bestPostsCard = Card(CardHeader("Top Performing Posts This Month", "Ranked by total impressions & reach"), bestPostsTable, variant:card)
+bestPostsTable = Table(bestColTitle, bestColPlatform, bestColReach, bestColEngage, bestColStatus)
+bestColTitle = Col("Post Title / Hook", ["10 AI Tools That Save 20h/Wk", "Day in the Life: Full-time Creator", "Desk Setup 2024 Minimalist Tour", "Why I Left My Tech Job for YouTube", "Viral Editing Secret in Premiere Pro"], type:string)
+bestColPlatform = Col("Platform", ["YouTube Shorts", "Instagram Reel", "TikTok", "YouTube Long", "Instagram Reel"], type:string)
+bestColReach = Col("Reach / Views", ["482,000", "391,200", "285,400", "198,000", "164,500"], type:string)
+bestColEngage = Col("Engagement Rate", ["8.4%", "7.1%", "6.9%", "9.2%", "5.4%"], type:string)
+bestColStatus = Col("Reach Tier", ["Top 1%", "Top 5%", "Top 5%", "Top 10%", "Top 10%"], type:string)
+rightCol = Card(scheduledPostsCard, collabRequestsCard, commentsCard, gap:m, variant:clear)
+scheduledPostsCard = Card(CardHeader("Scheduled This Week", "4 items queued for auto-publishing"), scheduledList, Buttons(schedulePostModal, Button("View Calendar", secondary, size:small)), variant:card)
+scheduledList = ListBlock(schedItem1, schedItem2, schedItem3, schedItem4, variant:number)
+schedItem1 = ListItem("Mon 6:00 PM · IG Reel + TikTok", "Hook: How to scale to $10k/mo without burnout", "Queued")
+schedItem2 = ListItem("Wed 6:30 PM · YouTube Video", "Deep Dive: Ultimate Creator Tech Stack 2024", "Queued")
+schedItem3 = ListItem("Thu 6:00 PM · X / Twitter Thread", "10 lessons after 1M followers in 18 months", "Queued")
+schedItem4 = ListItem("Sat 11:00 AM · IG Carousel + Shorts", "Weekly Resource Roundup & Presets", "Drafting")
+commentsCard = Card(CardHeader("Comments Awaiting Reply", "18 urgent cross-platform comments"), commentsList, Buttons(Button("Open Unified Inbox", primary, size:small), Button("Mark All Read", tertiary, size:small)), variant:card)
+commentsList = ListBlock(commItem1, commItem2, commItem3, variant:image)
+commItem1 = ListItem("@sarah_vfx (YouTube): 'Which lens did you use for the opening shot?'", "12m ago on 'Desk Setup 2024' · 42 likes", "Reply")
+commItem2 = ListItem("@markdev (TikTok): 'Can you do a tutorial on the audio plugin setup?'", "45m ago on 'Viral Editing' · 19 likes", "Reply")
+commItem3 = ListItem("@elena.studio (Instagram): 'Are brand spots open for Q4 integration?'", "2h ago on '10 AI Tools' · 8 likes", "Reply")
+collabRequestsCard = Card(CardHeader("Pending Collaboration Requests", "3 inbound brand sponsors & guest appearances"), collabList, Buttons(Button("Review Contracts", secondary, size:small)), variant:card)
+collabList = ListBlock(collabItem1, collabItem2, collabItem3, variant:image)
+collabItem1 = ListItem("Notion App · Q4 Campaign Integration", "$4,500 offer · 1x Dedicated YT + 2x IG Reels · Due in 2 days", "Review")
+collabItem2 = ListItem("Sony Alpha Creators · Guest Podcast Invite", "Unpaid / PR Hardware Kit included · Remote recording", "Accept")
+collabItem3 = ListItem("CleanShot Pro · Affiliate + Sponsored Shorts", "$2,000 offer · 2x TikToks & Newsletter mention", "Review")
+bottomRow = Card(TextContent("Optimal Hourly Activity Matrix (Aggregated)", size:small-heavy), hourlyHeatmap, variant:sunk)
+hourlyHeatmap = BarChart(hourlyData, grouped, xLabel:"Time Slot", yLabel:"Historical Avg Engagement Rate %")
+hourlyData = |Time|Mon|Tue|Wed|Thu|Fri|Sat|Sun
+|9 AM|2.1|2.4|2.3|2.5|2.0|3.8|3.9
+|12 PM|3.4|3.8|3.9|4.1|3.7|4.5|4.2
+|3 PM|4.0|4.3|4.6|4.8|4.2|4.9|4.7
+|6 PM (Best)|6.2|6.7|7.1|7.8|6.9|6.4|6.5
+|9 PM|5.1|5.4|5.8|6.2|5.5|5.0|5.3

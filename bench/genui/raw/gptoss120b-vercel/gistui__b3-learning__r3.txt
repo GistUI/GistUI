@@ -1,0 +1,67 @@
+root = Card(header, cohortForm, activeLearners, completionRate, avgQuizScore, enrollmentChart, riskTable, engagementChart, messageDialog)
+
+header = CardHeader("Training Platform Analytics")
+
+cohortForm = Form("cohort-filter", filterButtons, cohortSelectControl)
+
+cohortSelectControl = FormControl("Cohort", cohortSelect)
+
+cohortSelect = Select("cohort", SelectItem("2023 Q1","2023 Q1"), SelectItem("2023 Q2","2023 Q2"), SelectItem("2023 Q3","2023 Q3"), placeholder:"Select cohort")
+
+filterButtons = Buttons(Button("Apply", primary))
+
+activeLearners = TextContent("Active learners this week: 1,234", size:large)
+
+completionRate = PieChart(labels:["Completed","Incomplete"], values:[78,22], variant:donut, appearance:circular)
+
+avgQuizScore = TextContent("Average quiz score: 84%", size:large)
+
+enrollmentChart = HorizontalBarChart(labels:[...], Series("Enrollments", values:[...]), variant:stacked, xLabel:"Enrollments", yLabel:"Course")
+
+riskTable = Table(riskColLearner, riskColScore)
+
+engagementChart = LineChart(labels:[...], Series("Engagement", values:[...]), variant:natural, xLabel:"Week", yLabel:"Engagement %")
+
+messageDialog = DialogBlock("Message Cohort", "Send message to cohort", messageForm, description:"Compose a brief message to the selected cohort.", triggerVariant:primary)
+
+messageForm = Form("msg-form", msgButtons, messageField)
+
+messageField = FormControl("Message", TextArea("msg", "Enter your message...", rows:5))
+
+msgButtons = Buttons(Button("Send", primary), Button("Cancel", secondary))
+
+riskColLearner = Col("Learner", data:["Alice","Bob","Charlie"], type:string)
+
+riskColScore = Col("RiskScore", data:[0.9,0.85,0.8], type:number)
+
+enrollmentRows = |Course|Enrollments
+|Course A|1200
+|Course B|950
+|Course C|800
+|Course D|600
+|Course E|450
+
+riskRows = |Learner|RiskScore
+|Alice|0.9
+|Bob|0.85
+|Charlie|0.8
+
+engagementRows = |Week|Engagement
+|W1|70
+|W2|72
+|W3|68
+|W4|75
+|W5|73
+|W6|78
+|W7|80
+|W8|77
+
+# Populate chart series using pipe tables
+enrollmentChart.labels = @each(enrollmentRows, r => r.Course)
+enrollmentChart.Series("Enrollments").values = @each(enrollmentRows, r => r.Enrollments)
+
+riskTable.riskColLearner.data = @each(riskRows, r => r.Learner)
+riskTable.riskColScore.data = @each(riskRows, r => r.RiskScore)
+
+engagementChart.labels = @each(engagementRows, r => r.Week)
+engagementChart.Series("Engagement").values = @each(engagementRows, r => r.Engagement)

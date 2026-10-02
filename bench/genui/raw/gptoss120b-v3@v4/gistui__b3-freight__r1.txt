@@ -1,0 +1,55 @@
+root = Card(searchSection, transitSection, delayedSection, ontimeSection, volumeSection, avgCostSection, weeklySection, flagSection, refreshInfo)
+
+searchSection = Card(Heading("Search Shipments", h3), searchForm)
+searchForm = Form("search", searchButtons, routeField)
+routeField = FormControl("Route", Input("route", "e.g., NY-CHI"))
+searchButtons = Buttons(Button("Search"))
+
+transitSection = Card(Heading("Shipments in Transit", h3), transitTable)
+
+delayedSection = Card(Heading("Delayed Shipments", h3), delayedCallout, delayedTable)
+delayedCallout = Callout(variant:warning, "Delayed Shipments", "5 shipments delayed")
+delayedTable = Table(delayedRows)
+
+ontimeSection = Card(Heading("On-time Delivery Rate", h3), ontimeCallout)
+ontimeCallout = Callout(variant:success, "On-time Delivery", "92% this month")
+
+volumeSection = Card(Heading("Volume Split by Carrier", h3), carrierBar)
+carrierBar = BarChart(carrierRows, variant:grouped, xLabel:"Carrier", yLabel:"Shipments")
+
+avgCostSection = Card(Heading("Average Cost per Shipment", h3), avgCostText)
+avgCostText = TextContent("Average cost per shipment: $45.20", size:default)
+
+weeklySection = Card(Heading("Weekly Volume (Last 2 Months)", h3), weeklyChart)
+weeklyChart = LineChart(weeklyRows, variant:linear, xLabel:"Week", yLabel:"Shipments")
+
+flagSection = Card(Heading("Flag a Shipment", h3), flagDialog)
+flagDialog = DialogBlock("Flag shipment", "Flag Shipment", flagForm, description:"Select a shipment to flag", triggerVariant:default)
+flagForm = Form("flag", flagFormButtons, shipmentIdField, reasonField)
+shipmentIdField = FormControl("Shipment ID", Input("shipment_id", "Enter ID"))
+reasonField = FormControl("Reason", Input("reason", "Enter reason"))
+flagFormButtons = Buttons(Button("Submit", variant:primary))
+
+refreshInfo = Card(TextContent("Data last refreshed: 2023-09-30 08:00 UTC", size:small))
+
+transitRows = |Origin|Destination|ETA|Status
+|New York|Chicago|2023-09-15|In transit
+|Los Angeles|Houston|2023-09-16|In transit
+
+delayedRows = |Origin|Destination|ETA|Status
+|Miami|Seattle|2023-09-10|Delayed
+
+carrierRows = |Carrier|Shipments
+|Carrier X|120
+|Carrier Y|80
+|Carrier Z|50
+
+weeklyRows = |Week|Shipments
+|2023-W31|200
+|2023-W32|230
+|2023-W33|210
+|2023-W34|250
+|2023-W35|260
+|2023-W36|240
+|2023-W37|270
+|2023-W38|280

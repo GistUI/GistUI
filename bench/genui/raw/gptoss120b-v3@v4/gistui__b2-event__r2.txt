@@ -1,0 +1,37 @@
+root = Card(header, days, agendaSection, speakersSection, ticketsSection, registerSection)
+
+header = CardHeader("Tech Conference 2024", "June 15‑17, San Francisco")
+
+days = TextContent("5 days left!", size:large)
+
+agendaSection = Card(Heading("Agenda", h3), agendaTable)
+
+agendaTable = |Time|Topic
+|09:00 AM|Opening Keynote
+|10:30 AM|Breakout: AI Innovations
+|12:00 PM|Lunch
+|01:30 PM|Panel: Future of Web
+|03:00 PM|Networking
+
+speakersSection = Card(Heading("Speakers", h3), speakersList)
+
+speakersList = ListBlock(
+  ListItem("Alex Johnson", "CTO at InnovateX"),
+  ListItem("Maria Lee", "AI Researcher, OpenAI"),
+  ListItem("Ravi Patel", "Founder, CloudSphere")
+ , variant:number)
+
+ticketsSection = Card(Heading("Tickets", h3), ticketsTable)
+
+colTier = Col("Tier", ["General Admission","VIP","Student"], string)
+colPrice = Col("Price", ["$99","$199","$49"], string)
+ticketsTable = Table(colTier, colPrice)
+
+registerSection = Card(Heading("Register", h3), registerForm)
+
+registerForm = Form("event-register", formButtons, nameCtrl, emailCtrl)
+
+nameCtrl = FormControl("Full name", Input("full_name", placeholder:"Your name"))
+emailCtrl = FormControl("Email", Input("email", placeholder:"you@example.com", type:email))
+
+formButtons = Buttons(Button("Register", primary))

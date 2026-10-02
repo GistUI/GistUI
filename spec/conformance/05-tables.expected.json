@@ -1,0 +1,79 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Table",
+        "props": {
+          "data": {
+            "table": [
+              "Month:s",
+              "Revenue:n",
+              "Code:s",
+              "Note:s"
+            ],
+            "rows": [
+              [
+                "Apr",
+                84500,
+                "007",
+                "a | b"
+              ],
+              [
+                "May",
+                87200.5,
+                "008",
+                null
+              ],
+              [
+                "Jun",
+                null,
+                "009",
+                "(open"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "Chart",
+        "props": {
+          "data": {
+            "table": [
+              "Month:s",
+              "Revenue:n",
+              "Code:s",
+              "Note:s"
+            ],
+            "rows": [
+              [
+                "Apr",
+                84500,
+                "007",
+                "a | b"
+              ],
+              [
+                "May",
+                87200.5,
+                "008",
+                null
+              ],
+              [
+                "Jun",
+                null,
+                "009",
+                "(open"
+              ]
+            ]
+          },
+          "type": "line"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

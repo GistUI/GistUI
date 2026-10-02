@@ -1,0 +1,21 @@
+root = Card(header, summaryAlert, searchFilterCard, inventoryTableCard, reorderAllCard, gap:m)
+header = CardHeader("Low Inventory Alerts", "Monitor stock levels, threshold triggers, and initiate supplier reorders")
+summaryAlert = Alert("Low Stock Warning", "4 items have fallen below their configured reorder thresholds. Immediate replenishment recommended.", warning)
+searchFilterCard = Card(searchForm, variant:sunk, gap:s)
+searchForm = Form("search_filter", searchButtons, searchField, categoryField)
+searchField = FormControl("Search Inventory", Input("query", "Search by item name, SKU, or supplier...", type:text))
+categoryField = FormControl("Filter Category", catSelect)
+catSelect = Select("category", SelectItem("all", "All Categories"), SelectItem("beverages", "Beverages"), SelectItem("pantry", "Pantry & Dry Goods"), SelectItem("dairy", "Dairy & Chilled"), placeholder:"Filter by category")
+searchButtons = Buttons(Button("Search", primary, size:small), Button("Reset", tertiary, size:small))
+inventoryTableCard = Card(Heading("Critical Stock Items", level:h3), stockTable, variant:card, gap:s)
+stockTable = Table(itemsData)
+reorderAllCard = Card(Heading("Quick Actions & Threshold Management", level:h3), thresholdInfo, actionsGroup, variant:sunk, gap:m)
+thresholdInfo = TextCallout("Global Warning Threshold", "Default warning is triggered when on-hand stock reaches <= 20% of maximum shelf capacity, or below custom SKU safety minimum.", variant:info)
+actionsGroup = Buttons(dialogQuickOrder, Button("Export Shortage Report", variant:secondary), Button("Adjust Threshold Rules", variant:tertiary))
+dialogQuickOrder = DialogBlock("Bulk Reorder All", "Confirm Bulk Purchase Order", dialogBody, triggerVariant:default, description:"Review low inventory items queued for supplier replenishment")
+dialogBody = Card(TextContent("You are about to issue purchase orders for **4 items** currently below safety thresholds:\n- Organic Oat Milk (50 units)\n- Arabica Coffee Beans (40 units)\n- Extra Virgin Olive Oil (30 units)\n- Almond Butter (25 units)"), Buttons(Button("Confirm & Submit Orders", primary), Button("Cancel", tertiary)), gap:s)
+itemsData = |Item & SKU|Category|Remaining Units:n|Warning Threshold:n|Stock Status|Reorder Action
+|Organic Oat Milk 1L (SKU-1082)|Beverages|4|15|Critical (26% of min)|Reorder 50 Units
+|Arabica Coffee Beans 1kg (SKU-2490)|Pantry & Dry Goods|6|20|Low (30% of min)|Reorder 40 Units
+|Extra Virgin Olive Oil 500ml (SKU-3104)|Pantry & Dry Goods|3|12|Critical (25% of min)|Reorder 30 Units
+|Almond Butter Jar 400g (SKU-4412)|Pantry & Dry Goods|5|18|Low (27% of min)|Reorder 25 Units

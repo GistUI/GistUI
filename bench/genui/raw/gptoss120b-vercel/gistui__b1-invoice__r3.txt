@@ -1,0 +1,4 @@
+root = Card(invHeader, invDetails, payButtons, clear)
+invHeader = CardHeader("Invoice", "Freelancer Services")
+invDetails = MarkDownRenderer("**Amount Due:** $1,250 USD\n**Due Date:** 2024‑10‑15", clear)
+payButtons = Buttons(Button("Pay Now", primary))

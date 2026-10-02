@@ -1,0 +1,23 @@
+root = Card(header, topKpiRow, trendCard, bottomRow, downloadCard, gap:l)
+header = CardHeader("Founder Monthly Sales Check", "Performance overview, 6-month momentum, and product breakdown")
+topKpiRow = Card(kpiRev, kpiConv, kpiGrowth, direction:row, gap:m, variant:clear)
+kpiRev = Card(TextContent("### Monthly Revenue\n**$142,850**\n+14.2% vs last month", size:large), Tag("Target Exceeded", success), sunk)
+kpiConv = Card(TextContent("### Conversion Rate\n**3.84%**\n+0.4% vs baseline", size:large), Tag("Healthy", info), sunk)
+kpiGrowth = Card(TextContent("### New Customers\n**1,240**\nAverage order $115", size:large), Tag("MoM +8%", neutral), sunk)
+trendCard = Card(Heading("6-Month Revenue Trend ($k)", h3), AreaChart(sixMonthTrend, natural, xLabel:"Month", yLabel:"Revenue ($k)"), sunk)
+bottomRow = Card(topProductsCard, downloadCardShort, direction:row, gap:m, variant:clear)
+topProductsCard = Card(Heading("Top 3 Best-Selling Products", h3), Table(topProductsTable), sunk)
+downloadCardShort = Card(Heading("Sales Health Note", h3), Callout(success, "Strong Finish", "Recurring subscriptions rose by 18%, pushing total revenue past the monthly goal of $135k."), sunk)
+downloadCard = Card(Heading("Export Data", h4), TextContent("Download comprehensive reports for accounting, pitch decks, and internal syncs."), actionButtons, sunk)
+actionButtons = Buttons(Button("Download CSV (.csv)", primary), Button("Export PDF Summary", secondary), Button("Sync to Sheets", tertiary))
+sixMonthTrend = |Month|Revenue
+|Oct|98
+|Nov|112
+|Dec|135
+|Jan|121
+|Feb|125
+|Mar|143
+topProductsTable = |Product|Units Sold:n|Revenue
+|Pro Annual License|642|$83,460
+|Starter Monthly Bundle|1120|$33,600
+|Team Add-on Seat Pack|390|$25,790

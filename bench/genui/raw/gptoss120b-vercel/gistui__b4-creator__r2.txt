@@ -1,0 +1,45 @@
+root = Card(filterSection, followerSection, engagementSection, bestPostsSection, audienceSplitSection, scheduledPostsSection, bestHourSection, commentsSection, earningsSection, collabRequestsSection, schedulePostSection)
+
+filterSection = Card(TagBlock(tags:["All","Instagram","TikTok","YouTube"]), clear)
+
+followerSection = Card(CardHeader("Followers", "Past month"), followerTable, clear)
+
+followerTable = Table(Col("Metric", data:["Followers","Growth"], type:string), Col("Value", data:["120k","+5%"], type:string))
+
+engagementSection = Card(CardHeader("Engagement Rate"), TextContent("4.2% average engagement this month", size:small), clear)
+
+bestPostsSection = Card(CardHeader("Top Posts (Reach)"), bestPostsTable, clear)
+
+bestPostsTable = Table(Col("Post", data:["Post A","Post B","Post C"], type:string), Col("Reach", data:["45k","38k","30k"], type:string))
+
+audienceSplitSection = Card(CardHeader("Audience Split by Platform"), audienceTable, clear)
+
+audienceTable = Table(Col("Platform", data:["Instagram","TikTok","YouTube"], type:string), Col("Audience", data:["60k","30k","10k"], type:string))
+
+scheduledPostsSection = Card(CardHeader("Scheduled Posts This Week"), scheduleTable, clear)
+
+scheduleTable = Table(Col("Date", data:["Mon","Tue","Wed"], type:string), Col("Time", data:["10:00","14:00","09:00"], type:string), Col("Caption", data:["Promo","Update","Behind scenes"], type:string))
+
+bestHourSection = Card(CardHeader("Best Hour to Post"), bestHourChart, clear)
+
+bestHourChart = SingleStackedBarChart(labels:["14:00"], values:[25])
+
+commentsSection = Card(CardHeader("Comments Awaiting Reply"), commentsTable, clear)
+
+commentsTable = Table(Col("Post", data:["Post A","Post B"], type:string), Col("Comments", data:["12","5"], type:number))
+
+earningsSection = Card(CardHeader("Earnings This Month"), TextContent("$2,340 earned in the last 30 days", size:large), clear)
+
+collabRequestsSection = Card(CardHeader("Pending Collaboration Requests"), collabTable, clear)
+
+collabTable = Table(Col("Creator", data:["Creator X","Creator Y"], type:string), Col("Status", data:["Pending","Pending"], type:string))
+
+schedulePostSection = Card(CardHeader("Schedule a New Post"), scheduleForm, clear)
+
+scheduleForm = Form("schedule-post", formButtons, captionField, timeField)
+
+captionField = FormControl("Caption", TextArea("caption", placeholder:"Write your caption here...", rows:4))
+
+timeField = FormControl("Post Time", DatePicker("post_time", mode:single))
+
+formButtons = Buttons(Button("Schedule", primary))

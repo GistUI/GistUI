@@ -1,0 +1,32 @@
+{
+  "tree": {
+    "type": "Plot",
+    "props": {
+      "labels": [
+        "W1",
+        "W2"
+      ],
+      "totals": [
+        10,
+        12
+      ]
+    },
+    "children": [
+      {
+        "type": "Series",
+        "props": {
+          "category": "Web",
+          "values": [
+            10,
+            12
+          ]
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

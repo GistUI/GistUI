@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gistui.com/schemas/1.0/diagnostic.schema.json",
+  "title": "GistUI diagnostic",
+  "description": "One report of a processor about a program (GistUI Format 1.0, section 22). The conformance suite writes code, severity, stmt, line and fixed.",
+  "type": "object",
+  "required": ["code", "severity"],
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "description": "Stable code from the registry (section 22.3).",
+      "enum": [
+        "prose-ignored",
+        "lenient-syntax",
+        "unterminated-string",
+        "parse-failed",
+        "limit",
+        "unsupported-version",
+        "reserved-id",
+        "unknown-component",
+        "unknown-prop",
+        "missing-required",
+        "excess-args",
+        "positional-optional",
+        "invalid-prop",
+        "invalid-enum",
+        "invalid-child",
+        "bare-text",
+        "blocked-url",
+        "unresolved-ref",
+        "cycle",
+        "patch-target-missing",
+        "no-root",
+        "unreachable"
+      ]
+    },
+    "severity": { "enum": ["error", "warning"] },
+    "stmt": { "description": "Id of the statement concerned. A state declaration is written with its $.", "type": "string", "minLength": 1 },
+    "line": { "description": "1-based line number.", "type": "integer", "minimum": 1 },
+    "fixed": { "description": "True when the processor repaired the problem and the tree shows the repair. Left out otherwise.", "type": "boolean" },
+    "message": { "description": "Text for people. Not stable.", "type": "string" },
+    "hint": { "description": "A signature or value list to show with the message.", "type": "string" },
+    "use": { "description": "The component name, enum value or child type the diagnostic is about or used instead.", "type": "string" },
+    "prop": { "description": "The prop concerned (schema name).", "type": "string" },
+    "arg": { "description": "The argument concerned: a named key, or a positional index as text.", "type": "string" },
+    "ref": { "description": "The statement id a reference diagnostic is about.", "type": "string" }
+  }
+}

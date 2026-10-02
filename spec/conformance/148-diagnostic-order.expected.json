@@ -1,0 +1,76 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "x"
+        }
+      },
+      {
+        "type": "Stat",
+        "props": {
+          "label": "only label"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "prose-ignored",
+      "severity": "warning",
+      "line": 1
+    },
+    {
+      "code": "unresolved-ref",
+      "severity": "error",
+      "stmt": "root",
+      "line": 7,
+      "fixed": true
+    },
+    {
+      "code": "missing-required",
+      "severity": "error",
+      "stmt": "b",
+      "line": 3
+    },
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "a",
+      "line": 4,
+      "fixed": true
+    },
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "a",
+      "line": 4,
+      "fixed": true
+    },
+    {
+      "code": "patch-target-missing",
+      "severity": "error",
+      "stmt": "ghost",
+      "line": 5
+    },
+    {
+      "code": "cycle",
+      "severity": "error",
+      "stmt": "root",
+      "line": 7,
+      "fixed": true
+    },
+    {
+      "code": "unreachable",
+      "severity": "warning",
+      "stmt": "spare",
+      "line": 6
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

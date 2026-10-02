@@ -1,0 +1,113 @@
+root = Card(viewersNow, mostWatched, watchTimeTrend, subsVsCancels, genrePerformance, bufferingRate, deliveryHealth, upcomingReleases, expiringLicenses, recClicksTrend, failedSearches, revenueByPlan, deviceSplit, regionFocusDialog, featureFlagsTable, promoteTitleDialog)
+
+viewersNow = Card(CardHeader("Live Viewers"), TextContent("**1,234** viewers watching right now", size:large), clear)
+
+mostWatched = Card(CardHeader("Top Titles (Hours)"), Table(mostWatchedRows), clear)
+
+mostWatchedRows = |Title|Hours
+|Show A|542
+|Show B|489
+|Show C|376
+|Show D|312
+|Show E|298
+
+watchTimeTrend = Card(CardHeader("Watch Time - Last 30 Days"), LineChart(watchTimeRows, linear, xLabel:"Date", yLabel:"Hours"), clear)
+
+watchTimeRows = |Date|Hours
+|2024-08-01|1240
+|2024-08-08|1350
+|2024-08-15|1420
+|2024-08-22|1385
+|2024-08-29|1490
+
+subsVsCancels = Card(CardHeader("Subscribers vs Cancellations"), BarChart(subCancelRows, grouped, xLabel:"Week", yLabel:"Count"), clear)
+
+subCancelRows = |Week|New Subscribers|Cancellations
+|W1|842|123
+|W2|915|98
+|W3|887|110
+|W4|932|105
+
+genrePerformance = Card(CardHeader("Performance by Genre"), HorizontalBarChart(genreLabels, Series("Hours", genreValues), stacked, xLabel:"Hours", yLabel:"Genre"), clear)
+
+genreLabels = ["Drama","Comedy","Documentary","Action","Kids"]
+genreValues = [2540,1980,1120,1760,860]
+
+bufferingRate = Card(CardHeader("Buffering Rate"), PieChart(bufferRows, donut, circular), clear)
+
+bufferRows = |Cause|Percent
+|Buffering|12
+|No Issue|88
+
+deliveryHealth = Card(CardHeader("Delivery Health by Region"), BarChart(regionHealthRows, grouped, xLabel:"Region", yLabel:"Health Score"), clear)
+
+regionHealthRows = |Region|Score
+|North America|92
+|Europe|88
+|Asia|85
+|South America|79
+|Africa|73
+
+upcomingReleases = Card(CardHeader("Releases This Month"), Table(upcomingRows), clear)
+
+upcomingRows = |Title|Release Date
+|Series X|2024-09-10
+|Movie Y|2024-09-15
+|Doc Z|2024-09-20
+
+expiringLicenses = Card(CardHeader("Licenses Expiring Soon"), Table(expiringRows), clear)
+
+expiringRows = |Title|Expiry Date
+|Show A|2024-10-01
+|Show B|2024-10-05
+|Show C|2024-10-12
+
+recClicksTrend = Card(CardHeader("Recommendation Clicks Over Time"), LineChart(recClicksRows, linear, xLabel:"Date", yLabel:"Clicks"), clear)
+
+recClicksRows = |Date|Clicks
+|2024-08-01|340
+|2024-08-08|415
+|2024-08-15|398
+|2024-08-22|452
+|2024-08-29|489
+
+failedSearches = Card(CardHeader("Searches Without Playback"), Table(searchFailRows), clear)
+
+searchFailRows = |Search Term|Count
+|"Mystery Show"|57
+|"Comedy Night"|42
+|"Sci-Fi Epic"|31
+
+revenueByPlan = Card(CardHeader("Revenue Split by Plan"), PieChart(revenuePlanRows, pie, circular), clear)
+
+revenuePlanRows = |Plan|Revenue
+|Basic|48000
+|Standard|72000
+|Premium|96000
+
+deviceSplit = Card(CardHeader("Viewing Split by Device"), PieChart(deviceRows, donut, circular), clear)
+
+deviceRows = |Device|Percent
+|Smart TV|45
+|Mobile|30
+|Web|15
+|Tablet|10
+
+regionFocusDialog = DialogBlock("Select Region", "Focus on Region", Card(CardHeader("Region Filter"), Select(regionSelect, SelectItem("NA","North America"), SelectItem("EU","Europe"), SelectItem("AS","Asia"), placeholder:"Choose region"), clear), description:"Choose a region to filter the dashboard", triggerVariant:secondary)
+
+regionSelect = Select("region", SelectItem("NA","North America"), SelectItem("EU","Europe"), SelectItem("AS","Asia"), placeholder:"Select region", value:"NA")
+
+featureFlagsTable = Card(CardHeader("Feature Flags"), Table(flagsRows), clear)
+
+flagsRows = |Feature|Enabled
+|New UI|true
+|Beta Recommendations|false
+|HD Streaming|true
+|Live Chat|false
+
+promoteTitleDialog = DialogBlock("Promote Title", "Promote to Home Screen", Card(CardHeader("Promote Title"), Form("promote-form", promoteButtons, titleField, regionField), clear), description:"Select a title and region for promotion", triggerVariant:primary)
+
+titleField = FormControl("Title", Input("title", "Enter title name"))
+regionField = FormControl("Region", Input("region", "Enter region"))
+
+promoteButtons = Buttons(Button("Promote", primary), Button("Cancel", secondary))

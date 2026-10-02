@@ -1,0 +1,30 @@
+root = Card(header, statsSection, appointmentsSection, roomsSection, nextPatientSection, actions)
+header = CardHeader("Clinic Reception", "Today's schedule")
+statsSection = Card(TextCallout("Patients expected", "12", variant:info), TextCallout("No-show rate", "8%", variant:warning))
+appointmentsSection = Card(Heading("Today's Appointments", h3), appointmentsTable)
+appointmentsTable = |Time|Patient
+|09:00|John Doe
+|09:30|Jane Smith
+|10:00|Emily Davis
+|10:30|Michael Brown
+|11:00|Sarah Wilson
+|11:30|David Lee
+|12:00|Laura Kim
+|12:30|James Patel
+|13:00|Olivia Garcia
+|13:30|Robert Martinez
+|14:00|Linda Chen
+|14:30|Thomas Nguyen
+|15:00|Barbara Clark
+|15:30|Steven Walker
+|16:00|Angela Hall
+|16:30|Kevin Young
+roomsSection = Card(Heading("Room Availability", h3), roomsTable)
+roomsTable = |Room|Status
+|101|Free
+|102|Occupied
+|103|Free
+|104|Occupied
+|105|Free
+nextPatientSection = Card(Heading("Next Patient Called", h3), TextContent("09:30 – Jane Smith", size:large))
+actions = Buttons(Button("Check In", primary), Button("Previous Day", secondary), Button("Next Day", secondary))

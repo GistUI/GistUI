@@ -1,0 +1,162 @@
+root = Card(cardHeader, districtTabs, congestionSection, transitSection, airQualitySection, energySection, waterSection, incidentsSection, vehiclesSection, parkingSection, eventsSection, reportsSection, backlogSection, weatherSection, dispatchDialog, alertDialog, roadworksSection, jobsSection, focusButtons)
+
+cardHeader = CardHeader("City Operations Center", "Real‑time dashboard")
+
+districtTabs = Tabs(districtAll, districtNorth, districtSouth, districtEast, districtWest)
+
+districtAll = TabItem("all", "All Districts", @each([], r => Card()))  # placeholder to satisfy signature
+districtNorth = TabItem("north", "North", @each([], r => Card()))
+districtSouth = TabItem("south", "South", @each([], r => Card()))
+districtEast = TabItem("east", "East", @each([], r => Card()))
+districtWest = TabItem("west", "West", @each([], r => Card()))
+
+focusButtons = Buttons(Button("Focus on District", primary), direction:row)
+
+congestionSection = Card(Heading("Current Congestion", h3), congestionChart, sunk)
+
+congestionChart = HorizontalBarChart(labels:list, Series("Congestion", values:list), variant:grouped, xLabel:"Level", yLabel:"Roads")
+congestionData = |Road|Level
+|Main St|85
+|Broadway|70
+|5th Ave|60
+
+transitSection = Card(Heading("Transit Punctuality", h3), transitChart, sunk)
+
+transitChart = BarChart(labels:list, Series("On‑time %", values:list), variant:grouped, xLabel:"Line", yLabel:"%")
+transitData = |Line|On‑time %
+|Red|92
+|Blue|88
+|Green|95
+
+airQualitySection = Card(Heading("Air Quality by District", h3), airQualityChart, sunk)
+
+airQualityChart = RadarChart(labels:list, Series("PM2.5", values:list), Series("O₃", values:list))
+airQualityData = |District|PM2.5|O₃
+|North|35|40
+|South|28|30
+|East|42|38
+|West|31|35
+
+energySection = Card(Heading("Energy Use (Last Week)", h3), energyChart, sunk)
+
+energyChart = LineChart(labels:list, Series("MWh", values:list), variant:linear, xLabel:"Day", yLabel:"MWh")
+energyData = |Day|MWh
+|Mon|1200
+|Tue|1150
+|Wed|1300
+|Thu|1250
+|Fri|1400
+|Sat|1100
+|Sun|1050
+
+waterSection = Card(Heading("Water Use Today", h3), waterChart, sunk)
+
+waterChart = BarChart(labels:list, Series("Gallons", values:list), variant:grouped, xLabel:"Zone", yLabel:"Gallons")
+waterData = |Zone|Gallons
+|North|85000
+|South|79000
+|East|82000
+|West|77000
+
+incidentsSection = Card(Heading("Open Incidents", h3), incidentsTable, sunk)
+
+incidentsTable = Table(incidentLocation, incidentSeverity, incidentStatus)
+incidentLocation = Col("Location", data:list, type:string)
+incidentSeverity = Col("Severity", data:list, type:string)
+incidentStatus = Col("Status", data:list, type:string)
+incidentsData = |Location|Severity|Status
+|5th & Main|High|Unresolved
+|Broadway 12|Medium|In progress
+|Elm St|Low|Open
+
+vehiclesSection = Card(Heading("Emergency Vehicles Deployed", h3), vehiclesTable, sunk)
+
+vehiclesTable = Table(vehicleId, vehicleType, vehicleLocation)
+vehicleId = Col("ID", data:list, type:string)
+vehicleType = Col("Type", data:list, type:string)
+vehicleLocation = Col("Location", data:list, type:string)
+vehiclesData = |ID|Type|Location
+|E01|Ambulance|North District
+|F02|Fire Truck|East District
+|P03|Police Car|Downtown
+
+parkingSection = Card(Heading("Parking Availability Downtown", h3), parkingTable, sunk)
+
+parkingTable = Table(parkingLot, spotsAvailable)
+parkingLot = Col("Lot", data:list, type:string)
+spotsAvailable = Col("Available Spots", data:list, type:number)
+parkingData = |Lot|Available Spots
+|Lot A|45
+|Lot B|12
+|Lot C|78
+
+eventsSection = Card(Heading("Public Events This Weekend", h3), eventsTable, sunk)
+
+eventsTable = Table(eventName, eventDate, eventLocation)
+eventName = Col("Event", data:list, type:string)
+eventDate = Col("Date", data:list, type:string)
+eventLocation = Col("Location", data:list, type:string)
+eventsData = |Event|Date|Location
+|Farmers Market|Sat|Main Plaza
+|Concert|Sun|Riverfront Park
+|Art Walk|Sat|Old Town
+
+reportsSection = Card(Heading("Live Citizen Reports", h3), reportsTable, sunk)
+
+reportsTable = Table(reportTime, reportTopic, reportDetail)
+reportTime = Col("Time", data:list, type:string)
+reportTopic = Col("Topic", data:list, type:string)
+reportDetail = Col("Detail", data:list, type:string)
+reportsData = |Time|Topic|Detail
+|08:15|Noise|Loud construction at 3rd St
+|09:30|Trash|Overflowing bins near park
+|10:05|Safety|Broken streetlight on 7th
+
+backlogSection = Card(Heading("Service Request Backlog", h3), backlogTable, sunk)
+
+backlogTable = Table(requestId, requestType, requestAge)
+requestId = Col("ID", data:list, type:string)
+requestType = Col("Type", data:list, type:string)
+requestAge = Col("Age (days)", data:list, type:number)
+backlogData = |ID|Type|Age (days)
+|SR102|Road repair|12
+|SR115|Tree trimming|8
+|SR130|Water leak|5
+
+weatherSection = Card(Heading("Current Weather", h3), weatherInfo, sunk)
+
+weatherInfo = MarkDownRenderer("**Temp:** 72°F\n**Condition:** Sunny\n**Wind:** 5 mph NE", variant:clear)
+
+dispatchDialog = DialogBlock("Dispatch Crew", "Dispatch Emergency Crew", dispatchForm, description:"Select crew and location", triggerVariant:primary)
+
+dispatchForm = Form("dispatch", dispatchButtons, crewSelect, locationInput)
+crewSelect = FormControl("Crew", Select("crew", SelectItem("EMS", "EMS Team"), SelectItem("Fire", "Fire Unit"), SelectItem("Police", "Police Unit"), placeholder:"Choose crew"))
+locationInput = FormControl("Location", Input("location", "Enter address"))
+dispatchButtons = Buttons(Button("Send Dispatch", primary), Button("Cancel", tertiary))
+
+alertDialog = DialogBlock("Send Public Alert", "Public Alert", alertForm, description:"Compose message to broadcast", triggerVariant:secondary)
+
+alertForm = Form("alert", alertButtons, messageInput)
+messageInput = FormControl("Message", TextArea("message", "Enter alert text...", rows:4))
+alertButtons = Buttons(Button("Send Alert", primary), Button("Cancel", tertiary))
+
+roadworksSection = Card(Heading("Planned Roadworks (This Month)", h3), roadworksTable, sunk)
+
+roadworksTable = Table(roadworkLocation, roadworkDates, roadworkImpact)
+roadworkLocation = Col("Location", data:list, type:string)
+roadworkDates = Col("Dates", data:list, type:string)
+roadworkImpact = Col("Impact", data:list, type:string)
+roadworksData = |Location|Dates|Impact
+|1st Ave|2024-10-05 to 2024-10-12|Lane closure
+|Maple St|2024-10-15 to 2024-10-20|Reduced speed
+
+jobsSection = Card(Heading("Infrastructure Maintenance Jobs Due", h3), jobsTable, sunk)
+
+jobsTable = Table(jobId, jobDescription, dueDate)
+jobId = Col("Job ID", data:list, type:string)
+jobDescription = Col("Description", data:list, type:string)
+dueDate = Col("Due Date", data:list, type:string)
+jobsData = |Job ID|Description|Due Date
+|J200|Inspect water pumps|2024-10-22
+|J215|Replace traffic lights|2024-11-01
+|J230|Check sewer lines|2024-10-30

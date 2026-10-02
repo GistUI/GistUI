@@ -1,0 +1,2 @@
+root = Row(Panel(header:Header("Inline")), Panel(header:h))
+h = Header("By reference")

@@ -1,0 +1,6 @@
+root = Row(s, n, l, t)
+s = "text"
+n = 5
+l = ["a", Text("b"), null]
+t = |a
+|1

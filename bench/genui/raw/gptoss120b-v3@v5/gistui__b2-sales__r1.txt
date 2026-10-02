@@ -1,0 +1,23 @@
+root = Card(revenueHeader, revenueChart, bestsellersTable, conversionCallout, downloadButtons)
+
+revenueHeader = CardHeader("Revenue This Month", "$123,456")
+
+revenueChart = LineChart(revenueRows, natural, xLabel:"Month", yLabel:"Revenue")
+
+bestsellersTable = Table(productCol, unitsCol)
+
+conversionCallout = TextCallout("Conversion Rate", "5.2%", variant:info)
+
+downloadButtons = Buttons(Button("Download CSV", []))
+
+revenueRows = |Month|Revenue
+|Jan|102000
+|Feb|108500
+|Mar|115200
+|Apr|119800
+|May|124300
+|Jun|130450
+
+productCol = Col("Product", ["Product A","Product B","Product C"], type:string)
+
+unitsCol = Col("Units Sold", [1200,950,800], type:number)

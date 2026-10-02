@@ -1,0 +1,29 @@
+{
+  "tree": {
+    "type": "Row",
+    "props": {
+      "gap": "lg"
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "a"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

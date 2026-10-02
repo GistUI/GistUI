@@ -1,0 +1,41 @@
+root = Card(CardHeader("Editor Content Studio"), draftsSection, publishedSection, topArticleSection, readershipChart, filterSection, scheduleForm, commentsSection, newDraftButton)
+
+draftsSection = Card(Heading("Drafts", h2), draftsTable, Card(variant:clear))
+draftsTable = |Title|Status
+|"Morning Update"|Draft
+|"Tech Trends"|Review
+|"Weekly Recap"|Pending
+
+publishedSection = Card(Heading("Published This Week", h2), publishedTable, Card(variant:clear))
+publishedTable = |Title|Published Date
+|"Summer Sale"|2024-09-24
+|"New Feature Launch"|2024-09-22
+|"Community Highlights"|2024-09-20
+
+topArticleSection = Card(Heading("Most‑Read Article This Month", h2), CardHeader("AI in 2024", "5.2k reads"), Image("AI article thumbnail", "https://picsum.photos/seed/ai2024/800/500"), Card(variant:clear))
+
+readershipChart = Card(Heading("Readership (Last 30 Days)", h2), LineChart(readershipRows, linear, xLabel:"Date", yLabel:"Views"))
+readershipRows = |Date|Views
+|2024‑08‑31|1200
+|2024‑09‑07|1580
+|2024‑09‑14|1720
+|2024‑09‑21|1900
+|2024‑09‑28|2100
+
+filterSection = Card(Heading("Filter by Category", h2), categoryFilterForm)
+categoryFilterForm = Form("category-filter", filterButtons, categorySelect)
+categorySelect = Select("category", SelectItem("news", "News"), SelectItem("features", "Features"), SelectItem("opinion", "Opinion"), placeholder:"Select category", value:"news")
+filterButtons = Buttons(Button("Apply", primary))
+
+scheduleForm = Card(Heading("Schedule a Piece", h2), scheduleFormContainer)
+scheduleFormContainer = Form("schedule-piece", scheduleButtons, titleField, dateField)
+titleField = FormControl("Title", Input("title", "Enter title"))
+dateField = FormControl("Publish date", DatePicker("pub_date", mode:single))
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", secondary))
+
+commentsSection = Card(Heading("Comments Awaiting Reply", h2), commentsTable, Card(variant:clear))
+commentsTable = |Author|Comment|Date
+|"Jane Doe"|"Great article!"|2024‑09‑28
+|"John Smith"|"I have a question about..."|2024‑09-27
+
+newDraftButton = Buttons(Button("New Draft", primary))

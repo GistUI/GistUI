@@ -20,9 +20,9 @@ interactive UI (dashboards, forms, reports, slide decks, galleries) while it str
 </p>
 
 <p>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/GistUI/gistui?style=flat-square&color=8f8cff" alt="MIT licence" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/GistUI/GistUI?style=flat-square&color=8f8cff" alt="MIT licence" /></a>
   <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.0-8f8cff?style=flat-square" alt="Version 0.1.0" /></a>
-  <a href="https://github.com/GistUI/gistui/stargazers"><img src="https://img.shields.io/github/stars/GistUI/gistui?style=flat-square&color=8f8cff" alt="GitHub stars" /></a>
+  <a href="https://github.com/GistUI/GistUI/stargazers"><img src="https://img.shields.io/github/stars/GistUI/GistUI?style=flat-square&color=8f8cff" alt="GitHub stars" /></a>
   <img src="https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="Written in strict TypeScript" />
   <img src="https://img.shields.io/badge/first_load-74_KB_gzip-8f8cff?style=flat-square" alt="First load: 74 KB gzip" />
   <a href="#develop"><img src="https://img.shields.io/badge/PRs-welcome-8f8cff?style=flat-square" alt="Pull requests welcome" /></a>

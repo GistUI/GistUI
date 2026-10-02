@@ -4,7 +4,7 @@
 #
 # Signing in to npm, one of:
 #   - a trusted publisher (no secret): on npmjs.com, in each package's settings, add GitHub Actions
-#     with organisation GistUI, repository gistui, workflow release.yml, environment npm. A package
+#     with organisation GistUI, repository GistUI, workflow release.yml, environment npm. A package
 #     must exist on npm before it can have one, so the first release needs the token below.
 #   - a repository secret NPM_TOKEN: a granular access token with read and write access to the
 #     @gistui scope, set to bypass two-factor authentication.

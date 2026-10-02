@@ -1,0 +1,12 @@
+ root = Card(header, todayCard, hourlyCard)
+header = CardHeader("Shop Overview", "Mid-morning check-in · 10:42 AM")
+todayCard = Card(CardHeader("Revenue so far today"), revenueValue, revenueCompare, sunk)
+revenueValue = TextContent("**$2,847**", large-heavy)
+revenueCompare = Callout(success, "▲ 23.2% vs yesterday", "Same time yesterday: $2,310")
+hourlyCard = Card(Heading("Hourly comparison", h3), BarChart(hourlyRows, grouped, xLabel:"Hour", yLabel:"Revenue (USD)"))
+hourlyRows = |Hour|Today|Yesterday
+|6 AM|120|90
+|7 AM|210|180
+|8 AM|380|310
+|9 AM|520|440
+|10 AM|410|360

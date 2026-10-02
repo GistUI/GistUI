@@ -1,0 +1,28 @@
+{
+  "tree": {
+    "type": "Table",
+    "props": {
+      "data": {
+        "table": [
+          "Name:s",
+          "Note:s"
+        ],
+        "rows": [
+          [
+            "O'Reilly",
+            "\"quoted\" (x # y"
+          ],
+          [
+            "[a]",
+            "{b}"
+          ]
+        ]
+      }
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

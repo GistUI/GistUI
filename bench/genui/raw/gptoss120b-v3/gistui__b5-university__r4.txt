@@ -1,0 +1,112 @@
+root = Card(header, deptSelect, enrollmentChart, applicationsChart, acceptancePie, tuitionRev, courseFullnessChart, teachingLoadChart, riskTable, scholarshipPie, housingBar, eventsList, alumniChart, semesterCompTable, waitlistChart, approveCourseDialog, messageGroupDialog, actions)
+
+header = CardHeader("University Administration Overview", "Key metrics and actions")
+
+deptSelect = Select("department", SelectItem("all", "All Departments"), SelectItem("eng", "Engineering"), SelectItem("arts", "Arts & Sciences"), SelectItem("bus", "Business"), placeholder:"Select department to focus", size:medium)
+
+enrollmentChart = LineChart(enrollmentData, linear, xLabel:"Year", yLabel:"Students")
+
+enrollmentData = |Year|Enrollment
+|2019|24500
+|2020|25200
+|2021|26000
+|2022|26750
+|2023|27500
+
+applicationsChart = BarChart(applicationsData, grouped, xLabel:"Program", yLabel:"Applications")
+
+applicationsData = |Program|Applications
+|Engineering|4200
+|Arts|3100
+|Science|3800
+|Business|2900
+|Education|1500
+
+acceptancePie = PieChart(acceptanceData, categories, values, donut, circular)
+
+acceptanceData = |Status|Count
+|Accepted|8200
+|Rejected|5300
+
+tuitionRev = TextContent("**Tuition Revenue (2023):** $1.2B", size:large)
+
+courseFullnessChart = HorizontalBarChart(courseFullnessLabels, courseFullnessSeries, grouped, xLabel:"Capacity %", yLabel:"Course")
+
+courseFullnessLabels = ["Calculus I","Intro to Psychology","World History","Data Structures","Organic Chemistry"]
+courseFullnessSeries = Series("Fullness", values:[78,85,92,66,54])
+
+teachingLoadChart = BarChart(teachingLoadData, grouped, xLabel:"Faculty", yLabel:"Courses Taught")
+
+teachingLoadData = |Faculty|Courses
+|Dr. Smith|3
+|Prof. Lee|4
+|Dr. Patel|2
+|Prof. Gomez|5
+|Dr. Chen|3
+
+riskTable = Table(riskColStudent, riskColGPA, riskColStatus)
+
+riskColStudent = Col("Student", data:["A123","B456","C789","D012"], type:string)
+riskColGPA = Col("GPA", data:[2.1,1.9,2.0,1.8], type:number)
+riskColStatus = Col("Status", data:["Probation","Probation","Probation","Probation"], type:string)
+
+scholarshipPie = PieChart(scholarshipData, categories, values, pie, circular)
+
+scholarshipData = |Source|Amount
+|Total Budget|5000000
+|Used|3200000
+
+housingBar = SingleStackedBarChart(housingLabels, housingValues)
+
+housingLabels = ["Dorm A","Dorm B","Dorm C","Dorm D"]
+housingValues = [0.88,0.75,0.92,0.67]
+
+eventsList = ListBlock(event1, event2, event3, variant:number)
+
+event1 = ListItem("Career Fair", "April 10", "Details", [])
+event2 = ListItem("Homecoming", "April 22", "Details", [])
+event3 = ListItem("Research Symposium", "April 30", "Details", [])
+
+alumniChart = LineChart(alumniData, linear, xLabel:"Year", yLabel:"Donations")
+
+alumniData = |Year|Donations
+|2020|150000
+|2021|165000
+|2022|180000
+|2023|200000
+
+semesterCompTable = Table(semColMetric, semColCurrent, semColLast)
+
+semColMetric = Col("Metric", data:["Enrollment","Applications","Revenue"], type:string)
+semColCurrent = Col("Current Semester", data:[27500,15200,1200000], type:number)
+semColLast = Col("Last Semester", data:[26000,14500,1150000], type:number)
+
+waitlistChart = BarChart(waitlistData, grouped, xLabel:"Program", yLabel:"Waitlisted Students")
+
+waitlistData = |Program|Waitlist
+|Engineering|120
+|Arts|85
+|Science|95
+|Business|60
+|Education|30
+
+approveCourseDialog = DialogBlock("Approve Course", "New Course Approval", approveForm, description:"Submit details for a new course", triggerVariant:primary)
+
+approveForm = Form("course-approval", approveButtons, courseNameField, departmentField, creditsField)
+
+courseNameField = FormControl("Course Name", Input("course_name", "Advanced AI", placeholder:"Course title"))
+departmentField = FormControl("Department", deptSelect)
+creditsField = FormControl("Credits", Input("credits", "3", type:number))
+
+approveButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+messageGroupDialog = DialogBlock("Message Group", "Send Message to Student Group", messageForm, description:"Compose and send a message", triggerVariant:secondary)
+
+messageForm = Form("group-message", messageButtons, groupSelectField, messageBodyField)
+
+groupSelectField = FormControl("Student Group", Select("group", SelectItem("freshmen","Freshmen"), SelectItem("seniors","Seniors"), placeholder:"Choose group", size:medium))
+messageBodyField = FormControl("Message", TextArea("msg_body", "Enter your message here...", rows:5))
+
+messageButtons = Buttons(Button("Send", primary), Button("Cancel", tertiary))
+
+actions = Buttons(Button("Refresh Data", primary), Button("Export Report", secondary))

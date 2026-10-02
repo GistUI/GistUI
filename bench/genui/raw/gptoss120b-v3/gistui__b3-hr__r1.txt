@@ -1,0 +1,41 @@
+root = Card(header, headcountSection, openRolesSection, pipelineSection, avgHireSection, deptSplitSection, interviewsSection, attritionSection, newRoleSection)
+header = CardHeader("Hiring Overview", "HR Lead Dashboard")
+headcountSection = Card(Heading("Current Headcount", h3), Table(headcount))
+openRolesSection = Card(Heading("Open Roles by Department", h3), Table(openRoles))
+pipelineSection = Card(Heading("Candidates by Pipeline Stage", h3), Table(pipeline))
+avgHireSection = Card(Heading("Average Time to Hire", h3), Table(avgHire))
+deptSplitSection = Card(Heading("Headcount Split by Department", h3), PieChart(labels:["Engineering","Marketing","Sales","HR"], values:[60,20,30,14], variant:donut))
+interviewsSection = Card(Heading("Interviews Scheduled This Week", h3), Table(interviews))
+attritionSection = Card(Heading("Attrition Over Past Six Months", h3), LineChart(attrition, linear, xLabel:"Month", yLabel:"%"))
+newRoleSection = Card(Heading("Actions", h3), Buttons(Button("Open New Role", primary)))
+headcount = |Metric|Count
+|Current Headcount|124
+openRoles = |Department|Open Roles
+|Engineering|3
+|Marketing|2
+|Sales|1
+pipeline = |Stage|Candidates
+|Applied|45
+|Phone Screen|30
+|Onsite|12
+|Offer|5
+avgHire = |Metric|Days
+|Average Time to Hire|42
+interviews = |Date|Interviews
+|Mon 2023-09-30|5
+|Tue 2023-10-01|4
+|Wed 2023-10-02|6
+|Thu 2023-10-03|3
+|Fri 2023-10-04|2
+attrition = |Month|Attrition%
+|Apr|1.2
+|May|1.5
+|Jun|1.0
+|Jul|0.8
+|Aug|1.3
+|Sep|1.1
+headcountDept = |Department|Count
+|Engineering|60
+|Marketing|20
+|Sales|30
+|HR|14

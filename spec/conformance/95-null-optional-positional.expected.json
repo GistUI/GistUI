@@ -1,0 +1,25 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Header",
+        "props": {
+          "title": "t"
+        }
+      },
+      {
+        "type": "Stat",
+        "props": {
+          "label": "a",
+          "value": "b"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

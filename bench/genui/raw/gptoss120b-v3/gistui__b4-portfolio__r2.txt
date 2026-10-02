@@ -1,0 +1,81 @@
+root = Card(portfolioHeader, healthSummary, quarterSelect, activeProjects, overdueMilestones, budgetChart, utilizationChart, risksTable, upcomingDeadlines, deliveryPaceChart, blockedItems, actionsCard, requestForm, archiveDialog)
+
+portfolioHeader = CardHeader("Project Portfolio Review", "Quarterly Overview")
+
+healthSummary = TextContent("Overall portfolio health is **Stable** with 85% of projects on track.", size:default)
+
+quarterSelect = Select("quarter", SelectItem("Q1", "Q1 2024"), SelectItem("Q2", "Q2 2024"), SelectItem("Q3", "Q3 2024"), SelectItem("Q4", "Q4 2024"), placeholder:"Select quarter")
+
+activeProjects = Card(Heading("Active Projects", h3), Table(projectCol, ownerCol, deadlineCol, healthCol))
+
+projectCol = Col("Project", data:["Project Alpha","Project Beta","Project Gamma"], type:string)
+ownerCol = Col("Owner", data:["Alice","Bob","Carol"], type:string)
+deadlineCol = Col("Deadline", data:["2024-09-30","2024-10-15","2024-11-01"], type:string)
+healthCol = Col("Health", data:["Good","At Risk","Good"], type:string)
+
+overdueMilestones = Card(Heading("Overdue Milestones", h3), Table(milestoneCol, projectMilestoneCol, dueCol, statusCol))
+
+milestoneCol = Col("Milestone", data:["Design Review","Beta Release","Compliance Check"], type:string)
+projectMilestoneCol = Col("Project", data:["Project Alpha","Project Beta","Project Gamma"], type:string)
+dueCol = Col("Due Date", data:["2024-08-01","2024-07-28","2024-08-05"], type:string)
+statusCol = Col("Status", data:["Overdue","Overdue","Overdue"], type:string)
+
+budgetChart = Card(Heading("Budget Spend vs Allocation", h3), BarChart(budgetTable, variant:grouped, xLabel:"Project", yLabel:"USD"))
+
+budgetTable = |Project|Allocated|Spent
+|Project Alpha|200000|150000
+|Project Beta|180000|170000
+|Project Gamma|220000|190000
+
+utilizationChart = Card(Heading("Team Utilization", h3), HorizontalBarChart(utilLabels, Series("Utilization", utilValues), variant:grouped, xLabel:"Team", yLabel:"%"))
+
+utilLabels = ["Team A","Team B","Team C"]
+utilValues = [78, 85, 65]
+
+risksTable = Card(Heading("Risks", h3), Table(riskCol, projectRiskCol, severityCol))
+
+riskCol = Col("Risk", data:["Resource Shortage","Scope Creep","Technical Debt"], type:string)
+projectRiskCol = Col("Project", data:["Project Alpha","Project Beta","Project Gamma"], type:string)
+severityCol = Col("Severity", data:["High","Medium","Low"], type:string)
+
+upcomingDeadlines = Card(Heading("Deadlines Next 2 Weeks", h3), Table(deadlineProjCol, dueDateCol))
+
+deadlineProjCol = Col("Project", data:["Project Alpha","Project Beta"], type:string)
+dueDateCol = Col("Deadline", data:["2024-09-10","2024-09-12"], type:string)
+
+deliveryPaceChart = Card(Heading("Delivery Pace (Last 6 Sprints)", h3), LineChart(paceTable, variant:linear, xLabel:"Sprint", yLabel:"Stories Completed"))
+
+paceTable = |Sprint|Completed
+|Sprint 1|45
+|Sprint 2|50
+|Sprint 3|48
+|Sprint 4|52
+|Sprint 5|47
+|Sprint 6|49
+
+blockedItems = Card(Heading("Blocked Work Items", h3), Table(itemCol, projectItemCol, reasonCol))
+
+itemCol = Col("Item", data:["Feature X","Bug Y","Integration Z"], type:string)
+projectItemCol = Col("Project", data:["Project Alpha","Project Beta","Project Gamma"], type:string)
+reasonCol = Col("Reason", data:["Dependency missing","Awaiting QA","Third‑party delay"], type:string)
+
+actionsCard = Card(Buttons(exportButton, archiveButton, direction:row))
+
+exportButton = Button("Export Review", primary)
+archiveButton = Button("Archive Project", secondary)
+
+requestForm = Form("request-more-people", requestButtons, projectSelectField, peopleNumberField)
+
+projectSelectField = FormControl("Project", Select("project", SelectItem("Project Alpha","Project Alpha"), SelectItem("Project Beta","Project Beta"), SelectItem("Project Gamma","Project Gamma"), placeholder:"Select project"))
+
+peopleNumberField = FormControl("Additional People", Input("people", "Number of people", type:number))
+
+requestButtons = Buttons(Button("Request", primary), Button("Cancel", tertiary))
+
+archiveDialog = DialogBlock("Archive", "Archive Project", CardHeader("Archive Project"), archiveForm, description:"Select a project to archive.", triggerVariant:secondary)
+
+archiveForm = Form("archive-project", archiveButtons, archiveProjectField)
+
+archiveProjectField = FormControl("Project", Select("archive_project", SelectItem("Project Alpha","Project Alpha"), SelectItem("Project Beta","Project Beta"), SelectItem("Project Gamma","Project Gamma"), placeholder:"Select project"))
+
+archiveButtons = Buttons(Button("Archive", destructive), Button("Cancel", tertiary))

@@ -1,0 +1,15 @@
+root = Card(dateHeader, updatesSection, blockedSection, missingSection, postForm, wrap)
+dateHeader = Heading("Standup – 2026-09-30", h2)
+updatesSection = Card(CardHeader("Team Updates"), updatesList)
+updatesList = ListBlock(
+  ListItem("Alice", "Working on UI components", "View", []),
+  ListItem("Bob", "Fixing API bugs", "View", []),
+  ListItem("Carol", "Designing new feature mockups", "View", [])
+)
+blockedSection = Card(Callout(blocked, "Blocked", "Bob is waiting on API access from security team"))
+missingSection = TextContent("2 teammates have not submitted their updates yet.", size:small)
+postForm = Form("standup-update", postButtons,
+  updateField
+)
+updateField = FormControl("Your update", TextArea("update", "", "", rows:4))
+postButtons = Buttons(Button("Post update", primary))

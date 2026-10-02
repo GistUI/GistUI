@@ -1,0 +1,74 @@
+root = Card(categoryFilter, draftsSection, publishedSection, mostReadSection, readershipChart, scheduleSection, commentsSection, newDraftBtn
+
+categoryFilter = Select("category", SelectItem("tech", "Tech"), SelectItem("culture", "Culture"), SelectItem("opinion", "Opinion"), placeholder:"All categories", size:small)
+
+draftsSection = Card(Heading("Drafts", h3), draftsList, sunk)
+
+draftsList = ListBlock(draft1, draft2, draft3, variant:number)
+
+draft1 = ListItem("AI Trends", "Status: Draft")
+draft2 = ListItem("Weekly Wrap", "Status: In Review")
+draft3 = ListItem("Editor’s Note", "Status: Draft")
+
+publishedSection = Card(Heading("Published This Week", h3), publishedTable, clear)
+
+publishedTable = Table(publishedColTitle, publishedColDate)
+
+publishedColTitle = Col("Title", ["AI Trends", "Weekly Wrap"], type:string)
+publishedColDate = Col("Published", ["2023-09-18", "2023-09-20"], type:string)
+
+mostReadSection = Card(Heading("Most‑Read Article This Month", h3), TextContent("**AI Trends** – 12,345 reads", size:large), clear)
+
+readershipChart = Card(Heading("Readership (Last 30 Days)", h3), LineChart(readershipRows, linear, xLabel:"Date", yLabel:"Views"), clear)
+
+readershipRows = |Date|Views
+|2023‑08‑31|1020
+|2023‑09‑01|1150
+|2023‑09‑02|980
+|2023‑09‑03|1230
+|2023‑09‑04|1100
+|2023‑09‑05|1350
+|2023‑09‑06|1400
+|2023‑09‑07|1500
+|2023‑09‑08|1600
+|2023‑09‑09|1580
+|2023‑09‑10|1620
+|2023‑09‑11|1700
+|2023‑09‑12|1750
+|2023‑09‑13|1800
+|2023‑09‑14|1850
+|2023‑09‑15|1900
+|2023‑09‑16|1950
+|2023‑09‑17|2000
+|2023‑09‑18|2100
+|2023‑09‑19|2150
+|2023‑09‑20|2200
+|2023‑09‑21|2250
+|2023‑09‑22|2300
+|2023‑09‑23|2350
+|2023‑09‑24|2400
+|2023‑09‑25|2450
+|2023‑09‑26|2500
+|2023‑09‑27|2550
+|2023‑09‑28|2600
+|2023‑09‑29|2650
+|2023‑09‑30|2700
+
+scheduleSection = Card(Heading("Schedule a Piece", h3), scheduleForm, sunk)
+
+scheduleForm = Form("schedule-piece", scheduleButtons, titleField, dateField)
+
+titleField = FormControl("Title", Input("title", "Enter article title"))
+
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single))
+
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", secondary))
+
+commentsSection = Card(Heading("Comments Awaiting Reply", h3), commentsList, clear)
+
+commentsList = ListBlock(comment1, comment2, variant:number)
+
+comment1 = ListItem("User123", "Great article on AI!", "Reply")
+comment2 = ListItem("Reader456", "Can you expand on the stats?", "Reply")
+
+newDraftBtn = Buttons(Button("New Draft", primary))

@@ -1,0 +1,29 @@
+root = Card(header, monthPicker, statsSection, expensesSection, transactionsSection, actions, downloadSection)
+
+header = CardHeader("Month‑End Finance Dashboard", "Overview of cash, burn and runway")
+
+monthPicker = Form("month-select", monthButtons, monthField)
+monthField = FormControl("Select month", DatePicker("month", mode:single, placeholder:"Choose month"))
+monthButtons = Buttons(Button("Apply", primary))
+
+statsSection = Card(Heading("Key Metrics", h3), cashCard, burnCard, runwayCard)
+
+cashCard = Card(TagBlock(["Cash on Hand"]), TextContent("$1,250,000", size:large-heavy))
+burnCard = Card(TagBlock(["Monthly Burn"]), TextContent("$120,000", size:large-heavy))
+runwayCard = Card(TagBlock(["Months of Runway"]), TextContent("10.4", size:large-heavy))
+
+expensesSection = Card(Heading("Expenses by Category", h3), expensesChart)
+
+expensesChart = PieChart(labels:["Salaries","Marketing","R&D","Operations","Misc"], values:[500000,200000,150000,250000,100000], variant:donut)
+
+transactionsSection = Card(Heading("Transactions > $10,000", h3), largeTxTable)
+
+largeTxTable = Table(
+  Col("Date", data:["2024‑09‑05","2024‑09‑12","2024‑09‑20"], type:string),
+  Col("Payee", data:["Vendor A","Vendor B","Vendor C"], type:string),
+  Col("Amount", data:[15000,12000,18000], type:number)
+)
+
+actions = Buttons(Button("Change Month", primary), Button("Refresh", secondary))
+
+downloadSection = Card(Heading("Statement", h3), Buttons(Button("Download CSV", primary)))

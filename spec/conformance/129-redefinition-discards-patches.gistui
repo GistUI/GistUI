@@ -1,0 +1,6 @@
+root = Row(a)
+a = Stat("l", "v")
+a.delta = "+1"
+root += Text("extra")
+a = Stat("new", "v2")
+root = Row(a, wrap)

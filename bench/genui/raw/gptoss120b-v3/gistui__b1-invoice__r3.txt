@@ -1,0 +1,5 @@
+root = Card(header, amountSection, dueSection, actions)
+header = CardHeader("Invoice", "Freelancer Services")
+amountSection = Card(TextContent("**Amount Due:** $1,250 USD", size:large), TagBlock(tags:["USD"]))
+dueSection = Card(TextContent("**Due Date:** September 30, 2026"))
+actions = Buttons(Button("Pay Now", variant:primary, size:large))

@@ -1,0 +1,97 @@
+root = Card(header, topBar, kpiGrid, tabsView)
+header = CardHeader("University Executive Administration Portal", "Academic Year 2024–2025 • Fall Semester Overview & Operations")
+topBar = Card(filterRow, quickActions, direction:row, justify:between, align:center, variant:clear)
+filterRow = Card(deptSelectControl, semesterBadge, direction:row, gap:m, align:center, variant:clear)
+deptSelectControl = Select("dept_filter", SelectItem("all", "All Departments (University-wide)"), SelectItem("cs", "Computer Science & Engineering"), SelectItem("bus", "School of Business"), SelectItem("bio", "Biological Sciences"), SelectItem("hum", "Humanities & Arts"), SelectItem("health", "Health Sciences"), placeholder:"Filter Department", value:"all", size:small)
+semesterBadge = Badge("Fall 2024 vs Spring 2024: +4.2% Overall Growth", variant:secondary)
+quickActions = Buttons(courseModal, messageModal, direction:row)
+courseModal = DialogBlock("Approve New Course", "Curriculum Approval Request", courseApprovalForm, description:"Review and authorize new curriculum proposals for upcoming term", triggerVariant:default)
+courseApprovalForm = Form("course-approval", courseFormBtns, cCodeField, cNameField, cDeptField, cCreditsField)
+cCodeField = FormControl("Course Code", Input("code", "e.g., CS-480"))
+cNameField = FormControl("Course Title", Input("title", "e.g., Advanced Deep Learning"))
+cDeptField = FormControl("Department", Select("dept", SelectItem("cs", "Computer Science"), SelectItem("bus", "Business"), SelectItem("bio", "Biology"), placeholder:"Select department"))
+cCreditsField = FormControl("Credit Hours", Input("credits", "3", number))
+courseFormBtns = Buttons(Button("Approve & Publish Course", primary), Button("Send Back for Revision", secondary))
+messageModal = DialogBlock("Message Student Group", "Broadcast Student Communication", studentMsgForm, description:"Dispatch targeted email or SMS announcements to cohorts", triggerVariant:outline)
+studentMsgForm = Form("student-msg", msgFormBtns, cohortField, channelField, msgSubjectField, msgBodyField)
+cohortField = FormControl("Recipient Group", Select("cohort", SelectItem("all", "All Undergraduates & Graduates"), SelectItem("at_risk", "Academic Alert / At-Risk Cohort"), SelectItem("waitlist", "Course Waitlisted Students"), SelectItem("seniors", "Graduating Seniors 2025"), placeholder:"Select target group"))
+channelField = FormControl("Delivery Channel", RadioGroup("channel", RadioItem("Email", "Official institutional email", "email"), RadioItem("Portal & SMS", "Urgent campus broadcast", "sms"), defaultValue:"email"))
+msgSubjectField = FormControl("Subject", Input("subject", "Important notice regarding academic schedules"))
+msgBodyField = FormControl("Message Body", TextArea("body", "Type your announcement here...", rows:4))
+msgFormBtns = Buttons(Button("Send Broadcast", primary), Button("Save Draft", tertiary))
+kpiGrid = Card(kpiCard1, kpiCard2, kpiCard3, kpiCard4, kpiCard5, direction:row, gap:m, wrap)
+kpiCard1 = Card(Heading("Total Enrollment", h4), TextContent("### 18,420"), Tag("+5.1% YoY", success, size:sm), TextContent("vs 17,678 last spring", size:small), variant:sunk)
+kpiCard2 = Card(Heading("Acceptance Rate", h4), TextContent("### 28.4%"), Tag("-1.2% selective", info, size:sm), TextContent("Yield rate: 64.2%", size:small), variant:sunk)
+kpiCard3 = Card(Heading("Tuition Revenue (YTD)", h4), TextContent("### $142.8M"), Tag("On budget", success, size:sm), TextContent("Goal: $140.0M (102%)", size:small), variant:sunk)
+kpiCard4 = Card(Heading("Scholarship Budget", h4), TextContent("### $32.4M / $38.0M"), Progress(85, "85.3% committed"), TextContent("$5.6M remaining for Spring", size:small), variant:sunk)
+kpiCard5 = Card(Heading("Housing Occupancy", h4), TextContent("### 96.8%"), Progress(97, "4,646 / 4,800 beds"), Tag("Near Capacity", warning, size:sm), variant:sunk)
+tabsView = Tabs(tabAdmissions, tabAcademics, tabStudents, tabOperations)
+tabAdmissions = TabItem("admissions", "Admissions & Enrollment", admRow1, admRow2)
+admRow1 = Card(enrollmentCard, appsWaitlistCard, direction:row, gap:m)
+enrollmentCard = Card(CardHeader("5-Year Enrollment Trend", "Fall headcount: Undergrad vs Graduate breakdown"), AreaChart(enrollmentData, natural, xLabel:"Academic Year", yLabel:"Students"), variant:sunk)
+appsWaitlistCard = Card(CardHeader("Applications & Waitlist by Program", "Fall 2024 applicant pool & waitlisted numbers"), HorizontalBarChart(appWaitlistData, variant:grouped, xLabel:"Applicants", yLabel:"Program"), variant:sunk)
+admRow2 = Card(CardHeader("Semester-over-Semester Enrollment Comparison", "Fall 2024 vs Spring 2024 performance metrics"), Table(semCompareData))
+tabAcademics = TabItem("academics", "Faculty & Courses", acadRow1)
+acadRow1 = Card(courseCapCard, facultyLoadCard, direction:row, gap:m)
+courseCapCard = Card(CardHeader("Course Offering Capacity & Fill Rate", "Current section utilization and seat fill ratios"), Table(courseCapData), variant:sunk)
+facultyLoadCard = Card(CardHeader("Faculty Teaching Load", "Current term credit hours vs departmental target baseline"), BarChart(facultyLoadData, variant:grouped, xLabel:"Faculty Member", yLabel:"Credit Hours"), variant:sunk)
+tabStudents = TabItem("students", "Student Success & Risk", atRiskCard)
+atRiskCard = Card(CardHeader("Academic Risk Intervention Monitor", "Students flagged for GPA below 2.0, missed prerequisites, or attendance alerts"), Alert("Intervention Required", "42 students have critical GPA warnings requiring advisor review before midterm withdrawal deadline.", warning), Table(atRiskData))
+tabOperations = TabItem("operations", "Campus & Advancement", opsRow1, opsRow2)
+opsRow1 = Card(givingCard, eventsCard, direction:row, gap:m)
+givingCard = Card(CardHeader("Alumni Giving (Past 4 Years)", "Annual philanthropic funds raised in Millions USD"), BarChart(alumniGivingData, variant:grouped, xLabel:"Year", yLabel:"Million USD"), variant:sunk)
+eventsCard = Card(CardHeader("Campus Events This Month", "Major academic, cultural, and athletic scheduled events"), Table(eventsData), variant:sunk)
+opsRow2 = Card(CardHeader("Departmental Budget Allocation Overview", "Fiscal year resource tracking across academic divisions"), Table(deptBudgetData))
+enrollmentData = |Year|Undergraduate|Graduate
+|2020-21|12100|3850
+|2021-22|12450|4020
+|2022-23|12900|4200
+|2023-24|13300|4378
+|2024-25|13920|4500
+appWaitlistData = |Program|Applications|Waitlist
+|Computer Science|4820|410
+|Business Admin|3950|320
+|Health Sciences|3410|285
+|Biological Sciences|2890|190
+|Humanities & Arts|1940|85
+semCompareData = |Division|Spring 2024|Fall 2024|Net Change|Retention Rate
+|Undergraduate|13,300|13,920|+4.7%|94.2%
+|Graduate & Professional|4,378|4,500|+2.8%|96.8%
+|International Students|2,150|2,310|+7.4%|91.5%
+|Online Degree Programs|1,840|2,040|+10.8%|88.6%
+courseCapData = |Course Code|Course Name|Capacity|Enrolled|Fill Rate:n|Status
+|CS-101|Intro to Computer Science|300|298|99%|Full
+|BIO-204|General Genetics|180|175|97%|Full
+|MGT-301|Organizational Principles|220|185|84%|Open
+|MATH-210|Multivariable Calculus|150|148|98%|Full
+|ENG-102|Academic Composition|200|160|80%|Open
+|CHEM-105|General Chemistry Lab|120|119|99%|Full
+facultyLoadData = |Faculty|Assigned Credits|Target Standard
+|Dr. A. Vance (CS)|12|9
+|Prof. R. Chen (Bus)|9|9
+|Dr. M. Patel (Bio)|11|9
+|Prof. S. Miller (Hum)|8|9
+|Dr. K. Jones (Health)|10|9
+atRiskData = |Student ID|Student Name|Major|Current GPA:n|Risk Factor|Advisor Action
+|STU-8821|Marcus Lee|Computer Science|1.82|Low Midterm Exam Scores|Meeting Scheduled
+|STU-9403|Sarah Jenkins|Nursing / Health|1.91|Prerequisite Deficit|Hold Applied
+|STU-7215|David Zhao|Finance|1.75|Attendance Alert (<70%)|Outreach Sent
+|STU-6539|Elena Rodriguez|Biology|1.94|Academic Probation|Tutoring Assigned
+|STU-5120|Jordan Bell|Humanities|1.68|Multiple Course Incompletes|Dean Review
+alumniGivingData = |Year|Endowment & Capital|Annual Fund
+|2021|$24.5M|$8.2M
+|2022|$27.1M|$9.4M
+|2023|$31.8M|$10.1M
+|2024|$36.4M|$11.5M
+eventsData = |Date|Event Name|Location|Expected Attendance|Category
+|Oct 12|Fall Homecoming & Alumni Gala|Main Quad|4,500|Alumni & Campus
+|Oct 18|Undergraduate STEM Research Fair|Student Center Hall|850|Academic
+|Oct 22|Distinguished Dean's Lecture Series|Kresge Auditorium|600|Public Lecture
+|Oct 26|Intercollegiate Fall Regatta & Rally|Lakefront Complex|2,200|Athletics
+|Oct 30|Career & Internship Expo 2024|University Pavilion|3,100|Career Services
+deptBudgetData = |Department|Enrolled Majors|Faculty Count|Tuition Contribution|Scholarship Distributed
+|Computer Science & Eng|4,120|64|$42.1M|$8.4M
+|School of Business|3,850|52|$36.8M|$7.1M
+|Biological Sciences|2,940|45|$24.6M|$5.8M
+|Health Sciences|3,150|48|$25.2M|$6.2M
+|Humanities & Arts|2,360|38|$14.1M|$4.9M

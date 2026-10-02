@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gistui.com/schemas/1.0/expected.schema.json",
+  "title": "GistUI conformance expectation",
+  "description": "The content of a spec/conformance/NN-name.expected.json file: the final tree, the diagnostics in order, and the validity flags.",
+  "type": "object",
+  "required": ["tree", "errors", "valid"],
+  "additionalProperties": false,
+  "properties": {
+    "tree": { "$ref": "https://gistui.com/schemas/1.0/tree.schema.json" },
+    "errors": {
+      "description": "Diagnostics in the order of section 22.2. Only code, severity, stmt, line and fixed are written.",
+      "type": "array",
+      "items": { "$ref": "https://gistui.com/schemas/1.0/diagnostic.schema.json" }
+    },
+    "valid": {
+      "type": "object",
+      "required": ["strict", "lenient"],
+      "additionalProperties": false,
+      "properties": { "strict": { "type": "boolean" }, "lenient": { "type": "boolean" } }
+    }
+  }
+}

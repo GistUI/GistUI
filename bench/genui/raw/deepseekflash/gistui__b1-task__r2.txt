@@ -1,0 +1,4 @@
+root = Card(CardHeader("Focus View", "One task at a time"), taskCard, statusRow, markDone)
+taskCard = Card(Heading("Ship Q3 report", h3), TextContent("**Deadline:** Today, 5:00 PM"), sunk)
+statusRow = Row(Badge("In progress", secondary), TextContent("Estimated 2h left"))
+markDone = Buttons(Button("Mark as done", primary))

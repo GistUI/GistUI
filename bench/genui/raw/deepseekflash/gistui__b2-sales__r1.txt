@@ -1,0 +1,17 @@
+root = Card(header, kpiRow, trendSection, productsSection, downloadRow)
+header = CardHeader("Monthly Sales Check", "June 2025")
+kpiRow = Card(direction:row, gap:xl, justify:between, TextContent("**Revenue this month**\n\n$112,800", large-heavy), TextContent("**Conversion rate**\n\n3.4%", large-heavy), TextContent("**Orders**\n\n1,204", large-heavy))
+trendSection = Card(Heading("Revenue — last 6 months", h3), LineChart(salesTrend, natural, xLabel:"Month", yLabel:"Revenue"), sunk)
+productsSection = Card(Heading("Best-selling products", h3), Table(products), sunk)
+downloadRow = Buttons(Button("Download CSV", primary))
+salesTrend = |Month|Revenue:n
+|Jan|84200
+|Feb|91800
+|Mar|87900
+|Apr|96500
+|May|102300
+|Jun|112800
+products = |Product|Units sold:n|Revenue:n
+|Aurora Desk Lamp|312|18720
+|Nimbus Chair|287|22960
+|Halo Bookshelf|204|16320

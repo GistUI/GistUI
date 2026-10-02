@@ -1,0 +1,74 @@
+root = Card(header, filterSelect, overviewSection, postsSection, scheduleSection, followup)
+
+header = CardHeader("Creator Studio", "Cross-platform overview")
+
+filterSelect = Select("platform_filter", SelectItem("All", "All platforms"), SelectItem("YouTube", "YouTube"), SelectItem("Instagram", "Instagram"), SelectItem("TikTok", "TikTok"), placeholder:"Filter platform")
+
+overviewSection = Card(Heading("Followers & Growth", h3), followerStat, growthChart, engagementStat, earningsStat)
+
+followerStat = TextContent("Followers: 124.5k", size:large)
+
+growthChart = LineChart(growthRows, variant:linear, xLabel:"Date", yLabel:"Followers")
+
+growthRows = |Date|Followers
+|2023-08-01|120000
+|2023-08-08|121500
+|2023-08-15|122800
+|2023-08-22|124000
+|2023-08-31|124500
+
+engagementStat = TextContent("Engagement Rate: 4.3%", size:large)
+
+earningsStat = TextContent("Earnings this month: $2,340", size:large)
+
+postsSection = Card(Heading("Best Posts & Reach", h3), bestPostsTable, audienceChart, scheduleTable, bestHourChart, commentsList, collabList)
+
+bestPostsTable = Table(bestPostTitle, bestPostReach)
+
+bestPostTitle = Col("Post", data:["\"Summer Vlog\"","\"Tutorial Reel\"","\"Live Q&A\""], type:string)
+
+bestPostReach = Col("Reach", data:[85000,72000,68000], type:number)
+
+audienceChart = PieChart(audienceLabels, audienceValues, variant:donut)
+
+audienceLabels = ["YouTube","Instagram","TikTok","Twitter"]
+
+audienceValues = [54000,32000,25000,15000]
+
+scheduleTable = Table(schedTitle, schedDate, schedTime)
+
+schedTitle = Col("Post", data:["\"New merch teaser\"","\"Behind the scenes\""], type:string)
+
+schedDate = Col("Date", data:["2023-09-04","2023-09-06"], type:string)
+
+schedTime = Col("Time", data:["10:00 AM","2:00 PM"], type:string)
+
+bestHourChart = BarChart(bestHourLabels, bestHourSeries, variant:grouped, xLabel:"Hour", yLabel:"Avg Views")
+
+bestHourLabels = ["8am","12pm","4pm","8pm","10pm"]
+
+bestHourSeries = Series("Views", values:[5000,8500,12000,15000,9000])
+
+commentsList = ListBlock(commentItem1, commentItem2, variant:number)
+
+commentItem1 = ListItem("User123", "Great video!", "Reply")
+
+commentItem2 = ListItem("Fan456", "Loved the tutorial", "Reply")
+
+collabList = ListBlock(collabItem1, collabItem2, variant:number)
+
+collabItem1 = ListItem("Brand A", "Collab request", "View")
+
+collabItem2 = ListItem("Brand B", "Collab request", "View")
+
+scheduleSection = Card(Heading("Schedule a Post", h3), scheduleForm)
+
+scheduleForm = Form("schedule-post", scheduleButtons, captionField, datetimeField)
+
+captionField = FormControl("Caption", TextArea("caption", "Enter caption...", rows:4))
+
+datetimeField = FormControl("Publish time", Input("publish_time", "2023-09-07 14:00", type:text))
+
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+followup = FollowUpBlock(FollowUpItem("View analytics"), FollowUpItem("Create new post"))

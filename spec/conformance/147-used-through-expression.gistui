@@ -1,0 +1,4 @@
+root = Text("n=" + $n + total)
+$n = 1
+total = @sum(rows.v)
+rows = [{v:1}]

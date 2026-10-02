@@ -1,0 +1,6 @@
+# Shared refs are materialized once: linear, not exponential.
+root = Stack(a0)
+a0 = Stack([a1, a1])
+a1 = Stack([a2, a2])
+a2 = Stack([a3, a3])
+a3 = Text("leaf")

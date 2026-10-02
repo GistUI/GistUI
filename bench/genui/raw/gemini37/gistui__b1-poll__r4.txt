@@ -1,0 +1,16 @@
+root = Card(CardHeader("Team Lunch Poll", "Cast your vote for this Friday's team outing"), pollAlert, pollForm, resultsCard)
+pollAlert = Callout("Where should we go for lunch on Friday?", "Voting closes on Thursday at 5:00 PM. Pick your favorite spot below!", neutral)
+pollForm = Form("lunch-vote", formActions, voteField, dietaryField)
+voteField = FormControl("Select a restaurant", restaurantOptions, "Choose 1 of the 3 nominated locations")
+restaurantOptions = RadioGroup("restaurant", opt1, opt2, opt3, defaultValue:"taco")
+opt1 = RadioItem("Taqueria El Sol", "Authentic Mexican tacos & burritos • 5 min walk", "taco")
+opt2 = RadioItem("Pasta & Co.", "Fresh handmade pasta & wood-fired pizza • 8 min walk", "pasta")
+opt3 = RadioItem("Green Garden Cafe", "Healthy grain bowls, wraps & salads • 4 min walk", "salad")
+dietaryField = FormControl("Dietary restrictions or notes (optional)", Input("notes", "e.g., Gluten-free, Vegetarian"))
+formActions = Buttons(Button("Submit Vote", primary), Button("Change Vote", secondary))
+resultsCard = Card(Heading("Current Standings", h4), resultsChart, sunk)
+resultsChart = BarChart(voteData, stacked, xLabel:"Restaurant", yLabel:"Votes")
+voteData = |Restaurant|Votes
+|Taqueria El Sol|6
+|Pasta & Co.|4
+|Green Garden Cafe|3

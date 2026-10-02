@@ -1,0 +1,33 @@
+{
+  "tree": {
+    "type": "Select",
+    "props": {
+      "name": "n",
+      "label": "N",
+      "options": [
+        5,
+        2.5
+      ]
+    }
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

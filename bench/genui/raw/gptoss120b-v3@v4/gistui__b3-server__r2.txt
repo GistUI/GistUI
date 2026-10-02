@@ -1,0 +1,40 @@
+root = Card(header, uptimeSection, usageSection, errorSection, incidentsSection, endpointsSection, settingsSection, actionsSection)
+
+header = CardHeader("Service Health Dashboard", "On‑call view")
+
+uptimeSection = Card(Heading("Uptime (this quarter)", h3), TextContent("99.97%", size:large), clear)
+
+usageSection = Card(Heading("CPU & Memory (last 24 h)", h3), LineChart(usageRows, linear, xLabel:"Time", yLabel:"%"), clear)
+
+usageRows = |Time|CPU|Memory
+|00:00|45|68
+|04:00|50|70
+|08:00|55|72
+|12:00|60|75
+|16:00|58|73
+|20:00|52|69
+
+errorSection = Card(Heading("Current Error Rate", h3), TextContent("0.23 %", size:large), clear)
+
+incidentsSection = Card(Heading("Open Incidents", h3), Table(incCol, sevCol, ageCol), clear)
+
+incCol = Col("Incident", ["DB outage","Cache miss"], type:string)
+sevCol = Col("Severity", ["high","medium"], type:string)
+ageCol = Col("Age", ["5 min","12 min"], type:string)
+
+endpointsSection = Card(Heading("5 Slowest Endpoints", h3), Table(epCol, latCol), clear)
+
+epCol = Col("Endpoint", ["/api/orders","/api/payments","/api/users","/api/search","/api/notifications"], type:string)
+latCol = Col("Latency (ms)", [420,389,355,340,332], type:number)
+
+settingsSection = Card(Heading("Settings", h3), regionForm, thresholdForm, clear)
+
+regionForm = Form("region-filter", regionButtons, regionSelect)
+regionSelect = Select("region", SelectItem("us-east","US East"), SelectItem("us-west","US West"), SelectItem("eu-central","EU Central"), placeholder:"Select region", value:"us-east", size:medium)
+regionButtons = Buttons(Button("Apply", primary))
+
+thresholdForm = Form("alert-threshold", thresholdButtons, thresholdInput)
+thresholdInput = FormControl("Alert threshold (%)", Input("threshold", "80", type:number))
+thresholdButtons = Buttons(Button("Save", primary))
+
+actionsSection = Card(Buttons(Button("Acknowledge Incident", primary)), clear)

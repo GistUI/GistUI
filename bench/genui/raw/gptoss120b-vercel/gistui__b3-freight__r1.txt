@@ -1,0 +1,35 @@
+root = Card(CardHeader("Logistics Coordinator Board"), searchInput, shipmentsTable, delayedCallout, onTimePct, carrierPie, avgCost, weeklyLine, lastRefresh, flagButtons)
+
+searchInput = Input("route_search", placeholder:"Search by route…", type:text)
+
+shipmentsTable = Table(
+  Col("Origin", data:["NYC","LAX","CHI"], type:string),
+  Col("Destination", data:["DAL","MIA","SEA"], type:string),
+  Col("ETA", data:["2024-10-05","2024-10-06","2024-10-07"], type:string),
+  Col("Status", data:["In Transit","In Transit","In Transit"], type:string)
+)
+
+delayedCallout = Callout(delayed, "Delayed Shipments", "Shipment #102 is delayed due to weather conditions.")
+
+onTimePct = TextContent("On‑time delivery this month: **92%**", size:large)
+
+carrierPie = PieChart(labels:["Carrier A","Carrier B","Carrier C"], values:[120,80,50], variant:donut, appearance:circular)
+
+avgCost = TextContent("Average cost per shipment: **$1,250**", size:default)
+
+weeklyLine = LineChart(
+  |Week|Volume
+  |2024‑09‑01|30
+  |2024‑09‑08|45
+  |2024‑09‑15|40
+  |2024‑09‑22|55
+  |2024‑09‑29|50
+  |2024‑10‑06|60
+  |2024‑10‑13|65
+  |2024‑10‑20|70
+  , natural, xLabel:"Week", yLabel:"Shipments"
+)
+
+lastRefresh = TextContent("Last refreshed: 2024‑10‑24 08:15 UTC", size:small)
+
+flagButtons = Buttons(Button("Flag shipment", primary), direction:row)

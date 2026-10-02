@@ -1,0 +1,60 @@
+root = Card(header, filterCard, followerCard, engagementCard, bestPostsCard, audienceCard, bestHourCard, scheduledPostsCard, commentsCard, earningsCard, collaborationsCard, scheduleCard)
+
+header = CardHeader("Creator Studio", "Cross‑platform overview")
+
+filterCard = Card(filterSelect, variant:clear)
+
+filterSelect = Select("platform_filter", SelectItem("All","All platforms"), SelectItem("Instagram","Instagram"), SelectItem("YouTube","YouTube"), SelectItem("TikTok","TikTok"), placeholder:"Filter by platform")
+
+followerCard = Card(Heading("Followers", h3), TextContent("**120k** total, **+5%** growth over the past month", size:large), variant:sunk)
+
+engagementCard = Card(Heading("Engagement Rate", h3), TextContent("**3.2%** average engagement", size:large), variant:sunk)
+
+bestPostsCard = Card(Heading("Top Posts (this month)", h3), bestPostsTable, variant:sunk)
+
+bestPostsTable = Table(Col("Post", data:["Post A","Post B","Post C"], type:string), Col("Reach", data:["45k","38k","32k"], type:string))
+
+audienceCard = Card(Heading("Audience Split by Platform", h3), audienceChart, variant:sunk)
+
+audienceChart = PieChart(audienceTable, donut, appearance:circular)
+
+bestHourCard = Card(Heading("Best Hour to Post", h3), bestHourChart, variant:sunk)
+
+bestHourChart = SingleStackedBarChart(bestHourTable)
+
+scheduledPostsCard = Card(Heading("Posts Scheduled This Week", h3), scheduledPostsTable, variant:sunk)
+
+scheduledPostsTable = Table(Col("Date", data:["Mon","Tue","Wed"], type:string), Col("Time", data:["10:00","14:00","09:00"], type:string), Col("Caption", data:["Promo video","Blog link","Story teaser"], type:string))
+
+commentsCard = Card(Heading("Comments Waiting for Reply", h3), commentsList, variant:sunk)
+
+commentsList = ListBlock(ListItem("Great post!", "Alice", "Reply", []), ListItem("Need clarification", "Bob", "Reply", []), variant:number)
+
+earningsCard = Card(Heading("Earnings This Month", h3), TextContent("**$2,400** earned", size:large), variant:sunk)
+
+collaborationsCard = Card(Heading("Pending Collaboration Requests", h3), collabList, variant:sunk)
+
+collabList = ListBlock(ListItem("CreatorX", "Instagram", "Review", []), ListItem("CreatorY", "YouTube", "Review", []), variant:number)
+
+scheduleCard = Card(Heading("Schedule a New Post", h3), scheduleForm, variant:sunk)
+
+scheduleForm = Form("schedule_post", scheduleButtons, captionField, dateField, platformField)
+
+captionField = FormControl("Caption", TextArea("caption", "Enter caption...", "", rows:3))
+
+dateField = FormControl("Schedule time", DatePicker("schedule_time", mode:single))
+
+platformField = FormControl("Platform", Select("platform", SelectItem("Instagram","Instagram"), SelectItem("YouTube","YouTube"), SelectItem("TikTok","TikTok"), placeholder:"Choose platform"))
+
+scheduleButtons = Buttons(Button("Schedule post", primary))
+
+audienceTable = |Platform|Audience%
+|Instagram|45
+|YouTube|30
+|TikTok|15
+|Twitter|10
+
+bestHourTable = |Hour|Score
+|08:00|20
+|12:00|45
+|18:00|30

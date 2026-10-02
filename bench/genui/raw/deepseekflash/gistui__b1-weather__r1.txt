@@ -1,0 +1,14 @@
+root = Card(cardHeader, currentSection, outlookSection, sunSection)
+cardHeader = CardHeader("Morning Weather Brief", "Bengaluru, Karnataka")
+currentSection = Card(TextContent("## Current Conditions"), currentTemp, currentMeta, sunk)
+currentTemp = TextContent("**18°C** — Clear sky", size:large)
+currentMeta = TextContent("Feels like 18°C · Humidity 82% · Wind 8 km/h")
+outlookSection = Card(Heading("3-Day Outlook", level:h3), outlookTable, sunk)
+outlookTable = |Day|Condition|High / Low
+|Today|Sunny|28° / 18°
+|Tomorrow|Partly cloudy|29° / 19°
+|Friday|Thunderstorms|27° / 20°
+sunSection = Card(Heading("Sunrise & Sunset", level:h3), sunTable, sunk)
+sunTable = |Event|Time
+|Sunrise|6:12 AM
+|Sunset|6:45 PM

@@ -1,0 +1,25 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "x"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "invalid-child",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

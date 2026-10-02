@@ -1,0 +1,35 @@
+root = Card(header, headcountSection, openRolesSection, pipelineSection, avgTimeSection, deptSplitSection, interviewsSection, attritionSection, newRoleButton)
+header = CardHeader("Hiring Overview", "HR Lead Dashboard")
+headcountSection = Card(Heading("Current Headcount", h3), headcountText)
+headcountText = TextContent("Total employees: 124", size:large)
+openRolesSection = Card(Heading("Open Roles", h3), openRolesTable)
+openRolesTable = Table(openRolesDeptCol, openRolesRoleCol)
+openRolesDeptCol = Col("Department", data:["Engineering","Marketing","Sales","HR"], type:string)
+openRolesRoleCol = Col("Role", data:["Backend Engineer","Content Specialist","Account Executive","Recruiter"], type:string)
+pipelineSection = Card(Heading("Candidates by Pipeline Stage", h3), pipelineTable)
+pipelineTable = Table(pipelineStageCol, pipelineCountCol)
+pipelineStageCol = Col("Stage", data:["Applied","Phone Screen","Onsite","Offer","Hired"], type:string)
+pipelineCountCol = Col("Candidates", data:[34,12,5,2,1], type:number)
+avgTimeSection = Card(Heading("Average Time to Hire", h3), avgTimeText)
+avgTimeText = TextContent("27 days", size:large)
+deptSplitSection = Card(Heading("Headcount by Department", h3), BarChart(deptSplitRows, stacked, xLabel:"Department", yLabel:"Employees"))
+interviewsSection = Card(Heading("Interviews Scheduled This Week", h3), interviewsTable)
+interviewsTable = Table(interviewDateCol, interviewCandidateCol, interviewRoleCol)
+interviewDateCol = Col("Date", data:["Mon 2024-09-30","Tue 2024-10-01","Wed 2024-10-02"], type:string)
+interviewCandidateCol = Col("Candidate", data:["Alice Smith","Bob Jones","Carol Lee"], type:string)
+interviewRoleCol = Col("Role", data:["Backend Engineer","Content Specialist","Account Executive"], type:string)
+attritionSection = Card(Heading("Attrition Over Past 6 Months", h3), attritionChart)
+attritionChart = LineChart(attritionRows, natural, xLabel:"Month", yLabel:"% Attrition")
+newRoleButton = Buttons(Button("Open New Role", primary))
+deptSplitRows = |Department|Employees
+|Engineering|70
+|Marketing|20
+|Sales|34
+|HR|10
+attritionRows = |Month|Attrition%
+|Apr|1.2
+|May|1.5
+|Jun|1.3
+|Jul|1.4
+|Aug|1.6
+|Sep|1.5

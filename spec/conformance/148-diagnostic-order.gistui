@@ -1,0 +1,7 @@
+Some prose.
+root = Row(a, b, missing)
+b = Stat("only label")
+a = Tex('x')
+ghost.gap = lg
+spare = Text("unused")
+root = Row(a, b, missing, root)

@@ -1,0 +1,73 @@
+root = Card(bedSection, erSection, admissionsSection, deptSection, staffSection, criticalSection, dischargeSection, orSection, suppliesSection, incidentSection, dateNavSection, transferSection)
+
+bedSection = Card(CardHeader("Bed Occupancy"), HorizontalBarChart(labels:["ICU","General Ward","Pediatrics","Maternity"], Series("Occupied", values:[85,230,120,60]), Series("Available", values:[15,70,80,40]), variant:stacked, xLabel:"Beds", yLabel:"Count"))
+
+erSection = Card(CardHeader("Current ER Wait"), TextContent("Average wait time: **45 minutes**", size:large), TextContent("Patients waiting: **27**", size:large))
+
+admissionsSection = Card(CardHeader("Admissions (Last 2 Weeks)"), LineChart(admissionsRows, natural, xLabel:"Date", yLabel:"Admissions"))
+
+admissionsRows = |Date|Admissions
+|2024-09-16|45
+|2024-09-17|52
+|2024-09-18|48
+|2024-09-19|55
+|2024-09-20|50
+|2024-09-21|47
+|2024-09-22|53
+|2024-09-23|49
+|2024-09-24|51
+|2024-09-25|46
+|2024-09-26|54
+|2024-09-27|50
+|2024-09-28|48
+|2024-09-29|52
+
+deptSection = Card(CardHeader("Patients per Department"), BarChart(deptRows, grouped, xLabel:"Department", yLabel:"Patients"))
+
+deptRows = |Department|Patients
+|Cardiology|78
+|Neurology|65
+|Oncology|54
+|Orthopedics|82
+|Emergency|91
+
+staffSection = Card(CardHeader("Staff on Shift"), Table(staffNameCol, staffRoleCol, staffDeptCol))
+
+staffNameCol = Col("Name", data:["Dr. Lee","Nurse Patel","Dr. Gomez","Nurse Chen","Dr. Ahmed"], type:string)
+staffRoleCol = Col("Role", data:["Physician","Nurse","Surgeon","Nurse","Physician"], type:string)
+staffDeptCol = Col("Dept", data:["ICU","General Ward","Surgery","Pediatrics","ICU"], type:string)
+
+criticalSection = Card(CardHeader("Critical Patients"), Callout(variant:warning, title:"Patient A", description:"Severe sepsis, ICU"), Callout(variant:danger, title:"Patient B", description:"Multi-trauma, OR"))
+
+dischargeSection = Card(CardHeader("Patients Ready for Discharge"), Table(dischargeIdCol, dischargeNameCol, dischargeDeptCol))
+
+dischargeIdCol = Col("ID", data:["P1023","P1087","P1102"], type:string)
+dischargeNameCol = Col("Name", data:["John Doe","Maria Silva","Liu Wei"], type:string)
+dischargeDeptCol = Col("Dept", data:["General Ward","Maternity","Pediatrics"], type:string)
+
+orSection = Card(CardHeader("Today's OR Bookings"), Table(orTimeCol, orRoomCol, orPatientCol))
+
+orTimeCol = Col("Time", data:["08:00","10:30","13:00","15:45"], type:string)
+orRoomCol = Col("Room", data:["OR1","OR2","OR3","OR1"], type:string)
+orPatientCol = Col("Patient", data:["Patient X","Patient Y","Patient Z","Patient W"], type:string)
+
+suppliesSection = Card(CardHeader("Supplies Running Low"), Table(supplyItemCol, supplyQtyCol))
+
+supplyItemCol = Col("Item", data:["Syringes","Gloves","IV Bags","Bandages"], type:string)
+supplyQtyCol = Col("Qty Left", data:[120,45,30,80], type:number)
+
+incidentSection = Card(CardHeader("File an Incident"), Form("incident-form", incidentButtons, incidentDescControl, incidentTypeControl, incidentUrgencyControl))
+
+incidentDescControl = FormControl("Description", TextArea("desc", "Enter details...", "", rows:4))
+incidentTypeControl = FormControl("Type", Select("type", SelectItem("Safety","Safety"), SelectItem("Equipment","Equipment"), SelectItem("Staff","Staff"), placeholder:"Select type", size:small))
+incidentUrgencyControl = FormControl("Urgency", RadioGroup("urgency", RadioItem("Low","Low priority","low"), RadioItem("Medium","Medium priority","medium"), RadioItem("High","High priority","high"), defaultValue:"medium"))
+incidentButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+dateNavSection = Card(CardHeader("View Another Day"), DatePicker("view-date", mode:single, value:["2024-09-30"]))
+
+transferSection = Card(CardHeader("Request Patient Transfer"), Form("transfer-form", transferButtons, transferPatientControl, transferFromControl, transferToControl))
+
+transferPatientControl = FormControl("Patient ID", Input("patient_id", placeholder:"e.g., P1234"))
+transferFromControl = FormControl("From Dept", Select("from_dept", SelectItem("ICU","ICU"), SelectItem("General Ward","General Ward"), SelectItem("Emergency","Emergency"), placeholder:"Select department"))
+transferToControl = FormControl("To Dept", Select("to_dept", SelectItem("ICU","ICU"), SelectItem("General Ward","General Ward"), SelectItem("Surgery","Surgery"), placeholder:"Select department"))
+transferButtons = Buttons(Button("Request Transfer", primary), Button("Cancel", tertiary))

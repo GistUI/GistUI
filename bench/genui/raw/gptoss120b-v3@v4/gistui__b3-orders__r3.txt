@@ -1,0 +1,49 @@
+root = Card(cardHeader, filterForm, statsSection, recentOrders, volumeChart, refundCallout, followUp)
+
+cardHeader = CardHeader("E‑commerce Operations Desk")
+
+filterForm = Form("order-filter", filterButtons, statusSelect, customerSearch)
+
+statusSelect = FormControl("Order status", Select("status", SelectItem("all", "All"), SelectItem("pending", "Pending"), SelectItem("shipped", "Shipped"), SelectItem("canceled", "Canceled"), placeholder:"All statuses", value:"all", size:medium))
+
+customerSearch = FormControl("Customer name", Input("customer", placeholder:"Search customer...", type:text))
+
+filterButtons = Buttons(Button("Apply", primary), Button("Reset", secondary))
+
+statsSection = Card(direction:row, gap:s, wrap,
+    ordersToday,
+    revenueToday,
+    avgOrderValue,
+    refundRate
+)
+
+ordersToday = TextContent("**Orders placed today:** 124", size:large)
+revenueToday = TextContent("**Revenue today:** $8,560", size:large)
+avgOrderValue = TextContent("**Average order value:** $69.2", size:large)
+refundRate = TextContent("**Refund rate (this month):** 2.3%", size:large, variant:info)
+
+recentOrders = ListBlock(
+    ListItem("Order #10234", "Jane Doe • $120 • Pending", "Fulfill"),
+    ListItem("Order #10235", "John Smith • $45 • Shipped", "Fulfill"),
+    ListItem("Order #10236", "Alice Lee • $78 • Pending", "Fulfill"),
+    ListItem("Order #10237", "Bob Brown • $210 • Canceled", "Fulfill"),
+    variant:number
+)
+
+volumeChart = BarChart(
+    |Week|Orders
+    |W‑1|320
+    |W‑2|285
+    |W‑3|310
+    |W‑4|295,
+    variant:grouped,
+    xLabel:"Week",
+    yLabel:"Orders"
+)
+
+refundCallout = Callout(info, "Refund rate", "Refunds this month are 2.3% of total sales.")
+
+followUp = FollowUpBlock(
+    FollowUpItem("View detailed analytics"),
+    FollowUpItem("Export orders CSV")
+)

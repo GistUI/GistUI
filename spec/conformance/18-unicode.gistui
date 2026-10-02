@@ -1,0 +1,1 @@
+root = Card("Émoji 🚀 and 中文 — “quotes”", Stat("Ümsatz", "€1.234"))

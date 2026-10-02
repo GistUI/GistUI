@@ -1,0 +1,7 @@
+root = Card(header, attendeesList, joinButtons)
+header = CardHeader("Team Sync", "Starts at 10:00 AM")
+attendeesList = ListBlock(attendee1, attendee2, attendee3)
+joinButtons = Buttons(Button("Join call", primary))
+attendee1 = ListItem("Alice Johnson")
+attendee2 = ListItem("Bob Smith")
+attendee3 = ListItem("Carol Lee")

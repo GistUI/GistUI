@@ -1,0 +1,4 @@
+root = Card(meetingHeader, attendeesSection, joinButton)
+meetingHeader = CardHeader("Team Sync", "10:00 AM – 11:00 AM")
+attendeesSection = Card(Heading("Attendees", h3), TagBlock(tags:["Alice","Bob","Carol"]))
+joinButton = Buttons(Button("Join Call", primary))

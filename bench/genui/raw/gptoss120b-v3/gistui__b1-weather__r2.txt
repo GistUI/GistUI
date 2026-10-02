@@ -1,0 +1,11 @@
+root = Card(current, outlook, sunTimes, gap:s)
+current = Card(CardHeader("Bengaluru Weather", "Current"), TextContent("**Temp:** 27°C\n**Condition:** Sunny", large), Tag("Sunny", info))
+outlook = Card(CardHeader("3‑Day Outlook", ""), outlookRows)
+sunTimes = Card(CardHeader("Sunrise & Sunset", ""), sunRows)
+outlookRows = |Day|Temp|Condition
+|Tue|29°C|Partly Cloudy
+|Wed|28°C|Rain
+|Thu|30°C|Sunny
+sunRows = |Event|Time
+|Sunrise|6:12 AM
+|Sunset|6:45 PM

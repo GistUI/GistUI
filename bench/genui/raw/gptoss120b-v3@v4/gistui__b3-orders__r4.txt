@@ -1,0 +1,22 @@
+root = Card(CardHeader("E‑commerce Operations Desk"), filtersCard, summaryCard, volumeChart, recentOrdersCard, followUp)  
+filtersCard = Card(Heading("Filters", h3), statusSelect, customerSearch)  
+statusSelect = Select("order_status", SelectItem("all", "All statuses"), SelectItem("pending", "Pending"), SelectItem("shipped", "Shipped"), SelectItem("refunded", "Refunded"), placeholder:"Filter by status", value:"all")  
+customerSearch = Input("customer_search", placeholder:"Search customer name")  
+summaryCard = Card(Heading("Today's Summary", h3), ordersToday, revenueToday, avgOrderValue, refundRate)  
+ordersToday = TextContent("**Orders placed today:** 124", size:large)  
+revenueToday = TextContent("**Revenue today:** $8,760", size:large)  
+avgOrderValue = TextContent("**Average order value:** $70.65", size:large)  
+refundRate = TextContent("**Refund rate (this month):** 2.3 %", size:large)  
+volumeChart = Card(Heading("Order Volume – Last 4 Weeks", h3), HorizontalBarChart(labels:list("Week 1","Week 2","Week 3","Week 4"), Series("Orders", values:list(320,415,378,442)), variant:grouped, xLabel:"Orders", yLabel:"Week"))  
+recentOrdersCard = Card(Heading("Recent Orders", h3), recentOrdersTable)  
+recentOrdersTable = Table(  
+  Col("Order ID", data:list("1001","1002","1003","1004"), type:string),  
+  Col("Customer", data:list("Alice","Bob","Charlie","Dana"), type:string),  
+  Col("Total", data:list("$120","$45","$78","$210"), type:string),  
+  Col("Status", data:list("Pending","Shipped","Refunded","Pending"), type:string),  
+  Col("Action", data:list(Button("Mark fulfilled", [], primary), Button("Mark fulfilled", [], primary), Button("Mark fulfilled", [], primary), Button("Mark fulfilled", [], primary)), type:action)  
+)  
+followUp = FollowUpBlock(  
+  FollowUpItem("View all orders"),  
+  FollowUpItem("Export report")  
+)

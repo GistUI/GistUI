@@ -1,0 +1,62 @@
+root = Card(header, bedOccupancy, erWait, admissionsChart, deptBarChart, staffTable, criticalTable, dischargeTable, orTable, suppliesTable, incidentButton, datePicker, transferButton)
+
+header = CardHeader("Hospital Operations Command Center", "Real‑time overview")
+
+bedOccupancy = Card(Heading("Bed Occupancy", h3), HorizontalBarChart(labels:["ICU","General","Pediatrics","Maternity"], Series("Occupied", values:[85,210,120,60]), Series("Available", values:[15,40,30,20]), variant:stacked, xLabel:"Beds", yLabel:"Count"))
+
+erWait = Card(Heading("Current ER Wait", h3), TextContent("Average wait time: **45 minutes**", size:large))
+
+admissionsChart = Card(Heading("Admissions (Last 14 Days)", h3), LineChart(|Date|Admissions
+|2023-09-16|45
+|2023-09-17|52
+|2023-09-18|48
+|2023-09-19|55
+|2023-09-20|50
+|2023-09-21|60
+|2023-09-22|58
+|2023-09-23|62
+|2023-09-24|57
+|2023-09-25|61
+|2023-09-26|59
+|2023-09-27|63
+|2023-09-28|66
+|2023-09-29|70), variant:linear, xLabel:"Date", yLabel:"Admissions"))
+
+deptBarChart = Card(Heading("Patients per Department", h3), BarChart(|Department|Patients
+|Cardiology|78
+|Neurology|65
+|Oncology|54
+|Surgery|82
+|Emergency|95
+|Pediatrics|70), variant:grouped, xLabel:"Department", yLabel:"Patients"))
+
+staffTable = Card(Heading("Staff on Shift", h3), Table(
+Col("Name", data:["Dr. Alice","Nurse Bob","Tech Carol","Dr. Dan"], type:string),
+Col("Role", data:["Physician","Nurse","Technician","Surgeon"], type:string),
+Col("Shift", data:["Day","Night","Day","Night"], type:string)))
+
+criticalTable = Card(Heading("Critical Patients", h3), Table(
+Col("Patient ID", data:["P1023","P1108","P1156"], type:string),
+Col("Condition", data:["Sepsis","Cardiac Arrest","Respiratory Failure"], type:string),
+Col("Room", data:["ICU-4","ICU-7","ICU-2"], type:string)))
+
+dischargeTable = Card(Heading("Patients Ready for Discharge", h3), Table(
+Col("Patient ID", data:["P1201","P1215"], type:string),
+Col("Expected Discharge", data:["2023-09-30","2023-09-30"], type:string),
+Col("Ward", data:["General-12","General-15"], type:string)))
+
+orTable = Card(Heading("Today's OR Bookings", h3), Table(
+Col("Room", data:["OR1","OR2","OR3"], type:string),
+Col("Procedure", data:["Appendectomy","Hip Replacement","Cataract Surgery"], type:string),
+Col("Time", data:["08:00‑10:00","10:30‑13:00","14:00‑15:30"], type:string)))
+
+suppliesTable = Card(Heading("Supplies Running Low", h3), Table(
+Col("Supply", data:["Syringes","Gloves","IV Bags"], type:string),
+Col("Remaining", data:["120","200","45"], type:string),
+Col("Reorder Level", data:["150","250","50"], type:string)))
+
+incidentButton = Card(Buttons(Button("File Incident", primary), direction:row))
+
+datePicker = Card(Heading("Select Date", h3), DatePicker("view_date", mode:single, value:["2023-09-30"]))
+
+transferButton = Card(Buttons(Button("Request Patient Transfer", primary), direction:row))

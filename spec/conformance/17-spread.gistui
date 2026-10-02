@@ -1,0 +1,6 @@
+# Arrays in children position spread; a list statement can hold children.
+root = Row([a, b], items, "tail")
+items = [c, "text item"]
+a = Text("a")
+b = Text("b")
+c = Text("c")

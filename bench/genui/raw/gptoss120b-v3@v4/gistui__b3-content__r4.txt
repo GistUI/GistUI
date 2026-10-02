@@ -1,0 +1,52 @@
+root = Card(draftsSection, publishedSection, mostReadSection, readershipSection, filterSection, scheduleSection, commentsSection, actionsSection, gap:m)
+
+draftsSection = Card(CardHeader("Drafts", "Current status"), draftsTable, clear)
+
+publishedSection = Card(CardHeader("Published This Week", "Recent pieces"), publishedTable, clear)
+
+mostReadSection = Card(CardHeader("Most‑Read Article This Month", "Top performer"), Heading("How AI Shapes Writing", h3), TextContent("5,432 reads • 12 comments", size:small), clear)
+
+readershipSection = Card(CardHeader("Readership (Last 30 Days)"), readershipChart, clear)
+
+filterSection = Card(CardHeader("Filter by Category"), categorySelect, clear)
+
+scheduleSection = Card(CardHeader("Schedule a Piece"), scheduleForm, clear)
+
+commentsSection = Card(CardHeader("Comments Awaiting Reply"), commentsTable, clear)
+
+actionsSection = Card(Buttons(Button("New Draft", primary)), gap:s)
+
+draftsTable = Table(draftsColTitle, draftsColStatus)
+
+draftsColTitle = Col("Title", ["Article A","Article B"], type:string)
+draftsColStatus = Col("Status", ["Draft","Review"], type:string)
+
+publishedTable = Table(publishedColTitle, publishedColDate)
+
+publishedColTitle = Col("Title", ["Story X","Story Y"], type:string)
+publishedColDate = Col("Published", ["2023-09-20","2023-09-22"], type:string)
+
+readershipChart = LineChart(readershipData, linear, xLabel:"Date", yLabel:"Views")
+
+readershipData = |Date|Views
+|2023-09-01|1200
+|2023-09-08|1500
+|2023-09-15|1800
+|2023-09-22|2100
+|2023-09-29|1900
+
+categorySelect = Select("category_filter", SelectItem("tech","Tech"), SelectItem("life","Lifestyle"), placeholder:"Select category", size:small)
+
+scheduleForm = Form("schedule_piece", scheduleButtons, titleField, dateField)
+
+titleField = FormControl("Title", Input("title", "Enter title"))
+
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single))
+
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+commentsTable = Table(commentsColUser, commentsColExcerpt, commentsColDate)
+
+commentsColUser = Col("Commenter", ["Alice","Bob"], type:string)
+commentsColExcerpt = Col("Excerpt", ["Great article!","I have a question..."], type:string)
+commentsColDate = Col("Date", ["2023-09-28","2023-09-29"], type:string)

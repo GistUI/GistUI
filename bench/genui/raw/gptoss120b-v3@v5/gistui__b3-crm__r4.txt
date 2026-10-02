@@ -1,0 +1,40 @@
+root = Card(header, summary, activityList, contactTable, followupTable, renewalCallout, noteForm, logCallButton)
+
+header = CardHeader("Acme Corp", "Owner: Jane Doe")
+
+summary = TextContent("$250,000 total deal value\\nCurrent stage: Negotiation", size:large)
+
+activityList = ListBlock(
+  ListItem("Email sent to client", "2023-09-20"),
+  ListItem("Demo completed", "2023-09-18"),
+  ListItem("Proposal uploaded", "2023-09-15"),
+  variant:number
+)
+
+contactTable = Table(nameCol, roleCol, emailCol)
+
+nameCol = Col("Name", ["John Smith","Emily Davis"], type:string)
+
+roleCol = Col("Role", ["Decision Maker","Technical Lead"], type:string)
+
+emailCol = Col("Email", ["john@acme.com","emily@acme.com"], type:string)
+
+followupTable = Table(followupCol, dueCol)
+
+followupCol = Col("Follow‑up", ["Send contract","Schedule renewal discussion"], type:string)
+
+dueCol = Col("Due date", ["2023-09-28","2023-10-05"], type:string)
+
+renewalCallout = Callout(variant:warning, "Renewal Date", "2023‑10‑10 (within 7 days)")
+
+noteForm = Form("note-form", noteButtons, noteField)
+
+noteButtons = Buttons(saveButton, cancelButton)
+
+saveButton = Button("Save", primary)
+
+cancelButton = Button("Cancel", secondary)
+
+noteField = FormControl("Note", TextArea("note", placeholder:"Add a note...", rows:4))
+
+logCallButton = Button("Log Call", primary)

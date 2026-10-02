@@ -1,0 +1,21 @@
+root = Card(header, summaryCard, itemsTable, totalCard, paySection, gap:m)
+header = Card(CardHeader("Invoice #INV-2024-0089", "Issued by Alex Rivera • UX/UI & Frontend Development"), Tag("Payment Due", warning, size:md), direction:row, justify:between, align:center, variant:clear)
+summaryCard = Card(summaryInfo, sunk, direction:row, justify:between, align:center, gap:m)
+summaryInfo = Card(dueAmountCol, dueDateCol, statusCol, direction:row, justify:between, align:center, variant:clear)
+dueAmountCol = Card(TextContent("Amount Due", size:small), Heading("$4,250.00 USD", level:h2), variant:clear, gap:xs)
+dueDateCol = Card(TextContent("Due Date", size:small), Heading("November 15, 2024", level:h3), variant:clear, gap:xs)
+statusCol = Card(TextContent("Status", size:small), Tag("Pending Payment", warning), variant:clear, gap:xs)
+itemsTable = Table(itemsData)
+itemsData = |Description|Hours:n|Rate|Total
+|Design System & UI Components|24|$95/hr|$2,280.00
+|Client Portal Frontend Build|16|$95/hr|$1,520.00
+|Responsive QA & Handoff|6|$75/hr|$450.00
+totalCard = Card(totalBreakdown, variant:clear, align:end)
+totalBreakdown = Card(TextContent("**Subtotal:** $4,250.00  \n**Tax (0%):** $0.00  \n### **Total Due: $4,250.00 USD**", size:default), variant:clear, align:end)
+paySection = Card(payHeader, payForm, sunk, gap:m)
+payHeader = CardHeader("Pay Now", "Secure payment via credit card or direct bank transfer")
+payForm = Form("payment-form", payButtons, payMethodField, emailReceiptField)
+payMethodField = FormControl("Payment Method", payMethodRadio)
+payMethodRadio = RadioGroup("payment_method", RadioItem("Credit / Debit Card", "Instant processing (Visa, Mastercard, Amex)", "card"), RadioItem("Bank Transfer (ACH / SEPA)", "1-2 business days settlement", "bank"), defaultValue:"card")
+emailReceiptField = FormControl("Send receipt to", Input("receipt_email", "billing@clientcompany.com", type:email))
+payButtons = Buttons(Button("Pay $4,250.00 USD Now", variant:primary, size:large), Button("Download PDF Invoice", variant:secondary, size:large))

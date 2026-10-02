@@ -1,0 +1,24 @@
+root = Card(stepsSection, caloriesSection, workoutsSection, logSection)
+
+stepsSection = Card(CardHeader("Steps Today"), stepsProgress, clear)
+stepsProgress = Progress(7500, label:"7,500 / 10,000")
+
+caloriesSection = Card(CardHeader("Calories Burned"), caloriesText, clear)
+caloriesText = TextContent("**1,250 kcal** burned today", size:large)
+
+workoutsSection = Card(CardHeader("Workouts This Week"), workoutsChart, clear)
+workoutsChart = BarChart(workoutData, variant:grouped, xLabel:"Day", yLabel:"Minutes")
+workoutData = |Day|Minutes
+|Mon|45
+|Tue|30
+|Wed|60
+|Thu|0
+|Fri|50
+|Sat|40
+|Sun|20
+
+logSection = Card(CardHeader("Log New Workout"), logForm, clear)
+logForm = Form("new-workout", logButtons, nameField, durationField)
+nameField = FormControl("Workout name", Input("name", placeholder:"e.g. Running"))
+durationField = FormControl("Duration (min)", Input("duration", placeholder:"30", type:number))
+logButtons = Buttons(Button("Save", primary))

@@ -1,0 +1,34 @@
+root = Card(header, description, qualifications, salary, applySection, shareSection)
+
+header = CardHeader("Senior Product Designer", "Design Team")
+
+description = TextContent("We are looking for a visionary product designer to shape user experiences across our platform, collaborating closely with product managers, engineers, and researchers.", size:large)
+
+qualifications = ListBlock(qualItem1, qualItem2, qualItem3, qualItem4, variant:number)
+
+qualItem1 = ListItem("5+ years of product design experience")
+qualItem2 = ListItem("Strong portfolio showcasing UI/UX design")
+qualItem3 = ListItem("Proficiency with Figma, Sketch, or Adobe XD")
+qualItem4 = ListItem("Excellent communication and collaboration skills")
+
+salary = TagBlock(["$120k - $150k"])
+
+applySection = Card(applyHeader, applyForm)
+
+applyHeader = CardHeader("Apply for this role")
+
+applyForm = Form("apply-job", applyButtons, nameField, emailField, resumeField)
+
+nameField = FormControl("Full name", Input("name", placeholder:"Your name"))
+
+emailField = FormControl("Email address", Input("email", placeholder:"you@example.com", type:email))
+
+resumeField = FormControl("Resume link", Input("resume", placeholder:"Link to your resume"))
+
+applyButtons = Buttons(Button("Submit Application", primary), Button("Reset", secondary))
+
+shareSection = Card(shareHeader, shareButtons)
+
+shareHeader = CardHeader("Share this posting")
+
+shareButtons = Buttons(Button("Copy link", primary), Button("Share on LinkedIn", secondary))

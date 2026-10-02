@@ -1,0 +1,4 @@
+root = Row(a, b)
+a = Text("a")
+b = Text("b")
+root.children = [b, a]

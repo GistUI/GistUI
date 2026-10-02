@@ -1,0 +1,24 @@
+{
+  "tree": {
+    "type": "Row",
+    "props": {
+      "style": {
+        "pad": 4,
+        "gap": 2
+      }
+    }
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

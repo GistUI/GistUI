@@ -1,0 +1,22 @@
+{
+  "tree": {
+    "type": "Callout",
+    "props": {
+      "content": "Heads up",
+      "tone": "info"
+    }
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

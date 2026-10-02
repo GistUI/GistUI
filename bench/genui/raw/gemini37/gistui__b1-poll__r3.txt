@@ -1,0 +1,13 @@
+root = Card(header, pollForm, resultsCard)
+header = CardHeader("Team Lunch Poll", "Vote before Friday 11:00 AM")
+pollForm = Form("lunch_poll", pollButtons, voteControl, dietControl)
+voteControl = FormControl("Where should we go for lunch on Friday?", restaurantOptions, "Select your top choice for this week")
+restaurantOptions = RadioGroup("restaurant", opt1, opt2, opt3, defaultValue:"sushi")
+opt1 = RadioItem("Sakura Sushi", "Fresh nigiri, bento boxes, and ramen (0.2 mi away)", "sushi")
+opt2 = RadioItem("El Fuego Cantina", "Tacos, burritos, and craft margaritas (0.4 mi away)", "mexican")
+opt3 = RadioItem("Green Olive Trattoria", "Wood-fired pizza, handmade pasta & salads (0.3 mi away)", "italian")
+dietControl = FormControl("Dietary restrictions or notes", Input("notes", "e.g., vegetarian, gluten-free, allergy"))
+pollButtons = Buttons(Button("Submit Vote", primary), Button("Change Vote", tertiary))
+resultsCard = Card(Heading("Current Standings", h4), TextContent("12 of 16 teammates have voted so far"), resultsBar, sunk)
+resultsBar = HorizontalBarChart(voteLabels, Series("Votes", [6, 4, 2]), xLabel:"Votes")
+voteLabels = ["Sakura Sushi", "El Fuego Cantina", "Green Olive Trattoria"]

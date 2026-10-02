@@ -1,0 +1,8 @@
+root = Card(currentSection, outlookSection, sunSection)
+currentSection = Card(CardHeader("Bengaluru Weather", "Current conditions"), TextContent("**Temperature:** 28°C\n**Condition:** Sunny"))
+outlookSection = Card(CardHeader("3‑Day Forecast", "Next three days"), forecastTable)
+sunSection = Card(CardHeader("Sunrise & Sunset", ""), TextContent("**Sunrise:** 6:12 AM\n**Sunset:** 6:45 PM"))
+forecastTable = |Day|Temp|Condition
+|Tue|30°C|Partly Cloudy
+|Wed|27°C|Rain
+|Thu|29°C|Sunny

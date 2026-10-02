@@ -1,0 +1,1 @@
+root = card(text("hello"), sTACK())

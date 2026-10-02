@@ -1,0 +1,3 @@
+root = Row(a, b)
+a = Text("abc\
+b = Text("x")

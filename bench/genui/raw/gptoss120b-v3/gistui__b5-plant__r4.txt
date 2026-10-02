@@ -1,0 +1,79 @@
+root = Card(oee_section, production_target_section, lines_section, defect_chart_section, downtime_chart_section, maintenance_table_section, stock_table_section, deliveries_table_section, shift_output_section, safety_section, quality_hold_section, energy_section, workorders_section, maintenance_form_section, focus_line_section, andon_section, export_section)
+
+oee_section = Card(CardHeader("Overall Equipment Effectiveness"), TextContent("OEE: 92%", size:large), variant:clear)
+production_target_section = Card(CardHeader("Units Produced vs Target"), BarChart(produced_target_rows, variant:grouped, xLabel:"Metric", yLabel:"Units"), variant:clear)
+lines_section = Card(CardHeader("Production Lines"), Table(lines_table_rows), variant:clear)
+defect_chart_section = Card(CardHeader("Defect Rate (Past Month)"), LineChart(defect_rows, variant:linear, xLabel:"Date", yLabel:"Defect Rate (%)"), variant:clear)
+downtime_chart_section = Card(CardHeader("Downtime by Cause"), PieChart(downtime_rows, variant:pie, appearance:circular), variant:clear)
+maintenance_table_section = Card(CardHeader("Machines Due for Maintenance"), Table(maintenance_rows), variant:clear)
+stock_table_section = Card(CardHeader("Stock Levels"), Table(stock_rows), variant:clear)
+deliveries_table_section = Card(CardHeader("Supplier Deliveries This Week"), Table(deliveries_rows), variant:clear)
+shift_output_section = Card(CardHeader("Shift Output Comparison"), BarChart(shift_output_rows, variant:grouped, xLabel:"Shift", yLabel:"Units Produced"), variant:clear)
+safety_section = Card(Callout(variant:warning, "Safety Incidents", "12 incidents this year. 45 days since last incident."), variant:clear)
+quality_hold_section = Card(CardHeader("Batches on Quality Hold"), Table(quality_hold_rows), variant:clear)
+energy_section = Card(CardHeader("Energy Use Today"), TextContent("Energy use today: 5,200 kWh", size:default), variant:clear)
+workorders_section = Card(CardHeader("Open Work Orders"), Table(workorders_rows), variant:clear)
+maintenance_form_section = Card(CardHeader("Schedule Maintenance"), maintenance_form, variant:clear)
+maintenance_form = Form("schedule-maintenance", form_buttons, machine_select_control, date_picker_control)
+form_buttons = Buttons(Button("Schedule", primary), Button("Cancel", secondary))
+machine_select_control = FormControl("Machine", machine_select)
+machine_select = Select("machine", SelectItem("M-01","Machine 01"), SelectItem("M-02","Machine 02"), SelectItem("M-03","Machine 03"), placeholder:"Select machine", size:medium)
+date_picker_control = FormControl("Date", maintenance_date)
+maintenance_date = DatePicker("date", mode:single, value:["2023-09-18"])
+focus_line_section = DialogBlock("Focus on line", "Line Details", focus_line_content, description:"Select a line to view details", triggerVariant:primary)
+focus_line_content = Card(CardHeader("Line Details"), TextContent("Select a line from the list to view its real-time stats.", size:default), variant:clear)
+andon_section = ListBlock(andon_item1, andon_item2, variant:number)
+andon_item1 = ListItem("Andon Alert: Line B stopped", "Mechanical issue", "Acknowledge")
+andon_item2 = ListItem("Andon Alert: Line C warning", "Quality check", "Acknowledge")
+export_section = Buttons(Button("Export Shift Report", primary))
+
+produced_target_rows = |Metric|Units
+|Produced|8000
+|Target|10000
+
+lines_table_rows = |Line|Rate (units/hr)|Status
+|Line A|120|Running
+|Line B|95|Stopped
+|Line C|110|Warning
+
+defect_rows = |Date|Defect Rate
+|2023-08-01|1.2
+|2023-08-08|0.9
+|2023-08-15|1.5
+|2023-08-22|1.1
+|2023-08-29|0.8
+
+downtime_rows = |Cause|Hours
+|Changeover|4
+|Breakdown|6
+|Setup|2
+|Idle|3
+
+maintenance_rows = |Machine|Due Date|Priority
+|M-01|2023-09-15|High
+|M-02|2023-09-20|Medium
+|M-03|2023-10-01|Low
+
+stock_rows = |Item|Quantity
+|Steel (tons)|120
+|Resin (tons)|80
+|Packaging (units)|5000
+
+deliveries_rows = |Supplier|Delivery Date|Items
+|Supplier X|2023-09-10|Steel
+|Supplier Y|2023-09-12|Resin
+|Supplier Z|2023-09-14|Packaging
+
+shift_output_rows = |Shift|Units
+|Morning|4000
+|Afternoon|3500
+|Night|2500
+
+quality_hold_rows = |Batch|Reason|Since
+|B-101|Defect|2023-09-05
+|B-102|Contamination|2023-09-07
+
+workorders_rows = |WO ID|Machine|Priority|Status
+|WO-001|M-01|High|Open
+|WO-002|M-03|Low|Open
+|WO-003|M-02|Medium|Open

@@ -1,0 +1,6 @@
+# A patch value is resolved against the target component's prop (enum words work).
+root = Row(a, b)
+a = Text("a")
+b = Text("b")
+root.gap = lg
+root.wrap = true

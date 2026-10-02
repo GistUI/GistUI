@@ -1,0 +1,8 @@
+root = Card(cardHeader, meetingInfo, attendeesList, joinButton, clear)
+cardHeader = CardHeader("Upcoming meeting")
+meetingInfo = TextContent("**Project Sync**\nStarts at **10:00 AM**", size:large)
+attendeesList = ListBlock(attendee1, attendee2, attendee3, variant:number)
+attendee1 = ListItem("Alice Johnson")
+attendee2 = ListItem("Bob Smith")
+attendee3 = ListItem("Carol Lee")
+joinButton = Buttons(Button("Join call", primary))

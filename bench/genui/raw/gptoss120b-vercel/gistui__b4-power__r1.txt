@@ -1,0 +1,45 @@
+root = Card(loadSection, capacitySection, generationSection, plantsSection, outagesSection, forecastSection, priceSection, maintenanceSection, alertsSection, actionsSection, emissionsSection)
+
+loadSection = Card(CardHeader("Current Load", "Live network load"), TextContent("5,200 MW", size:large), sunk)
+
+capacitySection = Card(CardHeader("Capacity Utilization", "How close to max"), HorizontalBarChart(labels:["Capacity"], Series("Network", values:[6200]), variant:stacked, xLabel:"MW", yLabel:"Utilization"), sunk)
+
+generationSection = Card(CardHeader("Generation Mix", "Power source distribution"), HorizontalBarChart(labels:["Coal","Gas","Nuclear","Wind","Solar","Hydro"], Series("Generation", values:[1500,1200,800,600,400,300]), variant:stacked, xLabel:"MW", yLabel:"Source"), sunk)
+
+plantsSection = Card(CardHeader("Plants Output & Status"), Table(
+  Col("Plant", data:["Plant A","Plant B","Plant C","Plant D"], type:string),
+  Col("Source", data:["Coal","Gas","Wind","Solar"], type:string),
+  Col("Output (MW)", data:[1500,1200,600,400], type:number),
+  Col("Status", data:["Online","Online","Maintenance","Online"], type:string)
+), sunk)
+
+outagesSection = Card(CardHeader("Outages"), Table(
+  Col("Region", data:["North Zone","East Zone"], type:string),
+  Col("Affected MW", data:[300,200], type:number),
+  Col("Estimated Restore", data:["2h","4h"], type:string)
+), sunk)
+
+forecastSection = Card(CardHeader("24‑Hour Demand Forecast"), LineChart(labels:["00h","04h","08h","12h","16h","20h","24h"], Series("Forecast", values:[4800,5000,5200,5400,5600,5400,5200]), natural, xLabel:"Time", yLabel:"MW"), sunk)
+
+priceSection = Card(CardHeader("Current Price"), TextContent("$45 /MWh", size:large), sunk)
+
+maintenanceSection = Card(CardHeader("Planned Maintenance (This Month)"), Table(
+  Col("Plant", data:["Plant C","Plant D"], type:string),
+  Col("Start", data:["2024‑10‑05","2024‑10‑12"], type:string),
+  Col("Duration (days)", data:[2,3], type:number)
+), sunk)
+
+alertsSection = Card(CardHeader("Live Alerts"), ListBlock(
+  ListItem("Overload in North Zone", "Load exceeds 95%", "Acknowledge"),
+  ListItem("Unexpected shutdown at Plant B", "Generator offline", "Investigate")
+, variant:number), sunk)
+
+actionsSection = Card(
+  Buttons(
+    Button("Focus on Region", primary, type:normal, size:small),
+    Button("Order Curtailment", destructive, type:normal, size:small),
+    direction:row
+  )
+, sunk)
+
+emissionsSection = Card(CardHeader("Emissions Today"), TextContent("1,200 t CO₂", size:large), sunk)

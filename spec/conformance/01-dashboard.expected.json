@@ -1,0 +1,164 @@
+{
+  "tree": {
+    "type": "Page",
+    "props": {
+      "gap": "lg"
+    },
+    "children": [
+      {
+        "type": "Header",
+        "props": {
+          "title": "Product Analytics",
+          "subtitle": "Usage, acquisition and revenue"
+        }
+      },
+      {
+        "type": "Stats",
+        "props": {
+          "data": {
+            "table": [
+              "Label:s",
+              "Value:n",
+              "Delta:n"
+            ],
+            "rows": [
+              [
+                "MAU",
+                128400,
+                6.2
+              ],
+              [
+                "New users (30d)",
+                24950,
+                3.1
+              ],
+              [
+                "MRR",
+                412000,
+                4.4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "Row",
+        "props": {
+          "wrap": true
+        },
+        "children": [
+          {
+            "type": "Card",
+            "children": [
+              {
+                "type": "Header",
+                "props": {
+                  "title": "Monthly Active Users"
+                }
+              },
+              {
+                "type": "Chart",
+                "props": {
+                  "data": {
+                    "table": [
+                      "Month:s",
+                      "MAU:n"
+                    ],
+                    "rows": [
+                      [
+                        "Apr",
+                        84500
+                      ],
+                      [
+                        "May",
+                        87200
+                      ]
+                    ]
+                  },
+                  "type": "bar",
+                  "y": "Users"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Card",
+            "children": [
+              {
+                "type": "Text",
+                "props": {
+                  "content": "### Acquisition"
+                }
+              },
+              {
+                "type": "Chart",
+                "props": {
+                  "data": {
+                    "table": [
+                      "Channel:s",
+                      "Share:n"
+                    ],
+                    "rows": [
+                      [
+                        "Organic",
+                        34
+                      ],
+                      [
+                        "Paid",
+                        22
+                      ]
+                    ]
+                  },
+                  "type": "donut"
+                }
+              },
+              {
+                "type": "Text",
+                "props": {
+                  "content": "_Tip: track CAC by channel._"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Card",
+        "children": [
+          {
+            "type": "Header",
+            "props": {
+              "title": "Top Features"
+            }
+          },
+          {
+            "type": "Table",
+            "props": {
+              "data": {
+                "table": [
+                  "Feature:s",
+                  "WAU:n",
+                  "Adoption %:n",
+                  "Uses/User:n"
+                ],
+                "rows": [
+                  [
+                    "Dashboards",
+                    48200,
+                    62.5,
+                    5.8
+                  ]
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

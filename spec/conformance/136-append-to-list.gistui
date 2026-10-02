@@ -1,0 +1,4 @@
+root = Row(items)
+items = [Text("a")]
+items += Text("b")
+items += [Text("c")]

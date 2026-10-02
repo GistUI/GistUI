@@ -1,0 +1,2 @@
+main = Card("No root statement: the first component becomes the root.")
+spare = Text("Unused statements are reported.")

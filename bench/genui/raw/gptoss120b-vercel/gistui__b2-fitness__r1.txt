@@ -1,0 +1,28 @@
+root = Card(stepSection, caloriesSection, workoutsSection, logSection)
+
+stepSection = Card(CardHeader("Step Count"), Progress(7500, label:"7,500 / 10,000"), clear)
+
+caloriesSection = Card(CardHeader("Calories Burned"), TextContent("**1,850 kcal**", size:large), clear)
+
+workoutsSection = Card(CardHeader("Workouts - Last 7 Days"), BarChart(workoutRows, grouped, xLabel:"Day", yLabel:"Minutes"), clear)
+
+logSection = Card(CardHeader("Log New Workout"), logForm, clear)
+
+logForm = Form("log-workout", logButtons, typeField, durationField, notesField)
+
+typeField = FormControl("Workout type", Select("type", SelectItem("run", "Run"), SelectItem("bike", "Bike"), SelectItem("yoga", "Yoga"), placeholder:"Select type"))
+
+durationField = FormControl("Duration (min)", Input("duration", "30", type:number))
+
+notesField = FormControl("Notes", TextArea("notes", "Optional details", rows:3))
+
+logButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))
+
+workoutRows = |Day|Minutes
+|Mon|45
+|Tue|30
+|Wed|50
+|Thu|0
+|Fri|40
+|Sat|60
+|Sun|35

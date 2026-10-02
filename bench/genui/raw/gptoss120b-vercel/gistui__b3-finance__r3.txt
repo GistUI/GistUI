@@ -1,0 +1,35 @@
+root = Card(cashSection, burnSection, runwaySection, expensesChart, transactionsTable, monthForm, variant:card)
+
+cashSection = Card(CardHeader("Cash on Hand"), TextContent("$1.2M", size:large))
+
+burnSection = Card(CardHeader("Monthly Burn"), TextContent("$150k", size:large))
+
+runwaySection = Card(CardHeader("Months of Runway"), TextContent("8 months", size:large))
+
+expensesChart = Card(CardHeader("Expenses by Category"), expenseData, variant:clear)
+
+expenseData = |Category|Amount
+|Salaries|80000
+|Marketing|30000
+|R&D|20000
+|Operations|15000
+
+transactionsTable = Card(CardHeader("Transactions > $10k"), transTable)
+
+transTable = Table(transIdCol, transAmtCol, transDateCol)
+
+transIdCol = Col("ID", data:["T001","T002"], type:string)
+
+transAmtCol = Col("Amount", data:["$12,500","$15,300"], type:string)
+
+transDateCol = Col("Date", data:["2024-09-05","2024-09-12"], type:string)
+
+monthForm = Form("month-view", formButtons, monthField)
+
+monthField = FormControl("Month", monthSelect)
+
+monthSelect = Select("month", SelectItem("2024-09","September 2024"), SelectItem("2024-08","August 2024"), placeholder:"Select month")
+
+formButtons = Buttons(downloadBtn)
+
+downloadBtn = Button("Download CSV", primary)

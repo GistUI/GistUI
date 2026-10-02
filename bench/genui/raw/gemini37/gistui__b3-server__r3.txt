@@ -1,0 +1,43 @@
+root = Card(header, topRow, incidentsCard, chartsCard, latencyCard, actionsRow, gap:l)
+header = Card(CardHeader("Service Health & On-Call Dashboard", "Production status, real-time telemetry, and incident management"), headerControls, direction:row, justify:between, align:center, variant:clear)
+headerControls = Card(regionFilter, thresholdDialog, direction:row, gap:m, align:center, variant:clear)
+regionFilter = Select("region", SelectItem("all", "All Regions (Global)"), SelectItem("us-east", "us-east-1 (N. Virginia)"), SelectItem("us-west", "us-west-2 (Oregon)"), SelectItem("eu-west", "eu-west-1 (Ireland)"), SelectItem("ap-southeast", "ap-southeast-1 (Singapore)"), placeholder:"Select Region", value:"all")
+thresholdDialog = DialogBlock("Set Alert Threshold", "Configure Incident Alert Thresholds", thresholdForm, description:"Adjust latency, error rate, and resource threshold triggers.")
+thresholdForm = Form("alert-threshold-form", thresholdButtons, metricSelect, thresholdValueInput, thresholdDurationSelect)
+metricSelect = FormControl("Metric Target", Select("target_metric", SelectItem("err", "Error Rate (%)"), SelectItem("p99", "P99 Latency (ms)"), SelectItem("cpu", "CPU Utilization (%)"), SelectItem("mem", "Memory Utilization (%)"), placeholder:"Select metric"))
+thresholdValueInput = FormControl("Threshold Value", Input("thresh_val", "e.g. 1.5", type:number), "Trigger alert when value exceeds this number")
+thresholdDurationSelect = FormControl("Evaluation Window", Select("window", SelectItem("1m", "1 minute"), SelectItem("5m", "5 minutes"), SelectItem("15m", "15 minutes"), placeholder:"Select window"))
+thresholdButtons = Buttons(Button("Save Threshold", primary), Button("Cancel", tertiary))
+topRow = Card(uptimeKpi, errorRateKpi, incidentSummaryKpi, direction:row, gap:m, variant:clear)
+uptimeKpi = Card(CardHeader("Uptime This Quarter", "Q3 SLO Target: 99.90%"), Heading("99.962%", h2), Progress(99, "Within Error Budget (+0.062%)"), Tag("Nominal", variant:success))
+errorRateKpi = Card(CardHeader("Current Error Rate", "Global traffic (5xx responses)"), Heading("0.042%", h2), Tag("Healthy (< 0.10%)", variant:success), TextContent("Baseline: **0.038%** | Peak 1h: **0.18%**", size:small))
+incidentSummaryKpi = Card(CardHeader("Active Incidents", "Requires on-call triage"), Heading("2 Open", h2), Tag("1 P1 Critical • 1 P3 Minor", variant:danger), TextContent("On-call engineer: **@alex-oncall**", size:small))
+incidentsCard = Card(CardHeader("Open Incidents & Triage", "Active alerts requiring response and mitigation"), incidentsTable, ackActions, sunk, gap:m)
+incidentsTable = Table(incidentsData)
+ackActions = Card(Heading("Acknowledge Incident", h4), ackForm, direction:column, gap:s, variant:clear)
+ackForm = Form("ack-form", ackButtons, ackIncidentSelect, ackNoteInput)
+ackIncidentSelect = FormControl("Select Incident to Acknowledge", Select("inc_id", SelectItem("INC-8821", "INC-8821: High Error Rate on /checkout (P1 Critical)"), SelectItem("INC-8834", "INC-8834: Elevated Latency on /search (P3 Minor)"), placeholder:"Choose incident"))
+ackNoteInput = FormControl("On-Call Note", Input("ack_note", "Investigating database pool exhaustion..."), "Added to incident audit trail")
+ackButtons = Buttons(Button("Acknowledge Incident", primary), Button("Declare Resolved", secondary))
+chartsCard = Card(CardHeader("System Utilization (Past 24 Hours)", "CPU and Memory utilization across all cluster nodes"), LineChart(telemetryData, natural, xLabel:"Hour", yLabel:"Utilization %"), sunk)
+latencyCard = Card(CardHeader("Top 5 Slowest Endpoints", "Ranked by P99 response latency over trailing 60 minutes"), HorizontalBarChart(slowEndpointsData, variant:grouped, xLabel:"Latency (ms)", yLabel:"Endpoint"), sunk)
+actionsRow = Buttons(Button("Refresh Telemetry", secondary), Button("View PagerDuty Runbook", tertiary), Button("Escalate to Secondary", secondary, type:destructive))
+incidentsData = |Incident ID|Severity|Impacted Service|Started|Status
+|INC-8821|P1 - Critical|Payment Gateway / Checkout|14m ago|Triggered
+|INC-8834|P3 - Minor|Catalog Search Index|42m ago|Investigating
+telemetryData = |Hour|CPU Usage %|Memory Usage %
+|00:00|42|61
+|03:00|38|60
+|06:00|45|63
+|09:00|74|78
+|12:00|82|84
+|15:00|79|81
+|18:00|68|75
+|21:00|55|69
+|24:00|48|66
+slowEndpointsData = |Endpoint|P99 Latency (ms)
+|POST /api/v2/checkout/process|1420
+|POST /api/v1/reports/export|1180
+|GET /api/v2/search/query|890
+|PUT /api/v1/inventory/batch-sync|760
+|GET /api/v2/analytics/dashboard|640

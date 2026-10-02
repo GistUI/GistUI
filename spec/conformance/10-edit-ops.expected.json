@@ -1,0 +1,39 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Row",
+        "children": [
+          {
+            "type": "Stat",
+            "props": {
+              "label": "DAU",
+              "value": "40k"
+            }
+          },
+          {
+            "type": "Stat",
+            "props": {
+              "label": "MRR",
+              "value": "$415k",
+              "delta": "+0.7%"
+            }
+          },
+          {
+            "type": "Stat",
+            "props": {
+              "label": "NPS",
+              "value": "61"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

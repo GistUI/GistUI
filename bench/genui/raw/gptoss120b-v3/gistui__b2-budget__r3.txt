@@ -1,0 +1,29 @@
+root = Card(header, monthSelect, totalInfo, largestCallout, splitChart, actions, variant:card)
+
+header = CardHeader("Personal Budget", "Overview for selected month")
+
+monthSelect = Select("month", 
+    SelectItem("2024-08", "August 2024"),
+    SelectItem("2024-07", "July 2024"),
+    SelectItem("2024-06", "June 2024"),
+    placeholder:"Select month", 
+    value:"2024-08")
+
+totalInfo = TextContent("**Total spent:** $2,340  \n**Budget:** $3,000", size:large)
+
+largestCallout = Callout(variant:warning, "Largest expense", "Rent – $1,200")
+
+splitChart = PieChart(splitData, values:splitValues, variant:donut, appearance:circular)
+
+splitData = |Category|Amount
+|Rent|1200
+|Groceries|400
+|Utilities|200
+|Entertainment|300
+|Transport|240
+
+actions = Buttons(addExpense, viewHistory, direction:row)
+
+addExpense = Button("Add expense", primary)
+
+viewHistory = Button("View history", secondary)

@@ -1,0 +1,89 @@
+root = Card(header, weatherCard, focusDialog, dispatchDialog, alertDialog, congestionCard, transitCard, airQualityCard, energyCard, waterCard, incidentsCard, vehiclesCard, parkingCard, eventsCard, reportsCard, backlogCard, roadworksCard, infraCard, sunk)
+
+header = CardHeader("City Operations Center", "Live Dashboard")
+
+weatherCard = Card(Heading("Current Weather", h3), MarkDownRenderer("**Temp:** 72°F\n**Conditions:** Sunny\n**Wind:** 5 mph NW", variant:clear))
+
+focusDialog = DialogBlock("Focus District", "Select District", districtSelect, description:"Filter dashboard to a district.", triggerVariant:default)
+
+districtSelect = Select("district", SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("Midtown","Midtown"), placeholder:"Choose district")
+
+dispatchDialog = DialogBlock("Dispatch Crew", "Dispatch Emergency Crew", dispatchForm, description:"Assign a crew to an incident.", triggerVariant:default)
+
+dispatchForm = Form("dispatch", dispatchButtons, incidentField, crewField)
+
+incidentField = FormControl("Incident ID", Input("incident_id", placeholder:"e.g., INC123"))
+
+crewField = FormControl("Crew", crewSelect)
+
+crewSelect = Select("crew", SelectItem("Crew A","Crew A"), SelectItem("Crew B","Crew B"), placeholder:"Select crew")
+
+dispatchButtons = Buttons(Button("Dispatch", primary))
+
+alertDialog = DialogBlock("Send Public Alert", "Public Alert", alertForm, description:"Broadcast a message to all citizens.", triggerVariant:default)
+
+alertForm = Form("public_alert", alertButtons, messageField)
+
+messageField = FormControl("Message", TextArea("alert_msg", placeholder:"Enter alert message...", rows:4))
+
+alertButtons = Buttons(Button("Send Alert", primary))
+
+congestionCard = Card(Heading("Congestion Right Now", h3), congestionChart)
+
+congestionChart = HorizontalBarChart(labels:["Downtown","Uptown","Midtown","Suburbs"], congestionSeries, variant:grouped, xLabel:"District", yLabel:"Congestion %")
+
+congestionSeries = Series("Congestion", values:[80,55,60,30])
+
+transitCard = Card(Heading("Transit Punctuality", h3), transitChart)
+
+transitChart = BarChart(labels:["Line A","Line B","Line C","Line D"], transitSeries, variant:grouped, xLabel:"Transit Line", yLabel:"On‑time %")
+
+transitSeries = Series("On Time", values:[92,85,78,88])
+
+airQualityCard = Card(Heading("Air Quality by District", h3), airChart)
+
+airChart = HorizontalBarChart(labels:["Downtown","Uptown","Midtown","Suburbs"], airSeries, variant:grouped, xLabel:"District", yLabel:"AQI")
+
+airSeries = Series("AQI", values:[45,60,55,70])
+
+energyCard = Card(Heading("Energy Use (Past Week)", h3), energyChart)
+
+energyChart = LineChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], energySeries, natural, xLabel:"Day", yLabel:"MWh")
+
+energySeries = Series("Energy (MWh)", values:[1200,1150,1300,1250,1180,1220,1190])
+
+waterCard = Card(Heading("Water Use Today", h3), waterChart)
+
+waterChart = SingleStackedBarChart(labels:["Water Use"], values:[3500])
+
+incidentsCard = Card(Heading("Open Incidents", h3), incidentsTable)
+
+incidentsTable = Table(Col("Incident ID", data:["INC101","INC102","INC103"], type:string), Col("Location", data:["5th Ave & Main","Broadway & 2nd","Elm St & 3rd"], type:string), Col("Severity", data:["High","Medium","Low"], type:string))
+
+vehiclesCard = Card(Heading("Emergency Vehicles Deployed", h3), vehiclesTable)
+
+vehiclesTable = Table(Col("Vehicle ID", data:["E‑001","E‑002","E‑003"], type:string), Col("Type", data:["Ambulance","Fire Truck","Police Car"], type:string), Col("Location", data:["Downtown","Uptown","Midtown"], type:string))
+
+parkingCard = Card(Heading("Parking Availability Downtown", h3), parkingTable)
+
+parkingTable = Table(Col("Lot", data:["Lot A","Lot B","Lot C"], type:string), Col("Spaces Available", data:[120,45,78], type:number))
+
+eventsCard = Card(Heading("Public Events This Weekend", h3), eventsList)
+
+eventsList = ListBlock(ListItem("Music Festival","Central Park","Details", image:["https://picsum.photos/seed/music/100/100"]), ListItem("Food Fair","Market Square","Details", image:["https://picsum.photos/seed/food/100/100"]), ListItem("Art Expo","Museum District","Details", image:["https://picsum.photos/seed/art/100/100"]), variant:image)
+
+reportsCard = Card(Heading("Citizen Reports", h3), reportsList)
+
+reportsList = ListBlock(ListItem("Pothole on 3rd St","Reported by John","View"), ListItem("Streetlight out","Reported by Maria","View"), ListItem("Graffiti on 5th","Reported by Lee","View"), variant:number)
+
+backlogCard = Card(Heading("Service Request Backlog", h3), backlogTable)
+
+backlogTable = Table(Col("Request ID", data:["REQ001","REQ002","REQ003"], type:string), Col("Type", data:["Road Repair","Signal Fix","Graffiti Removal"], type:string), Col("Status", data:["Pending","In Progress","Pending"], type:string))
+
+roadworksCard = Card(Heading("Roadworks Planned This Month", h3), roadworksTable)
+
+roadworksTable = Table(Col("Project", data:["Bridge Repair","Road Resurfacing"], type:string), Col("Start Date", data:["2023‑09‑10","2023‑09‑15"], type:string), Col("End Date", data:["2023‑09‑20","2023‑09‑30"], type:string))
+
+infraCard = Card(Heading("Infrastructure Jobs Due for Maintenance", h3), infraTable)
+
+infraTable = Table(Col("Asset", data:["Water Pump","Power Substation"], type:string), Col("Due Date", data:["2023‑10‑05","2023‑10‑12"], type:string), Col("Priority", data:["High","Medium"], type:string))

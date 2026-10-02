@@ -1,0 +1,9 @@
+root = Card(invoiceHeader, amountSection, dueSection, payNowButtons, clear)
+invoiceHeader = CardHeader("Invoice #12345", "Freelancer Services")
+amountSection = Card(TextContent("**Amount Due:** $2,500 USD", large))
+dueSection = Card(TextContent("**Due Date:** September 30, 2026", large))
+payNowButtons = Buttons(Button("Pay Now", primary), direction:row)
+rev = |Metric|Value
+|Amount Due|2500
+|Currency|USD
+|Due Date|2026-09-30

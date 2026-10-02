@@ -1,0 +1,49 @@
+root = Card(CardHeader("Store Manager Console"), storeSelect, salesSection, trafficSection, bestSellersSection, outOfStockSection, shiftSection, basketSection, returnsSection, promotionsSection, registersSection, comparisonSection, reorderSection)
+
+storeSelect = DialogBlock("Switch Store", "Select Store", Select("store_select", SelectItem("store1", "Main Street"), SelectItem("store2", "Mall Plaza"), placeholder:"Choose store", value:"store1"), description:"Pick a different store to view its data", triggerVariant:secondary)
+
+salesSection = Card(Heading("Sales Today vs Target", h3), SingleStackedBarChart(labels:["Sales"], values:[1200, 1500], variant:donut), TextContent("Target: $1,500 • Achieved: $1,200", size:small))
+
+trafficSection = Card(Heading("Foot Traffic", h3), LineChart(|Hour|Visitors
+|08|45
+|09|78
+|10|120
+|11|150
+|12|200
+|13|180
+|14|160
+|15|140
+|16|130
+|17|110
+|18|95
+|19|60
+|20|30, linear, xLabel:"Hour", yLabel:"Visitors"))
+
+bestSellersSection = Card(Heading("Best Sellers", h3), Table(Col("Product", ["T‑Shirt","Jeans","Sneakers"], string), Col("Units Sold", [340,275,190], number), Col("Action", ["Reorder","Reorder","Reorder"], action)), Buttons(Button("Reorder Selected", primary)))
+
+outOfStockSection = Card(Heading("Out‑of‑Stock Items", h3), Table(Col("Product", ["Beanie","Socks","Hat"], string), Col("Last Stocked", ["2024‑09‑20","2024‑09‑18","2024‑09‑22"], string)))
+
+shiftSection = Card(Heading("Today's Shift", h3), ListBlock(ListItem("Alice Johnson", "Cashier"), ListItem("Bob Lee", "Stock Associate"), ListItem("Cara Patel", "Manager")))
+
+basketSection = Card(Heading("Average Basket Size", h3), TextContent("Average items per purchase: **4.3**", size:large))
+
+returnsSection = Card(Heading("Returns This Week", h3), TextContent("Total returns: **$2,340**", size:default))
+
+promotionsSection = Card(Heading("Running Promotions", h3), Table(Col("Promotion", ["10% Off Shoes","Buy 1 Get 1 Free T‑Shirt"], string), Col("Sales Lift", [12,8], number), Col("Status", ["On Track","Lagging"], string)))
+
+registersSection = Card(Heading("Register Status", h3), Table(Col("Register", ["Reg‑1","Reg‑2","Reg‑3"], string), Col("Open", ["Yes","No","Yes"], string)))
+
+comparisonSection = Card(Heading("Weekly Sales Comparison", h3), BarChart(|Week|This Week|Last Week
+|Mon|1200|1100
+|Tue|1350|1300
+|Wed|1500|1450
+|Thu|1600|1580
+|Fri|1700|1650
+|Sat|1800|1750
+|Sun|1900|1850| grouped, xLabel:"Day", yLabel:"Revenue"))
+
+reorderSection = Card(Heading("Reorder Item", h3), Form("reorder_form", reorderButtons, itemField, qtyField), Buttons(Button("Submit Reorder", primary), Button("Cancel", secondary))) 
+
+itemField = FormControl("Item SKU", Input("sku", placeholder:"Enter SKU", type:text))
+qtyField = FormControl("Quantity", Input("qty", placeholder:"Enter quantity", type:number))
+reorderButtons = Buttons(Button("Reorder", primary))

@@ -1,0 +1,14 @@
+root = Card(CardHeader("Morning check-in", "Mid-morning snapshot"), todayRevenue, compareCallout, compareTable, trendChart)
+todayRevenue = Card(TextContent("### Revenue so far today", size:small), TextContent("**$2,184**", size:large), sunk)
+compareCallout = Callout(success, "vs yesterday at this time", "Today is **+12.4%** ahead — $2,184 vs $1,943 by 10:30 AM")
+compareTable = Table(compareRows)
+compareRows = |Metric|Today|Yesterday same time
+|Revenue|$2,184|$1,943
+|Orders|47|41
+|Avg order value|$46.47|$47.39
+trendChart = LineChart(trendRows, natural, xLabel:"Time", yLabel:"Revenue")
+trendRows = |Time|Today|Yesterday
+|8:00 AM|420|380
+|9:00 AM|980|890
+|10:00 AM|1540|1380
+|10:30 AM|2184|1943

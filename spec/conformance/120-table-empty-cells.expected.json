@@ -1,0 +1,32 @@
+{
+  "tree": {
+    "type": "Table",
+    "props": {
+      "data": {
+        "table": [
+          "A:s",
+          "B:s"
+        ],
+        "rows": [
+          [
+            null,
+            null
+          ],
+          [
+            "x",
+            null
+          ],
+          [
+            null,
+            "y"
+          ]
+        ]
+      }
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

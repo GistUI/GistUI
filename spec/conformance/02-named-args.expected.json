@@ -1,0 +1,50 @@
+{
+  "tree": {
+    "type": "Stack",
+    "props": {
+      "gap": "sm"
+    },
+    "children": [
+      {
+        "type": "Row",
+        "props": {
+          "gap": "md",
+          "align": "center"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "x"
+            }
+          },
+          {
+            "type": "Text",
+            "props": {
+              "content": "y"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Button",
+        "props": {
+          "v": "ghost",
+          "label": "Cancel"
+        }
+      },
+      {
+        "type": "Header",
+        "props": {
+          "title": "Title",
+          "subtitle": "By name"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

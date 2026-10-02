@@ -1,0 +1,23 @@
+root = Card(cashSection, burnSection, runwaySection, expensesSection, transactionsSection, controlsSection)
+
+cashSection = Card(CardHeader("Cash on Hand"), TextContent("$125,000", size:large))
+burnSection = Card(CardHeader("Monthly Burn"), TextContent("$45,000", size:large))
+runwaySection = Card(CardHeader("Months of Runway"), TextContent("2.8 months", size:large))
+
+expensesSection = Card(CardHeader("Expenses by Category"), expensesChart)
+expensesChart = PieChart(labels:["Salaries","Marketing","R&D","Ops"], values:[55000,15000,20000,10000], variant:donut)
+
+transactionsSection = Card(CardHeader("Transactions > $10,000"), transactionsTable)
+transactionsTable = Table(colDate, colAmount, colDescription)
+colDate = Col("Date", ["2023-09-05","2023-09-12","2023-09-20"], type:string)
+colAmount = Col("Amount", [12000,15000,22000], type:number)
+colDescription = Col("Description", ["Equipment purchase","Consulting fee","Office lease"], type:string)
+
+controlsSection = Card(monthSelect, downloadBtn, direction:row, gap:s, align:center, justify:start)
+monthSelect = Select("month",
+    SelectItem("2023-09","Sep 2023"),
+    SelectItem("2023-08","Aug 2023"),
+    SelectItem("2023-07","Jul 2023"),
+    placeholder:"Select month",
+    value:"2023-09")
+downloadBtn = Button("Download CSV", primary)

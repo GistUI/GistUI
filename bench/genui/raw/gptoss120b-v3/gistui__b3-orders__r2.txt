@@ -1,0 +1,40 @@
+root = Card(header, filters, kpis, volumeChart, recentOrders)
+
+header = CardHeader("E‑commerce Operations", "Today’s snapshot")
+
+filters = Card(Heading("Filters", h3), opsForm)
+
+opsForm = Form("ops-filters", filterButtons, statusFilter, searchField)
+
+statusFilter = FormControl("Status", Select("status", SelectItem("all","All"), SelectItem("pending","Pending"), SelectItem("shipped","Shipped"), SelectItem("refunded","Refunded"), placeholder:"All statuses"))
+
+searchField = FormControl("Customer", Input("customer", "Search name...", type:text))
+
+filterButtons = Buttons(Button("Apply"), Button("Reset", secondary))
+
+kpis = Card(Heading("Key metrics", h3), ordersToday, revenueToday, aov, refundRate)
+
+ordersToday = TextContent("Orders placed today: **124**", size:large)
+
+revenueToday = TextContent("Revenue today: **$8,560**", size:large)
+
+aov = TextContent("Average order value: **$69.2**", size:large)
+
+refundRate = TextContent("Refund rate this month: **2.3%**", size:large)
+
+volumeChart = Card(Heading("Order volume (last 4 weeks)", h3), LineChart(volumeRows, linear, xLabel:"Week", yLabel:"Orders"))
+
+volumeRows = |Week|Orders
+|W1|1120
+|W2|980
+|W3|1045
+|W4|1230
+
+recentOrders = Card(Heading("Recent orders", h3), recentList)
+
+recentList = ListBlock(order1, order2, order3, order4, variant:number)
+
+order1 = ListItem("#10234", "Customer: Alice – Total: $120 – Status: Pending", "Mark fulfilled")
+order2 = ListItem("#10233", "Customer: Bob – Total: $75 – Status: Shipped", "Mark fulfilled")
+order3 = ListItem("#10232", "Customer: Carol – Total: $45 – Status: Refunded", "Mark fulfilled")
+order4 = ListItem("#10231", "Customer: Dave – Total: $210 – Status: Pending", "Mark fulfilled")

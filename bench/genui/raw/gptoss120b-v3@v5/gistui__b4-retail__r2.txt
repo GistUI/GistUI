@@ -1,0 +1,76 @@
+root = Card(viewStoreSelect, dashboardSection)
+
+viewStoreSelect = Select("store", SelectItem("store1","Store 1"), SelectItem("store2","Store 2"), placeholder:"Select store")
+
+dashboardSection = SectionBlock(salesSection, trafficSection, bestsellersSection, outofstockSection, shiftSection, basketSection, returnsSection, promotionsSection, registersSection, reorderSection, comparisonSection, isFoldable)
+
+salesSection = SectionItem("sales", "Sales vs Target", salesChart)
+trafficSection = SectionItem("traffic", "Foot Traffic", trafficChart)
+bestsellersSection = SectionItem("bestsellers", "Best Sellers", bestsellersChart)
+outofstockSection = SectionItem("outofstock", "Out of Stock", outofstockTable)
+shiftSection = SectionItem("shift", "On Shift", shiftTags)
+basketSection = SectionItem("basket", "Average Basket Size", avgBasketCallout)
+returnsSection = SectionItem("returns", "Returns This Week", returnsCallout)
+promotionsSection = SectionItem("promos", "Promotion Performance", promosChart)
+registersSection = SectionItem("registers", "Register Status", registerTable)
+reorderSection = SectionItem("reorder", "Reorder Items", reorderList)
+comparisonSection = SectionItem("compare", "This Week vs Last Week", compareChart)
+
+actualSeries = Series("Actual", [8500])
+targetSeries = Series("Target", [10000])
+salesChart = HorizontalBarChart(["Sales"], actualSeries, targetSeries, variant:grouped, xLabel:"Amount")
+
+trafficChart = LineChart(trafficRows, variant:linear, xLabel:"Time", yLabel:"Visitors")
+
+bestsellersChart = BarChart(bestsellerRows, variant:grouped, xLabel:"Product", yLabel:"Units")
+
+outofstockTable = Table(itemCol, categoryCol)
+itemCol = Col("Item", ["Sock","Sunglasses"], type:string)
+categoryCol = Col("Category", ["Accessories","Accessories"], type:string)
+
+shiftTags = TagBlock(["Alice","Bob","Charlie"])
+
+avgBasketCallout = Callout(variant:info, "Average Basket Size", "$45")
+returnsCallout = Callout(variant:warning, "Returns This Week", "12 returns")
+
+promosChart = BarChart(promosRows, variant:grouped, xLabel:"Promotion", yLabel:"Units")
+
+registerTable = Table(regCol, statusCol)
+regCol = Col("Register", ["Reg1","Reg2","Reg3"], type:string)
+statusCol = Col("Status", ["Open","Closed","Open"], type:string)
+
+reorderList = ListBlock(reorderItem1, reorderItem2, variant:number)
+reorderItem1 = ListItem("Sock", "Out of stock", "Reorder")
+reorderItem2 = ListItem("Sunglasses", "Out of stock", "Reorder")
+
+compareChart = LineChart(compareRows, variant:linear, xLabel:"Day", yLabel:"Sales")
+
+trafficRows = |Hour|Foot Traffic
+|08:00|120
+|09:00|200
+|10:00|340
+|11:00|420
+|12:00|500
+|13:00|480
+|14:00|460
+|15:00|530
+|16:00|600
+|17:00|650
+
+bestsellerRows = |Product|Units
+|Shirt|150
+|Jeans|120
+|Hat|90
+
+promosRows = |Promotion|Units
+|10% Off|300
+|Buy1Get1|250
+
+compareRows = |Day|This Week|Last Week
+|Mon|500|450
+|Tue|600|580
+|Wed|550|530
+|Thu|620|610
+|Fri|700|680
+|Sat|800|770
+|Sun|750|730

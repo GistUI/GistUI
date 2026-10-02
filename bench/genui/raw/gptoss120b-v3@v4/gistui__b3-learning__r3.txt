@@ -1,0 +1,48 @@
+root = Card(header, cohortSelect, activeCard, completionCard, avgScoreCard, coursesCard, engagementCard, riskCard, messageCard, direction:column, gap:m)
+
+header = CardHeader("Training Platform Analytics")
+
+cohortSelect = Select("cohort", SelectItem("Cohort A", "Cohort A"), SelectItem("Cohort B", "Cohort B"), placeholder:"Select cohort")
+
+activeCard = Card(TextContent("**Active learners this week:** 1,245", size:large))
+
+completionCard = Card(TextContent("**Course completion rate:** 68%", size:large))
+
+avgScoreCard = Card(TextContent("**Average quiz score:** 85%", size:large))
+
+coursesCard = Card(Heading("Courses ranked by enrollment", h3), HorizontalBarChart(coursesData, variant:grouped, xLabel:"Enrollments", yLabel:"Course"))
+
+engagementCard = Card(Heading("Engagement (last 8 weeks)", h3), LineChart(engagementData, variant:linear, xLabel:"Week", yLabel:"Engagement"))
+
+riskCard = Card(Heading("Learners at risk of dropping out", h3), Table(riskNameCol, riskScoreCol))
+
+messageCard = Card(Heading("Message cohort", h3), messageForm)
+
+messageForm = Form("cohort-message", messageButtons, messageField)
+
+messageField = FormControl("Message", TextArea("msg", "Enter message...", rows:4))
+
+messageButtons = Buttons(sendButton)
+
+sendButton = Button("Send", variant:primary, type:normal, size:medium)
+
+riskNameCol = Col("Learner", ["Alice","Bob","Charlie"], type:string)
+
+riskScoreCol = Col("Risk Score", [0.9,0.85,0.8], type:number)
+
+coursesData = |Course|Enrollments
+|Course A|1200
+|Course B|950
+|Course C|800
+|Course D|600
+|Course E|400
+
+engagementData = |Week|Engagement
+|W1|300
+|W2|350
+|W3|400
+|W4|380
+|W5|420
+|W6|460
+|W7|500
+|W8|540

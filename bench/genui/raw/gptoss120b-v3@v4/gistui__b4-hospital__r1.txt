@@ -1,0 +1,61 @@
+root = Card(bedSection, erSection, admissionsChart, deptChart, staffTable, criticalCallout, dischargeTable, orBookingsTable, suppliesTable, incidentDialog, datePicker, transferDialog, gap:m, direction:column)
+
+bedSection = Card(CardHeader("Bed Occupancy", "Current"), PieChart(["Occupied","Available"], [78,22], donut, circular))
+erSection = Card(CardHeader("ER Wait Times", "Current"), HorizontalBarChart(["ER"], Series("Wait", [45]), variant:grouped, xLabel:"Minutes", yLabel:""))
+admissionsChart = Card(CardHeader("Admissions (Last 2 Weeks)", ""), LineChart(admissionsRows, natural, xLabel:"Date", yLabel:"Admissions"))
+admissionsRows = |Date|Admissions
+|2023-09-16|34
+|2023-09-17|28
+|2023-09-18|31
+|2023-09-19|27
+|2023-09-20|30
+|2023-09-21|26
+|2023-09-22|32
+|2023-09-23|29
+|2023-09-24|33
+|2023-09-25|25
+|2023-09-26|28
+|2023-09-27|30
+|2023-09-28|27
+|2023-09-29|31
+
+deptChart = Card(CardHeader("Patients per Department", ""), HorizontalBarChart(["Cardiology","Neurology","Oncology","Pediatrics","Surgery"], Series("Patients",[45,38,22,57,41]), variant:grouped, xLabel:"Patients", yLabel:""))
+
+staffTable = Card(CardHeader("Staff on Shift", ""), Table(
+  Col("Name", ["Dr. Lee","Nurse Patel","Tech Gomez","Dr. Singh","Nurse Wu"], string),
+  Col("Role", ["Physician","Nurse","Technician","Physician","Nurse"], string),
+  Col("Department", ["Surgery","ER","Radiology","Cardiology","Pediatrics"], string)
+))
+
+criticalCallout = Card(Callout(critical, "Critical Patients", "3 patients in ICU require immediate attention"))
+
+dischargeTable = Card(CardHeader("Ready for Discharge", ""), Table(
+  Col("Patient", ["John Doe","Maria Santos","Liu Wei"], string),
+  Col("Room", ["302B","410A","215C"], string),
+  Col("Expected Time", ["10:00 AM","12:30 PM","02:00 PM"], string)
+))
+
+orBookingsTable = Card(CardHeader("Today's OR Bookings", ""), Table(
+  Col("Room", ["OR1","OR2","OR3"], string),
+  Col("Procedure", ["Appendectomy","Hip Replacement","C-Section"], string),
+  Col("Time", ["08:00-10:00","10:30-13:00","14:00-16:00"], string)
+))
+
+suppliesTable = Card(CardHeader("Supplies Running Low", ""), Table(
+  Col("Supply", ["Surgical Masks","IV Bags","Gloves"], string),
+  Col("Remaining", [120,45,200], number)
+))
+
+incidentDialog = DialogBlock("Report Incident", "New Incident", MarkDownRenderer("Use this form to report any incident.", clear), description:"Fill out details below", triggerVariant:secondary, formIncident)
+formIncident = Form("incident", incidentButtons, incidentDesc, incidentType)
+incidentDesc = FormControl("Description", TextArea("desc", "Enter details...", "", 4, []))
+incidentType = FormControl("Type", Select("type", SelectItem("med", "Medical"), SelectItem("admin", "Administrative"), placeholder:"Select type", value:"", rules:[]))
+incidentButtons = Buttons(Button("Submit", [], primary), Button("Cancel", [], secondary))
+
+datePicker = DialogBlock("Select Date", "View Another Day", DatePicker("viewDate", single, [], []), description:"Pick a date to view data", triggerVariant:secondary)
+
+transferDialog = DialogBlock("Request Transfer", "Patient Transfer", Form("transfer", transferButtons, transferPatient, transferFrom, transferTo), description:"Request moving a patient to another unit", triggerVariant:secondary)
+transferPatient = FormControl("Patient ID", Input("patient_id", "e.g. 12345", "", text, []))
+transferFrom = FormControl("From Dept", Select("from_dept", SelectItem("ER","ER"), SelectItem("ICU","ICU"), placeholder:"Select", value:"", rules:[]))
+transferTo = FormControl("To Dept", Select("to_dept", SelectItem("Ward A","Ward A"), SelectItem("Ward B","Ward B"), placeholder:"Select", value:"", rules:[]))
+transferButtons = Buttons(Button("Request Transfer", [], primary), Button("Cancel", [], secondary))

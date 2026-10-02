@@ -1,0 +1,95 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Stack",
+        "children": [
+          {
+            "type": "Stack",
+            "children": [
+              {
+                "type": "Stack",
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "content": "leaf"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "content": "leaf"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "content": "leaf"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "content": "leaf"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Stack",
+            "children": [
+              {
+                "type": "Stack",
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "content": "leaf"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "content": "leaf"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Stack",
+                "children": [
+                  {
+                    "type": "Text",
+                    "props": {
+                      "content": "leaf"
+                    }
+                  },
+                  {
+                    "type": "Text",
+                    "props": {
+                      "content": "leaf"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

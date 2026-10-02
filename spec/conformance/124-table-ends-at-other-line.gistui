@@ -1,0 +1,5 @@
+root = Table(t)
+t = |A|B
+|1|2
+not a row
+|3|4

@@ -1,0 +1,90 @@
+root = Card(header, quarterForm, regionForm, exportBtn, revenueCard, costsCard, profitCard, revTrend, costTrend, budgetChart, headcountChart, risksTable, initiativesTable, runwayText, pipelineText, winRateText, custChurnTable, npsText, boardItems)
+
+header = CardHeader("Quarterly Command View", "Executive Summary")
+
+quarterForm = Form("quarter-select", quarterBtns, quarterSelect)
+quarterSelect = FormControl("Quarter", Select("quarter", SelectItem("Q1", "Q1"), SelectItem("Q2", "Q2"), SelectItem("Q3", "Q3"), SelectItem("Q4", "Q4"), placeholder:"Select Quarter"))
+quarterBtns = Buttons(Button("Apply", primary))
+
+regionForm = Form("region-select", regionBtns, regionSelect)
+regionSelect = FormControl("Region", Select("region", SelectItem("Americas", "Americas"), SelectItem("EMEA", "EMEA"), SelectItem("APAC", "APAC"), placeholder:"Select Region"))
+regionBtns = Buttons(Button("Apply", primary))
+
+exportBtn = Buttons(Button("Export Pack", primary))
+
+revenueCard = Card(Heading("Revenue", h3), revTable, sunk)
+revTable = Table(metricCol, valueCol)
+metricCol = Col("Metric", data:["Revenue"], type:string)
+valueCol = Col("Value", data:["$12.4M"], type:string)
+
+costsCard = Card(Heading("Costs", h3), costTable, sunk)
+costTable = Table(metricCol2, valueCol2)
+metricCol2 = Col("Metric", data:["Costs"], type:string)
+valueCol2 = Col("Value", data:["$7.8M"], type:string)
+
+profitCard = Card(Heading("Profit", h3), profitTable, sunk)
+profitTable = Table(metricCol3, valueCol3)
+metricCol3 = Col("Metric", data:["Profit"], type:string)
+valueCol3 = Col("Value", data:["$4.6M"], type:string)
+
+revTrend = Card(Heading("Revenue over Four Quarters", h3), revBar, sunk)
+revBar = BarChart(revData, variant:grouped, xLabel:"Quarter", yLabel:"Revenue")
+revData = |Quarter|Revenue
+|Q1|3.1M
+|Q2|3.2M
+|Q3|3.0M
+|Q4|3.1M
+
+costTrend = Card(Heading("Costs over Four Quarters", h3), costBar, sunk)
+costBar = BarChart(costData, variant:grouped, xLabel:"Quarter", yLabel:"Costs")
+costData = |Quarter|Costs
+|Q1|2.0M
+|Q2|1.9M
+|Q3|2.1M
+|Q4|1.8M
+
+budgetChart = Card(Heading("Budget vs Plan by Department", h3), budgetBar, sunk)
+budgetBar = BarChart(budgetData, variant:grouped, xLabel:"Department", yLabel:"Amount")
+budgetData = |Department|Budget|Plan
+|Sales|5M|5.5M
+|Marketing|2M|2.2M
+|Engineering|4M|4.5M
+|HR|1M|1M
+
+headcountChart = Card(Heading("Headcount by Department", h3), headcountBar, sunk)
+headcountBar = HorizontalBarChart(headcountData, variant:grouped, xLabel:"Headcount", yLabel:"Department")
+headcountData = |Department|Headcount
+|Sales|120
+|Marketing|45
+|Engineering|200
+|HR|30
+
+risksTable = Card(Heading("Top Risks", h3), risksTbl, sunk)
+risksTbl = Table(riskCol, ownerCol)
+riskCol = Col("Risk", data:["Market downturn","Regulatory change","Talent shortage"], type:string)
+ownerCol = Col("Owner", data:["CFO","Legal","HR"], type:string)
+
+initiativesTable = Card(Heading("Strategic Initiatives", h3), initTbl, sunk)
+initTbl = Table(initCol, statusCol)
+initCol = Col("Initiative", data:["Expand APAC","Launch New Product","Improve NPS"], type:string)
+statusCol = Col("Status", data:["On Track","Delayed","On Track"], type:string)
+
+runwayText = Card(Heading("Months of Runway", h3), TextContent("18 months", size:large), sunk)
+
+pipelineText = Card(Heading("Sales Pipeline Value", h3), TextContent("$9.3M", size:large), sunk)
+
+winRateText = Card(Heading("Win Rate", h3), TextContent("42%", size:large), sunk)
+
+custChurnTable = Card(Heading("Customers & Churn", h3), custTable, sunk)
+custTable = Table(custCol, countCol, churnCol)
+custCol = Col("Metric", data:["Customers","Churn"], type:string)
+countCol = Col("Count", data:["2,400","5%"], type:string)
+churnCol = Col("Change", data:["+3%","-1%"], type:string)
+
+npsText = Card(Heading("Net Promoter Score (NPS)", h3), TextContent("68", size:large), sunk)
+
+boardItems = Card(Heading("Next Board Meeting Items", h3), agendaList, sunk)
+agendaList = ListBlock(agenda1, agenda2, agenda3, variant:number)
+agenda1 = ListItem("Review Q4 Results")
+agenda2 = ListItem("Approve FY Budget")
+agenda3 = ListItem("Discuss Strategic Acquisitions")

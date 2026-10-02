@@ -1,0 +1,24 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "$t == 1 ? \"one\" : $t == 2 ? \"two\" : \"many\""
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "($t ? 1 : 2) + 1"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

@@ -1,0 +1,7 @@
+# @each lambdas, ternaries, operators and builtins.
+root = Stack(list, total, body)
+rows = [{name:"A", total:10}, {name:"B", total:32}]
+list = @each(rows, r => Card(r.name, Stat("Revenue", "$" + r.total)))
+total = "Total: " + @sum(rows.total)
+body = $tab == "done" ? done : Text("Not yet")
+done = Callout("All set", tone:success)

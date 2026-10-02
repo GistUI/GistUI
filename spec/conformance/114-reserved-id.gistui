@@ -1,0 +1,3 @@
+root = Row(wrap, sort)
+wrap = Text("not shown")
+sort = Text("shown")

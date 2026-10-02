@@ -1,0 +1,52 @@
+root = Card(header, stats, openRoles, pipeline, avgTime, deptSplit, interviews, attrition, actions)
+
+header = CardHeader("Hiring Overview", "HR Lead Dashboard")
+
+stats = Card(TextContent("**Current headcount:** 124", size:large), TextContent("**Average time to hire:** 32 days", size:large), direction:row, gap:s, wrap)
+
+openRoles = Card(Heading("Open Roles by Department", h3), openRolesTable, sunk)
+
+openRolesTable = Table(
+  Col("Department", ["Engineering","Marketing","Sales","Product"], type:string),
+  Col("Role", ["Backend Engineer","Content Strategist","Account Executive","Product Manager"], type:string),
+  Col("Open Positions", [3,2,4,1], type:number)
+)
+
+pipeline = Card(Heading("Candidates by Pipeline Stage", h3), pipelineTable, sunk)
+
+pipelineTable = Table(
+  Col("Stage", ["Applied","Phone Screen","Onsite","Offer","Hired"], type:string),
+  Col("Candidates", [45,30,12,5,3], type:number)
+)
+
+avgTime = Card(Heading("Average Time to Hire", h3), TextContent("**32 days**", size:large), sunk)
+
+deptSplit = Card(Heading("Headcount Split by Department", h3), BarChart(
+  |Department|Headcount
+  |Engineering|50
+  |Marketing|20
+  |Sales|30
+  |Product|24
+  , variant:grouped, xLabel:"Department", yLabel:"Headcount"
+), sunk)
+
+interviews = Card(Heading("Interviews Scheduled This Week", h3), interviewsTable, sunk)
+
+interviewsTable = Table(
+  Col("Candidate", ["Alice","Bob","Charlie","Diana"], type:string),
+  Col("Role", ["Backend Engineer","Product Manager","Sales Rep","Marketing Analyst"], type:string),
+  Col("Date", ["2024-10-02","2024-10-03","2024-10-04","2024-10-05"], type:string)
+)
+
+attrition = Card(Heading("Attrition Over Past Six Months", h3), LineChart(
+  |Month|Attrition%
+  |Apr|2.1
+  |May|1.9
+  |Jun|2.3
+  |Jul|2.0
+  |Aug|1.8
+  |Sep|2.2
+  , variant:linear, xLabel:"Month", yLabel:"Attrition %"
+), sunk)
+
+actions = Buttons(Button("Open New Role", primary))

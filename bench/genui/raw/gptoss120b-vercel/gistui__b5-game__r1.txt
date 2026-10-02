@@ -1,0 +1,68 @@
+root = Card(header, playersOnline, dapSection, revenueToday, revenuePerUser, sessionLengthChart, bestSellingTable, serverHealthTable, crashRateChart, liveEventsTable, playerReportsTable, banAppealsTable, inflationChart, experimentsTable, patchNotesForm, regionSelect, hotfixSection)
+header = CardHeader("Live Ops Dashboard","Game Studio")
+playersOnline = TextContent("Players online right now: **12,345**", size:large)
+dapSection = Card(Heading("Daily & Monthly Active Players", h3), Table(dapTable))
+revenueToday = TextContent("Revenue today: **$8,720**", size:large)
+revenuePerUser = TextContent("Revenue per user (RPU): **$0.71**", size:large)
+sessionLengthChart = LineChart(sessionLengthData, natural, xLabel:"Date", yLabel:"Minutes")
+bestSellingTable = Table(bestSellingData)
+serverHealthTable = Table(serverHealthData)
+crashRateChart = BarChart(crashRateData, stacked, xLabel:"App Version", yLabel:"Crash Rate %")
+liveEventsTable = Table(liveEventsData)
+playerReportsTable = Table(playerReportsData)
+banAppealsTable = Table(banAppealsData)
+inflationChart = LineChart(inflationData, natural, xLabel:"Date", yLabel:"Currency Inflation %")
+experimentsTable = Table(experimentsData)
+patchNotesForm = Form("patch-notes", patchButtons, notesField)
+notesField = FormControl("Patch notes", TextArea("notes", "Enter patch notes here...", "", rows:10))
+patchButtons = Buttons(Button("Save Draft", variant:primary), Button("Publish", variant:secondary))
+regionSelect = Select("focus-region", SelectItem("NA","North America"), SelectItem("EU","Europe"), SelectItem("ASIA","Asia"), placeholder:"Select region", size:medium)
+hotfixSection = Card(Heading("Ship Hotfix", h3), hotfixButtons, hotfixDialog)
+hotfixButtons = Buttons(Button("Ship Hotfix", variant:primary))
+hotfixDialog = DialogBlock("Confirm Hotfix", "Ship Hotfix", Alert("Confirm","Are you sure you want to ship the hotfix now?", destructive), description:"This will apply changes to all servers immediately.", triggerVariant:destructive)
+dapTable = |Metric|Value
+|Daily Active Players|12345
+|Monthly Active Players|345678
+sessionLengthData = |Date|Session Length (min)
+|2023-09-01|45
+|2023-09-02|48
+|2023-09-03|46
+|2023-09-04|44
+|2023-09-05|47
+|2023-09-06|49
+|2023-09-07|50
+|2023-09-08|48
+|2023-09-09|46
+|2023-09-10|45
+|2023-09-11|47
+|2023-09-12|49
+|2023-09-13|48
+|2023-09-14|50
+bestSellingData = |Item|Units Sold
+|Sword|1200
+|Shield|950
+|Potion|2000
+serverHealthData = |Region|Health
+|NA|🟢 Good
+|EU|🟡 Degraded
+|ASIA|🔴 Critical
+crashRateData = |Version|Crash Rate %
+|1.0.0|2.5
+|1.1.0|1.8
+|1.2.0|0.9
+liveEventsData = |Event|Status|Start|End
+|Double XP Weekend|Running|2023-09-10|2023-09-12
+|Halloween Hunt|Upcoming|2023-10-25|2023-11-02
+playerReportsData = |Report ID|Player|Reason
+|R-001|User123|Harassment
+|R-002|User456|Cheating
+banAppealsData = |Appeal ID|Player|Reason
+|A-001|User789|Mistaken ban
+|A-002|User321|Insufficient evidence
+inflationData = |Date|Inflation %
+|2023-09-01|5.2
+|2023-09-08|5.5
+|2023-09-15|5.7
+experimentsData = |Experiment|Variant|Result
+|XP Boost|A|+12% retention
+|Loot Drop Rate|B|+8% revenue

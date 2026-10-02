@@ -1,0 +1,24 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "a # b"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "c"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

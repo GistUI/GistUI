@@ -1,0 +1,42 @@
+root = Card(CardHeader("Hiring Overview"), currentHeadcount, avgTime, openRoles, pipelineTable, headcountChart, interviewsTable, attritionChart, newRoleButton)
+
+currentHeadcount = TextContent("**Current Headcount:** 124", size:large)
+
+avgTime = TextContent("**Average Time to Hire:** 32 days", size:large)
+
+openRoles = Card(Heading("Open Roles by Department", h3), openRolesTable)
+
+openRolesTable = |Department|Open Roles
+|Engineering|5
+|Product|2
+|Design|1
+|Marketing|3
+|Sales|4
+
+pipelineTable = Card(Heading("Candidates per Pipeline Stage", h3), Table(stageCol, countCol))
+
+stageCol = Col("Stage", ["Applied","Phone Screen","Onsite","Offer","Hired"], type:string)
+countCol = Col("Candidates", [24,15,8,3,2], type:number)
+
+headcountChart = Card(Heading("Headcount Split by Department", h3), BarChart(|Department|Headcount
+|Engineering|45
+|Product|20
+|Design|10
+|Marketing|15
+|Sales|34, variant:grouped, xLabel:"Department", yLabel:"People"))
+
+interviewsTable = Card(Heading("Interviews Scheduled This Week", h3), Table(dateCol, deptCol, roleCol))
+
+dateCol = Col("Date", ["Mon 10/2","Tue 10/3","Wed 10/4","Thu 10/5","Fri 10/6"], type:string)
+deptCol = Col("Department", ["Engineering","Product","Design","Marketing","Sales"], type:string)
+roleCol = Col("Role", ["Backend Engineer","PM","UX Designer","Content Lead","Account Exec"], type:string)
+
+attritionChart = Card(Heading("Attrition Over Past 6 Months", h3), LineChart(|Month|Attrition%
+|Apr|2.1
+|May|1.8
+|Jun|2.4
+|Jul|2.0
+|Aug|1.9
+|Sep|2.2, variant:linear, xLabel:"Month", yLabel:"%"), sunk)
+
+newRoleButton = Buttons(Button("Open New Role", primary))

@@ -1,0 +1,32 @@
+{
+  "tree": {
+    "type": "Text",
+    "props": {
+      "content": "a"
+    }
+  },
+  "errors": [
+    {
+      "code": "unreachable",
+      "severity": "warning",
+      "stmt": "$s",
+      "line": 2
+    },
+    {
+      "code": "unreachable",
+      "severity": "warning",
+      "stmt": "d",
+      "line": 3
+    },
+    {
+      "code": "unreachable",
+      "severity": "warning",
+      "stmt": "q",
+      "line": 4
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

@@ -1,0 +1,81 @@
+root = Card(headerRow, topAlerts, kpiRow, mainTabs, sunk, gap:m)
+headerRow = Card(CardHeader("Factory Floor Supervisor Console", "Plant 04 • Shift B (Active) • Live Monitoring & Dispatch"), Card(topActions, clear), clear, direction:row, justify:between, align:center)
+topActions = Card(lineFocusControl, maintDialog, exportDialog, clear, direction:row, gap:s, align:center)
+lineFocusControl = Select("line_focus", SelectItem("all", "All Lines (Overview)"), SelectItem("l1", "Line 1 - Stamping"), SelectItem("l2", "Line 2 - Injection Molding"), SelectItem("l3", "Line 3 - Sub-Assembly"), SelectItem("l4", "Line 4 - Final Pack"), placeholder:"Focus on Line...", size:small)
+maintDialog = DialogBlock("Schedule Maintenance", "Schedule Machine Maintenance", maintForm, description:"Book preventative or corrective maintenance downtime.", triggerVariant:default)
+maintForm = Form("sched_maint_form", maintFormBtns, maintMachineField, maintDateField, maintTypeField)
+maintMachineField = FormControl("Target Machine", Select("maint_machine", SelectItem("press_3", "Press #3 (Stamping)"), SelectItem("molder_2", "Molder #2 (Plastics)"), SelectItem("robot_arm", "Kuka Robot Arm B"), SelectItem("cnc_1", "CNC Mill #1"), placeholder:"Select machine..."))
+maintDateField = FormControl("Scheduled Date & Window", DatePicker("maint_date", mode:single))
+maintTypeField = FormControl("Work Priority & Scope", RadioGroup("maint_prio", RadioItem("P1 - Critical", "Immediate stop required", "p1"), RadioItem("P2 - Scheduled Preventive", "During shift changeover", "p2"), RadioItem("P3 - Low", "Next weekend shutdown", "p3"), defaultValue:"p2"))
+maintFormBtns = Buttons(Button("Confirm Schedule", primary), Button("Cancel", tertiary))
+exportDialog = DialogBlock("Export Shift Report", "Generate & Export Shift B Summary", exportSummary, description:"Download consolidated production, OEE, scrap, and labor metrics.", triggerVariant:outline)
+exportSummary = Card(TextContent("Reviewing **Shift B Summary (06:00 - 14:00)**: 4,820 / 5,200 units (92.7% to target), OEE at 84.6%, zero safety incidents."), Form("export_opts", exportFormBtns, exportFormatField, exportDestField))
+exportFormatField = FormControl("Format", Select("exp_fmt", SelectItem("pdf", "PDF Formal Report"), SelectItem("csv", "Raw Data (CSV)"), SelectItem("erp", "Push directly to SAP/ERP"), placeholder:"Select format..."))
+exportDestField = FormControl("Send to Supervisor Email", Input("exp_email", "supervisor.shift_b@plant04.com", type:email))
+exportFormBtns = Buttons(Button("Download & Dispatch", primary), Button("Close", tertiary))
+topAlerts = Card(andonAlert, safetyBanner, clear, direction:row, gap:m)
+andonAlert = Alert("Live Andon Alert: Line 2 Feed Jam", "Station 2B optical sensor triggered. Maintenance tech dispatched (3m ago).", destructive)
+safetyBanner = Card(Tag("Safety Tracker", success), TextContent("### **0** Incidents This Year  •  **248** Days Since Last Incident"), clear, direction:column, justify:center)
+kpiRow = Card(kpiOee, kpiTarget, kpiEnergy, kpiSafety, clear, direction:row, gap:m)
+kpiOee = Card(Tag("OEE (Overall)", success), Heading("84.6%", h2), TextContent("Target: 85.0% | Avail: 89% • Perf: 96% • Qual: 99%"), Progress(85, "OEE Target: 85%"), card)
+kpiTarget = Card(Tag("Today's Output", info), Heading("4,820 / 5,200", h2), TextContent("Units produced vs Daily Target (92.7%)"), Progress(93, "Goal Progress"), card)
+kpiEnergy = Card(Tag("Energy Use Today", neutral), Heading("14.2 MWh", h2), TextContent("Baseline: 15.8 MWh (-10.1% vs peak budget)"), Progress(71, "Peak Load Capacity"), card)
+kpiSafety = Card(Tag("Quality Holds", warning), Heading("3 Batches", h2), TextContent("260 units quarantined for dimensional audit"), Progress(30, "Inspection Backlog"), card)
+mainTabs = Tabs(linesTab, qualityDowntimeTab, maintenanceTab, inventorySuppliersTab, shiftCompareTab)
+linesTab = TabItem("lines", "Lines & Floor Status", linesOverviewCard)
+linesOverviewCard = Card(Heading("Live Production Lines Status & Run Rates", h3), Table(linesTable), sunk)
+linesTable = |Line|Status|Target Rate|Actual Rate|Efficiency|Operator Lead
+|Line 1 - Stamping|Running (Nominal)|650 uph|642 uph|98.7%|M. Alvarez
+|Line 2 - Injection Molding|Andon Stoppage|420 uph|0 uph|0.0%|D. Kovacs
+|Line 3 - Sub-Assembly|Running (High Speed)|500 uph|518 uph|103.6%|T. Chen
+|Line 4 - Final Pack|Running (Nominal)|600 uph|590 uph|98.3%|S. Patel
+qualityDowntimeTab = TabItem("quality_down", "Quality & Downtime", qualityDownGrid)
+qualityDownGrid = Card(Card(Heading("Defect Rate (Past 30 Days Trend %)", h3), defectChart, card), Card(Heading("Downtime Split by Root Cause (Hours)", h3), downtimeChart, card), clear, direction:row, gap:m)
+defectChart = LineChart(defectData, natural, xLabel:"Week", yLabel:"Scrap Rate %")
+defectData = |Week|Scrap_Rate
+|Week 1|1.82
+|Week 2|1.64
+|Week 3|2.10
+|Week 4|1.45
+|Today|1.28
+downtimeChart = BarChart(downtimeData, natural, xLabel:"Category", yLabel:"Hours Lost")
+downtimeData = |Cause|Hours
+|Feed Jam / Mechanical|4.2
+|Tooling Changeover|2.8
+|Material Starvation|1.5
+|Sensor / Electrical|1.1
+|Operator Break|0.6
+maintenanceTab = TabItem("maintenance", "Maintenance & Work Orders", maintGrid)
+maintGrid = Card(Card(Heading("Machines Due for Maintenance", h3), Table(maintDueTable), card), Card(Heading("Open Work Orders & Priorities", h3), Table(workOrdersTable), card), clear, direction:row, gap:m)
+maintDueTable = |Machine|Component / Task|Due In|Status
+|Press #3 (Line 1)|Hydraulic Seal & Filter Swap|4 Operating Hours|Warning
+|Molder #2 (Line 2)|Barrel Heater Calibration|12 Operating Hours|Scheduled
+|Robot Arm B (Line 3)|Joint Lubrication & Backlash Check|2 Days|Normal
+|Conveyor 4C (Line 4)|Belt Tension Inspection|3 Days|Normal
+workOrdersTable = |WO ID|Equipment|Priority|Assigned Tech|Status
+|WO-4912|Line 2 Feeder|P1 - Critical|J. Briggs|In Progress
+|WO-4908|Press #3 Hydraulics|P2 - High|A. Vance|Pending Parts
+|WO-4899|Cooling Tower 1|P3 - Medium|R. Diaz|Open
+|WO-4882|Staging Crane B|P4 - Low|Unassigned|Backlog
+inventorySuppliersTab = TabItem("inventory", "Stock & Deliveries", invSuppGrid)
+invSuppGrid = Card(Card(Heading("Raw Material Stock Levels", h3), Table(stockTable), card), Card(Heading("Supplier Deliveries Due This Week", h3), Table(deliveriesTable), card), Card(Heading("Batches on Quality Hold", h3), Table(qualityHoldTable), card), clear, direction:row, gap:m)
+stockTable = |Material|Current Stock|Min Threshold|Runway|Status
+|Sheet Steel (Grade A)|42.5 Tons|15.0 Tons|8.5 Days|Sufficient
+|ABS Polymer Resin|18.2 Tons|8.0 Tons|5.2 Days|Sufficient
+|Corrugated Packaging|4,200 Boxes|6,000 Boxes|1.8 Days|Low Stock
+deliveriesTable = |PO Number|Supplier|Material / Part|ETA|Status
+|PO-8812|Apex Steel Corp|Cold Rolled Steel (20T)|Today, 15:30|In Transit
+|PO-8819|PolyPlast Global|ABS Resin Pellets (10T)|Tomorrow, 09:00|Confirmed
+|PO-8824|PackLogix Ltd|Outer Shipping Cartons|Thu, 11:00|Dispatched
+qualityHoldTable = |Batch ID|Line / Part|Qty|Hold Reason|Disposition
+|B-2024-918|Line 2 / Housing|140 pcs|Flash & Burr Defect|Rework
+|B-2024-922|Line 1 / Bracket|85 pcs|Thickness Out of Spec|Engineering Review
+|B-2024-925|Line 4 / Pack Unit|35 pcs|Barcode Unreadable|Repack
+shiftCompareTab = TabItem("shifts", "Shift Comparison", shiftCompareCard)
+shiftCompareCard = Card(Heading("Output Comparison: Shift A vs Shift B vs Shift C", h3), BarChart(shiftData, grouped, xLabel:"Day", yLabel:"Units Produced"), card)
+shiftData = |Day|Shift A (Morning)|Shift B (Afternoon)|Shift C (Night)
+|Mon|4920|5100|4350
+|Tue|5150|5020|4480
+|Wed|4880|5210|4600
+|Thu|5300|4950|4510
+|Today|5050|4820|0

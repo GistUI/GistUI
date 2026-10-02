@@ -1,0 +1,27 @@
+root = Card(header, nextMeetingCard, laterTodaySection, gap:m)
+header = CardHeader("Calendar Overview", "Upcoming schedule for today, October 24")
+nextMeetingCard = Card(meetingTopRow, meetingDetails, Separator(), attendeesSection, actions, gap:m)
+meetingTopRow = Card(nextBadge, meetingTitle, meetingTime, variant:clear, gap:xs)
+nextBadge = Tag("Starting in 10 mins", variant:warning)
+meetingTitle = Heading("Q4 Product Roadmap Sync", h2)
+meetingTime = TextContent("**Today, 2:00 PM – 2:45 PM** (45 mins) • Google Meet", size:default)
+meetingDetails = Callout(info, "Meeting Context", "Reviewing finalized Q4 feature deliverables, engineering timelines, and design handover dependencies.")
+attendeesSection = Card(attendeesHeading, attendeesList, variant:sunk, gap:s)
+attendeesHeading = Heading("Attendees (5)", h4)
+attendeesList = ListBlock(attendee1, attendee2, attendee3, attendee4, attendee5)
+attendee1 = ListItem("Sarah Connor (Organizer)", "Product Lead • Accepted")
+attendee2 = ListItem("Alex Chen", "Engineering Lead • Accepted")
+attendee3 = ListItem("Marcus Brody", "Senior UX Designer • Accepted")
+attendee4 = ListItem("Elena Rostova", "QA Specialist • Tentative")
+attendee5 = ListItem("David Kim", "Tech Lead • Accepted")
+actions = Buttons(joinBtn, copyBtn, declineBtn)
+joinBtn = Button("Join Video Call", primary, size:large)
+copyBtn = Button("Copy Link", secondary)
+declineBtn = Button("Can't Make It", tertiary)
+laterTodaySection = Card(laterHeading, laterSchedule, variant:clear, gap:s)
+laterHeading = Heading("Later Today", h3)
+laterSchedule = Table(scheduleData)
+scheduleData = |Time|Event|Room / Link|Status
+|3:30 PM|1:1 with Alex Chen|Meeting Room B|Confirmed
+|4:15 PM|Sprint Retrospective|Google Meet|Confirmed
+|5:00 PM|Design System Workshop|Zoom|Optional

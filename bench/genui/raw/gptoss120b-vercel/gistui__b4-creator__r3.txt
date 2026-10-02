@@ -1,0 +1,46 @@
+root = Card(filterSection, followersSection, engagementSection, bestPostsSection, audienceSection, scheduleWeekSection, bestHourSection, commentsSection, earningsSection, collabSection, scheduleFormSection)
+
+filterSection = Card(Heading("Filter", h3), filterSelect)
+
+filterSelect = Select("platform_filter", SelectItem("All", "All"), SelectItem("Instagram", "Instagram"), SelectItem("TikTok", "TikTok"), SelectItem("YouTube", "YouTube"), SelectItem("Twitter", "Twitter"), placeholder:"Filter platform", value:"All", size:sm)
+
+followersSection = Card(Heading("Followers", h3), TextContent("Total followers: **12,500**\nGrowth this month: **+8%**", size:large))
+
+engagementSection = Card(Heading("Engagement Rate", h3), TextContent("**5.4%** average engagement", size:large))
+
+bestPostsSection = Card(Heading("Best Posts (This Month)", h3), bestPosts)
+
+bestPosts = Table(Col("Post", data:["Post 1","Post 2","Post 3"], type:string), Col("Reach", data:[15000,12000,11000], type:number))
+
+audienceSection = Card(Heading("Audience Split by Platform", h3), audienceChart)
+
+audienceSeries = Series("Audience", values:[45,30,15,10])
+audienceChart = HorizontalBarChart(labels:["Instagram","TikTok","YouTube","Twitter"], audienceSeries, variant:stacked, xLabel:"Platform", yLabel:"%")
+
+scheduleWeekSection = Card(Heading("Posts Scheduled This Week", h3), scheduleTable)
+
+scheduleTable = Table(Col("Date", data:["Mon 10/2","Tue 10/3","Wed 10/4","Thu 10/5","Fri 10/6"], type:string), Col("Time", data:["10:00","14:00","09:00","16:00","11:00"], type:string), Col("Caption", data:["New product launch","Behind the scenes","User testimonial","Weekly roundup","Flash sale"], type:string))
+
+bestHourSection = Card(Heading("Best Hour to Post", h3), bestHourChart)
+
+bestHourSeries = Series("Reach", values:[2000,3500,5000,3000,2500])
+bestHourChart = HorizontalBarChart(labels:["8 AM","12 PM","3 PM","6 PM","9 PM"], bestHourSeries, variant:grouped, xLabel:"Hour", yLabel:"Avg Reach")
+
+commentsSection = Card(Heading("Comments Waiting for Reply", h3), commentsTable)
+
+commentsTable = Table(Col("Comment", data:["Great post!","Loved the video","Question about pricing"], type:string), Col("Author", data:["@user1","@user2","@user3"], type:string), Col("Date", data:["2023-10-01","2023-10-02","2023-10-03"], type:string))
+
+earningsSection = Card(Heading("Earnings This Month", h3), TextContent("**$2,340**", size:large))
+
+collabSection = Card(Heading("Pending Collaboration Requests", h3), collabList)
+
+collabList = ListBlock(ListItem("Brand X campaign", "Need 2 posts", "View"), ListItem("Brand Y partnership", "Video reel", "Accept"), variant:number)
+
+scheduleFormSection = Card(Heading("Schedule a New Post", h3), scheduleForm)
+
+formButtons = Buttons(Button("Schedule", primary))
+scheduleForm = Form("schedule-post", formButtons, captionField, dateField, timeField)
+
+captionField = FormControl("Caption", TextArea("caption", "Write your caption...", "", rows:4))
+dateField = FormControl("Date", DatePicker("post_date", mode:single, value:["2023-10-10"]))
+timeField = FormControl("Time", Input("post_time", "HH:MM", "", type:text))

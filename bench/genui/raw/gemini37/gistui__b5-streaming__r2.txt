@@ -1,0 +1,112 @@
+root = Card(headerSection, kpiRow, mainTabs)
+headerSection = Card(CardHeader("Global Streaming Operations Command Center", "Live platform metrics, delivery health, catalog lifecycles, and feature controls"), headerControls, direction:row, justify:between, align:center)
+headerControls = Card(regionFocusForm, promoteDialog, direction:row, gap:m, align:center)
+regionFocusForm = Form("region-filter", emptyButtons, regionSelectControl)
+emptyButtons = Buttons()
+regionSelectControl = FormControl("Region Focus", regionSelect)
+regionSelect = Select("active_region", SelectItem("all", "All Regions (Global)"), SelectItem("na", "North America (NA)"), SelectItem("eu", "Europe (EU)"), SelectItem("apac", "Asia-Pacific (APAC)"), SelectItem("latam", "Latin America (LATAM)"), SelectItem("mea", "Middle East & Africa (MEA)"), value:"all")
+promoteDialog = DialogBlock("Promote Hero Title", "Configure Featured Title on Home Carousel", promoteForm, description:"Select a title, target regions, and schedule promotion duration on the home screen banner.", triggerVariant:default)
+promoteForm = Form("hero-promo-form", promoButtons, promoTitleControl, promoRegionControl, promoPriorityControl)
+promoTitleControl = FormControl("Catalog Title", Input("title_name", "e.g. Cyberfall: Season 2"))
+promoRegionControl = FormControl("Target Audience", Select("promo_region", SelectItem("global", "Global (All Regions)"), SelectItem("na", "North America Only"), SelectItem("eu", "Europe Only"), SelectItem("apac", "APAC Only"), value:"global"))
+promoPriorityControl = FormControl("Slot Priority", Select("promo_slot", SelectItem("hero1", "Primary Billboard Slot #1"), SelectItem("hero2", "Secondary Carousel Slot #2"), SelectItem("spotlight", "Curated Spotlight Rail"), value:"hero1"))
+promoButtons = Buttons(Button("Deploy Promotion", primary), Button("Cancel", tertiary))
+kpiRow = Card(liveViewerCard, bufferCard, ctrCard, failedSearchCard, direction:row, gap:m)
+liveViewerCard = Card(Heading("1,842,910", h2), Badge("Live Now", default), TextContent("Active concurrent streams globally (+8.4% vs last hour)", size:small), sunk)
+bufferCard = Card(Heading("0.38%", h2), Tag("Healthy", success), TextContent("Global buffering rate (SLA target: < 0.50%)", size:small), sunk)
+bufferCardSeries = Table(bufferingTrendData)
+ctrCard = Card(Heading("18.4%", h2), Badge("+2.1% WoW", secondary), TextContent("Recommendation click-through rate (CTR)", size:small), sunk)
+failedSearchCard = Card(Heading("6.2%", h2), Tag("Monitor", warning), TextContent("Searches ended without playback (Zero-play rate)", size:small), sunk)
+mainTabs = Tabs(overviewTab, deliveryTab, catalogTab, adminTab)
+overviewTab = TabItem("overview", "Audience & Engagement", overviewContent)
+overviewContent = Card(audienceRow, splitRow, gap:m)
+audienceRow = Card(watchTimeCard, subCard, direction:row, gap:m)
+watchTimeCard = Card(CardHeader("Watch Time Over Past Month", "Total stream hours in millions (30-day trend)"), AreaChart(watchTimeData, natural, xLabel:"Day of Month", yLabel:"Stream Hours (M)"), sunk)
+subCard = Card(CardHeader("Subscribers: New vs Cancellations", "Daily net subscriber trajectory (Thousands)"), BarChart(subChurnData, grouped, xLabel:"Week", yLabel:"Subscribers (k)"), sunk)
+splitRow = Card(deviceCard, revenueCard, direction:row, gap:m)
+deviceCard = Card(CardHeader("Viewing Split by Device", "Distribution of hours watched across hardware platforms"), PieChart(deviceData.Device, deviceData.Share, donut), sunk)
+revenueCard = Card(CardHeader("Revenue Split by Subscription Plan", "Current active recurring monthly revenue split"), PieChart(revenueData.Plan, revenueData.Share, circular), sunk)
+deliveryTab = TabItem("delivery", "Delivery & QoS", deliveryContent)
+deliveryContent = Card(deliveryHeaderRow, regionalHealthTable, gap:m)
+deliveryHeaderRow = Card(regionalHealthSummary, bufferTrendCard, direction:row, gap:m)
+regionalHealthSummary = Card(CardHeader("Delivery Health Overview", "CDN edge performance, latency, and uptime across active regions"), Alert("Edge Degradation in MEA-South", "Elevated rebuffering (0.82%) detected on secondary CDN routes in MEA.", warning), sunk)
+bufferTrendCard = Card(CardHeader("Buffering Rate by Region (24h)", "Mean buffering ratio percent across global edges"), BarChart(bufferingTrendData, grouped, xLabel:"Region", yLabel:"Buffer %"), sunk)
+regionalHealthTable = Card(CardHeader("Regional Delivery Metrics", "Real-time edge health breakdown by geographic cluster"), Table(deliveryCols), sunk)
+catalogTab = TabItem("catalog", "Catalog & Content Performance", catalogContent)
+catalogContent = Card(topTitlesRow, genreAndUpcomingRow, gap:m)
+topTitlesRow = Card(topTitlesCard, genreCard, direction:row, gap:m)
+topTitlesCard = Card(CardHeader("Top Watched Titles", "Cumulative hours streamed across all regions this week"), HorizontalBarChart(topTitlesData, grouped, xLabel:"Hours Watched (Millions)", yLabel:"Title"), sunk)
+genreCard = Card(CardHeader("Performance by Genre", "Audience share and performance index by genre category"), RadarChart(genreData), sunk)
+genreAndUpcomingRow = Card(upcomingReleasesCard, expiringLicensesCard, direction:row, gap:m)
+upcomingReleasesCard = Card(CardHeader("Releases Coming This Month", "Confirmed platform launches and premiere dates"), ListBlock(relItem1, relItem2, relItem3, relItem4, variant:number), sunk)
+relItem1 = ListItem("Shadow Protocol: Season 3", "Original Series • Global Premiere • Oct 14")
+relItem2 = ListItem("Apex Drift Championship", "Live Sports Stream • NA & EU • Oct 18")
+relItem3 = ListItem("Kingdom of Starlight", "Licensed Feature Film • Oct 22")
+relItem4 = ListItem("Deep Horizon: Arctic", "Docuseries 4K HDR • Global • Oct 29")
+expiringLicensesCard = Card(CardHeader("Licenses Expiring Soon", "Titles leaving catalog within 30 days requiring renewal or delisting"), Table(licenseCols), sunk)
+adminTab = TabItem("admin", "Flags & System Controls", adminContent)
+adminContent = Card(flagsCard, gap:m)
+flagsCard = Card(CardHeader("Runtime Feature Flags", "Real-time toggles and rollout percentages for platform capabilities"), Table(flagCols), sunk)
+watchTimeData = |Day|Hours_M
+|Day 1|4.2
+|Day 5|4.8
+|Day 10|5.3
+|Day 15|5.1
+|Day 20|6.4
+|Day 25|6.8
+|Day 30|7.2
+subChurnData = |Period|New Subscribers|Cancellations
+|Week 1|142|38
+|Week 2|158|41
+|Week 3|135|36
+|Week 4|189|45
+deviceData = |Device|Share
+|Smart TV (Samsung/LG)|42
+|Streaming Stick (Roku/Fire/AppleTV)|26
+|Mobile (iOS & Android)|19
+|Web Browser|8
+|Gaming Consoles|5
+revenueData = |Plan|Share
+|Premium 4K HDR ($19.99)|44
+|Standard Ad-Free ($14.99)|32
+|Basic with Ads ($7.99)|18
+|Mobile Only Tier ($4.99)|6
+bufferingTrendData = |Region|Buffer Rate
+|NA-East|0.22
+|NA-West|0.26
+|EU-Central|0.31
+|APAC-Tokyo|0.35
+|LATAM-Brazil|0.54
+|MEA-Dubai|0.82
+topTitlesData = |Title|Hours
+|Midnight Velocity (S1)|84.2
+|The Astral Divide|62.4
+|Chronicles of Eldor|55.1
+|Echo Chamber (S4)|48.7
+|Velocity Cup Final|39.3
+genreData = |Genre|Engagement|Retention
+|Sci-Fi|92|88
+|Crime Thriller|85|82
+|Drama|78|75
+|Comedy|64|70
+|Documentary|58|62
+|Animation|72|80
+deliveryCols = |Region|Status|Concurrent Streams|Avg Bitrate (Mbps)|Buffer Rate|CDN Failover
+|North America East|Optimal|612,400|14.2|0.22%|0.01%
+|North America West|Optimal|438,200|13.8|0.26%|0.02%
+|Europe Central|Optimal|394,100|13.5|0.31%|0.04%
+|APAC (Tokyo / Sydney)|Optimal|241,800|12.9|0.35%|0.08%
+|LATAM (São Paulo)|Degraded|108,400|10.4|0.54%|1.12%
+|MEA (Dubai / Jo'burg)|At Risk|48,010|8.9|0.82%|2.45%
+licenseCols = |Title|Content Provider|Expires In|Rights Scope|Status
+|Galactic Empire Trilogy|Paramount Cinema|6 Days|Global (SVOD)|Under Negotiation
+|Neon City Beat|Studio Canal|11 Days|NA / EU Only|Pending Delist
+|Legends of the Outback|Southern Cross Ent|18 Days|APAC Only|Renewed (Queued)
+|The Chef's Secret|Indie Distribution Co|24 Days|Global (SVOD)|Delisting Scheduled
+flagCols = |Feature Flag Key|Environment|State|Rollout %|Target Platforms
+|stream_hevc_v2_encoder|Production|Enabled|100%|Smart TV, AppleTV
+|recs_hybrid_transformer_v3|Production|Enabled|50% (A/B Test)|All Devices
+|live_low_latency_chunking|Production|Enabled|80%|Web, iOS, Android
+|zero_search_fallback_prompts|Production|Enabled|100%|All Devices
+|spatial_audio_atmos_bypass|Staging|Disabled|0% (Internal Only)|AppleTV, Roku
+|p2p_mesh_edge_delivery|Experimental|Disabled|0%|Desktop Web Only

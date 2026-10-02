@@ -1,0 +1,81 @@
+root = Card(header, kpiRow, mainTabs, gap:l)
+header = Card(CardHeader("HR & Talent Acquisition Hub", "Quarterly headcount, pipeline dynamics, and active recruiting status"), headerActions, direction:row, justify:between, align:center, clear)
+headerActions = Buttons(newRoleDialog, Button("Export Report", secondary, size:small))
+
+newRoleDialog = DialogBlock("+ Open New Role", "Create a New Job Requisition", newRoleForm, description:"Fill out role specifications to initiate hiring workflow and publish requisitions.", triggerVariant:default)
+newRoleForm = Form("createRole", newRoleButtons, roleTitleInput, deptSelectInput, hiringManagerInput, targetStartDateInput, employmentTypeInput)
+newRoleButtons = Buttons(Button("Publish Requisition", primary), Button("Save as Draft", secondary))
+roleTitleInput = FormControl("Job Title", Input("roleTitle", "e.g. Senior Backend Engineer", type:text))
+deptSelectInput = FormControl("Department", Select("department", SelectItem("eng", "Engineering"), SelectItem("prod", "Product & Design"), SelectItem("sales", "Sales & Marketing"), SelectItem("ops", "G&A / Operations"), placeholder:"Select department"))
+hiringManagerInput = FormControl("Hiring Manager Email", Input("hmEmail", "manager@company.com", type:email))
+targetStartDateInput = FormControl("Target Start Date", DatePicker("startDate", mode:single))
+employmentTypeInput = FormControl("Employment Type", RadioGroup("empType", RadioItem("Full-Time", "Standard 40h workweek", "ft"), RadioItem("Contract", "Fixed-term engagement", "contract"), defaultValue:"ft"))
+
+kpiRow = Card(kpiHeadcount, kpiOpenRoles, kpiTimeHire, kpiInterviewsWeek, direction:row, gap:m, wrap)
+kpiHeadcount = Card(TextContent("Current Headcount", size:small), Heading("482", level:h2), Tag("+14 net this quarter", success, size:sm), sunk)
+kpiOpenRoles = Card(TextContent("Active Open Roles", size:small), Heading("26", level:h2), Tag("6 priority positions", warning, size:sm), sunk)
+kpiTimeHire = Card(TextContent("Avg Time to Hire", size:small), Heading("38 days", level:h2), Tag("-4 days vs last quarter", info, size:sm), sunk)
+kpiInterviewsWeek = Card(TextContent("Interviews Scheduled (This Week)", size:small), Heading("42", level:h2), Tag("18 final rounds", neutral, size:sm), sunk)
+
+mainTabs = Tabs(overviewTab, pipelineTab, rolesTab, interviewsTab)
+
+overviewTab = TabItem("overview", "Headcount & Attrition", overviewContent)
+overviewContent = Card(deptAndAttritionRow, gap:m, clear)
+deptAndAttritionRow = Card(deptCard, attritionCard, direction:row, gap:m)
+deptCard = Card(Heading("Headcount Split by Department", level:h3), TextContent("Distribution across 482 total full-time employees", size:small), deptBarChart, sunk)
+deptBarChart = BarChart(deptData, grouped, xLabel:"Department", yLabel:"Employees")
+deptData = |Department|Headcount
+|Engineering|194
+|Sales & Mktg|128
+|Product|64
+|Customer Ops|58
+|G&A / Legal|38
+
+attritionCard = Card(Heading("Monthly Attrition (Past 6 Months)", level:h3), TextContent("Departures and voluntary turnover rate", size:small), attritionLineChart, sunk)
+attritionLineChart = AreaChart(attritionData, natural, xLabel:"Month", yLabel:"Departures")
+attritionData = |Month|Departures
+|Nov|4
+|Dec|3
+|Jan|6
+|Feb|5
+|Mar|3
+|Apr|2
+
+pipelineTab = TabItem("pipeline", "Candidate Pipeline", pipelineContent)
+pipelineContent = Card(pipelineHeader, pipelineBarChart, pipelineStageTable, gap:m, clear)
+pipelineHeader = TextCallout("Pipeline Health: 314 Active Candidates", "Conversion from Screening to Offer acceptance is currently averaging 18.4%.", info)
+pipelineBarChart = HorizontalBarChart(pipelineData, grouped, xLabel:"Candidate Count", yLabel:"Stage")
+pipelineStageTable = Table(pipelineColStage, pipelineColCount, pipelineColAvgDays, pipelineColConversion)
+pipelineColStage = Col("Stage", ["Sourced / Applied", "Screening Call", "Hiring Manager Review", "Technical / Panel Assessment", "Final Leadership Round", "Offer Extended"], type:string)
+pipelineColCount = Col("Active Candidates", [142, 68, 44, 38, 14, 8], type:number)
+pipelineColAvgDays = Col("Avg Days in Stage", ["3 days", "4 days", "6 days", "11 days", "5 days", "3 days"], type:string)
+pipelineColConversion = Col("Pass Rate", ["48%", "65%", "86%", "37%", "57%", "88%"], type:string)
+pipelineData = |Stage|Candidates
+|Applied|142
+|Screening|68
+|HM Review|44
+|Panel / Tech|38
+|Leadership|14
+|Offer|8
+
+rolesTab = TabItem("roles", "Open Roles (26)", rolesContent)
+rolesContent = Card(rolesHeader, rolesTable, gap:m, clear)
+rolesHeader = Card(CardHeader("Open Requisitions by Department", "Active searches with assigned hiring managers, stage counts, and open duration"), direction:row, justify:between, align:center, clear)
+rolesTable = Table(rolesColTitle, rolesColDept, rolesColHM, rolesColDaysOpen, rolesColApplicants, rolesColStatus)
+rolesColTitle = Col("Role Title", ["Staff Distributed Systems Eng", "Senior Product Designer", "Enterprise Account Exec", "Lead DevOps / SRE", "Growth Marketing Lead", "People Operations Partner", "Senior Frontend Engineer", "Security Compliance Mgr"], type:string)
+rolesColDept = Col("Department", ["Engineering", "Product", "Sales & Mktg", "Engineering", "Sales & Mktg", "G&A / Legal", "Engineering", "G&A / Legal"], type:string)
+rolesColHM = Col("Hiring Manager", ["Alex Mercer", "Sarah Chen", "David Vance", "Alex Mercer", "Rachel Green", "Tom Becker", "Elena Rostova", "Tom Becker"], type:string)
+rolesColDaysOpen = Col("Days Open", [42, 28, 19, 51, 14, 22, 31, 12], type:number)
+rolesColApplicants = Col("Pipeline Total", [34, 48, 62, 19, 53, 27, 41, 15], type:number)
+rolesColStatus = Col("Priority", ["Critical", "Active", "Active", "Critical", "Active", "Active", "Active", "Normal"], type:string)
+
+interviewsTab = TabItem("interviews", "This Week's Schedule (42)", interviewsContent)
+interviewsContent = Card(interviewsCallout, interviewList, gap:m, clear)
+interviewsCallout = Callout(neutral, "42 Interviews Scheduled Across 19 Interviewers", "Ensure all scorecards are submitted within 24 hours of interview completion.")
+interviewList = ListBlock(intItem1, intItem2, intItem3, intItem4, intItem5, intItem6, variant:number)
+intItem1 = ListItem("Maya Lin - Staff Distributed Systems Eng", "Technical Panel · Mon 10:00 AM · Lead: Alex Mercer", "View Brief")
+intItem2 = ListItem("Carlos Gomez - Enterprise Account Exec", "Final Leadership Round · Tue 1:30 PM · Lead: David Vance", "View Brief")
+intItem3 = ListItem("Priya Patel - Senior Product Designer", "Portfolio Presentation · Wed 11:00 AM · Lead: Sarah Chen", "View Brief")
+intItem4 = ListItem("Jordan Bell - Lead DevOps / SRE", "System Architecture Round · Wed 3:00 PM · Lead: Alex Mercer", "View Brief")
+intItem5 = ListItem("Sophia Taylor - Growth Marketing Lead", "Strategy Case Review · Thu 2:00 PM · Lead: Rachel Green", "View Brief")
+intItem6 = ListItem("Liam O'Connor - People Operations Partner", "Culture & Values Screen · Fri 9:30 AM · Lead: Tom Becker", "View Brief")

@@ -1,0 +1,42 @@
+root = Card(headerRow, filterRow, kpiRow, bestCampaignCallout, mainAnalyticsRow, campaignsCard)
+headerRow = Card(CardHeader("Marketing Performance Dashboard", "Weekly summary & acquisition insights"), headerActions, direction:row, justify:between, align:center, clear)
+headerActions = Buttons(DialogBlock("Export Report", "Export Performance Report", exportForm, description:"Select format and metrics to include in export.", triggerVariant:outline))
+exportForm = Form("export_form", exportButtons, exportFormatField, exportIncludeField)
+exportFormatField = FormControl("Format", Select("format", SelectItem("csv", "CSV Spreadsheet"), SelectItem("pdf", "PDF Report Summary"), SelectItem("xlsx", "Excel Workbook"), value:"csv"))
+exportIncludeField = FormControl("Included Data", CheckBoxGroup("includes", CheckBoxItem("Visitor Analytics", "Daily traffic & pageviews", "visitors", defaultChecked), CheckBoxItem("Traffic Sources", "Breakdown & conversion by channel", "sources", defaultChecked), CheckBoxItem("Active Campaigns", "Spend, ROAS, and CAC", "campaigns", defaultChecked)))
+exportButtons = Buttons(Button("Download Export", primary), Button("Cancel", tertiary))
+filterRow = Card(filterForm, variant:sunk, direction:row, justify:between, align:center)
+filterForm = Form("filter_form", filterActions, dateRangeField)
+dateRangeField = FormControl("Date Range", Select("date_range", SelectItem("7d", "Last 7 days"), SelectItem("30d", "Last 30 days (Current)"), SelectItem("90d", "Last 90 days"), SelectItem("mtd", "Month to date"), value:"30d"))
+filterActions = Buttons(Button("Apply Filter", secondary, size:small))
+kpiRow = Card(kpiVisitors, kpiConversion, kpiSubscribers, direction:row, gap:m, clear)
+kpiVisitors = Card(TextContent("30-Day Site Visitors", size:small), Heading("142,850", level:h2), Tag("+12.4% vs last period", variant:success), variant:card)
+kpiConversion = Card(TextContent("Avg Conversion Rate", size:small), Heading("3.82%", level:h2), Tag("+0.4% MoM", variant:success), variant:card)
+kpiSubscribers = Card(TextContent("Email Subscribers (MTD)", size:small), Heading("+4,210", level:h2), Progress(84, "Goal: 5,000 net new (84%)"), variant:card)
+bestCampaignCallout = Callout(success, "Top Performing Campaign: Q3 Product Launch", "Delivered 1,420 conversions at an industry-leading $12.30 CAC with 4.8x ROAS on a $17,500 budget spend.")
+mainAnalyticsRow = Card(visitorsTrendCard, sourcesCard, direction:row, gap:m, clear)
+visitorsTrendCard = Card(CardHeader("Site Visitors (Last 30 Days)", "Daily unique visitor traffic trend"), AreaChart(trafficData, natural, xLabel:"Day", yLabel:"Visitors"), variant:card)
+sourcesCard = Card(CardHeader("Top 5 Traffic Sources", "Share of total acquisition volume"), PieChart(sourcesData.Source, sourcesData.Share, variant:donut), sourcesTable, variant:card)
+sourcesTable = Table(sourcesData)
+campaignsCard = Card(CardHeader("Running Campaigns & Budget Spend", "Live marketing campaigns with current spend and efficiency metrics"), campaignsTable, variant:card)
+campaignsTable = Table(campaignsData)
+trafficData = |Day|Visitors:n
+|Day 1|3820
+|Day 5|4150
+|Day 10|4680
+|Day 15|4420
+|Day 20|5120
+|Day 25|5390
+|Day 30|5840
+sourcesData = |Source|Share:n|Visitors:n|ConvRate
+|Organic Search|38|54283|4.1%
+|Direct Traffic|24|34284|3.6%
+|Paid Social|18|25713|4.5%
+|Email Referral|12|17142|5.2%
+|Paid Search (SEM)|8|11428|3.9%
+campaignsData = |Campaign Name|Status|Budget:n|Spend to Date:n|Conversions:n|ROAS
+|Q3 Product Launch|Active|$20,000|$17,500|1,420|4.8x
+|Retargeting - Cart Abandoners|Active|$8,500|$6,200|540|3.9x
+|Google Search - Brand Keywords|Active|$12,000|$9,840|810|3.4x
+|LinkedIn B2B Lead Gen|Active|$15,000|$11,300|320|2.6x
+|Influencer Creator Push|Active|$10,000|$7,950|460|2.9x

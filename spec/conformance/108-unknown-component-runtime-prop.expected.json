@@ -1,0 +1,31 @@
+{
+  "tree": {
+    "type": "#unknown",
+    "props": {
+      "component": "Foo"
+    },
+    "dyn": {
+      "x": "$a"
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "c"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

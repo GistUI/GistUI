@@ -1,0 +1,14 @@
+{
+  "tree": {
+    "type": "Stat",
+    "props": {
+      "label": "l",
+      "value": "v"
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

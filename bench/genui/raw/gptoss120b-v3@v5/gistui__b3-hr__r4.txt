@@ -1,0 +1,38 @@
+root = Card(header, headcount, openRoles, pipeline, avgTime, deptSplit, interviews, attrition, actions)
+header = CardHeader("Hiring Overview")
+headcount = TextContent("**Current headcount:** 124", size:large)
+openRoles = Card(Heading("Open Roles", h3), Table(openRolesTable))
+openRolesTable = |Department|Role|Open
+|Engineering|Backend Engineer|3
+|Engineering|Frontend Engineer|2
+|Product|Product Manager|1
+|Design|UX Designer|1
+pipeline = Card(Heading("Candidates by Stage", h3), Table(pipelineTable))
+pipelineTable = |Stage|Candidates
+|Applied|45
+|Phone Screen|30
+|Interview|20
+|Offer|5
+|Hired|12
+avgTime = TextContent("**Average time to hire:** 42 days", size:default)
+deptSplit = Card(Heading("Headcount by Department", h3), BarChart(deptSplitTable, grouped, xLabel:"Department", yLabel:"Headcount"))
+deptSplitTable = |Department|Headcount
+|Engineering|60
+|Product|20
+|Design|15
+|Sales|20
+|HR|9
+interviews = Card(Heading("Interviews Scheduled This Week", h3), Table(interviewsTable))
+interviewsTable = |Candidate|Role|Date
+|Alice Smith|Backend Engineer|2023-10-02
+|Bob Jones|Product Manager|2023-10-03
+|Carol Lee|UX Designer|2023-10-04
+attrition = Card(Heading("Attrition (last 6 months)", h3), LineChart(attritionTable, linear, xLabel:"Month", yLabel:"Attrition %"))
+attritionTable = |Month|Attrition
+|May|2.1
+|Jun|1.9
+|Jul|2.3
+|Aug|2.0
+|Sep|1.8
+|Oct|2.2
+actions = Buttons(Button("Open New Role", primary))

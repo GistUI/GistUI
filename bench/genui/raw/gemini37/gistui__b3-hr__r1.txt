@@ -1,0 +1,56 @@
+root = Card(header, topKpis, pipelineSection, middleGrid, lowerGrid, openRoleDialog, gap:l)
+header = CardHeader("HR & Talent Acquisition Overview", "Real-time workforce metrics, recruitment pipeline, and staffing analytics")
+topKpis = Card(kpiHeadcount, kpiTimeHire, kpiInterviews, kpiOpenRoles, direction:row, gap:m, variant:clear)
+kpiHeadcount = Card(Badge("Headcount", variant:secondary), Heading("482", level:h2), TextContent("Active employees (+14 this quarter)", size:small), variant:sunk)
+kpiTimeHire = Card(Badge("Time to Hire", variant:secondary), Heading("34 days", level:h2), TextContent("Avg across all open departments", size:small), variant:sunk)
+kpiInterviews = Card(Badge("Schedule", variant:secondary), Heading("28", level:h2), TextContent("Interviews scheduled this week", size:small), variant:sunk)
+kpiOpenRoles = Card(Badge("Requisitions", variant:secondary), Heading("19", level:h2), TextContent("Open roles actively recruiting", size:small), variant:sunk)
+pipelineSection = Card(Heading("Candidates by Pipeline Stage", level:h3), BarChart(pipelineData, variant:grouped, xLabel:"Stage", yLabel:"Candidates"), variant:sunk)
+pipelineData = |Stage|Active Candidates
+|Sourced|142
+|Screening|68
+|Technical / First Round|41
+|Onsite / Final Loop|19
+|Offer Extended|7
+middleGrid = Card(deptHeadcountCard, openRolesCard, direction:row, gap:m, variant:clear)
+deptHeadcountCard = Card(Heading("Headcount Split by Department", level:h3), PieChart(deptHeadcountData.Department, deptHeadcountData.Employees, variant:donut), variant:sunk)
+deptHeadcountData = |Department|Employees
+|Engineering|194
+|Sales & Marketing|118
+|Product & Design|56
+|Customer Success|62
+|G&A & Operations|52
+openRolesCard = Card(Heading("Open Roles & Requisitions", level:h3), Table(openRolesData), variant:sunk)
+openRolesData = |Role|Department|Open Date|Status
+|Staff Backend Engineer|Engineering|May 12|Active
+|Senior Product Designer|Product & Design|May 18|Active
+|Account Executive (Enterprise)|Sales & Marketing|Jun 01|Screening
+|DevOps Engineer|Engineering|Jun 04|Active
+|Customer Support Lead|Customer Success|Jun 10|Review
+|Financial Analyst|G&A & Operations|Jun 14|Draft
+lowerGrid = Card(attritionCard, interviewScheduleCard, direction:row, gap:m, variant:clear)
+attritionCard = Card(Heading("Attrition Trend (Past 6 Months)", level:h3), LineChart(attritionData, variant:natural, xLabel:"Month", yLabel:"Departures"), variant:sunk)
+attritionData = |Month|Departures
+|Jan|3
+|Feb|2
+|Mar|4
+|Apr|1
+|May|3
+|Jun|2
+interviewScheduleCard = Card(Heading("Interviews Scheduled This Week", level:h3), Table(interviewsData), variant:sunk)
+interviewsData = |Candidate|Role|Interviewer|Day / Time
+|Elena Rostova|Staff Backend Engineer|Alex Chen|Mon 10:00 AM
+|Marcus Vance|Senior Product Designer|Sarah Lin|Tue 2:00 PM
+|Deepak Patel|Account Executive|Jordan Blake|Wed 11:30 AM
+|Chloe Bennett|DevOps Engineer|Liam O'Connor|Thu 3:00 PM
+|Tara Scott|Customer Support Lead|Rachel Green|Fri 1:00 PM
+openRoleDialog = DialogBlock("Open New Role", "Create New Job Requisition", newRoleForm, description:"Fill in role specifications to publish an open position.", triggerVariant:default)
+newRoleForm = Form("create-role-form", roleButtons, roleTitleField, roleDeptField, roleTypeField, roleHiringManagerField, roleDescField)
+roleTitleField = FormControl("Role Title", Input("title", "e.g. Senior Data Engineer"))
+roleDeptField = FormControl("Department", roleDeptSelect)
+roleDeptSelect = Select("department", SelectItem("eng", "Engineering"), SelectItem("sales", "Sales & Marketing"), SelectItem("prod", "Product & Design"), SelectItem("cs", "Customer Success"), SelectItem("ga", "G&A & Operations"), placeholder:"Select department")
+roleTypeField = FormControl("Employment Type", roleTypeRadio)
+roleTypeRadio = RadioGroup("employment_type", RadioItem("Full-time", "Standard 40h workweek", "ft"), RadioItem("Contract", "Fixed term engagement", "contract"))
+roleHiringManagerField = FormControl("Hiring Manager Email", Input("hiring_manager", "manager@company.com", type:email))
+roleDescField = FormControl("Job Description & Notes", TextArea("description", "Outline requirements and team context...", rows:3))
+roleButtons = Buttons(Button("Submit Requisition", variant:primary), Button("Cancel", variant:tertiary))

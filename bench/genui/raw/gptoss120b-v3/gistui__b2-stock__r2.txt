@@ -1,0 +1,8 @@
+root = Card(CardHeader("Low Inventory Alerts"), searchForm, lowList)
+searchForm = Form("low-inventory-search", searchButtons, searchField)
+searchField = FormControl("Search items", Input("search", placeholder:"Enter item name", type:text))
+searchButtons = Buttons(Button("Search"))
+lowList = ListBlock(itemA, itemB, itemC, variant:number)
+itemA = ListItem("Widget A", "Remaining: 5, Threshold: 10", "Reorder")
+itemB = ListItem("Gadget B", "Remaining: 2, Threshold: 5", "Reorder")
+itemC = ListItem("Doohickey C", "Remaining: 3, Threshold: 8", "Reorder")

@@ -1,0 +1,43 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Card",
+        "props": {
+          "v": "sunk"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "x"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Table",
+        "props": {
+          "data": {
+            "table": [
+              "a:n"
+            ],
+            "rows": [
+              [
+                1
+              ]
+            ]
+          },
+          "pageSize": 5,
+          "sort": true
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

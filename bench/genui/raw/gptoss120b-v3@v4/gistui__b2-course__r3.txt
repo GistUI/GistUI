@@ -1,0 +1,16 @@
+root = Card(courseHeader, progressInfo, modulesTable, nextLesson, ratingInfo, continueButtons, clear)
+
+courseHeader = CardHeader("Advanced Data Science", "Instructor: Dr. Jane Doe")
+
+progressInfo = TextContent("Overall progress: **78%**", size:large)
+
+modulesTable = Table(
+  Col("Module", ["Introduction","Data Cleaning","Modeling","Evaluation"], type:string),
+  Col("Completed", ["✅","✅","❌","❌"], type:string)
+)
+
+nextLesson = Callout(info, "Next Lesson", "Modeling - Decision Trees")
+
+ratingInfo = TextCallout("Average Rating", "4.6 ★ out of 5", variant:info)
+
+continueButtons = Buttons(Button("Continue Learning", primary), direction:row)

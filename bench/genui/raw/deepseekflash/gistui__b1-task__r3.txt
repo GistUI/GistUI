@@ -1,0 +1,5 @@
+root = Card(CardHeader("Personal Focus", "One task, right now"), taskCard, statusCard, deadlineCard, doneAction)
+taskCard = Card(Heading("Ship Q3 pricing update", h2), Tag("Urgent", danger), TextContent("The single most urgent task on your list."), sunk)
+statusCard = Card(Heading("Current status", h3), Tag("In progress", info), Progress(65, "65% complete"), sunk)
+deadlineCard = Card(Heading("Deadline", h3), TextContent("**Tomorrow, 9:00 AM**"), sunk)
+doneAction = Buttons(Button("Mark as done", primary))

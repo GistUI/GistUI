@@ -1,0 +1,93 @@
+root = Card(loadCard, capacityCard, generationCard, plantsCard, outagesCard, forecastCard, priceCard, maintenanceCard, alertsCard, controlsCard, curtailCard, emissionsCard)
+
+loadCard = Card(CardHeader("Current Load", "MW"), TextContent("1,250 MW", size:large), sunk)
+
+capacityCard = Card(CardHeader("Capacity Utilization", "Percent of total capacity"), TextContent("78 %", size:large), sunk)
+
+generationCard = Card(CardHeader("Generation Mix", "Source distribution"), generationChart, sunk)
+
+generationChart = PieChart(["Coal","Gas","Wind","Solar","Hydro"], [30,25,20,15,10], variant:donut)
+
+plantsCard = Card(CardHeader("Plant Output & Status"), plantsTable, sunk)
+
+plantsTable = Table(
+  Col("Plant", ["Plant A","Plant B","Plant C","Plant D"], type:string),
+  Col("Output (MW)", [400,350,300,200], type:number),
+  Col("Status", ["Online","Online","Maintenance","Offline"], type:string)
+)
+
+outagesCard = Card(CardHeader("Current Outages"), outagesTable, sunk)
+
+outagesTable = Table(
+  Col("Region", ["North","East"], type:string),
+  Col("Affected Load (MW)", [120,80], type:number),
+  Col("Estimated Restore (h)", [4,6], type:number)
+)
+
+forecastCard = Card(CardHeader("Demand Forecast (24h)"), forecastChart, sunk)
+
+forecastChart = LineChart(
+  |Hour|Demand
+  |01|1150
+  |02|1120
+  |03|1100
+  |04|1080
+  |05|1070
+  |06|1090
+  |07|1150
+  |08|1230
+  |09|1300
+  |10|1380
+  |11|1450
+  |12|1500
+  |13|1520
+  |14|1510
+  |15|1490
+  |16|1470
+  |17|1480
+  |18|1500
+  |19|1525
+  |20|1550
+  |21|1530
+  |22|1480
+  |23|1400
+  |24|1320,
+  variant:linear,
+  xLabel:"Hour",
+  yLabel:"MW"
+)
+
+priceCard = Card(CardHeader("Current Price"), Tag("$85/MWh", variant:info), sunk)
+
+maintenanceCard = Card(CardHeader("Planned Maintenance (This Month)"), maintenanceTable, sunk)
+
+maintenanceTable = Table(
+  Col("Plant", ["Plant C","Plant D"], type:string),
+  Col("Start Date", ["2024-10-05","2024-10-18"], type:string),
+  Col("Duration (h)", [48,72], type:number)
+)
+
+alertsCard = Card(CardHeader("Live Alerts"), alertsList, sunk)
+
+alertsList = @each(["Line fault at Substation 12","Voltage dip in West region"], a => Callout(variant:warning, a, "Immediate attention required"))
+
+controlsCard = Card(CardHeader("Region Focus"), regionSelect, sunk)
+
+regionSelect = Select("region_focus",
+  SelectItem("North","North"),
+  SelectItem("South","South"),
+  SelectItem("East","East"),
+  SelectItem("West","West"),
+  placeholder:"Select region"
+)
+
+curtailCard = Card(CardHeader("Curtailment Order"), curtailForm, sunk)
+
+curtailForm = Form("curtail", curtailButtons,
+  FormControl("Region", regionSelect),
+  FormControl("Amount (MW)", Input("curtail_amount", "Enter MW", type:number))
+)
+
+curtailButtons = Buttons(Button("Submit", ["curtail"], primary))
+
+emissionsCard = Card(CardHeader("Emissions Today"), Tag("420 t CO₂", variant:neutral), sunk)

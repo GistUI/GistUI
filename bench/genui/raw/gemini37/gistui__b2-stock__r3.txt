@@ -1,0 +1,26 @@
+root = Card(header, summaryCallout, searchFilterCard, inventoryTableCard, quickReorderDrawer)
+header = CardHeader("Low Inventory Alerts", "Real-time stock monitoring and reorder management")
+summaryCallout = Callout(warning, "Critical Stock Level Warning", "4 items have breached configured minimum stock thresholds. Immediate purchase orders recommended.")
+searchFilterCard = Card(filterRow, direction:row, gap:m, align:center, variant:sunk)
+filterRow = Form("filter-form", searchActions, searchField, categoryField)
+searchField = FormControl("Search Products", Input("search_query", "Search by SKU, product name, or barcode...", type:text))
+categoryField = FormControl("Category", categorySelect)
+categorySelect = Select("category", SelectItem("all", "All Categories"), SelectItem("beverages", "Beverages"), SelectItem("snacks", "Snacks & Pantry"), SelectItem("produce", "Fresh Produce"), SelectItem("dairy", "Dairy & Chilled"), placeholder:"Filter category")
+searchActions = Buttons(Button("Apply Filters", primary, size:small), Button("Reset", tertiary, size:small))
+inventoryTableCard = Card(tableHeading, stockTable, pagination, gap:m)
+tableHeading = CardHeader("Active Low-Stock Items", "Threshold comparison and automated reorder triggers")
+stockTable = Table(itemsData)
+pagination = PaginationBlock(1, 1)
+quickReorderDrawer = DrawerBlock("Create Bulk Reorder PO", "Batch Purchase Order Creation", reorderForm, description:"Quickly generate restock orders for all critical items below minimum threshold.")
+reorderForm = Form("bulk-reorder", reorderButtons, supplierControl, priorityControl, notesControl)
+supplierControl = FormControl("Primary Supplier", Select("supplier", SelectItem("dist1", "Apex Wholesale Logistics"), SelectItem("dist2", "Metro Food Supplies"), SelectItem("dist3", "Global Beverage Partners"), placeholder:"Select vendor"))
+priorityControl = FormControl("Order Fulfillment Priority", RadioGroup("priority", RadioItem("Express", "Next-day delivery (Critical)", "express"), RadioItem("Standard", "2-3 business days standard", "standard"), defaultValue:"express"))
+notesControl = FormControl("PO Instructions", TextArea("po_notes", "Enter delivery notes or PO reference numbers...", rows:3))
+reorderButtons = Buttons(Button("Submit Restock Purchase Order", primary), Button("Cancel", tertiary))
+itemsData = |Product Name|SKU|Category|Remaining Units:n|Warning Threshold:n|Stock Deficit:n|Status|Action
+|Organic Almond Milk (1L)|BEV-8821|Beverages|4|15|-11|CRITICAL|Reorder Now
+|Whole Bean Arabica Blend (500g)|BEV-4412|Beverages|6|20|-14|CRITICAL|Reorder Now
+|Gluten-Free Oat Granola (400g)|SNK-1094|Snacks & Pantry|3|12|-9|CRITICAL|Reorder Now
+|Greek Yogurt Plain (500g)|DRY-3309|Dairy & Chilled|8|25|-17|WARNING|Reorder Now
+|Hass Avocados (Pack of 4)|PRD-7721|Fresh Produce|5|18|-13|CRITICAL|Reorder Now
+|Organic Coconut Water (330ml)|BEV-9932|Beverages|9|24|-15|WARNING|Reorder Now

@@ -1,0 +1,16 @@
+root = Card(header, progress, modules, nextLesson, rating, actions, variant:card)
+
+header = CardHeader("Advanced Data Science", "Instructor: Dr. Jane Doe")
+
+progress = Callout(variant:info, "Overall Progress", "You have completed 68% of the course")
+
+modules = Table(
+  Col("Module", ["Introduction","Data Cleaning","Modeling","Evaluation"], type:string),
+  Col("Status", ["Completed","Completed","In Progress","Not Started"], type:string)
+)
+
+nextLesson = Callout(variant:warning, "Next Lesson", "Model Evaluation Techniques")
+
+rating = TextCallout("Average Rating", "4.6 ★ out of 5", variant:success)
+
+actions = Buttons(Button("Continue Learning"))

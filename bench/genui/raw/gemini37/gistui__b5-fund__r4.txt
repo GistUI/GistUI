@@ -1,0 +1,106 @@
+root = Card(headerRow, topMetricsCard, riskAlertSection, mainTabs)
+headerRow = Card(CardHeader("Trading Desk Morning Workspace", "Live execution, risk monitoring & macro context"), topControls, clear, direction:row, justify:between, align:center)
+topControls = Card(timeframeSelect, rebalanceDialog, clear, direction:row, gap:s, align:center)
+timeframeSelect = Select("desk_tf", SelectItem("today", "Today (Intraday)"), SelectItem("1w", "1 Week"), SelectItem("1m", "1 Month"), SelectItem("ytd", "YTD"), SelectItem("1y", "1 Year Trailing"), value:"today", placeholder:"Select timeframe")
+rebalanceDialog = DialogBlock("Rebalance Portfolio", "Portfolio Model Rebalancing", rebalanceForm, description:"Auto-calculate target delta and stage balancing orders across books.", triggerVariant:default)
+rebalanceForm = Form("rebal-form", rebalanceActions, rebalModelField, rebalToleranceField, rebalDryRun)
+rebalModelField = FormControl("Target Model", Select("target_model", SelectItem("mvo", "Multi-Factor MVO (Default)"), SelectItem("eq_risk", "Equal Risk Contribution"), SelectItem("delta_neutral", "Sector Neutral Alpha"), value:"mvo", placeholder:"Select target allocation"))
+rebalToleranceField = FormControl("Tracking Tolerance Drift (%)", Slider("rebal_tol", continuous, min:0.5, max:5, step:0.5, defaultValue:[1.5]))
+rebalDryRun = FormControl("Execution Mode", RadioGroup("exec_mode", RadioItem("Staged", "Review basket before routing", "stage"), RadioItem("Direct", "Send TWAP/VWAP immediately to router", "direct"), defaultValue:"stage", value:"stage"))
+rebalanceActions = Buttons(Button("Execute Rebalance", primary), Button("Cancel", tertiary))
+topMetricsCard = Card(kpiGrid, clear)
+kpiGrid = Card(Card("Portfolio Value", "$42,850,210", Badge("+1.42% Total", default), sunk), Card("Today's P&L", "+$342,800 (+0.81%)", Tag("Profitable", success), sunk), Card("Value at Risk (95% 1D)", "$612,400 (1.43%)", Tag("Within Bounds", neutral), sunk), Card("Margin in Use", "$14,200,000 / $25.0M (56.8%)", Progress(56.8, "56.8% Utilization"), sunk), direction:row, gap:m)
+riskAlertSection = Card(Alert("Risk Limit Warning: Sector Cap", "Technology net exposure is at 28.4% (Threshold: 30.0%). Tech 1-day concentration VaR is nearing yellow alert trigger.", warning), sunk)
+mainTabs = Tabs(TabItem("pos_exec", "Positions & Execution", executionRow, positionsTableCard, workingOrdersCard), TabItem("risk_strat", "Risk & Strategies", riskRow, stratsCard), TabItem("market_intel", "Market Intel & Macro", moversWatchCard, intelRow))
+executionRow = Card(orderEntryCard, sectorPieCard, direction:row, gap:m)
+orderEntryCard = Card(CardHeader("Fast Order Entry", "Submit market, limit, or algo orders to the book"), orderForm, sunk)
+orderForm = Form("order-form", orderFormButtons, orderTickerField, orderSideField, orderQtyField, orderTypeField)
+orderTickerField = FormControl("Ticker Symbol", Input("ord_ticker", "e.g. NVDA, AAPL, MSFT", "NVDA", text))
+orderSideField = FormControl("Side", RadioGroup("ord_side", RadioItem("Buy / Long", "Enter or add long", "buy"), RadioItem("Sell / Short", "Sell or open short", "sell"), defaultValue:"buy", value:"buy"))
+orderQtyField = FormControl("Quantity (Shares/Contracts)", Input("ord_qty", "100", "500", number))
+orderTypeField = FormControl("Order Type & TIF", Select("ord_type", SelectItem("limit", "Limit (Day)"), SelectItem("market", "Market (IOC)"), SelectItem("twap", "TWAP 30min"), SelectItem("vwap", "VWAP Day"), value:"limit", placeholder:"Select order type"))
+orderFormButtons = Buttons(Button("Send Order", primary), Button("Clear", secondary))
+sectorPieCard = Card(CardHeader("Exposure by Sector", "% of gross asset allocation"), PieChart(sectorData.Sector, sectorData.Exposure, donut, circular), sunk)
+sectorData = |Sector|Exposure:n
+|Information Tech|28.4
+|Financials|21.6
+|Healthcare|16.2
+|Consumer Disc|14.5
+|Energy & Ind|11.3
+|Cash & Equivalents|8.0
+positionsTableCard = Card(CardHeader("Open Positions", "Live tick, mark-to-market, and position size"), Table(positionsData), sunk)
+positionsData = |Ticker|Size:n|Entry Price:n|Current Price:n|Unrealized PnL|Weight
+|NVDA|4200|118.50|124.80|+$26,460 (+5.32%)|12.2%
+|AAPL|6500|212.00|216.45|+$28,925 (+2.10%)|16.4%
+|MSFT|3800|435.20|431.10|-$15,580 (-0.94%)|19.1%
+|AMZN|5000|182.10|186.30|+$21,000 (+2.31%)|10.9%
+|XOM|7200|115.40|114.20|-$8,640 (-1.04%)|9.6%
+|JPM|4100|198.80|204.15|+$21,935 (+2.69%)|9.8%
+workingOrdersCard = Card(CardHeader("Working & Active Orders", "Open executions routed to venues"), Table(workingOrdersData), sunk)
+workingOrdersData = |Order ID|Ticker|Side|Total Qty:n|Filled:n|Limit Price:n|Algo / TIF|Status
+|ORD-9821|NVDA|BUY|1000|450|123.90|VWAP|Partial Fill
+|ORD-9824|MSFT|BUY|500|0|429.50|Limit Day|Working
+|ORD-9830|TSLA|SELL|1200|1200|218.00|Market IOC|Filled
+|ORD-9833|AMD|BUY|2500|800|154.20|TWAP 1h|Working
+riskRow = Card(riskBreachesCard, drawdownCard, direction:row, gap:m)
+riskBreachesCard = Card(CardHeader("Risk Limits & Breach Proximity", "Soft & hard ceiling monitor"), Table(riskLimitsData), sunk)
+riskLimitsData = |Risk Metric|Current Level|Limit Ceiling|Status|Action Req
+|Technology Exposure|28.4%|30.0%|Near Breach (94%)|Trim or Hedge
+|Single Stock Cap (MSFT)|19.1%|20.0%|Near Breach (95%)|No buy orders
+|Gross Leverage|2.42x|3.00x|Normal|None
+|1-Day VaR (95%)|$612.4k|$850.0k|Normal|None
+|Max Sector Short Exposure|-11.2%|-15.0%|Normal|None
+drawdownCard = Card(CardHeader("Past Year Drawdown (%)", "Peak-to-trough historical drawdown trace"), LineChart(drawdownData, natural, xLabel:"Month", yLabel:"Drawdown %"), sunk)
+drawdownData = |Month|Drawdown
+|Jul 23|-0.4
+|Aug 23|-3.2
+|Sep 23|-5.1
+|Oct 23|-7.8
+|Nov 23|-3.4
+|Dec 23|-1.2
+|Jan 24|-0.5
+|Feb 24|-1.8
+|Mar 24|-0.2
+|Apr 24|-4.6
+|May 24|-1.9
+|Jun 24|-0.8
+|Jul 24|-1.4
+stratsCard = Card(CardHeader("Strategy Returns (Year-to-Date)", "Net alpha performance by internal book"), BarChart(strategyPerfData, grouped, xLabel:"Strategy Book", yLabel:"YTD Return %"), sunk)
+strategyPerfData = |Strategy Book|YTD Return %
+|Tech Momentum|26.4
+|Long/Short Equity|14.8
+|Vol Arbitrage|9.2
+|Global Macro|6.7
+|Stat Arb High-Freq|18.5
+|Fixed Income Arb|4.1
+moversWatchCard = Card(gainersLosersCard, watchlistCard, direction:row, gap:m)
+gainersLosersCard = Card(CardHeader("Today's Movers (Gainers & Losers)", "Top 3 gainers & losers across desk universe"), Table(moversData), sunk)
+moversData = |Ticker|Name|Price:n|Change %|Volume
+|NVDA|NVIDIA Corp|124.80|+5.32%|58.2M
+|ARM|Arm Holdings|164.20|+4.85%|12.4M
+|JPM|JPMorgan Chase|204.15|+2.69%|9.8M
+|CRWD|CrowdStrike|302.50|-8.40%|21.1M
+|TSLA|Tesla Inc|214.30|-3.12%|34.5M
+|XOM|Exxon Mobil|114.20|-1.04%|11.3M
+watchlistCard = Card(CardHeader("Desk Watchlist", "Real-time watched tickers and session spreads"), Table(watchlistData), sunk)
+watchlistData = |Ticker|Asset Class|Last Price:n|Day Range|52W High
+|SPY|Equity Index|558.40|555.10 - 559.20|565.16
+|QQQ|Tech Index|482.15|478.90 - 483.50|490.40
+|US10Y|Treasury Yield|4.21%|4.18% - 4.24%|4.99%
+|VIX|Volatility Index|15.82|15.10 - 16.45|23.01
+|BTC/USD|Crypto|64250.00|63100 - 64800|73750.00
+intelRow = Card(newsCard, econCalCard, direction:row, gap:m)
+newsCard = Card(CardHeader("Market Headlines & Sentiment", "Scraped financial wires with algorithmic sentiment tagging"), newsTable, sunk)
+newsTable = Table(newsData)
+newsData = |Time|Headline|Source|Sentiment
+|08:42|Fed signals patience on rate path as inflation cools gradually|Bloomberg|Neutral
+|08:15|Tech megacaps rally in pre-market led by enterprise AI spend|Reuters|Bullish
+|07:50|Crude slips as inventory build exceeds consensus estimates|DJ Newswires|Bearish
+|07:10|EU antitrust approves major cloud datacenter expansion|FT|Bullish
+econCalCard = Card(CardHeader("Economic Releases This Week", "High impact macroeconomic schedule"), Table(econCalData), sunk)
+econCalData = |Date / Time|Event|Country|Forecast|Prior Impact
+|Wed 08:30|Core CPI (MoM)|US|0.2%|0.2% High
+|Thu 08:30|Initial Jobless Claims|US|235k|238k Medium
+|Thu 14:00|FOMC Rate Decision|US|5.50%|5.50% High
+|Fri 08:30|PPI Final Demand (MoM)|US|0.1%|-0.2% High
+|Fri 10:00|UoM Consumer Sentiment|US|68.5|68.2 Medium

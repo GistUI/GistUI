@@ -1,0 +1,52 @@
+root = Card(balancesHeading, balancesTable, recentHeading, recentTxTable, spendingHeading, spendingPie, billsHeading, billsTable, vacationHeading, progressVac, creditScoreHeading, creditScoreTag, moveMoneyHeading, moveMoneyForm, freezeHeading, freezeButton, statementHeading, statementPicker, alertsHeading, alertForm, disputeHeading, disputeForm)
+balancesHeading = Heading("Account Balances", h2)
+recentHeading = Heading("Recent Transactions", h2)
+spendingHeading = Heading("Spending by Category", h2)
+billsHeading = Heading("Bills Due Soon", h2)
+vacationHeading = Heading("Vacation Savings Goal", h2)
+creditScoreHeading = Heading("Current Credit Score", h2)
+moveMoneyHeading = Heading("Transfer Money", h2)
+freezeHeading = Heading("Freeze Credit Line", h2)
+statementHeading = Heading("Statement Period", h2)
+alertsHeading = Heading("Alert Settings", h2)
+disputeHeading = Heading("Dispute a Transaction", h2)
+spendingPie = PieChart(["Food","Transport","Entertainment","Bills","Other"], [400,150,200,300,100], donut)
+progressVac = Progress(65, "Saved $6,500 of $10,000")
+creditScoreTag = Tag("720", variant:info)
+moveMoneyForm = Form("move-money", formButtons, fromField, toField, amountField)
+formButtons = Buttons(Button("Transfer", variant:primary))
+fromSelect = Select("from_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit"), placeholder:"From", value:"checking")
+toSelect = Select("to_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit"), placeholder:"To", value:"savings")
+amountInput = Input("amount", "Enter amount", "", number)
+fromField = FormControl("From", fromSelect)
+toField = FormControl("To", toSelect)
+amountField = FormControl("Amount", amountInput)
+freezeButton = Button("Freeze Credit", type:destructive)
+statementPicker = DatePicker("statement_period", mode:range)
+alertForm = Form("alerts", alertFormButtons, alertField)
+alertFormButtons = Buttons(Button("Save Alerts", variant:primary))
+alertField = FormControl("Alert Triggers", alertChecks)
+alertChecks = CheckBoxGroup("alert_triggers",
+    CheckBoxItem("Overspending", "Notify when spending exceeds budget", "overspend", defaultChecked),
+    CheckBoxItem("Low Balance", "Notify when balance drops below $100", "low_balance", defaultChecked),
+    CheckBoxItem("Bill Due", "Notify upcoming bills", "bill_due", defaultChecked),
+    value:["overspend","low_balance","bill_due"]
+)
+disputeForm = Form("dispute", disputeButtons, disputeIdField, disputeReasonField)
+disputeButtons = Buttons(Button("Submit Dispute", variant:primary))
+disputeIdField = FormControl("Transaction ID", disputeIdInput)
+disputeReasonField = FormControl("Reason", disputeReason)
+disputeIdInput = Input("tx_id", "Transaction ID")
+disputeReason = TextArea("reason", "Reason for dispute", "", 4)
+balancesTable = |Account|Balance
+|Checking|$2,345.67
+|Savings|$8,910.12
+|Credit|$1,234.56
+recentTxTable = |Merchant|Amount|Date
+|Starbucks|-$5.45|2024-09-28
+|Amazon|-$123.00|2024-09-27
+|Payroll|+$2,500.00|2024-09-26
+billsTable = |Bill|Due|Amount
+|Electricity|2024-10-05|$120.00
+|Internet|2024-10-07|$60.00
+|Credit Card|2024-10-10|$250.00

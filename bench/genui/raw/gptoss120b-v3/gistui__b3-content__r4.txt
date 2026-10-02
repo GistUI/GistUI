@@ -1,0 +1,40 @@
+root = Card(draftsSection, publishedSection, topArticle, readershipChart, filterSection, scheduleForm, commentsSection, newDraftButton)
+
+draftsSection = Card(CardHeader("Drafts", "Current status of drafts"), draftsTable, clear)
+draftsTable = |Title|Category|Status
+|"Morning Brief"|News|Draft
+|"Tech Trends"|Tech|Review
+|"Health Tips"|Wellness|Pending
+
+publishedSection = Card(CardHeader("Published This Week", "Articles released in the last 7 days"), publishedTable, clear)
+publishedTable = |Title|Published Date|Views
+|"AI in 2024"|2024-09-24|1240
+|"Travel Post"|2024-09-22|980
+|"Cooking Basics"|2024-09-20|750
+
+topArticle = Card(CardHeader("Most‑Read Article This Month", "Top performer"), MarkDownRenderer("**Title:** *The Rise of Renewable Energy*\n**Views:** 8,432\n**Author:** Jane Doe"), clear)
+
+readershipChart = Card(CardHeader("Readership (Last 30 Days)"), LineChart(readershipRows, linear, xLabel:"Date", yLabel:"Views"), clear)
+readershipRows = |Date|Views
+|2024‑08‑31|1200
+|2024‑09‑05|1350
+|2024‑09‑10|1500
+|2024‑09‑15|1650
+|2024‑09‑20|1580
+|2024‑09‑25|1720
+|2024‑09‑30|1800
+
+filterSection = Card(CardHeader("Filter by Category"), categorySelect, clear)
+categorySelect = Select("category", SelectItem("all", "All Categories"), SelectItem("news", "News"), SelectItem("tech", "Tech"), SelectItem("wellness", "Wellness"), placeholder:"Select category", value:"all")
+
+scheduleForm = Card(CardHeader("Schedule a Piece"), Form("schedule-piece", scheduleButtons, titleField, dateField), clear)
+titleField = FormControl("Title", Input("title", "Enter article title"))
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single))
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+commentsSection = Card(CardHeader("Comments Awaiting Reply", "Pending moderation"), commentsTable, clear)
+commentsTable = |Article|Commenter|Excerpt|Date
+|"AI in 2024"|Alice|"Great insights!"|2024-09-28
+|"Travel Post"|Bob|"Loved the tips."|2024-09-27
+
+newDraftButton = Card(Buttons(Button("New Draft", primary)), sunk)

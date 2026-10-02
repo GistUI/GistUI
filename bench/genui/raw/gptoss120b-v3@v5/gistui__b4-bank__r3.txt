@@ -1,0 +1,70 @@
+root = Card(header, balances, transactions, spending, bills, vacation, creditScore, actions)
+
+header = CardHeader("Personal Banking Dashboard")
+
+balances = Card(Heading("Account Balances", h2), balancesTable)
+
+balancesTable = |Account|Balance
+|Checking|$2,350.45
+|Savings|$8,120.00
+|Credit|$1,200.00
+
+transactions = Card(Heading("Recent Transactions", h2), transactionsTable, disputeButton)
+
+transactionsTable = |Merchant|Amount
+|Coffee Shop|-$4.75
+|Grocery Store|-$82.30
+|Salary|+$3,200.00
+|Electric Bill|-$120.00
+
+disputeButton = Button("Dispute Transaction", destructive)
+
+spending = Card(Heading("Spending by Category (This Month)", h2), spendingChart)
+
+spendingChart = PieChart(labels:list, values:list, donut)
+
+labels:list = @each(["Food","Bills","Entertainment","Travel","Other"], l => l)
+values:list = @each([450,300,150,200,100], v => v)
+
+bills = Card(Heading("Bills Due Soon", h2), billsTable)
+
+billsTable = |Bill|Due Date|Amount
+|Electricity|2026-10-05|$120.00
+|Internet|2026-10-10|$60.00
+|Gym Membership|2026-10-12|$45.00
+
+vacation = Card(Heading("Vacation Savings Goal", h2), vacationProgress)
+
+vacationProgress = Progress(0.45, "45% saved of $5,000 goal")
+
+creditScore = Card(Heading("Credit Score", h2), TextContent("Your current credit score is **720**.", large))
+
+actions = Card(Heading("Quick Actions", h2), moveForm, freezeButton, statementSelect, alertsForm)
+
+moveForm = Form("move-money", moveButtons, amountField, fromAccountField, toAccountField)
+
+amountField = FormControl("Amount", Input("amount", "Enter amount", placeholder:"$0.00", type:number))
+
+fromAccountField = FormControl("From", fromSelect)
+
+fromSelect = Select("from_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), placeholder:"Select account", value:"checking")
+
+toAccountField = FormControl("To", toSelect)
+
+toSelect = Select("to_account", SelectItem("savings", "Savings"), SelectItem("credit", "Credit Card"), placeholder:"Select account", value:"savings")
+
+moveButtons = Buttons(Button("Transfer", primary))
+
+freezeButton = Button("Freeze Credit Line", destructive)
+
+statementSelect = Select("statement_period", SelectItem("30d", "Last 30 days"), SelectItem("90d", "Last 90 days"), SelectItem("custom", "Custom Range"), placeholder:"Select period", value:"30d")
+
+alertsForm = Form("alert-settings", alertsButtons, alertsField)
+
+alertsField = FormControl("Alert Triggers", CheckBoxGroup("alerts", 
+    CheckBoxItem("Low Balance", "When balance falls below $100", "low_balance", false),
+    CheckBoxItem("Large Transaction", "When a transaction exceeds $500", "large_tx", false),
+    CheckBoxItem("Bill Due", "When a bill is due within 3 days", "bill_due", true),
+    rules:[], value:[]))
+
+alertsButtons = Buttons(Button("Save Alerts", primary))

@@ -1,0 +1,22 @@
+root = Card(header, countdown, agendaCard, speakersCard, ticketsCard, registerCard)
+header = CardHeader("DevCon 2025", "June 12–14, 2025 · Moscone Center, San Francisco")
+countdown = Callout(info, "12 days remaining", "DevCon 2025 starts in 12 days — secure your spot before prices go up.")
+agendaCard = Card(Heading("Agenda", h2), agendaTable, sunk)
+speakersCard = Card(Heading("Speakers", h2), speakersList, sunk)
+ticketsCard = Card(Heading("Tickets", h2), ticketsTable, sunk)
+registerCard = Card(Heading("Register", h2), registerForm, sunk)
+speakersList = ListBlock(ListItem("Ada Lovelace", "Founder of Algorithmic Systems; talks on AI ethics and responsible automation"), ListItem("Grace Hopper", "Compiler pioneer; shares lessons on debugging at scale"), ListItem("Alan Turing", "Cryptography legend; on the next decade of compute"), number)
+registerForm = Form("register", registerButtons, nameField, emailField)
+nameField = FormControl("Full name", Input("name", "Jane Doe"))
+emailField = FormControl("Email", Input("email", "jane@example.com", email), "We'll send your ticket and updates here")
+registerButtons = Buttons(Button("Register", primary))
+agendaTable = |Time|Session
+|9:00 AM|Keynote: The Future of AI
+|10:30 AM|Workshop: Building with LLMs
+|1:00 PM|Panel: Scaling Infrastructure
+|3:00 PM|Lightning Talks
+|4:30 PM|Networking Reception
+ticketsTable = |Tier|Price
+|Student|$149
+|Standard|$399
+|VIP|$799

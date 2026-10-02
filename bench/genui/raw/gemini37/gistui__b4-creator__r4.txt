@@ -1,0 +1,85 @@
+root = Card(headerRow, filterRow, kpiGrid, analyticsRow, contentEngagementRow, inboxCollabRow, scheduleModalSection, gap:l)
+
+headerRow = Card(CardHeader("Creator Studio Hub", "Cross-platform analytics, publishing, audience insights, and monetization"), Buttons(schedulePostDialog), variant:clear, direction:row, justify:between, align:center)
+
+filterRow = Card(filterForm, variant:sunk, direction:row, align:center)
+filterForm = Form("platform-filter", filterBtn, platformControl)
+platformControl = FormControl("Filter by Platform", platformSelect)
+platformSelect = Select("platform", SelectItem("all", "All Platforms (Unified)"), SelectItem("yt", "YouTube"), SelectItem("ig", "Instagram"), SelectItem("tt", "TikTok"), SelectItem("x", "X / Twitter"), SelectItem("li", "LinkedIn"), value:"all", placeholder:"Select platform")
+filterBtn = Buttons(Button("Apply View", primary, size:small))
+
+kpiGrid = Card(kpiFollowers, kpiEngagement, kpiEarnings, kpiBestTime, direction:row, gap:m)
+
+kpiFollowers = Card(CardHeader("Total Followers", "Past 30 days"), Heading("1,248,500", h2), Tag("+34.2k (+2.8%)", success), variant:sunk)
+kpiEngagement = Card(CardHeader("Avg Engagement Rate", "Across all active channels"), Heading("5.84%", h2), Tag("+0.6% vs last month", success), variant:sunk)
+kpiEarnings = Card(CardHeader("Earnings (This Month)", "AdSense, Sponsorships & Subs"), Heading("$14,820", h2), Tag("+18.5% pacing", success), variant:sunk)
+kpiBestTime = Card(CardHeader("Optimal Post Time", "Highest reach & interactions"), Heading("6:30 PM", h2), Tag("Thursdays & Sundays", info), variant:sunk)
+
+analyticsRow = Card(growthCard, audienceSplitCard, direction:row, gap:m)
+
+growthCard = Card(CardHeader("Follower Growth Trend", "Past 30 days total net gains (thousands)"), AreaChart(growthData, natural, xLabel:"Day", yLabel:"Followers (k)"), variant:sunk)
+
+growthData = |Day|Followers
+|Day 1|1214
+|Day 5|1219
+|Day 10|1226
+|Day 15|1231
+|Day 20|1238
+|Day 25|1243
+|Day 30|1248
+
+audienceSplitCard = Card(CardHeader("Audience Split by Platform", "Distribution of 1.25M creator network"), PieChart(pieData.Platform, pieData.Share, donut), variant:sunk)
+
+pieData = |Platform|Share
+|YouTube|45
+|Instagram|25
+|TikTok|18
+|X (Twitter)|8
+|LinkedIn|4
+
+contentEngagementRow = Card(topPostsCard, scheduledCard, direction:row, gap:m)
+
+topPostsCard = Card(CardHeader("Best Posts This Month", "Ranked by reach and engagement"), Table(topPostsData), variant:sunk)
+
+topPostsData = |Post Title|Platform|Reach|Eng Rate
+|Behind the Scenes: Studio Setup|YouTube|412,000|8.4%
+|10 Tools I Can't Live Without|Instagram|285,400|7.1%
+|Speedrun Workflow Tutorial|TikTok|194,200|9.6%
+|Creator Monetization Breakdown|LinkedIn|88,600|5.2%
+|Thread: 5 Viral Hooks|X / Twitter|64,300|4.8%
+
+scheduledCard = Card(CardHeader("Scheduled This Week", "Queued cross-platform content"), Table(scheduledData), variant:sunk)
+
+scheduledData = |Day & Time|Platform|Content Draft|Status
+|Thu 6:30 PM|YouTube|Full Camera Breakdown 2025|Queued
+|Fri 12:00 PM|TikTok|Editing Quick Tip #44|Queued
+|Sat 10:15 AM|Instagram|Photo Reel: Lighting Essentials|Draft
+|Sun 6:30 PM|LinkedIn|Weekly Creator Economy Take|Queued
+
+inboxCollabRow = Card(commentsCard, collabsCard, direction:row, gap:m)
+
+commentsCard = Card(CardHeader("Comments Waiting for Reply", "3 unreplied priority interactions"), commentsList, Buttons(Button("Open Unified Inbox", secondary, size:small)), variant:sunk)
+
+commentsList = ListBlock(comment1, comment2, comment3)
+comment1 = ListItem("@alex_tech on YouTube", "Loved the audio gear recommendation! Which mic arm are you using?", "Reply")
+comment2 = ListItem("@sarah_creates on Instagram", "How long did color grading take for this shoot?", "Reply")
+comment3 = ListItem("@dev_dan on TikTok", "Can you drop the template file link in comments?", "Reply")
+
+collabsCard = Card(CardHeader("Pending Collaboration Requests", "Sponsorship & brand partnership inbox"), Table(collabData), Buttons(Button("Review Contracts", primary, size:small)), variant:sunk)
+
+collabData = |Brand / Creator|Type|Offer Value|Status
+|NordVPN|Dedicated Video|$4,500|Pending Review
+|Notion|Reel + Carousel|$2,800|Counter Sent
+|Sony Alpha UK|Product Collab + IG Post|$3,200|Awaiting Brief
+|Riverside.fm|Podcast Co-Host & Shoutout|$1,500|New Request
+
+scheduleModalSection = Card(schedulePostDialog, variant:clear)
+
+schedulePostDialog = DialogBlock("Schedule New Post", "Schedule Content Across Platforms", schedulePostForm, description:"Select platforms, craft caption, and pick your scheduled publish time.", triggerVariant:default)
+
+schedulePostForm = Form("schedule-form", scheduleModalButtons, postPlatformsControl, postCaptionControl, postDateControl)
+postPlatformsControl = FormControl("Target Channels", postPlatformsCheck)
+postPlatformsCheck = CheckBoxGroup("target_platforms", CheckBoxItem("YouTube", "Community post / Short / Video", "yt_target", defaultChecked), CheckBoxItem("Instagram", "Reel / Feed Post", "ig_target", defaultChecked), CheckBoxItem("TikTok", "Short-form video", "tt_target"), CheckBoxItem("LinkedIn / X", "Text & Media update", "x_li_target"))
+postCaptionControl = FormControl("Post Caption & Hooks", TextArea("post_caption", "Write your caption, hashtags (#creator, #tech), and call to actions...", rows:4))
+postDateControl = FormControl("Scheduled Date & Time (Best: Today at 6:30 PM)", Input("post_datetime", "2025-05-15 18:30", text))
+scheduleModalButtons = Buttons(Button("Publish / Queue Post", primary), Button("Save as Draft", secondary))

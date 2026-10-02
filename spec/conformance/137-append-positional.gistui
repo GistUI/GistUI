@@ -1,0 +1,5 @@
+root = Row(h, t)
+h = Header("title")
+h += "subtitle"
+t = Text("a")
+t += "too many"

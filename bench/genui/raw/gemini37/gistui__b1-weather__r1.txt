@@ -1,0 +1,18 @@
+root = Card(header, currentCard, sunMetricsCard, forecastSection, gap:m)
+header = CardHeader("Morning Weather Brief", "Bengaluru, Karnataka • Updated 06:30 AM")
+currentCard = Card(currentTop, Separator(decorative), currentMetrics, variant:sunk, gap:s)
+currentTop = Card(Heading("21°C", h1), Badge("Partly Cloudy", outline), Tag("Pleasant Morning", success), direction:row, align:center, justify:between)
+currentMetrics = Card(Metric1, Metric2, Metric3, direction:row, justify:between)
+Metric1 = TextContent("**Feels Like**\n21°C", size:small)
+Metric2 = TextContent("**Humidity**\n68%", size:small)
+Metric3 = TextContent("**Wind**\n12 km/h ENE", size:small)
+sunMetricsCard = Card(Heading("Sun Schedule", h3), sunTimes, variant:card, gap:xs)
+sunTimes = Card(sunriseBlock, sunsetBlock, direction:row, justify:around, align:center)
+sunriseBlock = TextContent("🌅 **Sunrise**\n06:18 AM", size:default)
+sunsetBlock = TextContent("🌇 **Sunset**\n06:32 PM", size:default)
+forecastSection = Card(Heading("3-Day Outlook", h3), forecastTable, BarChart(forecastData, xLabel:"Day", yLabel:"Temperature (°C)"), variant:sunk, gap:s)
+forecastTable = Table(Col("Day", ["Tomorrow (Thu)", "Friday", "Saturday"], string), Col("Conditions", ["Partly Cloudy", "Scattered Showers", "Sunny & Clear"], string), Col("Min (°C)", ["19°C", "18°C", "19°C"], string), Col("Max (°C)", ["29°C", "27°C", "30°C"], string))
+forecastData = |Day|Max Temp|Min Temp
+|Thu|29|19
+|Fri|27|18
+|Sat|30|19

@@ -1,0 +1,30 @@
+root = Card(header, metrics, filtersCard, recentCard, refundCallout, volumeCard)
+header = CardHeader("Today's Operations", "Overview of orders and revenue")
+metrics = Card(direction:row, gap:s, wrap, ordersMetric, revenueMetric, aovMetric)
+ordersMetric = TextContent("Orders placed today: 124", size:large)
+revenueMetric = TextContent("Revenue today: $5,230", size:large)
+aovMetric = TextContent("Average order value: $42.35", size:large)
+filtersCard = Card(filterForm, sunk)
+filterForm = Form("order-filters", filterButtons, statusSelectControl, searchControl)
+filterButtons = Buttons(applyButton, direction:row)
+applyButton = Button("Apply", primary)
+statusSelectControl = FormControl("Status", input:statusSelect)
+statusSelect = Select("status", SelectItem("all","All"), SelectItem("pending","Pending"), SelectItem("fulfilled","Fulfilled"), SelectItem("refunded","Refunded"), placeholder:"All statuses")
+searchControl = FormControl("Customer name", input:searchInput)
+searchInput = Input("customer_search", placeholder:"Search customer...")
+recentCard = Card(recentHeading, orderList)
+recentHeading = Heading("Recent Orders", h3)
+orderList = ListBlock(orderItem1, orderItem2, orderItem3, orderItem4, variant:number)
+orderItem1 = ListItem("#1001", "Alice – $120 – Pending", "Fulfill")
+orderItem2 = ListItem("#1002", "Bob – $85 – Fulfilled", "Fulfill")
+orderItem3 = ListItem("#1003", "Carol – $230 – Pending", "Fulfill")
+orderItem4 = ListItem("#1004", "Dave – $60 – Refunded", "Fulfill")
+refundCallout = Callout(variant:info, "Refund Rate", "2.3% this month")
+volumeCard = Card(volumeHeading, volumeChart, sunk)
+volumeHeading = Heading("Order Volume (Last 4 Weeks)", h3)
+volumeChart = BarChart(volumeRows, stacked, xLabel:"Week", yLabel:"Orders")
+volumeRows = |Week|Orders
+|W1|320
+|W2|410
+|W3|380
+|W4|450

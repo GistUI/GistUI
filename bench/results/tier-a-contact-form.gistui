@@ -1,0 +1,5 @@
+root = Stack([TextContent("Contact Us", large-heavy), form], column, l)
+form = Form("contact", FormControl("Name", Input("name", "Your full name", text, rules:["required", "minLength:2"])), FormControl("Email", Input("email", "you@example.com", email, rules:["required", "email"])), FormControl("Phone", Input("phone", "e.g., +1 555 123 4567", text, rules:["required", "minLength:7", "maxLength:20"])), subjectField, FormControl("Message", TextArea("message", "How can we help?", rows:6, rules:["required", "minLength:10"])), buttons:formButtons)
+subjectField = FormControl("Subject", Select("subject", subjectOptions, placeholder:"Select a subject...", rules:["required"]))
+subjectOptions = [SelectItem("general", "General inquiry"), SelectItem("support", "Support"), SelectItem("sales", "Sales"), SelectItem("billing", "Billing"), SelectItem("feedback", "Feedback")]
+formButtons = Buttons(Button("Submit", "submit:contact", primary), Button("Cancel", "action:cancel_contact", secondary), row)

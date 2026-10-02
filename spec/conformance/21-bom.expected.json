@@ -1,0 +1,13 @@
+{
+  "tree": {
+    "type": "Text",
+    "props": {
+      "content": "x"
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

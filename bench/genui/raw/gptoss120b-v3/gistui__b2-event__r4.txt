@@ -1,0 +1,24 @@
+root = Card(headerCard, agendaCard, speakersCard, ticketsCard, registerCard, daysCallout)
+headerCard = Card(CardHeader("Tech Summit 2024", "June 15-17, 2024 • San Francisco, CA"))
+agendaCard = Card(Heading("Agenda", h3), agendaTable)
+speakersCard = Card(Heading("Speakers", h3), speakersList)
+ticketsCard = Card(Heading("Ticket Tiers", h3), ticketsTable)
+registerCard = Card(Heading("Register", h3), registerForm)
+daysCallout = Callout(info, "Days Remaining", "12 days left")
+speaker1 = ListItem("Dr. Alice Johnson", "AI Researcher, XYZ Labs")
+speaker2 = ListItem("Bob Smith", "CTO, Acme Corp")
+speaker3 = ListItem("Carol Lee", "Product Lead, Innovate Ltd")
+speakersList = ListBlock(speaker1, speaker2, speaker3, variant:number)
+nameField = FormControl("Full Name", Input("name", "Your name"))
+emailField = FormControl("Email", Input("email", "you@example.com", type:email))
+formButtons = Buttons(Button("Register", primary))
+registerForm = Form("event-register", formButtons, nameField, emailField)
+tierCol = Col("Tier", data:["Standard","Premium","VIP"])
+priceCol = Col("Price", data:["$199","$399","$599"], type:string)
+ticketsTable = Table(tierCol, priceCol)
+agendaTable = |Time|Session
+|09:00 AM|Opening Keynote
+|10:30 AM|Machine Learning Workshop
+|12:00 PM|Lunch Break
+|01:30 PM|Panel Discussion
+|03:00 PM|Networking

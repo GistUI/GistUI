@@ -1,0 +1,102 @@
+root = Card(overviewCard, linesCard, defectCard, downtimeCard, maintenanceCard, stockCard, deliveriesCard, shiftCard, safetyCard, qualityCard, energyCard, workordersCard, scheduleCard, focusCard, andonCard, exportCard)
+
+overviewCard = Card(CardHeader("Overall Equipment Effectiveness (OEE)"), oeeChart, clear)
+oeeChart = SingleStackedBarChart(oeeData)
+
+linesCard = Card(CardHeader("Production Lines"), linesList, clear)
+linesList = ListBlock(line1Item, line2Item, line3Item, variant:number)
+
+defectCard = Card(CardHeader("Defect Rate (Past Month)"), defectChart, clear)
+defectChart = LineChart(defectData, linear, xLabel:"Date", yLabel:"Defect %")
+
+downtimeCard = Card(CardHeader("Downtime by Cause"), downtimeChart, clear)
+downtimeChart = PieChart(downtimeData, donut, appearance:circular)
+
+maintenanceCard = Card(CardHeader("Machines Due for Maintenance"), maintenanceTable, clear)
+
+stockCard = Card(CardHeader("Current Stock"), stockTable, clear)
+
+deliveriesCard = Card(CardHeader("Supplier Deliveries Due This Week"), deliveriesTable, clear)
+
+shiftCard = Card(CardHeader("Shift Output Comparison"), shiftChart, clear)
+shiftChart = BarChart(shiftData, grouped, xLabel:"Shift", yLabel:"Units")
+
+safetyCard = Card(CardHeader("Safety Incidents This Year"), safetyCallout, daysSinceCallout, clear)
+safetyCallout = Callout(variant:info, "Safety Incidents", "5 incidents reported")
+daysSinceCallout = TextContent("Days since last incident: 42", size:small)
+
+qualityCard = Card(CardHeader("Batches on Quality Hold"), qualityTable, clear)
+
+energyCard = Card(CardHeader("Energy Use Today"), energyContent, clear)
+energyContent = TextContent("Energy consumed: 1,250 kWh", size:large)
+
+workordersCard = Card(CardHeader("Open Work Orders"), workordersTable, clear)
+
+scheduleCard = Card(CardHeader("Schedule Maintenance"), scheduleForm, clear)
+scheduleForm = Form("schedule-maintenance", formButtons, machineField, dateField)
+machineField = FormControl("Machine", Select("machine_select", SelectItem("Press 1","Press 1"), SelectItem("Cutter 2","Cutter 2"), placeholder:"Choose machine"))
+dateField = FormControl("Date", DatePicker("maintenance_date", mode:single))
+formButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+
+focusCard = Card(CardHeader("Focus on Production Line"), lineSelect, lineDetail, clear)
+lineSelect = Select("focus_line", SelectItem("Line A","Line A"), SelectItem("Line B","Line B"), placeholder:"Select line")
+lineDetail = Card(Heading("Line Details", h3), TextContent("Rate: 120 units/hr"), Tag("Running", success))
+
+andonCard = Card(CardHeader("Live ANDON Alerts"), andonList, clear)
+andonList = ListBlock(and1Item, and2Item, and3Item, variant:number)
+
+exportCard = Card(CardHeader("Export Shift Report"), exportButtons, clear)
+exportButtons = Buttons(Button("Export CSV", primary), Button("Print", secondary))
+
+# Data tables
+oeeData = |Metric|Value
+|OEE|85
+
+defectData = |Date|Defect %
+|2023-08-01|2.1
+|2023-08-08|1.9
+|2023-08-15|2.3
+|2023-08-22|2.0
+|2023-08-29|1.8
+
+downtimeData = |Cause|Minutes
+|Mechanical|120
+|Electrical|80
+|Setup|40
+
+maintenanceTable = Table(machineCol, dueCol, priorityCol)
+machineCol = Col("Machine", data:["Press 1","Cutter 2","Assembler 3"], type:string)
+dueCol = Col("Due Date", data:["2023-09-15","2023-09-20","2023-09-22"], type:string)
+priorityCol = Col("Priority", data:["High","Medium","Low"], type:string)
+
+stockTable = Table(materialCol, quantityCol)
+materialCol = Col("Material", data:["Steel","Resin","Packaging"], type:string)
+quantityCol = Col("Quantity", data:["12,000 kg","5,500 L","8,000 units"], type:string)
+
+deliveriesTable = Table(supplierCol, expectedCol, itemsCol)
+supplierCol = Col("Supplier", data:["SteelCo","ResinInc","PackSup"], type:string)
+expectedCol = Col("Expected", data:["2023-09-18","2023-09-19","2023-09-20"], type:string)
+itemsCol = Col("Items", data:["10,000 kg","3,000 L","2,000 units"], type:string)
+
+shiftData = |Shift|Target|Actual
+|Day|1000|950
+|Swing|1000|1020
+|Night|1000|980
+
+qualityTable = Table(batchCol, issueCol, holdSinceCol)
+batchCol = Col("Batch ID", data:["B123","B124"], type:string)
+issueCol = Col("Issue", data:["Surface defect","Dimensional out of spec"], type:string)
+holdSinceCol = Col("Hold Since", data:["2023-08-25","2023-08-28"], type:string)
+
+workordersTable = Table(orderCol, prioCol, descCol)
+orderCol = Col("Order ID", data:["WO001","WO002","WO003"], type:string)
+prioCol = Col("Priority", data:["High","Medium","Low"], type:string)
+descCol = Col("Description", data:["Replace motor","Calibrate sensor","Lubricate gears"], type:string)
+
+line1Item = ListItem("Line A", "Rate: 120 units/hr – Status: Running", "Focus")
+line2Item = ListItem("Line B", "Rate: 95 units/hr – Status: Maintenance", "Focus")
+line3Item = ListItem("Line C", "Rate: 110 units/hr – Status: Running", "Focus")
+
+and1Item = ListItem("Line A", "Stop: Sensor fault", "Acknowledge")
+and2Item = ListItem("Line B", "Alert: Low output", "Acknowledge")
+and3Item = ListItem("Line C", "Info: Maintenance scheduled", "Acknowledge")

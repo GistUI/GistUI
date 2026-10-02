@@ -1,0 +1,31 @@
+root = Card(header, cohortSelect, statsSection, enrollmentChart, riskTable, engagementChart, messageForm)
+header = CardHeader("Training Platform Analytics", "Overview of learner activity")
+cohortSelect = Select("cohort", SelectItem("cohort_a", "Cohort A"), SelectItem("cohort_b", "Cohort B"), placeholder:"Select cohort", value:"cohort_a")
+statsSection = Card(
+  TextContent("**Active learners this week:** 1,240", size:large),
+  TextContent("**Course completion rate:** 78%", size:large),
+  TextContent("**Average quiz score:** 85%", size:large)
+)
+enrollmentChart = HorizontalBarChart(enrollmentTable, variant:grouped, xLabel:"Enrollments", yLabel:"Course")
+riskTable = Table(nameCol, riskCol)
+engagementChart = LineChart(engagementTable, variant:linear, xLabel:"Week", yLabel:"Active Sessions")
+messageForm = Form("cohort-message", formButtons, messageField)
+formButtons = Buttons(Button("Send", primary))
+messageField = FormControl("Message", TextArea("message", "Enter message...", rows:4))
+enrollmentTable = |Course|Enrollments
+|Intro to AI|320
+|Data Science 101|280
+|Advanced Python|250
+|UX Design|200
+|Project Management|180
+engagementTable = |Week|Engagement
+|W1|1200
+|W2|1350
+|W3|1500
+|W4|1600
+|W5|1550
+|W6|1700
+|W7|1800
+|W8|1900
+nameCol = Col("Learner", ["Alice","Bob","Charlie"], type:string)
+riskCol = Col("Risk Score", [85,78,72], type:number)

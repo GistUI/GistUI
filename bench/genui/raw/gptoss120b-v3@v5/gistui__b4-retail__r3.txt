@@ -1,0 +1,53 @@
+root = Card(CardHeader("Store Dashboard", "Today"), storeSelect, salesTarget, footTraffic, bestSellers, outOfStock, shiftToday, basketSize, returnsWeek, promoPerformance, registersStatus, compareWeek, reorderDialog, actions)
+
+storeSelect = Select("store", SelectItem("store1", "Main Street"), SelectItem("store2", "Mall Plaza"), placeholder:"Select store")
+
+salesTarget = Card(Heading("Sales vs Target", h3), HorizontalBarChart(["Sales","Target"], Series("Today", [12000,15000]), variant:grouped, xLabel:"Amount", yLabel:"Metric"))
+
+footTraffic = Card(Heading("Foot Traffic Today", h3), LineChart(|Hour|Footfall
+|08:00|45
+|09:00|78
+|10:00|132
+|11:00|190
+|12:00|210
+|13:00|180
+|14:00|160
+|15:00|150
+|16:00|140
+|17:00|130
+|18:00|120
+|19:00|90
+|20:00|60
+, variant:linear, xLabel:"Time", yLabel:"Visitors"))
+
+bestSellers = Card(Heading("Best Sellers", h3), Table(Col("Item", ["Widget A","Gadget B","Doohickey C"], type:string), Col("Units Sold", [340,275,210], type:number)))
+
+outOfStock = Card(Heading("Out of Stock Items", h3), Table(Col("Item", ["Widget X","Gadget Y"], type:string), Col("Category", ["Electronics","Home"], type:string)))
+
+shiftToday = Card(Heading("Staff on Shift", h3), ListBlock(ListItem("Alice Johnson"), ListItem("Bob Smith"), ListItem("Carlos Ruiz")))
+
+basketSize = Card(Heading("Average Basket Size", h3), TextContent("**$45.30**", size:large))
+
+returnsWeek = Card(Heading("Returns This Week", h3), TextContent("**$1,240**", size:large))
+
+promoPerformance = Card(Heading("Promotion Performance", h3), Table(Col("Promotion", ["Buy 1 Get 1","20% Off"], type:string), Col("Units Sold", [560,430], type:number), Col("Revenue", [11200,8600], type:number)))
+
+registersStatus = Card(Heading("Register Status", h3), Table(Col("Register", ["#1","#2","#3"], type:string), Col("Open", ["Yes","No","Yes"], type:string)))
+
+compareWeek = Card(Heading("This Week vs Last Week Sales", h3), LineChart(|Day|This Week|Last Week
+|Mon|8200|7900
+|Tue|9500|8800
+|Wed|10200|9700
+|Thu|11000|10500
+|Fri|13000|12500
+|Sat|15000|14000
+|Sun|9000|8500
+, variant:linear, xLabel:"Day", yLabel:"Sales"))
+
+reorderDialog = DialogBlock("Reorder Item", "Reorder Stock", Form("reorder-form", reorderButtons, reorderItem, reorderQty), description:"Select an item and quantity to reorder", triggerVariant:primary)
+
+reorderItem = FormControl("Item", Select("reorder_item", SelectItem("widget_a","Widget A"), SelectItem("gadget_b","Gadget B"), placeholder:"Choose item"))
+reorderQty = FormControl("Quantity", Input("reorder_qty", "Enter quantity", type:number))
+reorderButtons = Buttons(Button("Submit", ["reorder"]), Button("Cancel", secondary))
+
+actions = Buttons(Button("Refresh", primary), Button("Settings", secondary))

@@ -1,0 +1,2 @@
+# A string in children position is a Markdown Text node; strings never interpolate.
+root = Card("### MRR", "**$412k**", 42, true, "Line 1\nLine 2 \"quoted\" é")

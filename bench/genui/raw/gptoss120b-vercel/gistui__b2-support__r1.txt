@@ -1,0 +1,17 @@
+root = Card(statsSection, filterSection, ticketsSection, actionsSection, variant:card)
+
+statsSection = Card(CardHeader("Support Dashboard"), Card(CardHeader("Open tickets", "12"), TextContent("**12** open tickets", size:large)), Card(CardHeader("Avg First‑response", "2h 15m"), TextContent("**2h 15m** average", size:large)), variant:sunk)
+
+filterSection = Card(CardHeader("Filters"), Buttons(Button("High priority only", primary)), variant:clear)
+
+ticketsSection = Card(CardHeader("Recent tickets"), ticketsTable, variant:sunk)
+
+ticketsTable = Table(idCol, subjectCol, priorityCol, statusCol, createdCol)
+
+idCol = Col("Ticket ID", data:["#1023","#1022","#1021","#1020","#1019"], type:string)
+subjectCol = Col("Subject", data:["Login issue","Payment failed","Bug report: UI glitch","Feature request: Dark mode","Password reset"], type:string)
+priorityCol = Col("Priority", data:["High","Medium","High","Low","High"], type:string)
+statusCol = Col("Status", data:["Open","Open","Open","Open","Open"], type:string)
+createdCol = Col("Created", data:["2024‑09‑30 08:12","2024‑09‑30 07:45","2024‑09‑30 07:30","2024‑09‑30 07:10","2024‑09‑30 07:00"], type:string)
+
+actionsSection = Card(Buttons(Button("New ticket", primary)), variant:clear)

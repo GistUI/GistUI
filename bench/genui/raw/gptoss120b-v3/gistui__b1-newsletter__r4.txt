@@ -1,0 +1,13 @@
+root = Card(header, description, subscribeForm, actions)
+
+header = CardHeader("Weekly Product Newsletter")
+
+description = TextContent("Get the latest product updates, tips, and exclusive offers delivered to your inbox every week.", size:default)
+
+subscribeForm = Form("newsletter-subscribe", formButtons, emailField)
+
+emailField = FormControl("Email address", Input("email", "you@example.com", type:email), "We'll never share your email.")
+
+formButtons = Buttons(Button("Subscribe", primary))
+
+actions = Buttons(Button("Learn more", secondary))

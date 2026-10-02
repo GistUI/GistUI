@@ -1,0 +1,50 @@
+root = Card(header, dateForm, visitorsSection, conversionSection, trafficSection, campaignsSection, subscriberSection, exportSection)
+
+header = CardHeader("Marketing Weekly Dashboard")
+
+dateForm = Form("date-range", dateButtons, dateControl)
+
+dateControl = FormControl("Date range", DatePicker("range", mode:range))
+
+dateButtons = Buttons(Button("Update", primary))
+
+visitorsSection = Card(Heading("Site Visitors (Last 30 days)", h3), LineChart(visitorsRows, linear, xLabel:"Date", yLabel:"Visitors"))
+
+visitorsRows = |Date|Visitors
+|2024-09-01|1240
+|2024-09-08|1385
+|2024-09-15|1520
+|2024-09-22|1670
+|2024-09-29|1805
+
+conversionSection = Card(Callout(variant:info, "Conversion Rate", "2.4%"))
+
+trafficSection = Card(Heading("Top 5 Traffic Sources", h3), PieChart(trafficData, donut, appearance:circular))
+
+trafficData = |Source|Share
+|Organic|45
+|Paid Search|25
+|Social|15
+|Referral|10
+|Email|5
+
+campaignsSection = Card(Heading("Running Campaigns", h3), campaignsTable, bestCampaignCallout)
+
+campaignsTable = Table(campaignCol1, campaignCol2)
+
+campaignCol1 = Col("Campaign", ["Spring Sale","Summer Promo","Holiday Blast","Clearance","New Launch"], type:string)
+
+campaignCol2 = Col("Spend", [12000,8000,15000,5000,10000], type:number)
+
+bestCampaignCallout = Callout(variant:success, "Best Performing", "Holiday Blast – $15,000 spend")
+
+subscriberSection = Card(Heading("Email Subscriber Growth (30 days)", h3), BarChart(subscriberRows, grouped, xLabel:"Day", yLabel:"Subscribers"))
+
+subscriberRows = |Day|Subscribers
+|1|200
+|7|350
+|14|500
+|21|650
+|30|800
+
+exportSection = Card(Buttons(Button("Export CSV", primary), Button("Share report", secondary)))

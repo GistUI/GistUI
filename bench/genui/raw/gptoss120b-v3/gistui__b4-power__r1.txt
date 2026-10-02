@@ -1,0 +1,84 @@
+root = Card(loadSection, capacitySection, generationSection, plantsSection, outagesSection, forecastSection, priceSection, emissionsSection, maintenanceSection, alertsSection, regionSelectSection, curtailmentSection)
+
+loadSection = Card(Heading("Current Load", h2), TextContent("**3,450 MW**", size:large))
+capacitySection = Card(Heading("Capacity Utilization", h2), Progress(78, "78%"))
+generationSection = Card(Heading("Generation Mix", h2), PieChart(genRows, variant:donut))
+plantsSection = Card(Heading("Plant Output & Status", h2), Table(plantsRows))
+outagesSection = Card(Heading("Outages", h2), Table(outagesRows))
+forecastSection = Card(Heading("24‑Hour Demand Forecast", h2), LineChart(forecastRows, variant:linear, xLabel:"Hour", yLabel:"MW"))
+priceSection = Card(Heading("Current Price", h2), TextContent("$45 /MWh", size:large))
+emissionsSection = Card(Heading("Emissions Today", h2), HorizontalBarChart(emissionsRows, variant:grouped, xLabel:"Emissions (t)", yLabel:"Source"))
+maintenanceSection = Card(Heading("Planned Maintenance (This Month)", h2), Table(maintenanceRows))
+alertsSection = Card(Heading("Live Alerts", h2), alert1, alert2, alert3)
+regionSelectSection = Card(Heading("Focus on Region", h2), regionSelect)
+curtailmentSection = Card(Heading("Order Curtailment", h2), curtailmentForm)
+
+alert1 = Callout(warning, "High Demand", "Demand exceeds 90 % of capacity")
+alert2 = Callout(error, "Plant B Offline", "Unexpected outage at Plant B")
+alert3 = Callout(info, "Scheduled Maintenance", "Plant C will be offline tomorrow 02:00‑06:00")
+
+regionSelect = Select("region", SelectItem("North", "North"), SelectItem("South", "South"), SelectItem("East", "East"), SelectItem("West", "West"), placeholder:"Select a region")
+
+plantSelect = Select("plant", SelectItem("Plant A", "Plant A"), SelectItem("Plant B", "Plant B"), SelectItem("Plant C", "Plant C"), placeholder:"Select plant")
+amountInput = Input("amount", "Enter MW amount", type:number)
+
+plantControl = FormControl("Plant", plantSelect)
+amountControl = FormControl("Curtailment amount (MW)", amountInput, "Enter desired reduction")
+curtailmentButtons = Buttons(Button("Submit curtailment", primary), Button("Cancel", tertiary))
+curtailmentForm = Form("curtailment-order", curtailmentButtons, plantControl, amountControl)
+
+genRows = |Source|MW
+|Coal|1200
+|Gas|800
+|Wind|600
+|Solar|400
+|Hydro|450
+
+plantsRows = |Plant|Output MW|Status
+|Plant A|500|Running
+|Plant B|300|Maintenance
+|Plant C|400|Running
+|Plant D|250|Running
+
+outagesRows = |Region|Affected Load MW|Duration
+|North|150|2 h
+|South|80|1 h
+
+forecastRows = |Hour|Demand MW
+|00:00|3400
+|01:00|3450
+|02:00|3500
+|03:00|3550
+|04:00|3600
+|05:00|3650
+|06:00|3700
+|07:00|3800
+|08:00|3900
+|09:00|4000
+|10:00|4100
+|11:00|4200
+|12:00|4300
+|13:00|4250
+|14:00|4200
+|15:00|4150
+|16:00|4100
+|17:00|4050
+|18:00|4000
+|19:00|3950
+|20:00|3900
+|21:00|3850
+|22:00|3800
+|23:00|3750
+
+maintenanceRows = |Plant|Date|Description
+|Plant B|2024‑10‑12|Transformer inspection
+|Plant C|2024‑10‑20|Blade replacement
+|Plant D|2024‑10‑28|Software upgrade
+
+emissionsRows = |Source|Emissions t
+|Coal|5000
+|Gas|3000
+|Oil|1500
+|Wind|200
+|Solar|150
+|Hydro|100

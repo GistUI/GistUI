@@ -1,0 +1,96 @@
+root = Card(viewers, most_watched, watch_time, subs_cancels, genre_perf, buffering, delivery_region, releases, licenses, rec_clicks, search_no_play, revenue_plan, device_view, region_focus, feature_flags, promote_title)
+
+viewers = Card(TextContent("👀 Viewers watching right now", size:large), Table(viewersCol))
+
+viewersCol = Col("Viewers", data:["2,134"], type:number)
+
+most_watched = Card(TextContent("🏆 Most‑watched titles (hours)", size:large), Table(mwTitleCol, mwHoursCol))
+
+mwTitleCol = Col("Title", data:["Space Odyssey","Mystic Lands","Comedy Hour"], type:string)
+mwHoursCol = Col("Hours", data:["420","375","310"], type:number)
+
+watch_time = Card(TextContent("📈 Watch time over the past month", size:large), LineChart(watchTimeRows, natural, xLabel:"Date", yLabel:"Hours"))
+
+watchTimeRows = |Date|Hours
+|2024‑08‑01|2100
+|2024‑08‑08|2250
+|2024‑08‑15|2380
+|2024‑08‑22|2500
+|2024‑08‑29|2600
+
+subs_cancels = Card(TextContent("➕ New subscribers vs cancellations", size:large), BarChart(subsCancelRows, stacked, xLabel:"Week", yLabel:"Count"))
+
+subsCancelRows = |Week|New|Canceled
+|W1|1,200|150
+|W2|1,350|130
+|W3|1,400|140
+|W4|1,380|120
+
+genre_perf = Card(TextContent("🎭 Performance by genre", size:large), HorizontalBarChart(genreLabels, Series("Watch Hours", genreValues), grouped, xLabel:"Hours", yLabel:"Genre"))
+
+genreLabels = ["Drama","Comedy","Action","Documentary","Kids"]
+genreValues = [4800, 3500, 4200, 2100, 1900]
+
+buffering = Card(TextContent("⚡ Buffering rate", size:large), PieChart(bufferLabels, bufferValues, donut, circular))
+
+bufferLabels = ["Smooth","Stutters","Rebuffer"]
+bufferValues = [78,15,7]
+
+delivery_region = Card(TextContent("🌐 Delivery health by region", size:large), BarChart(deliveryRows, grouped, xLabel:"Region", yLabel:"Success %"))
+
+deliveryRows = |Region|Success|Issues
+|NA|96|4
+|EU|94|6
+|APAC|92|8
+|LATAM|90|10
+
+releases = Card(TextContent("📅 Releases coming this month", size:large), Table(relTitleCol, relDateCol))
+
+relTitleCol = Col("Title", data:["Future Quest","Nightfall","Comedy Blast"], type:string)
+relDateCol = Col("Release Date", data:["2024‑09‑05","2024‑09‑12","2024‑09‑20"], type:string)
+
+licenses = Card(TextContent("🔒 Licenses expiring soon", size:large), Table(licTitleCol, licExpCol))
+
+licTitleCol = Col("Title", data:["Old Saga","Classic Drama"], type:string)
+licExpCol = Col("Expires", data:["2024‑09‑15","2024‑09‑30"], type:string)
+
+rec_clicks = Card(TextContent("🔁 Recommendation click‑through rate", size:large), SingleStackedBarChart(recLabels, recValues))
+
+recLabels = ["Clicked","Ignored"]
+recValues = [62,38]
+
+search_no_play = Card(TextContent("❓ Searches without playback", size:large), Table(searchTermCol, searchCountCol))
+
+searchTermCol = Col("Search Term", data:["Mystic","Space","Comedy"], type:string)
+searchCountCol = Col("No Play Count", data:["45","30","20"], type:number)
+
+revenue_plan = Card(TextContent("💰 Revenue split by plan", size:large), PieChart(planLabels, planValues, pie, circular))
+
+planLabels = ["Basic","Standard","Premium"]
+planValues = [40,35,25]
+
+device_view = Card(TextContent("📱 Viewing split by device", size:large), RadarChart(deviceLabels, Series("Views", deviceValues)))
+
+deviceLabels = ["TV","Mobile","Tablet","Desktop","Console"]
+deviceValues = [45,30,10,10,5]
+
+region_focus = Card(TextContent("🔎 Focus on a region", size:large), Form("region-focus", focusButtons, regionSelect))
+
+regionSelect = Select("region", 
+    SelectItem("NA","North America"),
+    SelectItem("EU","Europe"),
+    SelectItem("APAC","Asia‑Pacific"),
+    placeholder:"Select region")
+focusButtons = Buttons(Button("Apply", primary))
+
+feature_flags = Card(TextContent("🚩 Feature flags", size:large), Table(flagNameCol, flagStateCol))
+
+flagNameCol = Col("Feature", data:["New UI","Beta Search","Live Chat"], type:string)
+flagStateCol = Col("Enabled", data:["true","false","true"], type:string)
+
+promote_title = Card(TextContent("⭐ Promote a title on the home screen", size:large), Form("promote", promoButtons, promoTitleField, promoImageField, promoDurationField))
+
+promoTitleField = FormControl("Title to promote", Input("promo_title", "Enter title"))
+promoImageField = FormControl("Image URL", Input("promo_image", "https://picsum.photos/seed/promo/800/500"))
+promoDurationField = FormControl("Duration (days)", Input("promo_days", "7", type:number))
+promoButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))

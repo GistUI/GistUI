@@ -1,0 +1,60 @@
+root = Card(headerRow, categoryFilterRow, topMetricsRow, mainGrid, bottomSection, gap:m)
+headerRow = Card(CardHeader("Editorial Content Studio", "Manage workflow, track readership, and schedule upcoming stories"), studioActions, direction:row, justify:between, align:center, variant:clear)
+studioActions = Buttons(newDraftDialog, scheduleArticleDrawer)
+newDraftDialog = DialogBlock("Start New Draft", "Create New Draft", newDraftForm, description:"Initialize a new draft piece in the studio", triggerVariant:default)
+newDraftForm = Form("new-draft-form", newDraftButtons, draftTitleField, draftCategoryField, draftSummaryField)
+draftTitleField = FormControl("Story Title", Input("draft_title", "Enter a working headline..."))
+draftCategoryField = FormControl("Category", Select("draft_category", SelectItem("tech", "Technology"), SelectItem("culture", "Culture & Arts"), SelectItem("business", "Business & Markets"), SelectItem("science", "Science & Climate"), placeholder:"Select section"))
+draftSummaryField = FormControl("Synopsis / Pitch", TextArea("draft_summary", "Brief angle or outline...", rows:3))
+newDraftButtons = Buttons(Button("Create Draft", primary), Button("Cancel", tertiary))
+scheduleArticleDrawer = DrawerBlock("Schedule a Piece", "Schedule Publication", scheduleForm, description:"Assign a ready piece to an automated publishing slot")
+scheduleForm = Form("schedule-form", scheduleButtons, scheduleTitleField, scheduleDateField, scheduleSlotField)
+scheduleTitleField = FormControl("Article Title", Input("sched_title", "e.g. Next-Gen AI Compute Paradigms"))
+scheduleDateField = FormControl("Publish Date", DatePicker("sched_date", mode:single))
+scheduleSlotField = FormControl("Delivery Slot", Select("sched_slot", SelectItem("morning", "Morning Digest (06:00 AM)"), SelectItem("noon", "Midday Edition (12:00 PM)"), SelectItem("evening", "Evening Feature (06:00 PM)"), placeholder:"Pick a time slot"))
+scheduleButtons = Buttons(Button("Confirm Schedule", primary), Button("Close", tertiary))
+categoryFilterRow = Card(filterLabel, filterTags, direction:row, align:center, gap:s, variant:sunk)
+filterLabel = Tag("Filter Section:", variant:neutral)
+filterTags = TagBlock(["All Desk", "Technology", "Culture & Arts", "Business", "Science", "Opinion"])
+topMetricsRow = Card(featuredArticleCard, statsOverviewCard, direction:row, gap:m, variant:clear)
+featuredArticleCard = Card(CardHeader("🏆 Most-Read Article This Month", "Published 12 days ago in Technology"), topArticleContent, variant:card)
+topArticleContent = Card(Heading("Why Small Language Models Are Winning the Edge", h3), topArticleTags, MarkDownRenderer("**142,850** unique readers · **4m 32s** avg read time · **94%** completion rate"), variant:clear)
+topArticleTags = TagBlock(["142.8k Reads", "Top 1% Engagement", "Staff Pick", "Tech"])
+statsOverviewCard = Card(CardHeader("Desk Snapshot (Last 7 Days)", "Weekly editorial throughput"), quickStatsGrid, variant:card)
+quickStatsGrid = Card(statsRow1, statsRow2, direction:column, gap:s, variant:clear)
+statsRow1 = Card(Tag("8 Published This Week", variant:success), Tag("5 In Review", variant:info), direction:row, gap:s, variant:clear)
+statsRow2 = Card(Tag("3 Awaiting Schedule", variant:warning), Tag("14 Pending Comments", variant:danger), direction:row, gap:s, variant:clear)
+mainGrid = Card(leftColumn, rightColumn, direction:row, gap:m, variant:clear)
+leftColumn = Card(readershipCard, draftsCard, gap:m, variant:clear)
+readershipCard = Card(CardHeader("Readership Trend (Past 30 Days)", "Daily unique views across all active desk verticals"), AreaChart(readershipTrend, natural, xLabel:"Day", yLabel:"Views"), variant:card)
+readershipTrend = |Day|Readers
+|Day 01|12400
+|Day 05|15800
+|Day 10|18200
+|Day 15|14900
+|Day 20|22400
+|Day 25|27100
+|Day 30|31500
+draftsCard = Card(CardHeader("Drafts in Progress", "Live tracking of editorial pipeline"), draftsTable, variant:card)
+draftsTable = Table(draftsData)
+draftsData = |Draft Title|Author|Status|Last Edited
+|Autonomous Agents in Production|Elena Rostova|In Review|2h ago
+|The Resurgence of Print Mags|Marcus Vance|Copyediting|4h ago
+|Clean Energy Grid Bottlenecks|Sarah Chen|First Draft|Yesterday
+|Remote Work Tax Policies 2025|Devon Price|Fact-Checking|2d ago
+|Spatial Computing in Medicine|Amina Said|Pitch Approved|3d ago
+rightColumn = Card(publishedCard, commentsCard, gap:m, variant:clear)
+publishedCard = Card(CardHeader("Pieces Published This Week", "8 stories delivered to subscribers"), publishedList, variant:card)
+publishedList = ListBlock(pub1, pub2, pub3, pub4, variant:number)
+pub1 = ListItem("Quantum Networking Hits 100km Range", "By Dr. Liam Hall · Published Monday · 45.2k reads", "View Analytics")
+pub2 = ListItem("The Great Micro-SaaS Consolidation", "By Priya Nair · Published Tuesday · 38.1k reads", "View Analytics")
+pub3 = ListItem("Inside Tokyo's Quietest Listening Bars", "By Kenji Sato · Published Wednesday · 51.6k reads", "View Analytics")
+pub4 = ListItem("The 2025 State of Open Source Models", "By Alex Rivera · Published Thursday · 62.4k reads", "View Analytics")
+commentsCard = Card(CardHeader("Comments Awaiting Reply", "14 audience questions pending moderation & author reply"), commentsList, commentsAction, variant:card)
+commentsList = ListBlock(comm1, comm2, comm3)
+comm1 = ListItem("“Could you clarify the benchmarks used in chart 3?”", "On 'Quantum Networking' · from @dev_mira · 35m ago", "Reply")
+comm2 = ListItem("“Do you foresee private equity rolling up developer tooling?”", "On 'Micro-SaaS Consolidation' · from @investor_tom · 2h ago", "Reply")
+comm3 = ListItem("“Is there an architectural map available for this setup?”", "On 'Open Source Models' · from @sysarch_99 · 5h ago", "Reply")
+commentsAction = Buttons(Button("Open Moderation Queue", secondary, size:small))
+bottomSection = Card(editorialAlert, variant:clear)
+editorialAlert = Callout(info, "Scheduled Sync", "Next editorial pipeline cutoff for the Weekend Edition is Friday at 3:00 PM EST.")

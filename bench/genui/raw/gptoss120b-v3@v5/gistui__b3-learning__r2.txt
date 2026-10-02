@@ -1,0 +1,42 @@
+root = Card(CardHeader("Training Platform Analytics"), filtersRow, statsSection, enrollmentSection, riskSection, engagementSection, actions)
+
+filtersRow = Card(Select("cohort", SelectItem("Cohort A", "Cohort A"), SelectItem("Cohort B", "Cohort B"), placeholder:"Select cohort"))
+
+statsSection = Card(Heading("Key Metrics", h3), activeLearners, completionRate, avgQuizScore)
+
+activeLearners = Card(MarkDownRenderer("**Active learners this week:** 1,245", clear))
+completionRate = Card(MarkDownRenderer("**Course completion rate:** 68%", clear))
+avgQuizScore = Card(MarkDownRenderer("**Average quiz score:** 84%", clear))
+
+enrollmentSection = Card(Heading("Courses Ranked by Enrollment", h3), enrollmentTable)
+
+enrollmentTable = Table(
+  Col("Course", ["Course A","Course B","Course C","Course D"], string),
+  Col("Enrollments", [1240,1120,980,870], number)
+)
+
+riskSection = Card(Heading("Learners at Risk of Dropping Out", h3), riskTable)
+
+riskTable = Table(
+  Col("Learner", ["Alice","Bob","Charlie"], string),
+  Col("Risk Score", [0.87,0.82,0.79], number)
+)
+
+engagementSection = Card(Heading("Engagement Over Past 8 Weeks", h3), engagementChart)
+
+engagementChart = LineChart(
+  |Week|Engagement|
+  |W1|68|
+  |W2|71|
+  |W3|73|
+  |W4|75|
+  |W5|77|
+  |W6|80|
+  |W7|82|
+  |W8|85|,
+  linear,
+  xLabel:"Week",
+  yLabel:"Engagement %"
+)
+
+actions = Buttons(Button("Message Cohort", primary))

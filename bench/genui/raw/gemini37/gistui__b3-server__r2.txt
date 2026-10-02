@@ -1,0 +1,45 @@
+root = Card(header, topRow, mainTabs, gap:m)
+header = Card(CardHeader("Production Service Health", "On-call active monitor & incident triage"), headerControls, direction:row, justify:between, align:center, variant:clear)
+headerControls = Card(regionSelect, alertThresholdModal, direction:row, gap:s, align:center, variant:clear)
+regionSelect = Select("region", SelectItem("all", "All Regions"), SelectItem("us-east-1", "US-East (N. Virginia)"), SelectItem("us-west-2", "US-West (Oregon)"), SelectItem("eu-central-1", "EU-Central (Frankfurt)"), SelectItem("ap-southeast-1", "AP-Southeast (Singapore)"), placeholder:"Filter Region", value:"all", size:small)
+alertThresholdModal = DialogBlock("Set Alert Threshold", "Configure Alert Rule Threshold", thresholdForm, triggerVariant:outline, description:"Update triggers for error rates and latency alarms.")
+thresholdForm = Form("alert-config", thresholdFormButtons, metricField, thresholdField, windowField)
+metricField = FormControl("Target Metric", metricSelect)
+metricSelect = Select("metric", SelectItem("err", "Error Rate (%)"), SelectItem("p99", "P99 Latency (ms)"), SelectItem("cpu", "CPU Usage (%)"), SelectItem("mem", "Memory Usage (%)"), placeholder:"Select metric", value:"err")
+thresholdField = FormControl("Critical Threshold Value", Input("thresh_val", "e.g. 5.0", type:number))
+windowField = FormControl("Evaluation Window", windowSelect)
+windowSelect = Select("window", SelectItem("1m", "1 minute"), SelectItem("5m", "5 minutes"), SelectItem("15m", "15 minutes"), placeholder:"Select window", value:"5m")
+thresholdFormButtons = Buttons(Button("Save Threshold", primary), Button("Cancel", tertiary))
+topRow = Card(uptimeCard, errorRateCard, incidentsSummaryCard, direction:row, gap:m, variant:clear)
+uptimeCard = Card(CardHeader("Uptime This Quarter", "Q3 SLO Target: 99.95%"), Heading("99.982%", h2), Progress(99, "Within SLA budget"), Tag("Healthy", size:sm, variant:success), gap:xs)
+errorRateCard = Card(CardHeader("Current Error Rate", "Real-time 5xx / total requests"), Heading("0.04%", h2), Tag("Nominal (< 0.1%)", size:sm, variant:success), gap:xs)
+incidentsSummaryCard = Card(CardHeader("Open Incidents", "Requires immediate response"), Heading("2 Active", h2), Tag("1 P1 Critical, 1 P2 High", size:sm, variant:danger), gap:xs)
+mainTabs = Tabs(overviewTab, incidentsTab, endpointsTab)
+overviewTab = TabItem("overview", "24h Resource Telemetry", telemetryCard)
+telemetryCard = Card(Heading("CPU & Memory Usage (Past 24 Hours)", h3), LineChart(telemetryData, natural, xLabel:"Time", yLabel:"Percentage (%)"))
+incidentsTab = TabItem("incidents", "Open Incidents & Actions", incidentsSection)
+incidentsSection = Card(Heading("Active Incidents", h3), incident1Card, incident2Card, gap:s)
+incident1Card = Card(inc1Header, inc1Actions, direction:row, justify:between, align:center, sunk)
+inc1Header = Card(Tag("P1 - Critical", size:sm, variant:danger), Heading("INC-4091: Elevated 500 responses in checkout service", h4), TextContent("Started 14m ago · Impacting us-east-1 · Error rate spiked to 3.8%", size:small), variant:clear, gap:xs)
+inc1Actions = Card(ackDialog1, Button("Escalate", variant:secondary, type:destructive, size:small), direction:row, gap:xs, variant:clear)
+ackDialog1 = AlertDialogBlock("Acknowledge", "Acknowledge Incident INC-4091", "You are assigning yourself as the primary incident commander. PagerDuty notifications will be silenced for 30 minutes.", confirmLabel:"Confirm & Ack", cancelLabel:"Dismiss", triggerVariant:default)
+incident2Card = Card(inc2Header, inc2Actions, direction:row, justify:between, align:center, sunk)
+inc2Header = Card(Tag("P2 - High", size:sm, variant:warning), Heading("INC-4088: Async worker memory saturation", h4), TextContent("Started 42m ago · Impacting global pool · Memory steady at 91%", size:small), variant:clear, gap:xs)
+inc2Actions = Card(ackDialog2, Button("Escalate", variant:secondary, type:destructive, size:small), direction:row, gap:xs, variant:clear)
+ackDialog2 = AlertDialogBlock("Acknowledge", "Acknowledge Incident INC-4088", "You will take ownership of this worker memory investigation.", confirmLabel:"Confirm & Ack", cancelLabel:"Dismiss", triggerVariant:default)
+endpointsTab = TabItem("endpoints", "Slowest Endpoints", slowEndpointsCard)
+slowEndpointsCard = Card(Heading("Top 5 Slowest Endpoints (P99 Latency)", h3), HorizontalBarChart(slowEndpointsData, variant:grouped, xLabel:"Latency (ms)", yLabel:"Endpoint"), Table(slowEndpointsData))
+telemetryData = |Time|CPU Usage %|Memory Usage %
+|00:00|42|68
+|04:00|38|67
+|08:00|55|72
+|12:00|74|81
+|16:00|69|79
+|20:00|61|76
+|24:00|48|70
+slowEndpointsData = |Endpoint|P99 Latency (ms):n|P50 Latency (ms):n|RPM:n
+|POST /api/v2/checkout/process|1420|280|4500
+|GET /api/v1/reports/export|1180|420|320
+|POST /api/v2/inventory/sync|890|190|1200
+|GET /api/v1/analytics/aggregate|760|150|6800
+|PUT /api/v1/media/transcode|640|110|890

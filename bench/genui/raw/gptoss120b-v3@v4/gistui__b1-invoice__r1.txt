@@ -1,0 +1,4 @@
+root = Card(amount, due, payButtons, variant:card)
+amount = TextContent("**Amount Due:** $1,200 USD", size:large)
+due = TextContent("**Due Date:** 2024-10-15", size:default)
+payButtons = Buttons(Button("Pay now", primary))

@@ -1,0 +1,11 @@
+root = Card(header, amountSection, dueSection, paySection, actions)
+
+header = CardHeader("Invoice", "Freelancer Services")
+
+amountSection = Card(MarkDownRenderer("**Amount Due:** $1,200 USD", variant:clear))
+
+dueSection = Card(MarkDownRenderer("**Due Date:** September 30, 2026", variant:clear))
+
+paySection = Card(MarkDownRenderer("Click below to pay instantly.", variant:clear))
+
+actions = Buttons(Button("Pay Now", primary))

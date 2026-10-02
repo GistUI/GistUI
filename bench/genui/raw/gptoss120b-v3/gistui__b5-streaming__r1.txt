@@ -1,0 +1,124 @@
+root = Card(viewersSection, mostWatchedSection, watchTimeSection, subscriberSection, genrePerfSection, bufferingSection, deliveryHealthSection, releasesSection, licensesSection, recClickSection, searchNoPlaySection, revenueSplitSection, deviceSplitSection, regionFocusSection, featureFlagsSection, promoteSection, wrap)
+
+viewersSection = Card(Heading("Current Viewers", h3), TextContent("{{viewersCount}} viewers watching right now", size:large), clear)
+
+mostWatchedSection = Card(Heading("Most Watched Titles", h3), Table(mostWatchedTable), clear)
+
+mostWatchedTable = |Title|Hours Watched
+|The Great Adventure|1240
+|Space Odyssey|1125
+|Mystery Manor|987
+
+watchTimeSection = Card(Heading("Watch Time - Last 30 Days", h3), LineChart(watchTimeRows, linear, xLabel:"Date", yLabel:"Hours"), clear)
+
+watchTimeRows = |Date|Hours
+|2024-08-01|3400
+|2024-08-02|3550
+|2024-08-03|3620
+|2024-08-04|3705
+|2024-08-05|3680
+|2024-08-06|3750
+|2024-08-07|3800
+|2024-08-08|3825
+|2024-08-09|3890
+|2024-08-10|3950
+|2024-08-11|4000
+|2024-08-12|4100
+|2024-08-13|4150
+|2024-08-14|4200
+|2024-08-15|4250
+|2024-08-16|4300
+|2024-08-17|4350
+|2024-08-18|4400
+|2024-08-19|4450
+|2024-08-20|4500
+|2024-08-21|4550
+|2024-08-22|4600
+|2024-08-23|4650
+|2024-08-24|4700
+|2024-08-25|4750
+|2024-08-26|4800
+|2024-08-27|4850
+|2024-08-28|4900
+|2024-08-29|4950
+|2024-08-30|5000
+
+subscriberSection = Card(Heading("Subscribers vs Cancellations", h3), BarChart(subCancelRows, grouped, xLabel:"Date", yLabel:"Count"), clear)
+
+subCancelRows = |Date|New Subscribers|Cancellations
+|2024-08-01|1200|300
+|2024-08-02|1150|280
+|2024-08-03|1300|310
+|2024-08-04|1250|295
+|2024-08-05|1280|300
+|2024-08-06|1320|310
+|2024-08-07|1350|320
+|2024-08-08|1400|330
+|2024-08-09|1380|325
+|2024-08-10|1420|340
+
+genrePerfSection = Card(Heading("Performance by Genre", h3), HorizontalBarChart(genreLabels, genreSeries, variant:grouped, xLabel:"Hours", yLabel:"Genre"), clear)
+
+genreLabels = ["Drama","Comedy","Action","Documentary","Kids"]
+genreSeries = Series("Watch Time", values:[3400,2800,3100,1500,900])
+
+bufferingSection = Card(Heading("Buffering Rate", h3), TextContent("Average buffering rate: **2.3%**", size:default), clear)
+
+deliveryHealthSection = Card(Heading("Delivery Health by Region", h3), PieChart(regionLabels, regionValues, variant:donut, appearance:circular), clear)
+
+regionLabels = ["North America","Europe","Asia","South America","Africa","Oceania"]
+regionValues = [55,20,15,5,3,2]
+
+releasesSection = Card(Heading("Releases Coming This Month", h3), ListBlock(upcomingRelease1, upcomingRelease2, upcomingRelease3, variant:number), clear)
+
+upcomingRelease1 = ListItem("The Lost City", "Release: 2024-09-10")
+upcomingRelease2 = ListItem("Future Horizons", "Release: 2024-09-15")
+upcomingRelease3 = ListItem("Comedy Nights", "Release: 2024-09-20")
+
+licensesSection = Card(Heading("Licenses Expiring Soon", h3), Table(licenseRows), clear)
+
+licenseRows = |Title|Expiry Date
+|Classic Movies|2024-09-30
+|Indie Docs|2024-10-15
+|Sports Pack|2024-11-01
+
+recClickSection = Card(Heading("Recommendation Click-through Rate", h3), TextContent("Overall CTR: **7.8%**", size:default), clear)
+
+searchNoPlaySection = Card(Heading("Searches Without Playback", h3), Table(searchNoPlayRows), clear)
+
+searchNoPlayRows = |Search Term|Count
+|"romantic comedy"|420
+|"action thriller"|310
+|"kids cartoon"|250
+
+revenueSplitSection = Card(Heading("Revenue Split by Plan", h3), PieChart(planLabels, planValues, variant:pie, appearance:circular), clear)
+
+planLabels = ["Basic","Standard","Premium"]
+planValues = [45,35,20]
+
+deviceSplitSection = Card(Heading("Viewing Split by Device", h3), BarChart(deviceRows, stacked, xLabel:"Device", yLabel:"Hours"), clear)
+
+deviceRows = |Device|Mobile|TV|Web
+|2024-08|1500|1200|800
+
+featureFlagsSection = Card(Heading("Feature Flags", h3), Table(flagRows), clear)
+
+flagRows = |Feature|Enabled
+|New UI|Yes
+|Beta Recommendations|No
+|Live Chat|Yes
+|HD Streaming|Yes
+
+regionFocusSection = Card(Heading("Focus on Region", h3), Tabs(regionTabNA, regionTabEU, regionTabAS), clear)
+
+regionTabNA = TabItem("na", "North America", Card(Heading("North America Details", h4), TextContent("Viewers: 1.2M", size:default), TextContent("Buffering: 1.9%", size:default)))
+regionTabEU = TabItem("eu", "Europe", Card(Heading("Europe Details", h4), TextContent("Viewers: 900k", size:default), TextContent("Buffering: 2.5%", size:default)))
+regionTabAS = TabItem("as", "Asia", Card(Heading("Asia Details", h4), TextContent("Viewers: 800k", size:default), TextContent("Buffering: 2.8%", size:default)))
+
+promoteSection = Card(Heading("Promote a Title", h3), Form(promoteForm, promoteButtons, promoteTitleField, promoteImageField, promoteDurationField), clear)
+
+promoteForm = Form("promote", promoteButtons, promoteTitleField, promoteImageField, promoteDurationField)
+promoteTitleField = FormControl("Title", Input("title", "Enter title"))
+promoteImageField = FormControl("Image URL", Input("image", "https://picsum.photos/seed/promo/800/500"))
+promoteDurationField = FormControl("Duration (days)", Input("duration", "7", type:number))
+promoteButtons = Buttons(Button("Launch Promotion", primary), Button("Cancel", secondary))

@@ -1,0 +1,33 @@
+root = Card(header, agendaSection, speakersSection, ticketsSection, registerSection, daysCallout)
+
+header = CardHeader("Tech Innovators Summit", "June 12-14, 2025 • Grand Hall, City Center")
+
+agendaSection = Card(Heading("Agenda", h3), agendaTable)
+
+agendaTable = Table(tierCol, priceCol)
+tierCol = Col("Time", data:["09:00 AM","10:30 AM","12:00 PM","01:30 PM","03:00 PM"], type:string)
+priceCol = Col("Session", data:["Opening Keynote","Machine Learning Panel","Networking Lunch","Cloud Computing Workshop","Closing Remarks"], type:string)
+
+speakersSection = Card(Heading("Speakers", h3), speakersList)
+
+speakersList = ListBlock(speaker1, speaker2, speaker3, speaker4, variant:number)
+speaker1 = ListItem("Alice Johnson", "AI Ethics")
+speaker2 = ListItem("Bob Lee", "Future of Cloud")
+speaker3 = ListItem("Catherine Wu", "Quantum Computing")
+speaker4 = ListItem("David Patel", "Cybersecurity Trends")
+
+ticketsSection = Card(Heading("Tickets", h3), ticketsTable)
+
+ticketsTable = Table(tierCol2, priceCol2)
+tierCol2 = Col("Tier", data:["Standard","Premium","VIP"], type:string)
+priceCol2 = Col("Price", data:["$199","$349","$499"], type:string)
+
+registerSection = Card(Heading("Register", h3), registerForm)
+
+registerForm = Form("register", formButtons, nameField, emailField)
+
+nameField = FormControl("Full name", Input("name", placeholder:"Your name"))
+emailField = FormControl("Email address", Input("email", placeholder:"you@example.com", type:email))
+formButtons = Buttons(Button("Submit", primary)) 
+
+daysCallout = Callout(info, "Days Remaining", "2 days left")

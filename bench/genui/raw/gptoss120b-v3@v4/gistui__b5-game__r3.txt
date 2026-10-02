@@ -1,0 +1,101 @@
+root = Card(header, sectionBlock)
+header = CardHeader("Live Ops Dashboard")
+sectionBlock = SectionBlock(sec1, sec2, sec3, sec4, sec5, sec6, sec7, sec8, sec9, sec10, sec11, sec12, sec13, sec14, sec15, sec16, isFoldable)
+
+sec1 = SectionItem("sec1", "Players Online", playersOnlineText)
+sec2 = SectionItem("sec2", "Active Players", dailyMonthlyTable)
+sec3 = SectionItem("sec3", "Revenue Today", revenueTodayText)
+sec4 = SectionItem("sec4", "Revenue per User", revenuePerUserText)
+sec5 = SectionItem("sec5", "Session Length (2 weeks)", sessionLengthChart)
+sec6 = SectionItem("sec6", "Best-selling Items", bestSellingTable)
+sec7 = SectionItem("sec7", "Server Region Health", regionHealthTable)
+sec8 = SectionItem("sec8", "Crash Rate by App Version", crashRateChart)
+sec9 = SectionItem("sec9", "Live Events", liveEventsTable)
+sec10 = SectionItem("sec10", "Player Reports Awaiting Review", playerReportsTable)
+sec11 = SectionItem("sec11", "Ban Appeals Awaiting Review", banAppealsTable)
+sec12 = SectionItem("sec12", "In-game Currency Inflation", currencyInflationChart)
+sec13 = SectionItem("sec13", "Experiment Results", experimentsTable)
+sec14 = SectionItem("sec14", "Draft Patch Notes", patchNotesForm)
+sec15 = SectionItem("sec15", "Focus on Region", focusRegionSelect)
+sec16 = SectionItem("sec16", "Ship Hotfix", hotfixButtons)
+
+playersOnlineText = TextContent("**Players online now:** 12,345", size:large)
+dailyMonthlyTable = Table(metricCol, countCol)
+revenueTodayText = TextContent("**Revenue today:** $8,720", size:large)
+revenuePerUserText = TextContent("**Revenue per user:** $0.70", size:large)
+sessionLengthChart = LineChart(sessionData, linear, xLabel:"Date", yLabel:"Avg Session (min)")
+bestSellingTable = Table(itemCol, unitsCol)
+regionHealthTable = Table(regionCol, healthCol)
+crashRateChart = BarChart(crashData, grouped, xLabel:"App Version", yLabel:"Crash Rate (%)")
+liveEventsTable = Table(eventCol, statusCol, startCol, endCol)
+playerReportsTable = Table(reportIdCol, playerCol, reasonCol, submittedCol)
+banAppealsTable = Table(appealIdCol, playerCol2, reasonCol2, submittedCol2)
+currencyInflationChart = LineChart(inflationData, linear, xLabel:"Date", yLabel:"Inflation %")
+experimentsTable = Table(expCol, variantCol, metricCol, valueCol)
+patchNotesForm = Form("patch-notes", patchFormButtons, notesField)
+notesField = FormControl("Patch notes", TextArea("notes", "Enter patch notes...", "", rows:10))
+patchFormButtons = Buttons(Button("Submit notes", primary), Button("Cancel", secondary))
+focusRegionSelect = Form("focus-region", focusFormButtons, regionSelect)
+regionSelect = Select("region", SelectItem("NA","North America"), SelectItem("EU","Europe"), SelectItem("ASIA","Asia"), placeholder:"Select region", size:medium)
+focusFormButtons = Buttons(Button("Focus", primary))
+hotfixButtons = Buttons(Button("Ship Hotfix", primary), Button("Abort", secondary))
+
+metricCol = Col("Metric", ["Daily Active Players","Monthly Active Players"], type:string)
+countCol = Col("Count", [52300,312400], type:number)
+itemCol = Col("Item", ["Sword","Shield","Potion","Skin"], type:string)
+unitsCol = Col("Units Sold", [1240,980,2150,760], type:number)
+regionCol = Col("Region", ["NA","EU","ASIA","SA"], type:string)
+healthCol = Col("Health", ["Good","Moderate","Critical","Good"], type:string)
+eventCol = Col("Event", ["Double XP Weekend","Holiday Quest"], type:string)
+statusCol = Col("Status", ["Running","Upcoming"], type:string)
+startCol = Col("Start", ["2023-09-10","2023-12-01"], type:string)
+endCol = Col("End", ["2023-09-12","2023-12-15"], type:string)
+reportIdCol = Col("Report ID", ["R001","R002","R003"], type:string)
+playerCol = Col("Player", ["User123","User456","User789"], type:string)
+reasonCol = Col("Reason", ["Harassment","Cheating","Abuse"], type:string)
+submittedCol = Col("Submitted", ["2023-09-14","2023-09-13","2023-09-12"], type:string)
+appealIdCol = Col("Appeal ID", ["A001","A002"], type:string)
+playerCol2 = Col("Player", ["User321","User654"], type:string)
+reasonCol2 = Col("Reason", ["False Positive","Mistaken Ban"], type:string)
+submittedCol2 = Col("Submitted", ["2023-09-13","2023-09-11"], type:string)
+expCol = Col("Experiment", ["XP Boost","New UI"], type:string)
+variantCol = Col("Variant", ["Control","Test"], type:string)
+metricCol = Col("Metric", ["Retention","Engagement"], type:string)
+valueCol = Col("Value", ["5%","12%"], type:string)
+
+sessionData = |Date|Avg Session (min)
+|2023-09-01|35
+|2023-09-02|38
+|2023-09-03|36
+|2023-09-04|40
+|2023-09-05|42
+|2023-09-06|39
+|2023-09-07|41
+|2023-09-08|37
+|2023-09-09|44
+|2023-09-10|43
+|2023-09-11|45
+|2023-09-12|46
+|2023-09-13|44
+|2023-09-14|47
+
+crashData = |Version|Crash Rate
+|1.0.0|2.1
+|1.1.0|1.8
+|1.2.0|0.9
+
+inflationData = |Date|Inflation %
+|2023-09-01|1.2
+|2023-09-02|1.3
+|2023-09-03|1.4
+|2023-09-04|1.5
+|2023-09-05|1.6
+|2023-09-06|1.5
+|2023-09-07|1.7
+|2023-09-08|1.8
+|2023-09-09|1.9
+|2023-09-10|2.0
+|2023-09-11|2.1
+|2023-09-12|2.0
+|2023-09-13|2.2
+|2023-09-14|2.3

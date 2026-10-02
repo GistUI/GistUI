@@ -1,0 +1,59 @@
+root = Card(portfolioCard, pnlCard, positionsCard, sectorChart, varCard, gainersCard, watchlistCard, ordersCard, marginCard, headlinesCard, releasesCard, strategiesCard, drawdownCard, riskLimitsCard, rebalanceForm, orderForm, timeframeSelect)
+
+portfolioCard = Card(CardHeader("Portfolio Value"), TextContent("$12.4M", size:large))
+pnlCard = Card(CardHeader("Profit & Loss Today"), TextContent("+$45.3k (0.37%)", size:large))
+positionsCard = Card(CardHeader("Positions"), Table(posTickerCol, posSizeCol, posEntryCol, posCurrentCol))
+posTickerCol = Col("Ticker", data:["AAPL","MSFT","TSLA","AMZN"], type:string)
+posSizeCol = Col("Size", data:[120,80,50,30], type:number)
+posEntryCol = Col("Entry", data:[150.2,210.5,720.0,3300.0], type:number)
+posCurrentCol = Col("Current", data:[155.8,215.0,730.5,3325.0], type:number)
+
+sectorChart = Card(CardHeader("Exposure by Sector"), HorizontalBarChart(labels:["Technology","Consumer Discretionary","Healthcare","Financials"], Series("Exposure", values:[45,20,15,10]), variant:stacked, xLabel:"% Exposure", yLabel:"Sector"))
+varCard = Card(CardHeader("Value at Risk (VaR)"), TextContent("$200k (1.6%)", size:large))
+gainersCard = Card(CardHeader("Today's Biggest Gainers"), Table(gainTickerCol, gainChangeCol))
+gainTickerCol = Col("Ticker", data:["NVDA","AMD","GOOGL"], type:string)
+gainChangeCol = Col("Change", data:[+3.2,+2.8,+2.5], type:number)
+watchlistCard = Card(CardHeader("Watchlist"), Table(watchTickerCol, watchPriceCol))
+watchTickerCol = Col("Ticker", data:["META","NFLX","BABA"], type:string)
+watchPriceCol = Col("Price", data:[275.0,520.3,115.6], type:number)
+
+ordersCard = Card(CardHeader("Working Orders"), Table(orderIdCol, orderTickerCol, orderSideCol, orderQtyCol, orderStatusCol))
+orderIdCol = Col("ID", data:["O123","O124"], type:string)
+orderTickerCol = Col("Ticker", data:["AAPL","TSLA"], type:string)
+orderSideCol = Col("Side", data:["Buy","Sell"], type:string)
+orderQtyCol = Col("Qty", data:[50,30], type:number)
+orderStatusCol = Col("Status", data:["Pending","Pending"], type:string)
+
+marginCard = Card(CardHeader("Margin in Use"), TextContent("$1.2M / $5M (24%)", size:large))
+headlinesCard = Card(CardHeader("Market Headlines"), Table(headlineCol, sentimentCol))
+headlineCol = Col("Headline", data:["US jobs report beats expectations","Oil prices dip on supply concerns","Tech stocks rally"], type:string)
+sentimentCol = Col("Sentiment", data:["Positive","Neutral","Positive"], type:string)
+
+releasesCard = Card(CardHeader("Economic Releases This Week"), Table(releaseDateCol, releaseEventCol))
+releaseDateCol = Col("Date", data:["Mon 9/30","Tue 10/1","Wed 10/2"], type:string)
+releaseEventCol = Col("Event", data:["CPI (MoM)","Retail Sales","GDP Q3"], type:string)
+
+strategiesCard = Card(CardHeader("Strategy Returns YTD"), Table(strategyCol, returnCol))
+strategyCol = Col("Strategy", data:["Momentum","Mean Reversion","Arbitrage"], type:string)
+returnCol = Col("Return YTD", data:[+12.5,+8.3,+5.7], type:number)
+
+drawdownCard = Card(CardHeader("Drawdown Past Year"), LineChart(drawdownLabels, Series("Drawdown", values:[5,7,6,8,9,10,12,11,13,15]), natural, xLabel:"Month", yLabel:"%"))
+drawdownLabels = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct"]
+
+riskLimitsCard = Card(CardHeader("Risk Limits Near Breach"), Table(limitCol, currentCol, thresholdCol))
+limitCol = Col("Limit", data:["Sector Exposure","Position Size","Leverage"], type:string)
+currentCol = Col("Current", data:[92,95,88], type:number)
+thresholdCol = Col("Threshold", data:[100,100,90], type:number)
+
+rebalanceForm = Form("rebalance", rebalanceButtons, rebalanceSectorField, rebalanceWeightField)
+rebalanceSectorField = FormControl("Sector", Select("rebalance_sector", SelectItem("Technology","Technology"), SelectItem("Healthcare","Healthcare"), placeholder:"Select sector"))
+rebalanceWeightField = FormControl("Target Weight %", Input("rebalance_weight", "e.g., 20", type:number))
+rebalanceButtons = Buttons(Button("Rebalance", primary))
+
+orderForm = Form("place-order", orderButtons, orderTickerField, orderSideField, orderQtyField)
+orderTickerField = FormControl("Ticker", Input("order_ticker", "e.g., AAPL"))
+orderSideField = FormControl("Side", Select("order_side", SelectItem("Buy","Buy"), SelectItem("Sell","Sell"), placeholder:"Select side"))
+orderQtyField = FormControl("Quantity", Input("order_qty", "e.g., 100", type:number))
+orderButtons = Buttons(Button("Place Order", primary), Button("Cancel", tertiary))
+
+timeframeSelect = Card(CardHeader("Change Timeframe"), Select("timeframe", SelectItem("1m","1 Minute"), SelectItem("5m","5 Minutes"), SelectItem("15m","15 Minutes"), SelectItem("1h","1 Hour"), SelectItem("1d","1 Day"), placeholder:"Select timeframe"))

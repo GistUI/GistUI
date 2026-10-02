@@ -1,0 +1,86 @@
+root = Card(headerBar, andonSection, kpiRow, mainTabs, gap:m)
+headerBar = Card(CardHeader("Factory Floor Supervisor Console", "Plant #4 - Real-time Operations & Shift Monitoring"), Card(quickActions, direction:row, justify:between, align:center), variant:clear)
+quickActions = Card(lineFocusSelect, headerButtons, direction:row, gap:m, align:center, variant:clear)
+lineFocusSelect = Form("focusForm", filterBtn, lineSelectCtrl)
+lineSelectCtrl = FormControl("Focus Line View", Select("line_focus", SelectItem("all", "All Lines (Overview)"), SelectItem("l1", "Line 1 - Stamping & Press"), SelectItem("l2", "Line 2 - CNC Machining"), SelectItem("l3", "Line 3 - Robotic Welding"), SelectItem("l4", "Line 4 - Surface Coating"), SelectItem("l5", "Line 5 - Final Assembly"), value:"all"))
+filterBtn = Buttons(Button("Apply Focus", primary, size:small))
+headerButtons = Buttons(DialogBlock("Export Shift Report", "Export Daily / Shift Report", exportForm, description:"Generate and download comprehensive shift performance and safety compliance logs", triggerVariant:outline), DialogBlock("Schedule Maintenance", "Schedule Machine Maintenance", maintForm, description:"Create scheduled downtime or preventive maintenance work orders", triggerVariant:default))
+exportForm = Form("exportReportForm", exportActions, exportFormat, exportShiftCtrl, exportNotes)
+exportFormat = FormControl("Export Format", Select("fmt", SelectItem("pdf", "PDF Report (.pdf)"), SelectItem("csv", "Raw Data (.csv)"), SelectItem("xlsx", "Excel Spreadsheet (.xlsx)"), value:"pdf"))
+exportShiftCtrl = FormControl("Target Shift", Select("shift_sel", SelectItem("current", "Current Active Shift (Shift 2)"), SelectItem("all_today", "All Today Shifts"), SelectItem("custom", "Custom Range"), value:"current"))
+exportNotes = FormControl("Supervisor Handover Notes", TextArea("sup_notes", "Enter any shift turnover remarks or unresolved machine status notes...", rows:3))
+exportActions = Buttons(Button("Generate & Download", primary), Button("Cancel", tertiary))
+maintForm = Form("maintScheduleForm", maintFormActions, maintMachineCtrl, maintDateCtrl, maintPriorityCtrl, maintTypeCtrl)
+maintMachineCtrl = FormControl("Machine / Asset", Select("asset_id", SelectItem("m1", "CNC Mill #3 (Line 2) - Spindle Vibration"), SelectItem("m2", "Hydraulic Press #2 (Line 1) - Seal Replacement"), SelectItem("m3", "Robotic Arm #4 (Line 3) - Calibration Due"), SelectItem("m4", "Paint Booth #1 (Line 4) - Filter Cycle"), placeholder:"Select machine due"))
+maintDateCtrl = FormControl("Scheduled Date", DatePicker("maint_date", mode:single))
+maintPriorityCtrl = FormControl("Priority Level", Select("prio", SelectItem("p1", "High / Immediate"), SelectItem("p2", "Medium / Next Shift"), SelectItem("p3", "Low / Planned Stoppage"), value:"p2"))
+maintTypeCtrl = FormControl("Maintenance Type", RadioGroup("maint_type", RadioItem("Preventive", "Routine scheduled checkup", "prev"), RadioItem("Corrective", "Fix known degradation or fault", "corr"), defaultValue:"prev"))
+maintFormActions = Buttons(Button("Confirm Schedule", primary), Button("Cancel", tertiary))
+andonSection = Card(Heading("Live Andon Alerts & Emergency Floor Status", h4), andonAlert1, andonAlert2, gap:xs, variant:sunk)
+andonAlert1 = Alert("Line 3 - Robotic Welder Joint Fault", "Station 3B feeder sensor triggered safety stop (Takt time impacted by +14m). Tech dispatched.", destructive)
+andonAlert2 = Alert("Line 1 - Sheet Stamping Material Feed Jam", "Optical sensor warning on coil roll #4 - Operator attending.", warning)
+kpiRow = Card(kpi1, kpi2, kpi3, kpi4, direction:row, gap:m, wrap)
+kpi1 = Card(CardHeader("Overall Equipment Effectiveness (OEE)", "Target: 85.0%"), TextContent("### **83.4%**", size:large-heavy), Tag("Normal - Active", success), Progress(83, "Availability: 88% | Perf: 96% | Quality: 98.7%"))
+kpi2 = Card(CardHeader("Today's Output vs Target", "Current Shift: 2 of 3"), TextContent("### **3,420 / 4,500 units**", size:large-heavy), Tag("76% Completed", info), Progress(76, "Target pace: 380 units/hr"))
+kpi3 = Card(CardHeader("Safety Performance", "YTD Safety Metrics"), TextContent("### **142 Days**", size:large-heavy), Tag("0 Incidents This Year", success), TextContent("Last minor incident: Oct 18 (Sprain)"))
+kpi4 = Card(CardHeader("Today's Energy Consumption", "Facility Total"), TextContent("### **14.8 MWh**", size:large-heavy), Tag("Within Target (16.5 MWh max)", info), Progress(89, "Peak Load: 2.1 MW at 11:30 AM"))
+mainTabs = Tabs(prodTab, qualityTab, maintTab, inventoryTab)
+prodTab = TabItem("prod", "Production Lines & Shifts", prodLinesCard, shiftCompareCard)
+prodLinesCard = Card(CardHeader("Active Production Lines", "Real-time Line Speed, Current Status & Output Rate"), Table(linesData))
+linesData = |Line Name|Rate (u/hr)|Status|Target/hr|Current Shift Units
+|Line 1 - Stamping & Press|420|Operational|450|1,140
+|Line 2 - CNC Machining|310|Operational|300|890
+|Line 3 - Robotic Welding|185|Andon Warning|220|480
+|Line 4 - Surface Coating|510|Operational|500|1,380
+|Line 5 - Final Assembly|290|Starved/Slow|320|710
+shiftCompareCard = Card(CardHeader("Shift Output Comparison", "Units produced per shift across operations"), BarChart(shiftData, grouped, xLabel:"Shift", yLabel:"Units Produced"))
+shiftData = |Shift|Line 1|Line 2|Line 3|Line 4|Line 5
+|Shift 1 (Morning)|1420|1020|780|1650|1050
+|Shift 2 (Afternoon - Current)|1140|890|480|1380|710
+|Shift 3 (Night - Yesterday)|1310|950|710|1540|980
+qualityTab = TabItem("quality", "Quality & Defect Trends", qualitySplitRow, holdTableCard)
+qualitySplitRow = Card(defectTrendCard, downtimeCard, direction:row, gap:m, wrap)
+defectTrendCard = Card(CardHeader("Defect Rate (Past 30 Days)", "Rolling weekly quality metrics (%)"), LineChart(defectData, linear, xLabel:"Week", yLabel:"Defect %"))
+defectData = |Week|Defect Rate (%)|Upper Spec Limit
+|Week 1|1.82|2.00
+|Week 2|1.45|2.00
+|Week 3|1.68|2.00
+|Week 4 (Current)|1.24|2.00
+downtimeCard = Card(CardHeader("Downtime Split by Cause (Past 7 Days)", "Total recorded downtime: 28.5 hrs"), HorizontalBarChart(downtimeData, stacked, xLabel:"Hours", yLabel:"Category"))
+downtimeData = |Line|Mechanical Fault|Material Shortage|Tool Changeover|Operator Idle|Sensor/Electrical
+|Line 1|2.4|1.1|3.0|0.5|1.2
+|Line 2|4.1|0.4|2.2|0.8|0.9
+|Line 3|5.6|1.8|1.5|1.2|3.1
+|Line 4|1.0|0.2|1.8|0.4|0.8
+holdTableCard = Card(CardHeader("Batches on Quality Hold", "Quarantined batches awaiting inspection or rework authorization"), Table(holdData))
+holdData = |Batch ID|Line|Part Name|Quantity|Reason / Defect|Hold Time
+|B-88391|Line 3|Subframe Welds|240|Porosity defect on seam B|4h 15m
+|B-88404|Line 2|Spindle Gearbox|85|Bore tolerance +0.04mm|2h 30m
+|B-88412|Line 4|Bracket Powdercoat|420|Surface blister adhesion|1h 10m
+maintTab = TabItem("maint", "Maintenance & Work Orders", maintSplitRow)
+maintSplitRow = Card(dueMaintCard, openWorkOrdersCard, direction:row, gap:m, wrap)
+dueMaintCard = Card(CardHeader("Machines Due for Maintenance", "Preventive schedule thresholds & health scores"), Table(dueMaintData))
+dueMaintData = |Machine Asset|Line|Hours Until Due|Health Index|Due Date
+|CNC Mill #3|Line 2|12 hrs|68% (Bearings)|Today, 22:00
+|Hydraulic Press #2|Line 1|36 hrs|74% (Hydraulics)|Tomorrow, 08:00
+|Robotic Arm #4|Line 3|48 hrs|71% (Joint Backlash)|May 17
+|Paint Spray Booth #1|Line 4|96 hrs|82% (Filter Cartridge)|May 19
+openWorkOrdersCard = Card(CardHeader("Open Maintenance Work Orders", "Active corrective and preventive floor jobs"), Table(woData))
+woData = |WO #|Asset / Line|Task Description|Priority|Assigned Tech|Status
+|WO-4401|Welder 3B (Line 3)|Feed sensor optical replacement|High (P1)|J. Ramirez|In Progress
+|WO-4395|Press #1 (Line 1)|Coolant pump seal check|Medium (P2)|D. Chen|Open / Queued
+|WO-4388|Conveyor 2C (Line 2)|Belt tensioning calibration|Medium (P2)|M. Torres|Open / Queued
+|WO-4370|Exhaust #4 (Line 4)|Blower motor vibration check|Low (P3)|A. Patel|Pending Parts
+inventoryTab = TabItem("inv", "Materials & Supplier Deliveries", invSplitRow)
+invSplitRow = Card(stockCard, supplierCard, direction:row, gap:m, wrap)
+stockCard = Card(CardHeader("Raw Material Stock Levels", "Critical inventory vs reorder threshold"), Table(stockData))
+stockData = |Material|Current Stock|Buffer Min|Status|Runway (Days)
+|Structural Steel (Coils)|48.2 Tons|25.0 Tons|Adequate|6.5 Days
+|Industrial Resin (Pellets)|14.6 Tons|12.0 Tons|Low Warning|2.8 Days
+|Packaging Cartons & Pallets|8,400 Units|3,500 Units|Adequate|8.2 Days
+supplierCard = Card(CardHeader("Supplier Deliveries Due This Week", "Inbound logistics ETA & PO track"), Table(supplierData))
+supplierData = |PO Number|Supplier|Material / Items|Expected ETA|Carrier Status
+|PO-90214|Apex Steel Works|Hot-rolled Steel Coils (24T)|Today, 16:30|In Transit (On-Time)
+|PO-90230|PolyChem Polymers|HDPE Resin Pellets (10T)|Tomorrow, 09:00|Customs Cleared
+|PO-90255|PacSafe Industries|Bulk Heavy Pallets (500ct)|May 18, 14:00|Dispatched
+|PO-90268|Industrial Fasteners|M8/M10 Hex Bolt Kits|May 19, 11:30|Scheduled

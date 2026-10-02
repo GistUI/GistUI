@@ -1,0 +1,5 @@
+root = Card(CardHeader("Today's Revenue", "Mid-morning check"), revTable)
+metricCol = Col("Metric", data:["Revenue"], type:string)
+todayCol = Col("Today", data:["$12,340"], type:string)
+yesterdayCol = Col("Yesterday", data:["$11,980"], type:string)
+revTable = Table(metricCol, todayCol, yesterdayCol)

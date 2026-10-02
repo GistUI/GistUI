@@ -1,0 +1,16 @@
+root = Card(revenueCard, trendCard, bestSellingCard, conversionCard, actions)
+revenueCard = Card(CardHeader("Revenue This Month", "$124,500"))
+trendCard = Card(Heading("Revenue Last 6 Months", h3), LineChart(revenueTrend, linear, xLabel:"Month", yLabel:"Revenue"))
+bestSellingCard = Card(Heading("Top 3 Products", h3), Table(productCol, unitsCol))
+conversionCard = Card(Heading("Conversion Rate", h3), Progress(23, "23%"))
+actions = Buttons(downloadBtn)
+downloadBtn = Button("Download CSV", primary)
+revenueTrend = |Month|Revenue
+|Jan|102000
+|Feb|108500
+|Mar|115200
+|Apr|119800
+|May|123400
+|Jun|124500
+productCol = Col("Product", data:["Widget A","Widget B","Widget C"], type:string)
+unitsCol = Col("Units Sold", data:[3400,2750,2100], type:number)

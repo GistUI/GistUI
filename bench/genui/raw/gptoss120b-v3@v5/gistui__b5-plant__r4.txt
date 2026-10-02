@@ -1,0 +1,76 @@
+root = Card(CardHeader("Factory Floor Supervisor Console"), oeeChart, prodTarget, linesSection, defectChart, downtimeChart, maintenanceTable, stockTable, deliveriesTable, shiftChart, safetySection, holdTable, energyCard, workOrdersTable, scheduleForm, focusLineCard, andonAlerts, exportButtons)
+
+oeeChart = HorizontalBarChart(labels:["Overall Equipment Effectiveness"], Series("OEE", values:[85]), variant:grouped, xLabel:"Percentage", yLabel:"Metric")
+
+prodTarget = BarChart(labels:["Units Produced","Target"], Series("Count", values:[12400,15000]), variant:grouped, xLabel:"", yLabel:"Units")
+
+linesSection = SectionBlock(isFoldable, line1Item, line2Item, line3Item)
+
+line1Item = SectionItem("line1", "Line A", TextContent("Rate: 1,200 units/hr\nStatus: 🟢 Operational", small), TextContent("Rate: 1,200 units/hr\nStatus: 🟢 Operational", small))
+line2Item = SectionItem("line2", "Line B", TextContent("Rate: 950 units/hr\nStatus: 🟡 Degraded", small))
+line3Item = SectionItem("line3", "Line C", TextContent("Rate: 1,050 units/hr\nStatus: 🔴 Stopped", small))
+
+defectChart = LineChart(labels:["2023-09-01","2023-09-08","2023-09-15","2023-09-22","2023-09-29"], Series("Defect Rate %", values:[1.2,1.0,0.9,1.1,0.8]), variant:linear, xLabel:"Date", yLabel:"Defect %")
+
+downtimeChart = PieChart(labels:["Mechanical","Electrical","Setup","Quality"], values:[40,25,20,15], variant:donut, appearance:circular)
+
+maintenanceTable = Table(
+  Col("Machine", data:["M-101","M-202","M-303"], type:string),
+  Col("Due Date", data:["2023-10-05","2023-10-12","2023-10-20"], type:string),
+  Col("Priority", data:["High","Medium","Low"], type:string)
+)
+
+stockTable = Table(
+  Col("Material", data:["Steel","Resin","Packaging"], type:string),
+  Col("Stock (units)", data:[1200,800,1500], type:number)
+)
+
+deliveriesTable = Table(
+  Col("Supplier", data:["Acme Metals","PolyResin Co.","PackWrap Ltd."], type:string),
+  Col("Delivery Due", data:["2023-10-03","2023-10-04","2023-10-06"], type:string)
+)
+
+shiftChart = BarChart(labels:["Shift 1","Shift 2","Shift 3"], Series("Output", values:[4000,4200,3800]), variant:grouped, xLabel:"Shift", yLabel:"Units")
+
+safetySection = Card(
+  TextContent("Safety Incidents This Year: 3", large),
+  TextContent("Days Since Last Incident: 45", large)
+)
+
+holdTable = Table(
+  Col("Batch ID", data:["B-4501","B-4523"], type:string),
+  Col("Reason", data:["Quality Hold","Quality Hold"], type:string)
+)
+
+energyCard = Card(TextContent("Energy Use Today: 2,350 kWh", large))
+
+workOrdersTable = Table(
+  Col("Work Order", data:["WO-101","WO-202","WO-303"], type:string),
+  Col("Priority", data:["High","Medium","Low"], type:string),
+  Col("Machine", data:["M-101","M-202","M-303"], type:string)
+)
+
+scheduleForm = Form("schedule-maintenance", scheduleButtons,
+  machineField,
+  dateField
+)
+
+machineField = FormControl("Machine", Select("machine", SelectItem("M-101","M-101"), SelectItem("M-202","M-202"), SelectItem("M-303","M-303"), placeholder:"Select machine", value:"", size:medium))
+dateField = FormControl("Date", Input("date", "YYYY-MM-DD", "", date), "Enter maintenance date")
+
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+
+focusLineCard = Card(
+  TextContent("Focus on Line B", large),
+  Button("Zoom to Line B", primary)
+)
+
+andonAlerts = Card(
+  TextContent("Live ANDON Alerts", large),
+  Table(
+    Col("Alert", data:["Line C Stopped","Line B Speed Drop"], type:string),
+    Col("Time", data:["08:45","09:12"], type:string)
+  )
+)
+
+exportButtons = Buttons(Button("Export Shift Report", primary))

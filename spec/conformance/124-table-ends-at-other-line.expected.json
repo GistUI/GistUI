@@ -1,0 +1,35 @@
+{
+  "tree": {
+    "type": "Table",
+    "props": {
+      "data": {
+        "table": [
+          "A:n",
+          "B:n"
+        ],
+        "rows": [
+          [
+            1,
+            2
+          ]
+        ]
+      }
+    }
+  },
+  "errors": [
+    {
+      "code": "prose-ignored",
+      "severity": "warning",
+      "line": 4
+    },
+    {
+      "code": "prose-ignored",
+      "severity": "warning",
+      "line": 5
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

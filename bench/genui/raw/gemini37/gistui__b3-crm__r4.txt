@@ -1,0 +1,80 @@
+root = Card(headerCard, renewalAlert, metricsRow, mainTabs)
+headerCard = Card(CardHeader("Acme Corp — Global Enterprise", "Account Owner: Sarah Jenkins | Tier 1 Enterprise"), headerTags, quickActionsRow, sunk)
+headerTags = Card(Tag("Enterprise", info), Tag("Active Deal", success), Tag("High Priority", warning), direction:row, gap:xs, variant:clear)
+quickActionsRow = Buttons(logCallModal, jotNoteModal)
+
+logCallModal = DialogBlock("Log Call", "Log Customer Interaction", callForm, description:"Record details of your recent call with Acme Corp.", triggerVariant:default)
+callForm = Form("call_log_form", callFormBtns, callContactField, callOutcomeField, callNotesField)
+callContactField = FormControl("Contact", callContactSelect)
+callContactSelect = Select("contact_id", SelectItem("c1", "Elena Rostova (VP of Engineering)"), SelectItem("c2", "Marcus Vance (Head of Procurement)"), SelectItem("c3", "David Chen (Chief Technology Officer)"), placeholder:"Select contact")
+callOutcomeField = FormControl("Outcome", callOutcomeSelect)
+callOutcomeSelect = Select("call_outcome", SelectItem("connected", "Connected / Positive"), SelectItem("left_vm", "Left Voicemail"), SelectItem("gatekeeper", "Gatekeeper / Blocked"), SelectItem("demo_scheduled", "Demo Scheduled"), placeholder:"Select outcome")
+callNotesField = FormControl("Call Summary", TextArea("call_summary", "Summary of discussion, key takeaways, and next actions...", rows:3))
+callFormBtns = Buttons(Button("Save Log", primary), Button("Cancel", tertiary))
+
+jotNoteModal = DialogBlock("Jot Note", "Add Quick Account Note", noteForm, description:"Add an internal note or quick memo to this account record.", triggerVariant:outline)
+noteForm = Form("quick_note_form", noteFormBtns, noteCategoryField, noteContentField)
+noteCategoryField = FormControl("Note Category", noteCategorySelect)
+noteCategorySelect = Select("note_cat", SelectItem("strategy", "Strategy & Insights"), SelectItem("objection", "Pricing / Competitor Objection"), SelectItem("relationship", "Relationship Note"), placeholder:"Select category")
+noteContentField = FormControl("Note", TextArea("note_body", "Type your note here...", rows:4))
+noteFormBtns = Buttons(Button("Save Note", primary), Button("Cancel", tertiary))
+
+renewalAlert = Alert("Renewal Approaching: November 15, 2024", "Contract expires in 12 days. Renewal terms pending final procurement review. Action required immediately to avoid lapse.", warning)
+
+metricsRow = Card(metricTotalVal, metricDealStage, metricRenewal, metricHealth, direction:row, gap:m, wrap)
+metricTotalVal = Card(TextContent("TOTAL DEAL VALUE", small), Heading("$480,000", h2), Badge("+18% YoY", default), sunk)
+metricDealStage = Card(TextContent("CURRENT STAGE", small), Heading("Negotiation", h2), Badge("Stage 4 of 5", secondary), sunk)
+metricRenewal = Card(TextContent("RENEWAL DATE", small), Heading("Nov 15, 2024", h2), Tag("12 Days Left", danger), sunk)
+metricHealth = Card(TextContent("PIPELINE HEALTH", small), Heading("Strong", h2), Tag("Win Prob: 85%", success), sunk)
+
+mainTabs = Tabs(overviewTab, contactsTab, followUpsTab, activityTab)
+
+overviewTab = TabItem("overview", "Account Overview", overviewContent)
+overviewContent = Card(stageProgressCard, dealSummaryTable, quickNoteDirectCard, gap:m)
+
+stageProgressCard = Card(Heading("Deal Stage Progression", h4), Steps(step1, step2, step3, step4, step5), sunk)
+step1 = StepsItem("Discovery & Qual", "Completed on Sep 12 — Confirmed budget $500k")
+step2 = StepsItem("Technical Evaluation", "Completed on Oct 04 — Architecture signed off")
+step3 = StepsItem("Proposal Delivery", "Completed on Oct 19 — Custom enterprise quote presented")
+step4 = StepsItem("Negotiation (Current)", "In Progress — MSA & Redlines with Legal team")
+step5 = StepsItem("Closed Won", "Target Close: Nov 10, 2024")
+
+dealSummaryTable = Card(Heading("Deal Scope Breakdown", h4), Table(dealBreakdownData))
+dealBreakdownData = |Product Module|Seats|Term|Value
+|Enterprise Core Platform|450|12 Months|$270,000
+|Advanced Security Add-on|450|12 Months|$90,000
+|Premium 24/7 SLA Support|1|12 Months|$45,000
+|Implementation & Training|1|One-time|$75,000
+
+quickNoteDirectCard = Card(Heading("Quick Jot: Account Memo", h4), TextContent("Leave a fast scratchpad update directly on the account timeline:"), inlineNoteForm, sunk)
+inlineNoteForm = Form("inline_note_form", inlineNoteBtns, inlineNoteField)
+inlineNoteField = FormControl("Scratchpad", TextArea("scratch_note", "Jot key takeaways, competitor intel, or stakeholder comments here...", rows:2))
+inlineNoteBtns = Buttons(Button("Post Note", primary), Button("Clear", tertiary))
+
+contactsTab = TabItem("contacts", "Contacts & Key Stakeholders", contactsContent)
+contactsContent = Card(Heading("Account Contacts & Roles", h4), Table(contactsData))
+contactsData = |Name|Role / Title|Buying Role|Email|Phone|Status
+|Elena Rostova|VP of Engineering|Champion & Tech Evaluator|e.rostova@acmecorp.io|+1 (555) 234-8901|Active
+|Marcus Vance|Head of Procurement|Economic Buyer & Signer|m.vance@acmecorp.io|+1 (555) 789-0123|In Review
+|David Chen|Chief Technology Officer|Executive Sponsor|d.chen@acmecorp.io|+1 (555) 345-6789|Engaged
+|Alicia Mendez|Lead Security Architect|Technical Evaluator / Blocker|a.mendez@acmecorp.io|+1 (555) 456-7890|Approved
+|Robert King|Director of IT Ops|End-User Stakeholder|r.king@acmecorp.io|+1 (555) 567-8901|Engaged
+
+followUpsTab = TabItem("followups", "Open Follow-ups", followUpsContent)
+followUpsContent = Card(Heading("Open Tasks & Action Items", h4), Table(followUpsData), Callout(info, "Priority Action", "Elena Rostova requested the revised DPA before the Thursday 2 PM procurement meeting."))
+followUpsData = |Due Date|Priority|Follow-up Task|Assigned Contact|Status
+|Nov 04, 2024|Urgent|Send revised DPA with updated liability caps|Elena Rostova|Pending
+|Nov 06, 2024|High|Schedule MSA legal review with Marcus Vance|Marcus Vance|Scheduled
+|Nov 08, 2024|Medium|Provide SOC2 Type II report addendum|Alicia Mendez|In Progress
+|Nov 10, 2024|High|Executive sponsor check-in on contract signing|David Chen|Not Started
+|Nov 14, 2024|Low|Send onboarding kickoff agenda draft|Robert King|Not Started
+
+activityTab = TabItem("activity", "Activity Timeline", activityContent)
+activityContent = Card(Heading("Recent Activity Timeline (Reverse Chronological)", h4), Table(activityData))
+activityData = |Date & Time|Type|Stakeholder|Summary & Next Steps
+|Nov 03, 2024 04:30 PM|Call Logged|Elena Rostova|Reviewed SLA tier updates; agreed to 99.95% uptime clause.
+|Nov 02, 2024 11:15 AM|Email Received|Marcus Vance|Forwarded redlined MSA from legal; 2 clauses remain open.
+|Oct 31, 2024 02:00 PM|Note Added|Sarah Jenkins|Spoke with VP Eng; budget allocation confirmed safe for Q4.
+|Oct 28, 2024 03:00 PM|Call Logged|David Chen|Executive briefing; CTO confirmed board approval obtained.
+|Oct 24, 2024 10:00 AM|Meeting|Security Team|Completed security review questionnaire; 0 critical findings.
+|Oct 19, 2024 01:30 PM|Proposal Sent|Marcus Vance|Delivered formal $480k enterprise renewal & expansion quote.

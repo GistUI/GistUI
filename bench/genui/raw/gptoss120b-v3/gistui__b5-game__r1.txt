@@ -1,0 +1,119 @@
+root = Card(header, statsSection, revenueSection, sessionChart, itemsTable, serversTable, crashTable, eventsTable, reportsTable, bansTable, inflationTable, experimentsTable, patchForm, actionsRow, focusSection, hotfixSection)
+
+header = CardHeader("Live‑Ops Dashboard", "Game Studio – Real‑time monitoring")
+
+statsSection = Card(Heading("Key Metrics", h2),
+  TextContent("**Players online now:** 12,345", size:large),
+  TextContent("**Daily Active Players:** 85,210", size:large),
+  TextContent("**Monthly Active Players:** 1,240,800", size:large),
+  TextContent("**Revenue today:** $12,470", size:large),
+  TextContent("**Revenue per user:** $0.38", size:large),
+  clear)
+
+revenueSection = Card(Heading("Revenue per User", h3),
+  BarChart(|Metric|Value
+|Revenue today|12470
+|Revenue per user|0.38|, variant:grouped, xLabel:"Metric", yLabel:"USD"),
+  sunk)
+
+sessionChart = Card(Heading("Session Length – Last 14 Days", h3),
+  LineChart(|Date|Avg Session (min)
+|2024‑09‑17|35
+|2024‑09‑18|38
+|2024‑09‑19|36
+|2024‑09‑20|40
+|2024‑09‑21|42
+|2024‑09‑22|39
+|2024‑09‑23|41
+|2024‑09‑24|37
+|2024‑09‑25|40
+|2024‑09‑26|43
+|2024‑09‑27|44
+|2024‑09‑28|45
+|2024‑09‑29|42
+|2024‑09‑30|46|, variant:linear, xLabel:"Date", yLabel:"Minutes"),
+  clear)
+
+itemsTable = Card(Heading("Best‑Selling Items", h3),
+  Table(
+    Col("Item", data:["Sword of Dawn","Shield of Ages","Potion Pack"], type:string),
+    Col("Units sold", data:[1240, 980, 2750], type:number)
+  ),
+  sunk)
+
+serversTable = Card(Heading("Server Regions & Health", h3),
+  Table(
+    Col("Region", data:["NA East","NA West","EU Central","Asia South"], type:string),
+    Col("Health", data:["Good","Good","Degraded","Good"], type:string)
+  ),
+  clear)
+
+crashTable = Card(Heading("Crash Rate by App Version", h3),
+  Table(
+    Col("Version", data:["1.4.2","1.4.1","1.4.0"], type:string),
+    Col("Crash Rate (%)", data:[0.7,1.2,2.5], type:number)
+  ),
+  sunk)
+
+eventsTable = Card(Heading("Live Events", h3),
+  Table(
+    Col("Event", data:["Double XP Weekend","Holiday Loot","Spring Festival"], type:string),
+    Col("Status", data:["Running","Upcoming","Upcoming"], type:string),
+    Col("Ends", data:["2024‑10‑02","2024‑12‑31","2025‑04‑15"], type:string)
+  ),
+  clear)
+
+reportsTable = Card(Heading("Player Reports Awaiting Review", h3),
+  Table(
+    Col("Report ID", data:["R10234","R10235","R10236"], type:string),
+    Col("Type", data:["Harassment","Cheating","Abuse"], type:string),
+    Col("Submitted", data:["2024‑09‑30 09:12","2024‑09‑30 10:05","2024‑09‑30 11:20"], type:string)
+  ),
+  sunk)
+
+bansTable = Card(Heading("Ban Appeals Awaiting Review", h3),
+  Table(
+    Col("Appeal ID", data:["A2045","A2046"], type:string),
+    Col("Player", data:["Player123","GamerX"], type:string),
+    Col("Reason", data:["False positive","Insufficient evidence"], type:string)
+  ),
+  clear)
+
+inflationTable = Card(Heading("In‑Game Currency Inflation", h3),
+  Table(
+    Col("Currency", data:["Gold","Gems"], type:string),
+    Col("Inflation %", data:[5.2,12.8], type:number)
+  ),
+  sunk)
+
+experimentsTable = Card(Heading("Running Experiments Results", h3),
+  Table(
+    Col("Experiment", data:["New UI Layout","Loot Drop Rate"], type:string),
+    Col("Metric", data:["Retention (+3%)","Revenue (+1.5%)"], type:string)
+  ),
+  clear)
+
+patchForm = Card(Heading("Draft Patch Notes", h3),
+  Form("patch-notes", patchButtons,
+    notesField
+  ),
+  clear)
+
+notesField = FormControl("Patch notes (Markdown)", TextArea("notes", "Enter notes...", "", rows:8))
+patchButtons = Buttons(Button("Save Draft", primary), Button("Publish", secondary))
+
+actionsRow = Card(Buttons(Button("Focus Region", primary), Button("Ship Hotfix", primary), direction:row))
+
+focusSection = Card(Heading("Focus on Region", h3),
+  Select("focus_region",
+    SelectItem("na_east","NA East"),
+    SelectItem("na_west","NA West"),
+    SelectItem("eu_central","EU Central"),
+    SelectItem("asia_south","Asia South"),
+    placeholder:"Select region"
+  ),
+  clear)
+
+hotfixSection = Card(Heading("Ship Hotfix", h3),
+  Button("Deploy Hotfix", primary, type:normal),
+  clear)

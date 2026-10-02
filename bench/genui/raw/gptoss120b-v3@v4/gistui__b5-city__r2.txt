@@ -1,0 +1,47 @@
+root = Card(CardHeader("City Operations Center", "Real‑time overview"), districtFilter, congestionSection, transitSection, airQualitySection, energySection, waterSection, incidentsSection, vehiclesSection, parkingSection, eventsSection, citizenReportsSection, backlogSection, weatherSection, roadworksSection, infraJobsSection, dispatchDialog, alertDialog)
+
+districtFilter = Buttons(Button("All districts", primary), Button("District A", secondary), Button("District B", secondary), Button("District C", secondary), direction:row)
+
+congestionSection = Card(Heading("Current Congestion", h3), HorizontalBarChart(labels:["Downtown","Uptown","Midtown","Industrial"], Series("Congestion", values:[78,55,63,40]), variant:stacked, xLabel:"Congestion %", yLabel:"District"))
+
+transitSection = Card(Heading("Transit Punctuality", h3), LineChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("On‑time %", values:[92,88,90,85,87,80,82]), variant:linear, xLabel:"Day", yLabel:"On‑time %"))
+
+airQualitySection = Card(Heading("Air Quality by District", h3), BarChart(labels:["Downtown","Uptown","Midtown","Industrial"], Series("AQI", values:[55,42,48,70]), variant:grouped, xLabel:"District", yLabel:"AQI"))
+
+energySection = Card(Heading("Energy Use (Past Week)", h3), AreaChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("MWh", values:[1200,1150,1300,1250,1400,1100,1050]), variant:natural, xLabel:"Day", yLabel:"MWh"))
+
+waterSection = Card(Heading("Water Use Today", h3), TextContent("Total consumption: **1,250,000 gallons**", size:large))
+
+incidentsSection = Card(Heading("Open Incidents", h3), Table(Col("ID", data:["INC-101","INC-102","INC-103"], type:string), Col("Location", data:["5th & Main","Broadway & 2nd","Elm St & 7th"], type:string), Col("Severity", data:["High","Medium","Low"], type:string), Col("Status", data:["Investigating","In progress","Pending"], type:string)))
+
+vehiclesSection = Card(Heading("Emergency Vehicles Deployed", h3), Table(Col("Vehicle ID", data:["E-12","E-45","E-78"], type:string), Col("Type", data:["Ambulance","Fire Engine","Police Car"], type:string), Col("Location", data:["Downtown","Uptown","Midtown"], type:string), Col("ETA (min)", data:[5,12,8], type:number)))
+
+parkingSection = Card(Heading("Parking Availability Downtown", h3), Table(Col("Garage", data:["Central Parking","West Lot","East Deck"], type:string), Col("Spaces Free", data:[120,45,78], type:number), Col("Total Spaces", data:[300,200,250], type:number)))
+
+eventsSection = Card(Heading("Public Events This Weekend", h3), Table(Col("Event", data:["Music Festival","Farmers Market","Art Walk"], type:string), Col("Location", data:["River Park","Main Square","Old Town"], type:string), Col("Time", data:["Sat 2‑6 PM","Sat 9‑12 AM","Sun 4‑8 PM"], type:string)))
+
+citizenReportsSection = Card(Heading("Live Citizen Reports", h3), Table(Col("Report ID", data:["R-201","R-202","R-203"], type:string), Col("Category", data:["Pothole","Street Light","Noise"], type:string), Col("Location", data:["3rd & Pine","7th & Oak","12th & Maple"], type:string), Col("Submitted", data:["2 min ago","5 min ago","10 min ago"], type:string)))
+
+backlogSection = Card(Heading("Service Request Backlog", h3), Table(Col("Request ID", data:["SR-301","SR-302","SR-303"], type:string), Col("Type", data:["Graffiti Removal","Sidewalk Repair","Tree Trimming"], type:string), Col("Submitted", data:["3 days ago","5 days ago","1 day ago"], type:string), Col("Priority", data:["High","Medium","Low"], type:string)))
+
+weatherSection = Card(Heading("Current Weather", h3), MarkDownRenderer("**Sunny**, 78°F (25°C) with light breezes.\n\n- Humidity: 45%\n- Wind: 5 mph NE", variant:clear))
+
+roadworksSection = Card(Heading("Planned Roadworks (This Month)", h3), Table(Col("Project", data:["Main St Repaving","Bridge Inspection","Sewer Upgrade"], type:string), Col("Start Date", data:["2024‑10‑05","2024‑10‑12","2024‑10‑20"], type:string), Col("End Date", data:["2024‑10‑15","2024‑10‑20","2024‑11‑05"], type:string), Col("Status", data:["Scheduled","In progress","Scheduled"], type:string)))
+
+infraJobsSection = Card(Heading("Infrastructure Maintenance Jobs", h3), Table(Col("Job", data:["Traffic Light Calibration","Water Pump Servicing","Gas Line Check"], type:string), Col("Due Date", data:["2024‑10‑08","2024‑10‑10","2024‑10‑12"], type:string), Col("Assigned To", data:["Team A","Team B","Team C"], type:string)))
+
+dispatchDialog = DialogBlock("Dispatch Crew", "Dispatch Emergency Crew", CardHeader("Dispatch Crew"), Form("dispatch-form", dispatchButtons, locationField, typeField, priorityField), description:"Select location, type, and priority before dispatching.", triggerVariant:primary)
+
+dispatchButtons = Buttons(Button("Send Dispatch", primary))
+
+locationField = FormControl("Location", Input("dispatch-location", "Enter address or coordinates"))
+
+typeField = FormControl("Type", Select("dispatch-type", SelectItem("Medical","Medical"), SelectItem("Fire","Fire"), SelectItem("Police","Police"), placeholder:"Select type", value:"Medical"))
+
+priorityField = FormControl("Priority", Select("dispatch-priority", SelectItem("High","High"), SelectItem("Medium","Medium"), SelectItem("Low","Low"), placeholder:"Select priority", value:"Medium"))
+
+alertDialog = DialogBlock("Send Alert", "Public Alert", CardHeader("Send Public Alert"), Form("alert-form", alertButtons, messageField), description:"Compose a message to broadcast to all residents.", triggerVariant:secondary)
+
+alertButtons = Buttons(Button("Send Alert", primary))
+
+messageField = FormControl("Message", TextArea("alert-message", "Enter alert text...", rows:4))

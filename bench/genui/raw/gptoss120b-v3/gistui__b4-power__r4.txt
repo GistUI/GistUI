@@ -1,0 +1,58 @@
+root = Card(CardHeader("Power Network Operator Console"), loadSection, capacitySection, generationChart, plantsTable, outagesTable, forecastChart, priceTag, maintenanceTable, alertsSection, regionFocus, curtailmentSection, emissionsTag)
+
+loadSection = Card(Heading("Current Load", h3), TextContent("4,200 MW", size:large), sunk)
+
+capacitySection = Card(Heading("Capacity Utilization", h3), HorizontalBarChart(labels:["Network"], Series("Utilization", values:[85]), variant:grouped, xLabel:"Utilization %", yLabel:""), sunk)
+
+generationChart = Card(Heading("Generation Mix", h3), PieChart(labels:["Coal","Gas","Wind","Solar","Hydro"], values:[30,25,20,15,10], variant:donut, appearance:circular), sunk)
+
+plantsTable = Card(Heading("Plants Output & Status", h3), Table(
+  Col("Plant", data:["Plant A","Plant B","Plant C"], type:string),
+  Col("Output (MW)", data:[500,300,200], type:number),
+  Col("Status", data:["Online","Maintenance","Offline"], type:string)
+), sunk)
+
+outagesTable = Card(Heading("Outages", h3), Table(
+  Col("Region", data:["North","East"], type:string),
+  Col("Affected Load (MW)", data:[150,80], type:number),
+  Col("Estimated Restore (hrs)", data:[2,5], type:number)
+), sunk)
+
+forecastChart = Card(Heading("24‑Hour Demand Forecast", h3), LineChart(labels:["00:00","04:00","08:00","12:00","16:00","20:00","24:00"], Series("Forecast", values:[3800,4000,4200,4400,4600,4400,4200]), variant:linear, xLabel:"Time", yLabel:"MW"), sunk)
+
+priceTag = Card(Heading("Current Price", h3), Tag("$45/MWh", variant:info, size:md), sunk)
+
+maintenanceTable = Card(Heading("Planned Maintenance This Month", h3), Table(
+  Col("Plant", data:["Plant B","Plant D"], type:string),
+  Col("Date", data:["2024‑10‑12","2024‑10‑20"], type:string),
+  Col("Duration (hrs)", data:[4,6], type:number)
+), sunk)
+
+alertsSection = Card(Heading("Live Alerts", h3), Callout(variant:warning, "High Voltage Alert", "Voltage exceeds threshold at Substation X"), sunk)
+
+regionFocus = Card(Heading("Focus on Region", h3), Form("region-focus", focusButtons,
+  FormControl("Select region", regionSelect)
+))
+regionSelect = Select("region", 
+  SelectItem("North", "North"), 
+  SelectItem("South", "South"), 
+  SelectItem("East", "East"), 
+  SelectItem("West", "West"),
+  placeholder:"Choose a region"
+)
+focusButtons = Buttons(Button("Apply", primary))
+
+curtailmentSection = Card(Heading("Order Curtailment", h3), Form("curtailment-order", curtailButtons,
+  FormControl("Region", curtailRegionSelect),
+  FormControl("Amount (MW)", Input("amount", "Enter MW", type:number))
+))
+curtailRegionSelect = Select("curtail_region",
+  SelectItem("North","North"),
+  SelectItem("South","South"),
+  SelectItem("East","East"),
+  SelectItem("West","West"),
+  placeholder:"Select region"
+)
+curtailButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+emissionsTag = Card(Heading("Emissions Today", h3), Tag("1,200 tCO₂", variant:neutral, size:md), sunk)

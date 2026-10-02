@@ -1,0 +1,132 @@
+root = Card(header, incidentsSection, severitySummary, resourcesSection, sheltersSection, routesSection, weatherSection, rescueStatsSection, volunteersSection, donationsSection, aidRequestsSection, commsSection, roadsClosedSection, hospitalsSection, tasksSection, requestResourcesForm, broadcastForm, focusZoneForm, situationReportForm, clear)
+
+header = CardHeader("Emergency Response Coordination Center", "Real‑time Overview")
+
+incidentsSection = Card(Heading("Active Incidents by Zone", h3), incidentsTable, sunk)
+
+incidentsTable = |Zone|Incident|Severity
+|North|Fire|High
+|South|Flood|Medium
+|East|Chemical Leak|Critical
+|West|Power Outage|Low
+
+severitySummary = Card(Heading("Overall Severity Summary", h3), HorizontalBarChart(labels:["Critical","High","Medium","Low"], Series("Count", values:[1,1,1,1]), variant:stacked, xLabel:"Severity", yLabel:"Incidents"), sunk)
+
+resourcesSection = Card(Heading("Available Resources", h3), resourcesTable, sunk)
+
+resourcesTable = |Resource|Available
+|Vehicles|12
+|Personnel|85
+|Supplies (tons)|30
+
+sheltersSection = Card(Heading("Shelters Capacity", h3), sheltersTable, sunk)
+
+sheltersTable = |Shelter|Capacity|Occupied
+|Shelter A|150|120
+|Shelter B|200|180
+|Shelter C|100|45
+
+routesSection = Card(Heading("Evacuation Routes Status", h3), routesTable, sunk)
+
+routesTable = |Route|Status
+|Route 1|Open
+|Route 2|Closed
+|Route 3|Open
+|Route 4|Restricted
+
+weatherSection = Card(Heading("48‑Hour Weather Forecast", h3), weatherTable, sunk)
+
+weatherTable = |Time|Forecast|Precipitation%
+|Now|Clear|0%
+|6h|Cloudy|10%
+|12h|Rain|60%
+|18h|Storm|80%
+|24h|Clear|5%
+|30h|Rain|40%
+|36h|Cloudy|15%
+|42h|Clear|0%
+|48h|Clear|0%
+
+rescueStatsSection = Card(Heading("Rescue Statistics", h3), rescueTable, sunk)
+
+rescueTable = |Metric|Count
+|People Rescued|342
+|Casualties|27
+
+volunteersSection = Card(Heading("Volunteers on Duty", h3), volunteersTable, sunk)
+
+volunteersTable = |Volunteer|Assignment
+|Alice|Medical Aid
+|Bob|Logistics
+|Carol|Search & Rescue
+|Dave|Communications
+
+donationsSection = Card(Heading("Donations Received", h3), donationsTable, sunk)
+
+donationsTable = |Donor|Amount|Type
+|Corp A|$15,000|Monetary
+|NGO B|$8,000|Monetary
+|John Doe|Food Supplies|In‑kind
+
+aidRequestsSection = Card(Heading("Aid Requests Awaiting Action", h3), aidRequestsTable, sunk)
+
+aidRequestsTable = |Request ID|Type|Priority|Status
+|REQ-001|Medical Kits|High|Pending
+|REQ-002|Food Packs|Medium|Pending
+|REQ-003|Shelter Materials|Low|Pending
+
+commsSection = Card(Heading("Communication Channels", h3), commsTable, sunk)
+
+commsTable = |Channel|Status
+|Radio|Up
+|Satellite|Down
+|Cellular|Up
+|Internet|Up
+
+roadsClosedSection = Card(Heading("Roads Closed", h3), roadsClosedTable, sunk)
+
+roadsClosedTable = |Road|Reason
+|Highway 5|Landslide
+|Main St.|Flooding
+
+hospitalsSection = Card(Heading("Nearby Hospitals with Free Beds", h3), hospitalsTable, sunk)
+
+hospitalsTable = |Hospital|Free Beds
+|General Hospital|12
+|City Medical Center|5
+|Regional Clinic|8
+
+tasksSection = Card(Heading("Open Tasks", h3), tasksTable, sunk)
+
+tasksTable = |Task|Assignee|Due
+|Distribute supplies|Logistics Team|2024-10-01
+|Update maps|GIS Unit|2024-09-30
+|Check equipment|Maintenance|2024-09-28
+
+requestResourcesForm = Form("resource-request", requestButtons, resourceTypeField, resourceQtyField)
+
+resourceTypeField = FormControl("Resource Type", Select("type", SelectItem("Vehicle","Vehicle"), SelectItem("Medical Kit","Medical Kit"), SelectItem("Food","Food"), placeholder:"Select type"))
+
+resourceQtyField = FormControl("Quantity", Input("quantity", "Enter number", type:number))
+
+requestButtons = Buttons(Button("Request", primary), Button("Cancel", tertiary))
+
+broadcastForm = Form("broadcast-update", broadcastButtons, broadcastMessageField)
+
+broadcastMessageField = FormControl("Message", TextArea("message", "Enter update...", rows:4))
+
+broadcastButtons = Buttons(Button("Send", primary), Button("Cancel", tertiary))
+
+focusZoneForm = Form("focus-zone", focusButtons, zoneSelectField)
+
+zoneSelectField = FormControl("Zone", Select("zone", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Select zone"))
+
+focusButtons = Buttons(Button("Focus", primary), Button("Cancel", tertiary))
+
+situationReportForm = Form("situation-report", reportButtons, reportTextField)
+
+reportTextField = FormControl("Report", TextArea("report", "Enter situation report...", rows:6))
+
+reportButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+clear = Card(Tag("End of Dashboard", neutral))

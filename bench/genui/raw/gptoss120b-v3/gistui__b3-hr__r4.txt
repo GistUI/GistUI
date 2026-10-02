@@ -1,0 +1,63 @@
+root = Card(header, headcountSection, openRolesSection, pipelineSection, avgTimeSection, splitSection, interviewsSection, attritionSection, actions)
+
+header = CardHeader("Hiring Overview", "Key metrics and actions for HR")
+
+headcountSection = Card(Heading("Current Headcount", h3), headcountTable)
+
+headcountTable = Table(headcountCol)
+
+headcountCol = Col("Metric", data:["Current Headcount"], type:string)
+# value column
+headcountValueCol = Col("Value", data:[124], type:number)
+
+openRolesSection = Card(Heading("Open Roles by Department", h3), openRolesTable)
+
+openRolesTable = Table(openRolesRoleCol, openRolesDeptCol, openRolesOpenCol)
+
+openRolesRoleCol = Col("Role", data:["Engineer","Designer","Recruiter"], type:string)
+openRolesDeptCol = Col("Department", data:["Engineering","Design","HR"], type:string)
+openRolesOpenCol = Col("Open", data:[2,1,1], type:number)
+
+pipelineSection = Card(Heading("Candidates by Pipeline Stage", h3), pipelineChart)
+
+pipelineChart = BarChart(pipelineData, variant:grouped, xLabel:"Stage", yLabel:"Candidates")
+
+pipelineData = |Stage|Candidates
+|Applied|30
+|Screening|12
+|Interview|8
+|Offer|3
+|Hired|5
+
+avgTimeSection = Card(Heading("Average Time to Hire", h3), avgTimeText)
+
+avgTimeText = TextContent("Average time to fill a position: **45 days**", size:default)
+
+splitSection = Card(Heading("Headcount Split by Department", h3), headcountPie)
+
+headcountPie = PieChart(headcountSplitLabels, headcountSplitValues, variant:pie, appearance:circular)
+
+headcountSplitLabels = ["Engineering","Design","HR","Sales"]
+headcountSplitValues = [60,20,15,29]
+
+interviewsSection = Card(Heading("Interviews Scheduled This Week", h3), interviewsTable)
+
+interviewsTable = Table(interviewsCandCol, interviewsRoleCol, interviewsDateCol)
+
+interviewsCandCol = Col("Candidate", data:["Alice","Bob","Carol"], type:string)
+interviewsRoleCol = Col("Role", data:["Engineer","Designer","Engineer"], type:string)
+interviewsDateCol = Col("Date", data:["2023-09-24","2023-09-25","2023-09-26"], type:string)
+
+attritionSection = Card(Heading("Attrition Over Past Six Months", h3), attritionChart)
+
+attritionChart = LineChart(attritionData, variant:linear, xLabel:"Month", yLabel:"% Attrition")
+
+attritionData = |Month|Attrition%
+|Apr|1.2
+|May|1.0
+|Jun|0.8
+|Jul|1.1
+|Aug|0.9
+|Sep|1.3
+
+actions = Buttons(Button("Open New Role", primary))

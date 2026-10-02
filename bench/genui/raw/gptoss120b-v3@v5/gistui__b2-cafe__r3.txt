@@ -1,0 +1,31 @@
+root = Card(specialCallout, vegCallout, drinksSection, foodSection, hoursSection)
+
+specialCallout = Callout(info, "Today's Special", "Pumpkin Spice Latte – $4.50 (limited time)")
+
+vegCallout = TextCallout("Vegetarian Options", "Tap the filter button to view vegetarian items only.", info)
+
+drinksSection = Card(Heading("Drinks", h3), drinksTable)
+
+foodSection = Card(Heading("Food", h3), foodTable)
+
+hoursSection = Card(Heading("Opening Hours", h3), hoursTable)
+
+drinksTable = Table(drinkCol, drinkPriceCol)
+
+drinkCol = Col("Drink", ["Coffee","Tea","Latte","Espresso","Hot Chocolate"], type:string)
+
+drinkPriceCol = Col("Price", ["$3.00","$2.50","$4.00","$2.80","$3.50"], type:string)
+
+foodTable = Table(foodCol, foodPriceCol)
+
+foodCol = Col("Food", ["Bagel","Croissant","Veggie Sandwich","Muffin","Salad"], type:string)
+
+foodPriceCol = Col("Price", ["$2.50","$3.00","$5.50","$2.80","$4.20"], type:string)
+
+hoursTable = Table(dayCol, openCol, closeCol)
+
+dayCol = Col("Day", ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], type:string)
+
+openCol = Col("Open", ["8:00 AM","8:00 AM","8:00 AM","8:00 AM","8:00 AM","9:00 AM","9:00 AM"], type:string)
+
+closeCol = Col("Close", ["6:00 PM","6:00 PM","6:00 PM","6:00 PM","6:00 PM","5:00 PM","5:00 PM"], type:string)

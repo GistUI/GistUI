@@ -1,0 +1,21 @@
+{
+  "name": "@gistui/example-svelte",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@gistui/styles": "workspace:*",
+    "@gistui/svelte": "workspace:*",
+    "svelte": "^5.46.4"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "typescript": "^5.9.0",
+    "vite": "^8.3.0"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "@each(rows, r => Text(\"\" + r))"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "@each(rows, (r, i) => Text(\"\" + i))"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "@each(rows, () => Text(\"x\"))"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

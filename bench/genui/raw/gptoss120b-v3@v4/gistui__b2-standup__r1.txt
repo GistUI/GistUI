@@ -1,0 +1,19 @@
+root = Card(dateHeader, updatesList, blockedCallout, missingCallout, postForm)
+
+dateHeader = TextContent("**Date:** 2026-09-30", size:small)
+
+updatesList = ListBlock(aliceItem, bobItem, carolItem, variant:number)
+
+aliceItem = ListItem("Alice", "Completed API integration", "View", image:[])
+bobItem = ListItem("Bob", "Working on UI mockups", "View", image:[])
+carolItem = ListItem("Carol", "Reviewing PRs", "View", image:[])
+
+blockedCallout = Callout(variant:warning, "Blocked", "Bob is blocked on missing design assets")
+
+missingCallout = TextCallout("Updates missing: 1", variant:info)
+
+postForm = Form("standup-update", formButtons, updateField)
+
+updateField = FormControl("Your update", Input("update", "Enter your status..."))
+
+formButtons = Buttons(Button("Post update", primary))

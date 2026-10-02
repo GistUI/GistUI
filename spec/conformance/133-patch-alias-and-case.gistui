@@ -1,0 +1,6 @@
+root = Row(c, Text("x"))
+c = Card("a")
+c.variant = sunk
+root.GAP = lg
+root.wrap = true
+root.bogus = 1

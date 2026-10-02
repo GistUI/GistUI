@@ -1,0 +1,27 @@
+root = Card(header, filtersCard, stats, enrollmentChart, riskTable, engagementChart, messageSection)
+
+header = CardHeader("Training Platform Analytics", "Overview of learner activity")
+
+filtersCard = Card(cohortSelect)
+
+cohortSelect = Select("cohort", SelectItem("Cohort A","Cohort A"), SelectItem("Cohort B","Cohort B"), placeholder:"Select cohort")
+
+stats = Card(TextContent("**Active learners this week:** 1,245", size:large), TextContent("**Course completion rate:** 78%", size:large), TextContent("**Average quiz score:** 84%", size:large))
+
+enrollmentChart = Card(Heading("Courses by enrollment (top 5)", h3), HorizontalBarChart(labels:["Course A","Course B","Course C","Course D","Course E"], Series("Enrollments", values:[1200,950,870,660,540]), variant:stacked, xLabel:"Enrollments", yLabel:"Course"))
+
+riskTable = Card(Heading("Learners at risk of dropping out", h3), Table(riskNameCol, riskScoreCol))
+
+riskNameCol = Col("Learner", data:["Alice","Bob","Charlie"], type:string)
+
+riskScoreCol = Col("Risk Score", data:[92,88,85], type:number)
+
+engagementChart = Card(Heading("Engagement past 8 weeks", h3), LineChart(labels:["W1","W2","W3","W4","W5","W6","W7","W8"], Series("Active Sessions", values:[300,350,400,380,420,460,500,540]), natural, xLabel:"Week", yLabel:"Sessions"))
+
+messageSection = Card(Heading("Message Cohort", h3), msgForm)
+
+msgForm = Form("msg-form", msgButtons, msgField)
+
+msgField = FormControl("Message", TextArea("message", "Enter your message...", rows:4))
+
+msgButtons = Buttons(Button("Send", primary))

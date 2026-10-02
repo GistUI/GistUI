@@ -1,0 +1,5 @@
+root = Row(a, b)
+a = Text("one")
+b = Text("b")
+a = null
+a = Text("two")

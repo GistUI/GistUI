@@ -1,0 +1,71 @@
+root = Card(headerRow, topMetrics, tabsContainer)
+headerRow = Card(CardHeader("Editorial Content Studio", "Manage workflow, monitor audience engagement, and publish"), headerActions, direction:row, justify:between, align:center, variant:clear)
+headerActions = Buttons(newDraftDialog, scheduleDrawer)
+
+newDraftDialog = DialogBlock("New Draft", "Create New Draft", newDraftForm, description:"Start writing a new story or article")
+newDraftForm = Form("create-draft-form", draftFormBtns, draftTitleField, draftCategoryField, draftSummaryField)
+draftTitleField = FormControl("Article Title", Input("draft_title", "Enter headline..."))
+draftCategoryField = FormControl("Category", draftCatSelect)
+draftCatSelect = Select("draft_category", SelectItem("tech", "Technology"), SelectItem("culture", "Culture"), SelectItem("design", "Design"), SelectItem("business", "Business"), placeholder:"Select category")
+draftSummaryField = FormControl("Summary / Outline", TextArea("draft_body", "Jot down ideas, pitch, or initial draft...", rows:4))
+draftFormBtns = Buttons(Button("Create Draft", primary), Button("Cancel", tertiary))
+
+scheduleDrawer = DrawerBlock("Schedule Piece", "Schedule Publication", scheduleForm, description:"Set release date and editorial category for an upcoming piece")
+scheduleForm = Form("schedule-piece-form", schedFormBtns, schedTitleField, schedDateField, schedCatField)
+schedTitleField = FormControl("Piece Title", Input("sched_title", "Headline of completed draft..."))
+schedDateField = FormControl("Target Publish Date", DatePicker("sched_date", mode:single))
+schedCatField = FormControl("Category Desk", schedCatSelect)
+schedCatSelect = Select("sched_category", SelectItem("tech", "Technology"), SelectItem("culture", "Culture"), SelectItem("design", "Design"), SelectItem("business", "Business"), placeholder:"Choose desk")
+schedFormBtns = Buttons(Button("Confirm Schedule", primary), Button("Cancel", tertiary))
+
+topMetrics = Card(highlightCard, readershipCard, direction:row, gap:m, variant:clear)
+
+highlightCard = Card(Heading("Most-Read Article This Month", h3), Tag("Top Story", warning), TextContent("### The Architecture of Modern Search Systems\n**By Elena Rostova** — Published May 2\n\n* **148,200** total reads\n* **4.8 min** average read time\n* **94%** completion rate"), highlightBadgeRow, variant:sunk)
+highlightBadgeRow = Card(Tag("Technology", info), Tag("+32% vs avg", success), direction:row, gap:xs, variant:clear)
+
+readershipCard = Card(Heading("Readership Over Past 30 Days", h3), readershipChart, variant:sunk)
+readershipChart = AreaChart(readershipTrend, natural, xLabel:"Day", yLabel:"Views")
+
+tabsContainer = Tabs(draftsTab, publishedTab, commentsTab)
+
+draftsTab = TabItem("drafts", "Drafts & Pipeline", draftsFilterRow, draftsTable)
+draftsFilterRow = Card(TextContent("Filter by desk/category:"), categorySelect, direction:row, align:center, gap:s, variant:clear)
+categorySelect = Select("filter_category", SelectItem("all", "All Desks"), SelectItem("tech", "Technology"), SelectItem("culture", "Culture"), SelectItem("design", "Design"), SelectItem("business", "Business"), placeholder:"Filter category", value:"all")
+draftsTable = Table(draftsData)
+
+publishedTab = TabItem("published", "Published This Week", publishedCallout, publishedTable)
+publishedCallout = Callout(info, "Weekly Output", "4 pieces published across 3 desks this week, generating 48.9k views.")
+publishedTable = Table(publishedData)
+
+commentsTab = TabItem("comments", "Comments Awaiting Reply (4)", commentsList, replyBox)
+commentsList = ListBlock(comment1, comment2, comment3, comment4)
+comment1 = ListItem("Marcus Vance on 'The Architecture of Modern Search Systems'", "Could you elaborate on how vector cache invalidation is handled in step 2?", "Reply")
+comment2 = ListItem("Sarah Jenkins on 'Design Systems at Scale'", "Great breakdown! How does the team manage design token deprecation across web and mobile?", "Reply")
+comment3 = ListItem("Devon Patel on 'The Next Wave of Distributed Compute'", "Is there a benchmark comparing memory overhead against traditional worker nodes?", "Reply")
+comment4 = ListItem("Amina Qureshi on 'Design Systems at Scale'", "Would love to see a follow-up piece regarding cross-functional review rituals.", "Reply")
+
+replyBox = Card(Heading("Quick Reply to Selected Comment", h4), replyForm, variant:sunk)
+replyForm = Form("quick-reply", replyBtns, replyMsgField)
+replyMsgField = FormControl("Your Response", TextArea("reply_text", "Type author response...", rows:2))
+replyBtns = Buttons(Button("Send Response", primary), Button("Mark as Reviewed", secondary))
+
+readershipTrend = |Day|Views
+|Day 1|3200
+|Day 5|4100
+|Day 10|5800
+|Day 15|5200
+|Day 20|7400
+|Day 25|8900
+|Day 30|10200
+
+draftsData = |Title|Category|Author|Status|Last Edited
+|Building Fault-Tolerant Event Streams|Technology|Alex Chen|In Review|Today 10:14 AM
+|The Psychology of Minimalist Typography|Design|Maya Lin|Drafting|Yesterday
+|Inside the Global Semiconductor Reshuffle|Business|Liam Ross|Copy Editing|May 18
+|AI-Assisted Audio Synthesis in Cinema|Culture|Sofia Vega|Pitch Approved|May 17
+
+publishedData = |Headline|Category|Published|Total Reads|Engagement
+|The Architecture of Modern Search Systems|Technology|May 19|148200|94%
+|Micro-Interactions That Delight|Design|May 18|32400|88%
+|SaaS Unit Economics in 2025|Business|May 16|21100|81%
+|The Resurgence of Ambient Hardware|Technology|May 15|18900|76%

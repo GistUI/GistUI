@@ -1,0 +1,100 @@
+root = Card(selectDistrict, sections)
+
+sections = SectionBlock(congestionSection, transitSection, airQualitySection, energySection, waterSection, incidentsSection, vehiclesSection, parkingSection, eventsSection, reportsSection, backlogSection, weatherSection, roadworksSection, infraSection, actionsSection, isFoldable)
+
+selectDistrict = Select("district_select", SelectItem("All", "All districts"), SelectItem("Downtown", "Downtown"), SelectItem("Uptown", "Uptown"), placeholder:"Select district", size:medium)
+
+congestionSection = SectionItem("congestion", "Congestion Now", congestionChart)
+congestionChart = HorizontalBarChart(congestionRows, variant:grouped, xLabel:"% Congestion", yLabel:"District")
+congestionRows = |District|Congestion%
+|Downtown|85
+|Uptown|60
+|Midtown|70
+
+transitSection = SectionItem("transit", "Transit Punctuality", transitChart)
+transitChart = BarChart(transitRows, variant:grouped, xLabel:"Line", yLabel:"% On time")
+transitRows = |Line|Punctuality%
+|Red|92
+|Blue|88
+|Green|95
+
+airQualitySection = SectionItem("airquality", "Air Quality by District", airQualityChart)
+airQualityChart = RadarChart(airQualityRows)
+airQualityRows = |District|AQI
+|Downtown|120
+|Uptown|80
+|Midtown|95
+
+energySection = SectionItem("energy", "Energy Use Past Week", energyChart)
+energyChart = LineChart(energyRows, variant:linear, xLabel:"Day", yLabel:"MWh")
+energyRows = |Day|Energy (MWh)
+|Mon|450
+|Tue|470
+|Wed|460
+|Thu|480
+|Fri|500
+|Sat|520
+|Sun|510
+
+waterSection = SectionItem("water", "Water Use Today", waterUse)
+waterUse = TextContent("Today's water use: 1,200,000 gallons", size:large)
+
+incidentsSection = SectionItem("incidents", "Open Incidents", incidentsTable)
+incidentsTable = Table(incidentsRows)
+incidentsRows = |Location|Severity|Description
+|5th Ave & Main|High|Traffic accident
+|Elm St|Medium|Broken streetlight
+|River Rd|Low|Minor flooding
+
+vehiclesSection = SectionItem("vehicles", "Emergency Vehicles Deployed", vehiclesTable)
+vehiclesTable = Table(vehiclesRows)
+vehiclesRows = |Vehicle|Location|Status
+|Engine 1|5th Ave|On scene
+|Ambulance 3|Elm St|En route
+
+parkingSection = SectionItem("parking", "Parking Availability Downtown", parkingChart)
+parkingChart = BarChart(parkingRows, variant:grouped, xLabel:"Zone", yLabel:"Spots")
+parkingRows = |Zone|Available Spots
+|Zone A|150
+|Zone B|80
+|Zone C|45
+
+eventsSection = SectionItem("events", "Public Events This Weekend", eventsList)
+eventsList = ListBlock(eventItem1, eventItem2, eventItem3, variant:number)
+eventItem1 = ListItem("Farmers Market", "Sat 9am-2pm", "View")
+eventItem2 = ListItem("Outdoor Concert", "Sat 7pm-10pm", "Details")
+eventItem3 = ListItem("Art Walk", "Sun 10am-4pm", "Info")
+
+reportsSection = SectionItem("reports", "Citizen Reports", reportsTable)
+reportsTable = Table(reportsRows)
+reportsRows = |Time|Report|Status
+|10:15|Pothole on 3rd|New
+|10:30|Noise complaint|In progress
+
+backlogSection = SectionItem("backlog", "Service Request Backlog", backlogTable)
+backlogTable = Table(backlogRows)
+backlogRows = |Request ID|Type|Priority|Status
+|SR-001|Streetlight repair|High|Pending
+|SR-002|Graffiti removal|Medium|Open
+
+weatherSection = SectionItem("weather", "Current Weather", weatherInfo)
+weatherInfo = MarkDownRenderer("**Current Weather**\n- Temp: 72°F\n- Condition: Sunny\n- Humidity: 45%", variant:clear)
+
+roadworksSection = SectionItem("roadworks", "Roadworks Planned This Month", roadworksTable)
+roadworksTable = Table(roadworksRows)
+roadworksRows = |Location|Start Date|End Date|Description
+|Main St|2023-10-01|2023-10-15|Resurfacing
+|Broadway|2023-10-10|2023-10-20|Utility upgrade
+
+infraSection = SectionItem("infra", "Infrastructure Jobs Due", infraTable)
+infraTable = Table(infraRows)
+infraRows = |Asset|Due Date|Description
+|Water Pump 12|2023-10-20|Routine check
+|Traffic Light 5|2023-10-25|Firmware update
+
+actionsSection = SectionItem("operations", "Operations", dispatchButton, alertDialog)
+dispatchButton = Button("Dispatch Crew", ["dispatch"], primary)
+
+alertDialog = DialogBlock("Send Alert", "Public Alert", alertMessage, alertButtons, description:"Compose an alert to send to citizens", triggerVariant:primary)
+alertMessage = TextArea("alert_message", "Enter alert text...", "", rows:5, rules:[])
+alertButtons = Buttons(Button("Send", ["sendAlert"], primary), Button("Cancel", ["cancel"], secondary))

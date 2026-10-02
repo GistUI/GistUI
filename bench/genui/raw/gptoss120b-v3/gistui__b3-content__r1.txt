@@ -1,0 +1,51 @@
+root = Card(header, filterSection, draftsSection, publishedSection, topArticle, readershipChart, scheduleForm, commentsSection, newDraftButton)
+
+header = CardHeader("Editor Studio", "Content overview")
+
+filterSection = Card(Select("category_filter", SelectItem("Tech","Tech"), SelectItem("Health","Health"), SelectItem("Culture","Culture"), placeholder:"All categories", size:medium))
+
+draftsSection = Card(Heading("Drafts", h3), draftsTable)
+
+draftsTable = Table(draftTitleCol, draftCategoryCol, draftStatusCol)
+
+draftTitleCol = Col("Title", data:["Future of Space","Healthy Eating","City Guides"], type:string)
+draftCategoryCol = Col("Category", data:["Tech","Health","Travel"], type:string)
+draftStatusCol = Col("Status", data:["Draft","Review","Draft"], type:string)
+
+publishedSection = Card(Heading("Published this week", h3), publishedTable)
+
+publishedTable = Table(pubTitleCol, pubDateCol, pubViewsCol)
+
+pubTitleCol = Col("Title", data:["AI Trends 2024","Nutrition Myths"], type:string)
+pubDateCol = Col("Date", data:["2024-09-24","2024-09-22"], type:string)
+pubViewsCol = Col("Views", data:[12345,9870], type:number)
+
+topArticle = Card(Heading("Most‑read article (this month)", h3), TextContent("**Title:** \"AI Trends 2024\"\n**Views:** 12,345", size:default))
+
+readershipChart = Card(Heading("Readership (last 30 days)", h3), LineChart(readershipRows, linear, xLabel:"Date", yLabel:"Readers"))
+
+readershipRows = |Date|Readers
+|2024‑08‑31|4500
+|2024‑09‑07|6200
+|2024‑09‑14|7800
+|2024‑09‑21|9100
+|2024‑09‑28|10200
+
+scheduleForm = Card(Heading("Schedule a piece", h3), scheduleFormComponent)
+
+scheduleFormComponent = Form("schedule", scheduleButtons, titleField, dateField)
+
+titleField = FormControl("Title", Input("title", "Enter title...", type:text))
+dateField = FormControl("Publish date", Input("publish_date", "YYYY‑MM‑DD", type:date))
+
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+
+commentsSection = Card(Heading("Comments awaiting reply", h3), commentsTable)
+
+commentsTable = Table(commentArticleCol, commentAuthorCol, commentExcerptCol)
+
+commentArticleCol = Col("Article", data:["AI Trends 2024","Nutrition Myths"], type:string)
+commentAuthorCol = Col("Author", data:["Jane Doe","John Smith"], type:string)
+commentExcerptCol = Col("Excerpt", data:["Great insights! …","I disagree…"], type:string)
+
+newDraftButton = Buttons(Button("New Draft", primary))

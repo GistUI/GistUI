@@ -1,0 +1,19 @@
+root = Card(header, revenueSection, trendSection, productsSection, conversionSection, actions)
+header = CardHeader("Founder Monthly Sales", "Check-in")
+revenueSection = Card(Heading("Revenue This Month", h3), TextContent("$124,500", size:large-heavy))
+trendSection = Card(Heading("Revenue (Last 6 months)", h3), LineChart(revenueTrendRows, linear, xLabel:"Month", yLabel:"Revenue"))
+productsSection = Card(Heading("Top 3 Products", h3), topProducts)
+topProducts = ListBlock(productItem1, productItem2, productItem3)
+productItem1 = ListItem("Product Alpha", "Units sold: 1,200")
+productItem2 = ListItem("Product Beta", "Units sold: 950")
+productItem3 = ListItem("Product Gamma", "Units sold: 870")
+conversionSection = Card(Heading("Conversion Rate", h3), TextCallout("Conversion", "12.5%", variant:info))
+actions = Buttons(downloadBtn)
+downloadBtn = Button("Download CSV", primary)
+revenueTrendRows = |Month|Revenue
+|Jan|102000
+|Feb|108500
+|Mar|115200
+|Apr|120300
+|May|123400
+|Jun|124500

@@ -1,0 +1,112 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Row",
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "1"
+            }
+          }
+        ]
+      },
+      {
+        "type": "#unknown",
+        "props": {
+          "component": "Sak"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "2"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Callout",
+        "props": {
+          "content": "3"
+        }
+      },
+      {
+        "type": "Callout",
+        "props": {
+          "content": "4"
+        }
+      },
+      {
+        "type": "Header",
+        "props": {
+          "title": "5"
+        }
+      },
+      {
+        "type": "Table",
+        "props": {
+          "data": {
+            "table": [
+              "a:n"
+            ],
+            "rows": [
+              [
+                1
+              ]
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

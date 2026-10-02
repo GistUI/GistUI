@@ -1,0 +1,19 @@
+root = Card(header, summaryGrid, hourlyTrendCard, liveOrdersCard, quickActions, gap:l)
+header = Card(CardHeader("Morning Performance Check-in", "Live snapshot as of 10:30 AM today"), Tag("Open • Peak Traffic", success), direction:row, justify:between, align:center, variant:clear)
+summaryGrid = Card(todayRevCard, ydayCompCard, avgOrderCard, direction:row, gap:m, wrap, variant:clear)
+todayRevCard = Card(Heading("Revenue Today (So far)", h4), TextContent("## $1,845.50"), Tag("+18.2% vs yesterday pace", success), variant:sunk)
+ydayCompCard = Card(Heading("Same Time Yesterday", h4), TextContent("## $1,560.00"), TextContent("Final yesterday total: **$4,120.00**", size:small), variant:sunk)
+avgOrderCard = Card(Heading("Orders & Avg Ticket", h4), TextContent("## 42 orders"), TextContent("Avg value: **$43.94** (vs $39.00 yday)", size:small), variant:sunk)
+hourlyTrendCard = Card(CardHeader("Hourly Pace: Today vs. Yesterday", "Cumulative sales trajectory through 10:30 AM"), BarChart(hourlyData, grouped, xLabel:"Time Window", yLabel:"Sales ($)"), variant:card)
+liveOrdersCard = Card(CardHeader("Recent Morning Orders", "Latest transactions processed at checkout"), Table(recentOrdersData), variant:sunk)
+quickActions = Card(Buttons(Button("Refresh Data", primary), Button("View Inventory Alerts", secondary), Button("End-of-Morning Summary", tertiary)), variant:clear)
+hourlyData = |Hour|Today|Yesterday
+|7:00 AM|120|95
+|8:00 AM|380|310
+|9:00 AM|590|520
+|10:00 AM|755.50|635
+recentOrdersData = |Time|Order ID|Items|Total
+|10:28 AM|#1042|2x Latte, 1x Croissant|$18.50
+|10:22 AM|#1041|1x Whole Bean Bag (1kg)|$28.00
+|10:15 AM|#1040|4x Breakfast Sandwiches|$34.00
+|10:08 AM|#1039|1x Drip Coffee|$4.50

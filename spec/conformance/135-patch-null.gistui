@@ -1,0 +1,2 @@
+root = Stat("l", "v", "d")
+root.delta = null

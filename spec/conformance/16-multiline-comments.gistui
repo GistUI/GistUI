@@ -1,0 +1,11 @@
+# Calls may span lines inside brackets; trailing comments are stripped.
+root = Page(  # the page
+  head,
+  body,
+  gap:lg
+)
+head = Header("A # inside a string is not a comment")
+body = Row(
+  Text("one"),
+  Text("two"),
+)

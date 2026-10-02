@@ -1,0 +1,64 @@
+root = Card(CardHeader("Weekly Marketing Dashboard", "Last 30 days"), visitorsSection, conversionSection, trafficSection, campaignsSection, bestSection, dateSection, subscriberSection, exportSection)
+
+visitorsSection = Card(Heading("Site Visitors (Last 30 days)", h3), visitorsChart)
+visitorsChart = LineChart(visitorsData, linear, xLabel:"Date", yLabel:"Visitors")
+
+visitorsData = |Date|Visitors
+|2023-08-01|1240
+|2023-08-02|1380
+|2023-08-03|1325
+|2023-08-04|1490
+|2023-08-05|1600
+|2023-08-06|1580
+|2023-08-07|1650
+|2023-08-08|1705
+|2023-08-09|1720
+|2023-08-10|1800
+|2023-08-11|1750
+|2023-08-12|1820
+|2023-08-13|1900
+|2023-08-14|1950
+|2023-08-15|2000
+|2023-08-16|2100
+|2023-08-17|2050
+|2023-08-18|2150
+|2023-08-19|2200
+|2023-08-20|2250
+|2023-08-21|2300
+|2023-08-22|2350
+|2023-08-23|2400
+|2023-08-24|2450
+|2023-08-25|2500
+|2023-08-26|2550
+|2023-08-27|2600
+|2023-08-28|2650
+|2023-08-29|2700
+|2023-08-30|2750
+
+conversionSection = Card(Heading("Conversion Rate", h3), conversionRate)
+conversionRate = TextContent("**Conversion Rate:** 3.4%", size:large)
+
+trafficSection = Card(Heading("Top 5 Traffic Sources", h3), trafficPie)
+trafficPie = PieChart(["Organic","Paid","Referral","Social","Email"], [45,25,15,10,5], donut, circular)
+
+campaignsSection = Card(Heading("Running Campaigns & Spend", h3), campaignsTable)
+campaignsTable = Table(campaignCol, spendCol)
+
+campaignCol = Col("Campaign", ["Spring Sale","Holiday Promo","Summer Launch","Clearance","New Product"], string)
+spendCol = Col("Spend", [1200,950,800,600,450], number)
+
+bestSection = Card(Heading("Best Performing Campaign", h3), bestCallout)
+bestCallout = Callout(success, "Spring Sale", "Delivered 2.5× ROI this period")
+
+dateSection = Card(Heading("Adjust Date Range", h3), dateForm)
+dateForm = Form("date-range", formButtons, dateRangeField)
+
+dateRangeField = FormControl("Date range", DatePicker("range", mode:range, value:["2023-08-01","2023-08-31"]))
+
+formButtons = Buttons(Button("Apply", primary))
+
+subscriberSection = Card(Heading("Email Subscriber Growth (This Month)", h3), subscriberGrowth)
+subscriberGrowth = TextContent("**+1,240** new subscribers", size:large)
+
+exportSection = Card(Heading("Export Report", h3), exportButtons)
+exportButtons = Buttons(Button("Export CSV", primary))

@@ -1,0 +1,90 @@
+root = Card(salesSection, trafficSection, bestSellersSection, outOfStockSection, shiftSection, basketSizeSection, returnsSection, promotionsSection, registersSection, reorderSection, storeSwitcherSection, comparisonSection, actions)
+
+salesSection = Card(Heading("Sales Today vs Target", h3), salesChart, salesInfo)
+salesChart = BarChart(salesData, variant:grouped, xLabel:"Metric", yLabel:"USD")
+salesInfo = TextContent("Sales today are on track to meet the daily target.", size:default)
+
+trafficSection = Card(Heading("Foot Traffic Throughout the Day", h3), trafficChart)
+trafficChart = LineChart(trafficData, variant:linear, xLabel:"Hour", yLabel:"Visitors")
+
+bestSellersSection = Card(Heading("Best Sellers", h3), bestSellersTable)
+
+outOfStockSection = Card(Heading("Out of Stock Items", h3), outOfStockTable)
+
+shiftSection = Card(Heading("Team on Shift Today", h3), shiftList)
+
+basketSizeSection = Card(Heading("Average Basket Size", h3), avgBasketText)
+
+returnsSection = Card(Heading("Returns This Week", h3), returnsChart)
+returnsChart = BarChart(returnsData, variant:grouped, xLabel:"Day", yLabel:"Count")
+
+promotionsSection = Card(Heading("Promotion Performance", h3), promotionsTable)
+
+registersSection = Card(Heading("Register Status", h3), registersTable)
+
+reorderSection = Card(Heading("Reorder Item", h3), reorderForm)
+
+storeSwitcherSection = Card(Heading("Switch Store", h3), storeSelect)
+
+comparisonSection = Card(Heading("This Week vs Last Week", h3), comparisonChart)
+comparisonChart = BarChart(comparisonData, variant:grouped, xLabel:"Metric", yLabel:"Value")
+
+actions = Buttons(Button("Refresh Data", primary), Button("Export Report", secondary))
+
+shiftList = ListBlock(ListItem("Alice Johnson", "Cashier"), ListItem("Bob Smith", "Sales Associate"), ListItem("Cara Lee", "Manager"))
+
+avgBasketText = TextContent("Average basket size: **$45.20**", size:large)
+
+reorderForm = Form("reorder", reorderButtons, itemSelect, quantityInput)
+itemSelect = FormControl("Item", Select("item_id", SelectItem("SKU123", "Blue T‑Shirt"), SelectItem("SKU456", "Red Sneakers"), placeholder:"Select item"))
+quantityInput = FormControl("Quantity", Input("qty", "1", type:number))
+reorderButtons = Buttons(Button("Submit Order", primary), Button("Cancel", tertiary))
+
+storeSelect = Form("store-switch", storeButtons, storeDropdown)
+storeDropdown = FormControl("Store", Select("store_id", SelectItem("001", "Downtown"), SelectItem("002", "Uptown"), placeholder:"Choose store"))
+storeButtons = Buttons(Button("Switch", primary))
+
+salesData = |Metric|Today|Target
+|Sales|8200|10000
+
+trafficData = |Hour|Visitors
+|08:00|45
+|10:00|120
+|12:00|200
+|14:00|180
+|16:00|150
+|18:00|90
+
+bestSellersTable = Table(
+  Col("Product", data:["Blue T‑Shirt","Red Sneakers","Green Hat"], type:string),
+  Col("Units Sold", data:[150,120,90], type:number)
+)
+
+outOfStockTable = Table(
+  Col("Product", data:["Yellow Scarf","Black Jacket"], type:string),
+  Col("SKU", data:["SKU789","SKU321"], type:string)
+)
+
+returnsData = |Day|Returns
+|Mon|5
+|Tue|3
+|Wed|4
+|Thu|2
+|Fri|6
+|Sat|1
+|Sun|0
+
+promotionsTable = Table(
+  Col("Promotion", data:["Buy 1 Get 1","20% Off Summer"], type:string),
+  Col("Sales Impact", data:["+$1,200","+$800"], type:string)
+)
+
+registersTable = Table(
+  Col("Register", data:["#1","#2","#3","#4"], type:string),
+  Col("Status", data:["Open","Closed","Open","Closed"], type:string)
+)
+
+comparisonData = |Metric|This Week|Last Week
+|Sales|8200|7500
+|Foot Traffic|960|850
+|Returns|21|18

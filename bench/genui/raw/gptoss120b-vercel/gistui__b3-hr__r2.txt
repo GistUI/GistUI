@@ -1,0 +1,52 @@
+root = Card(headcountCard, openRolesCard, pipelineCard, avgTimeCard, splitChartCard, interviewsCard, attritionChartCard, newRoleButton, gap:m)
+
+headcountCard = Card(CardHeader("Current Headcount"), Table(headcountCol), sunk)
+
+headcountCol = Col("Metric", data:["Total Headcount"], type:string)
+
+openRolesCard = Card(CardHeader("Open Roles"), Table(openRolesTable), sunk)
+
+openRolesTable = |Department|Role|Open Positions
+|Engineering|Backend Engineer|2
+|Engineering|Frontend Engineer|1
+|Product|Product Manager|1
+|Design|UX Designer|1
+
+pipelineCard = Card(CardHeader("Candidates by Pipeline Stage"), Table(pipelineTable), sunk)
+
+pipelineTable = |Stage|Candidates
+|Applied|34
+|Phone Screen|12
+|Onsite|5
+|Offer|3
+|Hired|2
+
+avgTimeCard = Card(CardHeader("Average Time to Hire"), Table(avgTimeCol), sunk)
+
+avgTimeCol = Col("Average Days", data:[45], type:number)
+
+splitChartCard = Card(CardHeader("Headcount by Department"), HorizontalBarChart(splitLabels, Series("Headcount", splitValues), variant:stacked, xLabel:"Department", yLabel:"Employees"), sunk)
+
+splitLabels = ["Engineering","Product","Design","Sales","Marketing"]
+splitValues = [45,12,8,15,10]
+
+interviewsCard = Card(CardHeader("Interviews Scheduled This Week"), Table(interviewsTable), sunk)
+
+interviewsTable = |Date|Candidate|Stage|Interviewer
+|Mon 09/02|Alice Johnson|Phone Screen|Bob Smith
+|Tue 09/03|Mark Lee|Onsite|Sara Patel
+|Wed 09/04|Nina Gupta|Onsite|Tom Wu
+|Thu 09/05|Carlos Ruiz|Phone Screen|Emily Davis
+|Fri 09/06|Lena Zhou|Onsite|Mike Brown
+
+attritionChartCard = Card(CardHeader("Attrition Over Past 6 Months"), LineChart(attritionTable, natural, xLabel:"Month", yLabel:"Attrition %"), sunk)
+
+attritionTable = |Month|Attrition%
+|Apr|2.1
+|May|1.8
+|Jun|2.4
+|Jul|2.0
+|Aug|1.9
+|Sep|2.2
+
+newRoleButton = Buttons(Button("Open New Role", primary), direction:row)

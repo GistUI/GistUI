@@ -1,0 +1,38 @@
+root = Card(followerSection, engagementSection, bestPostsSection, audienceChart, scheduleSection, platformFilter, followup)
+
+followerSection = Card(CardHeader("Followers", "Growth last month"), TextContent("**12.5K** total, **+8%** this month"), LineChart(followerTrend, linear, xLabel:"Date", yLabel:"Followers"))
+
+followerTrend = |Date|Followers
+|2023-08-01|11,500
+|2023-08-08|11,800
+|2023-08-15|12,000
+|2023-08-22|12,300
+|2023-08-29|12,500
+
+engagementSection = Card(CardHeader("Engagement Rate"), TextContent("**4.2%** average engagement this month"))
+
+bestPostsSection = Card(CardHeader("Top Posts (Reach)"), Table(postTitle, postReach))
+
+postTitle = Col("Post", data:["Sunset Reel","DIY Tutorial","Live Q&A"], type:string)
+postReach = Col("Reach", data:[15000,12000,9500], type:number)
+
+audienceChart = Card(CardHeader("Audience Split by Platform"), PieChart(audienceLabels, audienceValues, donut, circular))
+
+audienceLabels = ["Instagram","TikTok","YouTube","Twitter"]
+audienceValues = [5400,3200,2100,1300]
+
+scheduleSection = Card(CardHeader("Schedule a Post"), scheduleForm)
+
+scheduleForm = Form("schedule-post", scheduleButtons, captionField, datetimeField, platformSelect)
+
+captionField = FormControl("Caption", TextArea("caption", "Write your caption...", "", rows:4))
+datetimeField = FormControl("Publish Time", Input("publish_time", "2023-09-15 14:00", type:datetime))
+platformSelect = FormControl("Platform", Select("platform", SelectItem("instagram","Instagram"), SelectItem("tiktok","TikTok"), SelectItem("youtube","YouTube"), placeholder:"Select platform", size:medium))
+
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+platformFilter = Card(CardHeader("Filter by Platform"), TagBlock(filterTags))
+
+filterTags = ["All","Instagram","TikTok","YouTube","Twitter"]
+
+followup = FollowUpBlock(FollowUpItem("View detailed analytics"), FollowUpItem("Create new post"), FollowUpItem("Manage collaborations"))

@@ -1,0 +1,6 @@
+root = Card(header, locationSection, dateSection, reportProblem)
+header = CardHeader("Track Delivery")
+locationSection = Card(TextContent("Current location: **Warehouse A**", size:default))
+dateSection = Card(TextContent("Estimated delivery: **June 5, 2026**", size:default))
+reportProblem = DialogBlock("Report Issue", "Report a problem", callout, description:"If you see any issues, let us know.", triggerVariant:primary)
+callout = Callout(variant:error, "Problem", "Please describe the delivery issue.")

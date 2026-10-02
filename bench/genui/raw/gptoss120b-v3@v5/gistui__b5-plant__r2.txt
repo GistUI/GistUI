@@ -1,0 +1,108 @@
+root = Card(CardHeader("Factory Floor Supervisor Console"), andonSection, oeeSection, productionSection, defectSection, downtimeSection, maintenanceSection, stockSection, deliveriesSection, shiftOutputSection, safetySection, qualityHoldSection, energySection, workOrdersSection, exportSection)
+
+andonSection = Card(Heading("Live Andon Alerts", h3), andonTable)
+
+andonTable = Table(
+  Col("Alert", ["Machine A overload", "Line 3 stopped"], type:string),
+  Col("Severity", ["high", "medium"], type:string),
+  Col("Time", ["08:15", "09:02"], type:string)
+)
+
+oeeSection = Card(Heading("Overall Equipment Effectiveness", h3), oeeChart)
+
+oeeChart = PieChart(labels:["OEE"], values:[85], variant:donut, appearance:circular)
+
+productionSection = Card(Heading("Units Produced vs Today’s Target", h3), productionBar)
+
+productionBar = HorizontalBarChart(labels:["Produced","Target"], 
+  Series("Units", values:[7200,10000]), variant:grouped, xLabel:"Units", yLabel:"Count")
+
+defectSection = Card(Heading("Defect Rate (Past Month)", h3), defectLine)
+
+defectLine = LineChart(
+  |Date|Defect Rate
+  |2023-08-01|2.1
+  |2023-08-08|1.9
+  |2023-08-15|2.4
+  |2023-08-22|1.8
+  |2023-08-29|2.0
+  , linear, xLabel:"Date", yLabel:"%"
+)
+
+downtimeSection = Card(Heading("Downtime Split by Cause", h3), downtimePie)
+
+downtimePie = PieChart(labels:["Setup","Breakdown","Changeover","Idle"], values:[30,45,15,10], variant:pie, appearance:circular)
+
+maintenanceSection = Card(Heading("Machines Due for Maintenance", h3), maintenanceTable, scheduleForm)
+
+maintenanceTable = Table(
+  Col("Machine", ["M-101","M-205","M-312"], type:string),
+  Col("Due Date", ["2023-09-15","2023-09-20","2023-10-01"], type:string)
+)
+
+scheduleForm = Form("schedule-maint", scheduleButtons,
+  machineField,
+  dateField
+)
+
+machineField = FormControl("Machine", Select("machine", 
+  SelectItem("M-101","M-101"),
+  SelectItem("M-205","M-205"),
+  SelectItem("M-312","M-312"),
+  placeholder:"Select machine", value:"", rules:[])
+)
+
+dateField = FormControl("Date", Input("date", "YYYY-MM-DD", type:date, rules:[]))
+
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+stockSection = Card(Heading("Current Stock", h3), stockTable)
+
+stockTable = Table(
+  Col("Material", ["Steel","Resin","Packaging"], type:string),
+  Col("Quantity", [1200,800,500], type:number)
+)
+
+deliveriesSection = Card(Heading("Supplier Deliveries Due This Week", h3), deliveriesTable)
+
+deliveriesTable = Table(
+  Col("Supplier", ["Alpha Metals","Beta Plastics","Gamma Supplies"], type:string),
+  Col("Material", ["Steel","Resin","Packaging"], type:string),
+  Col("Due Date", ["2023-09-14","2023-09-15","2023-09-16"], type:string)
+)
+
+shiftOutputSection = Card(Heading("Shift Output Comparison", h3), shiftBar)
+
+shiftBar = BarChart(labels:["Shift A","Shift B","Shift C"], 
+  Series("Output", values:[3000,2800,3200]), variant:grouped, xLabel:"Shift", yLabel:"Units"
+)
+
+safetySection = Card(Heading("Safety Incidents (Year) & Days Since Last", h3), safetyInfo)
+
+safetyInfo = Card(
+  TextContent("Incidents: 4", size:large),
+  TextContent("Days since last incident: 45", size:large)
+)
+
+qualityHoldSection = Card(Heading("Batches on Quality Hold", h3), qualityTable)
+
+qualityTable = Table(
+  Col("Batch ID", ["B-001","B-017"], type:string),
+  Col("Reason", ["Surface defect","Material variance"], type:string)
+)
+
+energySection = Card(Heading("Energy Use Today", h3), energyBar)
+
+energyBar = HorizontalBarChart(labels:["Energy (kWh)"], 
+  Series("Usage", values:[560]), variant:grouped, xLabel:"kWh", yLabel:"Usage"
+)
+
+workOrdersSection = Card(Heading("Open Work Orders (Prioritized)", h3), workOrdersTable)
+
+workOrdersTable = Table(
+  Col("WO ID", ["WO-1001","WO-1002","WO-1003"], type:string),
+  Col("Priority", ["High","Medium","Low"], type:string),
+  Col("Machine", ["M-101","M-205","M-312"], type:string)
+)
+
+exportSection = Card(Buttons(Button("Export Shift Report", primary)))

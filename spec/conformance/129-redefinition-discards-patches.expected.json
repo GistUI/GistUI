@@ -1,0 +1,22 @@
+{
+  "tree": {
+    "type": "Row",
+    "props": {
+      "wrap": true
+    },
+    "children": [
+      {
+        "type": "Stat",
+        "props": {
+          "label": "new",
+          "value": "v2"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

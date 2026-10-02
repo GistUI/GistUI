@@ -1,0 +1,97 @@
+root = Card(headerRow, summaryAlert, tabsView, direction:column, gap:m)
+headerRow = Card(CardHeader("Enterprise PMO Portfolio Review", "Q3 2024 Strategic Execution & Health Dashboard"), topControls, direction:row, justify:between, align:center, variant:clear)
+topControls = Buttons(quarterSelector, staffRequestDialog, archiveDialog, exportButton, direction:row)
+quarterSelector = DrawerBlock("Quarter: Q3 2024", "Switch Portfolio Review Quarter", quarterForm, description:"Select a fiscal period to review historical or planned portfolio performance.")
+quarterForm = Form("quarter-filter-form", quarterFormBtns, quarterSelectField)
+quarterSelectField = FormControl("Fiscal Quarter", Select("quarter", SelectItem("q1_24", "Q1 2024"), SelectItem("q2_24", "Q2 2024"), SelectItem("q3_24", "Q3 2024 (Active)"), SelectItem("q4_24", "Q4 2024 (Upcoming)"), SelectItem("q1_25", "Q1 2025 (Planned)"), placeholder:"Select Quarter", value:"q3_24"))
+quarterFormBtns = Buttons(Button("Apply Quarter", primary), Button("Reset", tertiary))
+staffRequestDialog = DialogBlock("Request Headcount", "Submit Resource Allocation Request", staffForm, description:"Request additional headcount or contractor resources for critical project paths.", triggerVariant:default)
+staffForm = Form("staff-request-form", staffFormBtns, staffProjectField, roleField, countField, reasonField)
+staffProjectField = FormControl("Target Project", Select("target_project", SelectItem("alpha", "Core Banking Cloud Migration"), SelectItem("beta", "Payment Gateway Modernization"), SelectItem("gamma", "Global Identity & IAM"), SelectItem("delta", "Customer Portal Redesign"), placeholder:"Choose Project"))
+roleField = FormControl("Required Role", Select("req_role", SelectItem("be", "Senior Backend Engineer"), SelectItem("devops", "DevOps / SRE Specialist"), SelectItem("qa", "QA Automation Lead"), SelectItem("sec", "Security Architect"), placeholder:"Choose Role"))
+countField = FormControl("FTEs Needed", Input("fte_count", "e.g. 2", type:number))
+reasonField = FormControl("Business Justification & Impact", TextArea("justification", "Explain critical bottlenecks and risk if unstaffed", rows:3))
+staffFormBtns = Buttons(Button("Submit Request", primary), Button("Cancel", tertiary))
+archiveDialog = AlertDialogBlock("Archive Project", "Confirm Project Archival", "Are you sure you want to archive this completed project? All historical data will be saved to compliance cold storage and licenses will be deallocated.", confirmLabel:"Confirm Archival", cancelLabel:"Cancel", triggerVariant:outline)
+exportButton = Button("Export Portfolio Report", variant:secondary)
+summaryAlert = Alert("Portfolio Status: On Track with Selective Remediation", "Overall portfolio health is 84% on-track across 8 active initiatives; 2 high-severity risks and 3 overdue milestones require PMO intervention.", success)
+tabsView = Tabs(overviewTab, projectsTab, executionTab, risksTab)
+overviewTab = TabItem("overview", "Portfolio Overview", overviewGrid)
+overviewGrid = Card(kpiMetricsRow, chartsSplitRow, deadlinesSunk, direction:column, gap:m, variant:clear)
+kpiMetricsRow = Card(kpi1, kpi2, kpi3, kpi4, direction:row, gap:m, variant:clear)
+kpi1 = Card(TextContent("Active Projects", size:small), Heading("8 Initiatives", level:h3), Tag("6 Healthy / 2 At Risk", variant:info), variant:sunk)
+kpi2 = Card(TextContent("Total Budget Burn", size:small), Heading("$4.45M / $5.60M", level:h3), Tag("79.5% Utilized", variant:neutral), variant:sunk)
+kpi3 = Card(TextContent("Avg Team Utilization", size:small), Heading("91.4%", level:h3), Tag("Over Capacity (>85%)", variant:warning), variant:sunk)
+kpi4 = Card(TextContent("Blocked Items & Risks", size:small), Heading("4 Blocked / 7 Risks", level:h3), Tag("2 High Severity", variant:danger), variant:sunk)
+chartsSplitRow = Card(paceCard, utilCard, direction:row, gap:m, variant:clear)
+paceCard = Card(CardHeader("Delivery Velocity Pace", "Completed vs Committed Story Points (Past 6 Sprints)"), BarChart(paceTable, variant:grouped, xLabel:"Sprint", yLabel:"Story Points"), variant:card)
+utilCard = Card(CardHeader("Team Utilization by Department", "Current workload vs 100% standard allocation capacity"), HorizontalBarChart(utilTable, variant:grouped, xLabel:"Workload %", yLabel:"Department"), variant:card)
+deadlinesSunk = Card(CardHeader("Upcoming Milestones & Deadlines", "Deliverables scheduled within the next two weeks (14 days)"), Table(deadlinesTable), variant:sunk)
+projectsTab = TabItem("projects", "Active Projects & Budgets", projectsGrid)
+projectsGrid = Card(activeProjectsCard, budgetSpendCard, direction:column, gap:m, variant:clear)
+activeProjectsCard = Card(CardHeader("Active Project Portfolio", "Ownership, critical milestones, and current health status"), Table(activeProjectsTable), variant:card)
+budgetSpendCard = Card(CardHeader("Budget Allocation vs Spent to Date", "Financial consumption across active strategic programs (USD Millions)"), BarChart(budgetTable, variant:grouped, xLabel:"Project", yLabel:"Budget ($M)"), variant:sunk)
+executionTab = TabItem("execution", "Milestones & Blockers", execGrid)
+execGrid = Card(overdueCard, blockersCard, direction:column, gap:m, variant:clear)
+overdueCard = Card(CardHeader("Overdue Milestones", "Immediate PMO escalation required to reset baselines"), Table(overdueMilestonesTable), variant:card)
+blockersCard = Card(CardHeader("Blocked Work Items", "Impediments awaiting cross-functional unblocking"), Table(blockersTable), variant:sunk)
+risksTab = TabItem("risks", "Risks & Mitigations", risksGrid)
+risksGrid = Card(risksCard, riskRadarCard, direction:row, gap:m, variant:clear)
+risksCard = Card(CardHeader("Identified Project Risks", "Active risk registry categorized by severity level and mitigation strategy"), Table(risksTable), variant:card)
+riskRadarCard = Card(CardHeader("Risk Exposure Across Domains", "Normalized risk profile (0 - 100)"), RadarChart(riskRadarTable), variant:sunk)
+paceTable = |Sprint|Committed:n|Delivered:n
+|Sprint 19|140|132
+|Sprint 20|145|141
+|Sprint 21|150|128
+|Sprint 22|155|150
+|Sprint 23|160|158
+|Sprint 24|165|149
+utilTable = |Department|UtilizationPct:n
+|Cloud Platform|108
+|Frontend Eng|94
+|Backend Core|102
+|QA & Release|86
+|Data Science|78
+|Security / IAM|114
+deadlinesTable = |Deliverable|Project|Owner|Due Date|Status
+|Staging Penetration Test|Core Banking Cloud|Elena Rostova|Oct 18, 2024|On Track
+|Merchant API v3 Beta|Payment Modernization|Marcus Vance|Oct 21, 2024|In Review
+|SSO Provider Cutover|Global Identity|Sarah Chen|Oct 24, 2024|At Risk
+|Design Token Freeze|Customer Portal|Aisha Patel|Oct 27, 2024|On Track
+|Data Lake Ingestion V2|Enterprise Data Lake|Devon Blake|Oct 29, 2024|On Track
+activeProjectsTable = |Project Name|Owner|Target Deadline|Budget Status|Overall Health
+|Core Banking Cloud Migration|Elena Rostova|Nov 30, 2024|On Budget|Good
+|Payment Gateway Modernization|Marcus Vance|Dec 15, 2024|Over Budget|At Risk
+|Global Identity & IAM Hub|Sarah Chen|Jan 20, 2025|On Budget|Critical
+|Customer Portal Redesign|Aisha Patel|Nov 15, 2024|Under Budget|Good
+|Enterprise Data Lake|Devon Blake|Feb 28, 2025|On Budget|Good
+|Regulatory Compliance Engine|Mateo Garcia|Dec 05, 2024|On Budget|Good
+|Mobile App 4.0 Overhaul|Liam Nguyen|Jan 15, 2025|Over Budget|At Risk
+|Supply Chain Integration API|Carlos Ruiz|Oct 31, 2024|Completed|Finished
+budgetTable = |Project|AllocatedBudget:n|SpentBudget:n
+|Core Banking|1.80|1.52
+|Payment Gateway|1.20|1.18
+|Identity & IAM|0.95|0.74
+|Customer Portal|0.65|0.42
+|Data Lake|1.00|0.59
+overdueMilestonesTable = |Milestone|Project|Owner|Original Baseline|Days Overdue|PMO Note
+|FedRAMP Audit Signoff|Core Banking Cloud|Elena Rostova|Sep 30, 2024|14 Days|Auditor pending SOC2 bridge letter
+|PCI-DSS L1 Tokenization|Payment Gateway|Marcus Vance|Oct 05, 2024|9 Days|Third-party validator delay
+|Active Directory Federation|Global Identity|Sarah Chen|Oct 08, 2024|6 Days|Infra team access dependency
+blockersTable = |Work Item Key|Summary|Affected Project|Assignee|Blocker Reason|Impact Level
+|BLK-309|Legacy mainframe sync failing under load|Core Banking Cloud|Vikram Sen|Staging environment timeout limit|Critical
+|BLK-284|Missing VISA sandbox encryption keys|Payment Gateway|Chloe Dupont|Vendor ticketing turnaround delay|High
+|BLK-411|OAuth2 token expiry mismatch in iOS|Customer Portal|Jordan Miles|Security approval pending review|Medium
+|BLK-198|Kafka partition lag on compliance pipeline|Regulatory Compliance|Mateo Garcia|Awaiting cluster node scaling|High
+risksTable = |Risk Description|Project|Severity|Impact|Mitigation Strategy
+|Legacy data format incompatibilities|Core Banking Cloud|High|Timeline Slip|Automated ETL migration scripts
+|Card network certification delay|Payment Gateway|High|Financial Penalty|Contracted external compliance consultant
+|Key engineer single point of failure|Global Identity|Medium|Execution Speed|Initiated cross-training & pair programming
+|Mobile SDK third-party deprecation|Mobile App 4.0|Medium|Rework Effort|Upgrading to modular wrapper architecture
+|EU data sovereignty compliance changes|Enterprise Data Lake|Low|Scope Change|Legal team reviewing data partitioning spec
+riskRadarTable = |Category|CoreBanking:n|PaymentMod:n|IdentityIAM:n
+|Technical Debt|78|65|85
+|Compliance Risk|85|90|70
+|Resource Crunch|70|80|92
+|Schedule Pressure|60|88|80
+|Vendor Dependency|75|85|45

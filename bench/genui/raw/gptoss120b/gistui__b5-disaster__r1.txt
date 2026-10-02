@@ -1,0 +1,80 @@
+root = Card(CardHeader("Emergency Response Coordination Center"), incidentsSection, summarySection, resourcesSection, sheltersSection, routesSection, weatherSection, rescueSection, volunteersSection, donationsSection, aidRequestsSection, commsSection, roadsSection, hospitalsSection, tasksSection, requestResourcesForm, broadcastForm, focusZoneForm, situationReportForm)
+
+incidentsSection = Card(Heading("Active Incidents by Zone", h3), Table(incidentsZone, incidentsSeverity, incidentsDesc))
+incidentsZone = Col("Zone", data:["North","South","East","West"])
+incidentsSeverity = Col("Severity", data:["High","Medium","Low","Medium"], type:string)
+incidentsDesc = Col("Description", data:["Fire in forest","Flooding","Power outage","Chemical leak"], type:string)
+
+summarySection = Card(Heading("Overall Severity Summary", h3), PieChart(severityLabels, severityValues, donut))
+severityLabels = ["High","Medium","Low"]
+severityValues = [12,7,3]
+
+resourcesSection = Card(Heading("Vehicles, Personnel & Supplies Available", h3), Table(vehiclesCol, personnelCol, suppliesCol))
+vehiclesCol = Col("Vehicles", data:["Ambulance","Fire Truck","Helicopter"], type:string)
+personnelCol = Col("Personnel", data:[45,30,12], type:number)
+suppliesCol = Col("Supplies", data:["Medical kits","Food packs","Water"], type:string)
+
+sheltersSection = Card(Heading("Shelters Capacity & Occupancy", h3), Table(shelterName, shelterCap, shelterOcc))
+shelterName = Col("Shelter", data:["Center A","Center B","Center C"], type:string)
+shelterCap = Col("Capacity", data:[200,150,300], type:number)
+shelterOcc = Col("Occupancy", data:[180,120,250], type:number)
+
+routesSection = Card(Heading("Evacuation Route Status", h3), Table(routeName, routeStatus))
+routeName = Col("Route", data:["Route 1","Route 2","Route 3"], type:string)
+routeStatus = Col("Status", data:["Open","Closed","Restricted"], type:string)
+
+weatherSection = Card(Heading("48‑Hour Weather Forecast", h3), Table(forecastTime, forecastTemp, forecastCond))
+forecastTime = Col("Time", data:["Now","6h","12h","18h","24h","30h","36h","42h","48h"], type:string)
+forecastTemp = Col("Temp (°C)", data:[22,20,18,17,19,21,23,24,22], type:number)
+forecastCond = Col("Condition", data:["Clear","Cloudy","Rain","Rain","Cloudy","Clear","Clear","Clear","Clear"], type:string)
+
+rescueSection = Card(Heading("People Rescued & Casualties", h3), Table(rescueMetric, rescueValue))
+rescueMetric = Col("Metric", data:["Rescued","Casualties"], type:string)
+rescueValue = Col("Count", data:[342,27], type:number)
+
+volunteersSection = Card(Heading("Volunteers On Duty", h3), Table(volName, volAssign))
+volName = Col("Volunteer", data:["Alice","Bob","Carlos"], type:string)
+volAssign = Col("Assignment", data:["Triage","Logistics","Search"], type:string)
+
+donationsSection = Card(Heading("Donations Received", h3), Table(donationSource, donationAmt))
+donationSource = Col("Source", data:["Corp A","Individual B","NGO C"], type:string)
+donationAmt = Col("Amount ($)", data:[50000,12000,30000], type:number)
+
+aidRequestsSection = Card(Heading("Aid Requests Awaiting Action", h3), Table(requestId, requestType, requestQty))
+requestId = Col("ID", data:["REQ-001","REQ-002","REQ-003"], type:string)
+requestType = Col("Type", data:["Food","Medical","Shelter"], type:string)
+requestQty = Col("Quantity", data:[200,150,50], type:number)
+
+commsSection = Card(Heading("Communication Channels Status", h3), Table(channelName, channelStatus))
+channelName = Col("Channel", data:["Radio","Satellite","Cellular","Internet"], type:string)
+channelStatus = Col("Status", data:["Up","Up","Down","Up"], type:string)
+
+roadsSection = Card(Heading("Roads Closed", h3), Table(roadName, roadReason))
+roadName = Col("Road", data:["Highway 5","Main St"], type:string)
+roadReason = Col("Reason", data:["Landslide","Flood"], type:string)
+
+hospitalsSection = Card(Heading("Nearby Hospitals with Free Beds", h3), Table(hospitalName, freeBeds))
+hospitalName = Col("Hospital", data:["General Hospital","City Clinic"], type:string)
+freeBeds = Col("Free Beds", data:[12,5], type:number)
+
+tasksSection = Card(Heading("Open Tasks", h3), Table(taskId, taskDesc, taskAssignee))
+taskId = Col("Task ID", data:["T-101","T-102"], type:string)
+taskDesc = Col("Description", data:["Set up triage area","Distribute supplies"], type:string)
+taskAssignee = Col("Assignee", data:["Team Alpha","Team Beta"], type:string)
+
+requestResourcesForm = Card(Heading("Request More Resources", h3), Form("resource-request", requestResButtons, resTypeField, resQtyField))
+resTypeField = FormControl("Resource Type", Select("resource_type", SelectItem("vehicle","Vehicle"), SelectItem("personnel","Personnel"), SelectItem("supply","Supply"), placeholder:"Select type"))
+resQtyField = FormControl("Quantity", Input("resource_qty", "Enter number", "", number))
+requestResButtons = Buttons(Button("Submit Request", primary))
+
+broadcastForm = Card(Heading("Broadcast Update", h3), Form("broadcast-update", broadcastButtons, broadcastMsgField))
+broadcastMsgField = FormControl("Message", TextArea("broadcast_msg", "Enter update...", "", 4))
+broadcastButtons = Buttons(Button("Send Broadcast", primary))
+
+focusZoneForm = Card(Heading("Focus on Zone", h3), Form("focus-zone", focusButtons, focusZoneSelect))
+focusZoneSelect = FormControl("Zone", Select("zone_select", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Choose zone"))
+focusButtons = Buttons(Button("Focus", primary))
+
+situationReportForm = Card(Heading("File Situation Report", h3), Form("situation-report", reportButtons, reportTextField))
+reportTextField = FormControl("Report", TextArea("report_text", "Enter report...", "", 6))
+reportButtons = Buttons(Button("Submit Report", primary))

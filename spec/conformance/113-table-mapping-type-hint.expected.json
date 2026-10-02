@@ -1,0 +1,40 @@
+{
+  "tree": {
+    "type": "Plot",
+    "props": {
+      "labels": [
+        "Ada"
+      ],
+      "totals": [
+        1200
+      ]
+    },
+    "children": [
+      {
+        "type": "Series",
+        "props": {
+          "category": "Spend",
+          "values": [
+            1200
+          ],
+          "kind": "number"
+        }
+      },
+      {
+        "type": "Series",
+        "props": {
+          "category": "Code",
+          "values": [
+            7
+          ],
+          "kind": "string"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

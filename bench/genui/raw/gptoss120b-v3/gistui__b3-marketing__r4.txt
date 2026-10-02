@@ -1,0 +1,69 @@
+root = Card(dashboardHeader, dateFilter, visitorsChart, conversionCallout, trafficPie, campaignsSection, bestCampaignCallout, subscriberChart, exportButtons, gap:m)
+
+dashboardHeader = CardHeader("Weekly Marketing Dashboard", "Last 30 days")
+
+dateFilter = Form("date-range", filterButtons, startDate, endDate)
+startDate = FormControl("Start date", DatePicker("start", mode:single, value:["2024-09-01"]))
+endDate = FormControl("End date", DatePicker("end", mode:single, value:["2024-09-30"]))
+filterButtons = Buttons(Button("Apply", primary), Button("Reset", secondary), direction:row)
+
+visitorsChart = Card(Heading("Site Visitors", h3), LineChart(visitorsData, linear, xLabel:"Date", yLabel:"Visitors"))
+
+visitorsData = |Date|Visitors
+|2024-09-01|1240
+|2024-09-02|1385
+|2024-09-03|1302
+|2024-09-04|1420
+|2024-09-05|1510
+|2024-09-06|1495
+|2024-09-07|1602
+|2024-09-08|1580
+|2024-09-09|1650
+|2024-09-10|1705
+|2024-09-11|1680
+|2024-09-12|1750
+|2024-09-13|1802
+|2024-09-14|1785
+|2024-09-15|1850
+|2024-09-16|1900
+|2024-09-17|1885
+|2024-09-18|1950
+|2024-09-19|2000
+|2024-09-20|1985
+|2024-09-21|2050
+|2024-09-22|2100
+|2024-09-23|2085
+|2024-09-24|2150
+|2024-09-25|2200
+|2024-09-26|2185
+|2024-09-27|2250
+|2024-09-28|2300
+|2024-09-29|2285
+|2024-09-30|2350
+
+conversionCallout = TextCallout("Conversion Rate", "2.8 % of visitors completed a goal", variant:info)
+
+trafficPie = Card(Heading("Top 5 Traffic Sources", h3), PieChart(trafficLabels, trafficValues, donut, appearance:circular))
+
+trafficLabels = ["Organic Search","Paid Search","Social","Referral","Email"]
+trafficValues = [45,25,15,10,5]
+
+campaignsSection = Card(Heading("Running Campaigns", h3), campaignsTable)
+
+campaignsTable = Table(campaignCol, spendCol)
+
+campaignCol = Col("Campaign", data:["Summer Sale","Brand Awareness","Retargeting","Email Blast","Influencer"], type:string)
+spendCol = Col("Spend (USD)", data:[1200,800,950,400,650], type:number)
+
+bestCampaignCallout = Callout(variant:success, "Best Performing Campaign", "Summer Sale – 32 % conversion, $1,200 spend")
+
+subscriberChart = Card(Heading("Email Subscriber Growth", h3), BarChart(subscriberData, grouped, xLabel:"Date", yLabel:"Subscribers"))
+
+subscriberData = |Date|New Subscribers
+|2024-09-01|45
+|2024-09-08|60
+|2024-09-15|55
+|2024-09-22|70
+|2024-09-29|80
+
+exportButtons = Buttons(Button("Export PDF", primary), Button("Export CSV", secondary))

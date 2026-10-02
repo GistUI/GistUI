@@ -1,0 +1,26 @@
+{
+  "tree": {
+    "type": "Table",
+    "props": {
+      "data": {
+        "table": [
+          "A:n",
+          "A:n",
+          ":n"
+        ],
+        "rows": [
+          [
+            1,
+            2,
+            3
+          ]
+        ]
+      }
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

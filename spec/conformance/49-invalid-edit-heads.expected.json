@@ -1,0 +1,21 @@
+{
+  "tree": {
+    "type": "Row"
+  },
+  "errors": [
+    {
+      "code": "parse-failed",
+      "severity": "error",
+      "line": 1
+    },
+    {
+      "code": "parse-failed",
+      "severity": "error",
+      "line": 2
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

@@ -1,0 +1,39 @@
+root = Card(header, metricsSection, filterForm, recentOrdersSection, volumeChartSection, variant:card, gap:m, align:start, justify:start)
+
+header = CardHeader("E‑commerce Operations Desk")
+
+metricsSection = Card(Heading("Key Metrics", h3), ordersCard, revenueCard, aovCard, refundCard, variant:clear, gap:s, direction:row, wrap)
+
+ordersCard = CardHeader("Orders placed today", "123")
+revenueCard = CardHeader("Revenue today", "$4,560")
+aovCard = CardHeader("Average order value", "$37.2")
+refundCard = CardHeader("Refund rate this month", "2.3%")
+
+filterForm = Form("order-filters", filterButtons, statusControl, searchControl, variant:clear)
+
+filterButtons = Buttons(Button("Apply", primary))
+
+statusControl = FormControl("Status", statusSelect)
+statusSelect = Select("status", SelectItem("all","All"), SelectItem("pending","Pending"), SelectItem("shipped","Shipped"), SelectItem("refunded","Refunded"), placeholder:"Status", value:"all", size:sm)
+
+searchControl = FormControl("Customer name", Input("customer_search", "Search name...", "", type:text))
+
+recentOrdersSection = Card(Heading("Recent Orders", h3), recentTable, variant:clear)
+
+recentTable = Table(idCol, custCol, totalCol, statusCol, actionCol)
+
+idCol = Col("Order ID", ["#1001","#1002","#1003"], type:string)
+custCol = Col("Customer", ["Alice","Bob","Charlie"], type:string)
+totalCol = Col("Total", ["$45","$120","$78"], type:string)
+statusCol = Col("Status", ["Pending","Shipped","Pending"], type:string)
+actionCol = Col("Action", ["Mark fulfilled","Mark fulfilled","Mark fulfilled"], type:action)
+
+volumeChartSection = Card(Heading("Order Volume (Last 4 weeks)", h3), volumeChart, variant:clear)
+
+volumeChart = BarChart(volumeData, variant:grouped, xLabel:"Week", yLabel:"Orders")
+
+volumeData = |Week|Orders
+|W1|120
+|W2|150
+|W3|130
+|W4|160

@@ -1,0 +1,28 @@
+{
+  "tree": {
+    "type": "Stat",
+    "props": {
+      "label": "a",
+      "delta": "c"
+    }
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "missing-required",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

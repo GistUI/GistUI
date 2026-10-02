@@ -1,0 +1,74 @@
+root = Card(header, controls, revenueCard, costsCard, profitCard, revenueChart, costsChart, budgetTable, headcountTable, risksCard, initiativesCard, runwayCard, pipelineCard, winRateCard, customersCard, npsCard, itemsCard, exportBtn)
+
+header = CardHeader("Quarterly Executive Dashboard", "Select quarter and region")
+
+controls = Card(quarterSelect, regionSelect)
+
+quarterSelect = FormControl("Quarter", Select("quarter", SelectItem("Q1", "Q1"), SelectItem("Q2", "Q2"), SelectItem("Q3", "Q3"), SelectItem("Q4", "Q4"), placeholder:"Select quarter"))
+
+regionSelect = FormControl("Region", Select("region", SelectItem("Americas", "Americas"), SelectItem("EMEA", "EMEA"), SelectItem("APAC", "APAC"), placeholder:"Select region"))
+
+revenueCard = Card(CardHeader("Revenue"), TextContent("$12.4M", size:large), sunk)
+
+costsCard = Card(CardHeader("Costs"), TextContent("$8.7M", size:large), sunk)
+
+profitCard = Card(CardHeader("Profit"), TextContent("$3.7M", size:large), sunk)
+
+revenueChart = Card(CardHeader("Revenue Over Four Quarters"), LineChart(revenueRows, linear, xLabel:"Quarter", yLabel:"Revenue"))
+
+costsChart = Card(CardHeader("Costs Over Four Quarters"), LineChart(costRows, linear, xLabel:"Quarter", yLabel:"Costs"))
+
+budgetTable = Card(CardHeader("Budget vs Plan by Department"), Table(deptCol, budgetCol, planCol, varianceCol))
+
+deptCol = Col("Department", data:["Engineering","Marketing","Sales","Customer Success"], type:string)
+budgetCol = Col("Budget", data:[5000000,2000000,2500000,1500000], type:number)
+planCol = Col("Plan", data:[4500000,2200000,2600000,1400000], type:number)
+varianceCol = Col("Variance", data:[500000, -200000, -100000, 100000], type:number)
+
+headcountTable = Card(CardHeader("Headcount by Department"), Table(deptCol2, headcountCol))
+
+deptCol2 = Col("Department", data:["Engineering","Marketing","Sales","Customer Success"], type:string)
+headcountCol = Col("Headcount", data:[120,45,60,30], type:number)
+
+risksCard = Card(CardHeader("Top Risks"), Table(riskCol, ownerCol))
+
+riskCol = Col("Risk", data:["Supply chain disruption","Regulatory change","Talent shortage"], type:string)
+ownerCol = Col("Owner", data:["Logistics VP","Legal Counsel","HR Director"], type:string)
+
+initiativesCard = Card(CardHeader("Strategic Initiatives"), Table(initCol, statusCol))
+
+initCol = Col("Initiative", data:["Launch New Product","Expand into APAC","Upgrade Core Platform"], type:string)
+statusCol = Col("Status", data:["On Track","Delayed","Completed"], type:string)
+
+runwayCard = Card(CardHeader("Months of Runway"), TextContent("14 months", size:large))
+
+pipelineCard = Card(CardHeader("Sales Pipeline Value"), TextContent("$9.3M", size:large))
+
+winRateCard = Card(CardHeader("Win Rate"), TextContent("27%", size:large))
+
+customersCard = Card(CardHeader("Customers & Churn"), Table(custCol, churnCol))
+
+custCol = Col("Customers", data:[3400], type:number)
+churnCol = Col("Churn Rate", data:["5%"], type:string)
+
+npsCard = Card(CardHeader("Net Promoter Score"), TextContent("68", size:large))
+
+itemsCard = Card(CardHeader("Items for Next Board Meeting"), ListBlock(item1, item2, item3, variant:number))
+
+item1 = ListItem("Approve FY budget")
+item2 = ListItem("Review risk mitigation plan")
+item3 = ListItem("Set Q3 targets")
+
+exportBtn = Buttons(Button("Export Pack", primary))
+
+revenueRows = |Quarter|Revenue
+|Q1|3.1M
+|Q2|3.0M
+|Q3|3.2M
+|Q4|3.1M
+
+costRows = |Quarter|Costs
+|Q1|2.2M
+|Q2|2.1M
+|Q3|2.3M
+|Q4|2.1M

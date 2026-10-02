@@ -1,0 +1,41 @@
+root = Card(CardHeader("Editor Content Studio"), draftsSection, publishedSection, mostReadSection, readershipSection, filterSection, scheduleSection, commentsSection, newDraftSection)
+
+draftsSection = Card(Heading("Drafts", h2), draftsTable)
+publishedSection = Card(Heading("Published This Week", h2), publishedTable)
+mostReadSection = Card(Heading("Most-Read Article This Month", h2), mostReadCard)
+readershipSection = Card(Heading("Readership (Last 30 Days)", h2), readershipChart)
+filterSection = Card(Heading("Filter by Category", h2), filterForm)
+scheduleSection = Card(Heading("Schedule a Piece", h2), scheduleForm)
+commentsSection = Card(Heading("Comments Awaiting Reply", h2), commentsTable)
+newDraftSection = Card(Heading("Create New Draft", h2), newDraftButton)
+
+mostReadCard = Card(Heading("AI Revolution", h3), TextContent("12,345 reads", size:large))
+readershipChart = LineChart(readershipRows, linear, xLabel:"Date", yLabel:"Readers")
+filterForm = Form("filter", filterButtons, categoryField)
+categoryField = FormControl("Category", categorySelect)
+categorySelect = Select("category", SelectItem("Tech", "Tech"), SelectItem("Lifestyle", "Lifestyle"), SelectItem("News", "News"), placeholder:"All categories")
+filterButtons = Buttons(Button("Apply", primary))
+scheduleForm = Form("schedule", scheduleButtons, titleField, dateField)
+titleField = FormControl("Title", Input("title", "Enter title"))
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single))
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+newDraftButton = Button("New Draft", primary)
+
+draftsTable = |Draft|Status
+|Intro to AI|Draft
+|Weekly Digest|In Review
+
+publishedTable = |Title|Date
+|AI Trends|2023-09-20
+|Design Tips|2023-09-22
+
+commentsTable = |Comment|Author|Date
+|Great article!|Alice|2023-09-28
+|Need clarification|Bob|2023-09-29
+
+readershipRows = |Date|Readers
+|2023-09-01|1200
+|2023-09-08|1500
+|2023-09-15|1800
+|2023-09-22|2100
+|2023-09-30|2500

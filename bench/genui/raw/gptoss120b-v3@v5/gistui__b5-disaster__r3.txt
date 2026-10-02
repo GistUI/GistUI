@@ -1,0 +1,94 @@
+root = Card(incidentsSection, summarySection, assetsSection, sheltersSection, routesSection, weatherSection, statsSection, volunteersSection, donationsSection, aidRequestsSection, commsSection, roadsClosedSection, hospitalsSection, tasksSection, requestResourcesSection, broadcastSection, focusZoneSection, reportSection)
+
+incidentsSection = Card(Heading("Active Incidents by Zone", h2), incidentsTable, sunk)
+incidentsTable = |Zone|Incident|Severity|
+|North|Fire|High|
+|East|Flood|Medium|
+|South|Power Outage|Low|
+
+summarySection = Card(Heading("Overall Severity Summary", h2), severityChart, sunk)
+severityChart = PieChart(labels:["High","Medium","Low"], values:[3,5,2], donut)
+
+assetsSection = Card(Heading("Resources Available", h2), assetsTable, sunk)
+assetsTable = |Resource|Available|
+|Vehicles|12|
+|Personnel|45|
+|Supplies|200 units|
+
+sheltersSection = Card(Heading("Shelters Capacity", h2), sheltersTable, sunk)
+sheltersTable = |Shelter|Capacity|Occupancy|
+|Shelter A|100|75|
+|Shelter B|150|120|
+|Shelter C|80|60|
+
+routesSection = Card(Heading("Evacuation Routes Status", h2), routesTable, sunk)
+routesTable = |Route|Status|
+|Route 1|Open|
+|Route 2|Closed|
+|Route 3|Open|
+
+weatherSection = Card(Heading("48‑Hour Weather Forecast", h2), weatherChart, sunk)
+weatherChart = LineChart(labels:["Now","12h","24h","36h","48h"], Series("Temp (°C)", values:[22,24,26,25,23]), linear, xLabel:"Time", yLabel:"Temp (°C)")
+
+statsSection = Card(Heading("Rescues & Casualties", h2), statsTable, sunk)
+statsTable = |Metric|Count|
+|People Rescued|340|
+|Casualties|12|
+
+volunteersSection = Card(Heading("Volunteers on Duty", h2), volunteersTable, sunk)
+volunteersTable = |Volunteer|Assignment|
+|Alice|Medical|
+|Bob|Logistics|
+|Carol|Search|
+
+donationsSection = Card(Heading("Donations Received", h2), donationsTable, sunk)
+donationsTable = |Donor|Amount|
+|Company X|$5,000|
+|Individual Y|$300|
+
+aidRequestsSection = Card(Heading("Aid Requests Awaiting Action", h2), aidRequestsTable, sunk)
+aidRequestsTable = |Request ID|Type|Quantity|Status|
+|REQ-001|Food|200|Pending|
+|REQ-002|Water|500L|Pending|
+
+commsSection = Card(Heading("Communication Channels", h2), commsTable, sunk)
+commsTable = |Channel|Status|
+|Radio|Up|
+|Satellite|Down|
+|Cellular|Up|
+
+roadsClosedSection = Card(Heading("Roads Closed", h2), roadsClosedTable, sunk)
+roadsClosedTable = |Road|Reason|
+|Highway 5|Landslide|
+|Main St|Flood|
+
+hospitalsSection = Card(Heading("Nearby Hospitals Free Beds", h2), hospitalsTable, sunk)
+hospitalsTable = |Hospital|Free Beds|
+|General Hospital|12|
+|City Clinic|5|
+
+tasksSection = Card(Heading("Open Tasks", h2), tasksTable, sunk)
+tasksTable = |Task|Assignee|Priority|
+|Set up triage|Alice|High|
+|Distribute supplies|Bob|Medium|
+
+requestResourcesSection = Card(Heading("Request More Resources", h2), requestForm)
+requestForm = Form("resource-request", requestButtons, typeField, quantityField)
+typeField = FormControl("Resource Type", Select("type", SelectItem("Vehicle","Vehicle"), SelectItem("Supply","Supply"), placeholder:"Select type"))
+quantityField = FormControl("Quantity", Input("quantity", "Enter number", , number))
+requestButtons = Buttons(Button("Submit request", primary))
+
+broadcastSection = Card(Heading("Broadcast Update", h2), broadcastForm)
+broadcastForm = Form("broadcast", broadcastButtons, messageField)
+messageField = FormControl("Message", TextArea("message", "Enter update...", , 4))
+broadcastButtons = Buttons(Button("Send", primary), Button("Cancel", tertiary))
+
+focusZoneSection = Card(Heading("Focus on Zone", h2), focusForm)
+focusForm = Form("focus-zone", focusButtons, zoneSelect)
+zoneSelect = FormControl("Select Zone", Select("zone", SelectItem("North","North"), SelectItem("East","East"), SelectItem("South","South"), placeholder:"Choose zone"))
+focusButtons = Buttons(Button("Focus", primary), Button("Cancel", tertiary))
+
+reportSection = Card(Heading("File Situation Report", h2), reportForm)
+reportForm = Form("situation-report", reportButtons, reportField)
+reportField = FormControl("Report", TextArea("report", "Enter report...", , 6))
+reportButtons = Buttons(Button("Submit report", primary), Button("Cancel", tertiary))

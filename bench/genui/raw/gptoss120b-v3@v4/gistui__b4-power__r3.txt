@@ -1,0 +1,66 @@
+root = Card(header, loadCard, capacityCard, generationCard, plantsCard, outagesCard, forecastCard, priceCard, maintenanceCard, alertsCard, controlsCard, emissionsCard)
+header = CardHeader("Network Operations Console", "Real‑time overview")
+loadCard = Card(Heading("Current Load", level:h2), TextContent("1,250 MW", size:large))
+capacityCard = Card(Heading("Capacity Utilization", level:h2), TextContent("83% of 1,500 MW capacity", size:default))
+generationCard = Card(Heading("Generation Mix", level:h2), genBarChart)
+genBarChart = BarChart(genRows, variant:grouped, xLabel:"Source", yLabel:"MW")
+plantsCard = Card(Heading("Plant Output & Status", level:h2), plantsTable)
+outagesCard = Card(Heading("Outages", level:h2), outagesList)
+forecastCard = Card(Heading("Demand Forecast (24h)", level:h2), demandLineChart)
+priceCard = Card(Heading("Current Price", level:h2), TextContent("$45/MWh", size:large))
+maintenanceCard = Card(Heading("Planned Maintenance (This Month)", level:h2), maintenanceTable)
+alertsCard = Card(Heading("Live Alerts", level:h2), alert1, alert2, alert3)
+controlsCard = Card(Heading("Controls", level:h2), regionSelect, curtailForm)
+emissionsCard = Card(Heading("Emissions Today", level:h2), TextContent("350 tCO₂", size:large))
+alert1 = Callout(variant:warning, "Line overload", "Sector 3 approaching limit")
+alert2 = Callout(variant:info, "Voltage dip", "Southern grid voltage dip detected")
+alert3 = Callout(variant:error, "Generator trip", "Coal Plant C offline")
+regionSelect = Select("region_focus", SelectItem("North", "North"), SelectItem("South", "South"), SelectItem("East", "East"), SelectItem("West", "West"), placeholder:"Select region", size:medium)
+curtailForm = Form("curtail-order", formButtons, amountControl, reasonControl)
+formButtons = Buttons(Button("Submit curtailment", primary), Button("Cancel", secondary))
+amountControl = FormControl("Curtailment amount (MW)", Input("amount", "Enter MW", type:number))
+reasonControl = FormControl("Reason", Input("reason", "e.g., overload", type:text))
+genRows = |Source|MW
+|Solar|300
+|Wind|400
+|Coal|200
+|Hydro|250
+|Nuclear|100
+plantsTable = Table(plantCol, outputCol, statusCol)
+plantCol = Col("Plant", ["Solar Farm A","Wind Farm B","Coal Plant C","Hydro Plant D","Nuclear Plant E"], string)
+outputCol = Col("Output (MW)", [300,400,200,250,100], number)
+statusCol = Col("Status", ["Online","Online","Maintenance","Online","Online"], string)
+outagesList = ListBlock(outage1, outage2, outage3, variant:number)
+outage1 = ListItem("North Region", "Transformer failure at substation 12")
+outage2 = ListItem("East Region", "Line fault affecting 5,000 customers")
+outage3 = ListItem("South Region", "Planned shutdown for maintenance")
+forecastRows = |Hour|Forecast MW
+|00:00|1300
+|01:00|1280
+|02:00|1270
+|03:00|1260
+|04:00|1255
+|05:00|1265
+|06:00|1280
+|07:00|1305
+|08:00|1330
+|09:00|1350
+|10:00|1365
+|11:00|1380
+|12:00|1390
+|13:00|1385
+|14:00|1370
+|15:00|1360
+|16:00|1355
+|17:00|1340
+|18:00|1325
+|19:00|1310
+|20:00|1300
+|21:00|1295
+|22:00|1290
+|23:00|1285
+demandLineChart = LineChart(forecastRows, variant:linear, xLabel:"Hour", yLabel:"MW")
+maintenanceTable = Table(maintPlantCol, maintDateCol, maintDetailCol)
+maintPlantCol = Col("Plant", ["Wind Farm B","Coal Plant C"], string)
+maintDateCol = Col("Date", ["2023-09-15","2023-09-20"], string)
+maintDetailCol = Col("Details", ["Blade inspection","Boiler cleaning"], string)

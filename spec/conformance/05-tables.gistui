@@ -1,0 +1,7 @@
+# Pipe tables: header hints, separator rows, escaped pipes, numeric stripping, raw text kept.
+root = Stack(Table(t), Chart(t, type:line))
+t = |Month|Revenue|Code:s|Note
+|---|---:|---|---|
+|Apr|$84,500|007|a \| b
+|May|€87,200.50|008|
+|Jun|n/a|009|(open

@@ -1,0 +1,45 @@
+root = Card(accountHeader, totalDeal, currentStage, recentActivity, contactsTable, followUpsTable, noteForm, renewalCallout, logCallButton)
+
+accountHeader = CardHeader("Acme Corp", "Owner: Jane Doe")
+
+totalDeal = Card(Tag("Total Deal: $1.2M", success))
+
+currentStage = Card(Tag("Stage: Negotiation", info))
+
+recentActivity = Card(Heading("Recent Activity", h3), activityList)
+
+activityList = ListBlock(
+  ListItem("Call with prospect", "Discussed pricing", "View", []),
+  ListItem("Email sent", "Sent proposal PDF", "Open", []),
+  ListItem("Meeting scheduled", "Demo on 2023-09-15", "Details", [])
+, variant:number)
+
+contactsTable = Card(Heading("Contacts", h3), 
+  Table(
+    Col("Name", data:["Alice Smith","Bob Johnson"], type:string),
+    Col("Role", data:["Decision Maker","Technical Lead"], type:string)
+  )
+)
+
+followUpsTable = Card(Heading("Open Follow‑ups", h3),
+  Table(
+    Col("Task", data:["Send contract","Prepare ROI analysis"], type:string),
+    Col("Due Date", data:["2023-09-20","2023-09-22"], type:string)
+  )
+)
+
+noteForm = Card(Heading("Add a Note", h3),
+  Form("note-form", noteButtons,
+    FormControl("Note", TextArea("note", "", "", 4))
+  )
+)
+
+noteButtons = Buttons(Button("Save", primary))
+
+renewalCallout = Card(
+  Callout(variant:warning, "Renewal Approaching", "Renewal date: 2023-10-05")
+)
+
+logCallButton = Card(
+  Buttons(Button("Log Call", primary))
+)

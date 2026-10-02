@@ -1,0 +1,13 @@
+{
+  "tree": null,
+  "errors": [
+    {
+      "code": "no-root",
+      "severity": "error"
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

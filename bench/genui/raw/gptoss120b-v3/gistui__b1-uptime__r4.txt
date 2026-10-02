@@ -1,0 +1,4 @@
+root = Card(uptimeCard, incidentCard)
+uptimeCard = Card(CardHeader("API Uptime","This month"), TextContent("**99.97%** uptime",size:large))
+incidentCard = Card(CardHeader("Recent Incident"), incidentCallout)
+incidentCallout = Callout(variant:warning,"Database latency spike","Resolved 2 hours ago: switched to read replica")

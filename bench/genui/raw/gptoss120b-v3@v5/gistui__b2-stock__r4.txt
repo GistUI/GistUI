@@ -1,0 +1,15 @@
+root = Card(searchForm, lowList, follow)
+
+searchForm = Form("search", searchButtons, searchField)
+
+searchField = FormControl("Search items", Input("query", placeholder:"Item name or SKU"))
+
+searchButtons = Buttons(Button("Search"))
+
+lowList = ListBlock(lowItem1, lowItem2, lowItem3, variant:number)
+
+lowItem1 = ListItem("Widget A", "Remaining: 5 (threshold 10)", "Reorder")
+lowItem2 = ListItem("Gadget B", "Remaining: 2 (threshold 8)", "Reorder")
+lowItem3 = ListItem("Doohickey C", "Remaining: 1 (threshold 5)", "Reorder")
+
+follow = FollowUpBlock(FollowUpItem("View all inventory"), FollowUpItem("Set new thresholds"))

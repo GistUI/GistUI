@@ -1,0 +1,4 @@
+root = Card(CardHeader("Most urgent task", "Deadline: Today, 5:00 PM"), taskTitle, statusRow, actions)
+taskTitle = TextContent("### Prepare Q3 report", large)
+statusRow = Card(Tag("In progress", warning), direction:row, gap:s, align:center, variant:clear)
+actions = Buttons(Button("Mark as done", primary))

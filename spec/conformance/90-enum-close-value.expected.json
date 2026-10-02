@@ -1,0 +1,52 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Callout",
+        "props": {
+          "content": "x",
+          "tone": "error"
+        }
+      },
+      {
+        "type": "Chart",
+        "props": {
+          "data": {
+            "table": [
+              "a:s",
+              "b:n"
+            ],
+            "rows": [
+              [
+                "x",
+                1
+              ]
+            ]
+          },
+          "type": "line"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "invalid-enum",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "invalid-enum",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

@@ -1,0 +1,73 @@
+root = Card(header, topRow, mainTabs, gap:l)
+header = Card(CardHeader("Welcome back, Alex", "Overview of your personal accounts & finances"), headerActions, direction:row, justify:between, align:center, variant:clear)
+headerActions = Card(periodDialog, freezeCardDialog, direction:row, gap:s, variant:clear)
+
+periodDialog = DialogBlock("Statement Period", "Select Statement Period", periodForm, description:"View and download historical statements.")
+periodForm = Form("statement_period_form", periodButtons, periodSelect)
+periodSelect = FormControl("Billing Cycle", Select("cycle", SelectItem("m1", "October 2023 (Current)"), SelectItem("m2", "September 2023"), SelectItem("m3", "August 2023"), SelectItem("m4", "July 2023"), placeholder:"Choose period"))
+periodButtons = Buttons(Button("Apply Period", primary), Button("Download PDF", secondary))
+
+freezeCardDialog = AlertDialogBlock("Freeze Credit Line", "Lock Credit Card?", "Freezing your credit line immediately prevents new purchases, cash advances, and online transactions. Recurring autopays may still process.", "Yes, Freeze Card", "Keep Active", triggerVariant:destructive)
+
+topRow = Card(checkingCard, savingsCard, creditCard, scoreCard, direction:row, gap:m)
+checkingCard = Card(Badge("Primary Checking", variant:secondary), Heading("$8,420.50", h2), TextContent("Acct •••• 4019", size:small), sunk)
+savingsCard = Card(Badge("High-Yield Savings", variant:secondary), Heading("$24,850.12", h2), TextContent("4.35% APY •••• 8821", size:small), sunk)
+creditCard = Card(Badge("Sapphire Credit Line", variant:destructive), Heading("$1,240.80", h2), TextContent("Available: $13,759.20", size:small), sunk)
+scoreCard = Card(Badge("FICO Score", variant:outline), Heading("785", h2), Tag("Excellent", size:sm, variant:success), sunk)
+
+mainTabs = Tabs(overviewTab, transfersTab, disputesTab, alertsTab)
+
+overviewTab = TabItem("overview", "Overview & Spending", overviewGrid)
+overviewGrid = Card(overviewLeft, overviewRight, direction:row, gap:m, variant:clear)
+overviewLeft = Card(spendingHeader, spendingPie, savingsGoalCard, gap:m, variant:clear)
+spendingHeader = Card(Heading("Spending by Category", h3), TextContent("October 2023 total: $3,210.00", size:small), variant:clear)
+spendingPie = PieChart(spendingData.Category, spendingData.Amount, variant:donut)
+spendingData = |Category|Amount
+|Groceries|920
+|Dining & Bars|640
+|Housing & Utilities|1150
+|Transport|280
+|Entertainment|220
+
+savingsGoalCard = Card(CardHeader("Vacation Savings Goal", "Target: $5,000 for Summer Trip"), Progress(76, "76% funded ($3,800 saved)"), TextContent("$1,200 remaining by Dec 2023", size:small), sunk)
+
+overviewRight = Card(billsCard, transactionsCard, gap:m, variant:clear)
+billsCard = Card(CardHeader("Upcoming Bills Due", "Scheduled autopays and invoices"), billsTable, sunk)
+billsTable = Table(billsData.Biller, billsData.Due, billsData.Amount, billsData.Status)
+billsData = |Biller|Due|Amount:n|Status
+|Electric & Gas|Oct 28|$142.50|Autopay
+|Internet Fiber|Nov 02|$79.99|Pending
+|Cloud Storage|Nov 05|$9.99|Autopay
+
+transactionsCard = Card(CardHeader("Recent Transactions", "Latest activity across all accounts"), txTable, sunk)
+txTable = Table(txData.Date, txData.Merchant, txData.Account, txData.Amount)
+txData = |Date|Merchant|Account|Amount
+|Oct 24|Whole Foods Market|Checking|-$86.40
+|Oct 23|Shell Oil Co|Credit Card|-$45.00
+|Oct 22|Direct Deposit - Employer|Checking|+$3,250.00
+|Oct 21|Blue Bottle Coffee|Credit Card|-$7.25
+|Oct 20|Uber Rides|Credit Card|-$24.30
+
+transfersTab = TabItem("transfers", "Move Money", transferFormCard)
+transferFormCard = Card(CardHeader("Transfer Funds", "Instantly move balances between your linked accounts"), transferForm, sunk)
+transferForm = Form("transfer_money_form", transferButtons, fromField, toField, amountField, memoField)
+fromField = FormControl("From Account", Select("from_acc", SelectItem("chk", "Primary Checking ($8,420.50)"), SelectItem("sav", "High-Yield Savings ($24,850.12)"), placeholder:"Select source account"))
+toField = FormControl("To Account", Select("to_acc", SelectItem("sav", "High-Yield Savings ($24,850.12)"), SelectItem("chk", "Primary Checking ($8,420.50)"), SelectItem("crd", "Sapphire Credit Line ($1,240.80 Balance)"), placeholder:"Select destination account"))
+amountField = FormControl("Transfer Amount ($)", Input("amount", "0.00", type:number), "Transfers between internal accounts are immediate and fee-free.")
+memoField = FormControl("Note / Memo (Optional)", Input("memo", "e.g., Vacation fund deposit"))
+transferButtons = Buttons(Button("Complete Transfer", primary), Button("Reset", tertiary))
+
+disputesTab = TabItem("disputes", "Dispute Transaction", disputeCard)
+disputeCard = Card(CardHeader("File a Transaction Dispute", "Report unauthorized charges, incorrect totals, or unreceived items"), disputeForm, sunk)
+disputeForm = Form("dispute_form", disputeButtons, disputeTxField, disputeReasonField, disputeDetailsField)
+disputeTxField = FormControl("Select Transaction", Select("disputed_tx", SelectItem("tx1", "Oct 24 - Whole Foods ($86.40)"), SelectItem("tx2", "Oct 23 - Shell Oil Co ($45.00)"), SelectItem("tx3", "Oct 21 - Blue Bottle Coffee ($7.25)"), SelectItem("tx4", "Oct 20 - Uber Rides ($24.30)"), placeholder:"Choose charge to dispute"))
+disputeReasonField = FormControl("Dispute Reason", RadioGroup("reason", RadioItem("Fraudulent Charge", "I did not authorize or make this transaction", "fraud"), RadioItem("Incorrect Amount", "I was charged more than the agreed total", "amount"), RadioItem("Merchandise Issue", "Goods or services not received or defective", "goods"), RadioItem("Duplicate Charge", "Charged multiple times for single order", "duplicate"), defaultValue:"fraud"))
+disputeDetailsField = FormControl("Additional Details", TextArea("details", "Describe the issue and any communication with the merchant...", rows:3))
+disputeButtons = Buttons(Button("Submit Dispute Claim", primary), Button("Cancel", secondary))
+
+alertsTab = TabItem("alerts", "Alert Preferences", alertCard)
+alertCard = Card(CardHeader("Manage Notification Triggers", "Customize threshold triggers and security notifications"), alertForm, sunk)
+alertForm = Form("alerts_form", alertButtons, alertSwitches, alertThreshold)
+alertSwitches = FormControl("Notification Triggers", CheckBoxGroup("active_alerts", CheckBoxItem("Large Purchase Alert", "Trigger when a single charge exceeds the threshold below", "large_tx", defaultChecked), CheckBoxItem("Low Balance Warning", "Trigger when checking balance falls under $500", "low_bal", defaultChecked), CheckBoxItem("Credit Limit Alert", "Trigger when credit utilization exceeds 70%", "cred_limit", defaultChecked), CheckBoxItem("International Activity", "Trigger on transactions outside your home country", "intl_tx", defaultChecked), CheckBoxItem("Bill Due Reminder", "Send reminders 3 days before upcoming autopays", "bill_due", defaultChecked)))
+alertThreshold = FormControl("Large Transaction Threshold ($)", Slider("threshold", continuous, min:50, max:2000, step:25, defaultValue:[250]), "Slide to choose notification threshold for card charges.")
+alertButtons = Buttons(Button("Save Alert Settings", primary))

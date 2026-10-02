@@ -1,0 +1,62 @@
+root = Card(CardHeader("Project Portfolio Review", "Quarterly overview"), healthSummary, activeProjects, overdueMilestones, budgetSection, utilizationSection, risksSection, upcomingDeadlines, deliveryPace, blockedItems, quarterSelect, requestForm, actionButtons)
+
+healthSummary = Callout(info, "Portfolio Health", "Overall health is stable with minor risks.")
+
+activeProjects = Card(Heading("Active Projects", h3), activeProjectsTable, clear)
+
+activeProjectsTable = |Project|Owner|Deadline|Health
+|Project Alpha|Alice|2024-11-15|Good
+|Project Beta|Bob|2024-12-01|At Risk
+|Project Gamma|Carol|2025-01-20|Good
+
+overdueMilestones = Card(Heading("Overdue Milestones", h3), overdueMilestonesTable, clear)
+
+overdueMilestonesTable = |Milestone|Project|Owner|Due Date|Days Overdue
+|Milestone 1|Project Alpha|Alice|2024-10-01|5
+|Milestone 2|Project Beta|Bob|2024-09-28|12
+
+budgetSection = Card(Heading("Budget vs Allocation", h3), budgetChart, clear)
+
+budgetChart = HorizontalBarChart(labels:["Project Alpha","Project Beta","Project Gamma"], Series("Spent", values:[120000,95000,60000]), Series("Allocation", values:[150000,120000,80000]), variant:grouped, xLabel:"USD", yLabel:"Project")
+
+utilizationSection = Card(Heading("Team Utilization", h3), utilizationChart, clear)
+
+utilizationChart = BarChart(labels:["Team A","Team B","Team C"], Series("Utilization %", values:[85,70,60]), variant:grouped, xLabel:"Utilization", yLabel:"Team")
+
+risksSection = Card(Heading("Risks", h3), risksTable, clear)
+
+risksTable = |Risk|Project|Severity|Owner|
+|Dependency delay|Project Alpha|High|Alice|
+|Scope creep|Project Beta|Medium|Bob|
+
+upcomingDeadlines = Card(Heading("Deadlines Next 2 Weeks", h3), upcomingDeadlinesTable, clear)
+
+upcomingDeadlinesTable = |Project|Deadline|Owner|
+|Project Alpha|2024-11-05|Alice|
+|Project Gamma|2024-11-12|Carol|
+
+deliveryPace = Card(Heading("Delivery Pace (Last 6 Sprints)", h3), deliveryPaceChart, clear)
+
+deliveryPaceChart = LineChart(labels:["Sprint 1","Sprint 2","Sprint 3","Sprint 4","Sprint 5","Sprint 6"], Series("Stories Completed", values:[20,22,18,25,23,27]), variant:natural, xLabel:"Sprint", yLabel:"Stories")
+
+blockedItems = Card(Heading("Blocked Work Items", h3), blockedItemsTable, clear)
+
+blockedItemsTable = |Item|Project|Owner|Block Reason|
+|Login API|Project Beta|Bob|Awaiting security review|
+|Data migration script|Project Gamma|Carol|Missing resources|
+
+quarterSelect = Card(Heading("Select Quarter", h3), quarterSelectDropdown, clear)
+
+quarterSelectDropdown = Select("quarter", SelectItem("Q1-2024","Q1 2024"), SelectItem("Q2-2024","Q2 2024"), SelectItem("Q3-2024","Q3 2024"), SelectItem("Q4-2024","Q4 2024"), placeholder:"Choose quarter")
+
+requestForm = Form("request-more-people", formButtons, requestProjectField, requestNumberField, requestReasonField)
+
+requestProjectField = FormControl("Project", Select("project", SelectItem("Project Alpha","Alpha"), SelectItem("Project Beta","Beta"), SelectItem("Project Gamma","Gamma"), placeholder:"Select project"))
+
+requestNumberField = FormControl("Additional People", Input("people", "Enter number", type:number))
+
+requestReasonField = FormControl("Reason", TextArea("reason", "Explain why", rows:3))
+
+formButtons = Buttons(Button("Submit request", primary), Button("Cancel", tertiary))
+
+actionButtons = Buttons(Button("Export Review", secondary), Button("Archive Finished Project", destructive))

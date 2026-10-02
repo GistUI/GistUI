@@ -1,0 +1,43 @@
+root = Stack([headerCard, kpiRow, chartsRow1, featuresCard, revenueCard], column, l)
+headerCard = Card(CardHeader("Product Analytics Dashboard", "Usage, acquisition, feature adoption, and revenue trends"), card)
+kpiRow = Stack([kpi1, kpi2, kpi3, kpi4], row, m, stretch, justify:start, wrap)
+kpi1 = Card(TextContent("Monthly Active Users (MAU)", small-heavy), TextContent("128,400", large-heavy), TextContent("+6.2% vs last month", small), sunk)
+kpi2 = Card(TextContent("New Users (30d)", small-heavy), TextContent("24,950", large-heavy), TextContent("+3.1% vs last 30d", small), sunk)
+kpi3 = Card(TextContent("MRR", small-heavy), TextContent("$412,000", large-heavy), TextContent("+4.4% MoM", small), sunk)
+kpi4 = Card(TextContent("ARR", small-heavy), TextContent("$4.94M", large-heavy), TextContent("+18.7% YoY", small), sunk)
+chartsRow1 = Stack([mauCard, acquisitionCard], row, l, stretch, justify:start, wrap)
+mauCard = Card(CardHeader("Monthly Active Users", "Last 12 months"), BarChart(mauChartRows, grouped, xLabel:"Month", yLabel:"Users"), card)
+acquisitionCard = Card(CardHeader("User Acquisition", "Share of new users (last 30 days)"), acqChart, TextContent("Tip: Track CAC and conversion rate by channel to explain mix shifts.", small), card)
+acqChart = PieChart(acqSlices, donut)
+acqSlices = [Slice("Organic Search", 34), Slice("Paid Search", 22), Slice("Referrals", 16), Slice("Social", 12), Slice("Direct / Other", 16)]
+featuresCard = Card(CardHeader("Top Features", "Adoption and engagement (last 30 days)"), featuresTable, card)
+featuresTable = Table(featureRows, featureCols)
+featureCols = [Col("Feature", string), Col("Weekly Active Users", number), Col("Adoption Rate (%)", number), Col("Avg. Uses / User", number)]
+featureRows = [["Dashboards", 48200, 62.5, 5.8], ["Automations", 31750, 41.2, 3.1], ["Integrations", 28900, 37.5, 2.4], ["Team Collaboration", 27100, 35.2, 4.6], ["Exports", 19850, 25.8, 1.7], ["Alerts", 17600, 22.9, 2.0], ["API Access", 12150, 15.8, 6.3]]
+revenueCard = Card(CardHeader("Revenue Trend", "MRR and ARR (last 12 months)"), LineChart(revenueChartRows, natural, xLabel:"Month", yLabel:"USD"), TextContent("ARR shown as 12×MRR for directional tracking; replace with contracted ARR if you track annual commitments.", small), card)
+mauChartRows = |Month|MAU
+|Apr|84500
+|May|87200
+|Jun|90100
+|Jul|93800
+|Aug|96500
+|Sep|100200
+|Oct|104800
+|Nov|109600
+|Dec|114300
+|Jan|119900
+|Feb|123700
+|Mar|128400
+revenueChartRows = |Month|MRR ($)|ARR ($)
+|Apr|332000|3984000
+|May|341000|4092000
+|Jun|349000|4188000
+|Jul|356000|4272000
+|Aug|364000|4368000
+|Sep|372000|4464000
+|Oct|381000|4572000
+|Nov|389000|4668000
+|Dec|397000|4764000
+|Jan|404000|4848000
+|Feb|408000|4896000
+|Mar|412000|4944000

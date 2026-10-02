@@ -1,0 +1,171 @@
+root = Card(header, enrollmentSection, applicationsSection, acceptanceSection, tuitionSection, courseFillSection, facultyLoadSection, riskSection, scholarshipSection, housingSection, eventsSection, alumniSection, departmentFilter, semesterComparisonSection, waitlistSection, actionsSection)
+
+header = CardHeader("University Overview", "Key metrics and actions")
+
+enrollmentSection = Card(enrollmentHeading, enrollmentChart)
+
+enrollmentHeading = Heading("Total Enrollment (5‑year trend)", h3)
+
+enrollmentChart = LineChart(enrollmentRows, linear, xLabel:"Year", yLabel:"Students")
+
+applicationsSection = Card(applicationsHeading, applicationsChart)
+
+applicationsHeading = Heading("Applications by Program", h3)
+
+applicationsChart = BarChart(applicationsRows, grouped, xLabel:"Program", yLabel:"Applications")
+
+acceptanceSection = Card(acceptanceHeading, acceptanceChart, acceptanceCallout)
+
+acceptanceHeading = Heading("Overall Acceptance Rate", h3)
+
+acceptanceChart = BarChart(acceptanceRows, grouped, xLabel:"Category", yLabel:"Rate %")
+
+acceptanceCallout = Callout(success, "Acceptance Rate", "78% of applicants were admitted")
+
+tuitionSection = Card(tuitionHeading, tuitionCallout)
+
+tuitionHeading = Heading("Tuition Revenue (Current Year)", h3)
+
+tuitionCallout = Callout(info, "Revenue", "$12.4M")
+
+courseFillSection = Card(courseFillHeading, courseFillChart)
+
+courseFillHeading = Heading("Course Offering Fill Rates", h3)
+
+courseFillChart = BarChart(courseFillRows, grouped, xLabel:"Course", yLabel:"Fill %")
+
+facultyLoadSection = Card(facultyLoadHeading, facultyLoadChart)
+
+facultyLoadHeading = Heading("Teaching Load by Faculty", h3)
+
+facultyLoadChart = BarChart(facultyLoadRows, grouped, xLabel:"Faculty", yLabel:"Courses Taught")
+
+riskSection = Card(riskHeading, riskTable)
+
+riskHeading = Heading("Students at Academic Risk", h3)
+
+riskTable = Table(riskRows)
+
+scholarshipSection = Card(scholarshipHeading, scholarshipChart)
+
+scholarshipHeading = Heading("Scholarship Budget Usage", h3)
+
+scholarshipChart = BarChart(scholarshipRows, stacked, xLabel:"Category", yLabel:"Amount")
+
+housingSection = Card(housingHeading, housingChart)
+
+housingHeading = Heading("Housing Occupancy", h3)
+
+housingChart = BarChart(housingRows, grouped, xLabel:"Residence", yLabel:"Occupied")
+
+eventsSection = Card(eventsHeading, eventsList)
+
+eventsHeading = Heading("Campus Events This Month", h3)
+
+eventsList = ListBlock(eventItem1, eventItem2, variant:number)
+
+eventItem1 = ListItem("Orientation", "Welcome new students", "Details", [])
+
+eventItem2 = ListItem("Research Symposium", "Showcase projects", "Details", [])
+
+alumniSection = Card(alumniHeading, alumniChart)
+
+alumniHeading = Heading("Alumni Giving (Last 4 Years)", h3)
+
+alumniChart = LineChart(alumniRows, linear, xLabel:"Year", yLabel:"Donations")
+
+departmentFilter = Card(departmentHeading, departmentSelect)
+
+departmentHeading = Heading("Focus on Department", h3)
+
+departmentSelect = Select("department", SelectItem("CS", "Computer Science"), SelectItem("ENG", "Engineering"), SelectItem("BUS", "Business"), placeholder:"Select department", size:medium)
+
+semesterComparisonSection = Card(semesterHeading, semesterChart)
+
+semesterHeading = Heading("Current vs Last Semester", h3)
+
+semesterChart = BarChart(semesterRows, grouped, xLabel:"Metric", yLabel:"Value")
+
+waitlistSection = Card(waitlistHeading, waitlistChart)
+
+waitlistHeading = Heading("Waitlisted Students by Program", h3)
+
+waitlistChart = BarChart(waitlistRows, grouped, xLabel:"Program", yLabel:"Waitlisted")
+
+actionsSection = Card(actionsHeading, actionButtons, messageDialog)
+
+actionsHeading = Heading("Administrative Actions", h3)
+
+actionButtons = Buttons(Button("Approve New Course", primary))
+
+messageDialog = DialogBlock("Message Group", "Send Message", messageForm, description:"Compose a message to a student group", triggerVariant:primary)
+
+messageForm = Form("msg-form", msgButtons, msgField)
+
+msgField = FormControl("Message", TextArea("message", "Enter message...", "", rows:4))
+
+msgButtons = Buttons(Button("Send", primary))
+
+enrollmentRows = |Year|Students|
+|2019|15000|
+|2020|15250|
+|2021|15500|
+|2022|15800|
+|2023|16000|
+
+applicationsRows = |Program|Applications|
+|Computer Science|3200|
+|Engineering|2800|
+|Business|2100|
+|Arts|1500|
+|Education|1300|
+
+acceptanceRows = |Category|Rate|
+|Accepted|78|
+|Rejected|22|
+
+courseFillRows = |Course|Fill%|
+|CS101|95|
+|ENG202|88|
+|BUS303|92|
+|ART404|80|
+|EDU505|85|
+
+facultyLoadRows = |Faculty|Courses|
+|Dr. Smith|3|
+|Prof. Lee|4|
+|Dr. Patel|2|
+|Prof. Gomez|3|
+|Dr. Chen|5|
+
+riskRows = |Student|GPA|Credits|
+|Alice Johnson|2.1|12|
+|Bob Martinez|1.9|9|
+|Carol Wu|2.0|10|
+
+scholarshipRows = |Category|Amount|
+|Used|4.2M|
+|Remaining|1.8M|
+
+housingRows = |Residence|Occupied|Capacity|
+|Dorm A|450|500|
+|Dorm B|380|400|
+|Apartment C|120|150|
+
+alumniRows = |Year|Donations|
+|2020|1.2M|
+|2021|1.4M|
+|2022|1.6M|
+|2023|1.8M|
+
+semesterRows = |Metric|Current|Last|
+|Enrollment|16000|15800|
+|Revenue|12.4M|12.0M|
+|Courses Offered|350|340|
+
+waitlistRows = |Program|Waitlisted|
+|Computer Science|120|
+|Engineering|95|
+|Business|60|
+|Arts|30|
+|Education|20|

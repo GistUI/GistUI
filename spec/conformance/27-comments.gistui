@@ -1,0 +1,6 @@
+# a comment line
+   # an indented comment
+root = Row( # after the bracket
+  Text("a # b"), # after an argument
+  Text("c")
+) # after the statement

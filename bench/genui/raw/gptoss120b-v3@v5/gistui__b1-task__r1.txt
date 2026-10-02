@@ -1,0 +1,6 @@
+root = Card(taskHeader, taskDesc, deadlineTag, statusCallout, actionButtons, clear)
+taskHeader = CardHeader("Urgent Task")
+taskDesc = TextContent("Complete the quarterly financial report and submit to the board.", large)
+deadlineTag = Tag("Due: Sep 15", variant:danger, size:md)
+statusCallout = Callout(variant:warning, "Status", "In progress – 2 days remaining")
+actionButtons = Buttons(Button("Mark Done", primary))

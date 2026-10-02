@@ -1,0 +1,42 @@
+root = Card(header, countdown, agendaSection, speakersSection, ticketsSection, registerSection)
+
+header = CardHeader("Tech Innovators Conference 2024", "June 15‑17, 2024 • Silicon Valley Convention Center")
+
+countdown = TextContent("**Days remaining:** 45", size:large)
+
+agendaSection = Card(Heading("Agenda", h2), agendaTable)
+
+agendaTable = Table(
+  Col("Time", ["09:00 AM","10:30 AM","12:00 PM","01:30 PM","03:00 PM"], type:string),
+  Col("Session", ["Opening Keynote","Panel: AI Ethics","Networking Lunch","Workshop: Cloud Native","Closing Remarks"], type:string)
+)
+
+speakersSection = Card(Heading("Speakers", h2), speakersTable)
+
+speakersTable = Table(
+  Col("Name", ["Dr. Maya Patel","Liam O'Connor","Sofia Ramirez","Jun Wei"], type:string),
+  Col("Bio", ["AI Research Lead at Nova Labs","CTO, GreenTech","Founder, Startup Hub","Cloud Architecture Expert, SkyNet"], type:string)
+)
+
+ticketsSection = Card(Heading("Ticket Tiers", h2), ticketsTable)
+
+ticketsTable = Table(
+  Col("Tier", ["Early Bird","Standard","VIP"], type:string),
+  Col("Price", ["$199","$299","$499"], type:string)
+)
+
+registerSection = Card(Heading("Register Now", h2), registerForm)
+
+registerForm = Form("conference-registration", formButtons,
+  nameField,
+  emailField
+)
+
+nameField = FormControl("Full Name", Input("full_name", "Your name"))
+
+emailField = FormControl("Email", Input("email", "you@example.com", type:email))
+
+formButtons = Buttons(
+  Button("Submit", ["submit_registration"], primary),
+  Button("Cancel", [], secondary)
+)

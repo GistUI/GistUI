@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "declaration": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "customConditions": [
+      "gistui-source"
+    ],
+    "paths": {
+      "@gistui/react/ui": [
+        "./packages/react/src/ui.ts"
+      ],
+      "@gistui/react/prompt": [
+        "./packages/react/src/prompt.ts"
+      ],
+      "@gistui/chat/react": [
+        "./packages/chat/src/react.tsx"
+      ],
+      "@gistui/catalog/render": [
+        "./packages/catalog/src/render.ts"
+      ],
+      "@gistui/widgets/chart": [
+        "./packages/widgets/src/chart/index.ts"
+      ],
+      "@gistui/widgets/markdown": [
+        "./packages/widgets/src/markdown/index.ts"
+      ],
+      "@gistui/widgets/icons": [
+        "./packages/widgets/src/icons.ts"
+      ],
+      "@gistui/*": [
+        "./packages/*/src/index.ts"
+      ]
+    }
+  }
+}

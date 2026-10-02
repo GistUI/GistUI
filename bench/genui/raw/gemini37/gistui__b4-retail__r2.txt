@@ -1,0 +1,74 @@
+root = Card(headerCard, kpiGrid, storeTabs, stockReorderSection, followUps)
+headerCard = Card(topBar, CardHeader("Daily Store Manager Console", "Store #104 · Downtown Flagship · Live operations & performance"), direction:column, gap:s)
+topBar = Card(Tag("Store Open", success), storeSwitchForm, direction:row, justify:between, align:center, variant:clear)
+storeSwitchForm = Form("store-selector", emptyButtons, storeSelectControl)
+emptyButtons = Buttons(Button("Switch Store", primary, size:small))
+storeSelectControl = FormControl("Location", storeSelectDropdown)
+storeSelectDropdown = Select("store_id", SelectItem("104", "Store #104 - Downtown Flagship (Active)"), SelectItem("105", "Store #105 - West End Galleria"), SelectItem("108", "Store #108 - Metro North"), SelectItem("112", "Store #112 - South Suburbs Hub"), placeholder:"Select store", value:"104", size:small)
+kpiGrid = Card(salesTargetCard, basketSizeCard, returnsCard, registersOverviewCard, direction:row, wrap, gap:m, variant:clear)
+salesTargetCard = Card(Heading("Today Sales vs Target", h4), TextContent("### $14,850 / $16,000\n**92.8%** of daily goal achieved with 4 hrs remaining."), Progress(92, "Goal progress: 92.8%"), Tag("On track", success), sunk)
+basketSizeCard = Card(Heading("Average Basket Size", h4), TextContent("### $48.20\n**+5.4%** vs. last week baseline ($45.70)"), Tag("Avg Items: 3.4", neutral), sunk)
+returnsCard = Card(Heading("Returns This Week", h4), TextContent("### 42 items ($1,840)\n**2.3%** of total transaction volume"), Tag("Within <3.0% threshold", info), sunk)
+registersOverviewCard = Card(Heading("POS Register Status", h4), TextContent("**4 of 5** active registers currently open"), regList, sunk)
+regList = ListBlock(ListItem("Register 1 · Express", "Open · Operator: Sarah Jenkins"), ListItem("Register 2 · Main Floor", "Open · Operator: Marco Silva"), ListItem("Register 3 · Main Floor", "Open · Operator: Priya Patel"), ListItem("Register 4 · Customer Service", "Open · Operator: Elena Vance"), ListItem("Register 5 · Backup Floor", "Closed · Standby"))
+storeTabs = Tabs(perfTab, opsTab, promosTab)
+perfTab = TabItem("perf", "Performance & Traffic", perfLayout)
+perfLayout = Card(trafficSection, weeklyCompSection, direction:column, gap:m, variant:clear)
+trafficSection = Card(Heading("Foot Traffic Through the Day (Hourly)", h3), BarChart(trafficData, grouped, xLabel:"Hour", yLabel:"Visitors"), sunk)
+weeklyCompSection = Card(Heading("This Week vs Last Week Daily Revenue", h3), LineChart(weekComparisonData, natural, xLabel:"Day", yLabel:"Revenue ($)"), sunk)
+opsTab = TabItem("ops", "Staff & Best Sellers", opsLayout)
+opsLayout = Card(bestSellersSection, staffSection, direction:column, gap:m, variant:clear)
+bestSellersSection = Card(Heading("Today's Best Sellers", h3), Table(Col("Rank", bestRankCol), Col("Product Name", bestNameCol), Col("Category", bestCatCol), Col("Units Sold", bestUnitsCol), Col("Revenue", bestRevCol)), sunk)
+staffSection = Card(Heading("Staff On Shift Today", h3), Table(Col("Staff Member", staffNameCol), Col("Role", staffRoleCol), Col("Shift Hours", staffShiftCol), Col("Assigned Station", staffStationCol), Col("Status", staffStatusCol)), sunk)
+promosTab = TabItem("promos", "Active Promotions", promosLayout)
+promosLayout = Card(Heading("Active Promotion Performance", h3), Table(Col("Promotion Campaign", promoNameCol), Col("Type", promoTypeCol), Col("Redemptions", promoRedemptionsCol), Col("Sales Driven", promoSalesCol), Col("Target ROI", promoRoiCol)), sunk)
+stockReorderSection = Card(Heading("Inventory Alerts & Quick Reorder", h3), stockAlertCallout, outOfStockTable, Separator(horizontal, decorative), reorderFormCard, direction:column, gap:m, sunk)
+stockAlertCallout = Alert("Out of Stock Alert", "4 items are completely depleted today. Submit purchase orders below to restock.", destructive)
+outOfStockTable = Card(Heading("Depleted SKUs", h4), Table(Col("SKU", oosSkuCol), Col("Item Description", oosItemCol), Col("Stock Level", oosStockCol), Col("Daily Run-rate", oosRateCol), Col("Status", oosStatusCol)), variant:clear)
+reorderFormCard = Card(Heading("Reorder Item from Warehouse / Supplier", h4), reorderForm, variant:clear)
+reorderForm = Form("reorder-form", reorderButtons, reorderSkuControl, reorderQtyControl, reorderSupplierControl, reorderPriorityControl)
+reorderSkuControl = FormControl("Depleted Item to Restock", reorderSkuSelect)
+reorderSkuSelect = Select("reorder_sku", SelectItem("SKU-1089", "Organic Fair-Trade Coffee 12oz (SKU-1089)"), SelectItem("SKU-4412", "Almond Milk Barista 1L (SKU-4412)"), SelectItem("SKU-3320", "Artisan Sourdough Loaf (SKU-3320)"), SelectItem("SKU-9901", "Paper Carrier Bags Large (SKU-9901)"), placeholder:"Select item to reorder")
+reorderQtyControl = FormControl("Reorder Quantity (Units)", Input("quantity", "100", type:number))
+reorderSupplierControl = FormControl("Fulfillment Source", reorderSourceSelect)
+reorderSourceSelect = Select("supplier_source", SelectItem("central_dc", "Central Distribution Center (Next Day)"), SelectItem("direct_vendor", "Direct Vendor Dispatch"), SelectItem("local_transfer", "Store #105 Cross-Transfer"), placeholder:"Select fulfillment source")
+reorderPriorityControl = FormControl("Order Urgency", priorityRadio)
+priorityRadio = RadioGroup("order_priority", RadioItem("Urgent", "Restock priority delivery (Tomorrow AM)", "urgent"), RadioItem("Standard", "Regular replenishment cycle (2-3 days)", "standard"), defaultValue:"urgent")
+reorderButtons = Buttons(Button("Submit Reorder", primary), Button("Reset", tertiary))
+followUps = FollowUpBlock(FollowUpItem("Print end-of-day register closing report"), FollowUpItem("Review return reasons breakdown for this week"), FollowUpItem("Adjust tomorrow's staffing schedule based on foot traffic"))
+trafficData = |Hour|Visitors
+|08:00|45
+|10:00|130
+|12:00|290
+|14:00|210
+|16:00|325
+|18:00|380
+|20:00|160
+weekComparisonData = |Day|This Week|Last Week
+|Mon|12400|11200
+|Tue|13100|12800
+|Wed|14850|13900
+|Thu|0|14200
+|Fri|0|18500
+|Sat|0|21400
+|Sun|0|16800
+bestRankCol = ["#1", "#2", "#3", "#4", "#5"]
+bestNameCol = ["Nitro Cold Brew 16oz", "Avocado Toast Blend", "Almond Croissant", "Sparkling Spring Water", "Dark Chocolate Bar 70%"]
+bestCatCol = ["Beverage", "Bakery", "Bakery", "Beverage", "Confectionery"]
+bestUnitsCol = [142, 98, 86, 74, 65]
+bestRevCol = ["$852.00", "$784.00", "$387.00", "$222.00", "$260.00"]
+staffNameCol = ["Sarah Jenkins", "Marco Silva", "Priya Patel", "Elena Vance", "David Kim", "Chloe Bennett"]
+staffRoleCol = ["Shift Supervisor", "Senior Cashier", "Floor Associate", "Customer Service Lead", "Inventory Specialist", "Floor Associate"]
+staffShiftCol = ["07:30 - 16:00", "08:00 - 16:30", "10:00 - 18:30", "08:30 - 17:00", "07:00 - 15:30", "12:00 - 20:30"]
+staffStationCol = ["Register 1 / Ops", "Register 2", "Register 3 / Aisle 2", "Register 4 / Desk", "Backroom / Receiving", "Aisle 4 / Restock"]
+staffStatusCol = ["Active", "Active", "Active", "Active", "On Break", "Active"]
+promoNameCol = ["Spring BOGO 50% Bakery", "Coffee Loyalty 2x Points", "Afternoon Beverage Bundle", "Seasonal Organic Discount"]
+promoTypeCol = ["Buy 1 Get 1 50% Off", "Loyalty Multiplier", "Bundle Deal", "15% Category Discount"]
+promoRedemptionsCol = ["118 claims", "245 claims", "64 claims", "89 claims"]
+promoSalesCol = ["$1,420", "$2,890", "$768", "$1,150"]
+promoRoiCol = ["+18.4% vs baseline", "+31.2% vs baseline", "+8.0% vs baseline", "+12.5% vs baseline"]
+oosSkuCol = ["SKU-1089", "SKU-4412", "SKU-3320", "SKU-9901"]
+oosItemCol = ["Organic Fair-Trade Coffee 12oz", "Almond Milk Barista 1L", "Artisan Sourdough Loaf", "Paper Carrier Bags Large"]
+oosStockCol = [0, 0, 0, 0]
+oosRateCol = ["35 units/day", "28 units/day", "20 units/day", "150 units/day"]
+oosStatusCol = ["Critical", "Critical", "Pending Bake", "Critical Supply"]

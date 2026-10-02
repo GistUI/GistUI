@@ -1,0 +1,49 @@
+root = Card(header, metricsSection, filterForm, recentOrdersTable, fulfillButtons, orderVolumeChart, refundRate, sunk)
+
+metricsSection = Card(ordersToday, revenueToday, avgOrderValue, direction:row, gap:s, variant:clear)
+
+filterForm = Form("order-filter", formButtons, statusFilter, searchFilter)
+
+recentOrdersTable = Table(orderIdCol, customerCol, totalCol, statusCol, actionCol)
+
+fulfillButtons = Buttons(buttonFulfill)
+
+orderVolumeChart = BarChart(volumeData, variant:grouped, xLabel:"Week", yLabel:"Orders")
+
+header = CardHeader("E-commerce Operations Desk", "Operations Overview")
+
+ordersToday = TextContent("**Orders today:** 124", size:large)
+
+revenueToday = TextContent("**Revenue today:** $8,560", size:large)
+
+avgOrderValue = TextContent("**Avg Order Value:** $69.2", size:large)
+
+refundRate = TextContent("**Refund rate (this month):** 2.3%", size:default)
+
+statusFilter = FormControl("Status", statusSelect)
+
+statusSelect = Select("order_status", SelectItem("all", "All"), SelectItem("pending", "Pending"), SelectItem("fulfilled", "Fulfilled"), SelectItem("refunded", "Refunded"), placeholder:"All statuses")
+
+searchFilter = FormControl("Customer name", customerSearch)
+
+customerSearch = Input("customer_search", placeholder:"Search customers", type:text)
+
+formButtons = Buttons(Button("Apply", primary))
+
+buttonFulfill = Button("Mark Fulfilled", primary)
+
+orderIdCol = Col("Order ID", data:["#1001","#1002","#1003","#1004"], type:string)
+
+customerCol = Col("Customer", data:["Alice Smith","Bob Jones","Carol Lee","David Kim"], type:string)
+
+totalCol = Col("Total", data:["$120.00","$85.00","$45.00","$210.00"], type:string)
+
+statusCol = Col("Status", data:["Pending","Fulfilled","Refunded","Pending"], type:string)
+
+actionCol = Col("Action", data:["Fulfill","Fulfill","Fulfill","Fulfill"], type:action)
+
+volumeData = |Week|Orders
+|W1|98
+|W2|112
+|W3|105
+|W4|123

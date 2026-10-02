@@ -1,0 +1,37 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Row",
+        "props": {
+          "gap": "md"
+        }
+      },
+      {
+        "type": "Row",
+        "props": {
+          "gap": "lg"
+        }
+      },
+      {
+        "type": "Row",
+        "props": {
+          "gap": "sm"
+        }
+      },
+      {
+        "type": "Callout",
+        "props": {
+          "content": "x",
+          "tone": "info"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

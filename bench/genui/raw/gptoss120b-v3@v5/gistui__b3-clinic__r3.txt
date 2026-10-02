@@ -1,0 +1,30 @@
+root = Card(CardHeader("Today's Appointments"), appointmentsTable, statsSection, roomsSection, nextPatientSection, actionsSection, navigationSection)
+
+appointmentsTable = Table(
+  Col("Time", ["09:00 AM","10:30 AM","12:00 PM","02:15 PM","03:45 PM"], type:string),
+  Col("Patient", ["Smith, John","Doe, Jane","Brown, Lisa","Wilson, Mark","Taylor, Anna"], type:string)
+)
+
+statsSection = Card(
+  TextCallout("Expected patients", "5", variant:info),
+  TextCallout("No-show rate (this month)", "12%", variant:warning)
+)
+
+roomsSection = Table(
+  Col("Room", ["101","102","103","104"], type:string),
+  Col("Status", ["Occupied","Free","Occupied","Free"], type:string)
+)
+
+nextPatientSection = Card(
+  Callout(variant:info, "Next patient called", "Smith, John at 09:00 AM")
+)
+
+actionsSection = Buttons(
+  Button("Check In", primary),
+  Button("Mark No-Show", secondary)
+)
+
+navigationSection = Buttons(
+  Button("Previous Day", secondary),
+  Button("Next Day", primary)
+)

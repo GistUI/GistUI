@@ -1,0 +1,69 @@
+root = Card(header, districtSelect, congestionSection, transitSection, airQualitySection, energySection, waterSection, incidentsSection, vehiclesSection, parkingSection, eventsSection, reportsSection, backlogSection, weatherSection, roadworksSection, infraJobsSection, dispatchDialog, alertDialog)
+
+header = CardHeader("City Operations Center", "Live Dashboard")
+districtSelect = Select("district", SelectItem("All", "All districts"), SelectItem("Downtown", "Downtown"), SelectItem("North", "North District"), SelectItem("South", "South District"), placeholder:"Select district")
+
+congestionSection = Card(Heading("Current Congestion", h3), HorizontalBarChart(congestionData, variant:grouped, xLabel:"% Congestion", yLabel:"District"))
+transitSection = Card(Heading("Transit Punctuality (Last 7 Days)", h3), LineChart(transitData, linear, xLabel:"Date", yLabel:"On‑time %"))
+airQualitySection = Card(Heading("Air Quality by District", h3), HorizontalBarChart(airQualityData, variant:grouped, xLabel:"AQI", yLabel:"District"))
+energySection = Card(Heading("Energy Use (Past Week)", h3), LineChart(energyData, linear, xLabel:"Date", yLabel:"MWh"))
+waterSection = Card(Heading("Water Use Today", h3), SingleStackedBarChart(waterData, variant:pie))
+incidentsSection = Card(Heading("Open Incidents", h3), Table(Col("Location", data:["Main St & 1st","Elm Ave & 3rd"], type:string), Col("Severity", data:["High","Medium"], type:string), Col("Description", data:["Leak in pipe","Traffic accident"], type:string)))
+vehiclesSection = Card(Heading("Emergency Vehicles Deployed", h3), Table(Col("Vehicle ID", data:["EV‑12","EV‑27"], type:string), Col("Type", data:["Ambulance","Fire Truck"], type:string), Col("Location", data:["5th & Oak","7th & Pine"], type:string)))
+parkingSection = Card(Heading("Parking Availability Downtown", h3), BarChart(parkingData, variant:grouped, xLabel:"Parking Lot", yLabel:"Available Spaces"))
+eventsSection = Card(Heading("Public Events This Weekend", h3), Table(Col("Event", data:["Farmers Market","Jazz Concert"], type:string), Col("Date", data:["Sat","Sun"], type:string), Col("Location", data:["Central Plaza","Riverfront"], type:string)))
+reportsSection = Card(Heading("Live Citizen Reports", h3), ListBlock(ListItem("Pothole on 3rd St", "Just now", "View", []), ListItem("Broken streetlight", "5 min ago", "View", []), variant:number))
+backlogSection = Card(Heading("Service Request Backlog", h3), Table(Col("Request ID", data:["SR‑101","SR‑102"], type:string), Col("Category", data:["Road","Water"], type:string), Col("Status", data:["Open","Pending"], type:string)))
+weatherSection = Card(Heading("Current Weather", h3), MarkDownRenderer("**Temp:** 72°F\n**Condition:** Partly Cloudy\n**Wind:** 5 mph NE", variant:clear))
+roadworksSection = Card(Heading("Planned Roadworks (This Month)", h3), Table(Col("Project", data:["Main St Repaving","Bridge Inspection"], type:string), Col("Start Date", data:["2024‑10‑05","2024‑10‑12"], type:string), Col("End Date", data:["2024‑10‑20","2024‑10‑15"], type:string)))
+infraJobsSection = Card(Heading("Infrastructure Maintenance Jobs", h3), Table(Col("Asset", data:["Water Pump A","Traffic Light 22"], type:string), Col("Due Date", data:["2024‑11‑01","2024‑11‑08"], type:string), Col("Priority", data:["High","Medium"], type:string)))
+
+dispatchDialog = DialogBlock("Dispatch Crew", "Deploy Crew", dispatchForm, description:"Enter details to dispatch a crew", triggerVariant:primary)
+dispatchForm = Form("dispatch", dispatchButtons, dispatchDetailsField)
+dispatchDetailsField = FormControl("Details", TextArea("dispatch_details", "Enter deployment details...", "", 4))
+dispatchButtons = Buttons(Button("Send Dispatch", primary), Button("Cancel", tertiary))
+
+alertDialog = DialogBlock("Send Alert", "Public Alert", alertForm, description:"Compose a public alert message", triggerVariant:secondary)
+alertForm = Form("alert", alertButtons, alertMessageField)
+alertMessageField = FormControl("Message", TextArea("alert_msg", "Alert text...", "", 3))
+alertButtons = Buttons(Button("Send Alert", primary), Button("Cancel", tertiary))
+
+congestionData = |District|% Congestion
+|Downtown|78
+|Uptown|55
+|Midtown|42
+
+transitData = |Date|On‑time %
+|Mon|92
+|Tue|89
+|Wed|94
+|Thu|90
+|Fri|93
+|Sat|95
+|Sun|91
+
+airQualityData = |District|AQI
+|Downtown|85
+|North|70
+|South|65
+|East|78
+|West|72
+
+energyData = |Date|MWh
+|Mon|1200
+|Tue|1150
+|Wed|1230
+|Thu|1190
+|Fri|1245
+|Sat|1280
+|Sun|1300
+
+waterData = |Category|Value
+|Residential|4800
+|Commercial|3200
+
+parkingData = |Parking Lot|Available Spaces
+|Lot A|120
+|Lot B|85
+|Lot C|40
+|Lot D|10

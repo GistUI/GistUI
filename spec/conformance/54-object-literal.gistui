@@ -1,0 +1,1 @@
+root = Row(style:{pad:4, "line height":2, Mode:"x", wrap, nested:{a:[1, 2]},})

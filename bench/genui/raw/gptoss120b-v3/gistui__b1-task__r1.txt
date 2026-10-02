@@ -1,0 +1,4 @@
+root = Card(taskHeader, statusTag, markDoneButtons)
+taskHeader = CardHeader("Urgent Task", "Due: 2023-10-05")
+statusTag = Tag("In Progress", variant:info)
+markDoneButtons = Buttons(Button("Mark as Done", primary))

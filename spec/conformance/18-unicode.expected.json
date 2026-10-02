@@ -1,0 +1,25 @@
+{
+  "tree": {
+    "type": "Card",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "Émoji 🚀 and 中文 — “quotes”"
+        }
+      },
+      {
+        "type": "Stat",
+        "props": {
+          "label": "Ümsatz",
+          "value": "€1.234"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

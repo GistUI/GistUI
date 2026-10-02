@@ -1,0 +1,21 @@
+{
+  "tree": {
+    "type": "Text",
+    "props": {
+      "content": "ax41 bq"
+    }
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

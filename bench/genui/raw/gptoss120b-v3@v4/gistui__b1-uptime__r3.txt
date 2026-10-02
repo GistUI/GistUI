@@ -1,0 +1,3 @@
+root = Card(uptimeSection, incidentSection)
+uptimeSection = Card(Heading("API Uptime – This Month", h3), TextContent("**99.92%**", size:large), Tag("Good", success))
+incidentSection = Card(Callout(warning, "Recent Incident", "Database outage on Sep 28, resolved at 14:32 UTC."))

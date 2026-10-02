@@ -1,0 +1,130 @@
+root = Card(viewersNow, mostWatched, watchTime, subscriberChart, genrePerf, bufferingChart, deliveryRegion, upcomingReleases, expiringLicenses, recClickChart, searchFailTable, revenuePlanChart, deviceViewChart, regionFocusDialog, featureFlagsTable, promoteDialog)
+
+viewersNow = Card(CardHeader("Live Viewers"), TextContent("**1,342** viewers watching right now", size:large), clear)
+
+mostWatched = Card(CardHeader("Top Titles (Hours)"), mostWatchedTable, sunk)
+
+mostWatchedTable = Table(
+  Col("Title", ["Show A","Show B","Show C","Show D"], type:string),
+  Col("Hours", [1200, 950, 870, 660], type:number)
+)
+
+watchTime = Card(CardHeader("Watch Time - Last 30 Days"), watchTimeChart, clear)
+
+watchTimeChart = LineChart(
+  |Date|Watch Time (hrs)
+  |2023-08-01|3400
+  |2023-08-08|3780
+  |2023-08-15|4020
+  |2023-08-22|3890
+  |2023-08-29|4150,
+  linear,
+  xLabel:"Week",
+  yLabel:"Hours"
+)
+
+subscriberChart = Card(CardHeader("Subscribers vs Cancellations"), BarChart(
+  |Month|New Subscribers|Cancellations
+  |Aug|8200|560
+  |Sep|9100|610
+  |Oct|8800|590,
+  grouped,
+  xLabel:"Month",
+  yLabel:"Count"
+), sunk)
+
+genrePerf = Card(CardHeader("Performance by Genre"), HorizontalBarChart(
+  ["Drama","Comedy","Action","Documentary","Kids"],
+  Series("Avg Watch Time (hrs)", [340, 295, 410, 260, 180]),
+  variant:grouped,
+  xLabel:"Hours",
+  yLabel:"Genre"
+), clear)
+
+bufferingChart = Card(CardHeader("Buffering Rate"), PieChart(
+  ["<1s","1-3s","3-5s",">5s"],
+  [68, 22, 7, 3],
+  donut,
+  appearance:circular
+), sunk)
+
+deliveryRegion = Card(CardHeader("Delivery Health by Region"), BarChart(
+  |Region|Success Rate (%)
+  |North America|96
+  |Europe|94
+  |Asia|92
+  |South America|89
+  |Africa|85,
+  grouped,
+  xLabel:"Region",
+  yLabel:"Success %"
+), clear)
+
+upcomingReleases = Card(CardHeader("Releases This Month"), Table(
+  Col("Title", ["Series X","Movie Y","Doc Z"], type:string),
+  Col("Release Date", ["2023-09-10","2023-09-15","2023-09-20"], type:string)
+), sunk)
+
+expiringLicenses = Card(CardHeader("Licenses Expiring Soon"), Table(
+  Col("Title", ["Show A","Movie B","Series C"], type:string),
+  Col("Expiry Date", ["2023-10-05","2023-10-12","2023-10-20"], type:string)
+), clear)
+
+recClickChart = Card(CardHeader("Recommendation Click Rate"), BarChart(
+  |Recommendation|Click Rate (%)
+  |Rec 1|12
+  |Rec 2|9
+  |Rec 3|7
+  |Rec 4|5,
+  grouped,
+  xLabel:"Recommendation",
+  yLabel:"Click %"
+), sunk)
+
+searchFailTable = Card(CardHeader("Searches Without Playback"), Table(
+  Col("Search Term", ["Mystery Show","Old Movie","Comedy Clip"], type:string),
+  Col("Count", [340, 275, 190], type:number)
+), clear)
+
+revenuePlanChart = Card(CardHeader("Revenue Split by Plan"), PieChart(
+  ["Basic","Standard","Premium"],
+  [45, 35, 20],
+  pie,
+  appearance:circular
+), sunk)
+
+deviceViewChart = Card(CardHeader("Viewing Split by Device"), PieChart(
+  ["Mobile","TV","Web","Tablet"],
+  [40, 35, 20, 5],
+  donut,
+  appearance:circular
+), clear)
+
+regionFocusDialog = DialogBlock(
+  "Focus Region",
+  "Select Region",
+  Card(
+    CardHeader("Region Details"),
+    TextContent("**North America**\n\n- Avg Watch Time: 5.2 hrs\n- Buffering Rate: 1.3%\n- Active Viewers: 820", size:default)
+  ),
+  description:"Choose a region to drill‑down into its metrics.",
+  triggerVariant:primary
+)
+
+featureFlagsTable = Card(CardHeader("Feature Flags"), Table(
+  Col("Feature", ["New UI","Beta Playback","Enhanced Search"], type:string),
+  Col("Enabled", ["✅","❌","✅"], type:string)
+), clear)
+
+promoteDialog = DialogBlock(
+  "Promote Title",
+  "Add to Home Screen",
+  Form(
+    "promote-form",
+    Buttons(Button("Add", primary), Button("Cancel", secondary)),
+    FormControl("Title", Input("title", "Enter title")),
+    FormControl("Priority", Select("priority", SelectItem("high","High"), SelectItem("medium","Medium"), SelectItem("low","Low"), placeholder:"Select priority"))
+  ),
+  description:"Select a title and its priority to feature on the home screen.",
+  triggerVariant:secondary
+)

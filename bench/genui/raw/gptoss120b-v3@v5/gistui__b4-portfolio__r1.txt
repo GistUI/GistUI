@@ -1,0 +1,46 @@
+root = Card(portfolioHeader, healthSummary, activeProjectsTable, overdueMilestonesTable, budgetChart, utilizationChart, risksTable, upcomingDeadlinesTable, deliveryPaceChart, blockedItemsTable, quarterSelect, requestPeopleForm, actionsBar)
+
+portfolioHeader = CardHeader("Project Portfolio Review", "Q2 2024")
+
+healthSummary = TextContent("Overall portfolio health is **stable** with 78% of projects on track.", size:large)
+
+activeProjectsTable = Table(activeProjCol, ownerCol, deadlineCol, healthCol)
+activeProjCol = Col("Project", ["Project Alpha","Project Beta","Project Gamma"], type:string)
+ownerCol = Col("Owner", ["Alice","Bob","Carol"], type:string)
+deadlineCol = Col("Deadline", ["2024-09-15","2024-10-01","2024-11-20"], type:string)
+healthCol = Col("Health", ["🟢","🟡","🔴"], type:string)
+
+overdueMilestonesTable = Table(projectCol, milestoneCol, dueDateCol)
+projectCol = Col("Project", ["Project Alpha","Project Beta"], type:string)
+milestoneCol = Col("Milestone", ["Design Review","Beta Release"], type:string)
+dueDateCol = Col("Due Date", ["2024-08-01","2024-08-05"], type:string)
+
+budgetChart = BarChart(labels:["Project Alpha","Project Beta","Project Gamma"], Series("Allocation", [200000,150000,180000]), Series("Spent", [120000,130000,90000]), variant:grouped, xLabel:"Project", yLabel:"USD")
+
+utilizationChart = HorizontalBarChart(labels:["Alice","Bob","Carol","Dave"], Series("Utilization", [80,65,70,55]), variant:grouped, xLabel:"Utilization %", yLabel:"Team Member")
+
+risksTable = Table(riskProjectCol, riskDescCol, severityCol)
+riskProjectCol = Col("Project", ["Project Beta","Project Gamma"], type:string)
+riskDescCol = Col("Risk", ["Scope creep","Resource shortage"], type:string)
+severityCol = Col("Severity", ["high","medium"], type:string)
+
+upcomingDeadlinesTable = Table(upcomingProjectCol, upcomingDateCol)
+upcomingProjectCol = Col("Project", ["Project Alpha","Project Gamma"], type:string)
+upcomingDateCol = Col("Deadline", ["2024-09-20","2024-09-25"], type:string)
+
+deliveryPaceChart = LineChart(labels:["Sprint 1","Sprint 2","Sprint 3","Sprint 4","Sprint 5","Sprint 6"], Series("Completed Stories", [30,28,35,33,31,34]), variant:linear, xLabel:"Sprint", yLabel:"Stories")
+
+blockedItemsTable = Table(blockedProjectCol, blockedItemCol, reasonCol)
+blockedProjectCol = Col("Project", ["Project Beta"], type:string)
+blockedItemCol = Col("Item", ["Integration Testing"], type:string)
+reasonCol = Col("Reason", ["External dependency delay"], type:string)
+
+quarterSelect = Select("quarter", SelectItem("Q1 2024","Q1 2024"), SelectItem("Q2 2024","Q2 2024"), SelectItem("Q3 2024","Q3 2024"), placeholder:"Select quarter", value:"Q2 2024")
+
+requestPeopleForm = Form("request-more", requestButtons, requestProjectField, requestCountField, requestReasonField)
+requestProjectField = FormControl("Project", Select("proj_select", SelectItem("Project Alpha","Project Alpha"), SelectItem("Project Beta","Project Beta"), SelectItem("Project Gamma","Project Gamma"), placeholder:"Choose project", value:"Project Alpha"))
+requestCountField = FormControl("Additional staff", Input("count", "2", type:number))
+requestReasonField = FormControl("Reason", TextArea("reason", "Explain need", "", rows:3))
+requestButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+actionsBar = Buttons(Button("Export Review", primary), Button("Archive Project", secondary))

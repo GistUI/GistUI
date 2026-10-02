@@ -1,0 +1,8 @@
+root = Card(header, status, eta, reportDialog, clear)
+header = CardHeader("Track Your Package")
+status = TextContent("Current location: Warehouse A, Springfield", size:default)
+eta = TextContent("Estimated delivery: September 5, 2026", size:default)
+reportDialog = DialogBlock("Report Issue", "Report a Delivery Problem", reportForm, description:"If you encountered an issue, let us know.", triggerVariant:secondary)
+reportForm = Form("delivery-report", formButtons, issueField)
+issueField = FormControl("Problem description", TextArea("issue", placeholder:"Describe the issue", rows:5))
+formButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))

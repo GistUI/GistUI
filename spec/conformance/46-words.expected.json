@@ -1,0 +1,21 @@
+{
+  "tree": {
+    "type": "Select",
+    "props": {
+      "name": "n",
+      "label": "N",
+      "options": [
+        "2xl",
+        "3d",
+        "1e",
+        "0x10",
+        "1_000"
+      ]
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

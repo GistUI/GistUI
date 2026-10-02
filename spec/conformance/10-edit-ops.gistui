@@ -1,0 +1,12 @@
+# Edit ops: patch a positional prop by name, append a child, delete, redefine.
+root = Stack(kpis)
+kpis = Row(k1, k2, k3)
+k1 = Stat("MAU", "128k")
+k2 = Stat("MRR", "$412k")
+k3 = Stat("Churn", "3%")
+k2.value = "$415k"
+k2.delta = "+0.7%"
+kpis += k4
+k4 = Stat("NPS", "61")
+k3 = null
+k1 = Stat("DAU", "40k")

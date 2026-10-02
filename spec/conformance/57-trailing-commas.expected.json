@@ -1,0 +1,34 @@
+{
+  "tree": {
+    "type": "Row",
+    "props": {
+      "style": {
+        "pad": 1
+      }
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "a"
+        }
+      },
+      {
+        "type": "Select",
+        "props": {
+          "name": "n",
+          "label": "N",
+          "options": [
+            "x",
+            "y"
+          ]
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

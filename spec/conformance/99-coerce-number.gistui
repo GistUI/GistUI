@@ -1,0 +1,3 @@
+root = Row(Table(t, pageSize:"$1,200"), Table(t, pageSize:"abc"), Table(t, pageSize:true))
+t = |a
+|1

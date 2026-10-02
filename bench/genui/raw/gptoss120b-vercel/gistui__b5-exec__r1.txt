@@ -1,0 +1,63 @@
+root = Card(header, quarterSelect, regionSelect, revenueCard, costsCard, profitCard, revenueChart, costsChart, budgetTable, headcountTable, risksSection, initiativesSection, runwayCard, pipelineCard, winRateCard, customersCard, npsCard, itemsCard, exportButtons)
+
+header = CardHeader("Quarterly Command View", "CEO Dashboard")
+
+quarterSelect = Select("quarter", SelectItem("Q1 2024", "Q1 2024"), SelectItem("Q2 2024", "Q2 2024"), SelectItem("Q3 2024", "Q3 2024"), SelectItem("Q4 2024", "Q4 2024"), placeholder:"Select Quarter")
+
+regionSelect = Select("region", SelectItem("Americas", "Americas"), SelectItem("EMEA", "EMEA"), SelectItem("APAC", "APAC"), placeholder:"Select Region")
+
+revenueCard = Card(TextContent("**Revenue**\n$12.4M", large), sunk)
+
+costsCard = Card(TextContent("**Costs**\n$7.3M", large), sunk)
+
+profitCard = Card(TextContent("**Profit**\n$5.1M", large), sunk)
+
+revenueChart = BarChart(revenueRows, stacked, xLabel:"Quarter", yLabel:"Revenue")
+
+costsChart = BarChart(costRows, stacked, xLabel:"Quarter", yLabel:"Costs")
+
+budgetTable = Table(budgetDeptCol, budgetPlanCol, budgetActualCol)
+
+budgetDeptCol = Col("Department", data:["Engineering","Marketing","Sales","Support"], type:string)
+
+budgetPlanCol = Col("Planned", data:[2500000,1200000,1800000,800000], type:number)
+
+budgetActualCol = Col("Actual", data:[2600000,1100000,1900000,750000], type:number)
+
+headcountTable = Table(headcountDeptCol, headcountCountCol)
+
+headcountDeptCol = Col("Department", data:["Engineering","Marketing","Sales","Support"], type:string)
+
+headcountCountCol = Col("Headcount", data:[45,20,30,15], type:number)
+
+risksSection = Card(Heading("Top Risks", h3), risksTable)
+
+risksTable = Table(riskDescCol, riskOwnerCol)
+
+riskDescCol = Col("Risk", data:["Supply chain delay","Regulatory change","Talent turnover"], type:string)
+
+riskOwnerCol = Col("Owner", data:["Logistics VP","Legal Counsel","HR Director"], type:string)
+
+initiativesSection = Card(Heading("Strategic Initiatives", h3), initiativesTable)
+
+initiativesTable = Table(iniDescCol, iniStatusCol)
+
+iniDescCol = Col("Initiative", data:["Launch new product","Expand to APAC","Improve NPS"], type:string)
+
+iniStatusCol = Col("Status", data:["On Track","Planning","In Progress"], type:string)
+
+runwayCard = Card(TextContent("**Months of Runway**\n8 months", large), sunk)
+
+pipelineCard = Card(TextContent("**Sales Pipeline Value**\n$4.2M", large), sunk)
+
+winRateCard = Card(TextContent("**Win Rate**\n27%", large), sunk)
+
+customersCard = Card(TextContent("**Customers**\n1,240\n**Churn**\n5%", large), sunk)
+
+npsCard = Card(TextContent("**NPS**\n+62", large), sunk)
+
+itemsCard = Card(Heading("Next Board Meeting Items", h3), itemsList)
+
+itemsList = ListBlock(ListItem("Q4 budget approval"), ListItem("Review of strategic initiatives"), ListItem("Risk mitigation plan"), variant:number)
+
+exportButtons = Buttons(Button("Export Pack", primary), direction:row)

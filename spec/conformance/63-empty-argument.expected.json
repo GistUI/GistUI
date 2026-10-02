@@ -1,0 +1,40 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Stat",
+        "props": {
+          "label": "MRR",
+          "value": "$412k"
+        }
+      },
+      {
+        "type": "Header",
+        "props": {
+          "title": "t"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

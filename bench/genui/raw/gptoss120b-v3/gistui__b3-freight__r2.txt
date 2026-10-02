@@ -1,0 +1,44 @@
+root = Card(boardHeader, shipmentsTable, delayedCallout, onTimePct, volumeSplit, searchForm, avgCost, weeklyVolume, flagBtn, lastRefresh)
+
+boardHeader = CardHeader("Logistics Coordinator Board")
+
+shipmentsTable = Table(originCol, destCol, etaCol, statusCol)
+
+originCol = Col("Origin", data:["NYC","LAX","CHI","MIA","DAL"], type:string)
+
+destCol = Col("Destination", data:["LA","NYC","HOU","SEA","DEN"], type:string)
+
+etaCol = Col("ETA", data:["2024-10-05","2024-10-03","2024-10-07","2024-10-04","2024-10-06"], type:string)
+
+statusCol = Col("Status", data:["In Transit","In Transit","In Transit","In Transit","In Transit"], type:string)
+
+delayedCallout = Callout(variant:warning, "Delayed Shipments", "5 shipments are delayed this week")
+
+onTimePct = TextContent("On-time delivery this month: **92%**", size:large)
+
+volumeSplit = PieChart(labels:["Carrier A","Carrier B","Carrier C"], values:[120,80,50], variant:donut, appearance:circular)
+
+searchForm = Form("search-form", formButtons, routeField)
+
+routeField = FormControl("Search route", Input("route", placeholder:"Enter origin‑destination"))
+
+formButtons = Buttons(Button("Search", primary))
+
+avgCost = TextContent("Average cost per shipment: **$45.30**", size:default)
+
+weeklyVolume = LineChart(weeklyRows, variant:linear, xLabel:"Week", yLabel:"Shipments")
+
+weeklyRows = |Week|Shipments
+|2024‑08‑01|150
+|2024‑08‑08|165
+|2024‑08‑15|140
+|2024‑08‑22|170
+|2024‑08‑29|155
+|2024‑09‑05|160
+|2024‑09‑12|175
+|2024‑09‑19|180
+|2024‑09‑26|165
+
+flagBtn = Button("Flag shipment", primary)
+
+lastRefresh = TextContent("Data last refreshed: 2024‑09‑30 14:05 UTC", size:small)

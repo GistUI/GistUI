@@ -1,0 +1,6 @@
+Sure! Here's the dashboard you asked for:
+```gistui
+root = Card(msg)
+msg = Text("Prose lines and fences are stripped with a warning.")
+```
+Let me know if you want changes.

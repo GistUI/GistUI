@@ -1,0 +1,31 @@
+root = Card(header, uptimeSummary, incidentCard, servicesCard, footerActions, gap:l)
+header = Card(CardHeader("Platform System Status", "Live service health and operational metrics"), Tag("All Systems Operational", success, size:md), direction:row, justify:between, align:center)
+uptimeSummary = Card(Heading("Current Month Uptime", h3), uptimeStats, uptimeChart, sunk, gap:m)
+uptimeStats = Card(uptimeMetric, uptimeTarget, uptimeDowntime, direction:row, justify:between, gap:m)
+uptimeMetric = Card(TextContent("API Uptime (MTD)", size:small), Heading("99.94%", h2), Tag("Above SLA (99.9%)", success, size:sm), gap:xs)
+uptimeTarget = Card(TextContent("Target SLA", size:small), Heading("99.90%", h2), TextContent("Standard commitment", size:small), gap:xs)
+uptimeDowntime = Card(TextContent("Total Downtime", size:small), Heading("26 mins", h2), TextContent("Across all regions", size:small), gap:xs)
+uptimeChart = LineChart(uptimeTrendData, linear, xLabel:"Day of Month", yLabel:"Uptime %")
+incidentCard = Card(Heading("Most Recent Incident", h3), incidentAlert, incidentTimeline, gap:m)
+incidentAlert = Alert("INC-4291: Elevated API Latency & Transient 503 Errors", "Resolved on May 18, 2024 at 14:45 UTC (Duration: 26 mins). Root cause was connection pool exhaustion during a database failover.", info)
+incidentTimeline = Steps(step1, step2, step3)
+step1 = StepsItem("14:19 UTC - Incident Detected", "Automated synthetic monitors triggered high latency alerts across the US-East gateway.")
+step2 = StepsItem("14:32 UTC - Mitigation Deployed", "Platform team scaled backend pool limits and routed traffic to healthy read-replicas.")
+step3 = StepsItem("14:45 UTC - Incident Resolved", "Error rates dropped to 0.00% and normal latency was fully verified across all regions.")
+servicesCard = Card(Heading("Service Breakdown", h3), Table(servicesStatusData), sunk, gap:s)
+footerActions = Buttons(Button("Subscribe to Updates", primary), Button("Incident History", secondary), Button("API Documentation", tertiary), direction:row)
+uptimeTrendData = |Day|Uptime
+|May 1|100.0
+|May 5|100.0
+|May 10|100.0
+|May 15|100.0
+|May 18|99.41
+|May 20|100.0
+|May 25|100.0
+|May 28|100.0
+servicesStatusData = |Service|Status|Uptime (MTD)|Avg Latency
+|Core REST API|Operational|99.94%|42ms
+|GraphQL Gateway|Operational|99.98%|58ms
+|Authentication / OAuth|Operational|100.0%|18ms
+|Webhooks & Events|Operational|99.91%|120ms
+|Database Cluster|Operational|99.99%|4ms

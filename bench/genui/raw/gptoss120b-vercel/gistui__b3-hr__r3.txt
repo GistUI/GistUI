@@ -1,0 +1,38 @@
+root = Card(headcount, openRoles, pipelineChart, avgTime, deptSplitChart, interviews, attritionChart, newRoleButton)
+
+headcount = Card(TextContent("**Current Headcount:** 124", size:large-heavy))
+
+openRoles = Card(Heading("Open Roles by Department", h3), openRolesTable)
+openRolesTable = |Department|Open Roles
+|Engineering|5
+|Product|3
+|Design|2
+|Marketing|4
+|Sales|6
+
+pipelineChart = Card(Heading("Candidates per Pipeline Stage", h3), BarChart(pipelineLabels, pipelineSeries, grouped, xLabel:"Stage", yLabel:"Candidates"))
+pipelineLabels = ["Applied","Screening","Interview","Offer","Hired"]
+pipelineSeries = Series("Candidates", values:[120,45,30,12,8])
+
+avgTime = Card(TextContent("**Average Time to Hire:** 34 days", size:large-heavy))
+
+deptSplitChart = Card(Heading("Headcount by Department", h3), HorizontalBarChart(deptLabels, deptSeries, stacked, xLabel:"Headcount", yLabel:"Department"))
+deptLabels = ["Engineering","Product","Design","Marketing","Sales","HR"]
+deptSeries = Series("Headcount", values:[45,20,10,15,30,4])
+
+interviews = Card(Heading("Interviews Scheduled This Week", h3), interviewsTable)
+interviewsTable = |Candidate|Role|Date|Time
+|Alice Smith|Senior Engineer|2026-10-02|10:00 AM
+|Bob Lee|Product Manager|2026-10-03|02:00 PM
+|Carol Nguyen|Designer|2026-10-04|11:30 AM
+
+attritionChart = Card(Heading("Attrition (Last 6 Months)", h3), LineChart(attritionRows, natural, xLabel:"Month", yLabel:"% Attrition"))
+attritionRows = |Month|Attrition%
+|May|1.2
+|Jun|1.5
+|Jul|1.3
+|Aug|1.7
+|Sep|1.4
+|Oct|1.6
+
+newRoleButton = Buttons(Button("Open New Role", primary))

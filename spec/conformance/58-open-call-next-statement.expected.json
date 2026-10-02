@@ -1,0 +1,50 @@
+{
+  "tree": {
+    "type": "Page",
+    "children": [
+      {
+        "type": "Card",
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "one"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Card",
+        "props": {
+          "v": "sunk"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "two"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "line": 1,
+      "fixed": true
+    },
+    {
+      "code": "lenient-syntax",
+      "severity": "warning",
+      "line": 3,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

@@ -1,0 +1,41 @@
+root = Card(header, kpiGrid, trendSection, filterCard, ordersTableSection, fulfillDrawer, gap:l)
+header = CardHeader("E-Commerce Operations Desk", "Live order management, fulfillment actions, and performance trends")
+
+kpiGrid = Card(kpiOrders, kpiRevenue, kpiAov, kpiRefunds, direction:row, gap:m)
+kpiOrders = Card(Heading("Orders Today", h4), "### 142", Tag("+18% vs yesterday", info), sunk)
+kpiRevenue = Card(Heading("Revenue Today", h4), "### $18,450", Tag("+12% vs yesterday", success), sunk)
+kpiAov = Card(Heading("Avg Order Value", h4), "### $129.93", Tag("Target $120", neutral), sunk)
+kpiRefunds = Card(Heading("Refund Rate (MTD)", h4), "### 1.8%", Tag("Within healthy SLA (<2.5%)", success), sunk)
+
+trendSection = Card(Heading("Order Volume (Past 4 Weeks)", h3), BarChart(labels:weeklyVolume.Week, weeklySeries, variant:grouped, xLabel:"Week", yLabel:"Units"), sunk)
+weeklySeries = Series("Orders", [1240, 1380, 1510, 1690])
+
+filterCard = Card(Heading("Filter & Search Orders", h4), filterRow, direction:column, gap:s)
+filterRow = Card(searchControl, statusControl, direction:row, gap:m)
+searchControl = FormControl("Search Customer", Input("customer_search", "Type customer name..."))
+statusControl = FormControl("Status", statusSelect)
+statusSelect = Select("order_status", SelectItem("all", "All Statuses"), SelectItem("unfulfilled", "Unfulfilled"), SelectItem("processing", "Processing"), SelectItem("fulfilled", "Fulfilled"), SelectItem("refunded", "Refunded"), placeholder:"Filter by status")
+
+ordersTableSection = Card(Heading("Recent Orders", h3), Table(orderIdCol, customerCol, totalCol, statusCol, actionCol), sunk)
+orderIdCol = Col("Order ID", ["#ORD-8921", "#ORD-8920", "#ORD-8919", "#ORD-8918", "#ORD-8917", "#ORD-8916"], type:string)
+customerCol = Col("Customer", ["Sarah Jenkins", "Michael Chang", "Elena Rostova", "David Kim", "Amira Patel", "Lucas Silva"], type:string)
+totalCol = Col("Total", ["$245.00", "$89.50", "$412.30", "$64.00", "$158.20", "$310.00"], type:string)
+statusCol = Col("Status", ["Processing", "Unfulfilled", "Fulfilled", "Processing", "Unfulfilled", "Fulfilled"], type:string)
+actionCol = Col("Action", ["Fulfill Pending", "Fulfill Pending", "Completed", "Fulfill Pending", "Fulfill Pending", "Completed"], type:string)
+
+fulfillDrawer = DrawerBlock("Quick Fulfill Action", "Mark Order as Fulfilled", fulfillForm, description:"Update shipment tracking and complete fulfillment workflow")
+fulfillForm = Form("fulfill_order", fulfillButtons, orderSelectField, carrierField, trackingField, notifySwitch)
+orderSelectField = FormControl("Select Pending Order", pendingOrderSelect)
+pendingOrderSelect = Select("pending_order_id", SelectItem("8921", "#ORD-8921 - Sarah Jenkins ($245.00)"), SelectItem("8920", "#ORD-8920 - Michael Chang ($89.50)"), SelectItem("8918", "#ORD-8918 - David Kim ($64.00)"), SelectItem("8917", "#ORD-8917 - Amira Patel ($158.20)"), placeholder:"Select order")
+carrierField = FormControl("Shipping Carrier", carrierSelect)
+carrierSelect = Select("carrier", SelectItem("ups", "UPS Ground"), SelectItem("fedex", "FedEx Express"), SelectItem("usps", "USPS Priority"), SelectItem("dhl", "DHL Express"), placeholder:"Select carrier")
+trackingField = FormControl("Tracking Number", Input("tracking_number", "e.g. 1Z9999999999999999"))
+notifySwitch = FormControl("Customer Notification", SwitchGroup("notify_cust", notifyItem))
+notifyItem = SwitchItem("send_email", "Send fulfillment confirmation email with tracking", defaultChecked)
+fulfillButtons = Buttons(Button("Mark Order Fulfilled", primary), Button("Cancel", tertiary))
+
+weeklyVolume = |Week|Orders
+|Week 1|1240
+|Week 2|1380
+|Week 3|1510
+|Week 4|1690

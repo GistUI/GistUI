@@ -1,0 +1,68 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Row",
+        "props": {
+          "wrap": true,
+          "gap": "xl"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "t"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Input",
+        "props": {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true,
+          "min": 3
+        }
+      },
+      {
+        "type": "Card",
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "an id named like a flag is only a ref where the component has no such flag"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Row",
+        "props": {
+          "gap": "xl"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "invalid-enum",
+      "severity": "warning",
+      "stmt": "d",
+      "line": 6,
+      "fixed": true
+    },
+    {
+      "code": "reserved-id",
+      "severity": "warning",
+      "stmt": "wrap",
+      "line": 8
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

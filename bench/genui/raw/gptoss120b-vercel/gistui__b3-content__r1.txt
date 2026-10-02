@@ -1,0 +1,30 @@
+root = Card(cardHeader, draftsTable, publishedTable, mostReadCard, readershipChart, filterSelect, scheduleForm, commentsTable, newDraftButton)
+
+cardHeader = CardHeader("Editor Content Studio")
+
+draftsTable = Table(draftsColId, statusColId)
+draftsColId = Col("Draft", data:["Article A","Article B","Article C"], type:string)
+statusColId = Col("Status", data:["In Review","Draft","Pending"], type:string)
+
+publishedTable = Table(publishedColId, countColId)
+publishedColId = Col("Published This Week", data:["Post 1","Post 2"], type:string)
+countColId = Col("Views", data:[1200,850], type:number)
+
+mostReadCard = Card(Heading("Most‑Read Article This Month", h3), TextContent("**Title:** \"Deep Dive into AI\"\n**Views:** 12,450", size:large), Button("View article", primary))
+
+readershipChart = AreaChart(readershipLabels, readershipSeries, natural, xLabel:"Date", yLabel:"Readers")
+readershipLabels = ["2023‑08‑01","2023‑08‑08","2023‑08‑15","2023‑08‑22","2023‑08‑29"]
+readershipSeries = Series("Readers", values:[340,560,720,610,830])
+
+filterSelect = Select("category_filter", SelectItem("All","All categories"), SelectItem("Tech","Tech"), SelectItem("Health","Health"), placeholder:"Filter by category", size:small)
+
+scheduleForm = Form("schedule_piece", scheduleButtons, titleField, dateField)
+titleField = FormControl("Title", Input("title", "Enter title"))
+dateField = FormControl("Publish date", Input("publish_date", "YYYY‑MM‑DD", type:date))
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+
+commentsTable = Table(commentColId, statusColId2)
+commentColId = Col("Comment", data:["Great article!","Needs more data"], type:string)
+statusColId2 = Col("Status", data:["Awaiting reply","Awaiting reply"], type:string)
+
+newDraftButton = Button("Start New Draft", primary)

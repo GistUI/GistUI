@@ -1,0 +1,6 @@
+root = Card(intro, form)
+form = Form("newsletter-signup", formButtons, emailField)
+intro = TextContent("Get weekly updates on new product features and tips.")
+emailField = FormControl("Email address", emailInput)
+emailInput = Input("email", placeholder:"you@example.com", type:email)
+formButtons = Buttons(Button("Subscribe", primary))

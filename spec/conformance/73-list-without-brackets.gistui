@@ -1,0 +1,2 @@
+root = Row(items)
+items = Text("a"), Text("b")

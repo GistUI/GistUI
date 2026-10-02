@@ -1,0 +1,34 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Panel",
+        "props": {
+          "header": {
+            "type": "Header",
+            "props": {
+              "title": "Inline"
+            }
+          }
+        }
+      },
+      {
+        "type": "Panel",
+        "props": {
+          "header": {
+            "type": "Header",
+            "props": {
+              "title": "By reference"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

@@ -1,0 +1,27 @@
+root = Card(CardHeader("Support Lead — Morning View", "Today's support snapshot"), metrics, ticketsTabs, newTicketDialog, gap:m)
+
+metrics = Card(TextContent("**23**\n\nOpen tickets", size:large), TextContent("**1h 42m**\n\nAvg first response", size:large), direction:row, justify:between, gap:m)
+
+ticketsTabs = Tabs(TabItem("all", "All tickets", allTicketsTable), TabItem("high", "High priority", highTicketsTable))
+
+newTicketDialog = DialogBlock("New ticket", "Open a new ticket", newTicketForm, description:"Submit a support request")
+
+newTicketForm = Form("new-ticket", formButtons, subjectField, priorityField, detailsField)
+
+subjectField = FormControl("Subject", Input("subject", placeholder:"Brief summary"))
+priorityField = FormControl("Priority", prioritySelect)
+detailsField = FormControl("Details", TextArea("details", placeholder:"Describe the issue"))
+prioritySelect = Select("priority", SelectItem("high", "High"), SelectItem("medium", "Medium"), SelectItem("low", "Low"), placeholder:"Select priority")
+formButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+allTicketsTable = |Ticket|Subject|Priority|Status|Age
+|T-1042|Login failure on mobile|High|Open|12m
+|T-1041|Invoice download broken|Medium|Open|25m
+|T-1040|API rate limit question|Low|Open|41m
+|T-1039|Cannot reset password|High|Open|1h
+|T-1038|Billing address update|Medium|Open|2h
+
+highTicketsTable = |Ticket|Subject|Priority|Status|Age
+|T-1042|Login failure on mobile|High|Open|12m
+|T-1039|Cannot reset password|High|Open|1h
+|T-1036|Webhook not delivering events|High|Open|3h

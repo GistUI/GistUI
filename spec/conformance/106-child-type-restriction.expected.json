@@ -1,0 +1,44 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Tabs",
+        "children": [
+          {
+            "type": "Tab",
+            "props": {
+              "label": "T"
+            },
+            "children": [
+              {
+                "type": "Text",
+                "props": {
+                  "content": "y"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Text",
+            "props": {
+              "content": "x"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "invalid-child",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

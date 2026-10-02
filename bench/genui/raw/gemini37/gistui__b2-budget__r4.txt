@@ -1,0 +1,45 @@
+root = Card(header, monthSelector, summaryRow, largestExpenseCard, breakdownSection, recentExpensesSection, gap:l)
+header = CardHeader("Personal Budget Check", "Track spending, review limits, and log new expenses")
+monthSelector = Card(monthForm, addExpenseDialog, direction:row, justify:between, align:center, variant:sunk)
+monthForm = Form("month_filter", monthButtons, monthControl)
+monthButtons = Buttons(Button("Apply", size:small))
+monthControl = FormControl("Viewing Period", monthSelect)
+monthSelect = Select("selected_month", SelectItem("2024-10", "October 2024 (Current)"), SelectItem("2024-09", "September 2024"), SelectItem("2024-08", "August 2024"), SelectItem("2024-07", "July 2024"), value:"2024-10")
+addExpenseDialog = DialogBlock("+ Add Expense", "Log New Expense", addExpenseForm, description:"Enter details of your transaction below", triggerVariant:default)
+addExpenseForm = Form("new_expense", newExpenseButtons, expenseDescControl, expenseAmountControl, expenseCategoryControl, expenseDateControl)
+expenseDescControl = FormControl("Description", Input("expense_desc", "e.g., Grocery run, Electric bill"))
+expenseAmountControl = FormControl("Amount ($)", Input("expense_amount", "0.00", type:number))
+expenseCategoryControl = FormControl("Category", expenseCategorySelect)
+expenseCategorySelect = Select("expense_category", SelectItem("housing", "Housing & Rent"), SelectItem("food", "Food & Dining"), SelectItem("transport", "Transportation"), SelectItem("utilities", "Utilities"), SelectItem("entertainment", "Entertainment"), SelectItem("shopping", "Shopping"), placeholder:"Select category")
+expenseDateControl = FormControl("Date", DatePicker("expense_date", mode:single))
+newExpenseButtons = Buttons(Button("Save Expense"), Button("Cancel", variant:secondary))
+summaryRow = Card(spentProgressCard, budgetStatusCard, direction:row, gap:m)
+spentProgressCard = Card(Heading("Total Spent vs. Budget", level:h3), TextContent("### **$2,845.00** / $3,500.00", size:large), Progress(81, label:"81% of monthly budget used ($655 remaining)"), Tag("On Track", variant:success), gap:s)
+budgetStatusCard = Card(Heading("Monthly Limit Status", level:h3), TextContent("You are **$655.00** under budget with 8 days remaining in this billing cycle.", size:default), Callout(variant:info, "Budget Tip", "Daily recommended spending limit for remainder of month is $81.87."), gap:s)
+largestExpenseCard = Card(Heading("Single Largest Expense", level:h3), largestExpenseDetails, Alert("Top Transaction Highlight", "Rent payment accounted for 51% of total monthly spend so far.", variant:info), variant:sunk, gap:s)
+largestExpenseDetails = Card(TextContent("🏠 **Apartment Rent**", size:large-heavy), TextContent("**$1,450.00**", size:large), Badge("Housing", variant:secondary), Tag("Oct 1, 2024", variant:neutral), direction:row, justify:between, align:center, variant:clear)
+breakdownSection = Card(Heading("Spending Split by Category", level:h3), categoryChart, categoryTable, direction:column, gap:m)
+categoryChart = HorizontalBarChart(catData, variant:grouped, xLabel:"Amount ($)", yLabel:"Category")
+categoryTable = Table(catTableData)
+catData = |Category|Amount
+|Housing|1450
+|Food & Dining|580
+|Transportation|310
+|Utilities|245
+|Entertainment|160
+|Shopping|100
+catTableData = |Category|Spent|Budget Limit|Status
+|Housing|$1,450.00|$1,450.00|100%
+|Food & Dining|$580.00|$700.00|83%
+|Transportation|$310.00|$400.00|78%
+|Utilities|$245.00|$300.00|82%
+|Entertainment|$160.00|$350.00|46%
+|Shopping|$100.00|$300.00|33%
+recentExpensesSection = Card(Heading("Recent Transactions", level:h3), recentTable, sunk)
+recentTable = Table(recentTxData)
+recentTxData = |Date|Description|Category|Amount
+|Oct 22|Supermarket Grocery|Food & Dining|$112.40
+|Oct 20|Metro Card Refill|Transportation|$45.00
+|Oct 18|Electric Utility Bill|Utilities|$135.20
+|Oct 15|Dinner with Friends|Food & Dining|$84.50
+|Oct 01|Apartment Rent (Largest)|Housing|$1,450.00

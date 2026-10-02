@@ -1,0 +1,52 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Table",
+        "props": {
+          "data": [
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "type": "Table"
+      },
+      {
+        "type": "Table"
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "invalid-prop",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "missing-required",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "invalid-prop",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "missing-required",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

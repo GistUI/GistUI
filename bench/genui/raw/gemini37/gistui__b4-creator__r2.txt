@@ -1,0 +1,90 @@
+root = Card(headerRow, filterRow, kpiRow, mainContent, bottomRow, gap:l)
+headerRow = Card(CardHeader("Creator Studio", "Cross-Platform Dashboard & Publishing Hub"), newPostDialog, direction:row, justify:between, align:center, variant:clear)
+newPostDialog = DialogBlock("Schedule Post", "Create & Schedule Post", postForm, description:"Set caption, target channels, and release timing.")
+
+filterRow = Card(CardHeader("Platform Scope", "Filter studio metrics by channel"), platformSelect, variant:sunk, direction:row, justify:between, align:center)
+platformSelect = Select("platform_filter", SelectItem("all", "All Platforms (Cross-Network)"), SelectItem("yt", "YouTube"), SelectItem("ig", "Instagram"), SelectItem("tt", "TikTok"), SelectItem("x", "X / Twitter"), SelectItem("li", "LinkedIn"), placeholder:"Select platform", value:"all")
+
+kpiRow = Card(followersCard, growthCard, erCard, earningsCard, direction:row, gap:m, wrap)
+followersCard = Card(TextContent("Total Followers", size:small), Heading("1,284,500", level:h2), Badge("+42.3k vs last month", variant:default), variant:card)
+growthCard = Card(TextContent("Monthly Follower Growth", size:small), Heading("+3.4%", level:h2), LineChart(followerGrowthData, natural, xLabel:"Week", yLabel:"Followers"), variant:card)
+erCard = Card(TextContent("Avg Engagement Rate", size:small), Heading("4.82%", level:h2), Badge("+0.6% industry avg", variant:secondary), RadialChart(erData.labels, erData.values), variant:card)
+earningsCard = Card(TextContent("Estimated Earnings (May)", size:small), Heading("$14,820", level:h2), Badge("Brand deals & AdSense", variant:outline), BarChart(earningsData, grouped, xLabel:"Channel", yLabel:"USD"), variant:card)
+
+mainContent = Card(leftCol, rightCol, direction:row, gap:m)
+leftCol = Card(audienceCard, topPostsCard, scheduledCard, gap:m, variant:clear)
+rightCol = Card(timingCard, commentsCard, collabCard, gap:m, variant:clear)
+
+audienceCard = Card(CardHeader("Audience Split by Platform", "Distribution of 1.28M followers"), PieChart(audienceData.labels, audienceData.values, donut, circular), variant:card)
+topPostsCard = Card(CardHeader("Best Posts This Month", "Ranked by reach and viral coefficient"), Table(postsColTitle, postsColPlatform, postsColReach, postsColEr), variant:card)
+postsColTitle = Col("Post / Video", ["10 AI Tools Built for Solo Founders", "Day in the Life of a Tech Creator", "Micro-SaaS Teardown #14", "How to Monetize Digital Guides"])
+postsColPlatform = Col("Platform", ["YouTube", "TikTok", "Instagram", "LinkedIn"])
+postsColReach = Col("Reach", [420000, 310500, 198000, 94200])
+postsColEr = Col("Engagement", ["6.4%", "8.1%", "5.2%", "7.0%"])
+
+scheduledCard = Card(CardHeader("Scheduled This Week", "Queued cross-network drops"), Table(schedDateCol, schedPlatCol, schedTitleCol, schedStatusCol), variant:card)
+schedDateCol = Col("Date & Time", ["Thu May 16, 6:00 PM", "Fri May 17, 12:30 PM", "Sat May 18, 9:00 AM", "Sun May 19, 7:00 PM"])
+schedPlatCol = Col("Platform", ["YouTube", "LinkedIn", "Instagram", "TikTok"])
+schedTitleCol = Col("Title / Hook", ["Full Studio Desk Setup 2024", "Why Newsletter Monetization Wins", "Carousel: 5 Creator Mistakes", "Quick Editing Hack with CapCut"])
+schedStatusCol = Col("Status", ["Ready", "Draft Ready", "Media Uploaded", "Scheduled"])
+
+timingCard = Card(CardHeader("Optimal Posting Times", "Best hour based on 90-day engagement history"), timingAlert, BarChart(bestHourData, grouped, xLabel:"Time Window", yLabel:"Avg ER %"), variant:card)
+timingAlert = Alert("Peak Engagement: 6:00 PM - 8:00 PM", "Posts published between 18:00-20:00 UTC gain 38% more interactions in the first 2 hours.", info)
+
+commentsCard = Card(CardHeader("Unread Comments Awaiting Reply", "Priority engagement queue (18 total)"), unreadCommentsList, commentActions, variant:card)
+unreadCommentsList = ListBlock(commentItem1, commentItem2, commentItem3, variant:number)
+commentItem1 = ListItem("@alex_dev on YouTube", "Which camera lens are you using for the overhead B-roll shots?", "Reply")
+commentItem2 = ListItem("@sarah_designs on Instagram", "Sent you a DM regarding the Figma preset pack bundle!", "Reply")
+commentItem3 = ListItem("@mark_builds on TikTok", "Does the API cost stay within free tier during launch?", "Reply")
+commentActions = Buttons(Button("Open Inbox (18)", variant:secondary, size:small), Button("Mark All Read", variant:tertiary, size:small))
+
+collabCard = Card(CardHeader("Pending Collaboration Requests", "Inbound sponsorships & partnerships"), Table(collabBrandCol, collabTypeCol, collabBudgetCol, collabStatusCol), collabButtons, variant:card)
+collabBrandCol = Col("Brand / Creator", ["Nord Security", "Notion Templates Inc", "DesignCo Studio"])
+collabTypeCol = Col("Campaign Type", ["Dedicated Video Sponsor", "Newsletter Integration", "IG Reel + Story Series"])
+collabBudgetCol = Col("Offer", ["$3,500", "$1,200", "$2,000"])
+collabStatusCol = Col("Status", ["Needs Review", "Contract Sent", "Offer Received"])
+collabButtons = Buttons(Button("Review Deals", variant:primary, size:small), Button("Decline Others", variant:tertiary, size:small))
+
+bottomRow = Card(quickScheduleCard, variant:card)
+quickScheduleCard = Card(CardHeader("Quick Post Scheduler", "Publish instantly or queue for peak posting times"), postForm, variant:clear)
+
+postForm = Form("schedule_form", formSubmitButtons, targetField, captionField, scheduleDateField, mediaField)
+targetField = FormControl("Target Platforms", CheckBoxGroup("target_platforms", CheckBoxItem("YouTube", "Community & Video", "yt", defaultChecked), CheckBoxItem("Instagram", "Feed & Reel", "ig", defaultChecked), CheckBoxItem("TikTok", "Short-form video", "tt", defaultChecked), CheckBoxItem("LinkedIn", "Article & Carousel", "li"), CheckBoxItem("X / Twitter", "Post thread", "x")))
+captionField = FormControl("Post Caption & Hook", TextArea("caption", "Write your post copy, tags, and call-to-action...", rows:4))
+scheduleDateField = FormControl("Schedule Date & Peak Time", DatePicker("scheduled_date", single))
+mediaField = FormControl("Media Attachment URL", Input("media_url", "https://cdn.assets.io/video/render-01.mp4", text))
+formSubmitButtons = Buttons(Button("Schedule Post", variant:primary), Button("Save as Draft", variant:secondary))
+
+followerGrowthData = |Week|Followers
+|W1|1242000
+|W2|1256000
+|W3|1271000
+|W4|1284500
+
+audienceData = |labels|values
+|YouTube|520000
+|Instagram|360000
+|TikTok|240000
+|LinkedIn|110000
+|X|54500
+
+erData = |labels|values
+|YouTube|5.8
+|TikTok|7.2
+|Instagram|4.1
+|LinkedIn|3.9
+|X|3.1
+
+earningsData = |Channel|Revenue
+|YouTube|6800
+|Sponsorships|4500
+|Affiliates|2100
+|Subscriptions|1420
+
+bestHourData = |Hour|EngagementRate
+|9 AM|2.4
+|12 PM|3.8
+|3 PM|4.1
+|6 PM|6.9
+|8 PM|5.4
+|11 PM|1.8

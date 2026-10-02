@@ -1,0 +1,6 @@
+root = Stack(c)
+c = Chart(
+  |Week|Volume
+  |W1|30
+  |W2|45
+, x:"Week")

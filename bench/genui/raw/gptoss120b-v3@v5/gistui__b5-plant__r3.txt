@@ -1,0 +1,74 @@
+root = Card(overviewCard, oeeChart, productionCard, linesAccordion, defectChart, downtimeChart, maintenanceTable, stockTable, deliveriesTable, shiftChart, safetyCard, holdTable, energyCard, workOrdersTable, scheduleForm, focusTabs, andonAlerts, exportButtons)
+
+overviewCard = Card(CardHeader("Overall Equipment Effectiveness", "Current OEE"), TextContent("OEE: 78.5%", size:large))
+
+oeeChart = HorizontalBarChart(labels:["Overall"], Series("OEE", [78.5]), variant:clear, xLabel:"%", yLabel:"Metric")
+
+productionCard = Card(CardHeader("Today's Production", "Target vs Actual"), BarChart(labels:["Units"], Series("Target", [1200]), Series("Produced", [950]), variant:grouped, xLabel:"", yLabel:"Units"))
+
+linesAccordion = Accordion(line1Item, line2Item, line3Item, line4Item)
+
+line1Item = AccordionItem("line1", "Line A", TextContent("Rate: 95 units/hr"), Tag("Status", success))
+line2Item = AccordionItem("line2", "Line B", TextContent("Rate: 80 units/hr"), Tag("Status", warning))
+line3Item = AccordionItem("line3", "Line C", TextContent("Rate: 60 units/hr"), Tag("Status", danger))
+line4Item = AccordionItem("line4", "Line D", TextContent("Rate: 110 units/hr"), Tag("Status", success))
+
+defectChart = LineChart(labels:["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10","Day 11","Day 12","Day 13","Day 14","Day 15","Day 16","Day 17","Day 18","Day 19","Day 20","Day 21","Day 22","Day 23","Day 24","Day 25","Day 26","Day 27","Day 28","Day 29","Day 30"], Series("Defect Rate", [0.8,0.7,0.9,0.6,0.5,0.4,0.6,0.7,0.8,0.9,0.5,0.6,0.7,0.8,0.4,0.5,0.6,0.7,0.8,0.9,0.5,0.6,0.7,0.8,0.4,0.5,0.6,0.7,0.8,0.9]), variant:linear, xLabel:"Day", yLabel:"%")
+
+downtimeChart = PieChart(labels:["Mechanical","Electrical","Changeover","Quality"], values:[30,20,25,25], variant:donut, appearance:circular)
+
+maintenanceTable = Table(machineCol, dueCol, priorityCol)
+
+machineCol = Col("Machine", ["M1","M2","M3","M4"], type:string)
+dueCol = Col("Due Date", ["2024-10-05","2024-10-12","2024-10-20","2024-11-01"], type:string)
+priorityCol = Col("Priority", ["High","Medium","Low","Medium"], type:string)
+
+stockTable = Table(itemCol, qtyCol)
+
+itemCol = Col("Item", ["Steel","Resin","Packaging"], type:string)
+qtyCol = Col("Quantity", [1200,800,1500], type:number)
+
+deliveriesTable = Table(supplierCol, dueCol2, statusCol)
+
+supplierCol = Col("Supplier", ["Alpha Metals","Beta Polymers","Gamma Pack"], type:string)
+dueCol2 = Col("Due This Week", ["2024-09-30","2024-10-01","2024-10-02"], type:string)
+statusCol = Col("Status", ["Pending","On Time","Delayed"], type:string)
+
+shiftChart = BarChart(labels:["Shift 1","Shift 2","Shift 3"], Series("Target", [400,400,400]), Series("Output", [380,410,395]), variant:grouped, xLabel:"Shift", yLabel:"Units")
+
+safetyCard = Card(CardHeader("Safety Incidents", "Year to date"), TextContent("Incidents: 3"), TextContent("Days since last incident: 45", size:large))
+
+holdTable = Table(batchCol, reasonCol)
+
+batchCol = Col("Batch", ["B-102","B-215"], type:string)
+reasonCol = Col("Hold Reason", ["Quality check","Material defect"], type:string)
+
+energyCard = Card(CardHeader("Energy Use Today", ""), TextContent("Energy consumed: 1,250 kWh", size:large))
+
+workOrdersTable = Table(woCol, priorityCol2, statusCol2)
+
+woCol = Col("Work Order", ["WO-001","WO-002","WO-003"], type:string)
+priorityCol2 = Col("Priority", ["High","Low","Medium"], type:string)
+statusCol2 = Col("Status", ["Open","Open","In Progress"], type:string)
+
+scheduleForm = Form("schedule-maint", scheduleButtons, machineSelectControl, datePickerControl)
+
+machineSelectControl = FormControl("Machine", machineSelect)
+machineSelect = Select("machine", SelectItem("M1","M1"), SelectItem("M2","M2"), SelectItem("M3","M3"), SelectItem("M4","M4"), placeholder:"Select machine", value:"", rules:[])
+datePickerControl = FormControl("Date", datePicker)
+datePicker = DatePicker("date", mode:single, value:[], rules:[])
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+focusTabs = Tabs(lineATab, lineBTab, lineCTab, lineDTab)
+
+lineATab = TabItem("lineA", "Line A", TextContent("Focused view for Line A"))
+lineBTab = TabItem("lineB", "Line B", TextContent("Focused view for Line B"))
+lineCTab = TabItem("lineC", "Line C", TextContent("Focused view for Line C"))
+lineDTab = TabItem("lineD", "Line D", TextContent("Focused view for Line D"))
+
+andonAlerts = Card(CardHeader("Live ANDON Alerts", ""), Table(alertCol, timeCol))
+
+alertCol = Col("Alert", ["Machine M2 stopped","Quality hold on B-215"], type:string)
+timeCol = Col("Time", ["09:15","10:42"], type:string)
+
+exportButtons = Buttons(Button("Export Shift Report", primary))

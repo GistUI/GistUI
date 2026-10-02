@@ -1,0 +1,3 @@
+root = Stack(p, Text("x"))
+p = Panel(header:a)
+a = Panel(header:p)

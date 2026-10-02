@@ -1,0 +1,166 @@
+root = Card(enrollmentSection, applicationsSection, acceptanceSection, tuitionSection, courseFillSection, teachingLoadSection, riskSection, scholarshipSection, housingSection, eventsSection, alumniSection, departmentFocusSection, semesterCompareSection, waitlistSection, approveCourseSection, messageSection)
+
+enrollmentSection = Card(CardHeader("Total Enrollment (5‑year trend)"), enrollmentChart, sunk)
+
+enrollmentChart = LineChart(enrollmentData, linear, xLabel:"Year", yLabel:"Students")
+
+enrollmentData = |Year|Enrollment
+|2019|12400
+|2020|13050
+|2021|13800
+|2022|14520
+|2023|15230
+
+applicationsSection = Card(CardHeader("Applications by Program"), applicationsChart, sunk)
+
+applicationsChart = BarChart(applicationsData, grouped, xLabel:"Program", yLabel:"Applications")
+
+applicationsData = |Program|Applications
+|Engineering|3400
+|Business|2800
+|Arts|1900
+|Sciences|2100
+|Education|1200
+
+acceptanceSection = Card(CardHeader("Acceptance Rate"), acceptancePie, sunk)
+
+acceptancePie = PieChart(acceptanceLabels, acceptanceValues, donut)
+
+acceptanceLabels = |Category|
+|Accepted|
+|Rejected|
+
+acceptanceValues = |Value|
+|68|
+|32
+
+tuitionSection = Card(CardHeader("Tuition Revenue (Current Year)"), TextContent("$12.4 M", size:large), sunk)
+
+courseFillSection = Card(CardHeader("Course Offering Fill Rates"), courseFillChart, sunk)
+
+courseFillChart = HorizontalBarChart(courseLabels, Series("Fill %", courseFillVals), grouped, xLabel:"Fill %", yLabel:"Course")
+
+courseLabels = ["Calculus I","Physics II","World History","Computer Science","Psychology"]
+
+courseFillVals = [92,85,78,88,81]
+
+teachingLoadSection = Card(CardHeader("Teaching Load by Faculty"), teachingLoadChart, sunk)
+
+teachingLoadChart = BarChart(facultyLoadData, grouped, xLabel:"Faculty", yLabel:"Courses Taught")
+
+facultyLoadData = |Faculty|Courses
+|Dr. Smith|4
+|Prof. Lee|5
+|Dr. Patel|3
+|Prof. Gomez|4
+|Dr. Chen|5
+
+riskSection = Card(CardHeader("Students at Academic Risk"), riskTable, sunk)
+
+riskTable = Table(
+  Col("Student ID", data:["S1023","S1108","S1175"], type:string),
+  Col("Name", data:["Alice","Bob","Carlos"], type:string),
+  Col("GPA", data:[2.1,1.9,2.0], type:number)
+)
+
+scholarshipSection = Card(CardHeader("Scholarship Budget Used"), scholarshipPie, sunk)
+
+scholarshipPie = PieChart(scholarshipLabels, scholarshipValues, pie)
+
+scholarshipLabels = |Category|
+|Used|
+|Remaining|
+
+scholarshipValues = |Value|
+|4.2|
+|1.8
+
+housingSection = Card(CardHeader("Housing Occupancy"), housingChart, sunk)
+
+housingChart = HorizontalBarChart(housingLabels, Series("Occupancy %", housingVals), grouped, xLabel:"Occupancy %", yLabel:"Residence Hall")
+
+housingLabels = ["Maple Hall","Oak Hall","Pine Hall","Cedar Hall"]
+
+housingVals = [95,88,76,82]
+
+eventsSection = Card(CardHeader("Campus Events This Month"), eventsList, sunk)
+
+eventsList = ListBlock(
+  ListItem("Career Fair", "April 12", "View", []),
+  ListItem("Spring Concert", "April 18", "Listen", []),
+  ListItem("Alumni Reunion", "April 22", "Register", []),
+  ListItem("Research Expo", "April 27", "Explore", [])
+, variant:number)
+
+alumniSection = Card(CardHeader("Alumni Giving (4‑year trend)"), alumniChart, sunk)
+
+alumniChart = LineChart(alumniData, linear, xLabel:"Year", yLabel:"Donations")
+
+alumniData = |Year|Donations
+|2020|1.2M
+|2021|1.45M
+|2022|1.6M
+|2023|1.78M
+
+departmentFocusSection = Card(CardHeader("Focus on Department"), departmentSelect, focusButton, sunk)
+
+departmentSelect = Select("dept_select", 
+  SelectItem("ENG", "Engineering"),
+  SelectItem("BUS", "Business"),
+  SelectItem("ART", "Arts"),
+  SelectItem("SCI", "Sciences"),
+  SelectItem("EDU", "Education"),
+  placeholder:"Select department"
+)
+
+focusButton = Buttons(Button("Show", primary))
+
+semesterCompareSection = Card(CardHeader("This Semester vs Last"), semesterChart, sunk)
+
+semesterChart = BarChart(semesterData, grouped, xLabel:"Metric", yLabel:"Count")
+
+semesterData = |Metric|Current|Previous
+|Enrollments|15230|14520
+|Applications|12400|11900
+|Graduates|3200|3100
+
+waitlistSection = Card(CardHeader("Waitlisted Students per Program"), waitlistChart, sunk)
+
+waitlistChart = BarChart(waitlistData, grouped, xLabel:"Program", yLabel:"Waitlisted")
+
+waitlistData = |Program|Waitlisted
+|Engineering|150
+|Business|120
+|Arts|80
+|Sciences|95
+|Education|45
+
+approveCourseSection = Card(CardHeader("Approve New Course"), approveForm, sunk)
+
+approveForm = Form("approve_course", approveButtons, courseNameField, deptField, creditsField)
+
+courseNameField = FormControl("Course Name", Input("course_name", "Enter name"))
+deptField = FormControl("Department", Select("dept", 
+  SelectItem("ENG","Engineering"),
+  SelectItem("BUS","Business"),
+  SelectItem("ART","Arts"),
+  SelectItem("SCI","Sciences"),
+  SelectItem("EDU","Education"),
+  placeholder:"Select department"
+))
+creditsField = FormControl("Credits", Input("credits", "0", type:number))
+approveButtons = Buttons(Button("Approve", primary), Button("Reject", secondary))
+
+messageSection = Card(CardHeader("Send Message to Student Group"), messageForm, sunk)
+
+messageForm = Form("send_message", messageButtons, groupSelect, messageBody)
+
+groupSelect = FormControl("Student Group", Select("group", 
+  SelectItem("FR","Freshmen"),
+  SelectItem("SO","Sophomores"),
+  SelectItem("JR","Juniors"),
+  SelectItem("SR","Seniors"),
+  placeholder:"Select group"
+))
+messageBody = FormControl("Message", TextArea("msg_body", "Enter message", rows:5))
+messageButtons = Buttons(Button("Send", primary))

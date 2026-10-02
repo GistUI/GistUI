@@ -1,0 +1,115 @@
+root = Card(header, liveAlert, kpiRow, mainTabs, gap:m)
+header = Card(CardHeader("Global Streaming Operations Command Center", "Real-time telemetry, distribution health, catalog lifecycle & controls"), headerControls, direction:row, justify:between, align:center)
+headerControls = Card(regionFilter, promoteTitleModal, direction:row, gap:s, align:center, variant:clear)
+regionFilter = Select("active_region", SelectItem("all", "Global (All Regions)"), SelectItem("na", "North America (US-East/West)"), SelectItem("eu", "Europe (EU-Central/West)"), SelectItem("apac", "Asia-Pacific (APAC-East/South)"), SelectItem("latam", "Latin America (LATAM-South)"), placeholder:"Focus Region", value:"all", size:small)
+promoteTitleModal = DialogBlock("Promote Hero Title", "Promote Title to Hero Slot", promoteForm, description:"Feature or pin content to the top billboard across selected client devices.", triggerVariant:default)
+promoteForm = Form("promote_content", promoteBtns, promoteTitleField, promoteRegionField, promoteDeviceField, promoteBadgeField)
+promoteTitleField = FormControl("Catalog Title", Select("target_title", SelectItem("t1", "Shadow Protocol (S2)"), SelectItem("t2", "The Deep Unknown"), SelectItem("t3", "Neon Velocity"), SelectItem("t4", "Cyberpunk: 2099"), SelectItem("t5", "The Great Kitchen"), placeholder:"Select title to promote", value:"t1"))
+promoteRegionField = FormControl("Target Geographies", Select("promo_geo", SelectItem("all", "Worldwide"), SelectItem("na", "North America Only"), SelectItem("emea", "EMEA"), SelectItem("apac", "APAC"), placeholder:"Select region", value:"all"))
+promoteDeviceField = FormControl("Device Placement", Select("promo_devices", SelectItem("all", "All Devices (Living Room & Mobile)"), SelectItem("tv", "Connected TV / Smart TV Only"), SelectItem("mobile", "Mobile & Tablet Only"), placeholder:"Device target", value:"all"))
+promoteBadgeField = FormControl("Display Tag", Select("promo_tag", SelectItem("prem", "NEW PREMIERE"), SelectItem("trend", "TOP 10 TODAY"), SelectItem("exclusive", "PLATFORM EXCLUSIVE"), placeholder:"Select billboard badge", value:"prem"))
+promoteBtns = Buttons(Button("Publish to Hero Billboard", primary), Button("Cancel", tertiary))
+liveAlert = Alert("CDN Edge Latency Stabilized in APAC-South", "Origin shield cache hit ratio restored to 98.4%. Edge failover disabled.", success)
+kpiRow = Card(kpiConcurrent, kpiBuffer, kpiCtr, kpiZeroSearch, direction:row, gap:m, variant:clear)
+kpiConcurrent = Card(Tag("Live Concurrency", info), "### 4,821,940", "Active Viewers Streaming Right Now", variant:sunk)
+kpiBuffer = Card(Tag("Global Buffering Rate", success), "### 0.38%", "Target < 0.50% (-0.06% vs yesterday)", variant:sunk)
+kpiCtr = Card(Tag("Recommendation CTR", success), "### 28.4%", "CTR on Personalized Carousels (+2.1%)", variant:sunk)
+kpiZeroSearch = Card(Tag("Zero-Playback Searches", warning), "### 12.6%", "Searches ending with 0 play actions", variant:sunk)
+mainTabs = Tabs(tabOverview, tabPerformance, tabCatalog, tabOperations)
+tabOverview = TabItem("overview", "Real-time & Audience", overviewLayout)
+overviewLayout = Card(overviewGrid1, overviewGrid2, gap:m, variant:clear)
+overviewGrid1 = Card(topTitlesCard, watchTimeCard, direction:row, gap:m, variant:clear)
+topTitlesCard = Card(Heading("Most-Watched Titles (Past 24h)", h3), Table(topTitlesData), sunk)
+topTitlesData = |Rank|Title|Genre|Hours Watched
+|#1|Shadow Protocol: S2|Sci-Fi / Thriller|14.8M hrs
+|#2|The Deep Unknown|Documentary|11.2M hrs
+|#3|Neon Velocity: Tokyo Drift|Action|8.9M hrs
+|#4|The Great Kitchen Derby|Reality TV|7.4M hrs
+|#5|Chronicles of Eldoria|Fantasy|6.1M hrs
+|#6|Midnight Comedy Hour|Standup / Comedy|4.3M hrs
+watchTimeCard = Card(Heading("Total Watch Time (Past 30 Days)", h3), AreaChart(watchTimeData, natural, xLabel:"Week", yLabel:"Million Hours"), sunk)
+watchTimeData = |Week|Streaming Hours (M)
+|Week 1|142
+|Week 2|158
+|Week 3|151
+|Week 4|179
+overviewGrid2 = Card(subChurnCard, deviceCard, revenueCard, direction:row, gap:m, variant:clear)
+subChurnCard = Card(Heading("Subscribers vs Churn", h3), BarChart(subChurnData, grouped, xLabel:"Week", yLabel:"Accounts (k)"), sunk)
+subChurnData = |Period|New Signups|Cancellations
+|W1 (Past M)|210|62
+|W2 (Past M)|245|58
+|W3 (Past M)|198|71
+|W4 (Past M)|280|54
+deviceCard = Card(Heading("Viewing Split by Device", h3), PieChart(deviceSplitData, donut), sunk)
+deviceSplitData = |Device|Share
+|Smart TV & STB|52
+|Mobile Phones|26
+|Web Browser|14
+|Tablets & Consoles|8
+revenueCard = Card(Heading("Revenue Split by Plan", h3), PieChart(revSplitData, donut), sunk)
+revSplitData = |Tier|Share
+|Standard with Ads|41
+|Premium 4K HDR|38
+|Standard Ad-Free|16
+|Basic Mobile Only|5
+tabPerformance = TabItem("perf", "CDN Health & Discovery", perfLayout)
+perfLayout = Card(perfRow1, perfRow2, gap:m, variant:clear)
+perfRow1 = Card(regionHealthCard, bufferingTrendCard, direction:row, gap:m, variant:clear)
+regionHealthCard = Card(Heading("Delivery Health by Region", h3), Table(regionHealthData), sunk)
+regionHealthData = |Region|CDN Edge Health|Avg TTFB|Rebuffering %|Error Rate
+|North America (US-East/West)|99.98% Healthy|42ms|0.24%|0.01%
+|Europe (EU-Central/West)|99.94% Healthy|51ms|0.31%|0.02%
+|Asia-Pacific (APAC-East/South)|99.82% Degraded|89ms|0.62%|0.08%
+|Latin America (LATAM-South)|99.91% Healthy|76ms|0.45%|0.04%
+|Middle East & Africa (MENA)|99.89% Healthy|82ms|0.48%|0.05%
+bufferingTrendCard = Card(Heading("Buffering Rate vs SLA Threshold", h3), LineChart(bufferingTrendData, natural, xLabel:"Time", yLabel:"Buffering %"), sunk)
+bufferingTrendData = |Time|Actual Buffer Rate|SLA Ceiling
+|00:00|0.32|0.50
+|04:00|0.29|0.50
+|08:00|0.35|0.50
+|12:00|0.41|0.50
+|16:00|0.38|0.50
+|20:00|0.47|0.50
+perfRow2 = Card(genrePerfCard, searchDiscoveryCard, direction:row, gap:m, variant:clear)
+genrePerfCard = Card(Heading("Performance by Genre (Engagement Score)", h3), HorizontalBarChart(genrePerfData, grouped, xLabel:"Score / Index", yLabel:"Genre"), sunk)
+genrePerfData = |Genre|Completion Rate %|Repeat Watch Score
+|Sci-Fi & Fantasy|86|74
+|Crime Thriller|81|68
+|Documentary|76|45
+|Comedy|72|82
+|Drama|68|58
+|Anime & Animation|84|89
+searchDiscoveryCard = Card(Heading("Discovery Funnel & Abandoned Searches", h3), Table(searchBreakdownData), sunk)
+searchBreakdownData = |Metric / Search Issue|Daily Query Vol|Playback Conversion|Status
+|Recommendation Carousel Clicks|3.42M|91.2% Conversion|Optimal
+|Search Keyword Exact Matches|1.85M|87.4% Conversion|Normal
+|Searches Ending in Zero Playback|320K|0.0% Abandoned|Requires Curation
+|Content Rights Geo-Blocked Searches|112K|0.0% Lost Intent|License Review
+tabCatalog = TabItem("catalog", "Catalog & Licensing", catalogLayout)
+catalogLayout = Card(catalogRow, gap:m, variant:clear)
+catalogRow = Card(upcomingReleasesCard, expiringLicensesCard, direction:row, gap:m, variant:clear)
+upcomingReleasesCard = Card(Heading("Releases Coming This Month", h3), Table(upcomingReleasesData), sunk)
+upcomingReleasesData = |Premiere Date|Title|Type|Asset Ingestion|DRM Validation
+|Nov 12|The Cyber Frontier: Final Cut|Feature Film|Ready (4K Dolby)|Passed
+|Nov 17|Apex Drivers: Season 3|Original Series|Encoding (94%)|Pending
+|Nov 22|Solaris Odyssey|Feature Film|Ready (4K Dolby)|Passed
+|Nov 27|Echoes of the Deep|Mini-Series|QC Review|Passed
+|Nov 30|Stand-up Arena Live Event|Live Event Stream|Rehearsal Scheduled|Passed
+expiringLicensesCard = Card(Heading("Licenses Expiring Soon (Action Required)", h3), Table(expiringLicensesData), sunk)
+expiringLicensesData = |Title|Studio Partner|Expiry Date|Regions Affected|Status
+|Starlight Runner (2019)|Paramount Dist.|Nov 15 (7 days)|NA, EU|Expiring - In Renegotiation
+|Battlefield Legacy|Lionsgate Int.|Nov 19 (11 days)|APAC, LATAM|Do Not Renew
+|Parisian Nights (S1-S3)|Gaumont Media|Nov 25 (17 days)|Global|Renewal Term Sheet Sent
+|Kingdom of Sand|Universal Content|Dec 02 (24 days)|NA Only|Expiring - Offboarding
+tabOperations = TabItem("ops", "Platform Feature Flags & Toggles", opsLayout)
+opsLayout = Card(opsHeader, flagsCard, sunk)
+opsHeader = Card(CardHeader("Feature Flags & Dynamic Rollouts", "Control live platform switches, algorithmic models, and experimental client flags in production."), Tag("Production Tier-0", neutral), direction:row, justify:between, align:center, variant:clear)
+flagsCard = Card(flagsTable, variant:clear)
+flagsTable = Table(flagsData)
+flagsData = |Feature Flag Key|Target Scope|Current State|Rollout %|Impact Level
+|recsys_v4_deep_graph|Global (All Platforms)|Active / Enabled|100%|High (Algorithmic)
+|av1_adaptive_codec_stream|Connected TVs & Web|Active / Enabled|75%|Medium (Bandwidth)
+|hero_autoplay_smart_preview|Mobile App (iOS / Android)|Active / Enabled|50%|Medium (Engagement)
+|live_subtitles_neural_engine|Live Sports & Broadcasts|Testing / Staging|15%|Low (Latency)
+|hdr10_plus_dynamic_tone_map|Smart TV 4K Devices|Disabled / Inactive|0%|High (Hardware)
+|p2p_mesh_edge_delivery|LATAM & APAC Regions|Disabled / Inactive|0%|Critical (Infra)

@@ -1,0 +1,17 @@
+root = Card(CardHeader("Daily Summary", "Tuesday, June 4"), Heading("Steps", h3), Progress(value:84, label:"8,432 / 10,000 steps"), TextContent("Daily goal: 10,000 steps"), Separator(), Heading("Calories Burned", h3), TextContent("**612 kcal**"), TextContent("Active energy · 42 min workout"), Separator(), Heading("Workouts This Week", h3), BarChart(workoutRows, xLabel:"Day", yLabel:"Minutes"), TextContent("5 workouts · 3h 25m total"), Separator(), Heading("Log a Workout", h3), logForm)
+workoutRows = |Day|Minutes
+|Mon|45
+|Tue|30
+|Wed|60
+|Thu|0
+|Fri|40
+|Sat|75
+|Sun|50
+logForm = Form("log-workout", logButtons, typeControl, durationControl, intensityControl)
+logButtons = Buttons(Button("Log Workout", primary), Button("Cancel", tertiary))
+typeControl = FormControl("Workout type", typeSelect, "Choose the activity you did")
+typeSelect = Select("workout_type", SelectItem("run", "Run"), SelectItem("cycle", "Cycling"), SelectItem("strength", "Strength"), SelectItem("yoga", "Yoga"), placeholder:"Select type")
+durationControl = FormControl("Duration", durationInput, "Minutes")
+durationInput = Input("duration", "e.g. 30", number)
+intensityControl = FormControl("Intensity", intensityRadio)
+intensityRadio = RadioGroup("intensity", RadioItem("Low", "Easy effort", "low"), RadioItem("Moderate", "Breathing hard", "moderate"), RadioItem("High", "All out", "high"), defaultValue:"moderate")

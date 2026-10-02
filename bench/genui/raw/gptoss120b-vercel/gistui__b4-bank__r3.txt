@@ -1,0 +1,68 @@
+root = Card(header, balancesCard, transactionsCard, spendingCard, billsCard, vacationCard, creditScoreCard, statementCard, actionsCard, alertsCard, disputeCard)
+
+header = CardHeader("My Account", "Overview")
+
+balancesCard = Card(Heading("Balances", h3), balancesTable)
+
+balancesTable = |Account|Balance
+|Checking|$2,350.00
+|Savings|$8,120.00
+|Credit|$1,200.00
+
+transactionsCard = Card(Heading("Recent Transactions", h3), transactionsTable)
+
+transactionsTable = |Date|Merchant|Amount
+|2024-09-28|Coffee Shop|-$4.50
+|2024-09-27|Grocery Store|-$76.20
+|2024-09-26|Salary|+$2,500.00
+
+spendingCard = Card(Heading("Spending by Category", h3), spendingChart)
+
+spendingChart = PieChart(["Food","Transport","Shopping","Bills","Entertainment"], [420,150,230,300,120], donut)
+
+billsCard = Card(Heading("Bills Due Soon", h3), billsTable)
+
+billsTable = |Bill|Due Date|Amount
+|Electricity|2024-10-05|$120.00
+|Internet|2024-10-07|$60.00
+|Gym|2024-10-10|$45.00
+
+vacationCard = Card(Heading("Vacation Savings Goal", h3), Progress(7500, "Saved of $10,000"))
+
+creditScoreCard = Card(Heading("Credit Score", h3), TextContent("720", size:large), freezeButton)
+
+freezeButton = Button("Freeze Credit Line", primary)
+
+statementCard = Card(Heading("Statement Period", h3), statementSelect)
+
+statementSelect = FormControl("Period", Select("period", SelectItem("last30","Last 30 days"), SelectItem("last90","Last 90 days"), placeholder:"Select period"))
+
+actionsCard = Card(Heading("Move Money", h3), moveForm)
+
+moveForm = Form("move-money", moveButtons, fromField, toField, amountField)
+
+fromField = FormControl("From account", Select("from_acct", SelectItem("checking","Checking"), SelectItem("savings","Savings"), placeholder:"Select account"))
+
+toField = FormControl("To account", Select("to_acct", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit Card"), placeholder:"Select account"))
+
+amountField = FormControl("Amount", Input("amount", placeholder:"e.g. 100", type:number))
+
+moveButtons = Buttons(Button("Transfer", primary))
+
+alertsCard = Card(Heading("Alert Settings", h3), alertsForm)
+
+alertsForm = Form("alerts", alertsButtons, alertsToggle)
+
+alertsToggle = SwitchGroup("alerts", SwitchItem("email","Email alerts",defaultChecked), SwitchItem("sms","SMS alerts",defaultChecked), variant:clear)
+
+alertsButtons = Buttons(Button("Save", primary))
+
+disputeCard = Card(Heading("Dispute Transaction", h3), disputeForm)
+
+disputeForm = Form("dispute", disputeButtons, disputeSelect, disputeDetails)
+
+disputeSelect = FormControl("Transaction", Select("txn", SelectItem("txn1","Coffee Shop - $4.50"), SelectItem("txn2","Grocery Store - $76.20"), placeholder:"Select transaction"))
+
+disputeDetails = FormControl("Details", TextArea("details", placeholder:"Explain issue", rows:4))
+
+disputeButtons = Buttons(Button("Submit dispute", primary))

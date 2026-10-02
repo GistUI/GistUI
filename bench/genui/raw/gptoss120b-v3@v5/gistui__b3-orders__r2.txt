@@ -1,0 +1,61 @@
+root = Card(header, metricsSection, filtersSection, recentOrdersSection, volumeChart, refundBar, actionsSection, variant:card)
+
+header = CardHeader("E‑commerce Operations Desk")
+
+metricsSection = Card(
+  TextContent("Orders placed today: **124**", large),
+  TextContent("Revenue today: **$5,430**", large),
+  TextContent("Average order value: **$44.0**", large),
+  TextContent("Refund rate this month: **2.3%**", large)
+)
+
+filtersSection = Card(
+  statusSelect,
+  searchInput
+)
+
+statusSelect = Select(
+  "status_filter",
+  SelectItem("All", "All"),
+  SelectItem("Pending", "Pending"),
+  SelectItem("Shipped", "Shipped"),
+  SelectItem("Cancelled", "Cancelled"),
+  placeholder:"Filter by status"
+)
+
+searchInput = Input("customer_search", "Search customer...", type:text)
+
+recentOrdersSection = Card(
+  Heading("Recent Orders", h3),
+  recentOrdersTable
+)
+
+colId = Col("Order ID", ["#1001","#1002","#1003"], string)
+colCustomer = Col("Customer", ["Alice","Bob","Carol"], string)
+colTotal = Col("Total", ["$120","$80","$150"], string)
+colStatus = Col("Status", ["Pending","Shipped","Pending"], string)
+colAction = Col("Action", ["Mark fulfilled","Mark fulfilled","Mark fulfilled"], action)
+
+recentOrdersTable = Table(colId, colCustomer, colTotal, colStatus, colAction)
+
+volumeChart = BarChart(
+  |Week|Orders
+  |W1|340
+  |W2|410
+  |W3|380
+  |W4|420,
+  grouped,
+  xLabel:"Week",
+  yLabel:"Orders"
+)
+
+refundBar = SingleStackedBarChart(
+  labels:["Refunds","Non‑Refunds"],
+  values:[120,5200]
+)
+
+actionsSection = Card(
+  Buttons(
+    Button("Mark selected as fulfilled", primary)
+  )
+)

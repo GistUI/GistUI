@@ -1,0 +1,81 @@
+{
+  "runtime": "bun 1.3.11",
+  "date": "2026-09-30T09:04:22.729Z",
+  "results": {
+    "5 KB one-shot parse": {
+      "median": 0.2967079999999953,
+      "min": 0.23383400000000165,
+      "runs": 872
+    },
+    "5 KB stream, 1-char chunks": {
+      "median": 3.3453329999999823,
+      "min": 2.884540999999899,
+      "runs": 87
+    },
+    "5 KB stream, 10-char chunks": {
+      "median": 1.6022919999999203,
+      "min": 1.2830000000000155,
+      "runs": 169
+    },
+    "5 KB stream, 100-char chunks": {
+      "median": 0.47345800000005056,
+      "min": 0.3691670000000613,
+      "runs": 596
+    },
+    "16 KB one-shot parse": {
+      "median": 1.0813339999999698,
+      "min": 0.76237500000002,
+      "runs": 265
+    },
+    "16 KB stream, 1-char chunks": {
+      "median": 10.811750000000075,
+      "min": 9.257875000000013,
+      "runs": 28
+    },
+    "16 KB stream, 10-char chunks": {
+      "median": 5.441874999999982,
+      "min": 4.2224579999999605,
+      "runs": 56
+    },
+    "16 KB stream, 100-char chunks": {
+      "median": 1.5684160000000702,
+      "min": 1.1557090000001153,
+      "runs": 187
+    },
+    "50 KB one-shot parse": {
+      "median": 3.439041999999972,
+      "min": 2.5322909999999865,
+      "runs": 85
+    },
+    "50 KB stream, 1-char chunks": {
+      "median": 33.20416699999987,
+      "min": 29.495332999999846,
+      "runs": 10
+    },
+    "50 KB stream, 10-char chunks": {
+      "median": 18.899999999999636,
+      "min": 15.811583000000155,
+      "runs": 17
+    },
+    "50 KB stream, 100-char chunks": {
+      "median": 5.9211669999999685,
+      "min": 4.471250000000055,
+      "runs": 52
+    },
+    "shared-ref DAG, 20 levels (OpenUI: 4.75 s)": {
+      "median": 0.05749999999989086,
+      "min": 0.04516700000021956,
+      "runs": 4844
+    },
+    "one 50 KB statement, 10-char chunks": {
+      "median": 21.512832999999773,
+      "min": 18.84545900000012,
+      "runs": 14
+    },
+    "one 50 KB statement, one-shot": {
+      "median": 2.3857499999994616,
+      "min": 1.901375000000371,
+      "runs": 115
+    }
+  }
+}

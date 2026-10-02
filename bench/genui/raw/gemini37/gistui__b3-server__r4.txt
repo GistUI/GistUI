@@ -1,0 +1,69 @@
+root = Card(header, topBar, kpiRow, mainTabs)
+header = CardHeader("On-Call Service Health & Triage", "Production environment • Real-time telemetry and incident management")
+
+topBar = Card(filterRow, thresholdDialog, variant:sunk, direction:row, justify:between, align:center)
+filterRow = Card(regionSelect, variant:clear, direction:row, align:center)
+regionSelect = Select("region", SelectItem("all", "All Regions (Global)"), SelectItem("us-east", "US-East (N. Virginia)"), SelectItem("us-west", "US-West (Oregon)"), SelectItem("eu-central", "EU-Central (Frankfurt)"), SelectItem("ap-southeast", "AP-Southeast (Singapore)"), placeholder:"Select Region", value:"all")
+
+thresholdDialog = DialogBlock("Configure Alert Thresholds", "Set Service Alert Thresholds", thresholdForm, triggerVariant:outline)
+thresholdForm = Form("alert_thresholds", thresholdBtns, thMetric, thLatency, thErrorRate)
+thMetric = FormControl("Target Service / Resource", Input("metric_target", "e.g., api-gateway, auth-service"))
+thLatency = FormControl("P99 Latency Alert Threshold (ms)", Slider("p99_threshold", continuous, min:50, max:2000, step:25, defaultValue:[450]))
+thErrorRate = FormControl("Error Rate Alert Threshold (%)", Slider("err_threshold", continuous, min:0.1, max:10, step:0.1, defaultValue:[1.5]))
+thresholdBtns = Buttons(Button("Save Alert Rule", primary), Button("Cancel", tertiary))
+
+kpiRow = Card(kpiUptime, kpiErrorRate, kpiActiveIncidents, variant:clear, direction:row, gap:m)
+kpiUptime = Card(Heading("99.962%", h2), TextContent("Quarterly Uptime (Q3 Target: 99.95%)", size:small), Tag("SLA Compliant", success), variant:sunk)
+kpiErrorRate = Card(Heading("0.084%", h2), TextContent("Current Error Rate (Last 5m)", size:small), Tag("Nominal (<0.1%)", success), variant:sunk)
+kpiActiveIncidents = Card(Heading("2 Open", h2), TextContent("Active Incidents (1 P1, 1 P2)", size:small), Tag("Requires Attention", danger), variant:sunk)
+
+mainTabs = Tabs(tabIncidents, tabTelemetry, tabSlowEndpoints)
+
+tabIncidents = TabItem("incidents", "Active Incidents (2)", incidentsAlert, incidentsCard)
+incidentsAlert = Alert("P1 Critical Incident Active", "Elevated 502 responses detected in EU-Central edge proxy. On-call engineer assigned.", destructive)
+incidentsCard = Card(Heading("Open Incidents & Response", h3), incidentsTable, ackDrawer)
+
+incidentsTable = Table(incColId, incColSev, incColTitle, incColRegion, incColDuration, incColStatus)
+incColId = Col("Incident ID", ["INC-8492", "INC-8488"])
+incColSev = Col("Severity", ["P1 - Critical", "P2 - High"])
+incColTitle = Col("Summary", ["502 Bad Gateway spike on EU API gateway", "Redis cache cluster high memory pressure"])
+incColRegion = Col("Region", ["eu-central", "us-east"])
+incColDuration = Col("Duration", ["18 mins", "42 mins"])
+incColStatus = Col("Status", ["Triggered", "Investigating"])
+
+ackDrawer = DrawerBlock("Acknowledge / Update Incident", "Incident Triage & Acknowledgement", ackForm)
+ackForm = Form("ack_incident_form", ackBtns, ackSelectIncident, ackNote, ackAssignee)
+ackSelectIncident = FormControl("Select Incident to Acknowledge", Select("inc_id", SelectItem("INC-8492", "INC-8492 (P1 - EU-Central 502 spike)"), SelectItem("INC-8488", "INC-8488 (P2 - US-East Redis cache)")), "Select active alert from the queue")
+ackAssignee = FormControl("Acknowledge As Engineer", Input("engineer_name", "alex.turner@company.internal"))
+ackNote = FormControl("Triage Note & Immediate Action", TextArea("ack_notes", "Investigating upstream pods, running failover runbook...", rows:3))
+ackBtns = Buttons(Button("Acknowledge & Claim Incident", primary), Button("Close", tertiary))
+
+tabTelemetry = TabItem("telemetry", "24h Resource Usage", telemetryCard)
+telemetryCard = Card(Heading("24-Hour CPU & Memory Utilization (%)", h3), LineChart(metrics24h, natural, xLabel:"Time", yLabel:"% Utilization"), variant:sunk)
+
+metrics24h = |Hour|CPU Usage %|Memory Usage %
+|00:00|42|61
+|03:00|38|60
+|06:00|45|63
+|09:00|74|78
+|12:00|86|82
+|15:00|79|80
+|18:00|68|74
+|21:00|55|69
+|Now|62|71
+
+tabSlowEndpoints = TabItem("endpoints", "Slowest Endpoints (P99)", slowestCard)
+slowestCard = Card(Heading("Top 5 Slowest Endpoints (Latency)", h3), HorizontalBarChart(endpointsData, variant:grouped, xLabel:"Latency (ms)", yLabel:"Endpoint"), slowTable, variant:sunk)
+
+endpointsData = |Endpoint|P99 Latency (ms)|P95 Latency (ms)
+|POST /api/v2/reports/export|1240|980
+|GET /api/v1/analytics/query|890|620
+|POST /api/v2/checkout/process|640|450
+|GET /api/v1/users/batch-search|520|390
+|POST /api/v1/documents/bulk-sync|475|340
+
+slowTable = Table(epColName, epColP99, epColP95, epColRpm)
+epColName = Col("Endpoint", ["POST /api/v2/reports/export", "GET /api/v1/analytics/query", "POST /api/v2/checkout/process", "GET /api/v1/users/batch-search", "POST /api/v1/documents/bulk-sync"])
+epColP99 = Col("P99 (ms)", [1240, 890, 640, 520, 475])
+epColP95 = Col("P95 (ms)", [980, 620, 450, 390, 340])
+epColRpm = Col("Throughput (RPM)", [140, 820, 3200, 1150, 430])

@@ -1,0 +1,46 @@
+root = Card(header, uptimeSection, cpuMemChart, errorRateCard, incidentsCard, endpointsCard, controlsCard)
+
+header = CardHeader("Service Health", "On‑call Dashboard")
+
+uptimeSection = Card(Heading("Uptime (Q)", h3), TextContent("99.7% uptime this quarter.", size:large))
+
+cpuMemChart = Card(Heading("CPU & Memory (24h)", h3), LineChart(cpuMemData, variant:linear, xLabel:"Time", yLabel:"%"))
+
+cpuMemData = |Time|CPU|Memory
+|00:00|45|68
+|06:00|55|70
+|12:00|60|75
+|18:00|50|65
+|24:00|48|66
+
+errorRateCard = Card(Heading("Current Error Rate", h3), TextContent("0.42% errors in the last 5 min.", size:large), Callout(variant:warning, "High error rate", "Above normal threshold"))
+
+incidentsCard = Card(Heading("Open Incidents", h3), incidentsTable, Button("Acknowledge", primary))
+
+incidentsTable = Table(incIdCol, incSevCol, incDescCol)
+
+incIdCol = Col("ID", ["INC001","INC002"], type:string)
+
+incSevCol = Col("Severity", ["critical","warning"], type:string)
+
+incDescCol = Col("Description", ["Database timeout","Cache miss"], type:string)
+
+endpointsCard = Card(Heading("5 Slowest Endpoints", h3), endpointsTable)
+
+endpointsTable = Table(endpointCol, latencyCol)
+
+endpointCol = Col("Endpoint", ["/api/users","/api/orders","/api/payments","/api/search","/api/report"], type:string)
+
+latencyCol = Col("Latency (ms)", [350,420,480,500,620], type:number)
+
+controlsCard = Card(Heading("Controls", h3), filterForm)
+
+filterForm = Form("filter-form", formButtons, regionSelect, thresholdField)
+
+regionSelect = FormControl("Region", regionSelectInput)
+
+regionSelectInput = Select("region", SelectItem("us-east","US East"), SelectItem("us-west","US West"), SelectItem("eu-central","EU Central"), placeholder:"Select region", value:"us-east")
+
+thresholdField = FormControl("Alert Threshold (%)", Input("threshold","80", type:number))
+
+formButtons = Buttons(Button("Apply", primary))

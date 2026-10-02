@@ -1,0 +1,7 @@
+ root = Card(header, uptimeLabel, uptimeValue, separator, incidentHeading, incidentCallout)
+header = CardHeader("Platform Status", "Platform team · This month")
+uptimeLabel = TextContent("API uptime this month", size:small)
+uptimeValue = TextContent("99.98%", size:large-heavy)
+separator = Separator(horizontal)
+incidentHeading = Heading("Most recent incident", level:h2)
+incidentCallout = Callout(success, "Resolved", "On May 12, the API returned elevated 503 errors from 13:20 to 14:32 UTC. All systems recovered after that.")

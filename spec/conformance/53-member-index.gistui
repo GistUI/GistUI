@@ -1,0 +1,5 @@
+root = Stack(a, b, c)
+d = {list: [1, 2], Name: "n"}
+a = d.list[0] + d["list"][-1]
+b = d.Name.length
+c = (d).list

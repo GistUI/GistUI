@@ -1,0 +1,30 @@
+{
+  "tree": {
+    "type": "Table",
+    "props": {
+      "data": {
+        "table": [
+          "Code:s",
+          "Qty:n",
+          "Rate : n:n",
+          "Note: n:n",
+          "a:b:s"
+        ],
+        "rows": [
+          [
+            "007",
+            null,
+            5,
+            6,
+            "7"
+          ]
+        ]
+      }
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

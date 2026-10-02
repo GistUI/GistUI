@@ -1,0 +1,202 @@
+{
+ "date": "2026-09-30T09:04:17.524Z",
+ "commit": "17be496",
+ "rows": [
+  {
+   "scenario": "simple-table",
+   "tokens": {
+    "o200k": {
+     "gistui": 139,
+     "gistuiLiteral": 149,
+     "openui": 148,
+     "yaml": 317,
+     "vercel": 340,
+     "c1": 322,
+     "c1Min": 181
+    },
+    "cl100k": {
+     "gistui": 140,
+     "gistuiLiteral": 150,
+     "openui": 149,
+     "yaml": 317,
+     "vercel": 332,
+     "c1": 323,
+     "c1Min": 179
+    }
+   },
+   "valid": {
+    "gistui": true,
+    "gistuiLiteral": true
+   },
+   "errors": []
+  },
+  {
+   "scenario": "chart-with-data",
+   "tokens": {
+    "o200k": {
+     "gistui": 176,
+     "gistuiLiteral": 240,
+     "openui": 231,
+     "yaml": 465,
+     "vercel": 520,
+     "c1": 498,
+     "c1Min": 271
+    },
+    "cl100k": {
+     "gistui": 177,
+     "gistuiLiteral": 241,
+     "openui": 232,
+     "yaml": 465,
+     "vercel": 505,
+     "c1": 499,
+     "c1Min": 266
+    }
+   },
+   "valid": {
+    "gistui": true,
+    "gistuiLiteral": true
+   },
+   "errors": []
+  },
+  {
+   "scenario": "contact-form",
+   "tokens": {
+    "o200k": {
+     "gistui": 256,
+     "gistuiLiteral": 308,
+     "openui": 294,
+     "yaml": 763,
+     "vercel": 893,
+     "c1": 824,
+     "c1Min": 431
+    },
+    "cl100k": {
+     "gistui": 249,
+     "gistuiLiteral": 301,
+     "openui": 287,
+     "yaml": 753,
+     "vercel": 860,
+     "c1": 817,
+     "c1Min": 416
+    }
+   },
+   "valid": {
+    "gistui": true,
+    "gistuiLiteral": true
+   },
+   "errors": []
+  },
+  {
+   "scenario": "dashboard",
+   "tokens": {
+    "o200k": {
+     "gistui": 903,
+     "gistuiLiteral": 1249,
+     "openui": 1226,
+     "yaml": 2129,
+     "vercel": 2247,
+     "c1": 2182,
+     "c1Min": 1204
+    },
+    "cl100k": {
+     "gistui": 909,
+     "gistuiLiteral": 1255,
+     "openui": 1232,
+     "yaml": 2131,
+     "vercel": 2192,
+     "c1": 2186,
+     "c1Min": 1186
+    }
+   },
+   "valid": {
+    "gistui": true,
+    "gistuiLiteral": true
+   },
+   "errors": []
+  },
+  {
+   "scenario": "pricing-page",
+   "tokens": {
+    "o200k": {
+     "gistui": 940,
+     "gistuiLiteral": 1198,
+     "openui": 1195,
+     "yaml": 2231,
+     "vercel": 2487,
+     "c1": 2285,
+     "c1Min": 1362
+    },
+    "cl100k": {
+     "gistui": 955,
+     "gistuiLiteral": 1220,
+     "openui": 1217,
+     "yaml": 2247,
+     "vercel": 2437,
+     "c1": 2298,
+     "c1Min": 1346
+    }
+   },
+   "valid": {
+    "gistui": true,
+    "gistuiLiteral": true
+   },
+   "errors": []
+  },
+  {
+   "scenario": "settings-panel",
+   "tokens": {
+    "o200k": {
+     "gistui": 455,
+     "gistuiLiteral": 557,
+     "openui": 540,
+     "yaml": 1078,
+     "vercel": 1244,
+     "c1": 1195,
+     "c1Min": 656
+    },
+    "cl100k": {
+     "gistui": 444,
+     "gistuiLiteral": 552,
+     "openui": 534,
+     "yaml": 1076,
+     "vercel": 1209,
+     "c1": 1191,
+     "c1Min": 638
+    }
+   },
+   "valid": {
+    "gistui": true,
+    "gistuiLiteral": true
+   },
+   "errors": []
+  },
+  {
+   "scenario": "e-commerce-product",
+   "tokens": {
+    "o200k": {
+     "gistui": 1039,
+     "gistuiLiteral": 1192,
+     "openui": 1166,
+     "yaml": 2146,
+     "vercel": 2449,
+     "c1": 2344,
+     "c1Min": 1356
+    },
+    "cl100k": {
+     "gistui": 1048,
+     "gistuiLiteral": 1199,
+     "openui": 1172,
+     "yaml": 2158,
+     "vercel": 2399,
+     "c1": 2356,
+     "c1Min": 1346
+    }
+   },
+   "valid": {
+    "gistui": true,
+    "gistuiLiteral": true
+   },
+   "errors": []
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "b"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "parse-failed",
+      "severity": "error",
+      "line": 2
+    },
+    {
+      "code": "unresolved-ref",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

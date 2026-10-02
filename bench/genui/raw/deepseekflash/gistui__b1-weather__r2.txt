@@ -1,0 +1,15 @@
+root = Card(header, currentSection, forecastSection, sunSection)
+header = CardHeader("Bengaluru", "Morning Weather Brief")
+currentSection = Card(currentTemp, conditionTag, feelsLike, sunk)
+currentTemp = TextContent("24°C", size:large)
+conditionTag = Tag("Partly cloudy", variant:info)
+feelsLike = TextContent("Feels like 26°C", size:small)
+forecastSection = Card(Heading("3-Day Outlook", h3), Table(forecastRows))
+sunSection = Card(Heading("Sunrise & Sunset", h3), Table(sunRows))
+forecastRows = |Day|High|Low|Condition
+|Today|28°C|21°C|Partly cloudy
+|Tomorrow|29°C|22°C|Sunny
+|Saturday|30°C|23°C|Thunderstorms
+sunRows = |Event|Time
+|Sunrise|6:12 AM
+|Sunset|6:45 PM

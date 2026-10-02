@@ -1,0 +1,42 @@
+root = Card(regionSelect, uptimeCard, usageChart, errorCallout, incidentsList, endpointsTable, alertForm)
+
+regionSelect = Select("region", SelectItem("us-east-1","US East 1"), SelectItem("us-west-2","US West 2"), placeholder:"Select region")
+
+uptimeCard = Card(CardHeader("Uptime this quarter", "99.9%"))
+
+usageChart = Card(Heading("CPU & Memory (24h)", h3), LineChart(usageRows, variant:linear, xLabel:"Hour", yLabel:"%"))
+
+errorCallout = Callout(variant:warning, "Error Rate", "0.42% right now")
+
+incidentsList = ListBlock(incident1, incident2, incident3, incident4, incident5)
+
+incident1 = ListItem("INC-101", "Severity: Critical – DB timeout", "Acknowledge")
+incident2 = ListItem("INC-102", "Severity: High – Service lag", "Acknowledge")
+incident3 = ListItem("INC-103", "Severity: Medium – Cache miss", "Acknowledge")
+incident4 = ListItem("INC-104", "Severity: Low – Minor glitch", "Acknowledge")
+incident5 = ListItem("INC-105", "Severity: High – API error", "Acknowledge")
+
+endpointsTable = Table(endpointsRows)
+
+alertForm = Form("alert-settings", formButtons, thresholdField)
+
+thresholdField = FormControl("Alert threshold (%)", inputThreshold)
+
+inputThreshold = Input("threshold", "Enter %", , number)
+
+formButtons = Buttons(Button("Save", primary))
+
+usageRows = |Hour|CPU %|Memory %|
+|00:00|65|70|
+|04:00|58|62|
+|08:00|72|68|
+|12:00|80|75|
+|16:00|77|73|
+|20:00|69|71|
+
+endpointsRows = |Endpoint|Latency (ms)|
+|/api/v1/users|420|
+|/api/v1/orders|385|
+|/api/v1/payments|370|
+|/api/v1/search|355|
+|/api/v1/reports|340|

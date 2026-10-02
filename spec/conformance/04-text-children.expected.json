@@ -1,0 +1,42 @@
+{
+  "tree": {
+    "type": "Card",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "### MRR"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "**$412k**"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "42"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "true"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "Line 1\nLine 2 \"quoted\" é"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

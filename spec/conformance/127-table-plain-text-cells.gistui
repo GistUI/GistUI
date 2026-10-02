@@ -1,0 +1,4 @@
+root = Table(t)
+t = |Name|Note
+|O'Reilly|"quoted" (x # y
+|[a]|{b}

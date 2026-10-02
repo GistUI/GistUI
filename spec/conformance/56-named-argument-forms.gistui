@@ -1,0 +1,1 @@
+root = Row(gap=sm, Text("a"), gap : lg, wrap:true, wrap:false)

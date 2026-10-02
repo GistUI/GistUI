@@ -1,0 +1,33 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "x"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "cycle",
+      "severity": "error",
+      "stmt": "a",
+      "line": 2,
+      "fixed": true
+    },
+    {
+      "code": "cycle",
+      "severity": "error",
+      "stmt": "b",
+      "line": 3,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": true
+  }
+}

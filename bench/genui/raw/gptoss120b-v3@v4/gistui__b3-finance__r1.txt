@@ -1,0 +1,37 @@
+root = Card(cashSection, burnSection, runwaySection, expensesChart, transactionsTable, controls, actions, variant:card, gap:m)
+
+cashSection = Card(CardHeader("Cash on Hand"), TextContent("$1.2M", size:large), clear)
+
+burnSection = Card(CardHeader("Monthly Burn"), TextContent("$85k", size:large), clear)
+
+runwaySection = Card(CardHeader("Months of Runway"), TextContent("14 months", size:large), clear)
+
+expensesChart = Card(CardHeader("Expenses by Category"), PieChart(expenseLabels, expenseValues, donut, circular), clear)
+
+expenseLabels = |Category|
+|Salaries|
+|Marketing|
+|R&D|
+|Operations|
+|Misc|
+
+expenseValues = |Amount|
+|600000|
+|150000|
+|120000|
+|80000|
+|30000|
+
+transactionsTable = Card(CardHeader("Transactions > $10,000"), Table(colDate, colDesc, colAmt), clear)
+
+colDate = Col("Date", ["2024-09-05","2024-09-12","2024-09-20"], type:string)
+
+colDesc = Col("Description", ["Vendor A","Consulting Co","Equipment Ltd"], type:string)
+
+colAmt = Col("Amount", [15000,12000,25000], type:number)
+
+controls = Card(Select(monthSelect, SelectItem("2024-09","September 2024"), SelectItem("2024-08","August 2024"), SelectItem("2024-07","July 2024"), placeholder:"Select month", size:medium), clear)
+
+monthSelect = "month-select"
+
+actions = Buttons(Button("Download Statement", primary), direction:row)

@@ -1,0 +1,50 @@
+root = Card(sectionBlock, actionBlock, clear)
+
+sectionBlock = SectionBlock(congestionItem, transitItem, airQualityItem, energyItem, waterItem, incidentsItem, vehiclesItem, parkingItem, eventsItem, reportsItem, backlogItem, weatherItem, roadworksItem, jobsItem, isFoldable)
+
+congestionItem = SectionItem(congestion, "Congestion", congestionChart)
+transitItem = SectionItem(transit, "Transit Punctuality", transitChart)
+airQualityItem = SectionItem(airQuality, "Air Quality by District", airQualityChart)
+energyItem = SectionItem(energy, "Energy Use (Past Week)", energyChart)
+waterItem = SectionItem(water, "Water Use Today", waterChart)
+incidentsItem = SectionItem(incidents, "Open Incidents", incidentsTable)
+vehiclesItem = SectionItem(vehicles, "Emergency Vehicles Deployment", vehiclesTable)
+parkingItem = SectionItem(parking, "Parking Availability Downtown", parkingTable)
+eventsItem = SectionItem(events, "Public Events This Weekend", eventsTable)
+reportsItem = SectionItem(reports, "Citizen Reports", reportsTable)
+backlogItem = SectionItem(backlog, "Service Request Backlog", backlogTable)
+weatherItem = SectionItem(weather, "Current Weather", weatherInfo)
+roadworksItem = SectionItem(roadworks, "Roadworks Planned This Month", roadworksTable)
+jobsItem = SectionItem(jobs, "Infrastructure Jobs Due", jobsTable)
+
+congestionChart = HorizontalBarChart(labels:["Downtown","Uptown","Suburbs"], Series("Congestion", values:[78,55,32]), variant:grouped, xLabel:"Area", yLabel:"Congestion %")
+transitChart = BarChart(labels:["Bus","Metro","Tram"], Series("On Time", values:[92,88,85]), variant:grouped, xLabel:"Mode", yLabel:"% On Time")
+airQualityChart = RadarChart(labels:["North","South","East","West","Central"], Series("AQI", values:[42,58,35,60,48]))
+energyChart = LineChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("MWh", values:[1200,1150,1300,1250,1190,1120,1180]), variant:natural, xLabel:"Day", yLabel:"Energy (MWh)")
+waterChart = BarChart(labels:["Total"], Series("Liters", values:[850000]), variant:stacked, xLabel:"", yLabel:"Water Use (L)")
+weatherInfo = MarkDownRenderer("**Temp:** 22°C\n**Wind:** 5 km/h NE\n**Condition:** Partly Cloudy", variant:clear)
+
+incidentsTable = Table(Col("ID", data:["I-102","I-215","I-307"], type:string), Col("Location", data:["5th Ave & Main","Broadway & 2nd","Elm St & 9th"], type:string), Col("Severity", data:["High","Medium","Low"], type:string))
+vehiclesTable = Table(Col("Vehicle ID", data:["E-01","E-07","E-12"], type:string), Col("Type", data:["Ambulance","Fire Truck","Police Car"], type:string), Col("Location", data:["Station A","Station B","Station C"], type:string))
+parkingTable = Table(Col("Lot", data:["Lot A","Lot B","Lot C"], type:string), Col("Spaces Available", data:["45","12","0"], type:number))
+eventsTable = Table(Col("Event", data:["Music Fest","Art Expo","Food Fair"], type:string), Col("Date", data:["Sat","Sat","Sun"], type:string), Col("Location", data:["Central Park","Museum Plaza","Riverfront"], type:string))
+reportsTable = Table(Col("Report ID", data:["R-001","R-042","R-078"], type:string), Col("Issue", data:["Pothole","Streetlight out","Graffiti"], type:string), Col("Submitted", data:["10:15","09:40","08:05"], type:string))
+backlogTable = Table(Col("Request ID", data:["SR-210","SR-215","SR-219"], type:string), Col("Category", data:["Road Repair","Water Leak","Tree Trimming"], type:string), Col("Days Open", data:[12,5,20], type:number))
+roadworksTable = Table(Col("Project", data:["Bridge Rehab","Road Resurfacing"], type:string), Col("Start Date", data:["2024-09-05","2024-09-12"], type:string), Col("End Date", data:["2024-09-20","2024-09-30"], type:string))
+jobsTable = Table(Col("Job", data:["HVAC Maintenance","Street Light Inspection"], type:string), Col("Due Date", data:["2024-10-01","2024-10-05"], type:string))
+
+actionBlock = Card(focusForm, dispatchForm, alertDialog, direction:row)
+
+focusForm = Form("focus-district", focusButtons, focusSelect)
+focusSelect = Select("district", SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("Suburbs","Suburbs"), placeholder:"Select district")
+focusButtons = Buttons(Button("Focus", primary))
+
+dispatchForm = Form("dispatch-crew", dispatchButtons, crewInput, locationInput)
+crewInput = FormControl("Crew ID", Input("crew_id", "Enter crew ID"))
+locationInput = FormControl("Location", Input("location", "Enter location"))
+dispatchButtons = Buttons(Button("Dispatch", primary))
+
+alertDialog = DialogBlock("Send Alert", "Public Alert", alertText, description:"Compose a public alert message", triggerVariant:primary)
+alertText = TextArea("alert_msg", placeholder:"Message...", rows:5)
+
+```

@@ -1,0 +1,35 @@
+{
+  "tree": {
+    "type": "Table",
+    "props": {
+      "data": {
+        "table": [
+          "A:n"
+        ],
+        "rows": [
+          [
+            1
+          ]
+        ]
+      }
+    }
+  },
+  "errors": [
+    {
+      "code": "patch-target-missing",
+      "severity": "error",
+      "stmt": "t",
+      "line": 4
+    },
+    {
+      "code": "patch-target-missing",
+      "severity": "error",
+      "stmt": "t",
+      "line": 5
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

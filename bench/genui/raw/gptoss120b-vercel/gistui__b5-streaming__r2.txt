@@ -1,0 +1,91 @@
+root = Card(header, viewers_now, most_watched, watch_time, subscriber_balance, genre_perf, buffering_rate, delivery_health, upcoming_releases, expiring_licenses, rec_clicks, failed_searches, revenue_split, device_split, region_focus, feature_flags, promote_title)
+
+header = CardHeader("Streaming Operations Dashboard", "Live metrics overview")
+
+viewers_now = TextContent("👀 **Current Viewers:** 12,543", size:large)
+
+most_watched = Card(Heading("Top Titles (Hours Watched)", h3), most_watched_table)
+
+most_watched_table = |Title|Hours Watched
+|Show A|5420
+|Show B|3890
+|Show C|2745
+|Show D|1980
+|Show E|1560
+
+watch_time = Card(Heading("Watch Time - Last 30 Days", h3), LineChart(watch_time_rows, natural, xLabel:"Date", yLabel:"Hours"))
+
+watch_time_rows = |Date|Hours
+|2023-08-01|1200
+|2023-08-08|1350
+|2023-08-15|1420
+|2023-08-22|1580
+|2023-08-29|1675
+
+subscriber_balance = Card(Heading("Subscribers vs Cancellations (Month)", h3), BarChart(subscriber_rows, grouped, xLabel:"Category", yLabel:"Count"))
+
+subscriber_rows = |Category|Count
+|New Subscribers|8420
+|Cancellations|1270
+
+genre_perf = Card(Heading("Watch Time by Genre", h3), HorizontalBarChart(genre_labels, Series("Watch Time", genre_values), stacked, xLabel:"Hours", yLabel:"Genre"))
+
+genre_labels = ["Drama","Comedy","Action","Documentary","Kids"]
+genre_values = [8200, 6700, 5400, 3100, 2900]
+
+buffering_rate = Card(Heading("Buffering Rate Distribution", h3), PieChart(buffer_labels, buffer_values, donut, circular))
+
+buffer_labels = ["<1s","1-3s","3-5s",">5s"]
+buffer_values = [58, 27, 10, 5]
+
+delivery_health = Card(Heading("Delivery Health by Region", h3), BarChart(delivery_rows, stacked, xLabel:"Region", yLabel:"Success %"))
+
+delivery_rows = |Region|Success %
+|North America|96
+|Europe|93
+|Asia|89
+|South America|85
+|Africa|78
+
+upcoming_releases = Card(Heading("Releases This Month", h3), Table(upcoming_cols))
+
+upcoming_cols = Col("Title", data:["Series X","Movie Y","Doc Z"], type:string), Col("Release Date", data:["2023-09-10","2023-09-17","2023-09-24"], type:string)
+
+expiring_licenses = Card(Heading("Licenses Expiring Soon", h3), Table(expiring_cols))
+
+expiring_cols = Col("Title", data:["Old Show A","Old Movie B"], type:string), Col("Expiry Date", data:["2023-10-05","2023-10-12"], type:string)
+
+rec_clicks = Card(Heading("Recommendation Click Rate (Last Month)", h3), LineChart(rec_rows, natural, xLabel:"Date", yLabel:"Clicks"))
+
+rec_rows = |Date|Clicks
+|2023-08-01|340
+|2023-08-08|415
+|2023-08-15|452
+|2023-08-22|489
+|2023-08-29|521
+
+failed_searches = Card(Heading("Searches Without Playback", h3), Table(search_cols))
+
+search_cols = Col("Search Term", data:["Mystery Show","Unknown Movie","Random Documentary"], type:string), Col("Count", data:[120, 95, 78], type:number)
+
+revenue_split = Card(Heading("Revenue by Subscription Plan", h3), PieChart(plan_labels, plan_values, pie, circular))
+
+plan_labels = ["Basic","Standard","Premium"]
+plan_values = [45, 35, 20]
+
+device_split = Card(Heading("Viewing by Device Type", h3), PieChart(device_labels, device_values, donut, circular))
+
+device_labels = ["Mobile","TV","Web","Tablet"]
+device_values = [40, 30, 20, 10]
+
+region_focus = DialogBlock("Focus Region", "Select Region", Card(Heading("Region Details", h3), TextContent("Select a region to drill‑down into its metrics.", size:default)), description:"Choose a region to filter the dashboard.", triggerVariant:secondary)
+
+feature_flags = Card(Heading("Feature Flags", h3), Table(flag_cols))
+
+flag_cols = Col("Feature", data:["New UI","Beta Search","Live Chat"], type:string), Col("Enabled", data:["Yes","No","Yes"], type:string)
+
+promote_title = DialogBlock("Promote Title", "Add to Home Screen", Form("promote-form", promote_buttons, titleField, imageField), description:"Feature a title on the home screen.", triggerVariant:primary)
+
+titleField = FormControl("Title", Input("title", "Enter title"))
+imageField = FormControl("Image URL", Input("image", "https://picsum.photos/seed/promo/800/500"))
+promote_buttons = Buttons(Button("Add", primary), Button("Cancel", tertiary))

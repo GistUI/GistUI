@@ -1,0 +1,3 @@
+root = Row(Callout("x", tone:eror), Chart(t, type:lnie))
+t = |a|b
+|x|1

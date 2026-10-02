@@ -1,0 +1,103 @@
+root = Card(CardHeader("Streaming Operations Dashboard"), viewersSection, titlesSection, watchTimeSection, subsCancelSection, genrePerfSection, bufferingSection, deliveryHealthSection, releasesSection, licensesSection, recClickSection, searchNoPlaySection, revenuePlanSection, deviceSplitSection, regionFocusSection, featureFlagsSection, promoteTitleSection)
+
+viewersSection = Card(Heading("Current Viewers", h3), TextContent("**1,234** viewers watching right now", size:large), clear)
+
+titlesSection = Card(Heading("Top Titles (Hours Watched)", h3), Table(topTitlesCol), clear)
+
+topTitlesCol = Col("Title", ["Show A","Show B","Show C","Show D"], type:string)
+topHoursCol = Col("Hours Watched", [1200,950,870,660], type:number)
+
+watchTimeSection = Card(Heading("Watch Time - Last 30 Days", h3), LineChart(watchTimeRows, linear, xLabel:"Date", yLabel:"Hours"), clear)
+
+watchTimeRows = |Date|Hours
+|2024-08-01|340
+|2024-08-08|415
+|2024-08-15|398
+|2024-08-22|452
+|2024-08-29|470
+
+subsCancelSection = Card(Heading("Subscribers vs Cancellations", h3), BarChart(subCancelRows, grouped, xLabel:"Date", yLabel:"Count"), clear)
+
+subCancelRows = |Date|New Subscribers|Cancellations
+|2024-08-01|150|30
+|2024-08-08|180|45
+|2024-08-15|170|40
+|2024-08-22|200|35
+|2024-08-29|190|50
+
+genrePerfSection = Card(Heading("Performance by Genre", h3), HorizontalBarChart(genreLabels, Series("Hours", genreHours), stacked, xLabel:"Hours", yLabel:"Genre"), clear)
+
+genreLabels = ["Drama","Comedy","Action","Documentary","Kids"]
+genreHours = [3400,2750,3100,1200,900]
+
+bufferingSection = Card(Heading("Buffering Rate", h3), TextContent("Current buffering rate: **2.3%**", size:default), clear)
+
+deliveryHealthSection = Card(Heading("Delivery Health by Region", h3), Table(deliveryRows), clear)
+
+deliveryRows = |Region|Success Rate|Avg Latency (ms)
+|North America|98.5|45
+|Europe|97.2|52
+|Asia|95.8|68
+|South America|96.4|60
+|Africa|94.1|78
+
+releasesSection = Card(Heading("Releases This Month", h3), ListBlock(releaseItem1, releaseItem2, releaseItem3, variant:number))
+
+releaseItem1 = ListItem("Title X", "Release Date: 2024-09-10")
+releaseItem2 = ListItem("Title Y", "Release Date: 2024-09-15")
+releaseItem3 = ListItem("Title Z", "Release Date: 2024-09-20")
+
+licensesSection = Card(Heading("Licenses Expiring Soon", h3), Table(licenseRows), clear)
+
+licenseRows = |Title|Expiry Date|Days Left
+|Show A|2024-10-05|35
+|Show B|2024-10-12|42
+|Show C|2024-10-20|50
+
+recClickSection = Card(Heading("Recommendation Click-through Rate", h3), TextContent("Overall CTR: **4.7%**", size:default), clear)
+
+searchNoPlaySection = Card(Heading("Searches Without Playback", h3), Table(searchRows), clear)
+
+searchRows = |Search Term|Count
+|“Romantic comedy”|120
+|“Sci-fi thriller”|95
+|“Documentary about space”|80
+
+revenuePlanSection = Card(Heading("Revenue Split by Plan", h3), PieChart(planLabels, planValues, donut, circular), clear)
+
+planLabels = ["Basic","Standard","Premium"]
+planValues = [45000,72000,33000]
+
+deviceSplitSection = Card(Heading("Viewing Split by Device", h3), BarChart(deviceRows, grouped, xLabel:"Device", yLabel:"Hours Watched"), clear)
+
+deviceRows = |Device|Hours
+|Mobile|5400
+|Tablet|2100
+|Smart TV|7800
+|Desktop|3200
+
+regionFocusSection = Card(Heading("Focus on Region", h3), Form("region-focus", regionFocusButtons, regionSelectField))
+
+regionSelectField = FormControl("Select Region", regionSelect)
+
+regionSelect = Select("region", SelectItem("North America","North America"), SelectItem("Europe","Europe"), SelectItem("Asia","Asia"), placeholder:"Choose region", value:"North America", size:small)
+
+regionFocusButtons = Buttons(Button("Apply", primary))
+
+featureFlagsSection = Card(Heading("Feature Flags", h3), Table(flagRows), clear)
+
+flagRows = |Feature|Enabled
+|New UI|true
+|Beta Recommendations|false
+|Live Chat|true
+|HD Streaming|true
+
+promoteTitleSection = Card(Heading("Promote Title on Home Screen", h3), Form("promote-form", promoteButtons, titleField, startDateField, endDateField))
+
+titleField = FormControl("Title to Promote", Input("title", "Enter title", placeholder:"Title name"))
+
+startDateField = FormControl("Start Date", DatePicker("start", single, value:["2024-09-01"]))
+
+endDateField = FormControl("End Date", DatePicker("end", single, value:["2024-09-30"]))
+
+promoteButtons = Buttons(Button("Save Promotion", primary), Button("Cancel", tertiary))

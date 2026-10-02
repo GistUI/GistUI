@@ -1,0 +1,6 @@
+root = Card(question, pollButtons)
+question = TextContent("Where should we go for lunch on Friday?")
+pollButtons = Buttons(button1, button2, button3)
+button1 = Button("Pizza Place")
+button2 = Button("Sushi Spot")
+button3 = Button("Burger Joint")

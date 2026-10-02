@@ -1,0 +1,5 @@
+root = Card(taskcard)
+taskcard = Card(CardHeader("Urgent Task", "Due: Sep 30, 2026"), status, deadline, actions, clear)
+status = Tag("In Progress", info)
+deadline = TextContent("**Deadline:** Sep 30, 2026", size:small)
+actions = Buttons(Button("Mark Done", primary))

@@ -1,0 +1,152 @@
+root = Card(headerRow, alertsAndControls, kpiSummary, mainTabs)
+headerRow = Card(CardHeader("Hospital Operations Command Center", "Real-time clinical flow, bed management & resource readiness • Memorial Central Hospital"), headerActions, direction:row, justify:between, align:center)
+headerActions = Card(datePickerModal, transferModal, incidentModal, direction:row, gap:s)
+
+datePickerModal = DialogBlock("Change Date / View History", "Select Operations Date", dateDialogForm, description:"Review operational logs and census metrics for another date", triggerVariant:outline)
+dateDialogForm = Form("date-picker-form", dateFormButtons, dateField, shiftSelectField)
+dateField = FormControl("Target Date", DatePicker("target_date", mode:single))
+shiftSelectField = FormControl("Shift Filter", shiftSelect)
+shiftSelect = Select("shift", SelectItem("all", "Full 24h Day"), SelectItem("day", "Day Shift (07:00 - 19:00)"), SelectItem("night", "Night Shift (19:00 - 07:00)"), placeholder:"Select shift window")
+dateFormButtons = Buttons(Button("Load Metrics", primary), Button("Cancel", tertiary))
+
+incidentModal = DialogBlock("File Incident Report", "Hospital Incident & Event Reporting (Sentinel / Safety)", incidentForm, description:"Submit clinical deviations, facility hazards, or security issues", triggerVariant:destructive)
+incidentForm = Form("incident-form", incidentButtons, incDeptField, incTypeField, incSeverityField, incDescField)
+incDeptField = FormControl("Department / Unit", Input("inc_unit", "e.g., Emergency Dept - Triage 2", type:text))
+incTypeField = FormControl("Incident Classification", incTypeSelect)
+incTypeSelect = Select("inc_type", SelectItem("fall", "Patient Fall / Injury"), SelectItem("med", "Medication Variance"), SelectItem("equip", "Equipment Failure"), SelectItem("delay", "Critical Diagnostic Delay"), SelectItem("other", "Other Safety Event"), placeholder:"Choose category")
+incSeverityField = FormControl("Severity Level", incRadio)
+incRadio = RadioGroup("severity", RadioItem("Minor", "No harm / near-miss", "minor"), RadioItem("Moderate", "Temporary harm / required monitoring", "moderate"), RadioItem("Severe", "Sentinel event / severe harm", "severe"), defaultValue:"moderate")
+incDescField = FormControl("Event Details & Immediate Action Taken", TextArea("inc_desc", "Describe what occurred, persons involved, and immediate containment...", rows:4))
+incidentButtons = Buttons(Button("Submit Sentinel Report", destructive), Button("Cancel", tertiary))
+
+transferModal = DialogBlock("Request Patient Transfer", "Inter-Unit / External Patient Transfer Request", transferForm, description:"Initiate transfer between wards, ICU step-down/step-up, or external facility", triggerVariant:default)
+transferForm = Form("transfer-form", transferButtons, transferPatientField, transferCurrentField, transferDestField, transferAcuityField, transferNotesField)
+transferPatientField = FormControl("Patient Name / MRN", Input("trans_patient", "e.g., Jane Doe - MRN #88392", type:text))
+transferCurrentField = FormControl("Current Location", Input("trans_curr", "e.g., ED Bay 04", type:text))
+transferDestField = FormControl("Requested Destination", transDestSelect)
+transDestSelect = Select("dest_unit", SelectItem("icu", "Intensive Care Unit (ICU)"), SelectItem("stepdown", "Telemetry / Step-Down"), SelectItem("medsurg", "General Med-Surg Floor 4"), SelectItem("pediatrics", "Pediatrics"), SelectItem("external", "External Specialized Facility"), placeholder:"Select target unit")
+transferAcuityField = FormControl("Transport Priority & Acuity", transPrioritySelect)
+transPrioritySelect = Select("priority", SelectItem("stat", "STAT / Immediate (ALS Transport)"), SelectItem("urgent", "Urgent (< 2 Hours)"), SelectItem("routine", "Routine / Elective Bed Placement"), placeholder:"Select priority")
+transferNotesField = FormControl("Clinical Justification & Isolation Needs", TextArea("trans_notes", "Include isolation status, oxygen needs, telemetry requirements...", rows:3))
+transferButtons = Buttons(Button("Dispatch Transfer Request", primary), Button("Cancel", tertiary))
+
+alertsAndControls = Card(critAlert, dischargeAlert, direction:row, gap:m)
+critAlert = Callout(error, "CRITICAL PATIENTS REQUIRING ATTENTION (6 ACTIVE STAT)", "ICU-Bed 02 (Sepsis / MAP < 55), ED-Resus 01 (Trauma Level 1), CCU-Bed 08 (Post-ROSC) require immediate senior attending review.")
+dischargeAlert = Callout(success, "DISCHARGE READINESS (14 PATIENTS READY)", "14 med-surg & telemetry patients have cleared discharge orders; expedite bed turns for incoming ED admissions.")
+
+kpiSummary = Card(kpiBeds, kpiErWait, kpiAdmissionsTwoWeeks, kpiDischarges, direction:row, gap:m)
+kpiBeds = Card(Heading("Bed Occupancy", h4), TextContent("### **91.4%** (384 / 420 Beds)"), Progress(91, "Capacity Limit: 95%"), Tag("Critical High", danger), sunk)
+kpiErWait = Card(Heading("Current ER Wait", h4), TextContent("### **42 mins** (Average Triage-to-Bed)"), TextContent("Longest wait: **1h 18m** (ESI-4) | Triage Queue: **19 waiting**", size:small), Tag("Elevated", warning), sunk)
+kpiAdmissionsTwoWeeks = Card(Heading("14-Day Admissions Trend", h4), admissionsMiniChart, sunk)
+admissionsMiniChart = AreaChart(twoWeekAdmissionsData, linear, xLabel:"Day", yLabel:"Admissions")
+kpiDischarges = Card(Heading("Discharges Pending", h4), TextContent("### **14 Ready** / 22 Targeted"), TextContent("Average turnaround time: **38 mins**", size:small), Tag("On Target", success), sunk)
+
+mainTabs = Tabs(censusTab, erOrTab, staffSupplyTab)
+
+censusTab = TabItem("census", "Capacity & Patient Census", censusTabContent)
+censusTabContent = Card(censusRowTop, censusRowBottom, gap:m)
+censusRowTop = Card(deptChartCard, criticalPatientsCard, direction:row, gap:m)
+deptChartCard = Card(Heading("Patients per Department", h3), TextContent("Current inpatient census distribution by clinical unit", size:small), BarChart(deptPatientsData, grouped, xLabel:"Department", yLabel:"Patients"), sunk)
+criticalPatientsCard = Card(Heading("Critical Patients Monitored (Acuity Level 1)", h3), Table(critTableColPatient, critTableColUnit, critTableColCondition, critTableColVitals, critTableColAction), sunk)
+critTableColPatient = Col("Patient / MRN", critPatientsList, type:string)
+critTableColUnit = Col("Unit & Bed", critUnitList, type:string)
+critTableColCondition = Col("Diagnosis / Acuity", critDiagnosisList, type:string)
+critTableColVitals = Col("Key Vitals", critVitalsList, type:string)
+critTableColAction = Col("Status", critStatusList, type:string)
+
+censusRowBottom = Card(dischargeReadyCard, sunk)
+dischargeReadyCard = Card(Heading("Patients Ready for Discharge (Bed Turnover Pipeline)", h3), Table(dischPatientCol, dischUnitCol, dischDoctorCol, dischTransportCol, dischPharmacyCol, dischStatusCol))
+dischPatientCol = Col("Patient Name", dischPatientData, type:string)
+dischUnitCol = Col("Bed Location", dischUnitData, type:string)
+dischDoctorCol = Col("Attending Physician", dischDoctorData, type:string)
+dischTransportCol = Col("Transport Status", dischTransportData, type:string)
+dischPharmacyCol = Col("Meds Reconciled", dischPharmacyData, type:string)
+dischStatusCol = Col("Turnover Action", dischActionData, type:string)
+
+erOrTab = TabItem("er_or", "OR Schedule & Surgeries", erOrTabContent)
+erOrTabContent = Card(orHeaderCard, orBookingsTableCard, gap:m)
+orHeaderCard = Card(Heading("Today's Operating Room Bookings & Utilization", h3), TextContent("8 Active Suites • 12 Scheduled Cases • 4 Post-Op Recovery • 2 Emergency Reserved", size:small), direction:column)
+orBookingsTableCard = Card(Table(orSuiteCol, orPatientCol, orProcedureCol, orSurgeonCol, orTimeCol, orAnesthesiaCol, orStatusCol), sunk)
+orSuiteCol = Col("OR Suite", orSuiteData, type:string)
+orPatientCol = Col("Patient / Age", orPatientData, type:string)
+orProcedureCol = Col("Scheduled Procedure", orProcData, type:string)
+orSurgeonCol = Col("Primary Surgeon", orSurgeonData, type:string)
+orTimeCol = Col("Scheduled Slot", orTimeData, type:string)
+orAnesthesiaCol = Col("Anesthesia", orAnesthesiaData, type:string)
+orStatusCol = Col("Case Status", orStatusData, type:string)
+
+staffSupplyTab = TabItem("staff_supplies", "Staff on Shift & Supply Levels", staffSupplyTabContent)
+staffSupplyTabContent = Card(staffSupplyRow, gap:m)
+staffSupplyRow = Card(staffCard, supplyCard, direction:row, gap:m)
+staffCard = Card(Heading("Staff on Shift & Roster Roles", h3), Table(staffNameCol, staffRoleCol, staffDeptCol, staffShiftCol, staffCoverageCol), sunk)
+staffNameCol = Col("Staff Name", staffNameData, type:string)
+staffRoleCol = Col("Assigned Role", staffRoleData, type:string)
+staffDeptCol = Col("Department", staffDeptData, type:string)
+staffShiftCol = Col("Shift Window", staffShiftData, type:string)
+staffCoverageCol = Col("Assignment Ratio", staffCoverageData, type:string)
+
+supplyCard = Card(Heading("Critical Supplies Running Low (< 20% Threshold)", h3), TextContent("Automated supply chain replenishment orders triggered", size:small), Table(supplyItemCol, supplyCategoryCol, supplyStockCol, supplyMinCol, supplyUrgencyCol), sunk)
+supplyItemCol = Col("Supply Item", supplyItemData, type:string)
+supplyCategoryCol = Col("Category", supplyCategoryData, type:string)
+supplyStockCol = Col("On Hand", supplyStockData, type:string)
+supplyMinCol = Col("Min Par", supplyMinData, type:string)
+supplyUrgencyCol = Col("Status", supplyStatusData, type:string)
+
+twoWeekAdmissionsData = |Day|Admissions
+|D-13|42
+|D-12|38
+|D-11|45
+|D-10|51
+|D-9|49
+|D-8|53
+|D-7|47
+|D-6|44
+|D-5|58
+|D-4|62
+|D-3|55
+|D-2|59
+|D-1|64
+|Today|68
+
+deptPatientsData = |Department|Patients
+|Emergency (ED)|54
+|ICU / CCU|36
+|Cardiology|42
+|Med-Surg East|88
+|Med-Surg West|76
+|Pediatrics|28
+|Orthopedics|34
+|Maternity/NICU|26
+
+critPatientsList = ["E. Vance (MRN 49102)", "T. Jenkins (MRN 88201)", "M. Santos (MRN 29114)", "A. Al-Sayed (MRN 99401)", "R. Kowalski (MRN 31092)", "H. Zhang (MRN 12049)"]
+critUnitList = ["ICU - Bed 02", "ED - Resus Bay 1", "CCU - Bed 08", "ICU - Bed 05", "Neuro ICU - 03", "ED - Bay 03"]
+critDiagnosisList = ["Septic Shock / ARDS", "Polytrauma / Hemorrhage", "Acute STEMI / Post-Cath", "Respiratory Failure", "Acute Subarachnoid Bleed", "Severe DKA / Acidosis"]
+critVitalsList = ["BP 82/50, SpO2 91%", "BP 88/54, HR 134", "HR 118, BP 140/92", "SpO2 88% on 15L", "GCS 9, BP 175/100", "pH 7.08, Glucose 480"]
+critStatusList = ["Vasopressors Active", "Massive Transfusion", "Intra-Aortic Balloon", "Intubated", "Q1h Neuro Checks", "Insulin Infusion"]
+
+dischPatientData = ["Robert Foster (MRN 66321)", "Clara Higgins (MRN 54109)", "George Meyer (MRN 77201)", "Doris Lin (MRN 88123)", "Samuel Kim (MRN 33012)"]
+dischUnitData = ["Med-Surg 4W - Bed 412", "Cardiology 3E - Bed 308", "Med-Surg 4E - Bed 402", "Orthopedics - Bed 215", "Telemetry - Bed 319"]
+dischDoctorData = ["Dr. S. Miller (Hospitalist)", "Dr. K. Vance (Cardio)", "Dr. S. Miller (Hospitalist)", "Dr. J. Reynolds (Ortho)", "Dr. A. Gupta (Internal)"]
+dischTransportData = ["Family Arrived", "Wheelchair Van 11:30", "Family En Route", "Ambulette Dispatched", "Self / Escort Ready"]
+dischPharmacyData = ["Completed & Educated", "Completed & Educated", "Pending Final Script", "Completed & Educated", "Completed & Educated"]
+dischActionData = ["Discharge Packet Given", "Awaiting Bed Cleaner", "Pharmacy Delay", "Lounge Transfer", "Ready for EMR Checkout"]
+
+orSuiteData = ["OR-1", "OR-2", "OR-3", "OR-4", "OR-5", "OR-6"]
+orPatientData = ["David Cole (54M)", "Maria Ramos (42F)", "John Brooks (68M)", "Elena Rostova (31F)", "Arthur Pendelton (72M)", "Emergency Reserve"]
+orProcData = ["Emergency Exploratory Laparotomy", "Total Knee Arthroplasty", "Coronary Artery Bypass (CABG)", "Laparoscopic Appendectomy", "Open Reduction Ext Fixation (Femur)", "Trauma On-Call Hold"]
+orSurgeonData = ["Dr. N. Sterling", "Dr. J. Reynolds", "Dr. L. Chen", "Dr. M. Bailey", "Dr. R. Torres", "Dr. Staff On-Call"]
+orTimeData = ["08:00 - 11:30", "08:30 - 11:00", "07:30 - 13:00", "10:00 - 11:45", "11:30 - 14:30", "Immediate Access"]
+orAnesthesiaData = ["General (Dr. Patel)", "Spinal / Sedation (Dr. Frank)", "General (Dr. Adams)", "General (Dr. Patel)", "General (Dr. Frank)", "Standby Team 1"]
+orStatusData = ["In Progress (Closing)", "In Recovery (PACU)", "In Progress (Pump Active)", "Pre-Op Prep", "Pre-Op Holding", "Available Standby"]
+
+staffNameData = ["Dr. Sarah Miller", "Dr. Marcus Bailey", "Dr. Liam Chen", "Rachel Green, BSN, RN", "Carlos Mendez, RN", "Priya Nair, BSN, CCRN", "David Hayes, RPh", "Elena Gomez, RT", "Thomas Wright"]
+staffRoleData = ["Lead Attending Physician", "Lead Trauma Surgeon", "Cardiothoracic Surgeon", "Charge Nurse - Emergency", "Triage RN", "Charge Nurse - ICU", "Clinical Pharmacist", "Lead Respiratory Therapist", "Operations / Bed Coordinator"]
+staffDeptData = ["Inpatient / Med-Surg", "Surgical / Trauma", "Surgical / OR", "Emergency Department", "Emergency Department", "ICU / CCU", "Central Hospital Pharmacy", "Respiratory Care Services", "Bed Placement & Logistics"]
+staffShiftData = ["07:00 - 19:00", "07:00 - 19:00", "07:00 - 19:00", "07:00 - 19:00", "07:00 - 19:00", "07:00 - 19:00", "08:00 - 18:00", "07:00 - 19:00", "06:30 - 18:30"]
+staffCoverageData = ["14 Patients Assigned", "2 Surgeries + On-Call", "1 CABG Active", "1:1 Dept Supervision", "19 in Queue", "6 ICU Beds Supervised", "All Inpatient Units", "ICU + ED Ventilators", "Whole Facility Census"]
+
+supplyItemData = ["O-Negative Packed RBCs", "Norepinephrine 4mg/4mL Vials", "Sterile Surgical Gloves 7.5", "Albuterol Inhalation Solution", "Propofol 10mg/mL 50mL", "High-Flow Nasal Cannulas"]
+supplyCategoryData = ["Blood Bank", "Critical Pharmacy", "PPE & Surgical", "Respiratory Meds", "Anesthesia / ICU Sedation", "Respiratory Equipment"]
+supplyStockData = ["3 Units", "12 Vials", "45 Pairs", "22 Vials", "8 Vials", "6 Units"]
+supplyMinData = ["15 Units", "60 Vials", "200 Pairs", "100 Vials", "40 Vials", "30 Units"]
+supplyStatusData = ["CRITICAL (STAT Order Placed)", "LOW (Courier ETA 1h)", "LOW (Restocking Floor)", "CRITICAL (Depot Dispatch)", "LOW (Pharmacy Compounding)", "CRITICAL (Supply Chain Alert)"]

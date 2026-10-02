@@ -1,0 +1,45 @@
+root = Card(header, filterForm, draftsCard, publishedCard, mostReadCard, readershipCard, scheduleForm, commentsCard, newDraftBtn)
+
+header = CardHeader("Editor Content Studio")
+
+filterForm = Form("filter", filterButtons, categorySelect)
+categorySelect = FormControl("Category", Select("category", SelectItem("All", "All"), SelectItem("Tech", "Tech"), SelectItem("Lifestyle", "Lifestyle"), placeholder:"Select category", value:"All"))
+filterButtons = Buttons(Button("Apply"))
+
+draftsCard = Card(CardHeader("Drafts"), draftsTable)
+draftsTable = Table(
+  Col("Title", ["Article A","Article B","Article C"], string),
+  Col("Status", ["In Review","Needs Edit","Ready"], string)
+)
+
+publishedCard = Card(CardHeader("Published This Week"), publishedTable)
+publishedTable = Table(
+  Col("Title", ["Launch Post","Feature Update"], string),
+  Col("Date", ["2024-09-24","2024-09-22"], string)
+)
+
+mostReadCard = Card(CardHeader("Most‑Read Article This Month"), TextContent("**\"The Future of AI\"** – 12,345 reads", size:large))
+
+readershipCard = Card(CardHeader("Readership (Last 30 Days)"), readershipChart)
+readershipChart = LineChart(
+  |Date|Views
+  |2024‑08‑31|1020
+  |2024‑09‑07|1150
+  |2024‑09‑14|1300
+  |2024‑09‑21|1250
+  |2024‑09‑28|1400
+  , linear, xLabel:"Date", yLabel:"Views"
+)
+
+scheduleForm = Form("schedule", scheduleButtons, titleField, dateField)
+titleField = FormControl("Title", Input("title", placeholder:"Article title"))
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single, value:["2024-10-01"]))
+scheduleButtons = Buttons(Button("Schedule"))
+
+commentsCard = Card(CardHeader("Comments Awaiting Reply"), commentsTable)
+commentsTable = Table(
+  Col("Article", ["Guide to UX","Market Trends"], string),
+  Col("Comment", ["Great piece!","Need clarification on..."], string)
+)
+
+newDraftBtn = Buttons(Button("New Draft"))

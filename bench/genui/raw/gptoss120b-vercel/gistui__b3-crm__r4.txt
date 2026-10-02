@@ -1,0 +1,38 @@
+root = Card(infoSection, activitySection, contactsSection, followupsSection, noteSection, renewalSection, callLogSection)
+
+infoSection = Card(CardHeader("Acme Corp", "Owner: Jane Doe"), TextContent("Total Deal Value: **$125,000**", size:large), Tag("Negotiation", variant:info))
+
+activitySection = Card(Heading("Recent Activity", h3), ListBlock(activityItem1, activityItem2, activityItem3, variant:number))
+
+activityItem1 = ListItem("2023-09-28", "Called client about proposal")
+activityItem2 = ListItem("2023-09-27", "Sent revised contract")
+activityItem3 = ListItem("2023-09-26", "Received client feedback")
+
+contactsSection = Card(Heading("Contacts", h3), Table(contactColName, contactColRole))
+
+contactColName = Col("Name", data:["Alice Smith","Bob Jones"], type:string)
+contactColRole = Col("Role", data:["Decision Maker","Technical Lead"], type:string)
+
+followupsSection = Card(Heading("Open Follow-ups", h3), Table(followupCol, dueCol))
+
+followupCol = Col("Follow-up", data:["Prepare proposal","Schedule demo"], type:string)
+dueCol = Col("Due Date", data:["2023-10-03","2023-10-05"], type:string)
+
+noteSection = Card(Heading("Add Note", h3), noteForm)
+
+noteForm = Form("note", buttons:noteButtons, noteField)
+
+noteField = FormControl("Note", TextArea("note", placeholder:"Write a note...", rows:4))
+noteButtons = Buttons(Button("Save", variant:primary))
+
+renewalSection = Card(Heading("Renewal", h3), renewalCallout)
+
+renewalCallout = Callout(variant:warning, title:"Renewal Date Approaching", description:"Renewal on 2023-10-05 (in 5 days)")
+
+callLogSection = Card(Heading("Log Call", h3), callForm)
+
+callForm = Form("call", buttons:callButtons, callSubjectField, callNotesField)
+
+callSubjectField = FormControl("Subject", Input("subject", placeholder:"Call subject"))
+callNotesField = FormControl("Notes", TextArea("call_notes", placeholder:"Details of the call...", rows:3))
+callButtons = Buttons(Button("Log Call", variant:primary), Button("Cancel", variant:tertiary))

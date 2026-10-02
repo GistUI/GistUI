@@ -1,0 +1,27 @@
+root = Card(cardHeader, totalValue, stageTag, activityList, contactsList, followupsTable, noteForm, renewalCallout, callButton)
+
+cardHeader = CardHeader("Acme Corp - Account", "Owner: Jane Doe")
+totalValue = TextContent("**Total Deal Value:** $1,250,000", size:large)
+stageTag = Tag("Negotiation", variant:info)
+
+activityList = ListBlock(activityItem1, activityItem2, activityItem3, variant:vertical)
+activityItem1 = ListItem("Call with prospect", "2024-09-28 10:15 AM")
+activityItem2 = ListItem("Sent proposal", "2024-09-27 14:00 PM")
+activityItem3 = ListItem("Follow‑up email", "2024-09-26 09:30 AM")
+
+contactsList = ListBlock(contactItem1, contactItem2, variant:vertical)
+contactItem1 = ListItem("Alice Smith", "Decision Maker")
+contactItem2 = ListItem("Bob Johnson", "Technical Lead")
+
+followupsTable = Table(followupCol1, followupCol2, followupCol3)
+followupCol1 = Col("Follow‑up", data:["Call back","Send contract"], type:string)
+followupCol2 = Col("Owner", data:["Jane Doe","John Lee"], type:string)
+followupCol3 = Col("Due Date", data:["2024-10-02","2024-10-05"], type:string)
+
+noteForm = Form("note-form", noteButtons, noteField)
+noteField = FormControl("Add a note", TextArea("note", placeholder:"Type your note here...", rows:4))
+noteButtons = Buttons(Button("Save note", primary))
+
+renewalCallout = TextCallout("Renewal Date: 2024-10-10", "Renewal is within 30 days", variant:warning)
+
+callButton = Buttons(Button("Log Call", primary))

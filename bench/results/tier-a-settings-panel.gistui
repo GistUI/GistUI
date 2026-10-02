@@ -1,0 +1,18 @@
+root = Stack([TextContent("User Settings", large-heavy), tabs], column, l)
+tabs = Tabs(tabProfile, tabSecurity, tabNotifications)
+
+tabProfile = TabItem("profile", "Profile", profileContent)
+profileContent = [profileCard]
+profileCard = Card(CardHeader("Profile", "Update your personal information and avatar."), profileForm, card)
+profileForm = Form("profile_update", FormControl("Display name", Input("display_name", "e.g., Alex Johnson", text, rules:["required", "minLength:2", "maxLength:60"])), FormControl("Avatar URL", Input("avatar_url", "https://example.com/avatar.png", url, rules:["url"])), buttons:profileButtons)
+profileButtons = Buttons(Button("Save changes", "submit:profile_update", primary), Button("Reset", "action:reset_profile_form", secondary))
+
+tabSecurity = TabItem("security", "Security", securityContent)
+securityContent = [securityCard]
+securityCard = Card(CardHeader("Security", "Manage sign-in protection and account security."), securityToggles, TextCallout("Tip", "After enabling 2FA, you may be asked to set up an authenticator app or backup codes.", info), card)
+securityToggles = SwitchGroup(SwitchItem("Two-factor authentication (2FA)", "Require a verification code when signing in.", "two_fa", "enabled", checked:false, defaultChecked, disabled:false), sunk)
+
+tabNotifications = TabItem("notifications", "Notifications", notificationsContent)
+notificationsContent = [notificationsCard]
+notificationsCard = Card(CardHeader("Notifications", "Choose what you want to be notified about."), notificationsToggles, card)
+notificationsToggles = SwitchGroup(SwitchItem("Email notifications", "Receive updates and account messages by email.", "notif_email", "enabled", checked, defaultChecked, disabled:false), SwitchItem("Product updates", "Get notified about new features and improvements.", "notif_product", "enabled", checked:false, defaultChecked:false, disabled:false), SwitchItem("Security alerts", "Important alerts about sign-ins and security changes.", "notif_security", "enabled", checked, defaultChecked, disabled:false), sunk)

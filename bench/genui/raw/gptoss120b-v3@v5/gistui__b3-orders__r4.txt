@@ -1,0 +1,49 @@
+root = Card(CardHeader("E‑Commerce Operations Desk"), filtersSection, summarySection, volumeChart, recentOrdersSection, followup)
+
+filtersSection = Card(Heading("Filters", h3), filterForm, clear)
+
+filterForm = Form("order-filters", filterButtons, statusField, searchField)
+
+statusField = FormControl("Order status", statusSelect)
+
+statusSelect = Select("status", SelectItem("all", "All"), SelectItem("pending", "Pending"), SelectItem("shipped", "Shipped"), SelectItem("refunded", "Refunded"), placeholder:"All statuses", value:"all")
+
+searchField = FormControl("Customer name", Input("customer_search", placeholder:"Search customer"))
+
+filterButtons = Buttons(Button("Apply", primary), Button("Reset", secondary))
+
+summarySection = Card(Heading("Today's Summary", h3), ordersToday, revenueToday, avgOrderValue, refundRate, sunk)
+
+ordersToday = TextContent("**Orders placed today:** 124", size:large)
+
+revenueToday = TextContent("**Revenue today:** $8,560", size:large)
+
+avgOrderValue = TextContent("**Average order value:** $69.2", size:large)
+
+refundRate = TextContent("**Refund rate this month:** 2.3%", size:large)
+
+volumeChart = Card(Heading("Order volume – last 4 weeks", h3), orderVolumeChart, sunk)
+
+orderVolumeChart = BarChart(volumeData, grouped, xLabel:"Week", yLabel:"Orders")
+
+volumeData = |Week|Orders
+|W‑1|320
+|W‑2|295
+|W‑3|340
+|W‑4|310
+
+recentOrdersSection = Card(Heading("Recent Orders", h3), recentOrdersTable, sunk)
+
+recentOrdersTable = Table(idCol, custCol, totalCol, statusCol, actionCol)
+
+idCol = Col("Order ID", ["#1023", "#1022", "#1021", "#1020"], type:string)
+
+custCol = Col("Customer", ["Alice", "Bob", "Carol", "Dave"], type:string)
+
+totalCol = Col("Total", ["$120.00", "$85.50", "$45.00", "$230.00"], type:string)
+
+statusCol = Col("Status", ["Pending", "Shipped", "Refunded", "Pending"], type:string)
+
+actionCol = Col("Action", ["Mark fulfilled", "Mark fulfilled", "Mark fulfilled", "Mark fulfilled"], type:action)
+
+followup = FollowUpBlock(FollowUpItem("View all orders"), FollowUpItem("Export report"))

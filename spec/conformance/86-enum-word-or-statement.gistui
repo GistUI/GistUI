@@ -1,0 +1,2 @@
+root = Card(sunk, clear)
+sunk = Text("I am a statement")

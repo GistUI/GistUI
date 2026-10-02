@@ -1,0 +1,145 @@
+root = Card(header, topAlerts, statsRow, mainTabs, actionDrawerRow)
+header = Card(CardHeader("Emergency Operations Center (EOC) Command Dashboard", "Live multi-agency coordination & tactical dispatch • Incident: Cyclone Zephyr"), filterZoneRow, direction:column, gap:s)
+filterZoneRow = Card(Card(Heading("Operational Focus:", h4), Badge("All Sectors Active", variant:destructive), direction:row, gap:s, align:center), zoneFilterForm, direction:row, justify:between, align:center, variant:clear)
+zoneFilterForm = Form("zone-focus", focusBtn, zoneSelect)
+zoneSelect = FormControl("Select Sector Focus", Select("active_zone", SelectItem("all", "All Zones (Overview)"), SelectItem("north", "Zone North (Flooding / Riverfront)"), SelectItem("east", "Zone East (Coastal Surge / Port)"), SelectItem("central", "Zone Central (Metro / Structural)"), SelectItem("south", "Zone South (Landslide / Foothills)"), SelectItem("west", "Zone West (Rural / Evacuation Corridor)"), placeholder:"Filter by Tactical Zone", value:"all", size:small))
+focusBtn = Buttons(Button("Apply Zone Filter", primary, size:small))
+
+topAlerts = Card(criticalAlert, broadcastAlert, direction:column, gap:xs, variant:clear)
+criticalAlert = Alert("SEVERITY LEVEL 4: FLASH FLOOD & STRUCTURAL COLLAPSE WARNING", "Severe inundation in Zone North & Zone East. Evacuation route R-102 compromised. All units follow priority protocol ALPHA.", destructive)
+broadcastAlert = TextCallout("Latest Public Broadcast (12 mins ago)", "Mandatory evacuation ordered for low-lying areas of Zone East. Report to designated Red Cross staging shelters immediately.", variant:warning)
+
+statsRow = Card(statCasualties, statRescued, statSeverity, statComms, statVolunteers, direction:row, gap:m, wrap)
+statCasualties = Card(Heading("Human Impact", h4), TextContent("Casualties Recorded: **14**\nInjuries Treated: **89**"), Tag("Critical", danger), variant:sunk)
+statRescued = Card(Heading("Rescued to Date", h4), TextContent("Persons Rescued: **1,420**\nAnimals / Livestock: **312**"), Tag("+180 past 2h", success), variant:sunk)
+statSeverity = Card(Heading("Overall Severity", h4), TextContent("Status: **CRITICAL (CAT 4)**\nIncident Load: **38 Active**"), Tag("Red Alert", danger), variant:sunk)
+statComms = Card(Heading("Comms Channels", h4), TextContent("Operational: **5 / 6 Channels**\nVHF Repeater #3: **OFFLINE**"), Tag("Partial Comms", warning), variant:sunk)
+statVolunteers = Card(Heading("Active Volunteers", h4), TextContent("Mobilized: **340 on Duty**\nDeployments: **100% Assigned**"), Tag("Shift Active", info), variant:sunk)
+
+mainTabs = Tabs(incidentsTab, logisticsTab, evacuationTab, healthCommunityTab, tasksReportsTab)
+
+incidentsTab = TabItem("incidents", "Active Incidents & Weather", incidentsGrid)
+incidentsGrid = Card(Card(Heading("Active Incidents by Zone & Severity", h3), Table(incidentZoneCol, incidentDescCol, incidentSevCol, incidentUnitsCol, incidentStatusCol)), Card(Heading("48-Hour Meteorological Forecast", h3), LineChart(weatherForecastTable, step, xLabel:"Timeline (+48h)", yLabel:"Metrics"), Table(forecastColTime, forecastColRain, forecastColWind, forecastColAlert)), direction:column, gap:m, variant:clear)
+
+incidentZoneCol = Col("Zone", ["Zone North", "Zone North", "Zone East", "Zone East", "Zone Central", "Zone South", "Zone West"])
+incidentDescCol = Col("Incident Description", ["River Wall Breach - Sector 3", "Residential Flood Trap (18 persons)", "Substation Transformer Fire", "Storm Surge Inundation Pier 9", "High-rise Structural Crack", "Hillside Mudslide on Highway", "Tree Fall on Power Feeder"])
+incidentSevCol = Col("Severity", ["Critical - Level 5", "Critical - Level 5", "High - Level 4", "High - Level 4", "Medium - Level 3", "High - Level 4", "Low - Level 2"])
+incidentUnitsCol = Col("Assigned Units", ["Rescue Team Alpha (Boats)", "SAR Squad 04 & USAR", "Hazmat 02 + Fire Eng 11", "Coast Guard Unit 08", "Civil Eng Tech 01", "Earthmover Team Delta", "Public Works Utility 03"])
+incidentStatusCol = Col("Status", ["In Progress", "In Progress", "Contained", "Active Evac", "Evaluating", "Clearing Route", "Resolved"])
+
+weatherForecastTable = |Hours|Precipitation_mm|Wind_kmh
+|+06h|85|95
+|+12h|120|110
+|+18h|95|80
+|+24h|60|65
+|+30h|40|50
+|+36h|25|40
+|+42h|15|30
+|+48h|5|20
+
+forecastColTime = Col("Time Horizon", ["00h - 12h", "12h - 24h", "24h - 36h", "36h - 48h"])
+forecastColRain = Col("Expected Rainfall", ["120 mm/hr (Extreme)", "85 mm/hr (Heavy)", "35 mm/hr (Moderate)", "10 mm/hr (Light)"])
+forecastColWind = Col("Wind Gusts", ["110 km/h (Gale)", "75 km/h (Strong)", "45 km/h (Moderate)", "20 km/h (Calm)"])
+forecastColAlert = Col("Warning Level", ["Red Warning", "Orange Warning", "Yellow Alert", "Green Advisory"])
+
+logisticsTab = TabItem("logistics", "Resources, Assets & Comms", logisticsGrid)
+logisticsGrid = Card(Card(Heading("Available Fleet, Personnel & Field Supplies", h3), Table(assetCategoryCol, assetTypeCol, assetAvailCol, assetDeployedCol, assetTotalCol)), Card(Heading("Emergency Communications Grid Status", h3), Table(commChannelCol, commFreqCol, commStatusCol, commLatencyCol, commBackupCol)), direction:column, gap:m, variant:clear)
+
+assetCategoryCol = Col("Category", ["Vehicles", "Vehicles", "Vehicles", "Personnel", "Personnel", "Personnel", "Supplies", "Supplies", "Supplies"])
+assetTypeCol = Col("Asset Description", ["Water Rescue Rigid Inflatables (RIB)", "High-Clearance 4x4 Troop Carriers", "Ambulance / Mobile ICU Units", "Urban Search & Rescue (USAR)", "Tactical Paramedics & EMTs", "Hazmat Decon Specialists", "MRE Emergency Rations (Kits)", "Potable Water Bladders (10kL)", "Emergency Power Generators (50kW)"])
+assetAvailCol = Col("Available Ready", ["4 units", "11 units", "6 units", "42 staff", "28 staff", "8 staff", "6,200 kits", "18 bladders", "9 units"])
+assetDeployedCol = Col("Deployed", ["16 units", "24 units", "18 units", "120 staff", "64 staff", "14 staff", "14,800 kits", "32 bladders", "21 units"])
+assetTotalCol = Col("Total Inventory", ["20 units", "35 units", "24 units", "162 staff", "92 staff", "22 staff", "21,000 kits", "50 bladders", "30 units"])
+
+commChannelCol = Col("Channel Name", ["Tactical Command Net 1", "Search & Rescue VHF Net", "Medical Dispatch Trunk", "Aviation / Helo Guard", "Satellite Link Alpha (Starlink)", "Repeater Link R-03 (North Ridge)"])
+commFreqCol = Col("Band / Frequency", ["UHF 453.225 MHz", "VHF 155.475 MHz", "800 MHz Digital", "VHF 121.500 MHz", "Ku-Band SATCOM", "VHF 146.850 MHz"])
+commStatusCol = Col("Operational Status", ["OPERATIONAL", "OPERATIONAL", "OPERATIONAL", "OPERATIONAL", "OPERATIONAL", "OFFLINE (Antenna Fault)"])
+commLatencyCol = Col("Signal / Latency", ["100% / 8ms", "98% / 12ms", "99% / 15ms", "100% / 5ms", "85% / 45ms", "0% / NO SIGNAL"])
+commBackupCol = Col("Failover Routing", ["Direct Repeater", "Tactical Mesh", "Cellular Bridge", "Simplex Air", "Satellite Link Beta", "Switching to Simplex VHF"])
+
+evacuationTab = TabItem("evacuation", "Shelters, Routes & Road Closures", evacuationGrid)
+evacuationGrid = Card(Card(Heading("Emergency Shelters: Capacity & Occupancy", h3), Table(shelterNameCol, shelterZoneCol, shelterCapCol, shelterOccCol, shelterRateCol, shelterFoodCol)), Card(Heading("Evacuation Corridors & Road Closures", h3), Table(roadCodeCol, roadNameCol, roadZoneCol, roadStatusCol, roadHazardCol, roadDetourCol)), direction:column, gap:m, variant:clear)
+
+shelterNameCol = Col("Shelter Facility", ["Westside High Gymnasium", "Civic Arena Hall A", "St. Jude Community Center", "Memorial Pavilion", "Northside Arena", "Pinecrest Middle School"])
+shelterZoneCol = Col("Zone", ["Zone West", "Zone Central", "Zone South", "Zone West", "Zone North", "Zone South"])
+shelterCapCol = Col("Max Capacity", ["1,200", "2,500", "600", "1,800", "900", "750"])
+shelterOccCol = Col("Current Occupants", ["1,120", "2,340", "410", "890", "900 (FULL)", "320"])
+shelterRateCol = Col("Occupancy %", ["93%", "94%", "68%", "49%", "100% (CLOSED)", "43%"])
+shelterFoodCol = Col("Supplies Stock", ["3 Days", "4 Days", "6 Days", "5 Days", "1 Day (Refill Req)", "6 Days"])
+
+roadCodeCol = Col("Route ID", ["Route E-10", "Highway 101", "Route R-102", "Bridge Coastal 4", "Avenue B Metro", "West Bypass Rd"])
+roadNameCol = Col("Corridor Name", ["Eastern Valley Arterial", "Trans-City Freeway", "North River Road", "Harbor Causeway", "Downtown Underpass", "Western Evac Expressway"])
+roadZoneCol = Col("Zone", ["Zone East", "Zone Central", "Zone North", "Zone East", "Zone Central", "Zone West"])
+roadStatusCol = Col("Route Status", ["OPEN (High Traffic)", "OPEN (Clear Flow)", "CLOSED (Road Flooded)", "CLOSED (Storm Surge)", "CLOSED (Submerged)", "OPEN (Primary Evac)"])
+roadHazardCol = Col("Observed Hazard", ["Heavy Rain / Convoy", "Clear for emergency", "4ft Water / Debris", "Structural Wave Impact", "Flooded / Power lines", "Clear & Patrolled"])
+roadDetourCol = Col("Designated Alternative", ["Maintain 30 km/h speed", "Main Emergency Route", "Detour via Highway 101", "Use Inland Ridge R-88", "Reroute via 5th St Elevated", "Clear for all evacuees"])
+
+healthCommunityTab = TabItem("health", "Hospitals, Aid Requests & Donors", healthCommunityGrid)
+healthCommunityGrid = Card(Card(Heading("Nearby Hospital Capacity & Free Beds", h3), Table(hospNameCol, hospZoneCol, hospTotalBedsCol, hospFreeBedsCol, hospIcuCol, hospTraumaCol)), Card(Heading("Aid Requests Awaiting Immediate Action", h3), Table(aidIdCol, aidZoneCol, aidTypeCol, aidUrgencyCol, aidReqDetailCol, aidActionCol)), Card(Heading("Volunteers on Duty & Donations Received", h3), Table(volNameCol, volTeamCol, volRoleCol, volZoneCol, volHoursCol), Table(donSourceCol, donItemCol, donQtyCol, donDestCol, donStatusCol)), direction:column, gap:m, variant:clear)
+
+hospNameCol = Col("Hospital Facility", ["Central General Trauma", "Mercy Regional Medical", "St. Luke District Hospital", "North Valley Clinic", "Hope Community Health"])
+hospZoneCol = Col("Zone", ["Zone Central", "Zone East", "Zone South", "Zone North", "Zone West"])
+hospTotalBedsCol = Col("Total Beds", ["450", "320", "220", "110", "180"])
+hospFreeBedsCol = Col("Free Beds Available", ["42 Free", "8 Free (Near Cap)", "54 Free", "3 Free (Critical)", "76 Free"])
+hospIcuCol = Col("Free ICU Beds", ["6 ICU", "1 ICU", "9 ICU", "0 ICU", "12 ICU"])
+hospTraumaCol = Col("Trauma Status", ["Level 1 - Receiving", "Level 2 - Diverting", "Level 2 - Receiving", "Level 3 - Critical Only", "Level 2 - Receiving"])
+
+aidIdCol = Col("Request #", ["REQ-8821", "REQ-8822", "REQ-8823", "REQ-8824", "REQ-8825"])
+aidZoneCol = Col("Zone", ["Zone North", "Zone East", "Zone North", "Zone Central", "Zone South"])
+aidTypeCol = Col("Aid Needed", ["Elderly Evacuation Boat", "Emergency Insulin / Meds", "Clean Water Distribution", "Structural Shoring Kit", "Baby Formula & Diapers"])
+aidUrgencyCol = Col("Urgency", ["CRITICAL", "HIGH", "HIGH", "MEDIUM", "HIGH"])
+aidReqDetailCol = Col("Request Description", ["12 non-ambulatory seniors trapped in 2nd fl nursing facility", "St. Jude shelter insulin supply depleted for 14 patients", "Clean water point contaminated in Sector 4", "Support beams cracking in temporary shelter annex", "45 infants in Pinecrest shelter without feeding supplies"])
+aidActionCol = Col("Status", ["Awaiting Dispatch", "Awaiting Courier", "Water Tender En Route", "Engineer Assigned", "Staging in Depot"])
+
+volNameCol = Col("Volunteer Name / ID", ["Elena Rostova (VOL-104)", "Marcus Vance (VOL-089)", "Sarah Jenkins (VOL-210)", "David Kim (VOL-142)", "Priya Sharma (VOL-077)"])
+volTeamCol = Col("Unit / Org", ["Red Cross Team B", "Disaster Medical Corps", "Civil Defense Corps", "Food Bank Network", "HAM Radio Emergency"])
+volRoleCol = Col("Current Assignment", ["Shelter Registration & Intake", "Triage & First Aid Station", "Evacuation Traffic Control", "Meal & Water Distribution", "Backup Comms Relaying"])
+volZoneCol = Col("Assigned Zone", ["Westside High", "Civic Arena", "Route E-10 Junction", "Memorial Pavilion", "North Ridge Repeater"])
+volHoursCol = Col("Shift Time", ["06:00 - 14:00 (Active)", "08:00 - 16:00 (Active)", "05:00 - 13:00 (Ending)", "07:00 - 15:00 (Active)", "04:00 - 12:00 (Relief Due)"])
+
+donSourceCol = Col("Donor / Source", ["Global Relief Foundation", "Rotary District 5020", "PharmaCare Intl", "Local Bakery Co-Op", "Logistics Fleet Corp"])
+donItemCol = Col("Donation Material", ["Water Purification Tablets", "Emergency Blankets & Cots", "Field First Aid Trauma Kits", "Packaged High-Calorie Rations", "Diesel Fuel Bladders"])
+donQtyCol = Col("Quantity Received", ["50,000 units", "1,200 sets", "450 kits", "3,000 packs", "5,000 Gallons"])
+donDestCol = Col("Allocated Staging", ["Central Logistics Depot", "Shelter St. Jude & Westside", "Mobile EMT Vans 1-6", "Civic Arena Shelter", "Generator Staging North"])
+donStatusCol = Col("Intake Status", ["Received & Verified", "Distributed", "Received & Verified", "Distributed", "In Transit to Sector"])
+
+tasksReportsTab = TabItem("tasks", "Open Operational Tasks & SITREP", tasksReportsGrid)
+tasksReportsGrid = Card(Card(Heading("Open Operational Tasks by Assignee", h3), Table(taskIdCol, taskTitleCol, taskAssigneeCol, taskZoneCol, taskPriorityCol, taskDueCol, taskProgCol)), sitrepSummaryCard, direction:column, gap:m, variant:clear)
+
+taskIdCol = Col("Task ID", ["TSK-401", "TSK-402", "TSK-403", "TSK-404", "TSK-405", "TSK-406"])
+taskTitleCol = Col("Tactical Task Description", ["Establish auxiliary sandbag barrier along Riverwalk", "Air-drop potable water to isolated Sector 3 hamlet", "Clear fallen high-voltage lines on Route 101", "Refuel emergency backup generators at Mercy Hospital", "Coordinate secondary shelter expansion at South Gym", "Inspect bridge foundation at Route E-10 Crossing"])
+taskAssigneeCol = Col("Assigned Officer / Unit", ["Capt. Miller (Army Corps)", "Major Santos (Helicopter Wing)", "Chief Evans (Power Utility)", "Lt. Thorne (Logistics Unit 4)", "Director Alvarez (Civil Relief)", "Eng. Zhao (DOT Inspection)"])
+taskZoneCol = Col("Zone", ["Zone North", "Zone North", "Zone Central", "Zone East", "Zone South", "Zone West"])
+taskPriorityCol = Col("Priority", ["URGENT", "URGENT", "HIGH", "HIGH", "MEDIUM", "URGENT"])
+taskDueCol = Col("Target ETA", ["Within 45 min", "Within 90 min", "Within 2 hrs", "Within 1 hr", "Within 4 hrs", "Within 2.5 hrs"])
+taskProgCol = Col("Execution Progress", ["70% (Reinforcing)", "En Route to LZ", "Crews On Site", "Fuel Tanker Dispatched", "Planning Layout", "Team Arrived"])
+
+sitrepSummaryCard = Card(Heading("Latest Executive Situation Report (SITREP #07)", h4), TextContent("• **Incident Period:** 06:00 - 12:00 Local Time\n• **Core Impact:** Storm surge peaked at 3.8m in Zone East; localized flash flooding across Sector 3 in Zone North.\n• **Casualty Status:** 14 fatalities confirmed, 89 hospitalizations, 1,420 citizens relocated to safety.\n• **Current Constraints:** VHF Repeater #3 offline; high-clearance assets fully committed in Zone North.\n• **Next Objectives:** Complete aerial extraction in isolated hamlets, restore route R-102 access, resupply Mercy Hospital."), Tag("Published 25m ago", neutral), variant:sunk)
+
+actionDrawerRow = Card(reqResourceDialog, broadcastDialog, sitrepDialog, direction:row, gap:m, justify:end, variant:clear)
+
+reqResourceDialog = DialogBlock("Request Additional Resources", "Emergency Resource Requisition Form", resourceForm, description:"Submit official request for mutual aid, fleet assets, specialized personnel, or materials.")
+resourceForm = Form("resource-req", resourceBtns, resTypeField, resQtyField, resZoneField, resUrgencyField, resNotesField)
+resTypeField = FormControl("Resource Category & Type", Select("res_type", SelectItem("water_rescue", "Zodiac Boats / Water Rescue Teams"), SelectItem("high_clearance", "High-Clearance Military Transport"), SelectItem("helicopters", "SAR Helicopter Air Support"), SelectItem("medical_teams", "Emergency Trauma & Paramedic Crew"), SelectItem("water_food", "Potable Water & Meal Kits"), SelectItem("generators", "High-Capacity Generators & Fuel"), SelectItem("pumps", "Industrial Water Dewatering Pumps"), placeholder:"Select resource needed"))
+resQtyField = FormControl("Quantity Requested", Input("res_qty", "e.g. 10 Units / 50 Personnel", type:text))
+resZoneField = FormControl("Destination Tactical Zone", Select("res_zone", SelectItem("zn_north", "Zone North (Riverfront)"), SelectItem("zn_east", "Zone East (Coastal/Port)"), SelectItem("zn_central", "Zone Central (Metro)"), SelectItem("zn_south", "Zone South (Foothills)"), SelectItem("zn_west", "Zone West (Logistics Depot)"), placeholder:"Select target destination"))
+resUrgencyField = FormControl("Requisition Urgency", RadioGroup("urgency", RadioItem("Flash / Immediate (< 1 hr)", "Life safety critical", "flash"), RadioItem("Priority (< 4 hrs)", "Urgent operational need", "priority"), RadioItem("Routine (< 12 hrs)", "Logistics replenishment", "routine"), defaultValue:"flash"))
+resNotesField = FormControl("Justification & Specific Instructions", TextArea("res_notes", "Specify exact delivery coordinates, staging manager, and hazard profile...", rows:3))
+resourceBtns = Buttons(Button("Submit Resource Order", primary), Button("Cancel", tertiary))
+
+broadcastDialog = DialogBlock("Broadcast Emergency Update", "Multi-Agency & Public Emergency Broadcast", broadcastForm, description:"Transmit instant alert to all command units, first responders, and civilian alerting channels.")
+broadcastForm = Form("broadcast-alert", broadcastBtns, bcastTargetField, bcastTypeField, bcastMsgField, bcastChannelsField)
+bcastTargetField = FormControl("Broadcast Audience", Select("bcast_target", SelectItem("all_civ", "Civilian Public + All Responders (EAS / WEA)"), SelectItem("responders_only", "First Responders & Tactical Units Only"), SelectItem("shelter_leads", "Shelter Managers & Hospital Incident Leads"), SelectItem("media_press", "Accredited Media & Public Information Officers"), placeholder:"Select broadcast target"))
+bcastTypeField = FormControl("Alert Category", Select("bcast_type", SelectItem("evac_order", "Mandatory Evacuation Directive"), SelectItem("weather_alert", "Severe Weather / Surge Escalation"), SelectItem("road_alert", "Major Route Closure / Detour Notice"), SelectItem("all_clear", "Hazard Containment / Safe Return Notice"), placeholder:"Select alert type"))
+bcastMsgField = FormControl("Emergency Broadcast Message Content", TextArea("bcast_msg", "Type concise, clear emergency instruction to be broadcast immediately across selected channels...", rows:4))
+bcastChannelsField = FormControl("Transmission Networks", CheckBoxGroup("channels", CheckBoxItem("Wireless Emergency Alerts (Cell Towers)", "Push to all phones in affected radius", "wea", defaultChecked), CheckBoxItem("Emergency Alert System (Radio/TV)", "Override broadcast media", "eas", defaultChecked), CheckBoxItem("Tactical Digital Net", "Direct to first responder radios", "tac_net", defaultChecked)))
+broadcastBtns = Buttons(Button("Authorize & Transmit Broadcast", destructive), Button("Cancel", tertiary))
+
+sitrepDialog = DialogBlock("File Situation Report (SITREP)", "File Official Tactical Situation Report", sitrepForm, description:"Log an updated SITREP into the inter-agency master disaster ledger.")
+sitrepForm = Form("sitrep-file", sitrepBtns, sitrepZoneField, sitrepSummaryField, sitrepCasualtyDeltaField, sitrepActionsField, sitrepNextObjField)
+sitrepZoneField = FormControl("Reporting Zone / Command Post", Select("sitrep_zone", SelectItem("eoc_master", "EOC Central Command (Full Theater)"), SelectItem("cp_north", "Zone North Tactical CP"), SelectItem("cp_east", "Zone East Port Authority CP"), SelectItem("cp_south", "Zone South Mountain CP"), SelectItem("cp_west", "Zone West Evacuation CP"), placeholder:"Select command reporting node"))
+sitrepSummaryField = FormControl("Executive Situation Summary", TextArea("sitrep_summary", "Describe overall changes in conditions, weather impact, and operational posture...", rows:3))
+sitrepCasualtyDeltaField = FormControl("Casualties / Rescued Updates (Past Shift)", Input("sitrep_deltas", "e.g. +3 Injured, +45 Rescued, 0 Fatalities", type:text))
+sitrepActionsField = FormControl("Key Actions Completed This Period", TextArea("sitrep_actions", "Bullet point major tactical milestones achieved...", rows:3))
+sitrepNextObjField = FormControl("Next 6-12 Hour Operational Objectives", TextArea("sitrep_objectives", "List upcoming high-priority deployments, route clearances, and supply runs...", rows:2))
+sitrepBtns = Buttons(Button("File Official SITREP", primary), Button("Save Draft", secondary))

@@ -1,0 +1,94 @@
+root = Card(playersOnline, dailyMonthly, revenueToday, revenuePerUser, sessionLength, bestSelling, serverHealth, crashRate, liveEvents, playerReports, banAppeals, currencyInflation, experiments, patchDraft, regionFocus, hotfix, gap:m)
+
+playersOnline = Card(Heading("Players Online", h3), TextContent("1,237", size:large))
+
+dailyMonthly = Card(Heading("Active Players", h3), Table(
+  Col("Period", data:["Daily","Monthly"], type:string),
+  Col("Active Users", data:[842, 19345], type:number)
+))
+
+revenueToday = Card(Heading("Revenue Today", h3), TextContent("$4,560", size:large))
+
+revenuePerUser = Card(Heading("Revenue per User", h3), TextContent("$3.68", size:large))
+
+sessionLength = Card(Heading("Session Length (Last 2 Weeks)", h3), LineChart(
+  |Date|Avg Session (min)
+  |2023-09-16|35
+  |2023-09-17|38
+  |2023-09-18|33
+  |2023-09-19|36
+  |2023-09-20|40
+  |2023-09-21|42
+  |2023-09-22|39
+  |2023-09-23|41
+  |2023-09-24|37
+  |2023-09-25|38
+  |2023-09-26|36
+  |2023-09-27|40
+  |2023-09-28|43
+  |2023-09-29|45
+, linear, xLabel:"Date", yLabel:"Minutes"))
+
+bestSelling = Card(Heading("Best‑Selling Items", h3), Table(
+  Col("Item", data:["Sword","Shield","Potion","Skin"], type:string),
+  Col("Units Sold", data:[1240, 980, 860, 730], type:number)
+))
+
+serverHealth = Card(Heading("Server Region Health", h3), Table(
+  Col("Region", data:["NA","EU","ASIA","SA"], type:string),
+  Col("Health", data:["Good","Critical","Good","Warning"], type:string),
+  Col("Latency (ms)", data:[78, 210, 95, 150], type:number)
+))
+
+crashRate = Card(Heading("Crash Rate by App Version", h3), BarChart(
+  |Version|Crashes (%)
+  |1.2.0|1.2
+  |1.2.1|0.9
+  |1.3.0|0.5
+  |1.3.1|0.3
+, grouped, xLabel:"Version", yLabel:"Crash %"))
+
+liveEvents = Card(Heading("Live Events", h3), Table(
+  Col("Event", data:["Double XP Weekend","Holiday Quest"], type:string),
+  Col("Status", data:["Running","Upcoming"], type:string),
+  Col("Ends / Starts", data:["2023-09-30","2023-12-20"], type:string)
+))
+
+playerReports = Card(Heading("Player Reports Awaiting Review", h3), Table(
+  Col("Report ID", data:["R1023","R1045","R1078"], type:string),
+  Col("Type", data:["Harassment","Cheating","Bug"], type:string),
+  Col("Submitted", data:["2023-09-28","2023-09-28","2023-09-27"], type:string)
+))
+
+banAppeals = Card(Heading("Ban Appeals Awaiting Review", h3), Table(
+  Col("Appeal ID", data:["A210","A215"], type:string),
+  Col("Player", data:["User123","GamerX"], type:string),
+  Col("Reason", data:["False Positive","Insufficient Evidence"], type:string)
+))
+
+currencyInflation = Card(Heading("In‑Game Currency Inflation", h3), TextContent("Current inflation rate: 4.2 % over 30 days", size:default))
+
+experiments = Card(Heading("Running Experiments Results", h3), Table(
+  Col("Experiment", data:["New Loot Box","UI Redesign"], type:string),
+  Col("Variant A", data:["+5 % revenue","+2 % retention"], type:string),
+  Col("Variant B", data:["+3 % revenue","+4 % retention"], type:string)
+))
+
+patchDraft = Card(Heading("Draft Patch Notes", h3), Form("patch-notes", patchButtons,
+  FormControl("Title", Input("title", "Patch 1.4.2")),
+  FormControl("Details", TextArea("details", "Enter notes...", "", rows:6))
+))
+patchButtons = Buttons(Button("Save Draft", primary), Button("Publish", secondary))
+
+regionFocus = Card(Heading("Focus on Region", h3), Form("focus-region", focusButtons,
+  FormControl("Region", regionSelect)
+))
+regionSelect = Select("region",
+  SelectItem("na", "North America"),
+  SelectItem("eu", "Europe"),
+  SelectItem("asia", "Asia"),
+  placeholder:"Select region"
+)
+focusButtons = Buttons(Button("Apply Filter", primary))
+
+hotfix = Card(Heading("Ship Hotfix", h3), Buttons(Button("Create Hotfix", primary), Button("Deploy Now", secondary)))

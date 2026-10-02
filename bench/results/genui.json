@@ -1,0 +1,262 @@
+{
+ "date": "2026-09-30T20:18:20.225Z",
+ "bench": {
+  "repo": "thesysdev/generative-ui-bench",
+  "commit": "fcca05af68dc3acc5b04660531509b4aed861c7e",
+  "tokenizer": "o200k_base",
+  "models": [
+   "sol",
+   "opus48",
+   "kimi",
+   "gemini",
+   "qwen",
+   "muse"
+  ],
+  "screens": 1104
+ },
+ "prompts": {
+  "gistui": 3838,
+  "openui": 5017,
+  "jsonrender": 7651,
+  "a2ui": 12602
+ },
+ "outputMean": {
+  "gistui": 1010.8451086956521,
+  "openui": 1362.1476449275362,
+  "a2ui": 2823.439311594203,
+  "jsonrender": 3258.210144927536
+ },
+ "perTask": {
+  "gistui": 4963.845108695652,
+  "openui": 6494.147644927536,
+  "a2ui": 15540.439311594204,
+  "jsonrender": 11024.210144927536
+ },
+ "streamSecondsAt50": {
+  "gistui": 20.21690217391304,
+  "openui": 27.242952898550726,
+  "a2ui": 56.46878623188406,
+  "jsonrender": 65.16420289855073
+ },
+ "validity": {
+  "gistui": {
+   "n": 1104,
+   "complete": 1065,
+   "renderable": 1103
+  },
+  "openui": {
+   "n": 1104,
+   "complete": 1033,
+   "renderable": 1103
+  },
+  "a2ui": {
+   "n": 1104,
+   "complete": 1057,
+   "renderable": 1069
+  },
+  "jsonrender": {
+   "n": 1104,
+   "complete": 885,
+   "renderable": 1100
+  }
+ },
+ "transcodeAgreement": {
+  "compared": 1104,
+  "agree": 1070
+ },
+ "literal": {
+  "output": 1370.2010869565217,
+  "complete": 0.9646739130434783
+ },
+ "deep": {
+  "output": 944.6195652173913
+ },
+ "costPerPass": {
+  "sol": {
+   "gistui": 1.6368420000000001,
+   "openui": 2.1862530000000002,
+   "a2ui": 5.073648,
+   "jsonrender": 4.704564
+  },
+  "opus48": {
+   "gistui": 1.7020275,
+   "openui": 2.27105375,
+   "a2ui": 5.847885,
+   "jsonrender": 4.8774425
+  },
+  "kimi": {
+   "gistui": 1.1534715,
+   "openui": 1.5244072500000003,
+   "a2ui": 3.4790047500000005,
+   "jsonrender": 2.9052367500000003
+  },
+  "gemini": {
+   "gistui": 0.31454662499999997,
+   "openui": 0.41676243749999997,
+   "a2ui": 0.9363108750000001,
+   "jsonrender": 0.8535073125
+  },
+  "qwen": {
+   "gistui": 0.5923855,
+   "openui": 0.7786329999999999,
+   "a2ui": 1.915917,
+   "jsonrender": 1.456447
+  },
+  "muse": {
+   "gistui": 0.54878875,
+   "openui": 0.7235335625,
+   "a2ui": 1.38451625,
+   "jsonrender": 1.3381185
+  }
+ },
+ "perModel": {
+  "sol": {
+   "a2ui": {
+    "n": 184,
+    "complete": 177,
+    "out": 546744
+   },
+   "jsonrender": {
+    "n": 184,
+    "complete": 152,
+    "out": 655124
+   },
+   "openui": {
+    "n": 184,
+    "complete": 183,
+    "out": 248393
+   },
+   "gistui": {
+    "n": 184,
+    "complete": 183,
+    "out": 181898
+   }
+  },
+  "opus48": {
+   "a2ui": {
+    "n": 184,
+    "complete": 183,
+    "out": 467676
+   },
+   "jsonrender": {
+    "n": 184,
+    "complete": 161,
+    "out": 494602
+   },
+   "openui": {
+    "n": 184,
+    "complete": 182,
+    "out": 174511
+   },
+   "gistui": {
+    "n": 184,
+    "complete": 183,
+    "out": 126854
+   }
+  },
+  "kimi": {
+   "a2ui": {
+    "n": 184,
+    "complete": 176,
+    "out": 459749
+   },
+   "jsonrender": {
+    "n": 184,
+    "complete": 131,
+    "out": 488941
+   },
+   "openui": {
+    "n": 184,
+    "complete": 177,
+    "out": 217651
+   },
+   "gistui": {
+    "n": 184,
+    "complete": 178,
+    "out": 162122
+   }
+  },
+  "gemini": {
+   "a2ui": {
+    "n": 184,
+    "complete": 175,
+    "out": 530746
+   },
+   "jsonrender": {
+    "n": 184,
+    "complete": 142,
+    "out": 624619
+   },
+   "openui": {
+    "n": 184,
+    "complete": 145,
+    "out": 255689
+   },
+   "gistui": {
+    "n": 184,
+    "complete": 175,
+    "out": 190046
+   }
+  },
+  "qwen": {
+   "a2ui": {
+    "n": 184,
+    "complete": 168,
+    "out": 497302
+   },
+   "jsonrender": {
+    "n": 184,
+    "complete": 149,
+    "out": 494650
+   },
+   "openui": {
+    "n": 184,
+    "complete": 169,
+    "out": 204326
+   },
+   "gistui": {
+    "n": 184,
+    "complete": 169,
+    "out": 152473
+   }
+  },
+  "muse": {
+   "a2ui": {
+    "n": 184,
+    "complete": 178,
+    "out": 614860
+   },
+   "jsonrender": {
+    "n": 184,
+    "complete": 150,
+    "out": 839128
+   },
+   "openui": {
+    "n": 184,
+    "complete": 177,
+    "out": 403241
+   },
+   "gistui": {
+    "n": 184,
+    "complete": 177,
+    "out": 302580
+   }
+  }
+ },
+ "parseMs": {
+  "screens": 276,
+  "oneShot": {
+   "openui": 55.15054999999993,
+   "gistui": 66.39789160000001
+  },
+  "stream10": {
+   "openui": 9023.923916,
+   "gistui": 69.34763900000083
+  },
+  "bigScreen": {
+   "chars": 21137,
+   "openui": 382.2206666666668,
+   "gistui": 0.9772708000004059
+  }
+ }
+}

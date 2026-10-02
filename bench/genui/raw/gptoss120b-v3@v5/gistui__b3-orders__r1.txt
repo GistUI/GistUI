@@ -1,0 +1,59 @@
+root = Card(cardHeader, filtersForm, statsSection, refundRate, recentOrdersSection, volumeChartSection, followUps)
+
+cardHeader = CardHeader("E‑commerce Operations Desk")
+
+filtersForm = Form("order-filters", filterButtons, statusFilter, searchField)
+
+statusFilter = FormControl("Order status", statusSelect)
+
+statusSelect = Select("status", SelectItem("all", "All"), SelectItem("pending", "Pending"), SelectItem("shipped", "Shipped"), SelectItem("canceled", "Canceled"), placeholder:"All statuses", value:"all")
+
+searchField = FormControl("Customer name", Input("customer_search", placeholder:"Search customer...", type:text))
+
+filterButtons = Buttons(Button("Apply", primary))
+
+statsSection = Card(
+  TextContent("**Orders placed today:** 124", size:large),
+  TextContent("**Revenue today:** $8,560", size:large),
+  TextContent("**Average order value:** $69.20", size:large),
+  sunk
+)
+
+refundRate = TextContent("**Refund rate this month:** 2.3 %", size:large)
+
+recentOrdersSection = Card(
+  CardHeader("Recent Orders"),
+  Table(recentOrdersRows),
+  fulfillButtons,
+  clear
+)
+
+recentOrdersRows = |Order ID|Customer|Total|Status
+|#1001|Alice|$120|Pending
+|#1002|Bob|$85|Shipped
+|#1003|Carol|$45|Pending
+|#1004|Dave|$230|Canceled
+
+fulfillButtons = Buttons(
+  Button("Mark #1001 fulfilled", primary),
+  Button("Mark #1002 fulfilled", primary),
+  Button("Mark #1003 fulfilled", primary),
+  Button("Mark #1004 fulfilled", primary)
+)
+
+volumeChartSection = Card(
+  CardHeader("Order Volume – Last 4 Weeks"),
+  BarChart(volumeRows, grouped, xLabel:"Week", yLabel:"Orders"),
+  sunk
+)
+
+volumeRows = |Week|Orders
+|W1|340
+|W2|415
+|W3|380
+|W4|460
+
+followUps = FollowUpBlock(
+  FollowUpItem("View detailed sales report"),
+  FollowUpItem("Export orders CSV")
+)

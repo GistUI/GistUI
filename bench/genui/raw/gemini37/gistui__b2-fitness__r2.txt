@@ -1,0 +1,32 @@
+root = Card(header, statSummary, chartsRow, logDialog, gap:m)
+header = CardHeader("Daily Fitness Summary", "Track your activity, calories, and weekly progress")
+statSummary = Card(metricsRow, sunk, gap:s)
+metricsRow = Card(stepsMetric, caloriesMetric, activeTimeMetric, direction:row, gap:m)
+stepsMetric = Card(Tag("Steps Goal", info), Heading("8,420 / 10,000", h3), Progress(84.2, "84% of daily goal reached"), clear, gap:xs)
+caloriesMetric = Card(Tag("Active Burn", success), Heading("645 kcal", h3), Progress(92.1, "Goal: 700 kcal (92%)"), clear, gap:xs)
+activeTimeMetric = Card(Tag("Active Time", neutral), Heading("48 mins", h3), Progress(80.0, "Goal: 60 mins (80%)"), clear, gap:xs)
+chartsRow = Card(weeklyWorkoutsCard, breakdownCard, direction:row, gap:m)
+weeklyWorkoutsCard = Card(CardHeader("Weekly Workout History", "Duration and calories burned past 7 days"), BarChart(weeklyTable, grouped, xLabel:"Day", yLabel:"Value"), sunk)
+breakdownCard = Card(CardHeader("Activity Split", "Workouts completed this week"), PieChart(activityTable.Activity, activityTable.Minutes, donut), sunk)
+logDialog = DialogBlock("Log New Workout", "Log Workout Session", logForm, description:"Record your completed exercise session to update daily stats.", triggerVariant:default)
+logForm = Form("log_workout_form", formActions, workoutTypeCtrl, durationCtrl, caloriesCtrl, intensityCtrl)
+workoutTypeCtrl = FormControl("Workout Type", workoutSelect)
+workoutSelect = Select("workout_type", SelectItem("running", "Running"), SelectItem("cycling", "Cycling"), SelectItem("strength", "Strength Training"), SelectItem("swimming", "Swimming"), SelectItem("hiit", "HIIT / Cardio"), SelectItem("yoga", "Yoga & Mobility"), placeholder:"Select activity")
+durationCtrl = FormControl("Duration (minutes)", Input("duration", "45", number))
+caloriesCtrl = FormControl("Estimated Calories Burned", Input("calories", "320", number))
+intensityCtrl = FormControl("Intensity Level", intensityRadio)
+intensityRadio = RadioGroup("intensity", RadioItem("Low", "Light effort, easy pace", "low"), RadioItem("Moderate", "Elevated heart rate, steady pace", "mod"), RadioItem("High", "Max effort, heavy breathing", "high"), defaultValue:"mod")
+formActions = Buttons(Button("Save Workout", primary), Button("Cancel", tertiary))
+weeklyTable = |Day|Duration (min)|Calories (x10)
+|Mon|45|38
+|Tue|30|25
+|Wed|60|52
+|Thu|0|0
+|Fri|50|44
+|Sat|75|68
+|Sun|48|42
+activityTable = |Activity|Minutes
+|Running|110
+|Strength|105
+|Cycling|60
+|HIIT|33

@@ -1,0 +1,54 @@
+root = Card(uptimeSection, usageSection, errorSection, incidentsSection, endpointsSection, thresholdForm, acknowledgeButtons, wrap)
+
+uptimeSection = Card(CardHeader("Uptime – This Quarter"), TextContent("**99.97%**", size:large), sunk)
+
+usageSection = Card(CardHeader("CPU & Memory – Last 24h"), cpuMemChart, sunk)
+
+cpuMemChart = LineChart(usageRows, linear, xLabel:"Time", yLabel:"Utilization %")
+
+usageRows = |Time|CPU|Memory
+|00:00|45|68
+|04:00|52|71
+|08:00|48|66
+|12:00|55|73
+|16:00|50|69
+|20:00|47|65
+|24:00|53|70
+
+errorSection = Card(CardHeader("Current Error Rate"), TextContent("**0.23%**", size:large), sunk)
+
+incidentsSection = Card(CardHeader("Open Incidents"), incidentsTable, acknowledgeButtons, sunk)
+
+incidentsTable = Table(
+  Col("ID", data:["INC-101","INC-204","INC-309"], type:string),
+  Col("Severity", data:["Critical","High","Medium"], type:string),
+  Col("Description", data:["DB timeout","API 502 error","Cache miss"], type:string)
+)
+
+regionFilter = Card(CardHeader("Filter by Region"), regionSelect, sunk)
+
+regionSelect = Select("region", 
+  SelectItem("us-east", "US East"),
+  SelectItem("eu-west", "EU West"),
+  SelectItem("ap-south", "AP South"),
+  placeholder:"Select region"
+)
+
+thresholdForm = Card(CardHeader("Set Alert Threshold"), alertForm, sunk)
+
+alertForm = Form("alert-threshold", alertButtons,
+  thresholdField
+)
+
+thresholdField = FormControl("Alert when error rate exceeds", Input("threshold", "0.5", type:number))
+
+alertButtons = Buttons(Button("Save", primary))
+
+acknowledgeButtons = Buttons(Button("Acknowledge Selected", primary), Button("Dismiss All", secondary))
+
+endpointsSection = Card(CardHeader("5 Slowest Endpoints (last hour)"), endpointsTable, sunk)
+
+endpointsTable = Table(
+  Col("Endpoint", data:["/api/v1/orders","/api/v1/payments","/api/v1/users","/api/v1/reports","/api/v1/search"], type:string),
+  Col("Avg Latency (ms)", data:[420,389,375,360,340], type:number)
+)

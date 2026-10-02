@@ -1,0 +1,212 @@
+/* @gistui/chat — chat layouts. Import after @gistui/styles: it uses the same tokens and themes. */
+@layer gistui {
+  .gistui-chat {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+    background: var(--gistui-bg);
+    color: var(--gistui-fg);
+    font-family: var(--gistui-font);
+  }
+  .gistui-chat[hidden] { display: none; }
+  .gistui-chat[data-layout="sidebar"] {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(440px, 100vw);
+    border-left: 1px solid var(--gistui-border);
+    box-shadow: var(--gistui-shadow-lg);
+    animation: gistui-chat-in-right var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  .gistui-chat[data-layout="tray"] {
+    position: fixed;
+    z-index: 50;
+    left: 50%;
+    bottom: 0;
+    width: min(760px, 100vw);
+    height: min(72vh, 720px);
+    transform: translateX(-50%);
+    border-radius: var(--gistui-radius-xl) var(--gistui-radius-xl) 0 0;
+    box-shadow: var(--gistui-shadow-lg), var(--gistui-ring);
+    overflow: hidden;
+    animation: gistui-chat-in-up var(--gistui-duration-slow) var(--gistui-ease-out);
+  }
+  @keyframes gistui-chat-in-right { from { transform: translateX(24px); opacity: 0; } }
+  @keyframes gistui-chat-in-up { from { transform: translate(-50%, 24px); opacity: 0; } }
+
+  .gistui-chat__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gistui-space-sm);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gistui-border);
+    background: color-mix(in srgb, var(--gistui-bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+  }
+  .gistui-chat__title { font-weight: 600; font-size: var(--gistui-text-sm); }
+  .gistui-chat__head-actions { display: flex; gap: 4px; }
+  .gistui-chat__icon {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: var(--gistui-radius-sm);
+    background: transparent;
+    color: var(--gistui-fg-muted);
+    cursor: pointer;
+    transition: background var(--gistui-duration-fast) var(--gistui-ease-out), color var(--gistui-duration-fast) var(--gistui-ease-out);
+  }
+  .gistui-chat__icon:hover { background: var(--gistui-surface-hover); color: var(--gistui-fg); }
+
+  .gistui-chat__scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: var(--gistui-space-lg) var(--gistui-space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gistui-space-lg);
+    scroll-behavior: smooth;
+  }
+  .gistui-chat[data-layout="full"] .gistui-chat__scroll > * { width: min(100%, 880px); margin-inline: auto; }
+
+  .gistui-chat__msg { display: flex; flex-direction: column; gap: var(--gistui-space-md); animation: gistui-chat-msg var(--gistui-duration-slow) var(--gistui-ease-out); }
+  @keyframes gistui-chat-msg { from { opacity: 0; transform: translateY(6px); } }
+  .gistui-chat__msg[data-role="user"] { align-items: flex-end; }
+  .gistui-chat__bubble {
+    max-width: min(80%, 560px);
+    padding: 10px 14px;
+    border-radius: 18px 18px 6px 18px;
+    background: var(--gistui-primary);
+    color: var(--gistui-primary-fg);
+    font-size: var(--gistui-text-md);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  /* A message the generated UI sent (a button, a form), not typed by the person. */
+  .gistui-chat__msg[data-origin="ui"] { gap: 4px; }
+  .gistui-chat__origin { font-size: var(--gistui-text-xs); color: var(--gistui-fg-subtle); }
+  .gistui-chat__text { font-size: var(--gistui-text-md); line-height: 1.6; }
+  .gistui-chat__ui { width: 100%; }
+
+  .gistui-chat__typing { display: inline-flex; gap: 4px; padding: 6px 0; }
+  .gistui-chat__typing::before, .gistui-chat__typing::after { content: ""; }
+  .gistui-chat__typing, .gistui-chat__typing::before, .gistui-chat__typing::after {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gistui-fg-subtle);
+    animation: gistui-chat-dot 1.1s var(--gistui-ease-in-out) infinite;
+  }
+  .gistui-chat__typing { width: auto; height: auto; background: none; animation: none; }
+  .gistui-chat__typing::before { animation-delay: 0.15s; }
+  .gistui-chat__typing::after { animation-delay: 0.3s; }
+  @keyframes gistui-chat-dot { 0%, 80%, 100% { opacity: 0.25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+
+  .gistui-chat__error {
+    display: flex;
+    align-items: center;
+    gap: var(--gistui-space-sm);
+    padding: 10px 12px;
+    border-radius: var(--gistui-radius-md);
+    background: var(--gistui-danger-soft);
+    color: var(--gistui-danger);
+    font-size: var(--gistui-text-sm);
+  }
+  .gistui-chat__error button { margin-left: auto; border: 0; background: transparent; color: inherit; font: inherit; font-weight: 600; cursor: pointer; text-decoration: underline; }
+
+  .gistui-chat__empty { margin: auto; display: flex; flex-direction: column; align-items: center; gap: var(--gistui-space-lg); text-align: center; padding: var(--gistui-space-xl) 0; }
+  .gistui-chat__hello {
+    margin: 0;
+    font-size: var(--gistui-text-2xl);
+    font-weight: 600;
+    letter-spacing: var(--gistui-tracking-tight);
+    color: var(--gistui-fg);
+  }
+  .gistui-chat__suggestions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 640px; }
+  .gistui-chat__suggestion {
+    padding: 8px 14px;
+    border: 0;
+    border-radius: var(--gistui-radius-full);
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-xs);
+    color: var(--gistui-fg);
+    font: inherit;
+    font-size: var(--gistui-text-sm);
+    cursor: pointer;
+    transition: transform var(--gistui-duration-fast) var(--gistui-ease-out), box-shadow var(--gistui-duration-fast) var(--gistui-ease-out);
+  }
+  .gistui-chat__suggestion:hover { transform: translateY(-1px); box-shadow: var(--gistui-ring), var(--gistui-shadow-sm); }
+
+  .gistui-chat__composer {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin: 0 var(--gistui-space-md) var(--gistui-space-md);
+    padding: 8px 8px 8px 16px;
+    border-radius: 22px;
+    background: var(--gistui-surface);
+    box-shadow: var(--gistui-ring), var(--gistui-shadow-sm);
+    transition: box-shadow var(--gistui-duration-fast) var(--gistui-ease-out);
+  }
+  .gistui-chat[data-layout="full"] .gistui-chat__composer { width: min(calc(100% - 2 * var(--gistui-space-md)), 880px); margin-inline: auto; }
+  .gistui-chat__composer:focus-within { box-shadow: var(--gistui-focus), var(--gistui-shadow-sm); }
+  .gistui-chat__composer textarea {
+    flex: 1;
+    min-height: 24px;
+    max-height: 200px;
+    padding: 6px 0;
+    border: 0;
+    outline: none;
+    resize: none;
+    background: transparent;
+    color: var(--gistui-fg);
+    font: inherit;
+    font-size: var(--gistui-text-md);
+    line-height: 1.5;
+  }
+  .gistui-chat__send {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--gistui-primary);
+    color: var(--gistui-primary-fg);
+    cursor: pointer;
+    transition: transform var(--gistui-duration-fast) var(--gistui-ease-out), opacity var(--gistui-duration-fast);
+  }
+  .gistui-chat__send:disabled { opacity: 0.35; cursor: default; }
+  .gistui-chat__send:not(:disabled):active { transform: scale(0.92); }
+
+  .gistui-chat__launcher {
+    position: fixed;
+    z-index: 49;
+    right: 20px;
+    bottom: 20px;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--gistui-primary, #111);
+    color: var(--gistui-primary-fg, #fff);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.2);
+    cursor: pointer;
+    transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .gistui-chat__launcher:hover { transform: translateY(-2px) scale(1.04); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gistui-chat, .gistui-chat__msg, .gistui-chat__typing::before, .gistui-chat__typing::after { animation: none !important; }
+  }
+}

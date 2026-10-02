@@ -1,0 +1,43 @@
+{
+  "tree": {
+    "type": "Row",
+    "props": {
+      "gap": "lg",
+      "wrap": true
+    },
+    "children": [
+      {
+        "type": "Card",
+        "props": {
+          "v": "sunk"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "a"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "x"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "unknown-prop",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

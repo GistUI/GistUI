@@ -1,0 +1,29 @@
+{
+  "tree": {
+    "type": "Row",
+    "props": {
+      "align": "center",
+      "gap": "lg"
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "a"
+        }
+      },
+      {
+        "type": "Callout",
+        "props": {
+          "content": "x",
+          "tone": "warning"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

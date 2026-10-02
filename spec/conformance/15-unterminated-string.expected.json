@@ -1,0 +1,31 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "this string never closes"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "the next line still parses"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "unterminated-string",
+      "severity": "error",
+      "line": 2,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": true
+  }
+}

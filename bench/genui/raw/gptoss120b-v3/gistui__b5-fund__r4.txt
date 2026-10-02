@@ -1,0 +1,106 @@
+root = Card(portfolioHeader, pnlCard, positionsCard, sectorExposureCard, varCard, gainersLosersCard, watchlistCard, ordersCard, marginCard, headlinesCard, econReleasesCard, strategyReturnCard, drawdownCard, riskLimitsCard, actionsCard, timeframeCard)
+
+portfolioHeader = CardHeader("Portfolio Value: $12.4M", "$12.4M total")
+pnlCard = Card(CardHeader("P&L Today", "+$45.2k"), TextContent("$45.2k profit", size:large))
+positionsCard = Card(CardHeader("Positions"), positionsTable)
+positionsTable = Table(
+  Col("Ticker", data:["AAPL","MSFT","TSLA","AMZN"], type:string),
+  Col("Size", data:[120,200,80,150], type:number),
+  Col("Entry", data:[150.00,250.00,720.00,3300.00], type:number),
+  Col("Current", data:[158.30,255.10,735.50,3325.00], type:number)
+)
+
+sectorExposureCard = Card(CardHeader("Exposure by Sector"), sectorPie)
+sectorPie = PieChart(labels:["Tech","Healthcare","Energy","Finance"], values:[55,20,15,10], variant:donut, appearance:circular)
+
+varCard = Card(CardHeader("Value at Risk (VaR)"), TextContent("$1.2M", size:large))
+
+gainersLosersCard = Card(CardHeader("Today’s Biggest Gainers & Losers"), gainersTable, losersTable)
+gainersTable = Table(
+  Col("Ticker", data:["NVDA","AMD"], type:string),
+  Col("Gain", data:[+3.5%,-2.8%], type:string)
+)
+losersTable = Table(
+  Col("Ticker", data:["NFLX","FB"], type:string),
+  Col("Loss", data:[-4.2%,-3.9%], type:string)
+)
+
+watchlistCard = Card(CardHeader("Watchlist"), watchlistTable)
+watchlistTable = Table(
+  Col("Ticker", data:["GOOG","META"], type:string),
+  Col("Price", data:[2850.00,210.00], type:number)
+)
+
+ordersCard = Card(CardHeader("Working Orders"), ordersTable)
+ordersTable = Table(
+  Col("Order ID", data:["001","002"], type:string),
+  Col("Ticker", data:["AAPL","TSLA"], type:string),
+  Col("Side", data:["Buy","Sell"], type:string),
+  Col("Qty", data:[50,30], type:number),
+  Col("Status", data:["Pending","Pending"], type:string)
+)
+
+marginCard = Card(CardHeader("Margin in Use"), TextContent("45% of available", size:large))
+
+headlinesCard = Card(CardHeader("Market Headlines"), headlinesTable)
+headlinesTable = Table(
+  Col("Headline", data:["Oil prices rise", "Tech earnings beat expectations"], type:string),
+  Col("Sentiment", data:["Neutral","Positive"], type:string)
+)
+
+econReleasesCard = Card(CardHeader("Economic Releases This Week"), econTable)
+econTable = Table(
+  Col("Date", data:["Mon 09/02","Tue 09/03","Wed 09/04"], type:string),
+  Col("Event", data:["CPI", "GDP Q2", "Jobless Claims"], type:string),
+  Col("Impact", data:["High","Medium","Low"], type:string)
+)
+
+strategyReturnCard = Card(CardHeader("Strategy Returns YTD"), strategyTable)
+strategyTable = Table(
+  Col("Strategy", data:["Momentum","Mean Reversion","Arbitrage"], type:string),
+  Col("Return", data:[+12.5%,-3.2%,+5.8%], type:string)
+)
+
+drawdownCard = Card(CardHeader("Drawdown Past Year"), drawdownChart)
+drawdownChart = LineChart(
+  |Month|Drawdown%
+  |Jan|5
+  |Feb|4
+  |Mar|6
+  |Apr|3
+  |May|7
+  |Jun|2
+  |Jul|8
+  |Aug|4
+  |Sep|5
+  |Oct|6
+  |Nov|3
+  |Dec|9
+, linear, xLabel:"Month", yLabel:"Drawdown %"
+)
+
+riskLimitsCard = Card(CardHeader("Risk Limits Near Breach"), riskTable)
+riskTable = Table(
+  Col("Limit", data:["Sector Exposure","VaR"], type:string),
+  Col("Current", data:["52% (limit 55%)","$1.15M (limit $1.2M)"], type:string)
+)
+
+actionsCard = Card(Buttons(rebalanceButton, placeOrderButton, direction:row))
+rebalanceButton = Button("Rebalance", primary)
+placeOrderButton = Button("Place Order", primary)
+
+timeframeCard = Card(CardHeader("Timeframe"), Buttons(timeframeButtons, direction:row))
+timeframeButtons = Buttons(
+  Button("1D", primary),
+  Button("1W", secondary),
+  Button("1M", secondary),
+  Button("1Y", secondary)
+)
+
+# Form for placing an order
+orderForm = Form("new-order", orderFormButtons, tickerField, sideField, qtyField)
+tickerField = FormControl("Ticker", Input("ticker", "Enter ticker"))
+sideField = FormControl("Side", Select("side", SelectItem("buy","Buy"), SelectItem("sell","Sell"), placeholder:"Select side"))
+qtyField = FormControl("Quantity", Input("quantity", "0", type:number))
+orderFormButtons = Buttons(Button("Submit Order", primary), Button("Cancel", tertiary))
+placeOrderButton = Button("Place Order", action:[orderForm])

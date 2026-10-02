@@ -1,0 +1,1 @@
+root = Text("a\x41 b\q")

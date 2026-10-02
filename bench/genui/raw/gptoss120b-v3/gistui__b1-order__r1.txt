@@ -1,0 +1,8 @@
+root = Card(location, date, reportDialog)
+location = Card(TextContent("**Current location:** Warehouse A, 3rd floor", size:default))
+date = Card(TextContent("**Estimated delivery:** September 5, 2026", size:default))
+reportDialog = DialogBlock("Report issue", "Report a problem", reportForm, description:"If you have any issues with your delivery, please let us know.", triggerVariant:secondary)
+reportForm = Form("delivery-problem", reportButtons, issueField, detailsField)
+issueField = FormControl("Issue type", Select("issue_type", SelectItem("late", "Late delivery"), SelectItem("damaged", "Damaged package"), SelectItem("missing", "Missing package"), placeholder:"Select issue", size:medium))
+detailsField = FormControl("Details", TextArea("details", "Describe the issue...", "", rows:4))
+reportButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))

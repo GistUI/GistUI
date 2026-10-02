@@ -1,0 +1,19 @@
+{
+  "tree": {
+    "type": "Text",
+    "props": {
+      "content": "x"
+    }
+  },
+  "errors": [
+    {
+      "code": "unsupported-version",
+      "severity": "warning",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

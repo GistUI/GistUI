@@ -1,0 +1,93 @@
+root = Card(header, bedSection, erSection, admissionsSection, deptSection, staffSection, criticalSection, dischargeSection, orSection, suppliesSection, actionsSection)
+
+header = CardHeader("Hospital Operations Dashboard")
+
+bedSection = Card(Heading("Bed Occupancy", h3), bedTable)
+
+erSection = Card(Heading("Current ER Wait", h3), erWait)
+
+admissionsSection = Card(Heading("Admissions (Last 2 Weeks)", h3), admissionsChart)
+
+deptSection = Card(Heading("Patients per Department", h3), deptChart)
+
+staffSection = Card(Heading("Staff on Shift", h3), staffTable)
+
+criticalSection = Card(Heading("Critical Patients", h3), criticalTable)
+
+dischargeSection = Card(Heading("Patients Ready for Discharge", h3), dischargeTable)
+
+orSection = Card(Heading("Today's OR Bookings", h3), orTable)
+
+suppliesSection = Card(Heading("Supplies Running Low", h3), suppliesTable)
+
+actionsSection = Card(Heading("Actions", h3), actionButtons, datePicker)
+
+bedTable = Table(bedColWard, bedColOccupied, bedColCapacity)
+
+bedColWard = Col("Ward", ["ICU","General","Pediatrics","Maternity"], type:string)
+bedColOccupied = Col("Occupied", [18,45,30,22], type:number)
+bedColCapacity = Col("Capacity", [20,50,35,25], type:number)
+
+erWait = TextContent("Current ER wait time: 45 minutes", size:large)
+
+admissionsChart = LineChart(admissionsRows, linear, xLabel:"Date", yLabel:"Admissions")
+
+admissionsRows = |Date|Admissions
+|2024-09-16|34
+|2024-09-17|29
+|2024-09-18|41
+|2024-09-19|38
+|2024-09-20|36
+|2024-09-21|30
+|2024-09-22|42
+|2024-09-23|39
+|2024-09-24|35
+|2024-09-25|40
+|2024-09-26|33
+|2024-09-27|37
+|2024-09-28|44
+|2024-09-29|31
+
+deptChart = BarChart(deptRows, grouped, xLabel:"Department", yLabel:"Patients")
+
+deptRows = |Department|Patients
+|Cardiology|12
+|Neurology|9
+|Oncology|15
+|Surgery|20
+|Emergency|8
+|Pediatrics|7
+
+staffTable = Table(staffColName, staffColRole, staffColShift)
+
+staffColName = Col("Name", ["Dr. Smith","Nurse Lee","Dr. Patel","Nurse Gomez","Dr. Chen"], type:string)
+staffColRole = Col("Role", ["Physician","Nurse","Physician","Nurse","Physician"], type:string)
+staffColShift = Col("Shift", ["Day","Night","Day","Night","Day"], type:string)
+
+criticalTable = Table(critColID, critColName, critColCondition)
+
+critColID = Col("ID", ["C101","C102","C103"], type:string)
+critColName = Col("Patient", ["John Doe","Maria Ruiz","Ahmed Khan"], type:string)
+critColCondition = Col("Condition", ["Severe Trauma","Cardiac Arrest","Respiratory Failure"], type:string)
+
+dischargeTable = Table(disColID, disColName, disColRoom)
+
+disColID = Col("ID", ["D201","D202"], type:string)
+disColName = Col("Patient", ["Laura Smith","Tom Brown"], type:string)
+disColRoom = Col("Room", ["302B","405A"], type:string)
+
+orTable = Table(orColTime, orColProcedure, orColRoom)
+
+orColTime = Col("Time", ["08:00","10:30","13:00","15:45"], type:string)
+orColProcedure = Col("Procedure", ["Appendectomy","Hip Replacement","CABG","C-section"], type:string)
+orColRoom = Col("OR", ["OR1","OR2","OR3","OR4"], type:string)
+
+suppliesTable = Table(supColItem, supColQty, supColThreshold)
+
+supColItem = Col("Item", ["Syringes","Gloves","IV Bags","Bandages"], type:string)
+supColQty = Col("Quantity", [120,45,30,80], type:number)
+supColThreshold = Col("Reorder Level", [200,100,50,100], type:number)
+
+actionButtons = Buttons(Button("File Incident"), Button("Request Transfer"))
+
+datePicker = DatePicker("date", single, [], [])

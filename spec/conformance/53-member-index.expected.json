@@ -1,0 +1,30 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "d.list[0] + d[\"list\"][-1]"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "d.Name.length"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "d.list"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

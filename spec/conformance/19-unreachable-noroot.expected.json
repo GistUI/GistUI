@@ -1,0 +1,30 @@
+{
+  "tree": {
+    "type": "Card",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "No root statement: the first component becomes the root."
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "no-root",
+      "severity": "warning",
+      "fixed": true
+    },
+    {
+      "code": "unreachable",
+      "severity": "warning",
+      "stmt": "spare",
+      "line": 2
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

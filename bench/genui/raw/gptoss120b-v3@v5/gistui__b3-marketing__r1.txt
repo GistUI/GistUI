@@ -1,0 +1,75 @@
+root = Card(header, dateForm, visitorsSection, conversionSection, trafficSection, campaignsSection, bestCampaignCallout, subscriberSection, actions)
+
+header = CardHeader("Weekly Marketing Dashboard")
+
+dateForm = Form("date-range", dateButtons, datePickerControl)
+
+dateButtons = Buttons(Button("Apply", variant:primary))
+
+datePickerControl = FormControl("Date range", DatePicker("range", mode:range))
+
+visitorsSection = Card(Heading("Site Visitors (Last 30 days)", h3), LineChart(visitorsChartData, linear, xLabel:"Date", yLabel:"Visitors"))
+
+conversionSection = Card(Heading("Conversion Rate", h3), TextContent("**2.4%**", size:large))
+
+trafficSection = Card(Heading("Top 5 Traffic Sources", h3), PieChart(trafficPie, donut))
+
+campaignsSection = Card(Heading("Running Campaigns", h3), Table(campaignsTable))
+
+bestCampaignCallout = Callout(variant:success, "Best Campaign", "Summer Sale achieved the highest ROI with $12,300 spend")
+
+subscriberSection = Card(Heading("Email Subscriber Growth (This Month)", h3), BarChart(subscriberChartData, grouped, xLabel:"Week", yLabel:"Subscribers"))
+
+actions = Buttons(Button("Export CSV", variant:primary))
+
+visitorsChartData = |Date|Visitors
+|2023-08-01|1240
+|2023-08-02|1305
+|2023-08-03|1198
+|2023-08-04|1402
+|2023-08-05|1350
+|2023-08-06|1280
+|2023-08-07|1325
+|2023-08-08|1380
+|2023-08-09|1410
+|2023-08-10|1450
+|2023-08-11|1500
+|2023-08-12|1480
+|2023-08-13|1520
+|2023-08-14|1550
+|2023-08-15|1580
+|2023-08-16|1600
+|2023-08-17|1625
+|2023-08-18|1650
+|2023-08-19|1680
+|2023-08-20|1700
+|2023-08-21|1725
+|2023-08-22|1750
+|2023-08-23|1780
+|2023-08-24|1800
+|2023-08-25|1825
+|2023-08-26|1850
+|2023-08-27|1880
+|2023-08-28|1900
+|2023-08-29|1925
+|2023-08-30|1950
+
+trafficPie = |Source|Share
+|Organic|45
+|Paid|25
+|Referral|15
+|Social|10
+|Email|5
+
+campaignsTable = |Campaign|Spend
+|Summer Sale|$12,300
+|Winter Promo|$8,500
+|Email Blast|$3,200
+|Social Ads|$5,600
+|Referral Program|$2,100
+
+subscriberChartData = |Week|Subscribers
+|Week 1|1200
+|Week 2|1500
+|Week 3|1800
+|Week 4|2100

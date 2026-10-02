@@ -1,0 +1,21 @@
+root = Card(CardHeader("Hospital Operations Command Center"), bedOcc, erWait, admissions, deptPatients, staffShift, criticalCallout, dischargeTable, orBookings, lowSupplies, actions)
+
+bedOcc = Card(Heading("Bed Occupancy", h3), HorizontalBarChart(labels:["ICU","General Ward","Pediatrics","Maternity"], Series("Occupied", values:[85,120,60,30]), Series("Available", values:[15,30,40,20]), variant:grouped, xLabel:"Beds", yLabel:"Count"))
+
+erWait = Card(Heading("Current ER Wait", h3), TextContent("Average wait time: **45 minutes**", size:large))
+
+admissions = Card(Heading("Admissions (Last 2 Weeks)", h3), LineChart(labels:["Day -13","Day -12","Day -11","Day -10","Day -9","Day -8","Day -7","Day -6","Day -5","Day -4","Day -3","Day -2","Day -1","Today"], Series("Admissions", values:[20,22,18,25,30,28,35,32,40,38,42,45,50,55]), natural, xLabel:"Date", yLabel:"Patients"))
+
+deptPatients = Card(Heading("Patients per Department", h3), BarChart(labels:["Cardiology","Neurology","Oncology","Orthopedics","Emergency"], Series("Patients", values:[80,65,70,55,90]), stacked, xLabel:"Department", yLabel:"Patients"))
+
+staffShift = Card(Heading("Staff on Shift", h3), Table(Col("Name", data:["Dr. Smith","Nurse Lee","Dr. Patel","Nurse Gomez"], type:string), Col("Role", data:["Cardiologist","RN","Surgeon","RN"], type:string), Col("Department", data:["Cardiology","ER","Surgery","ER"], type:string)))
+
+criticalCallout = Card(Callout(variant:danger, title:"Critical Patients", description:"3 patients in critical condition require immediate attention."))
+
+dischargeTable = Card(Heading("Patients Ready for Discharge", h3), Table(Col("Patient ID", data:["P1023","P1045","P1078"], type:string), Col("Name", data:["John Doe","Emily Clark","Michael Brown"], type:string), Col("Expected Discharge", data:["9:00 AM","11:30 AM","2:00 PM"], type:string)))
+
+orBookings = Card(Heading("Today's Operating Room Bookings", h3), Table(Col("OR", data:["OR1","OR2","OR3"], type:string), Col("Procedure", data:["Appendectomy","Hip Replacement","Cataract Surgery"], type:string), Col("Time", data:["8:00 AM - 10:00 AM","10:30 AM - 1:00 PM","1:30 PM - 3:00 PM"], type:string)))
+
+lowSupplies = Card(Heading("Supplies Running Low", h3), Table(Col("Supply", data:["Gloves","Syringes","IV Bags"], type:string), Col("Remaining", data:["150","80","45"], type:string), Col("Reorder Level", data:["200","100","50"], type:string)))
+
+actions = Card(Buttons(Button("File Incident", primary), Button("Request Patient Transfer", secondary), Button("View Another Day", secondary), direction:row))

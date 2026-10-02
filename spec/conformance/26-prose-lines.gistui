@@ -1,0 +1,8 @@
+a == b
+- a bullet
+9lives = Text("x")
+|x|y
+// not a comment here
+Note: something
+root = Text("x")
+The end.

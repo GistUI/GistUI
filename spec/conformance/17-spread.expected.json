@@ -1,0 +1,42 @@
+{
+  "tree": {
+    "type": "Row",
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "a"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "b"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "c"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "text item"
+        }
+      },
+      {
+        "type": "Text",
+        "props": {
+          "content": "tail"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

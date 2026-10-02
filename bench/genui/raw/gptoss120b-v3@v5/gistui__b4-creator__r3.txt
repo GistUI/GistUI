@@ -1,0 +1,47 @@
+root = Card(header, filterSelect, overviewSection, bestPostsSection, audienceSection, bestHourSection, scheduleSection, commentsSection, collabSection, wrap)
+
+header = CardHeader("Creator Studio", "Cross‑platform overview")
+filterSelect = Select("platform_filter", SelectItem("all","All platforms"), SelectItem("instagram","Instagram"), SelectItem("youtube","YouTube"), SelectItem("tiktok","TikTok"), placeholder:"Filter platform", value:"all")
+
+overviewSection = Card(Heading("Overview", h2), metricsRow, wrap)
+metricsRow = Card(followerMetric, growthMetric, engagementMetric, earningsMetric, direction:row, gap:s, wrap)
+
+followerMetric = TextContent("**Followers**\n124.3k", large)
+growthMetric = TextContent("**Growth (30d)**\n+3.2%", large)
+engagementMetric = TextContent("**Engagement Rate**\n5.8%", large)
+earningsMetric = TextContent("**Earnings**\n$2,340", large)
+
+bestPostsSection = Card(Heading("Top Posts (this month)", h2), bestPostsTable)
+bestPostsTable = Table(postCol, reachCol)
+postCol = Col("Post", ["#SummerVibes","#NewRelease","#Tutorial"], string)
+reachCol = Col("Reach", [45200,38900,32100], number)
+
+audienceSection = Card(Heading("Audience Split", h2), audienceBar)
+audienceLabels = ["Instagram","YouTube","TikTok"]
+audienceSeries = Series("Reach", [56000,43000,31000])
+audienceBar = BarChart(audienceLabels, audienceSeries, grouped, xLabel:"Platform", yLabel:"Reach")
+
+bestHourSection = Card(Heading("Best Hour to Post", h2), hourBar)
+hourLabels = ["08","12","15","18","20","22"]
+hourSeries = Series("Reach", [1500,3000,2500,2100,1800,1300])
+hourBar = BarChart(hourLabels, hourSeries, grouped, xLabel:"Hour", yLabel:"Reach")
+
+scheduleSection = Card(Heading("Schedule a Post", h2), scheduleForm)
+scheduleForm = Form("schedule-post", scheduleButtons, captionField, dateField, timeField, platformField)
+captionField = FormControl("Caption", Input("caption", "Your caption here...", type:text))
+dateField = FormControl("Date", DatePicker("post_date", mode:single, value:["2024-10-05"]))
+timeField = FormControl("Time", Input("post_time", "09:00", type:text))
+platformField = FormControl("Platform", platformSelect)
+platformSelect = Select("post_platform", SelectItem("instagram","Instagram"), SelectItem("youtube","YouTube"), SelectItem("tiktok","TikTok"), placeholder:"Select platform", value:"instagram")
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+
+commentsSection = Card(Heading("Comments Awaiting Reply", h2), commentsList)
+commentsList = ListBlock(comment1, comment2, comment3, variant:number)
+comment1 = ListItem("User123", "Great post!", "Reply")
+comment2 = ListItem("ArtistMike", "Can you share the filter?", "Reply")
+comment3 = ListItem("FanGirl", "Loved the tutorial!", "Reply")
+
+collabSection = Card(Heading("Collaboration Requests", h2), collabList)
+collabList = ListBlock(collab1, collab2, variant:number)
+collab1 = ListItem("BrandX", "Sponsored video request", "View")
+collab2 = ListItem("BrandY", "Product placement inquiry", "View")

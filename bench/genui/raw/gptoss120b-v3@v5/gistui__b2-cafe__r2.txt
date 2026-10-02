@@ -1,0 +1,18 @@
+root = Card(CardHeader("Cafe Menu"), vegButton, specialCallout, drinksSection, foodSection, hoursSection)
+vegButton = Button("Vegetarian only", variant:secondary)
+specialCallout = Callout(variant:info, "Today's Special", "Pumpkin Spice Latte - $4.00")
+drinksSection = Card(Heading("Drinks", h3), drinksTable)
+foodSection = Card(Heading("Food", h3), foodTable)
+hoursSection = Card(Heading("Opening Hours", h3), hoursTable)
+drinksTable = |Item|Price
+|Coffee|$2.50
+|Tea|$2.00
+|Latte|$3.50
+foodTable = |Item|Price
+|Croissant|$3.00
+|Bagel|$2.50
+|Sandwich|$5.00
+hoursTable = |Day|Hours
+|Mon-Fri|8am - 6pm
+|Sat|9am - 4pm
+|Sun|Closed

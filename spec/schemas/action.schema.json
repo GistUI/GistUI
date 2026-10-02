@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gistui.com/schemas/1.0/action.schema.json",
+  "title": "GistUI action envelope",
+  "description": "What a renderer and runtime report to the host (GistUI Format 1.0, section 20.3). type selects the shape. A host ignores an envelope whose type it does not know.",
+  "type": "object",
+  "required": ["type"],
+  "oneOf": [
+    { "$ref": "#/$defs/send" },
+    { "$ref": "#/$defs/open" },
+    { "$ref": "#/$defs/emit" },
+    { "$ref": "#/$defs/submit" },
+    { "$ref": "#/$defs/state" },
+    { "$ref": "#/$defs/tool" },
+    { "$ref": "#/$defs/error" }
+  ],
+  "$defs": {
+    "nodeId": { "description": "Id of the node the person acted on, or the node or statement concerned (section 13.3).", "type": "string", "minLength": 1 },
+    "send": {
+      "description": "Text for the assistant, from @send or from a component whose purpose is to send text. Produced by the UI, not typed by the person (section 23.7).",
+      "type": "object",
+      "required": ["type", "nodeId", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "send" },
+        "nodeId": { "$ref": "#/$defs/nodeId" },
+        "message": { "type": "string" }
+      }
+    },
+    "open": {
+      "description": "A link to open. The URL has passed the scheme check of section 23.3.",
+      "type": "object",
+      "required": ["type", "nodeId", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "open" },
+        "nodeId": { "$ref": "#/$defs/nodeId" },
+        "url": { "type": "string", "minLength": 1 }
+      }
+    },
+    "emit": {
+      "description": "A custom event for the host, from @emit(name, payload).",
+      "type": "object",
+      "required": ["type", "nodeId", "event"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "emit" },
+        "nodeId": { "$ref": "#/$defs/nodeId" },
+        "event": { "type": "string" },
+        "payload": { "description": "Any JSON value; null when @emit had no second argument." }
+      }
+    },
+    "submit": {
+      "description": "A form was submitted, or a draft was saved (partial).",
+      "type": "object",
+      "required": ["type", "nodeId", "form", "values"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "submit" },
+        "nodeId": { "$ref": "#/$defs/nodeId" },
+        "form": { "description": "The form's name in the program.", "type": "string" },
+        "values": { "description": "Field name to value. Empty optional fields are left out.", "type": "object" },
+        "partial": { "description": "True for a draft saved without validation.", "type": "boolean" },
+        "formId": { "description": "A stable id for the form: the one the program gave, or one derived from its fields.", "type": "string" },
+        "submissionId": { "description": "Unique for each submission. Usable as an idempotency key.", "type": "string" },
+        "submittedAt": { "description": "Time of the submission, ISO 8601.", "type": "string" },
+        "step": {
+          "description": "For a form in steps: where the person was.",
+          "type": "object",
+          "required": ["index", "count"],
+          "additionalProperties": false,
+          "properties": {
+            "index": { "type": "integer", "minimum": 0 },
+            "count": { "type": "integer", "minimum": 1 },
+            "title": { "type": "string" }
+          }
+        },
+        "fields": { "description": "Field descriptions: name, label, component, type, rules.", "type": "array", "items": { "type": "object" } },
+        "schema": { "description": "A JSON Schema (2020-12) for values.", "type": "object" },
+        "message": { "description": "A short text summary a chat host can pass to a model. Produced by the UI (section 23.7).", "type": "string" }
+      }
+    },
+    "state": {
+      "description": "A state variable changed.",
+      "type": "object",
+      "required": ["type", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "state" },
+        "name": { "description": "Variable name without the $.", "type": "string", "minLength": 1 },
+        "value": { "description": "The new value: any JSON value." }
+      }
+    },
+    "tool": {
+      "description": "A tool is about to be called (section 19.3). The host can refuse the call.",
+      "type": "object",
+      "required": ["type", "kind", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "tool" },
+        "kind": { "description": "query: the UI called it by itself. mutation: a gesture of the person ran it.", "enum": ["query", "mutation"] },
+        "name": { "type": "string", "minLength": 1 },
+        "args": { "description": "The arguments: any JSON value." },
+        "nodeId": { "$ref": "#/$defs/nodeId" }
+      }
+    },
+    "error": {
+      "description": "A runtime problem (section 22.4).",
+      "type": "object",
+      "required": ["type", "code", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "error" },
+        "code": { "enum": ["tool-not-found", "tool-failed", "blocked-url", "unknown-step", "limit"] },
+        "message": { "type": "string" },
+        "nodeId": { "$ref": "#/$defs/nodeId" }
+      }
+    }
+  }
+}

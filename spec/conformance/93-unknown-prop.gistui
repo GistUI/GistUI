@@ -1,0 +1,1 @@
+root = Row(Text("a", color:"red"), bogus:1)

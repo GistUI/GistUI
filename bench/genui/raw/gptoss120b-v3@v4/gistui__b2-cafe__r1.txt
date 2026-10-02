@@ -1,0 +1,15 @@
+root = Card(CardHeader("Cafe Menu"), specialCallout, drinksTable, foodTable, vegButton, hoursTable)
+specialCallout = Callout(variant:info, "Today's Special", "Pumpkin Spice Latte – $4.50")
+drinksTable = Table(
+  Col("Drink", ["Coffee","Tea","Orange Juice"], type:string),
+  Col("Price", ["$3.00","$2.50","$4.00"], type:string)
+)
+foodTable = Table(
+  Col("Food", ["Croissant","Bagel","Veggie Sandwich"], type:string),
+  Col("Price", ["$2.80","$2.50","$5.50"], type:string)
+)
+vegButton = Buttons(Button("Show Vegetarian Only", [], primary))
+hoursTable = Table(
+  Col("Day", ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], type:string),
+  Col("Hours", ["8am‑6pm","8am‑6pm","8am‑6pm","8am‑6pm","8am‑9pm","9am‑9pm","9am‑5pm"], type:string)
+)

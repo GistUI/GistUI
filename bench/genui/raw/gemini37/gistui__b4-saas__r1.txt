@@ -1,0 +1,75 @@
+root = Card(topBar, kpiGrid, trendSection, middleSection, bottomTabs)
+topBar = Card(headerRow, filterRow, sunk)
+headerRow = Card(CardHeader("Executive SaaS Overview", "Real-time revenue, customer health, and platform adoption analytics"), headerActions, direction:row, justify:between, align:center)
+headerActions = Buttons(inviteAdminDialog, Button("Export Report", secondary, size:small))
+inviteAdminDialog = DialogBlock("Invite Admin", "Invite New Administrator", inviteForm, description:"Grant workspace administration and billing management privileges.", triggerVariant:default)
+inviteForm = Form("invite-admin-form", inviteButtons, inviteEmailControl, inviteRoleControl)
+inviteEmailControl = FormControl("Work Email", Input("admin_email", "colleague@company.com", type:email), "An activation link will be sent directly.")
+inviteRoleControl = FormControl("Role & Permissions", inviteRoleSelect)
+inviteRoleSelect = Select("admin_role", SelectItem("super_admin", "Super Admin (Full access + billing)"), SelectItem("support_admin", "Support Admin (Read & manage users)"), SelectItem("billing_admin", "Billing Admin (Invoices & plans only)"), placeholder:"Select role", value:"super_admin")
+inviteButtons = Buttons(Button("Send Invite", primary), Button("Cancel", tertiary))
+filterRow = Card(periodControl, dateRangePicker, direction:row, gap:m, align:center)
+periodControl = FormControl("Reporting Period", periodSelect)
+periodSelect = Select("report_period", SelectItem("30d", "Last 30 Days"), SelectItem("90d", "Last 90 Days"), SelectItem("ytd", "Year to Date (YTD)"), SelectItem("12m", "Last 12 Months"), placeholder:"Change period", value:"90d", size:small)
+dateRangePicker = FormControl("Custom Range", DatePicker("custom_range", mode:range))
+kpiGrid = Card(kpiCard1, kpiCard2, kpiCard3, kpiCard4, kpiCard5, direction:row, gap:m, wrap)
+kpiCard1 = Card(Heading("Monthly Recurring Rev (MRR)", h4), MarkDownRenderer("### $412,850\n**+5.4%** vs last month"), Tag("Healthy", success, size:sm), sunk)
+kpiCard2 = Card(Heading("Annual Recurring Rev (ARR)", h4), MarkDownRenderer("### $4.95M\nTarget: $5.20M"), Tag("On Track", info, size:sm), sunk)
+kpiCard3 = Card(Heading("Churn This Month", h4), MarkDownRenderer("### 1.18%\n**$4,890** lost revenue"), Tag("Low Risk", success, size:sm), sunk)
+kpiCard4 = Card(Heading("Seat Utilization", h4), MarkDownRenderer("### 78.4%\n18,420 / 23,500 active"), Progress(78, "78.4% company-wide"), sunk)
+kpiCard5 = Card(Heading("Current NPS", h4), MarkDownRenderer("### +54\n58% Promoters | 12% Detractors"), Tag("Good", info, size:sm), sunk)
+trendSection = Card(signupsCard, adoptionCard, direction:row, gap:m)
+signupsCard = Card(CardHeader("New Signups (Past 90 Days)", "Weekly cumulative user onboarding trajectory"), AreaChart(signupsData, natural, xLabel:"Week", yLabel:"New Users"), sunk)
+adoptionCard = Card(CardHeader("Adoption of 3 Newest Features", "Active usage percentage across eligible customer accounts"), HorizontalBarChart(featureData, variant:grouped, xLabel:"Adoption Rate (%)"), sunk)
+middleSection = Card(planSplitCard, topCustomersCard, direction:row, gap:m)
+planSplitCard = Card(CardHeader("Customers Split by Plan", "Distribution of paid customer subscriptions"), PieChart(planDistData, variant:donut), sunk)
+topCustomersCard = Card(CardHeader("Top 10 Largest Customers", "Ranked by annual spend and committed seats"), Table(topTenCustomersTable), sunk)
+bottomTabs = Tabs(riskTab, failedPaymentsTab)
+riskTab = TabItem("at-risk", "Accounts at Risk (5)", riskCallout, Table(atRiskAccountsTable))
+riskCallout = Alert("Immediate CSM Intervention Needed", "5 enterprise accounts flagged high risk representing $142,000 in ARR.", warning)
+failedPaymentsTab = TabItem("failed-billing", "Failed Payments (4)", billingCallout, Table(failedInvoicesTable))
+billingCallout = Alert("Dunning Automated", "Stripe smart retries active. Manual retry available below.", destructive)
+signupsData = |Week|Signups
+|W1|145
+|W2|182
+|W3|210
+|W4|265
+|W5|310
+|W6|295
+|W7|380
+|W8|420
+|W9|490
+|W10|530
+|W11|610
+|W12|685
+featureData = |Feature|AdoptionPct
+|AI Workflow Builder|68
+|SSO & SCIM Sync|46
+|Custom Dashboards|31
+planDistData = |Plan|Count
+|Enterprise|142
+|Scale|388
+|Pro|845
+|Starter|1250
+topTenCustomersTable = |Customer|Plan|Seats:n|Spend (ARR)
+|Acme Corp|Enterprise|1200|$144,000
+|GlobalTech Industries|Enterprise|950|$114,000
+|Starlight Health|Enterprise|850|$102,000
+|Apex Logistics|Enterprise|720|$86,400
+|Nova Financial|Enterprise|600|$72,000
+|Vertex Systems|Scale|500|$60,000
+|Hyperion Digital|Scale|450|$54,000
+|BlueSky Media|Scale|400|$48,000
+|OmniRetail Solutions|Scale|380|$45,600
+|Pulse Robotics|Scale|320|$38,400
+atRiskAccountsTable = |Account Name|ARR Exposure|Health Score|Primary Risk Reason
+|Global Logistics LLC|$42,000|32/100|Champion left company; drop in active daily seats
+|Zenith Cloud Services|$36,000|28/100|Critical integration ticket unresolved > 21 days
+|Acuity Media Group|$28,000|41/100|Seat utilization dropped below 30% over 60 days
+|Vanguard Capital|$22,000|45/100|Requested data export; competitor evaluation
+|Solaria Networks|$14,000|39/100|No admin login for past 45 consecutive days
+failedInvoicesTable = |Customer|Invoice ID|Amount|Failure Reason|Action
+|CloudScale Inc|INV-2024-891|$4,800|Insufficient funds|Retry Charge
+|BrightWave Labs|INV-2024-884|$2,400|Card expired|Retry Charge
+|Nexus Interactive|INV-2024-879|$1,200|Do not honor / Bank block|Retry Charge
+|Terra Dynamics|INV-2024-862|$3,600|Generic card decline|Retry Charge

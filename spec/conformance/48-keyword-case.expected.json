@@ -1,0 +1,34 @@
+{
+  "tree": {
+    "type": "Select",
+    "props": {
+      "name": "n",
+      "label": "N",
+      "options": [
+        true,
+        false,
+        null,
+        "True",
+        "NULL"
+      ]
+    }
+  },
+  "errors": [
+    {
+      "code": "bare-text",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "bare-text",
+      "severity": "warning",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

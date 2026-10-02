@@ -1,0 +1,10 @@
+# Deterministic repair: closest component, enum aliases/case/typos, coercions, excess args.
+root = Stack(a, b, c, d, e, f)
+a = Crad("unknown component, closest match")
+b = Row(gap:medium)
+c = Row(gap:LG)
+d = Chart(t, type:lnie)
+e = Table(t, pageSize:"25", sort:"true")
+f = Stat("a", "b", "c", "extra")
+t = |x|y
+|a|1

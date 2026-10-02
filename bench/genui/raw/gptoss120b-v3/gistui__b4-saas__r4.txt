@@ -1,0 +1,95 @@
+root = Card(CardHeader("Admin Overview", "Key metrics and actions"), reportingPeriodSection, mrrSection, arrSection, churnSection, signupsSection, customersPlanSection, topCustomersSection, atRiskSection, failedPaymentsSection, featureAdoptionSection, npsSection, seatUtilSection, inviteAdminSection, actions)
+
+reportingPeriodSection = SectionBlock(reportingPeriodItem, isFoldable)
+reportingPeriodItem = SectionItem("reporting", "Reporting Period", reportingForm)
+
+reportingForm = Form("reporting-period", formButtons, periodSelect)
+periodSelect = Select("period", SelectItem("monthly","Monthly"), SelectItem("quarterly","Quarterly"), SelectItem("yearly","Yearly"), placeholder:"Select period", value:"monthly")
+formButtons = Buttons(Button("Apply", primary))
+
+mrrSection = SectionBlock(mrrItem, isFoldable)
+mrrItem = SectionItem("mrr", "Monthly Recurring Revenue", mrrTable)
+
+mrrTable = Table(
+  Col("Metric", data:["MRR"], type:string),
+  Col("Amount", data:["$120,000"], type:string)
+)
+
+arrSection = SectionBlock(arrItem, isFoldable)
+arrItem = SectionItem("arr", "Annual Recurring Revenue", arrTable)
+
+arrTable = Table(
+  Col("Metric", data:["ARR"], type:string),
+  Col("Amount", data:["$1,440,000"], type:string)
+)
+
+churnSection = SectionBlock(churnItem, isFoldable)
+churnItem = SectionItem("churn", "Churn This Month", churnTable)
+
+churnTable = Table(
+  Col("Metric", data:["Churn Rate"], type:string),
+  Col("Value", data:["2.5%"], type:string)
+)
+
+signupsSection = SectionBlock(signupsItem, isFoldable)
+signupsItem = SectionItem("signups", "New Signups (90 days)", signupsTable)
+
+signupsTable = Table(
+  Col("Date", data:["2024-09-01","2024-09-15","2024-10-01"], type:string),
+  Col("Signups", data:[15,22,18], type:number)
+)
+
+customersPlanSection = SectionBlock(customersPlanItem, isFoldable)
+customersPlanItem = SectionItem("planSplit", "Customers by Plan", customersPlanChart)
+
+customersPlanChart = PieChart(labels:["Free","Pro","Enterprise"], values:[120,80,30], variant:donut, appearance:circular)
+
+topCustomersSection = SectionBlock(topCustomersItem, isFoldable)
+topCustomersItem = SectionItem("topCustomers", "Top 10 Customers", topCustomersTable)
+
+topCustomersTable = Table(
+  Col("Customer", data:["Acme Corp","Beta LLC","Gamma Inc","Delta Co","Epsilon Ltd","Zeta LLC","Eta Enterprises","Theta Ltd","Iota Inc","Kappa Co"], type:string),
+  Col("Seats", data:[250,200,180,150,130,120,110,100,95,90], type:number),
+  Col("Spend", data:["$75,000","$60,000","$54,000","$45,000","$39,000","$36,000","$33,000","$30,000","$28,500","$27,000"], type:string)
+)
+
+atRiskSection = SectionBlock(atRiskItem, isFoldable)
+atRiskItem = SectionItem("atRisk", "Accounts at Risk", atRiskTable)
+
+atRiskTable = Table(
+  Col("Customer", data:["Omega Corp","Sigma LLC"], type:string),
+  Col("Reason", data:["Low usage","High churn risk"], type:string)
+)
+
+failedPaymentsSection = SectionBlock(failedPaymentsItem, isFoldable)
+failedPaymentsItem = SectionItem("failedPayments", "Failed Payments", failedPaymentsTable)
+
+failedPaymentsTable = Table(
+  Col("Customer", data:["Lambda Ltd","Alpha Inc"], type:string),
+  Col("Amount", data:["$2,000","$1,500"], type:string),
+  Col("Action", data:["Retry","Retry"], type:string)
+)
+
+featureAdoptionSection = SectionBlock(featureAdoptionItem, isFoldable)
+featureAdoptionItem = SectionItem("featureAdoption", "Adoption of New Features", featureAdoptionChart)
+
+featureAdoptionChart = HorizontalBarChart(labels:["Feature A","Feature B","Feature C"], Series("Adoption", values:[70,55,40]), variant:grouped, xLabel:"Adoption %", yLabel:"Feature")
+
+npsSection = SectionBlock(npsItem, isFoldable)
+npsItem = SectionItem("nps", "Current NPS", npsContent)
+
+npsContent = TextContent("NPS: 68", size:large)
+
+seatUtilSection = SectionBlock(seatUtilItem, isFoldable)
+seatUtilItem = SectionItem("seatUtil", "Seat Utilization", seatUtilChart)
+
+seatUtilChart = BarChart(labels:["Engineering","Sales","Support","Marketing"], Series("Utilization %", values:[85,78,92,70]), variant:grouped, xLabel:"Department", yLabel:"Utilization %")
+
+inviteAdminSection = SectionBlock(inviteAdminItem, isFoldable)
+inviteAdminItem = SectionItem("inviteAdmin", "Invite Another Admin", inviteForm)
+
+inviteForm = Form("invite-admin", inviteButtons, emailInput)
+emailInput = FormControl("Admin Email", Input("admin_email", "admin@example.com", email))
+inviteButtons = Buttons(Button("Send Invite", primary))
+
+actions = Buttons(Button("Refresh Data", primary), Button("Export CSV", secondary))

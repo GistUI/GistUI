@@ -1,0 +1,90 @@
+root = Card(headerRow, controlsCard, kpiRow, mainTabs, boardAgendaSection, wrap:false, gap:m)
+headerRow = Card(CardHeader("Executive Command Center", "Quarterly Operating Review & Board Readiness"), headerActions, direction:row, justify:between, align:center, variant:clear)
+headerActions = Buttons(exportDialog, shareBtn)
+exportDialog = DialogBlock("Export Board Pack", "Export Executive Deck", exportForm, description:"Generate verified board deck with audited QTD financials", triggerVariant:default)
+shareBtn = Button("Share Snapshot", tertiary, size:small)
+exportForm = Form("export_form", exportButtons, exportFormatField, exportIncludeNotes)
+exportFormatField = FormControl("Format", Select("format", SelectItem("pdf", "PDF Board Deck (.pdf)"), SelectItem("pptx", "Slide Deck (.pptx)"), SelectItem("xlsx", "Financial Model (.xlsx)"), placeholder:"Select format", value:"pdf"))
+exportIncludeNotes = FormControl("Options", CheckBoxGroup("opts", CheckBoxItem("Include Appendix", "Full department breakdown", "app", defaultChecked), CheckBoxItem("Watermark Draft", "Confidential CEO copy", "wm", false)))
+exportButtons = Buttons(Button("Download Pack", primary), Button("Cancel", tertiary))
+
+controlsCard = Card(controlsForm, variant:sunk, direction:row, justify:between, align:center)
+controlsForm = Form("view_controls", viewButtons, quarterSelectField, regionSelectField)
+quarterSelectField = FormControl("Reporting Quarter", Select("quarter", SelectItem("q3_24", "Q3 2024 (Active)"), SelectItem("q2_24", "Q2 2024"), SelectItem("q1_24", "Q1 2024"), SelectItem("q4_23", "Q4 2023"), placeholder:"Quarter", value:"q3_24", size:small))
+regionSelectField = FormControl("Geographic Focus", Select("region", SelectItem("global", "Global (All Regions)"), SelectItem("na", "North America (NA)"), SelectItem("emea", "Europe & MEA (EMEA)"), SelectItem("apac", "Asia-Pacific (APAC)"), placeholder:"Region", value:"global", size:small))
+viewButtons = Buttons(Button("Apply Scope", secondary, size:small))
+
+kpiRow = Card(kpiRev, kpiCost, kpiProfit, kpiRunway, kpiSales, kpiCustomers, direction:row, gap:s, variant:clear)
+kpiRev = Card(TextContent("### $42.8M\n**Revenue (QTD)**\n+14.2% YoY", size:small), Tag("On Target", success), variant:card)
+kpiCost = Card(TextContent("### $31.4M\n**Total Costs**\n-2.1% vs budget", size:small), Tag("Controlled", info), variant:card)
+kpiProfit = Card(TextContent("### $11.4M\n**Net Profit**\n26.6% margin", size:small), Tag("+380 bps", success), variant:card)
+kpiRunway = Card(TextContent("### 26 Mo\n**Runway**\nCash: $98.6M", size:small), Tag("Safe", success), variant:card)
+kpiSales = Card(TextContent("### $64.2M\n**Pipeline** | 28.4% Win", size:small), Tag("Win +2.1%", info), variant:card)
+kpiCustomers = Card(TextContent("### 1,420\n**Customers** | 1.8% Churn\nNPS: +62", size:small), Tag("NPS Top Tier", success), variant:card)
+
+mainTabs = Tabs(financialsTab, departmentsTab, strategyRisksTab)
+
+financialsTab = TabItem("financials", "Financial Trajectory", finGrid)
+finGrid = Card(chartCard, summaryCardsRow, variant:clear, gap:m)
+chartCard = Card(Heading("Revenue vs Cost Trajectory (Last 4 Quarters)", h3), BarChart(fourQuarterData, grouped, xLabel:"Quarter", yLabel:"USD Millions"), variant:card)
+summaryCardsRow = Card(commercialKpis, operationalEfficiency, direction:row, gap:m, variant:clear)
+commercialKpis = Card(Heading("Sales Pipeline & Retention Detail", h4), Table(salesRetentionData), variant:card)
+operationalEfficiency = Card(Heading("Runway & Cash Health", h4), TextContent("- **Net Cash Position**: $98.6M\n- **Monthly Net Burn**: $3.79M/mo\n- **Months of Runway**: 26.0 months\n- **Gross Margin**: 74.8% (Target: 75%)\n- **Net Dollar Retention**: 118%"), Tag("Series C Capitalized", success), variant:sunk)
+
+departmentsTab = TabItem("dept_exec", "Departments & Headcount", deptGrid)
+deptGrid = Card(deptTableCard, deptHeadcountCard, direction:row, gap:m, variant:clear)
+deptTableCard = Card(Heading("Department Budget vs Plan (QTD)", h3), Table(deptBudgetData), variant:card)
+deptHeadcountCard = Card(Heading("Headcount Distribution by Department", h3), HorizontalBarChart(headcountData, grouped, xLabel:"Headcount (FTE)", yLabel:"Department"), variant:card)
+
+strategyRisksTab = TabItem("strat_risk", "Initiatives & Top Risks", stratGrid)
+stratGrid = Card(stratCard, riskCard, direction:row, gap:m, variant:clear)
+stratCard = Card(Heading("Strategic Initiatives Execution", h3), Table(initiativesData), variant:card)
+riskCard = Card(Heading("Top Enterprise Risks & Risk Owners", h3), Table(risksData), variant:card)
+
+boardAgendaSection = Card(Heading("Upcoming Board Meeting: Proposed Agenda & Approvals", h3), boardRow, variant:card)
+boardRow = Card(boardTable, boardActionBox, direction:row, gap:m, variant:clear)
+boardTable = Table(boardAgendaData)
+boardActionBox = Card(Heading("CEO Focus Topics", h4), TextContent("1. Approval for FY25 international expansion capital allocation\n2. Long-term incentive plan (LTIP) pool refresh\n3. M&A pipeline pipeline overview in EMEA cloud compliance"), Buttons(Button("Finalize Board Materials", primary), Button("Add Agenda Topic", secondary)), variant:sunk)
+
+fourQuarterData = |Quarter|Revenue ($M):n|Costs ($M):n
+|Q4 2023|34.8|28.2
+|Q1 2024|37.2|29.1
+|Q2 2024|39.9|30.5
+|Q3 2024|42.8|31.4
+
+salesRetentionData = |Metric|Current QTD|Prior Quarter|Status
+|Sales Pipeline Value|$64.2M|$58.0M|Accelerating
+|Win Rate|28.4%|26.3%|Strong
+|Active Customers|1,420|1,340|+80 Net
+|Quarterly Churn Rate|1.8%|2.1%|Optimal
+|Net Promoter Score (NPS)|+62|+59|World Class
+
+deptBudgetData = |Department|Budget Plan ($M):n|Actual Spend ($M):n|Variance ($M):n|Budget Status
+|Engineering|14.0|13.8|-0.2|On Plan
+|Sales & Mktg|10.5|10.9|+0.4|Over Budget
+|G&A|4.0|3.8|-0.2|Under Budget
+|Customer Success|3.5|2.9|-0.6|Under Budget
+
+headcountData = |Department|Current FTE:n|Open Roles:n
+|Engineering|245|18
+|Sales & Mktg|142|12
+|Customer Success|68|6
+|G&A|35|2
+
+initiativesData = |Strategic Initiative|Executive Lead|Target Date|Status
+|Enterprise AI Tier Launch|CTO (Elena R.)|Q3 2024|On Track
+|EMEA Regional Data Center|COO (Marcus K.)|Q4 2024|In Progress
+|Self-Serve Product Led Growth|CPO (Devon S.)|Q3 2024|At Risk
+|ISO 27001 / FedRAMP Audit|CISO (Tariq A.)|Q4 2024|On Track
+
+risksData = |Enterprise Risk|Impact Level|Risk Owner|Mitigation Plan
+|EMEA Compliance Regulatory Delay|High|General Counsel (Sarah L.)|Engaged EU local advisory counsel
+|Key Engineering Talent Retention|Medium|VP People (James H.)|Equity retention adjustments deployed
+|Cloud Hosting Margin Compression|Medium|CTO (Elena R.)|Reserved instances committed
+|Competitor Aggressive Pricing|High|CRO (Vince M.)|Value bundling & multi-year discounts
+
+boardAgendaData = |Time|Agenda Item|Presenter|Action Required
+|09:00 AM|CEO State of Business & Strategy|CEO|Review
+|09:45 AM|Q3 Financial Review & FY25 Guidance|CFO|Approval
+|10:30 AM|Enterprise Product & AI Roadmap|CPO & CTO|Discussion
+|11:15 AM|Executive Compensation & Pool Refresh|VP People|Vote Required

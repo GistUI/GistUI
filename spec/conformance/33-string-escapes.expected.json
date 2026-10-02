@@ -1,0 +1,13 @@
+{
+  "tree": {
+    "type": "Text",
+    "props": {
+      "content": "quote \" slash \\ / tab\t nl\n eé pair🚀"
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

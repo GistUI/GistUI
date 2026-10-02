@@ -1,0 +1,45 @@
+root = Card(CardHeader("Store Manager Console", "Daily Overview"), salesSection, trafficSection, bestSellers, outOfStock, shiftSection, basketSection, returnsSection, promoSection, registersSection, actions)
+
+salesSection = Card(Heading("Sales vs Target", h3), HorizontalBarChart(labels:["Today"], Series("Sales", values:[12000]), Series("Target", values:[15000]), variant:grouped, xLabel:"Amount ($)", yLabel:"", wrap)
+
+trafficSection = Card(Heading("Foot Traffic", h3), LineChart(trafficRows, linear, xLabel:"Time", yLabel:"Visitors"))
+
+bestSellers = Card(Heading("Best Sellers", h3), Table(productCol, unitsCol))
+
+outOfStock = Card(Heading("Out of Stock", h3), Table(productColOut, reasonCol))
+
+shiftSection = Card(Heading("On‑Shift Staff", h3), ListBlock(staffItem1, staffItem2, staffItem3, variant:number))
+
+basketSection = Card(Heading("Average Basket Size", h3), TextContent("$45.20", size:large))
+
+returnsSection = Card(Heading("Returns This Week", h3), TextContent("12 items returned", size:large))
+
+promoSection = Card(Heading("Promotion Performance", h3), PieChart(promoLabels, promoValues, donut, appearance:circular))
+
+registersSection = Card(Heading("Register Status", h3), Table(registerCol, statusCol))
+
+actions = Buttons(Button("Reorder Item", primary), Button("Switch Store", secondary))
+
+trafficRows = |Time|Visitors
+|08:00|45
+|10:00|120
+|12:00|200
+|14:00|180
+|16:00|150
+|18:00|90
+
+productCol = Col("Product", data:["Widget A","Gadget B","Thingamajig C"], type:string)
+unitsCol = Col("Units Sold", data:[340,275,190], type:number)
+
+productColOut = Col("Product", data:["Widget X","Gadget Y"], type:string)
+reasonCol = Col("Reason", data:["Stockout","Supplier delay"], type:string)
+
+staffItem1 = ListItem("Alice Johnson")
+staffItem2 = ListItem("Bob Martinez")
+staffItem3 = ListItem("Cara Lee")
+
+promoLabels = ["10% Off", "Buy 1 Get 1", "Free Shipping"]
+promoValues = [45,30,25]
+
+registerCol = Col("Register", data:["Reg 1","Reg 2","Reg 3"], type:string)
+statusCol = Col("Open", data:["Yes","No","Yes"], type:string)

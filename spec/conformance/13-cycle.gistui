@@ -1,0 +1,4 @@
+# Cycles are reported on the offending statement and cut.
+root = Stack(a)
+a = Stack(b, Text("a"))
+b = Stack(a, Text("b"))

@@ -1,0 +1,48 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "$x + 1 * 2"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "($x + 1) * 2"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "2 - $x - 1"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "!$p && $q || $r"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "$x < 1 == true"
+        }
+      },
+      {
+        "type": "#expr",
+        "dyn": {
+          "value": "-$x + -2"
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "tree": {
+    "type": "#unknown",
+    "props": {
+      "component": "Foo",
+      "k": 1,
+      "label": "L"
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "content": "x"
+        }
+      },
+      {
+        "type": "#unknown",
+        "props": {
+          "component": "Bar"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "y"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1
+    },
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "root",
+      "line": 1
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": false
+  }
+}

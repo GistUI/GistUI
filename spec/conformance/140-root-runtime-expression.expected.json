@@ -1,0 +1,13 @@
+{
+  "tree": {
+    "type": "#expr",
+    "dyn": {
+      "value": "$t ? a : b"
+    }
+  },
+  "errors": [],
+  "valid": {
+    "strict": true,
+    "lenient": true
+  }
+}

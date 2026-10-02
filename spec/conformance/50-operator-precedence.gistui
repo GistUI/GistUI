@@ -1,0 +1,7 @@
+root = Stack(a, b, c, d, e, f)
+a = $x + 1 * 2
+b = ($x + 1) * 2
+c = 2 - $x - 1
+d = !$p && $q || $r
+e = $x < 1 == true
+f = -$x + - 2

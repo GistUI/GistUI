@@ -1,0 +1,102 @@
+{
+  "tree": {
+    "type": "Stack",
+    "children": [
+      {
+        "type": "Card",
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "content": "unknown component, closest match"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Row",
+        "props": {
+          "gap": "md"
+        }
+      },
+      {
+        "type": "Row",
+        "props": {
+          "gap": "lg"
+        }
+      },
+      {
+        "type": "Chart",
+        "props": {
+          "data": {
+            "table": [
+              "x:s",
+              "y:n"
+            ],
+            "rows": [
+              [
+                "a",
+                1
+              ]
+            ]
+          },
+          "type": "line"
+        }
+      },
+      {
+        "type": "Table",
+        "props": {
+          "data": {
+            "table": [
+              "x:s",
+              "y:n"
+            ],
+            "rows": [
+              [
+                "a",
+                1
+              ]
+            ]
+          },
+          "pageSize": 25,
+          "sort": true
+        }
+      },
+      {
+        "type": "Stat",
+        "props": {
+          "label": "a",
+          "value": "b",
+          "delta": "c"
+        }
+      }
+    ]
+  },
+  "errors": [
+    {
+      "code": "unknown-component",
+      "severity": "error",
+      "stmt": "a",
+      "line": 3,
+      "fixed": true
+    },
+    {
+      "code": "invalid-enum",
+      "severity": "warning",
+      "stmt": "d",
+      "line": 6,
+      "fixed": true
+    },
+    {
+      "code": "excess-args",
+      "severity": "error",
+      "stmt": "f",
+      "line": 8,
+      "fixed": true
+    }
+  ],
+  "valid": {
+    "strict": false,
+    "lenient": true
+  }
+}

@@ -1,0 +1,83 @@
+root = Card(header, balancesSection, transactionsSection, spendingSection, billsSection, vacationSection, creditScoreSection, transferSection, freezeSection, statementSection, alertsSection, disputeSection)
+
+header = CardHeader("My Account Overview")
+
+balancesSection = Card(Heading("Balances", h3), balancesTable)
+
+transactionsSection = Card(Heading("Recent Transactions", h3), transactionsTable)
+
+spendingSection = Card(Heading("Spending This Month", h3), HorizontalBarChart(spendingData, variant:stacked, xLabel:"Category", yLabel:"Amount"))
+
+billsSection = Card(Heading("Bills Due Soon", h3), billsTable)
+
+vacationSection = Card(Heading("Vacation Savings Goal", h3), vacationProgress)
+
+creditScoreSection = Card(Heading("Credit Score", h3), TextContent("Credit Score: 720", size:large))
+
+transferSection = Card(Heading("Transfer Money", h3), transferForm)
+
+freezeSection = Card(Heading("Credit Line", h3), freezeButton)
+
+statementSection = Card(Heading("Statement Period", h3), statementForm)
+
+alertsSection = Card(Heading("Alert Triggers", h3), alertsSwitch)
+
+disputeSection = Card(Heading("Dispute Transaction", h3), disputeForm)
+
+vacationProgress = Progress(65, "Vacation Savings: $6,500 / $10,000")
+
+freezeButton = Button("Freeze Credit Line", type:destructive)
+
+transferForm = Form("transfer", transferButtons, amountField, fromField, toField)
+
+amountField = FormControl("Amount", Input("amount", placeholder:"$0.00", type:number))
+
+fromField = FormControl("From", Select("from_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), placeholder:"Select account"))
+
+toField = FormControl("To", Select("to_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit Card"), placeholder:"Select account"))
+
+transferButtons = Buttons(Button("Transfer", primary))
+
+statementForm = Form("statement", statementButtons, periodField)
+
+periodField = FormControl("Statement period", Select("statement_period", SelectItem("30","Last 30 days"), SelectItem("90","Last 90 days"), placeholder:"Select period"))
+
+statementButtons = Buttons(Button("View Statement", primary))
+
+alertsSwitch = SwitchGroup("alerts", SwitchItem("low_balance","Low Balance", defaultChecked), SwitchItem("large_tx","Large Transaction", defaultChecked), SwitchItem("bill_due","Bill Due", defaultChecked), variant:card)
+
+disputeForm = Form("dispute", disputeButtons, disputeSelect, disputeDesc)
+
+disputeSelect = FormControl("Transaction", Select("dispute_tx", SelectItem("tx1","Starbucks $5.75"), SelectItem("tx2","Amazon $120"), placeholder:"Select transaction"))
+
+disputeDesc = FormControl("Reason", TextArea("reason", placeholder:"Enter reason", rows:4))
+
+disputeButtons = Buttons(Button("Submit Dispute", primary))
+
+balancesTable = Table(balancesTableData)
+
+transactionsTable = Table(transactionsTableData)
+
+billsTable = Table(billsTableData)
+
+balancesTableData = |Account|Balance
+|Checking|$2,345.67
+|Savings|$8,910.12
+|Credit|$1,234.56
+
+transactionsTableData = |Merchant|Amount|Date
+|Starbucks|-$5.75|2023-09-12
+|Amazon|-$120.00|2023-09-11
+|Electric Co|-$60.00|2023-09-10
+
+billsTableData = |Bill|Due Date|Amount
+|Rent|2023-10-01|$1,200.00
+|Internet|2023-09-30|$60.00
+|Gym|2023-10-05|$45.00
+
+spendingData = |Category|Amount
+|Food|450
+|Transport|120
+|Entertainment|200
+|Bills|300
+|Shopping|250

@@ -31,7 +31,17 @@ const publish = process.argv.includes("--publish");
 const ORDER = ["core", "catalog", "headless", "styles", "widgets", "vanilla", "react", "server", "chat", "vue", "svelte", "solid"];
 
 /** Runs a program with its arguments as a list: no shell, so a path with spaces is one argument. */
-const run = (cmd: string, args: string[], cwd = ROOT) => execFileSync(cmd, args, { cwd, stdio: ["ignore", "pipe", "pipe"], maxBuffer: 256 * 1024 * 1024, shell: process.platform === "win32" }).toString();
+const run = (cmd: string, args: string[], cwd = ROOT) => {
+  try {
+    return execFileSync(cmd, args, { cwd, stdio: ["ignore", "pipe", "pipe"], maxBuffer: 256 * 1024 * 1024, shell: process.platform === "win32" }).toString();
+  } catch (e) {
+    // The output is captured, so show the end of it: that is where a failed build or test says why.
+    const out = e as { stdout?: Buffer; stderr?: Buffer };
+    const text = `${out.stdout?.toString() ?? ""}\n${out.stderr?.toString() ?? ""}`.trim().split("\n");
+    if (text.length > 1 || text[0]) console.error(text.slice(-200).join("\n"));
+    throw new Error(`${cmd} ${args.join(" ")} failed`);
+  }
+};
 const dirty = () => run("git", ["status", "--porcelain"]).trim() !== "";
 const fail = (msg: string): never => {
   console.error(`✗ ${msg}`);

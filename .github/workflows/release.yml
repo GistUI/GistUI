@@ -1,0 +1,86 @@
+# Publishes the packages to npm when the version in packages/*/package.json is not on npm yet.
+# A push that does not change the version publishes nothing. To release: `bun run bump 0.2.0`,
+# update CHANGELOG.md, commit, push to main.
+#
+# Signing in to npm, one of:
+#   - a trusted publisher (no secret): on npmjs.com, in each package's settings, add GitHub Actions
+#     with organisation GistUI, repository gistui, workflow release.yml, environment npm. A package
+#     must exist on npm before it can have one, so the first release needs the token below.
+#   - a repository secret NPM_TOKEN: a granular access token with read and write access to the
+#     @gistui scope, set to bypass two-factor authentication.
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.check.outputs.version }}
+      publish: ${{ steps.check.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      # Publish when any package is missing from npm at this version (also after a release that stopped half way).
+      - id: check
+        run: |
+          version=$(node -p "require('./packages/core/package.json').version")
+          publish=false
+          for dir in packages/*/; do
+            name=$(node -p "require('./${dir}package.json').name")
+            if [ "$(npm view "$name@$version" version 2>/dev/null)" != "$version" ]; then
+              echo "not on npm: $name@$version"
+              publish=true
+            fi
+          done
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "publish=$publish" >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: version
+    if: needs.version.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Add required reviewers to this environment (Settings > Environments) to approve each release by hand.
+    environment: npm
+    permissions:
+      contents: write # the version tag and the GitHub release
+      id-token: write # npm provenance, and signing in as a trusted publisher
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - run: bun install --frozen-lockfile
+      - run: bunx playwright install --with-deps chromium
+      # Build, typecheck, tests, pack, the install test of the tarballs, then `npm publish` in dependency
+      # order. A version that is already on npm is skipped, so a failed run can be started again.
+      - run: bun scripts/release.ts --publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Tag and GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          if ! git ls-remote --exit-code --tags origin "v$VERSION" >/dev/null; then
+            git tag "v$VERSION"
+            git push origin "v$VERSION"
+          fi
+          gh release view "v$VERSION" >/dev/null 2>&1 || gh release create "v$VERSION" --title "v$VERSION" --notes "See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/v$VERSION/CHANGELOG.md)."

@@ -1,0 +1,33 @@
+# Every push and pull request: build, typecheck and test all packages, pack them, and install the
+# packed tarballs into fresh apps (React, Vue, Svelte, Solid, vanilla) with a real browser check.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: bun install --frozen-lockfile
+      # Build, typecheck, tests, then pack every package and check each tarball. Nothing is published.
+      - run: bun scripts/release.ts
+      - run: bunx playwright install --with-deps chromium
+      - run: bun tests/pack/smoke.ts

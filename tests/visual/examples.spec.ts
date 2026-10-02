@@ -8,7 +8,7 @@ for (const ex of EXAMPLES) {
   if (SKIP.has(ex.id)) continue;
   test(ex.id, async ({ page }, info) => {
     const dark = info.project.name.includes("dark");
-    await page.goto("/");
+    await page.goto("/harness.html");
     await page.evaluate(
       ([id, mode]) => {
         localStorage.setItem("pg-example", id);
@@ -17,7 +17,7 @@ for (const ex of EXAMPLES) {
       },
       [ex.id, dark ? "dark" : "light"] as const,
     );
-    await page.goto("/", { waitUntil: "networkidle" });
+    await page.goto("/harness.html", { waitUntil: "networkidle" });
     // Lazy chunks, fonts and images settle.
     await page.evaluate(() => document.fonts.ready);
     await page.waitForFunction(() => !document.querySelector('.gistui[aria-busy="true"], .gistui [aria-busy="true"], .gistui-skeleton'), null, { timeout: 15_000 }).catch(() => {});

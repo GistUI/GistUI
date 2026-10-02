@@ -1,6 +1,6 @@
 ---
 name: gistui
-description: Build generative UI with GistUI. Use when adding AI-generated interfaces to an app (render streamed model output as dashboards, forms, reports, slide decks, galleries), when writing or fixing GistUI Lang (`.gistui` programs, ```gistui fences), when creating or restyling GistUI components, themes and tokens, or when wiring a model's system prompt and actions to <GistUI>.
+description: Build generative UI with GistUI. Use when adding AI-generated interfaces to an app in React, Vue, Svelte, Solid or vanilla JavaScript (render streamed model output as dashboards, forms, reports, slide decks, galleries), when wiring a model's system prompt, stream and actions to <GistUI> (plain fetch, the Vercel AI SDK, OpenAI, Anthropic), when writing or fixing GistUI Lang (`.gistui` programs, ```gistui fences), or when creating or restyling GistUI components, themes and tokens.
 ---
 
 # GistUI
@@ -9,37 +9,217 @@ GistUI turns model output into streaming UI. The model writes **GistUI Lang**, a
 language (about half the tokens of JSON); `<GistUI>` parses it incrementally and renders a themed,
 responsive component library while it streams.
 
-`reference.md` in this folder is generated from the catalog and is the exact system prompt the model
-receives: every component, prop, enum and flag, the design guide and the canonical example. Read it
-before writing GistUI Lang by hand.
+Two files make up this skill:
 
-## Wire it into an app (React)
+- `SKILL.md` (this file): how to add GistUI to an app, customise it, and write GistUI Lang.
+- `reference.md`: generated from the catalog; the exact system prompt the model receives, with every
+  component, prop, enum and flag, the design guide and the canonical example. Read it before writing
+  GistUI Lang by hand.
+
+After `npm install @gistui/catalog`, both files are in `node_modules/@gistui/catalog/skills/gistui/`
+and match the installed version. To keep the skill for later work, copy that folder to
+`.claude/skills/gistui/` (Claude Code) or to your agent's skills folder.
+
+## Add GistUI to an app
+
+Work through these steps in order. Steps 1 to 4 are needed; 5 to 8 depend on the app.
+
+### 1. Install
+
+Find the app's framework and package manager, then install one renderer, the stylesheet and the catalog:
+
+| App | Renderer |
+|---|---|
+| React 19 (Next.js, Vite, Remix) | `@gistui/react` |
+| Vue 3.5+ (Nuxt) | `@gistui/vue` |
+| Svelte 5 (SvelteKit) | `@gistui/svelte` |
+| Solid (SolidStart) | `@gistui/solid` |
+| Anything else, or no framework | `@gistui/vanilla` |
+
+```sh
+npm install @gistui/react @gistui/styles @gistui/catalog
+```
+
+All `@gistui/*` packages share one version: install and upgrade them together.
+
+### 2. Server: give the model the system prompt and stream its text
+
+Build the prompt where the model is called (it stays out of the browser bundle), and send the model's
+text to the browser unchanged. The prompt is byte-stable, so provider prompt caching hits.
+
+```ts
+import { prompt } from "@gistui/catalog";
+
+const system = prompt().text;
+// prompt()                    "full": the whole reply is one UI
+// prompt({ mode: "inline" })  chat text, with the UI in ```gistui fences (use this for chat)
+// prompt({ mode: "edit" })    the reply is a patch to a UI that is already shown
+```
+
+**Vercel AI SDK** (`ai`): `streamText` works as it is.
+
+```ts
+import { convertToModelMessages, streamText } from "ai";
+
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+  const result = streamText({ model, system, messages: await convertToModelMessages(messages) });
+  return result.toTextStreamResponse();          // for <GistUI stream={res.body}>
+  // return result.toUIMessageStreamResponse();  // for useChat, or @gistui/chat's aiSdk() adapter
+}
+```
+
+**Any provider, without an SDK**: `@gistui/server` turns a provider's event stream into text.
+
+```ts
+import { textDeltas, toReadable } from "@gistui/server";
+
+const res = await fetch(providerUrl, { method: "POST", headers, body: JSON.stringify({ model, stream: true, messages: [{ role: "system", content: system }, ...messages] }) });
+if (!res.ok) return new Response(await res.text(), { status: res.status });
+// "openai" (and OpenAI-compatible gateways), "anthropic", "ai-sdk", "agui" or "text"
+return new Response(toReadable(textDeltas(res, "openai")));
+```
+
+### 3. Client: import the stylesheet once and render the reply
+
+`stream` takes a `ReadableStream` or async iterable of text or bytes. `source` + `streaming` takes a
+growing string (only the appended part is parsed). Use one or the other.
 
 ```tsx
+// React
 import "@gistui/styles/styles.css";
 import { GistUI } from "@gistui/react";
 import { ui } from "@gistui/react/ui";
 
-// 1. System prompt for your model, built where you call it (usually the server). Byte-stable, so
-//    provider prompt caching hits. The browser bundle leaves the prompt text out.
-import { prompt } from "@gistui/react/prompt";
-const system = prompt({ mode: "inline" }).text; // "full" (UI only), "edit" (patches), "inline" (chat + ```gistui fences)
-// (importing "@gistui/react/prompt" also makes ui.prompt() work; without it ui.prompt() throws.)
-
-// 2. Render the streamed reply: a ReadableStream / AsyncIterable, or a growing string.
-<GistUI
-  library={ui}
-  stream={response.body}            // or: source={text} streaming={isStreaming}
-  inline                            // chat text outside ```gistui fences goes to onProse
-  theme="system"                    // light | dark | system
-  color="violet"                    // optional host theme; overrides the model's Page(accent:)
-  onAction={(a) => { /* send | open | emit | error | select | change | submit */ }}
-  tools={{ get_sales: async ({ range }) => fetchSales(range) }}   // for @query / @mutation (or an MCP client: { callTool })
-  initialState={{ range: "30d" }}   // optional values for $state variables
-  onStateChange={(name, value) => {}}
-  onError={(errors) => { /* final diagnostics; [] when valid */ }}
-/>;
+<GistUI library={ui} stream={response.body} onAction={handle} />;
 ```
+
+```vue
+<!-- Vue -->
+<script setup lang="ts">
+import "@gistui/styles/styles.css";
+import { GistUI } from "@gistui/vue";
+</script>
+<template>
+  <GistUI :source="answer" :streaming="loading" @action="handle" />
+</template>
+```
+
+```svelte
+<!-- Svelte -->
+<script>
+  import "@gistui/styles/styles.css";
+  import { GistUI } from "@gistui/svelte";
+</script>
+<GistUI source={answer} streaming={loading} onaction={handle} />
+```
+
+```tsx
+// Solid
+import "@gistui/styles/styles.css";
+import { GistUI } from "@gistui/solid";
+
+<GistUI source={answer()} streaming={loading()} onAction={handle} />;
+```
+
+```ts
+// Vanilla JavaScript
+import "@gistui/styles/styles.css";
+import { mount } from "@gistui/vanilla";
+import { ui } from "@gistui/vanilla/ui";
+
+const view = mount(element, { library: ui, stream: response.body, onAction: handle });
+// or: view.update({ source: textSoFar, streaming: true }); … view.destroy();
+```
+
+The same options exist in every renderer (as props, or as `mount` options): `inline`, `theme`
+(`"system"` | `"light"` | `"dark"`), `color`, `tokens`, `darkTokens`, `tools`, `mutations`,
+`onToolCall`, `allowedHosts`, `initialState`, `lockUntil`, `openLinks`, `paused`, `autofix`.
+Callbacks are `onAction`, `onError`, `onStateChange`, `onProse`, `onAutofix` in React, Solid and
+vanilla; events `@action`, `@error`… in Vue; `onaction`, `onerror`… in Svelte.
+
+### 4. Handle actions in one callback
+
+```ts
+function handle(a) {
+  if (a.type === "send") sendToModel(a.message);                     // a Button or FollowUps item was pressed
+  else if (a.type === "submit" && !a.partial) save(a.formId, a.values); // a valid form; a.message is a readable summary
+}
+```
+
+Other types: `open`, `emit`, `error`, `select`, `change`. In a chat, send `a.message` to the model as
+the next user turn, for both `send` and `submit`.
+
+### 5. Chat replies (text with a UI in it)
+
+Use `prompt({ mode: "inline" })`. A reply is then chat text with ```gistui fences. Split it and render
+the program; this works with any chat state, including the AI SDK's `useChat`:
+
+```tsx
+import { replyProgram, splitReply } from "@gistui/chat";
+
+const parts = splitReply(text, { streaming });   // [{ kind: "text", text }, { kind: "ui", source, open }]
+const program = replyProgram(parts);              // all fences of one reply form one program
+// render the text parts as chat text, then:
+<GistUI library={ui} source={program} streaming={streaming} onAction={handle} />;
+```
+
+Or let `@gistui/chat` hold the conversation. It is a headless store with model adapters and thread
+storage; `@gistui/chat/react` has ready layouts (full page, sidebar, bottom tray).
+
+```tsx
+import { aiSdk, createChat, localThread } from "@gistui/chat";
+import { Chat } from "@gistui/chat/react";
+import "@gistui/chat/chat.css";
+
+// Adapters: aiSdk({ url }), openai({ model, url }), anthropic({ model }), agui({ url }), textStream({ url }).
+const store = createChat({ adapter: aiSdk({ url: "/api/chat" }), storage: localThread("support") });
+<Chat store={store} library={ui} layout="sidebar" title="Assistant" />;
+```
+
+A button or form pressed inside an answer goes back as the next message with `origin: "ui"`, wrapped
+so the model cannot mistake it for typed text (`store.send(text, { origin: "ui" })`).
+
+### 6. Data and safety
+
+A program is untrusted: a model wrote it, possibly steered by content it read. It cannot run code.
+
+- `tools`: read-only functions (or an MCP-style client, `{ callTool }`). `@query` may call them as soon as the UI renders, so nothing here may change anything.
+- `mutations`: functions that change something. They run only when a person presses a button.
+- `onToolCall(call)`: called before every tool call; return `false` to block it.
+- `allowedHosts`: hosts that images, video and backgrounds may load from. Set it when the model sees private data.
+
+### 7. Validate or repair on the server (optional)
+
+Every renderer already repairs a finished program in code (`autofix`, on by default, no model call).
+Use `@gistui/server` when the stored or logged answer should be the repaired one:
+
+```ts
+import { library } from "@gistui/catalog";
+import { repairStream, toReadable, validateProgram } from "@gistui/server";
+
+validateProgram(text, library);                          // { valid, errors, fixed }
+new Response(toReadable(repairStream(textStream, library))); // passes the text through, appends repairs at the end
+// repairStream(…, { complete }) also asks your model to fix only the statements code could not.
+```
+
+### 8. CSS
+
+All GistUI CSS is in `@layer gistui`. With Tailwind or global resets, order the layers so resets
+cannot override components:
+
+```css
+@layer theme, base, gistui, components, utilities;
+```
+
+### Check that it works
+
+Run the app and ask the model for "a dashboard of last month's sales". The screen should fill in
+while the reply streams, and pressing a follow-up should send the next message. If nothing renders:
+the stylesheet import is missing, the system prompt is not reaching the model, or the route is
+sending provider events instead of text (use `textDeltas`, or `toTextStreamResponse()`).
+
+## What the runtime does
 
 - A `Button` without `do:` and every `FollowUps` item emit `{ type: "send", message }`: feed it back to the model as the next user turn.
 - The runtime runs state, queries and actions in the browser:
@@ -68,8 +248,8 @@ const system = prompt({ mode: "inline" }).text; // "full" (UI only), "edit" (pat
   - `schema` is standard JSON Schema (like `z.toJSONSchema`), with `format: email|uri|date`, `enum` for options, `minimum`/`maximum`, `minLength`/`maxLength`, `pattern`, `minItems`/`maxItems`. Validate `values` on the server with any validator (Ajv, `z.fromJSONSchema`, …) or generate types from it.
   - `describeForm(node, get)`, `fieldSchema(field)` and `toData(fields, raw)` are exported to build the same description yourself. The `<form>` element carries `data-form-id`.
   - In a chat, send `message` to the model as the user's reply.
+- React only: `import { prompt } from "@gistui/react/prompt"` is the same `prompt` as in `@gistui/catalog`; importing it also makes `ui.prompt()` work.
 - Interactive parts stay locked until the stream ends (`lockUntil="done"`, the OpenUI default); `"ready"` unlocks each part as soon as it is complete.
-- If the app uses Tailwind or global resets, order the layers so resets cannot override components: `@layer theme, base, gistui, components, utilities;`.
 
 ## Customise
 
@@ -84,7 +264,7 @@ From least to most control:
    ```
    Any `--gistui-*` variable can also be set in plain CSS.
 3. **Style hooks**: every component has `data-gistui="Name"` plus variant attributes (`data-v`, `data-tone`, `data-size`); all CSS is in `@layer gistui`, so unlayered app CSS wins without `!important`.
-4. **Swap a renderer, keep its schema** (the prompt and model output do not change): `const lib = ui.extend({ Card: MyCard })`. For example, Mermaid diagrams: load Mermaid on the page (`window.mermaid`) and `Diagram` renders them; otherwise it shows the source.
+4. **Swap a renderer, keep its schema** (the prompt and model output do not change): `const lib = ui.extend({ Card: MyCard })` in React and vanilla; `components={{ Card: MyCard }}` in Vue, Svelte and Solid, where `<GistChildren />` places the children. Each package's README shows a form field of your own joining the Form around it. For example, Mermaid diagrams: load Mermaid on the page (`window.mermaid`) and `Diagram` renders them; otherwise it shows the source.
 5. **Add components**: `defineComponent({ name, args, children, props, description, component })` with plain prop specs or a Zod 4 / Standard JSON Schema, then `createLibrary({ components, unions, examples, guide })`. New components appear in the prompt automatically.
    - Column-oriented components, like `Table(Col…)` or `BarChart(labels, Series…)` in shadcn, OpenUI or MUI style, can still take one pipe table. Add `table: { labels: "labels", columns: { component: "Series", label: "category", values: "values", numeric: true } }` to the spec.
    - `BarChart(sales)` with `sales = |Week|Web|Store` then renders exactly as the parts written out. It costs a fraction of the tokens.
@@ -134,6 +314,6 @@ const r = parse(source, library);
 // r.errors: [{ code, stmtId, line, message, hint }] — fix each, or send them back to the model.
 ```
 
-In this repo: `bun run test`, `bun run audit:responsive` (renders every playground example at phone and
-tablet widths and fails on overflow), and `bun run skill` after changing the catalog (a test fails if
-`reference.md` is stale).
+Only in the GistUI repository itself: `bun run test`, `bun run audit:responsive` (renders every
+playground example at phone and tablet widths and fails on overflow), and `bun run skill` after
+changing the catalog (a test fails if `reference.md` is stale).

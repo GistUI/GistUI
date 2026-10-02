@@ -12,8 +12,8 @@ type View = "preview" | "code";
 type Device = "desktop" | "tablet" | "mobile";
 type Panel = "errors" | "actions" | "prompt" | "stats";
 
-const SPEEDS = { "30 tok/s": 30, "60 tok/s": 60, "300 tok/s": 300, Instant: 0 } as const;
-type Speed = keyof typeof SPEEDS;
+/** Streaming is replayed at one fixed rate, about what a fast model sends. */
+const TOKENS_PER_SECOND = 300;
 
 const COLORS: { id: string; swatch: string }[] = [
   { id: "auto", swatch: "conic-gradient(#e11d48, #f59e0b, #16a34a, #0d9488, #2563eb, #7c3aed, #e11d48)" },
@@ -58,7 +58,6 @@ export function App() {
   const [source, setSource] = useState(active.source);
   const [shown, setShown] = useState(active.source);
   const [streaming, setStreaming] = useState(false);
-  const [speed, setSpeed] = useState<Speed>("60 tok/s");
   const [mode, setMode] = useState<Mode>(() => load<Mode>("pg-mode", "system"));
   // Minimal (the default look) or expressive (gradient and glow effects, all theme tokens).
   const [look, setLook] = useState<"minimal" | "expressive">(() => load("pg-look", "minimal"));
@@ -102,14 +101,8 @@ export function App() {
       stop();
       setView("preview");
       stats.current = { renders: 0, flushes: 0, start: performance.now(), firstRender: 0 };
-      const tps = SPEEDS[speed];
-      if (!tps) {
-        setShown(src);
-        setStreaming(false);
-        return;
-      }
       // ~4 characters per token.
-      const cps = tps * 4;
+      const cps = TOKENS_PER_SECOND * 4;
       let t0 = performance.now();
       let pos = 0;
       setShown("");
@@ -127,7 +120,7 @@ export function App() {
       };
       timer.current = requestAnimationFrame(tick);
     },
-    [source, speed],
+    [source],
   );
 
   useEffect(() => stop, []);
@@ -186,7 +179,7 @@ export function App() {
     }
   };
 
-  // Theme, mode and speed: inline in the desktop bar, in the Customize sheet on phones.
+  // Theme and mode: inline in the desktop bar, in the Customize sheet on phones.
   const colorsEl = (
       <div className="pg-colors" role="radiogroup" aria-label="Colour theme">
         {COLORS.map((c) => (
@@ -223,13 +216,6 @@ export function App() {
         ))}
       </div>
   );
-  const speedEl = (
-      <select className="pg-select" value={speed} onChange={(e) => setSpeed(e.target.value as Speed)} aria-label="Stream speed">
-        {Object.keys(SPEEDS).map((k) => (
-          <option key={k}>{k}</option>
-        ))}
-      </select>
-  );
 
   return (
     <div className="pg" data-drawer={drawer || undefined} data-sheet={sheet || undefined}>
@@ -260,10 +246,6 @@ export function App() {
           <section>
             <h3>Style</h3>
             {lookEl}
-          </section>
-          <section>
-            <h3>Stream speed</h3>
-            {speedEl}
           </section>
         </div>
       </aside>
@@ -350,7 +332,6 @@ export function App() {
             {colorsEl}
             {modeEl}
             {lookEl}
-            {speedEl}
           </div>
           <button type="button" className="pg-primary" onClick={() => stream()}>
             <IconSvg name={streaming ? "arrow-left" : "zap"} />

@@ -6,7 +6,7 @@
  */
 import { chromium } from "playwright";
 
-const url = process.argv[2] ?? "http://localhost:5174/";
+const url = process.argv[2] ?? "http://localhost:5174/harness.html";
 /** Extra CSS to inject (used to prove the audit catches a regression). */
 const inject = process.env.AUDIT_INJECT_CSS ?? "";
 // Viewport widths, plus the playground's Mobile and Tablet frames on a desktop viewport.

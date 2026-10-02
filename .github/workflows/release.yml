@@ -22,6 +22,10 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  # Shared runners are slower and noisier than a laptop: more headroom for the timing tests.
+  GISTUI_PERF_SLACK: 12
+
 jobs:
   version:
     runs-on: ubuntu-latest

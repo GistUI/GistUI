@@ -5,6 +5,7 @@
     "build": { "dependsOn": ["^build"], "outputs": ["dist/**"] },
     "test": {
       "dependsOn": ["^build"],
+      "passThroughEnv": ["GISTUI_PERF_SLACK"],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/spec/conformance/**", "$TURBO_ROOT$/skills/gistui/reference.md"]
     },
     "typecheck": { "dependsOn": ["^build"] }

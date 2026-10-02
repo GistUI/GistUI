@@ -13,6 +13,9 @@ window.addEventListener("vite:preloadError", () => {
 });
 setTimeout(() => sessionStorage.removeItem("gistui-reloaded"), 10_000);
 
+// Analytics on the deployed page only, loaded after the page itself.
+if (import.meta.env.PROD) void import("./analytics").then((m) => m.startAnalytics());
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Playground />

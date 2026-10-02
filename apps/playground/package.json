@@ -17,6 +17,7 @@
     "@gistui/react": "workspace:*",
     "@gistui/styles": "workspace:*",
     "@gistui/vanilla": "workspace:*",
+    "@openpanel/web": "^1.4.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },

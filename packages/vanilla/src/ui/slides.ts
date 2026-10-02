@@ -292,9 +292,17 @@ function viewer(ctx: DomContext, kind: "report" | "slides") {
   pdf.addEventListener("click", () => {
     printing = true;
     draw();
+    // The paper is the size of one sheet, with no margins: one sheet per page, whatever the printer's paper is.
+    const sheet = el.querySelector<HTMLElement>(".gistui-viewer__pages .gistui-viewer__scaled");
+    const paper = sheet ? document.createElement("style") : null;
+    if (paper && sheet) {
+      paper.textContent = `@page { size: ${sheet.style.width} ${sheet.style.height}; margin: 0; }`;
+      document.head.appendChild(paper);
+    }
     window.addEventListener(
       "afterprint",
       () => {
+        paper?.remove();
         printing = false;
         draw();
       },

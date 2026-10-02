@@ -4,6 +4,9 @@ import { createStream, parse } from "../src/stream";
 import { DASHBOARD, lib } from "./fixtures/lib";
 import { view } from "./helpers";
 
+// Time limits are for a developer machine; shared CI runners are several times slower (GISTUI_PERF_SLACK is set there).
+const SLOW = Math.max(1, Number(process.env.GISTUI_PERF_SLACK ?? 3) / 3);
+
 const codes = (src: string) => parse(src, lib).errors.map((e) => e.code);
 
 describe("materializer", () => {
@@ -143,7 +146,7 @@ save = @mutation("update_goal", {goal:$goal})
       if (n === 14) expect(r.errors).toEqual([]);
       else expect([...new Set(r.errors.map((e) => e.code))]).toEqual(["limit"]);
       expect(r.store.size).toBe(n + 2); // root + a0…aN
-      expect(ms).toBeLessThan(20);
+      expect(ms).toBeLessThan(20 * SLOW);
     }
   });
 

@@ -97,13 +97,24 @@ export function showLightbox(items: readonly LightboxItem[], start: number, root
     if (e.key === "ArrowRight") go(index + 1);
     else if (e.key === "ArrowLeft") go(index - 1);
   });
-  let touch: number | null = null;
-  dialog.addEventListener("touchstart", (e) => (touch = e.touches[0]?.clientX ?? null));
+  // Swipe: a mostly horizontal drag over the picture. One that starts on the thumbnails scrolls them instead.
+  let touch: { x: number; y: number } | null = null;
+  dialog.addEventListener(
+    "touchstart",
+    (e) => {
+      const t = e.touches[0];
+      touch = t && e.touches.length === 1 && !(e.target as Element).closest(".gistui-lightbox__thumbs") ? { x: t.clientX, y: t.clientY } : null;
+    },
+    { passive: true },
+  );
+  dialog.addEventListener("touchcancel", () => (touch = null));
   dialog.addEventListener("touchend", (e) => {
     const s = touch;
-    const end = e.changedTouches[0]?.clientX;
+    const end = e.changedTouches[0];
     touch = null;
-    if (s !== null && end !== undefined && Math.abs(end - s) > 40) go(index + (end < s ? 1 : -1));
+    if (!s || !end) return;
+    const dx = end.clientX - s.x;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(end.clientY - s.y)) go(index + (dx < 0 ? 1 : -1));
   });
   stage.append(...nav);
   draw();

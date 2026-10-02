@@ -2701,7 +2701,9 @@
   .gistui-lightbox__btn:hover { background: rgb(255 255 255 / 0.2); }
   .gistui-lightbox__btn:active { transform: scale(0.94); }
   .gistui-lightbox__btn:focus-visible { box-shadow: 0 0 0 3px rgb(255 255 255 / 0.5); outline: none; }
-  .gistui-lightbox__stage { position: relative; display: grid; place-items: center; min-height: 0; padding: 0 72px; }
+  /* Sideways drags are the viewer's (swipe to the next picture): the browser keeps vertical panning and pinch zoom. */
+  .gistui-lightbox__stage { position: relative; display: grid; place-items: center; min-height: 0; padding: 0 72px; touch-action: pan-y pinch-zoom; }
+  .gistui-lightbox__figure img { -webkit-user-drag: none; user-select: none; -webkit-touch-callout: none; }
   .gistui-lightbox__figure {
     margin: 0;
     display: flex;
@@ -3310,9 +3312,31 @@
     .gistui { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .gistui :is(.gistui-card, .gistui-tile, .gistui-stat, .gistui-callout, .gistui-media, .gistui-chart, tr, figure) { break-inside: avoid; }
     .gistui :is(.gistui-header, h1, h2, h3) { break-after: avoid; }
-    body:has(.gistui-viewer[data-printing]) * { visibility: hidden; }
-    .gistui-viewer[data-printing], .gistui-viewer[data-printing] * { visibility: visible; }
-    .gistui-viewer[data-printing] { position: absolute; top: 0; left: 0; width: 100%; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    /*
+     * Download PDF prints the viewer alone, whatever page it is in. A host page often keeps answers
+     * in a scroll area of fixed height (a chat), which would clip the print to one empty sheet. So,
+     * while printing: everything beside the viewer's ancestors is removed, and the ancestors
+     * themselves stop sizing, clipping, positioning and scaling it.
+     */
+    :has(.gistui-viewer[data-printing]) > :not(:has(.gistui-viewer[data-printing])):not(.gistui-viewer[data-printing]) { display: none !important; }
+    :has(.gistui-viewer[data-printing]) {
+      display: block !important;
+      position: static !important;
+      overflow: visible !important;
+      width: auto !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      transform: none !important;
+      zoom: 1 !important;
+      contain: none !important;
+      container-type: normal !important;
+      background: none !important;
+    }
+    .gistui-viewer[data-printing] { position: static; width: 100%; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .gistui-viewer[data-printing] .gistui-viewer__head,
     .gistui-viewer[data-printing] .gistui-viewer__rail,
     .gistui-viewer[data-printing] .gistui-viewer__bar { display: none; }

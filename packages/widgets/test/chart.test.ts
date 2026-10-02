@@ -3,6 +3,9 @@ import type { TableData } from "@gistui/core";
 import { createChart } from "../src/chart";
 import type { ChartProps, ChartSelection } from "../src/types";
 
+// Time limits are for a developer machine; shared CI runners are several times slower (GISTUI_PERF_SLACK is set there).
+const SLOW = Math.max(1, Number(process.env.GISTUI_PERF_SLACK ?? 3) / 3);
+
 const table = (rows: (string | number | null)[][], cols = ["Month", "MAU", "WAU"]): TableData => ({
   columns: cols.map((name, i) => ({ name, type: i === 0 ? "string" : "number" })),
   rows,
@@ -372,7 +375,7 @@ describe("performance", () => {
       best = Math.min(best, performance.now() - t0);
     }
     console.log(`1,000-point line chart: ${best.toFixed(2)} ms`);
-    expect(best).toBeLessThan(10);
+    expect(best).toBeLessThan(10 * SLOW);
   });
 });
 

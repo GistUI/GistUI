@@ -1,6 +1,9 @@
 import { describe, expect, test } from "bun:test";
 import { highlight, HIGHLIGHT_MAX } from "../src/highlight";
 
+// Time limits are for a developer machine; shared CI runners are several times slower (GISTUI_PERF_SLACK is set there).
+const SLOW = Math.max(1, Number(process.env.GISTUI_PERF_SLACK ?? 3) / 3);
+
 const text = (tokens: { text: string }[]) => tokens.map((t) => t.text).join("");
 const kinds = (tokens: { kind: string; text: string }[]) => tokens.filter((t) => t.kind).map((t) => `${t.kind}:${t.text}`);
 const timed = <T>(f: () => T) => {
@@ -43,7 +46,7 @@ describe("highlight: hostile input stays fast (S12)", () => {
     const src = "<!--".repeat(40_000);
     const { out, ms } = timed(() => highlight(src, "html"));
     expect(out).toEqual([{ kind: "", text: src }]);
-    expect(ms).toBeLessThan(20);
+    expect(ms).toBeLessThan(20 * SLOW);
     const js = `const a = 1;\n`.repeat(HIGHLIGHT_MAX / 10);
     expect(highlight(js, "js")).toEqual([{ kind: "", text: js }]);
     expect(highlight("const a = 1;", "js").length).toBeGreaterThan(1);

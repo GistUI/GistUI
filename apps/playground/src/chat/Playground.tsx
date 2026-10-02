@@ -261,6 +261,14 @@ export function Playground() {
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
+  // The choice is shared with the website (same domain, same key): follow a change made in another tab.
+  useEffect(() => {
+    const follow = (e: StorageEvent) => {
+      if (e.key === "theme") setTheme(e.newValue === "light" || e.newValue === "dark" ? e.newValue : systemTheme());
+    };
+    window.addEventListener("storage", follow);
+    return () => window.removeEventListener("storage", follow);
+  }, []);
   const toggle = () => {
     const next = theme === "dark" ? "light" : "dark";
     try {

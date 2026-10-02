@@ -3,6 +3,9 @@ import type { GistUINode } from "@gistui/core";
 import { describeForm, toData, type FormField, type JsonSchema } from "../src/form-schema";
 import { fieldPattern, isEmail, isUrl, validateAll, validateValue, type FieldRules, type FieldValue } from "../src/validate";
 
+// Time limits are for a developer machine; shared CI runners are several times slower (GISTUI_PERF_SLACK is set there).
+const SLOW = Math.max(1, Number(process.env.GISTUI_PERF_SLACK ?? 3) / 3);
+
 /** A Form node with one child node per field, as the program store would hold them. */
 function form(fields: [type: string, props: Record<string, unknown>][]) {
   const nodes = new Map<string, GistUINode>();
@@ -215,7 +218,7 @@ describe("program patterns cannot hang the page (S12)", () => {
     for (const pattern of ["(a+)+b", "(a*)*b", "(\\w+\\s?)+$", "((ab)+)+c", "(a|b+)*c", "(.*a){12}", "(?:a+){2,}b", "^(\\w+([.-]?\\w+)*)+@x$"]) {
       const { out, ms } = timed(() => validateValue({ pattern }, "a".repeat(40) + "!"));
       expect([pattern, out]).toEqual([pattern, null]);
-      expect(ms).toBeLessThan(50);
+      expect(ms).toBeLessThan(50 * SLOW);
       const s = form([["Input", { name: "n", pattern }]]);
       expect((s.schema.properties as Record<string, JsonSchema>).n).not.toHaveProperty("pattern");
     }
@@ -227,21 +230,21 @@ describe("program patterns cannot hang the page (S12)", () => {
     for (const pattern of [".*a.*a.*a.*a.*!", "\\w*a\\w*a\\w*a\\w*a\\w*!"]) {
       const { out, ms } = timed(() => validateValue({ pattern }, "a".repeat(200)));
       expect([pattern, out]).toEqual([pattern, null]);
-      expect(ms).toBeLessThan(50);
+      expect(ms).toBeLessThan(50 * SLOW);
       expect(validateValue({ pattern }, "a".repeat(40))).toContain("right format");
       expect(validateValue({ pattern }, "xaxaxaxa!")).toBeNull();
     }
-    expect(timed(() => validateValue({ pattern: ".*a.*a.*a.*a.*!" }, "a".repeat(1000))).ms).toBeLessThan(50);
+    expect(timed(() => validateValue({ pattern: ".*a.*a.*a.*a.*!" }, "a".repeat(1000))).ms).toBeLessThan(50 * SLOW);
     // Exponential: a repeated group whose alternatives can match the same text.
     for (const pattern of ["(a|aa)+", "(\\d|\\d\\d)+x", "(a|b|ab)*c"]) {
       const { out, ms } = timed(() => validateValue({ pattern }, "a".repeat(36) + "b"));
       expect([pattern, out]).toEqual([pattern, null]);
-      expect(ms).toBeLessThan(50);
+      expect(ms).toBeLessThan(50 * SLOW);
       expect((form([["Input", { name: "n", pattern }]]).schema.properties as Record<string, JsonSchema>).n).not.toHaveProperty("pattern");
     }
     // Many optional pieces in a row: 2^40 ways to fail.
-    expect(timed(() => validateValue({ pattern: "(?:a|a)".repeat(40) + "b" }, "a".repeat(40))).ms).toBeLessThan(50);
-    expect(timed(() => validateValue({ pattern: "a?".repeat(40) + "a{40}" }, "a".repeat(39))).ms).toBeLessThan(50);
+    expect(timed(() => validateValue({ pattern: "(?:a|a)".repeat(40) + "b" }, "a".repeat(40))).ms).toBeLessThan(50 * SLOW);
+    expect(timed(() => validateValue({ pattern: "a?".repeat(40) + "a{40}" }, "a".repeat(39))).ms).toBeLessThan(50 * SLOW);
   });
 
   test("patterns people really write keep working, on values of ordinary length", () => {
@@ -295,14 +298,14 @@ describe("program patterns cannot hang the page (S12)", () => {
   test("a slug-shaped pattern stays linear on a long near-miss", () => {
     const { out, ms } = timed(() => validateValue({ pattern: "[a-z0-9]+(?:-[a-z0-9]+)*" }, "a-".repeat(200) + "!"));
     expect(out).toContain("right format");
-    expect(ms).toBeLessThan(50);
+    expect(ms).toBeLessThan(50 * SLOW);
   });
 
   test("at most the first 1,000 characters of a value are tested", () => {
     // Quadratic on purpose: on the whole value this takes well over a second.
     const { out, ms } = timed(() => validateValue({ pattern: ".*a.*[0-9]" }, "a".repeat(60_000)));
     expect(out).toContain("right format");
-    expect(ms).toBeLessThan(100);
+    expect(ms).toBeLessThan(100 * SLOW);
     // A long value is judged by its first 1,000 characters.
     expect(validateValue({ pattern: "[a-z ]+" }, "long text ".repeat(500))).toBeNull();
     expect(validateValue({ pattern: "[a-z ]+" }, "long text ".repeat(50) + "!" + "x".repeat(2000))).toContain("right format");

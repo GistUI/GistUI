@@ -144,9 +144,17 @@ export function Viewer({ kind, ids, renderNode, title, subtitle, aspect, base, s
     if (!printing) return;
     const done = () => setPrinting(false);
     window.addEventListener("afterprint", done, { once: true });
+    // The paper is the size of one sheet, with no margins: one sheet per page, whatever the printer's paper is.
+    const sheet = root.current?.querySelector<HTMLElement>(".gistui-viewer__pages .gistui-viewer__scaled");
+    const paper = sheet ? document.createElement("style") : null;
+    if (paper && sheet) {
+      paper.textContent = `@page { size: ${sheet.style.width} ${sheet.style.height}; margin: 0; }`;
+      document.head.appendChild(paper);
+    }
     const t = setTimeout(() => window.print(), 60);
     return () => {
       clearTimeout(t);
+      paper?.remove();
       window.removeEventListener("afterprint", done);
     };
   }, [printing]);

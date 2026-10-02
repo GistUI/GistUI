@@ -19,6 +19,8 @@ export interface LightboxItem {
 
 export function Lightbox({ items, start, onClose }: { items: readonly LightboxItem[]; start: number; onClose: () => void }): ReactNode {
   const dialog = useRef<HTMLDialogElement>(null);
+  /** True while this component's own cleanup closes the dialog. */
+  const unmounting = useRef(false);
   const [index, setIndex] = useState(start);
   const [dir, setDir] = useState<1 | -1>(1);
   const count = items.length;
@@ -37,12 +39,14 @@ export function Lightbox({ items, start, onClose }: { items: readonly LightboxIt
   // be closed (once unmounted it cannot, and focus is lost) and focus given back to what opened it.
   useLayoutEffect(() => {
     const d = dialog.current;
+    unmounting.current = false;
     if (d && !d.open) d.showModal?.();
 
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = prev;
+      unmounting.current = true;
       if (d?.open) d.close?.();
       if (opener?.isConnected) opener.focus?.();
     };
@@ -62,7 +66,7 @@ export function Lightbox({ items, start, onClose }: { items: readonly LightboxIt
   useEffect(() => {
     thumbs.current?.querySelector<HTMLElement>('[aria-current="true"]')?.scrollIntoView?.({ inline: "center", block: "nearest", behavior: "smooth" });
   }, [index]);
-  const touch = useRef<number | null>(null);
+  const touch = useRef<{ x: number; y: number } | null>(null);
   const item = items[index];
   if (!item) return null;
   return (
@@ -70,7 +74,11 @@ export function Lightbox({ items, start, onClose }: { items: readonly LightboxIt
       ref={dialog}
       className="gistui-lightbox"
       aria-label={item.caption ?? "Image viewer"}
-      onClose={onClose}
+      // React's development double mount (StrictMode) closes the dialog and opens it again. The close
+      // event of that (sent at once, or a moment later when the dialog is open again) is not the person's.
+      onClose={() => {
+        if (!unmounting.current && !dialog.current?.open) onClose();
+      }}
       onCancel={(e) => {
         e.preventDefault();
         onClose();
@@ -82,12 +90,19 @@ export function Lightbox({ items, start, onClose }: { items: readonly LightboxIt
         if (e.key === "ArrowRight") go(index + 1);
         else if (e.key === "ArrowLeft") go(index - 1);
       }}
-      onTouchStart={(e) => (touch.current = e.touches[0]?.clientX ?? null)}
+      // Swipe: a mostly horizontal drag over the picture. One that starts on the thumbnails scrolls them instead.
+      onTouchStart={(e) => {
+        const t = e.touches[0];
+        touch.current = t && e.touches.length === 1 && !(e.target as Element).closest(".gistui-lightbox__thumbs") ? { x: t.clientX, y: t.clientY } : null;
+      }}
+      onTouchCancel={() => (touch.current = null)}
       onTouchEnd={(e) => {
         const s = touch.current;
-        const end = e.changedTouches[0]?.clientX;
+        const end = e.changedTouches[0];
         touch.current = null;
-        if (s !== null && end !== undefined && Math.abs(end - s) > 40) go(index + (end < s ? 1 : -1));
+        if (!s || !end) return;
+        const dx = end.clientX - s.x;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(end.clientY - s.y)) go(index + (dx < 0 ? 1 : -1));
       }}
     >
       <div className="gistui-lightbox__top">

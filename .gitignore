@@ -9,3 +9,4 @@ tests/visual/.output
 tests/pack/.work
 notes.txt
 packages/catalog/skills
+.wrangler

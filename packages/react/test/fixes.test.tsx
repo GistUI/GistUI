@@ -884,6 +884,30 @@ describe("X25: API and dead code", () => {
     expect(logged.filter((l) => l.includes("same key"))).toEqual([]);
   });
 
+  test("the lightbox stays open in StrictMode: the close event of React's development remount is not the person's", async () => {
+    const { host, unmount } = mount(
+      <StrictMode>
+        <GistUI library={ui} source={`root = Gallery(["https://example.com/a.png", "https://example.com/b.png"])\n`} />
+      </StrictMode>,
+    );
+    click(q(host, ".gistui-gallery__item")[0]);
+    const dialog = host.querySelector<HTMLDialogElement>(".gistui-lightbox")!;
+    expect(dialog).not.toBeNull();
+    // A browser sends `close` a moment after close(): by then the remount has opened the dialog again.
+    dialog.open = true;
+    await act(async () => {
+      dialog.dispatchEvent(new Event("close"));
+    });
+    expect(host.querySelector(".gistui-lightbox")).not.toBeNull();
+    // A real close (the dialog is closed when the event arrives) still closes the viewer.
+    dialog.open = false;
+    await act(async () => {
+      dialog.dispatchEvent(new Event("close"));
+    });
+    expect(host.querySelector(".gistui-lightbox")).toBeNull();
+    unmount();
+  });
+
   test("Gallery opens its lightbox at once (the shared useLightbox, with the viewer already loaded)", () => {
     const { host, unmount } = mount(<GistUI library={ui} source={`root = Gallery(["https://example.com/a.png", "https://example.com/b.png"])\n`} />);
     click(q(host, ".gistui-gallery__item")[1]);

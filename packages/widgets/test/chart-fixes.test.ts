@@ -3,6 +3,9 @@ import type { TableData } from "@gistui/core";
 import { createChart } from "../src/chart";
 import type { ChartSelection } from "../src/types";
 
+// Time limits are for a developer machine; shared CI runners are several times slower (GISTUI_PERF_SLACK is set there).
+const SLOW = Math.max(1, Number(process.env.GISTUI_PERF_SLACK ?? 3) / 3);
+
 const table = (rows: (string | number | null)[][], cols = ["Month", "MAU", "WAU"]): TableData => ({
   columns: cols.map((name, i) => ({ name, type: i === 0 ? "string" : "number" })),
   rows,
@@ -292,7 +295,7 @@ describe("dense series (W26b, S18)", () => {
       expect(points).toBeGreaterThan(300);
       expect(points).toBeLessThanOrEqual(2 * 600 + 2);
     }
-    expect(ms).toBeLessThan(150);
+    expect(ms).toBeLessThan(150 * SLOW);
   });
 
   test("the spikes survive decimation", () => {

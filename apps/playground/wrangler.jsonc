@@ -1,0 +1,11 @@
+{
+	// The examples page on Cloudflare Workers: static files only, served under gistui.com/examples
+	// (`bun run deploy`). The website is another Worker on gistui.com/*; this more specific route wins.
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "gistui-examples",
+	"compatibility_date": "2026-09-01",
+	// dist/examples/…, so a request for /examples/assets/x.js finds its file.
+	"assets": { "directory": "./dist", "html_handling": "auto-trailing-slash" },
+	"routes": [{ "pattern": "gistui.com/examples*", "zone_name": "gistui.com" }],
+	"workers_dev": false
+}

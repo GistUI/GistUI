@@ -387,6 +387,11 @@ body {
   zoom: var(--ui-scale);
 }
 
+/* Dialogs and the image viewer open over the whole page, at their natural size: undo the scale for them. */
+.pgc-ui dialog {
+  zoom: calc(1 / var(--ui-scale));
+}
+
 .pgc-origin {
   color: var(--pg-fg-3);
   font-size: 12px;

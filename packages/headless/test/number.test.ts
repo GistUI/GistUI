@@ -3,6 +3,9 @@ import type { TableData } from "@gistui/core";
 import { createChartModel, hasValues, toValue } from "../src/chart";
 import { parseNumber, tableView } from "../src/table";
 
+// Time limits are for a developer machine; shared CI runners are several times slower (GISTUI_PERF_SLACK is set there).
+const SLOW = Math.max(1, Number(process.env.GISTUI_PERF_SLACK ?? 3) / 3);
+
 describe("parseNumber (W4/W15)", () => {
   test("currency, suffixes, percent, accounting negatives, Unicode minus", () => {
     const cases: [unknown, number | null][] = [
@@ -52,7 +55,7 @@ describe("parseNumber (W4/W15)", () => {
     const t0 = performance.now();
     expect(parseNumber("1".repeat(200_000) + "x")).toBeNull();
     expect(parseNumber(" ".repeat(200_000))).toBeNull();
-    expect(performance.now() - t0).toBeLessThan(50);
+    expect(performance.now() - t0).toBeLessThan(50 * SLOW);
   });
 
   test("toValue is the same parser", () => {

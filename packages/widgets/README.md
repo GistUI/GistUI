@@ -9,10 +9,10 @@
 <p><b>Charts and streaming Markdown.</b><br />The SVG chart engine and the Markdown renderer used by every renderer.</p>
 
 <p>
-  <a href="https://www.npmjs.com/package/@gistui/widgets"><img src="https://img.shields.io/npm/v/@gistui/widgets?style=flat-square&color=8f8cff&label=npm" alt="npm version" /></a>
-  <a href="https://github.com/GistUI/GistUI/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-MIT-8f8cff?style=flat-square" alt="MIT licence" /></a>
+  <a href="https://www.npmjs.com/package/@gistui/widgets"><img src="https://img.shields.io/npm/v/@gistui/widgets?style=flat-square&color=ff5e1e&label=npm" alt="npm version" /></a>
+  <a href="https://github.com/GistUI/GistUI/blob/main/LICENSE"><img src="https://img.shields.io/badge/licence-MIT-ff5e1e?style=flat-square" alt="MIT licence" /></a>
   <img src="https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="Written in strict TypeScript" />
-  <a href="https://gistui.com"><img src="https://img.shields.io/badge/website-gistui.com-6a5df2?style=flat-square" alt="Website: gistui.com" /></a>
+  <a href="https://gistui.com"><img src="https://img.shields.io/badge/website-gistui.com-ff5e1e?style=flat-square" alt="Website: gistui.com" /></a>
 </p>
 
 <p>

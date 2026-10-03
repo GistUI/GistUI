@@ -25,10 +25,10 @@
   --pg-line-2: rgb(12 12 14 / 0.17);
   --pg-raise: #ffffff;
   --pg-hover: #f0f0f2;
-  --pg-accent: #5b50e6;
-  --pg-accent-soft: rgb(91 80 230 / 0.09);
-  --pg-logo-square: #f1efff;
-  --pg-logo-bars: #5b50e6;
+  --pg-accent: #e8510f;
+  --pg-accent-soft: rgb(255 94 30 / 0.09);
+  --pg-logo-square: #fff1ea;
+  --pg-logo-bars: #ff5e1e;
 }
 
 :root[data-theme="dark"] {
@@ -42,10 +42,10 @@
   --pg-line-2: rgb(255 255 255 / 0.16);
   --pg-raise: #0d0d0f;
   --pg-hover: #19191c;
-  --pg-accent: #8f8cff;
-  --pg-accent-soft: rgb(143 140 255 / 0.13);
-  --pg-logo-square: #17122b;
-  --pg-logo-bars: #9a8cff;
+  --pg-accent: #ff7037;
+  --pg-accent-soft: rgb(255 94 30 / 0.13);
+  --pg-logo-square: #1f130d;
+  --pg-logo-bars: #ff5e1e;
 }
 
 html,

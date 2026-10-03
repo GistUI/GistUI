@@ -25,7 +25,7 @@ interactive UI (dashboards, forms, reports, slide decks, galleries) while it str
   <a href="https://github.com/GistUI/GistUI/stargazers"><img src="https://img.shields.io/github/stars/GistUI/GistUI?style=flat-square&color=ff5e1e" alt="GitHub stars" /></a>
   <img src="https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="Written in strict TypeScript" />
   <img src="https://img.shields.io/badge/first_load-74_KB_gzip-ff5e1e?style=flat-square" alt="First load: 74 KB gzip" />
-  <a href="#develop"><img src="https://img.shields.io/badge/PRs-welcome-ff5e1e?style=flat-square" alt="Pull requests welcome" /></a>
+  <a href="https://github.com/GistUI/GistUI/issues"><img src="https://img.shields.io/badge/issues-welcome-ff5e1e?style=flat-square" alt="Issues welcome" /></a>
 </p>
 
 <p>
@@ -162,7 +162,14 @@ bun run test:shadcn    # shadcn/ui components behave like the built-in ones
 bun run size           # bundle size gates
 ```
 
-Issues and pull requests are welcome.
+## Contributions
+
+Pull requests are disabled. Coding agents make it too easy to send a large, low-context change that costs
+maintainers more time than it saves. Thoughtful contributions are welcome; please understand the code, keep the
+patch focused, and respect the review time you are asking for.
+
+[Issues](https://github.com/GistUI/GistUI/issues) are open: report a bug, ask a question or propose a change there.
+If a change is worth making, we will work out together how it gets in.
 
 ## Licence
 

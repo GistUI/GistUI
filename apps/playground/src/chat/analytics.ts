@@ -13,7 +13,7 @@ export function startAnalytics(): OpenPanel {
   return new OpenPanel({
     apiUrl: /(^|\.)gistui\.com$/.test(location.hostname) ? "/api/op" : API,
     clientId: CLIENT_ID,
-    // Opening an example changes the address (#saas), which counts as a page view.
+    // Opening an example changes the address (/examples/saas), which counts as a page view.
     trackScreenViews: true,
     trackOutgoingLinks: true,
   });

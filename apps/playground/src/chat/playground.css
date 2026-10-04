@@ -187,6 +187,7 @@ body {
   color: var(--pg-fg-2);
   font-size: 13px;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
   transition: color 0.12s, background-color 0.12s;
 }
@@ -588,7 +589,8 @@ body {
 }
 
 .pgc-next button,
-.pgc-starters button {
+.pgc-next a,
+.pgc-starters a {
   flex: none;
   padding: 7px 12px;
   border: 1px solid var(--pg-line-2);
@@ -596,18 +598,19 @@ body {
   background: var(--pg-raise);
   color: var(--pg-fg-2);
   font-size: 13.5px;
+  text-decoration: none;
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s, transform 0.15s, opacity 0.15s;
 }
 
-.pgc-next button:hover:not(:disabled),
-.pgc-starters button:hover {
+.pgc-next a:hover,
+.pgc-starters a:hover {
   border-color: color-mix(in srgb, var(--pg-accent) 55%, transparent);
   color: var(--pg-fg);
 }
 
-.pgc-next button:active:not(:disabled),
-.pgc-starters button:active {
+.pgc-next a:active,
+.pgc-starters a:active {
   transform: scale(0.97);
 }
 

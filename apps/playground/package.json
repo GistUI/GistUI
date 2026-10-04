@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "bun test",
-    "deploy": "rm -rf dist && BASE_PATH=/examples/ vite build && wrangler deploy"
+    "build:site": "rm -rf dist && BASE_PATH=/examples/ vite build && bun scripts/pages.ts",
+    "deploy": "bun run build:site && wrangler deploy"
   },
   "dependencies": {
     "@gistui/catalog": "workspace:*",

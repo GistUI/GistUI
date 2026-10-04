@@ -203,11 +203,21 @@ function Thread({ store, theme }: { store: ChatStore; theme: Theme }) {
   );
 }
 
-/** The example named in the address (`#saas`), if there is one. */
-const fromHash = (): string | null => {
-  const id = typeof location === "undefined" ? "" : decodeURIComponent(location.hash.slice(1));
+/** Where the app is served: "/" in development, "/examples/" on gistui.com. Each example has its own address under it. */
+const BASE = import.meta.env.BASE_URL;
+const pathOf = (id: string | null): string => (id ? `${BASE}${id}` : BASE);
+const TITLE = "GistUI examples: ask, and watch the interface stream in";
+
+/** The example named in the address (`/examples/saas`), if there is one. Old `#saas` links still work. */
+const fromLocation = (): string | null => {
+  if (typeof location === "undefined") return null;
+  const path = decodeURIComponent(location.pathname);
+  const id = (path.startsWith(BASE) ? path.slice(BASE.length) : "").replace(/\/+$/, "") || decodeURIComponent(location.hash.slice(1));
   return EXAMPLES.some((e) => e.id === id) ? id : null;
 };
+
+/** A plain click opens the example in place; a click with a modifier key is left to the browser (a new tab). */
+const inPlace = (e: React.MouseEvent): boolean => !(e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey);
 
 export function Playground() {
   // One chat per example, made when the example is first opened and kept while the page is open.
@@ -219,7 +229,7 @@ export function Playground() {
   const [drawer, setDrawer] = useState(false);
 
   /** Shows an example's thread. The first time, its question is asked and the answer streams in. */
-  const open = useCallback((id: string) => {
+  const open = useCallback((id: string, push = true) => {
     if (!threads.current.has(id)) {
       const store = createChat({ adapter: recorded });
       threads.current.set(id, store);
@@ -228,8 +238,18 @@ export function Playground() {
     }
     setDrawer(false);
     setActive(id);
-    history.replaceState(null, "", `#${id}`);
+    // Each example has its own address, so it can be shared, bookmarked and reached with the back button.
+    if (location.pathname !== pathOf(id) || location.hash) history[push ? "pushState" : "replaceState"](null, "", pathOf(id));
   }, []);
+  /** A link to an example: a real address, opened in place on a plain click. */
+  const linkTo = (id: string) => ({
+    href: pathOf(id),
+    onClick: (e: React.MouseEvent) => {
+      if (!inPlace(e)) return;
+      e.preventDefault();
+      open(id);
+    },
+  });
   /** Asks the example's question again, from an empty thread. */
   const replay = (id: string) => {
     const store = threads.current.get(id);
@@ -239,15 +259,20 @@ export function Playground() {
     void store.send(questionFor(id));
   };
 
-  // An address with an example in it opens that example; the back button follows the address.
+  // An address with an example in it opens that example; the back and forward buttons follow the address.
   useEffect(() => {
     const sync = () => {
-      const id = fromHash();
-      if (id) open(id);
+      const id = fromLocation();
+      if (id) open(id, false);
+      else setActive(null);
     };
     sync();
+    window.addEventListener("popstate", sync);
     window.addEventListener("hashchange", sync);
-    return () => window.removeEventListener("hashchange", sync);
+    return () => {
+      window.removeEventListener("popstate", sync);
+      window.removeEventListener("hashchange", sync);
+    };
   }, [open]);
 
   // The page behind the chat follows the same theme; without a saved choice, the system decides.
@@ -290,6 +315,11 @@ export function Playground() {
   const store = active ? threads.current.get(active) : undefined;
   const example = active ? EXAMPLES.find((e) => e.id === active) : undefined;
 
+  // The tab's title names the open example.
+  useEffect(() => {
+    document.title = example ? `${example.title} · GistUI examples` : TITLE;
+  }, [example]);
+
   return (
     <div className="gistui pgc" data-gistui-theme={theme} data-drawer={drawer || undefined}>
       <div className="pgc-scrim" onClick={() => setDrawer(false)} aria-hidden="true" />
@@ -312,10 +342,10 @@ export function Playground() {
               <div key={g} className="pgc-group">
                 <div className="pgc-group-title">{g === "Playground" ? "Live and repair" : g}</div>
                 {items.map((e) => (
-                  <button key={e.id} type="button" className="pgc-item" aria-current={e.id === active || undefined} data-seen={opened.includes(e.id) || undefined} onClick={() => open(e.id)} title={e.description}>
+                  <a key={e.id} className="pgc-item" aria-current={e.id === active ? "page" : undefined} data-seen={opened.includes(e.id) || undefined} {...linkTo(e.id)} title={e.description}>
                     <IconSvg name={e.icon} />
                     <span>{e.title}</span>
-                  </button>
+                  </a>
                 ))}
               </div>
             );
@@ -360,9 +390,9 @@ export function Playground() {
               <p>Pick an example on the left or a question below. Each one opens its own chat, and its screen streams in.</p>
               <div className="pgc-starters">
                 {QUESTIONS.slice(0, 6).map((item) => (
-                  <button key={item.id} type="button" onClick={() => open(item.id)}>
+                  <a key={item.id} {...linkTo(item.id)}>
                     {item.q}
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>
@@ -374,9 +404,9 @@ export function Playground() {
             <div className="pgc-next" aria-label="Other examples to try">
               <span>Try next</span>
               {next.map((item) => (
-                <button key={item.id} type="button" onClick={() => open(item.id)}>
+                <a key={item.id} {...linkTo(item.id)}>
                   {item.q}
-                </button>
+                </a>
               ))}
             </div>
           )}

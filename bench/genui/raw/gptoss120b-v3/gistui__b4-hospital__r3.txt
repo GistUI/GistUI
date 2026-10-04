@@ -1,72 +1,85 @@
-root = Card(header, occupancySection, erSection, admissionsSection, deptSection, staffSection, criticalSection, dischargeSection, orSection, suppliesSection, dateCard, incidentDialog, transferDialog, wrap)
+root = Card(bedSection, erSection, admissionsSection, deptSection, staffSection, criticalSection, dischargeSection, orSection, suppliesSection, incidentSection, dateNavSection, transferSection)
 
-header = CardHeader("Hospital Operations Command", "Real-time overview")
+bedSection = Card(CardHeader("Bed Occupancy"), HorizontalBarChart(bedTable, variant:grouped, xLabel:"Beds", yLabel:"Occupancy %"))
 
-occupancySection = Card(Heading("Bed Occupancy", h3), Table(occupancyRows))
-occupancyRows = |Department|Occupied|Available
-|General|80|20
-|ICU|30|10
-|Pediatrics|20|30
+erSection = Card(CardHeader("Current ER Wait"), TextContent("Average wait time: **45 minutes**", size:large))
 
-erSection = Card(Heading("Current ER Wait", h3), TextContent("Average wait time: 45 minutes", size:default))
+admissionsSection = Card(CardHeader("Admissions (Last 2 Weeks)"), LineChart(admTable, variant:natural, xLabel:"Date", yLabel:"Admissions"))
 
-admissionsSection = Card(Heading("Admissions (Past 2 Weeks)", h3), BarChart(admissionsRows, variant:grouped, xLabel:"Week", yLabel:"Admissions"))
-admissionsRows = |Week|Admissions
-|Week 1|120
-|Week 2|135
-|Week 3|110
-|Week 4|140
-|Week 5|130
-|Week 6|125
-|Week 7|115
-|Week 8|150
+deptSection = Card(CardHeader("Patients per Department"), BarChart(deptTable, variant:grouped, xLabel:"Department", yLabel:"Patients"))
 
-deptSection = Card(Heading("Patients per Department", h3), HorizontalBarChart(deptRows, variant:grouped, xLabel:"Patients", yLabel:"Department"))
-deptRows = |Department|Patients
-|Cardiology|45
-|Neurology|30
-|Oncology|25
-|Surgery|40
-|Pediatrics|35
+staffSection = Card(CardHeader("Staff on Shift"), Table(staffTable))
 
-staffSection = Card(Heading("Staff on Shift", h3), Table(staffRows))
-staffRows = |Name|Role|Shift
+criticalSection = Card(CardHeader("Critical Patients"), Callout(variant:warning, title:"Critical Alerts", description:"3 patients in ICU require immediate attention"))
+
+dischargeSection = Card(CardHeader("Ready for Discharge"), Table(dischargeTable))
+
+orSection = Card(CardHeader("Today's OR Bookings"), Table(orTable))
+
+suppliesSection = Card(CardHeader("Supplies Running Low"), Table(suppliesTable))
+
+incidentSection = Card(CardHeader("File an Incident"), Form("incident", incidentButtons, incidentDesc, incidentType))
+
+dateNavSection = Card(CardHeader("View Another Day"), DatePicker("viewDate", mode:single, value:["2026-10-04"]))
+
+transferSection = Card(CardHeader("Request Patient Transfer"), Form("transfer", transferButtons, transferPatient, transferFrom, transferTo))
+
+incidentDesc = FormControl("Description", Input("desc", "Brief description...", type:text))
+incidentType = FormControl("Type", Select("type", SelectItem("Safety", "Safety"), SelectItem("Equipment", "Equipment"), SelectItem("Other", "Other"), placeholder:"Select type"))
+incidentButtons = Buttons(Button("Submit", primary))
+
+transferPatient = FormControl("Patient ID", Input("patient_id", "e.g. P12345", type:text))
+transferFrom = FormControl("From Department", Select("from_dept", SelectItem("ER", "ER"), SelectItem("ICU", "ICU"), SelectItem("Ward A", "Ward A"), placeholder:"Select source"))
+transferTo = FormControl("To Department", Select("to_dept", SelectItem("ICU", "ICU"), SelectItem("Ward B", "Ward B"), SelectItem("Surgery", "Surgery"), placeholder:"Select destination"))
+transferButtons = Buttons(Button("Request Transfer", primary), Button("Cancel", tertiary))
+
+bedTable = |Ward|Occupied|Total
+|Ward A|45|60
+|Ward B|30|50
+|ICU|20|25
+|ER|15|20
+
+admTable = |Date|Admissions
+|2026-09-20|12
+|2026-09-21|15
+|2026-09-22|9
+|2026-09-23|14
+|2026-09-24|11
+|2026-09-25|13
+|2026-09-26|10
+|2026-09-27|16
+|2026-09-28|12
+|2026-09-29|14
+|2026-09-30|15
+|2026-10-01|13
+|2026-10-02|11
+|2026-10-03|14
+
+deptTable = |Department|Patients
+|ER|28
+|ICU|18
+|Surgery|22
+|Pediatrics|15
+|Oncology|12
+
+staffTable = |Name|Role|Shift
 |Dr. Smith|Surgeon|Day
 |Nurse Lee|Nurse|Night
-|Dr. Patel|ER Physician|Day
-|Tech Gomez|Radiology Tech|Night
+|Dr. Patel|Physician|Day
+|Tech Gomez|Technician|Night
 
-criticalSection = Card(Heading("Critical Patients", h3), Table(criticalRows))
-criticalRows = |Patient|Condition|Room
-|John Doe|Cardiac Arrest|ICU-3
-|Maria Ruiz|Severe Trauma|ER-12
+dischargeTable = |Patient ID|Name|Room
+|P1001|John Doe|Ward A-12
+|P1002|Jane Roe|Ward B-07
+|P1003|Bob Smith|ICU-03
 
-dischargeSection = Card(Heading("Patients Ready for Discharge", h3), Table(dischargeRows))
-dischargeRows = |Patient|Room|Ready Since
-|Alice Brown|General-22|08:00
-|Bob White|General-18|09:30
-
-orSection = Card(Heading("Today's OR Bookings", h3), Table(orRows))
-orRows = |OR|Time|Procedure
+orTable = |OR|Time|Procedure
 |OR1|08:00-10:00|Appendectomy
 |OR2|10:30-12:30|Knee Replacement
-|OR3|13:00-15:00|C-section
+|OR3|13:00-15:00|Cardiac Bypass
 
-suppliesSection = Card(Heading("Supplies Running Low", h3), Table(suppliesRows))
-suppliesRows = |Supply|Remaining
-|Bandages|15
-|IV Bags|8
-|Gloves|200
-
-dateCard = Card(Heading("Select Another Day", h3), DatePicker("date", mode:single))
-
-incidentDialog = DialogBlock("Report Incident", "New Incident", incidentForm, description:"Report a new incident", triggerVariant:primary)
-incidentForm = Form("incident", incidentButtons, incidentDesc)
-incidentDesc = FormControl("Description", TextArea("desc", "Describe incident", rows:4))
-incidentButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
-
-transferDialog = DialogBlock("Transfer Patient", "Patient Transfer", transferForm, description:"Request a patient transfer", triggerVariant:secondary)
-transferForm = Form("transfer", transferButtons, patientSelect, deptSelect)
-patientSelect = FormControl("Patient", Select("patient", SelectItem("John Doe","John Doe"), SelectItem("Maria Ruiz","Maria Ruiz"), placeholder:"Select patient"))
-deptSelect = FormControl("To Department", Select("dept", SelectItem("ICU","ICU"), SelectItem("Surgery","Surgery"), placeholder:"Select department"))
-transferButtons = Buttons(Button("Request Transfer", primary), Button("Cancel", tertiary))
+suppliesTable = |Supply|Current Stock|Threshold
+|Gloves|120|100
+|Syringes|80|100
+|Bandages|45|50
+|IV Bags|30|40

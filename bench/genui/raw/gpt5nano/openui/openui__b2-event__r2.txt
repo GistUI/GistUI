@@ -1,0 +1,143 @@
+root = Card([
+  header,
+  countdown,
+  introSection,
+  agendaSection,
+  speakersSection,
+  ticketsSection,
+  registrationSection
+])
+
+header = CardHeader("TechCon 2026", "Innovate. Connect. Accelerate.")
+constellation = TextContent("", "default") // placeholder to satisfy hoist rule if needed
+
+headerSubtitle = null
+
+countdown = Card([CountdownBox("Days remaining until event", 0)], "card")
+
+CountdownBox(label: string, value: number) = Blockquote("Days until event: " + value)
+
+introSection = Card([
+  Heading("TechCon 2026 Overview", "h2"),
+  TextContent("Join industry leaders for a premier conference on emerging technologies, collaboration, and hands-on learning.", "default"),
+  Image("Hero image", "https://picsum.photos/seed/techcon/1200/500")
+], "card")
+
+agendaSection = Card([
+  Heading("Agenda", "h3"),
+  AgendaTable([
+    ["08:00", "Registration & Welcome Coffee"],
+    ["09:00", "Keynote: The Future of AI"],
+    ["10:30", "Panel: Building Scalable Systems"],
+    ["12:00", "Lunch & Networking"],
+    ["13:30", "Breakout Sessions"],
+    ["15:00", "Workshop: DevOps Best Practices"],
+    ["17:00", "Closing Remarks"]
+  ])
+], "card")
+
+AgendaTable(rows: (string[] )[]) = Table([
+  Col("Time", ["08:00","09:00","10:30","12:00","13:30","15:00","17:00"]),
+  Col("Event", ["Registration & Coffee","Keynote: The Future of AI","Panel: Building Scalable Systems","Lunch & Networking","Breakout Sessions","Workshop: DevOps Best Practices","Closing Remarks"])
+])
+
+speakersSection = Card([
+  Heading("Speakers", "h3"),
+  SpeakersList([
+    SpeakerItem("Dr. Maya Chen", "CTO, Nexus AI — Keynote on AI governance"),
+    SpeakerItem("Alex Kim", "Head of Platform, InnovateX — Scalable architectures"),
+    SpeakerItem("Priya Singh", "Founder, OpenDev — Dev community focus"),
+  ])
+], "card")
+
+SpeakerItem(name: string, bio: string) = null
+SpeakersList(items: (SpeakerItem)[]) = Blockquote("Speakers")
+
+speakersListPlaceholder = null
+
+speakersSectionContent = null
+
+ticketsSection = Card([
+  Heading("Ticket Tiers", "h3"),
+  TicketsTable([
+    ["General Admission", "$299"],
+    ["Student", "$149"],
+    ["VIP", "$499"]
+  ])
+], "card")
+
+TicketsTable(rows: (string[])[]) = Table([
+  Col("Tier", ["General Admission","Student","VIP"]),
+  Col("Price", ["$299","$149","$499"])
+])
+
+registrationSection = Card([
+  Heading("Register", "h3"),
+  RegistrationForm([
+    FormControl("Full name", nameInput),
+    FormControl("Email", emailInput),
+    FormControl("Affiliation", affiliationInput)
+  ], submitButton)
+], "card")
+
+RegistrationForm(fields: (FormControl)[], submitBtn: Button) = null
+FormControl(label: string, input: Input | TextArea | Select | DatePicker | Slider | CheckBoxGroup | RadioGroup, hint?: string) = null
+
+nameInput = Input("name", "Jane Smith")
+emailInput = Input("email", "jane@company.com", "email")
+affiliationInput = Input("affiliation", "Company/University")
+
+submitButton = Button("Register", null, "primary")
+
+root = Card([headerBlock, eventHighlights, agendaBlock, speakersBlock, ticketsBlock, registrationBlock])
+
+headerBlock = CardHeader("TechCon 2026", "Innovate. Connect. Accelerate.")
+
+eventHighlights = Card([
+  TextContent("TechCon 2026", "large"),
+  TextContent("Date: June 14-16, 2026 • Venue: Grand Conference Center, San Francisco", "default")
+], "sunk")
+
+agendaBlock = Card([
+  Heading("Agenda", "h3"),
+  AgendaTable([
+    ["08:00", "Registration & Coffee"],
+    ["09:00", "Keynote: The Future of AI"],
+    ["10:30", "Panel: Building Scalable Systems"],
+    ["12:00", "Lunch & Networking"],
+    ["13:30", "Breakout Sessions"],
+    ["15:00", "Workshop: DevOps Best Practices"],
+    ["17:00", "Closing Remarks"]
+  ])
+])
+
+speakersBlock = Card([
+  Heading("Speakers", "h3"),
+  ListBlock([
+    ListItem("Dr. Maya Chen — CTO, Nexus AI"),
+    ListItem("Alex Kim — Head of Platform, InnovateX"),
+    ListItem("Priya Singh — Founder, OpenDev")
+  ])
+])
+
+TicketsBlock = TicketsTable([
+  ["General Admission", "$299"],
+  ["Student", "$149"],
+  ["VIP", "$499"]
+])
+
+ticketsBlock = Card([
+  Heading("Ticket Tiers", "h3"),
+  TicketsBlock
+])
+
+registrationBlock = Card([
+  Heading("Register", "h3"),
+  Form("registration", Buttons([Button("Submit", null, "primary")]), [
+    FormControl("Full name", Input("name", "Jane Smith")),
+    FormControl("Email", Input("email", "jane@example.com", "email")),
+    FormControl("Affiliation", Input("affiliation", "Company/University"))
+  ])
+])
+
+FollowUpBlock = null

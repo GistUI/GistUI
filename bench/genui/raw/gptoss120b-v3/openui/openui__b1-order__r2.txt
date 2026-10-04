@@ -1,0 +1,5 @@
+root = Card([header, locationInfo, etaInfo, reportBtn])
+header = CardHeader("Delivery Tracker", "Track your package")
+locationInfo = TextContent("Current location: Distribution Center – Springfield", "large")
+etaInfo = TextContent("Estimated delivery date: September 5, 2026", "large")
+reportBtn = Button("Report a problem")

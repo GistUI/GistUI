@@ -1,4 +1,0 @@
-root = Card(locationSection, dateSection, reportSection)
-locationSection = Card(Heading("Current location", h3), TextContent("Your package is currently at the local distribution center in Springfield.", size:default))
-dateSection = Card(Heading("Estimated delivery", h3), TextContent("Expected delivery on **September 5, 2026**.", size:default))
-reportSection = Card(DialogBlock("Report problem", "Delivery Issue", MarkDownRenderer("If you see any issue with your delivery, please let us know. Provide details and we will investigate.", variant:clear), description:"Report a delivery problem", triggerVariant:destructive))

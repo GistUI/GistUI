@@ -1,18 +1,14 @@
-root = Card(CardHeader("Budget Overview", "Select month to view"), monthSelect, totalBar, splitChart, largestCallout, actionButtons)
-
-monthSelect = Select("budget_month", SelectItem("2023-08", "August 2023"), SelectItem("2023-07", "July 2023"), SelectItem("2023-06", "June 2023"), placeholder:"Choose month")
-
-totalBar = BarChart(|Category|Amount
-|Budget|2000
-|Spent|1575, variant:grouped, xLabel:"Category", yLabel:"USD")
-
-splitChart = HorizontalBarChart(|Category|Amount
+root = Card(totalInfo, spendingChart, largestExpense, monthForm, actionButtons)
+totalInfo = Callout(variant:info, "Budget vs Spending", "You spent $1,200 of $2,000 budget")
+spendingChart = PieChart(catTable, variant:donut, appearance:circular)
+largestExpense = Callout(variant:warning, "Largest expense", "Rent: $800")
+monthForm = Form("month-form", monthFormButtons, monthSelectControl)
+monthSelectControl = FormControl("Month", monthSelectInput)
+monthSelectInput = Select("month", SelectItem("2023-09","Sep 2023"), SelectItem("2023-08","Aug 2023"), placeholder:"Select month", value:"2023-09")
+monthFormButtons = Buttons(Button("Change month"))
+actionButtons = Buttons(Button("Add expense", primary))
+catTable = |Category|Amount
 |Rent|800
-|Food|300
-|Transport|150
-|Entertainment|200
-|Utilities|125, variant:grouped, xLabel:"Amount", yLabel:"Category")
-
-largestCallout = Callout(variant:warning, "Largest expense", "Rent – $800")
-
-actionButtons = Buttons(Button("Add expense", primary), Button("Previous month", secondary), Button("Next month", secondary))
+|Food|200
+|Transport|100
+|Entertainment|100

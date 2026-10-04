@@ -1,3 +1,0 @@
-root = Card(pollQuestion, pollButtons)
-pollButtons = Buttons(Button("Sushi Place"), Button("Pizza Parlor"), Button("Salad Bar"))
-pollQuestion = TextContent("Where should we go for lunch on Friday?")

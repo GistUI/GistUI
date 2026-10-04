@@ -1,0 +1,64 @@
+root = Card(CardHeader("Creator Studio", "All-in-one dashboard"), sections, Buttons("Refresh") ) 
+sections = SectionBlock(
+  SectionItem("overview", "Overview",
+    followerCard,
+    engagementCard,
+    bestPostsTable,
+    audiencePie
+  ),
+  SectionItem("scheduling", "Schedule & Filters",
+    schedulePostForm,
+    platformFilter
+  ),
+  SectionItem("activity", "Interactions & Earnings",
+    commentsWaiting,
+    earningsCard,
+    collaborationRequests
+  ),
+  SectionItem("weekly", "Week Overview",
+    scheduledThisWeek
+  )
+) 
+followerCard = Card(Heading("Followers", h3), followerStats, sunk)
+followerStats = Table(followerTable)
+followerTable = |Metric|Value
+|Followers|125,430
+|Growth (30d)|+8.4% 
+engagementCard = Card(Heading("Engagement", h3), engagementRate)
+engagementRate = TextContent("Engagement rate: 4.7%", size:default)
+bestPostsTable = Card(Heading("Top posts this month", h3), bestPosts, sunk)
+bestPosts = Table(bestPostsTable)
+bestPostsTable = |Post|Reach
+"|Post A|12,340"
+"|Post B|9,820"
+"|Post C|7,560"
+audiencePie = Card(Heading("Audience by platform", h3), PieChart(audienceTable, variant:pie), sunk)
+audienceTable = Table(audienceRows)
+audienceRows = |Platform|Share
+|Instagram|48%
+|YouTube|28%
+|TikTok|18%
+|Twitch|6%
+schedulePostForm = Card(Heading("Schedule a post"), Form("schedule-post", formButtons, captionField, timeField)) 
+captionField = FormControl("Caption", Input("caption", "What's the update?", placeholder:"Enter caption"))
+timeField = FormControl("Time", DatePicker("schedule_time", mode:single, value:"2026-10-11T10:00:00"))
+formButtons = Buttons(Button("Schedule", primary)) 
+platformFilter = Form("platform-filter", Buttons(Button("All platforms", tertiary)), SwitchGroup("platform", SwitchItem("platform","Instagram", defaultChecked)))) 
+platformSwitchRedundant = none
+CommentsWaitingBlock = Card(Heading("Comments waiting reply", h3), Table(commentsTable), sunk)
+commentsTable = |Comment|Posted
+| "Nice work!" | 2h
+| "Love this" | 5h
+| "Can you share analytics?" | 1d
+earningsCard = Card(Heading("Earnings this month", h3), TextContent("$3,420.50", size:default), sunk)
+collaborationRequests = Card(Heading("Pending collaboration requests", h3), Table(collabTable), sunk)
+collabTable = |Brand|Status|Proposed
+|BrandX|Awaiting reply|$1k deal
+|BrandY|Interested|$2k
+scheduledThisWeek = Card(Heading("Posts scheduled this week", h3), Table(scheduledTable), sunk)
+scheduledTable = |Post|Scheduled
+|Launch teaser|Mon 9:00
+|Q&A session|Wed 14:00
+bestHour = Card(Heading("Best hour to post based on history", h3), TextContent("Hour: 18:00 - 19:00 UTC with peak engagement", size:default), sunk)
+platformNarrowing = Card(Heading("Narrow view to one platform", h3), Tabs(TabItem("all","All Platforms", overviewNarrow), TabItem("instagram","Instagram"), TabItem("youtube","YouTube"), TabItem("tiktok","TikTok")), sunk)
+overviewNarrow = Card(Heading("Overview (All Platforms)", h3), SectionBlock(SectionItem("follows","Followers", followerCard), SectionItem("eng","Engagement", engagementCard)), sunk)

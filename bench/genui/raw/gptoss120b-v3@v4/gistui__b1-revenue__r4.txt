@@ -1,7 +1,0 @@
-root = Card(todaySection, yesterdaySection, actions)
-
-todaySection = Card(CardHeader("Revenue Today", "$5,200"), Tag("Up", success))
-
-yesterdaySection = Card(CardHeader("Revenue Same Time Yesterday", "$4,800"), Tag("Down", warning))
-
-actions = Buttons(Button("Refresh", primary), Button("Export CSV", secondary))

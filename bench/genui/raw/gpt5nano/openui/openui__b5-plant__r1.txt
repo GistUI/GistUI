@@ -1,0 +1,183 @@
+root = Card([
+  header = CardHeader("Factory Floor Supervisor Console", "Real-time production overview"),
+  
+  // 1. Overall equipment effectiveness
+  oeeCard = Card([
+    TextContent("Overall Equipment Effectiveness (OEE)"),
+    TextContent("OEE: 68.4% • Availability 92% • Performance 74% • Quality 99%")
+  ], "card"),
+  
+  // 2. Units produced vs today's target
+  productionTodayCard = Card([
+    Heading("Today’s Production vs Target", "h3"),
+    BarChart(["Planned", "Actual"], [Series("Units", [1200, 980])], "grouped", "Metric", "Units")
+  ], "card"),
+  
+  // 3. Each production line with rate and status
+  linesCard = Card([
+    Heading("Production Lines", "h3"),
+    SectionBlock([
+      SectionItem("line-a", "Line A", [
+        TextContent("Line A — Rate: 210 units/hr, Status: Running")
+      ]),
+      SectionItem("line-b", "Line B", [
+        TextContent("Line B — Rate: 195 units/hr, Status: Paused for QA")
+      ]),
+      SectionItem("line-c", "Line C", [
+        TextContent("Line C — Rate: 230 units/hr, Status: Running")
+      ])
+    ], true)
+  ], "card"),
+  
+  // 4. Defect rate over the past month
+  defectTrendCard = Card([
+    Heading("Defect Rate (Past 30 Days)", "h3"),
+    LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10"], [Series("Defects", [2,3,1,4,2,5,3,2,1,0])], "linear", "Day", "Defects")
+  ], "card"),
+  
+  // 5. Downtime split by cause
+  downtimeCard = Card([
+    Heading("Downtime by Cause", "h3"),
+    PieChart(["Breakdown"], [ ["Mechanical", 40], ["Electrical", 25], ["Tooling", 15], ["Planned", 20] ].map(e => e[0]), "donut", "circular")
+  ], "card"),
+  
+  // 6. Machines due for maintenance
+  maintenanceCard = Card([
+    Heading("Maintenance Schedule", "h3"),
+    ListBlock([
+      ListItem("C-112", "Due in 5 days", ["https://picsum.photos/seed/112/80/60"]),
+      ListItem("A-204", "Overdue by 2 days", ["https://picsum.photos/seed/204/80/60"]),
+      ListItem("B-ampton", "Due in 12 days", ["https://picsum.photos/seed/hampton/80/60"])
+    ], "md")
+  ]),
+  
+  // 7. Stock of steel, resin and packaging
+  stockCard = Card([
+    Heading("Material Stock", "h3"),
+    Table([
+      Col("Item", ["Steel", "Resin", "Packaging"], "string"),
+      Col("On Hand", [5200, 1200, 4200], "number"),
+      Col("Unit", ["kg", "kg", "units"], "string")
+    ])
+  ], "card"),
+  
+  // 8. Supplier deliveries due this week
+  deliveriesCard = Card([
+    Heading("Deliveries This Week", "h3"),
+    Table([
+      Col("Supplier", ["SteelCo", "ResinWorks", "PackMakers"], "string"),
+      Col("Due Date", ["Wed 10", "Thu 11", "Sat 13"], "string"),
+      Col("Items", ["Steel 2t", "Resin 1500kg", "Packaging 3000 units"], "string")
+    ])
+  ], "card"),
+  
+  // 9. Each shift's output compared
+  shiftsCard = Card([
+    Heading("Shifts Output Comparison", "h3"),
+    BarChart(["Shift 1","Shift 2","Shift 3"], [Series("Output", [320, 290, 310])], "grouped", "Shift", "Units")
+  ], "card"),
+  
+  // 10. Safety incidents this year and days since last
+  safetyCard = Card([
+    Heading("Safety Overview", "h3"),
+    SectionBlock([
+      SectionItem("incidents", "Incidents This Year", [
+        TextContent("This year: 4 incidents")
+      ]),
+      SectionItem("days-since", "Days Since Last Incident", [
+        TextContent("Days since last incident: 42")
+      ])
+    ], true)
+  ], "card"),
+  
+  // 11. Batches on quality hold
+  holdsCard = Card([
+    Heading("Quality Hold Batches", "h3"),
+    ListBlock([
+      ListItem("Batch 2104", "Hold: awaiting rework", ["https://picsum.photos/seed/b2104/80/60"]),
+      ListItem("Batch 2108", "Hold: QA review", ["https://picsum.photos/seed/b2108/80/60"])
+    ], "image")
+  ], "card"),
+  
+  // 12. Energy use today
+  energyCard = Card([
+    Heading("Energy Use Today", "h3"),
+    LineChart(["Hour 1","Hour 2","Hour 3","Hour 4","Hour 5","Hour 6","Hour 7","Hour 8","Hour 9","Hour 10","Hour 11","Hour 12","Hour 13","Hour 14","Hour 15","Hour 16","Hour 17","Hour 18","Hour 19","Hour 20"], [Series("kWh", [40,38,42,46,50,48,45,43,41,44,47,49,52,51,48,46,45,44,43,40])], "linear", "Hour", "kWh")
+  ], "card"),
+  
+  // 13. Open work orders with priority for each
+  workOrdersCard = Card([
+    Heading("Open Work Orders by Priority", "h3"),
+    Table([
+      Col("WO#", ["WO-101", "WO-102", "WO-103"], "string"),
+      Col("Priority", ["Critical", "High", "Medium"], "string"),
+      Col("Line", ["Line A", "Line B", "Line C"], "string"),
+      Col("Due", ["Today", "Today", "Tomorrow"], "string")
+    ])
+  ], "card"),
+  
+  // 14. Schedule maintenance with machine and date
+  scheduleCard = Card([
+    Heading("Schedule Maintenance", "h3"),
+    Form("sched-maint", Buttons([Button("Plan Maintenance", null, "primary")]), [
+      FormControl("Machine", Input("machine-name", "C-112")),
+      FormControl("Date", DatePicker("maint-date"))
+    ])
+  ], "card"),
+  
+  // 15. Focus on one line
+  focusCard = Card([
+    Heading("Focus View", "h3"),
+    Card([
+      TextContent("Focus on a single line: Line A"),
+      LineChart(["T1","T2","T3","T4"], [Series("Line A Output", [210, 220, 205, 230])], "linear", "Time", "Units")
+    ])
+  ], "card"),
+  
+  // 16. live andon alerts
+  andonCard = Card([
+    Heading("Live Andon Alerts", "h3"),
+    ListBlock([
+      ListItem("Line B - Pause", "QA hold", ["https://picsum.photos/seed/andon1/80/60"]),
+      ListItem("Line C - Stoppage", "Motor fault", ["https://picsum.photos/seed/andon2/80/60"])
+    ])
+  ], "card"),
+  
+  // 17. export the shift report
+  exportCard = Card([
+    Heading("Export Shift Report", "h3"),
+    Buttons([ Button("Export CSV"), Button("Export PDF") ])
+  ], "card"),
+  
+  //  -- Layout: arrange sections in a readable grid
+  SectionBlock([
+    SectionItem("overview", "Overview & Quick Stats", [
+      oeeCard,
+      productionTodayCard
+    ]),
+    SectionItem("lines", "Line Details", [linesCard]),
+    SectionItem("quality", "Quality & Reliability", [
+      defectTrendCard,
+      downtimeCard,
+      holdsCard
+    ]),
+    SectionItem("resources", "Inventory & Materials", [
+      stockCard,
+      deliveriesCard
+    ]),
+    SectionItem("safety", "Safety & Maintenance", [
+      safetyCard,
+      maintenanceCard,
+      scheduleCard
+    ]),
+    SectionItem("oper", "Operations & Reporting", [
+      shiftsCard,
+      energyCard,
+      workOrdersCard,
+      focusCard,
+      andonCard,
+      exportCard
+    ])
+  ], true)
+  
+], "card")

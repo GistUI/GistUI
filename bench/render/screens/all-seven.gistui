@@ -1,0 +1,120 @@
+root = Stack(s1_root, s2_root, s3_root, s4_root, s5_root, s6_root, s7_root, gap:xl)
+s1_root = Stack(s1_title, s1_tbl)
+s1_title = Header("Employees (Sample)", size:lg)
+s1_tbl = Table(s1_rows)
+s1_rows = |Name|Department|Salary:n|YoY change (%):n
+|Ava Patel|Engineering|132000|6.5
+|Marcus Lee|Sales|98000|4.2
+|Sofia Ramirez|Marketing|105000|3.1
+|Ethan Brooks|Finance|118500|5.0
+|Nina Chen|HR|89000|2.4
+s2_root = Stack(s2_header, s2_layout, gap:lg)
+s2_header = Header("Revenue Dashboard", size:lg)
+s2_layout = Grid(s2_metricCard, s2_chartCard, cols:2)
+s2_metricCard = Card(Header("Total Revenue", "Last 6 months", size:sm), "## $1,284,000", Callout("Compared to the previous 6 months", title:"Up 8.4%", tone:success))
+s2_chartCard = Card(Header("Monthly Revenue", "Last 6 months", size:sm), Chart(s2_revenue, type:bar, x:"Month", y:"Revenue (USD)"))
+s2_revenue = |Month|Revenue
+|Oct|198000
+|Nov|205000
+|Dec|214000
+|Jan|210000
+|Feb|223000
+|Mar|234000
+s3_root = Stack(s3_title, s3_form, gap:lg)
+s3_title = Header("Contact Us", size:lg)
+s3_form = Form("contact", Input("name", "Name", placeholder:"Your full name", minLength:2, required), Input("email", "Email", type:email, placeholder:"you@example.com", required), Input("phone", "Phone", placeholder:"e.g., +1 555 123 4567", minLength:7, maxLength:20, required), Select("subject", "Subject", ["General inquiry", "Support", "Sales", "Billing", "Feedback"], placeholder:"Select a subject...", required), TextArea("message", "Message", placeholder:"How can we help?", rows:6, minLength:10, required), Buttons(Button("Submit"), Button("Cancel", v:secondary)))
+s4_root = Stack(s4_headerCard, s4_kpiRow, s4_chartsRow, s4_featuresCard, s4_revenueCard, gap:lg)
+s4_headerCard = Card(Header("Product Analytics Dashboard", "Usage, acquisition, feature adoption, and revenue trends"))
+s4_kpiRow = Grid(s4_kpi1, s4_kpi2, s4_kpi3, s4_kpi4, cols:4)
+s4_kpi1 = Card("**Monthly Active Users (MAU)**", "## 128,400", Text("+6.2% vs last month", size:sm), v:sunk)
+s4_kpi2 = Card("**New Users (30d)**", "## 24,950", Text("+3.1% vs last 30d", size:sm), v:sunk)
+s4_kpi3 = Card("**MRR**", "## $412,000", Text("+4.4% MoM", size:sm), v:sunk)
+s4_kpi4 = Card("**ARR**", "## $4.94M", Text("+18.7% YoY", size:sm), v:sunk)
+s4_chartsRow = Grid(s4_mauCard, s4_acquisitionCard, cols:2)
+s4_mauCard = Card(Header("Monthly Active Users", "Last 12 months", size:sm), Chart(s4_mauData, type:bar, x:"Month", y:"Users"))
+s4_acquisitionCard = Card(Header("User Acquisition", "Share of new users (last 30 days)", size:sm), Chart(s4_acqData, type:donut), Text("Tip: Track CAC and conversion rate by channel to explain mix shifts.", size:sm))
+s4_featuresCard = Card(Header("Top Features", "Adoption and engagement (last 30 days)", size:sm), Table(s4_featureData))
+s4_revenueCard = Card(Header("Revenue Trend", "MRR and ARR (last 12 months)", size:sm), Chart(s4_revData, type:line, x:"Month", y:"USD"), Text("ARR shown as 12×MRR for directional tracking; replace with contracted ARR if you track annual commitments.", size:sm))
+s4_mauData = |Month|MAU
+|Apr|84500
+|May|87200
+|Jun|90100
+|Jul|93800
+|Aug|96500
+|Sep|100200
+|Oct|104800
+|Nov|109600
+|Dec|114300
+|Jan|119900
+|Feb|123700
+|Mar|128400
+s4_acqData = |Channel|Share
+|Organic Search|34
+|Paid Search|22
+|Referrals|16
+|Social|12
+|Direct / Other|16
+s4_featureData = |Feature|Weekly Active Users:n|Adoption Rate (%):n|Avg. Uses / User:n
+|Dashboards|48200|62.5|5.8
+|Automations|31750|41.2|3.1
+|Integrations|28900|37.5|2.4
+|Team Collaboration|27100|35.2|4.6
+|Exports|19850|25.8|1.7
+|Alerts|17600|22.9|2.0
+|API Access|12150|15.8|6.3
+s4_revData = |Month|MRR ($)|ARR ($)
+|Apr|332000|3984000
+|May|341000|4092000
+|Jun|349000|4188000
+|Jul|356000|4272000
+|Aug|364000|4368000
+|Sep|372000|4464000
+|Oct|381000|4572000
+|Nov|389000|4668000
+|Dec|397000|4764000
+|Jan|404000|4848000
+|Feb|408000|4896000
+|Mar|412000|4944000
+s5_root = Stack(s5_header, s5_topRow, s5_detailsRow, gap:lg)
+s5_header = Header("Product Details", size:lg)
+s5_topRow = Grid(s5_galleryCard, s5_buyCard, cols:2)
+s5_galleryCard = Card(Header("AeroStride Runner Sneakers", "Lightweight daily trainers with responsive cushioning", size:sm), Gallery(["https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80", "https://images.unsplash.com/photo-1528701800489-20be3c1ea3b1?auto=format&fit=crop&w=1200&q=80", "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=1200&q=80", "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80"], captions:["Side profile showing breathable mesh and cushioned midsole", "Top view highlighting laces and padded tongue", "Rubber outsole pattern for traction", "Everyday styling in an urban setting"]))
+s5_buyCard = Card(Header("AeroStride Runner", "Men's / Women's • Road & casual", size:sm), s5_priceRow, Separator(), Select("size", "Size", ["US 7", "US 7.5", "US 8", "US 8.5", "US 9", "US 9.5", "US 10", "US 10.5", "US 11", "US 12"], placeholder:"Select your size...", required), Separator(), RadioGroup("color", "Color", ["Black / White", "Sand / Gum", "Slate / Neon"], hints:["Classic contrast with white midsole", "Neutral upper with gum outsole", "Cool tones with neon accents"], value:"Black / White", required), Separator(), Buttons(Button("Add to Cart"), Button("Save", v:secondary)), Text("Free returns within 30 days. Ships in 1–2 business days.", size:sm))
+s5_priceRow = Row("## $129.00", Tag("In stock", tone:success, icon:check-circle), justify:between, align:center, wrap)
+s5_detailsRow = Grid(s5_detailsCard, s5_specsCard, cols:2)
+s5_detailsCard = Card(Header("About this item", "Built for comfort from morning commutes to weekend miles", size:sm), "The **AeroStride Runner** blends breathable mesh with a supportive heel counter for a secure fit. A responsive foam midsole delivers soft landings and quick transitions, while the durable rubber outsole adds traction on city streets.\n\n**Fit note:** True to size. If you’re between sizes, consider going up 0.5.", Tags(Tag("Breathable mesh upper"), Tag("Responsive foam cushioning"), Tag("Rubber traction outsole"), Tag("Padded collar & tongue"), Tag("Everyday training")), v:sunk)
+s5_specsCard = Card(Header("Specs", "Materials, weight, and care", size:sm), Table(s5_specData), v:sunk)
+s5_specData = |Detail|Value
+|Weight|9.8 oz (US 9)
+|Drop|8 mm
+|Upper|Engineered mesh
+|Midsole|EVA-based foam
+|Outsole|High-abrasion rubber
+|Care|Spot clean; air dry
+s6_root = Stack(s6_hero, s6_pricingRow, Header("Feature comparison", size:md), Table(s6_featureData), s6_faq, gap:xl)
+s6_hero = Stack(Header("Pricing", "Choose the plan that fits your team today. Upgrade, downgrade, or cancel anytime.", size:lg), Tags(Tag("Monthly billing"), Tag("Annual discounts available"), Tag("No hidden fees")), gap:sm)
+s6_pricingRow = Grid(s6_basicCard, s6_proCard, s6_enterpriseCard, cols:3)
+s6_basicCard = Card(Header("Basic", "For individuals and small projects", size:sm), "## $12 / month", "Core features to get started with reliable essentials.", "**Includes:**", "- 1 workspace\n- Up to 3 projects\n- 5 GB storage\n- Community support\n- Basic analytics", Buttons(Button("Start Basic", v:secondary), Button("Try free", v:ghost)))
+s6_proCard = Card(Header("Pro", "For growing teams that need more power", size:sm), "## $29 / month", "Advanced collaboration, automation, and deeper insights.", "**Everything in Basic, plus:**", "- 5 workspaces\n- Unlimited projects\n- 100 GB storage\n- Team roles & permissions\n- Automations (1,000 runs/month)\n- Integrations (Slack, GitHub, Zapier)\n- Priority email support", Buttons(Button("Choose Pro"), Button("Try free", v:secondary)), Callout("Best value for teams that want to scale without switching tools later.", title:"Most popular", tone:success), v:sunk)
+s6_enterpriseCard = Card(Header("Enterprise", "For organizations with advanced security and scale", size:sm), "## Custom pricing", "Security, compliance, and dedicated support tailored to your needs.", "**Everything in Pro, plus:**", "- Unlimited workspaces\n- Unlimited storage (fair use)\n- SSO/SAML & SCIM provisioning\n- Audit logs & data retention controls\n- Dedicated success manager\n- 99.9% uptime SLA\n- Custom legal & invoicing", Buttons(Button("Contact sales"), Button("Request demo", v:secondary)), Callout("We can provide security docs, vendor onboarding, and custom terms.", title:"Need procurement support?"))
+s6_faq = Accordion(Item("Can I switch plans later?", "Yes. You can upgrade or downgrade at any time. Changes take effect immediately, and we prorate when applicable."), Item("Do you offer a free trial?", "Yes. Basic and Pro include a free trial. Enterprise trials are available upon request via Sales."), Item("Do you offer annual billing?", "Yes. Annual billing includes a discount. Contact Sales for Enterprise annual terms and invoicing."), Item("What about security and compliance?", "Enterprise includes SSO/SAML, SCIM, audit logs, and data retention controls. We can share security documentation during procurement."))
+s6_featureData = |Feature|Basic|Pro|Enterprise
+|Price (monthly)|$12|$29|Custom
+|Workspaces|1|5|Unlimited
+|Projects|Up to 3|Unlimited|Unlimited
+|Storage|5 GB|100 GB|Unlimited (fair use)
+|Team members|1|Up to 25|Unlimited
+|Roles & permissions|—|Yes|Advanced (custom roles)
+|Automations|—|1,000 runs/mo|Unlimited (policy-based)
+|Integrations|Limited|Standard|Standard + custom
+|Analytics|Basic|Advanced|Advanced + exports
+|SSO (SAML)|—|—|Yes
+|SCIM provisioning|—|—|Yes
+|Audit logs|—|—|Yes
+|Support|Community|Priority email|Dedicated + SLA
+s7_root = Stack(s7_title, s7_tabs, gap:lg)
+s7_title = Header("User Settings", size:lg)
+s7_tabs = Tabs(Tab("Profile", s7_profileCard), Tab("Security", s7_securityCard), Tab("Notifications", s7_notificationsCard))
+s7_profileCard = Card(Header("Profile", "Update your personal information and avatar.", size:sm), Form("profile_update", Input("display_name", "Display name", placeholder:"e.g., Alex Johnson", minLength:2, maxLength:60, required), Input("avatar_url", "Avatar URL", type:url, placeholder:"https://example.com/avatar.png"), Buttons(Button("Save changes"), Button("Reset", v:secondary))))
+s7_securityCard = Card(Header("Security", "Manage sign-in protection and account security.", size:sm), Card(Switch("two_fa", "Two-factor authentication (2FA)"), v:sunk), Callout("After enabling 2FA, you may be asked to set up an authenticator app or backup codes.", title:"Tip", tone:info))
+s7_notificationsCard = Card(Header("Notifications", "Choose what you want to be notified about.", size:sm), Card(Switch("notif_email", "Email notifications", checked), Switch("notif_product", "Product updates"), Switch("notif_security", "Security alerts", checked), v:sunk))

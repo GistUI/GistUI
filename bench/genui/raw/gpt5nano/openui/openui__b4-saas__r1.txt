@@ -1,0 +1,84 @@
+root = Card([
+  header = CardHeader("Admin Overview", "SaaS Company—Tenant-wide KPIs and actions"),
+  periodControls = Card([periodHeading = Heading("Reporting period", "h4"), periodRow = Card([periodValue = TextContent("Last 30 days")], "card")] , "card"),
+  dashboardGrid = Card([sectionTop = SectionBlock([
+    SectionItem("overview", "Overview", [
+      kpisRow = Card([mrrCard, arrCard, churnCard], "row")
+      , mrrCard = Card([Heading("Monthly Recurring Revenue", "h5"), TextContent("$1,234,567")], "card")
+      , arrCard = Card([Heading("Annual Recurring Revenue", "h5"), TextContent("$14,814,804")], "card")
+      , churnCard = Card([Heading("Churn this month", "h5"), TextContent("3.2%")], "card")
+    ])
+  ], false),
+  listSection = SectionBlock([
+    SectionItem("new-signups", "New signups (90d)", [
+      Card([Heading("New signups (90 days)", "h5"), LineChartBlock], "card")
+    ])
+  ], false),
+  // Customers by plan
+  byPlan = Card([Heading("Customers by plan", "h4"), BarChart(["Basic","Pro","Enterprise"], [Series("Customers",[120, 85, 22])], "grouped")], "card"),
+  // Ten largest customers
+  topCustomersHeader = Heading("Top 10 customers by seats and spend", "h4"),
+  topCustomersTable = Table([
+    Col("Customer", ["Acme Co","Globex","Initech","Stark Industries","Umbrella Corp","Hooli","Vehement Capital Partners","Massive Dynamic","Wayne Enterprises","Cyberdyne Systems"]),
+    Col("Seats", [120,110,95,90,85,80,78,75,72,70], "number"),
+    Col("Annual Spend", ["$1.44M","$1.10M","$0.95M","$0.90M","$0.85M","$0.80M","$0.76M","$0.75M","$0.72M","$0.70M"], "string")
+  ]),
+  // Accounts at risk
+  atRiskHeader = Heading("Accounts at risk", "h4"),
+  atRiskList = ListBlock([
+    ListItem("Globex – risk: low engagement since 60 days", "Reason: Diminishing usage"),
+    ListItem("Umbrella Corp – risk: payment method outdated", "Reason: Billing issue")
+  ], "number"),
+  // Failed payments
+  failedPaymentsHeader = Heading("Failed payments", "h4"),
+  failedPaymentsList = ListBlock([
+    ListItem("Acme Co - retry in 3 days", "Retry scheduled: 2026-10-10", ["https://picsum.photos/seed/aalpha/40/40"]),
+    ListItem("Initech - retry now", "Retry attempt 1", ["https://picsum.photos/seed/bbeta/40/40"])
+  ], "image"),
+  // Adoption of newest features
+  featureAdoptionHeader = Heading("Adoption: newest features", "h4"),
+  featureAdoptionRow = Card([Tag("Feature A", "sparkles"), Tag("Feature B", "rocket"), Tag("Feature C", "check")], "card"),
+  // Current NPS
+  npsCard = Card([Heading("Current NPS", "h4"), TextContent("NPS: 42"), Progress(42, "NPS score")], "card"),
+  // Change reporting period control
+  periodSelectorCard = Card([
+    Heading("Change period", "h4"),
+    DatePicker("reportPeriodo", "single", null, null)
+  ], "card"),
+  // Seat utilization
+  seatUtilHeader = Heading("Seat utilization", "h4"),
+  seatUtilChart = BarChart(["Q1","Q2","Q3","Q4"], [Series("Seats utilized", [68, 72, 75, 80])], "linear", "Quarter", "Seats"),
+  // Invite admin
+  inviteHeader = Heading("Invite another admin", "h4"),
+  inviteForm = Form("admin-invite", Buttons([Button("Send invite")]), [
+    FormControl("Email", Input("inviteEmail", "admin@domain.com"), "Invite new admin to this account")
+  ]),
+  // Assemble all
+  headerRow = Card([TopRowHeader := CardHeader("Overview & Controls")], "card"),
+  // Put all into main dashboard layout
+  mainContent = Card([
+    mrrTitle := Heading("Key Metrics", "h3"),
+    metricsGrid := Card([
+      Card([TextContent("MRR: $1,234,567")], "card"),
+      Card([TextContent("ARR: $14,814,804")], "card"),
+      Card([TextContent("Churn (this month): 3.2%")], "card"),
+      Card([TextContent("New signups (90d): 1,234")], "card")
+    ], "row"),
+    byPlan,
+    topCustomersHeader,
+    topCustomersTable,
+    SectionBlock([
+      SectionItem("accounts-at-risk", "Accounts at risk", [atRiskList]),
+      SectionItem("failed-payments", "Failed payments", [failedPaymentsList])
+    ], true),
+    featureAdoptionHeader,
+    featureAdoptionRow,
+    npsCard,
+    periodSelectorCard,
+    seatUtilHeader,
+    seatUtilChart,
+    inviteHeader,
+    inviteForm
+  ], "card")
+  ], "card")
+)

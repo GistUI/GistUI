@@ -1,15 +1,25 @@
-root = Card(dateHeader, updatesSection, blockedSection, missingSection, postForm, wrap)
-dateHeader = Heading("Standup – 2026-09-30", h2)
-updatesSection = Card(CardHeader("Team Updates"), updatesList)
+root = Card(dateHeader, updatesSection, blockedSection, postForm, missingCount)
+
+dateHeader = CardHeader("Standup – 2026-10-04")
+
+updatesSection = Card(Heading("Team updates", h3), updatesList)
+
 updatesList = ListBlock(
-  ListItem("Alice", "Working on UI components", "View", []),
-  ListItem("Bob", "Fixing API bugs", "View", []),
-  ListItem("Carol", "Designing new feature mockups", "View", [])
-)
-blockedSection = Card(Callout(blocked, "Blocked", "Bob is waiting on API access from security team"))
-missingSection = TextContent("2 teammates have not submitted their updates yet.", size:small)
-postForm = Form("standup-update", postButtons,
+  ListItem("Alice", "Working on API integration"),
+  ListItem("Bob", "Reviewing PRs"),
+  ListItem("Carol", "Designing new UI mockups"),
+  ListItem("Dave", "Testing deployment pipeline")
+, variant:number)
+
+blockedSection = Card(Callout(variant:warning, "Blocked", "Bob is blocked on database migration"))
+
+postForm = Form("standup-update",
+  formButtons,
   updateField
 )
-updateField = FormControl("Your update", TextArea("update", "", "", rows:4))
-postButtons = Buttons(Button("Post update", primary))
+
+updateField = FormControl("Your update", TextArea("update", placeholder:"Enter your status...", rows:4))
+
+formButtons = Buttons(Button("Post", primary))
+
+missingCount = TextContent("2 teammates have not submitted their updates yet.", size:small)

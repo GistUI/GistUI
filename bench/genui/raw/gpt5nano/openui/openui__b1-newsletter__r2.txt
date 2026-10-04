@@ -1,0 +1,27 @@
+root = Card([header, intro, formBlock, noteBlock, actionsBlock])
+
+header = CardHeader("Weekly Product Newsletter", "Stay in the loop with new features and updates")
+
+intro = TextContent("Join our weekly product newsletter to receive a concise roundup of what’s new, what’s coming, and tips to get the most from our product.")
+
+formBlock = Card([emailRow, subscribeButton], "card")
+
+emailRow = Form("signup-email", formButtons, [emailField])
+
+emailField = FormControl("Email address", emailInput)
+
+emailInput = Input("email", "you@domain.com", "email")
+
+subscribeButton = Button("Subscribe now", null, "primary")
+
+formButtons = Buttons([submitBtn])
+
+submitBtn = Button("Submit", null, "primary")
+
+noteBlock = Card([noteHeading, noteText], "sunk")
+
+noteHeading = Heading("What you’ll get", "h3")
+
+noteText = TextContent("• A brief, skimmable weekly summary delivered every Friday\n• Early access to new features and product updates\n• Quick tips to maximize your use of the product")
+
+actionsBlock = Separator("horizontal", false)

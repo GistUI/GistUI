@@ -1,0 +1,7 @@
+root = Card(CardHeader("Upcoming meeting", "Next on the calendar"), MeetingPanel(nextMeeting), Buttons(Button("Join call", action:["join"]), Button("Dismiss"))) 
+nextMeeting = Card(Heading("Team Sync", h3), MeetingTime("2026-10-07T10:00:00Z"), Attendees(attendants), JoinLink("https://video.example/room/abc123")) 
+MeetingPanel(meetingCard) 
+MeetingTime(time) 
+Attendees(...) 
+JoinLink(url) 
+attendants = ListBlock( ListItem("Alice"), ListItem("Bob"), ListItem("Charlie") )

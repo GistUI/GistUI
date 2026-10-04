@@ -1,6 +1,6 @@
 {
   "name": "@gistui/chat",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "GistUI chat: a headless chat store, model adapters, thread storage and React chat layouts.",
   "keywords": [
     "gistui",

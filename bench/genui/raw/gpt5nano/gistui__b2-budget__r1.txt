@@ -1,0 +1,28 @@
+root = Card(CardHeader("Personal Budget","This month vs budget"), spendingSummary, monthSelector, categorySplit, largestExpense, addExpenseSection)
+
+spendingSummary = Card(Heading("Total spent this month", h3), TextContent("$1,240.00 spent of $1,500.00 budget", size:default))
+
+monthSelector = Form("month-select", Buttons(Button("Prev month"), Button("Next month")), FormControl("Month", Input("month", "2026-09")))
+
+categorySplit = Card(Heading("Spending by category", h3), BarChart(categoryTable, xLabel:"Month", yLabel:"USD"))
+
+largestExpense = Card(Heading("Largest expense to highlight", h3), Table(largestTable))
+
+addExpenseSection = Card(Heading("Add an expense", h3), Form("expense-form", formButtons, amountField, categoryField, dateField, noteField))
+
+amountField = FormControl("Amount", Input("amount", "45.00"))
+categoryField = FormControl("Category", Select("category", SelectItem("Groceries","Groceries"), SelectItem("Rent","Rent"), SelectItem("Utilities","Utilities"), SelectItem("Entertainment","Entertainment")), placeholder:"Choose a category")
+dateField = FormControl("Date", Input("date", "2026-09-15"))
+noteField = FormControl("Description", Input("note", "Milk and eggs")) 
+
+formButtons = Buttons(Button("Add expense", primary), Button("Clear", tertiary))
+
+categoryTable = |Category|Amount
+|Groceries|320
+|Rent|900
+|Utilities|60
+|Entertainment|60
+largestTable = |Item|Amount
+|Groceries: Milk & bread|1240
+|Rent|900
+|Utilities|60

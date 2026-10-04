@@ -1,0 +1,130 @@
+root = Card(CardHeader("Power Network Operational Console"), TabItem("overview", "Overview", rootOverview), Tabs(TabItem("region", "Region Focus", regionPanel), TabItem("curtail", "Curtailment", curtailPanel), TabItem("alerts", "Alerts", alertsPanel)), SectionBlock(SectionItem("status", "Network Status", networkStatusBlock), SectionItem("plants", "Plant Fleet", plantFleetBlock), SectionItem("outages", "Outages", outagesBlock), SectionItem("forecast", "Forecast & Prices", forecastBlock), SectionItem("maintenance", "Maintenance", maintenanceBlock), SectionItem("emissions", "Emissions & Resources", emissionsBlock))) 
+rootOverview = Card(Heading("Network Overview", h3), Table(loadTable), LineChart(loadTrend, natural, xLabel:"Hour", yLabel:"MW"), HorizontalBarChart(capacityUtilTable, variant:grouped, xLabel:"Region", yLabel:"Utilization"), Divider(orient:=horizontal)) 
+loadTable = |Metric|Value
+|Current Load|$MW
+|Capacity|MW
+|Utilization|percent
+capacityUtilTable = |Region|Utilization
+|North|82%
+|South|78%
+|Central|89%
+forecastBlock = CardHeader("Forecast & Price") 
+forecastBlock = Card(Heading("Demand Forecast next 24h", h4), Table(demandTable), TextContent("Forecast assumes current trends; adjust if outages occur."), LineChart(forecastTrend, linear, xLabel:"Hour", yLabel:"MW"), HorizontalBarChart(priceTable, variant:grouped, xLabel:"Hour", yLabel:"Price")) 
+demandTable = |Hour|ForecastMW
+|0|12345
+|1|12890
+|2|13150
+|3|12980
+|4|13220
+|5|13560
+|6|14000
+|7|14620
+|8|14900
+|9|15150
+|10|15340
+|11|15520
+|12|15680
+|13|15820
+|14|15940
+|15|16020
+|16|16100
+|17|16150
+|18|16180
+|19|16190
+|20|16150
+|21|16080
+|22|15940
+|23|15820
+forecastTrend = |Hour|Demand
+|0|12345
+|1|12890
+|2|13150
+|3|12980
+|4|13220
+|5|13560
+|6|14000
+|7|14620
+|8|14900
+|9|15150
+|10|15340
+|11|15520
+|12|15680
+|13|15820
+|14|15940
+|15|16020
+|16|16100
+|17|16150
+|18|16180
+|19|16190
+|20|16150
+|21|16080
+|22|15940
+|23|15820
+priceTable = |Hour|Price
+|0|$42
+|1|$43
+|2|$44
+|3|$45
+|4|$46
+|5|$47
+|6|$48
+|7|$49
+|8|$50
+|9|$51
+|10|$52
+|11|$53
+|12|$54
+|13|$55
+|14|$56
+|15|$57
+|16|$58
+|17|$59
+|18|$60
+|19|$61
+|20|$62
+|21|$63
+|22|$64
+|23|$65
+capacityUtilTable = |Region|Utilization
+|North|82%
+|South|78%
+|Central|89%
+regionPanel = Card(Heading("Focus by Region", h4), TagBlock(tags:["North","South","Central","Coastal","Rural"]), Table(regionTable)) 
+regionTable = |Region|Status|OutputMW|CapacityMW|Notes
+|North|Running|1800|2500|Stable
+|South|Maintenance|900|2400|Scheduled check
+|Central|Running|2100|3000|Normal
+|Coastal|Running|1200|1800|Sufficient reserve
+|Rural|Degraded|600|1500|Low wind
+curtailPanel = Card(Heading("Curtailment Controls", h4), Table(curtailTable), Button("Submit Curtailment Order", primary)) 
+curtailTable = |Region|RequestedMW|Status
+|North|150|Pending
+|Central|200|Approved
+|South|100|Pending
+maintenanceBlock = Card(Heading("Maintenance Planned This Month", h4), Table(maintenanceTable)) 
+maintenanceTable = |Date|Region|Work|EstimatedDuration
+|2026-10-05|North|Transformer inspection|2h
+|2026-10-12|Coastal|Generator overhaul|6h
+|2026-10-20|Central|Relay calibration|3h
+emissionsBlock = Card(Heading("Emissions Today", h4), Table(emissionsTable), LineChart(emissionsTrend, linear, xLabel:"Hour", yLabel:"TONS CO2")) 
+emissionsTable = |Source|CO2_kg
+|Gas|1200
+|Coal|3400
+|Oil|200
+emissionsTrend = |Hour|CO2
+|0|120
+|1|130
+|2|125
+|3|140
+|4|135
+|5|150
+|6|160
+|7|170
+|8|165
+|9|180
+|10|190
+|11|195
+|12|200
+|13|205
+|14|210
+|15|215

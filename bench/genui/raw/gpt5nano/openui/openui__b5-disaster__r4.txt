@@ -1,0 +1,248 @@
+root = Card([
+  header = CardHeader("Emergency Response Coordination Center", "Live Operational Dashboard"),
+  mainGrid = Card([leftCol, rightCol], "card"),
+  actionsRow = Card([requestResourceBtn, broadcastUpdateBtn, focusZoneBtn, fileSituationBtn], "card")
+])
+
+# Header elements
+leftCol = Card([
+  summaryPanel
+], "card")
+
+rightCol = Card([
+  weatherPanel
+], "card")
+
+# 1. active incidents by zone with severity for each
+incidentsSection = Card([
+  Heading("Active Incidents by Zone", "h2"),
+  ZoneIncidents(Zone("North", [Slice("Fire", "severe"), Slice("Chemical spill", "high")]),
+                Zone("East", [Slice("Flooding", "moderate")]),
+                Zone("South", [Slice("Power outage", "high"), Slice("Ruptured dam", "severe")])
+               )
+], "card")
+
+ZoneIncidents(zoneItems: (ZoneIncidentsItem)[]) = SectionBlock([
+  ZoneIncidentsItem(zone: string, incidents: (Incident)[])
+])
+
+ZoneIncidentsItem(value: string, incidents: (Incident)[]) = SectionItem(value, value, [
+  Table([
+    Col("Zone", ["North", "East", "South"]),
+    Col("Incidents", ["Fire - severe", "Flooding - moderate", "Power outage - high"])
+  ])
+])
+
+Incident = Slice(type: string, severity: string)
+
+# 2. an overall severity summary
+overallSeverity = Card([
+  Heading("Overall Severity", "h3"),
+  Tag("Critical", null, "default", "danger"),
+  Tag("Elevated", null, "default", "warning"),
+  Progress(72, "Overall readiness")  # placeholder
+], "card")
+
+# 3. vehicles, personnel and supplies available
+resourcesPanel = Card([
+  Heading("Available Resources", "h3"),
+  SectionBlock([
+    SectionItem("Vehicles", "vehicles", [
+      ListBlock([
+        ListItem("Ambulances", "5 on scene", ["https://picsum.photos/seed/vehicle/40/40"]),
+        ListItem("Water trucks", "2 deployed", ["https://picsum.photos/seed/water/40/40"])
+      ], "number")
+    ]),
+    SectionItem("Personnel", "personnel", [
+      ListBlock([
+        ListItem("ICs", "2 on duty", [], "View"),
+        ListItem("Medics", "8 on duty", [], "View")
+      ], "number")
+    ]),
+    SectionItem("Supplies", "supplies", [
+      ListBlock([
+        ListItem("Medical kits", "120 available"),
+        ListItem("Sandbags", "5000 available")
+      ], "image")
+    ])
+  ], false)
+], "card")
+
+# 4. shelters with capacity and occupancy for each
+sheltersPanel = Card([
+  Heading("Shelters & Capacity", "h3"),
+  Table([
+    Col("Shelter", ["North High School", "East Community Center", "South Tech Campus"]),
+    Col("Capacity", [300, 250, 400]),
+    Col("Occupancy", [180, 120, 260])
+  ])
+], "card")
+
+# 5. status of each evacuation route
+evacRoutesPanel = Card([
+  Heading("Evacuation Routes Status", "h3"),
+  Table([
+    Col("Route", ["R1", "R2", "R3"]),
+    Col("Status", ["Open", "Detoured", "Open"]),
+    Col("Time to Clear", ["0h", "2h", "1h"])
+  ])
+], "card")
+
+# 6. the weather forecast for the next 48 hours
+weatherPanel = Card([
+  Heading("Weather Forecast (48h)", "h3"),
+  Table([
+    Col("Hour", ["Now", "+6h", "+12h", "+18h", "+24h", "+30h", "+36h", "+42h", "+48h"]),
+    Col("Temp", ["22°C", "23°C", "22°C", "21°C", "20°C", "19°C", "19°C", "20°C", "21°C"]),
+    Col("Wind", ["5 km/h", "7 km/h", "6 km/h", "8 km/h", "10 km/h", "12 km/h", "9 km/h", "11 km/h", "9 km/h"]),
+    Col("Precip", ["0%", "10%", "20%", "0%", "60%", "20%", "10%", "0%", "0%"])
+  ])
+], "card")
+
+# 7. people rescued and casualties so far
+outcomePanel = Card([
+  Heading("People Rescued & Casualties", "h3"),
+  Table([
+    Col("Metric", ["People Rescued", "Casualties"]),
+    Col("Count", [128, 7])
+  ])
+], "card")
+
+# 8. volunteers on duty with assignment for each
+volunteersPanel = Card([
+  Heading("Volunteers on Duty", "h3"),
+  ListBlock([
+    ListItem("Alex Kim", "Search & Rescue", ["https://picsum.photos/seed/vol1/40/40"]),
+    ListItem("Maria Lopez", "Medical Support", ["https://picsum.photos/seed/vol2/40/40"]),
+    ListItem("Jon Reed", "Logistics", ["https://picsum.photos/seed/vol3/40/40"])
+  ])
+], "card")
+
+# 9. donations received
+donationsPanel = Card([
+  Heading("Donations Received", "h3"),
+  Table([
+    Col("Source", ["Corporate", "Public", "NGO"]),
+    Col("Amount", ["$25,000", "$8,500", "$12,200"])
+  ])
+], "card")
+
+# 10. aid requests awaiting action
+aidRequestsPanel = Card([
+  Heading("Aid Requests Awaiting Action", "h3"),
+  ListBlock([
+    ListItem("Food parcels for Zone East", "", [], "Assign"),
+    ListItem("Medical supplies restock", "", [], "Assign")
+  ])
+], "card")
+
+# 11. each communication channel and whether it is up
+commPanel = Card([
+  Heading("Communication Channels", "h3"),
+  Table([
+    Col("Channel", ["Radio", "Satellite", "Mobile Data", "Internet"]),
+    Col("Status", ["Up", "Up", "Degraded", "Up"])
+  ])
+], "card")
+
+# 12. roads closed
+roadsPanel = Card([
+  Heading("Closed Roads", "h3"),
+  ListBlock([
+    ListItem("R2 between North & East", "Flooded"),
+    ListItem("R4 between South & West", "Accident")
+  ])
+], "card")
+
+# 13. nearby hospitals with free beds for each
+hospitalsPanel = Card([
+  Heading("Nearby Hospitals with Free Beds", "h3"),
+  Table([
+    Col("Hospital", ["City General", "Northside Clinic", "East Mercy"]),
+    Col("Free Beds", [12, 3, 0]),
+    Col("Distance", ["2.1 km", "4.5 km", "6.0 km"])
+  ])
+], "card")
+
+# 14. open tasks with assignee for each
+tasksPanel = Card([
+  Heading("Open Tasks", "h3"),
+  Table([
+    Col("Task", ["Evac route monitor East", "Deliver supplies to Zone North", "Coordinate volunteers"]),
+    Col("Assignee", ["Captain A", "Logistics Lead", "Operations"]),
+    Col("Status", ["Open", "In Progress", "Open"])
+  ])
+], "card")
+
+# 15. a way to request more resources with type and quantity
+requestResourcePanel = Card([
+  Heading("Request More Resources", "h3"),
+  Form("resource-request", Buttons([Button("Submit Request")], "row"), [
+    FormControl("Resource Type", Input("resource_type", "e.g., Medical Kits"), "Enter type"),
+    FormControl("Quantity", Input("quantity", "100"), "Enter number")
+  ])
+], "card")
+
+# 16. a way to broadcast an update with a message
+broadcastPanel = Card([
+  Heading("Broadcast Update", "h3"),
+  Form("update-broadcast", Buttons([Button("Send Update")], "row"), [
+    FormControl("Message", TextArea("message", "Enter update to broadcast"), "Broadcast content")
+  ])
+], "card")
+
+# 17. a way to focus on one zone
+focusZonePanel = Card([
+  Heading("Focus on Zone", "h3"),
+  Form("focus-zone", Buttons([Button("Set Focus")], "row"), [
+    FormControl("Zone", Input("zone", "Enter zone name"), "Zone to focus")
+  ])
+], "card")
+
+# 18. a way to file a situation report
+situReportPanel = Card([
+  Heading("File Situation Report", "h3"),
+  Form("situation-report", Buttons([Button("Submit Report")], "row"), [
+    FormControl("Zone", Input("zone_sr", "Zone name"), "Zone"),
+    FormControl("Summary", TextArea("summary_sr", "Brief summary"), "Summary"),
+    FormControl("Impact", Input("impact_sr", "Describe impact"), "Impact")
+  ])
+], "card")
+
+# Helper component definitions
+Slice(type: string, severity: string) = null
+Zone(value: string, incidents: (Slice)[]) = null
+ZoneIncidents(ZoneIncidentsItem: any) = null
+
+# Assemble root sections into UI
+root = Card([
+  header = CardHeader("Emergency Response Coordination Center", "Live Operational Dashboard"),
+  incidentsSection = incidentsSection,
+  overallSeverity,
+  resourcesPanel,
+  sheltersPanel,
+  evacRoutesPanel,
+  weatherPanel,
+  outcomePanel,
+  volunteersPanel,
+  donationsPanel,
+  aidRequestsPanel,
+  commPanel,
+  roadsPanel,
+  hospitalsPanel,
+  tasksPanel,
+  SectionBlock([
+    SectionItem("Resource Requests", "resource-requests", [requestResourcePanel])
+  ]),
+  SectionBlock([
+    SectionItem("Broadcast & Focus", "broadcast-focus", [broadcastPanel, focusZonePanel])
+  ]),
+  SectionBlock([
+    SectionItem("Situational Reporting", "situational", [situReportPanel])
+  ]),
+  # ensure all defined panels are reachable
+  incidentsSection, overallSeverity, resourcesPanel, sheltersPanel, evacRoutesPanel,
+  weatherPanel, outcomePanel, volunteersPanel, donationsPanel, aidRequestsPanel,
+  commPanel, roadsPanel, hospitalsPanel, tasksPanel, requestResourcePanel,
+  broadcastPanel, focusZonePanel, situReportPanel
+])

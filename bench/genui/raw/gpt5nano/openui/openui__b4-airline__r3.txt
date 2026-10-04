@@ -1,0 +1,126 @@
+root = Card([
+  header = CardHeader("Airline Hub Operations Desk", "Live status dashboard"),
+  body = Card([
+    quickStatsRow = Card([ 
+      onTimePerfCard = Card([ Heading("On-time performance today", "h4"), onTimePerf = TextContent("92.5% on-time") ]),
+      avgLoadCard = Card([ Heading("Average passenger load today", "h4"), loadToday = TextContent("84% load factor") ])
+    ], "card"),
+    flightsSection = Card([ 
+      headingFlights = Heading("Today’s Flights", "h3"),
+      flightsTable = flightsTableBlock
+    ], "card"),
+    delaysSection = Card([ 
+      headingDelays = Heading("Delayed Flights", "h3"),
+      delayedNote = TextContent("Delayed flights highlighted below"),
+      delayedList = delayedFlightsList
+    ], "card"),
+    gateChangesSection = Card([ 
+      headingGate = Heading("Recent gate changes", "h3"),
+      gateChangesList = gateChanges
+    ], "card"),
+    crewsSection = Card([ 
+      headingCrews = Heading("Crews available for reassignment", "h3"),
+      crewsBlock = CrewsBlock(crews)
+    ], "card"),
+    weatherSection = Card([ 
+      headingWeather = Heading("Weather advisories at hub", "h3"),
+      weatherBlock = WeatherBlock(weather advisories)
+    ], "card"),
+    connectionsSection = Card([ 
+      headingConnections = Heading("Connections at risk of being missed", "h3"),
+      connectionsTable = connectionsTableBlock
+    ], "card"),
+    rebookSection = Card([ 
+      headingRebook = Heading("Rebook affected passengers", "h3"),
+      rebookBlock = RebookBlock(rebookActions)
+    ], "card"),
+    hubSwitchSection = Card([ 
+      headingHub = Heading("Look at a different hub", "h3"),
+      hubSwitcher = HubSwitcher(hubs)
+    ], "card"),
+    cancellationsSection = Card([ 
+      headingCancellations = Heading("Cancellations today", "h3"),
+      cancellationsList = cancellations
+    ], "card"),
+    turnaroundSection = Card([ 
+      headingTurnaround = Heading("Average turnaround time", "h3"),
+      turnaroundBlock = TurnaroundBlock(turnaroundTime)
+    ], "card")
+  ], "sunk")
+])
+
+// Data and sub-components (definitions)
+
+onTimePerf = TextContent("Today: 92.5% on-time across all flights")
+
+loadToday = TextContent("Average passenger load: 84% today")
+
+flightsTableBlock = Table([
+  Col("Flight", ["AA123", "DL457", "UA890", "NK202"]), 
+  Col("Route", ["JFK-LAX", "LAX-ATL", "ORD-JFK", "MIA-DFW"]),
+  Col("Gate", ["A12", "B7", "C3", "D9"]),
+  Col("Status", ["On Time", "Delayed", "Boarding", "Landed"])
+])
+
+delayedFlightsList = ListBlock([
+  ListItem("DL457", "2:15 PM departure", ["gate"], "View"),
+  ListItem("UA890", "1:40 PM departure", ["gate"], "View")
+], "number")
+
+gateChanges = ListBlock([
+  ListItem("AA123", "Gate moved to A12", nil, "Details"),
+  ListItem("DL457", "Gate changed to B7", nil, "Details")
+], "image")
+
+crews = [
+  ("Crew 1", "B737, 4 pilots, 6 attendants", "Available"),
+  ("Crew 2", "A320, 3 pilots, 4 attendants", "On standby"),
+  ("Crew 3", "B737, 2 pilots, 5 attendants", "Available")
+]
+
+CrewsBlock(list) = ListBlock(
+  list.map(item => ListItem(item.0, item.1, item.2, "Assign"))
+)
+
+weather advisories = [
+  "Heavy rain expected 6–9 PM local",
+  "Wind gusts up to 40 mph near runway 27"
+]
+
+WeatherBlock(list) = ListBlock([ ListItem("Advisory", advisories[0]), ListItem("Advisory", advisories[1]) ])
+
+connectionsTableBlock = Table([
+  Col("Flight", ["AA123", "DL457", "UA890"]),
+  Col("Risk", ["Medium", "High", "Low"]),
+  Col("ETA", ["Today 3:15 PM", "Today 2:40 PM", "Today 5:20 PM"])
+])
+
+rebookActions = [
+  "Notify affected passenger via SMS",
+  "Offer alternative connection via AA or DL",
+  "Print rebooking vouchers"
+]
+
+RebookBlock(actions) = Card([
+  TextContent("Process flow for rebooking affected passengers"),
+  ListBlock(actions.map(a => ListItem(a, "", [])), "number")
+])
+
+hub = "JFK Hub"
+hubs = [
+  ("JFK", "New York"),
+  ("LAX", "Los Angeles"),
+  ("ORD", "Chicago")
+]
+
+HubSwitcher(list) = Card([
+  TextContent("Choose hub"),
+  Select("hub_select", list.map(h => SelectItem(h[0], h[0] + " - " + h[1])))
+])
+
+cancellations = ListBlock([
+  ListItem("AA999", "Cancelled due to weather", nil, "Details"),
+  ListItem("BA404", "Cancelled due to crew unavailability", nil, "Details")
+], "image")
+
+turnaroundTime = TextContent("Average turnaround time today: 52 minutes")

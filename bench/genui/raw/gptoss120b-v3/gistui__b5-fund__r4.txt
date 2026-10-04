@@ -1,106 +1,77 @@
-root = Card(portfolioHeader, pnlCard, positionsCard, sectorExposureCard, varCard, gainersLosersCard, watchlistCard, ordersCard, marginCard, headlinesCard, econReleasesCard, strategyReturnCard, drawdownCard, riskLimitsCard, actionsCard, timeframeCard)
+root = Card(portfolioSection, pnlSection, positionsSection, exposureSection, varSection, gainersLosersSection, watchlistSection, ordersSection, marginSection, headlinesSection, econSection, strategySection, drawdownSection, limitsSection, rebalanceSection, orderFormSection, timeframeSection)
 
-portfolioHeader = CardHeader("Portfolio Value: $12.4M", "$12.4M total")
-pnlCard = Card(CardHeader("P&L Today", "+$45.2k"), TextContent("$45.2k profit", size:large))
-positionsCard = Card(CardHeader("Positions"), positionsTable)
-positionsTable = Table(
-  Col("Ticker", data:["AAPL","MSFT","TSLA","AMZN"], type:string),
-  Col("Size", data:[120,200,80,150], type:number),
-  Col("Entry", data:[150.00,250.00,720.00,3300.00], type:number),
-  Col("Current", data:[158.30,255.10,735.50,3325.00], type:number)
-)
+portfolioSection = Card(CardHeader("Portfolio Value"), TextContent("$12.4M", size:large))
+pnlSection = Card(CardHeader("Today's P&L"), TextContent("+$45.3k (0.37%)", size:large))
+positionsSection = Card(CardHeader("Positions"), Table(positionsTable))
+positionsTable = |Ticker|Size|Entry|Current
+|AAPL|120|$150.00|$158.20
+|MSFT|80|$295.00|$301.50
+|TSLA|50|$720.00|$710.10
+|GOOGL|30|$2,800.00|$2,845.00
 
-sectorExposureCard = Card(CardHeader("Exposure by Sector"), sectorPie)
-sectorPie = PieChart(labels:["Tech","Healthcare","Energy","Finance"], values:[55,20,15,10], variant:donut, appearance:circular)
+exposureSection = Card(CardHeader("Exposure by Sector"), HorizontalBarChart(sectorTable, variant:grouped, xLabel:"Exposure ($M)", yLabel:"Sector"))
+sectorTable = |Sector|Exposure
+|Technology|5.6
+|Healthcare|2.3
+|Financials|1.8
+|Energy|0.9
+|Consumer|2.8
 
-varCard = Card(CardHeader("Value at Risk (VaR)"), TextContent("$1.2M", size:large))
+varSection = Card(CardHeader("Value at Risk (VaR)"), TextContent("$120k (95% confidence)", size:default))
+gainersLosersSection = Card(CardHeader("Top Gainers / Losers Today"), Table(gainersLosersTable))
+gainersLosersTable = |Ticker|Change
+|NVDA|+3.4%
+|AMD|-2.9%
+|NFLX|+2.7%
+|BABA|-3.1%
 
-gainersLosersCard = Card(CardHeader("Today’s Biggest Gainers & Losers"), gainersTable, losersTable)
-gainersTable = Table(
-  Col("Ticker", data:["NVDA","AMD"], type:string),
-  Col("Gain", data:[+3.5%,-2.8%], type:string)
-)
-losersTable = Table(
-  Col("Ticker", data:["NFLX","FB"], type:string),
-  Col("Loss", data:[-4.2%,-3.9%], type:string)
-)
+watchlistSection = Card(CardHeader("Watchlist"), Table(watchlistTable))
+watchlistTable = |Ticker|Price
+|META|$315.20
+|UBER|$45.30
+|DIS|$105.50
 
-watchlistCard = Card(CardHeader("Watchlist"), watchlistTable)
-watchlistTable = Table(
-  Col("Ticker", data:["GOOG","META"], type:string),
-  Col("Price", data:[2850.00,210.00], type:number)
-)
+ordersSection = Card(CardHeader("Working Orders"), Table(ordersTable))
+ordersTable = |Order ID|Ticker|Side|Qty|Status
+|001|AAPL|Buy|50|Pending
+|002|TSLA|Sell|20|Submitted
+|003|MSFT|Buy|30|Pending
 
-ordersCard = Card(CardHeader("Working Orders"), ordersTable)
-ordersTable = Table(
-  Col("Order ID", data:["001","002"], type:string),
-  Col("Ticker", data:["AAPL","TSLA"], type:string),
-  Col("Side", data:["Buy","Sell"], type:string),
-  Col("Qty", data:[50,30], type:number),
-  Col("Status", data:["Pending","Pending"], type:string)
-)
+marginSection = Card(CardHeader("Margin Usage"), TextContent("Used: $2.1M of $5.0M (42%)", size:default))
+headlinesSection = Card(CardHeader("Market Headlines"), Table(headlinesTable))
+headlinesTable = |Headline|Sentiment
+|"Fed signals slower rate hikes"|Positive
+|"Oil prices dip amid demand worries"|Neutral
+|"Tech stocks rally on earnings beat"|Positive
 
-marginCard = Card(CardHeader("Margin in Use"), TextContent("45% of available", size:large))
+econSection = Card(CardHeader("Economic Releases This Week"), Table(econTable))
+econTable = |Date|Event|Impact
+|Mon 10/7|Nonfarm Payrolls|High
+|Tue 10/8|CPI YoY|Medium
+|Wed 10/9|Retail Sales|Medium
 
-headlinesCard = Card(CardHeader("Market Headlines"), headlinesTable)
-headlinesTable = Table(
-  Col("Headline", data:["Oil prices rise", "Tech earnings beat expectations"], type:string),
-  Col("Sentiment", data:["Neutral","Positive"], type:string)
-)
+strategySection = Card(CardHeader("Strategy Returns YTD"), Table(strategyTable))
+strategyTable = |Strategy|Return
+|Momentum|12.5%
+|Mean Reversion|8.3%
+|Statistical Arbitrage|15.0%
 
-econReleasesCard = Card(CardHeader("Economic Releases This Week"), econTable)
-econTable = Table(
-  Col("Date", data:["Mon 09/02","Tue 09/03","Wed 09/04"], type:string),
-  Col("Event", data:["CPI", "GDP Q2", "Jobless Claims"], type:string),
-  Col("Impact", data:["High","Medium","Low"], type:string)
-)
+drawdownSection = Card(CardHeader("Annual Drawdown"), TextContent("Max Drawdown: 9.2%", size:default))
+limitsSection = Card(CardHeader("Risk Limits Near Breach"), Table(limitsTable))
+limitsTable = |Limit|Current|Threshold|Status
+|Sector Tech Exposure|5.6M|6.0M|Near
+|VaR|120k|130k|Safe
 
-strategyReturnCard = Card(CardHeader("Strategy Returns YTD"), strategyTable)
-strategyTable = Table(
-  Col("Strategy", data:["Momentum","Mean Reversion","Arbitrage"], type:string),
-  Col("Return", data:[+12.5%,-3.2%,+5.8%], type:string)
-)
+rebalanceSection = Card(CardHeader("Rebalance Portfolio"), Form("rebalance-form", rebalanceButtons, rebalanceField))
+rebalanceField = FormControl("Target Allocation", Input("allocation", "Enter %", "", type:text))
+rebalanceButtons = Buttons(Button("Rebalance", primary))
 
-drawdownCard = Card(CardHeader("Drawdown Past Year"), drawdownChart)
-drawdownChart = LineChart(
-  |Month|Drawdown%
-  |Jan|5
-  |Feb|4
-  |Mar|6
-  |Apr|3
-  |May|7
-  |Jun|2
-  |Jul|8
-  |Aug|4
-  |Sep|5
-  |Oct|6
-  |Nov|3
-  |Dec|9
-, linear, xLabel:"Month", yLabel:"Drawdown %"
-)
+orderFormSection = Card(CardHeader("Place Order"), Form("order-form", orderButtons, tickerField, sideField, qtyField))
+tickerField = FormControl("Ticker", Input("ticker", "e.g. AAPL"))
+sideField = FormControl("Side", Select("side", SelectItem("Buy", "Buy"), SelectItem("Sell", "Sell"), placeholder:"Select side"))
+qtyField = FormControl("Quantity", Input("quantity", "Number of shares", "", type:number))
+orderButtons = Buttons(Button("Submit Order", primary), Button("Cancel", secondary))
 
-riskLimitsCard = Card(CardHeader("Risk Limits Near Breach"), riskTable)
-riskTable = Table(
-  Col("Limit", data:["Sector Exposure","VaR"], type:string),
-  Col("Current", data:["52% (limit 55%)","$1.15M (limit $1.2M)"], type:string)
-)
-
-actionsCard = Card(Buttons(rebalanceButton, placeOrderButton, direction:row))
-rebalanceButton = Button("Rebalance", primary)
-placeOrderButton = Button("Place Order", primary)
-
-timeframeCard = Card(CardHeader("Timeframe"), Buttons(timeframeButtons, direction:row))
-timeframeButtons = Buttons(
-  Button("1D", primary),
-  Button("1W", secondary),
-  Button("1M", secondary),
-  Button("1Y", secondary)
-)
-
-# Form for placing an order
-orderForm = Form("new-order", orderFormButtons, tickerField, sideField, qtyField)
-tickerField = FormControl("Ticker", Input("ticker", "Enter ticker"))
-sideField = FormControl("Side", Select("side", SelectItem("buy","Buy"), SelectItem("sell","Sell"), placeholder:"Select side"))
-qtyField = FormControl("Quantity", Input("quantity", "0", type:number))
-orderFormButtons = Buttons(Button("Submit Order", primary), Button("Cancel", tertiary))
-placeOrderButton = Button("Place Order", action:[orderForm])
+timeframeSection = Card(CardHeader("Change Timeframe"), Form("timeframe-form", timeframeButtons, timeframeSelect))
+timeframeSelect = FormControl("Timeframe", Select("timeframe", SelectItem("1m", "1 Minute"), SelectItem("5m", "5 Minutes"), SelectItem("15m", "15 Minutes"), SelectItem("1h", "1 Hour"), SelectItem("1d", "1 Day"), placeholder:"Select timeframe"))
+timeframeButtons = Buttons(Button("Apply", primary))

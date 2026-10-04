@@ -1,74 +1,60 @@
-root = Card(header, quarterSelect, sectionBlock, actions, requestDialog)
-header = CardHeader("Project Portfolio Review")
-quarterSelect = Select("quarter", SelectItem("Q1 2024","Q1 2024"), SelectItem("Q2 2024","Q2 2024"), SelectItem("Q3 2024","Q3 2024"), SelectItem("Q4 2024","Q4 2024"), placeholder:"Select quarter")
-sectionBlock = SectionBlock(sectionActive, sectionOverdue, sectionBudget, sectionUtil, sectionRisks, sectionDeadlines, sectionDelivery, sectionBlocked, sectionHealth, isFoldable)
-actions = Buttons(exportBtn, archiveBtn)
-exportBtn = Button("Export Review", primary)
-archiveBtn = Button("Archive Project", secondary)
-requestDialog = DialogBlock("Request People", "Request Additional Resources", requestForm, description:"Fill to request more people for a project", triggerVariant:primary)
-
-sectionActive = SectionItem("active", "Active Projects", activeProjects)
-activeProjects = Table(colOwner, colDeadline, colHealth)
-colOwner = Col("Owner", data:["Alice","Bob","Carol"], type:string)
-colDeadline = Col("Deadline", data:["2024-09-30","2024-10-15","2024-11-01"], type:string)
-colHealth = Col("Health", data:["Good","At Risk","Good"], type:string)
-
-sectionOverdue = SectionItem("overdue", "Overdue Milestones", overdueMilestones)
-overdueMilestones = Table(colMilestone, colProj, colDue)
-colMilestone = Col("Milestone", data:["M1","M2"], type:string)
-colProj = Col("Project", data:["Proj A","Proj B"], type:string)
-colDue = Col("Due Date", data:["2024-09-10","2024-09-12"], type:string)
-
-sectionBudget = SectionItem("budget", "Budget Spend vs Allocation", budgetChart)
-budgetChart = BarChart(|Project|Spent|Allocation
-|Proj A|120000|150000
-|Proj B|80000|100000
-|Proj C|50000|70000
-, variant:grouped, xLabel:"Project", yLabel:"USD")
-
-sectionUtil = SectionItem("util", "Team Utilization", teamUtilChart)
-teamUtilChart = HorizontalBarChart(|Team|Utilization
+root = Card(CardHeader("Project Portfolio Review"), healthSummary, quarterSelect, sections, actions)
+sections = SectionBlock(activeItem, overdueItem, budgetItem, utilizationItem, risksItem, deadlinesItem, paceItem, blockedItem, requestItem, archiveItem, isFoldable)
+actions = Buttons(exportButton)
+healthSummary = TextContent("Portfolio health is overall good with 2 projects at risk.", size:small)
+quarterSelect = Select("quarter", SelectItem("Q1 2024","Q1 2024"), SelectItem("Q2 2024","Q2 2024"), SelectItem("Q3 2024","Q3 2024"), placeholder:"Select quarter")
+activeItem = SectionItem("active", "Active Projects", activeTable)
+overdueItem = SectionItem("overdue", "Overdue Milestones", overdueTable)
+budgetItem = SectionItem("budget", "Budget vs Allocation", budgetChart)
+utilizationItem = SectionItem("utilization", "Team Utilization", utilizationChart)
+risksItem = SectionItem("risks", "Risks", risksTable)
+deadlinesItem = SectionItem("upcoming", "Upcoming Deadlines (2 weeks)", deadlinesTable)
+paceItem = SectionItem("pace", "Delivery Pace (last 6 sprints)", deliveryChart)
+blockedItem = SectionItem("blocked", "Blocked Work Items", blockedTable)
+requestItem = SectionItem("request", "Request Additional People", requestForm)
+archiveItem = SectionItem("archive", "Archive Finished Project", archiveDialog)
+activeTable = Table(active_projects)
+overdueTable = Table(overdue_milestones)
+budgetChart = BarChart(budget_table, variant:grouped, xLabel:"Project", yLabel:"USD")
+utilizationChart = HorizontalBarChart(team_utilization, variant:grouped, xLabel:"Utilization%", yLabel:"Team")
+risksTable = Table(risks)
+deadlinesTable = Table(upcoming_deadlines)
+deliveryChart = LineChart(delivery_pace, variant:linear, xLabel:"Sprint", yLabel:"Stories")
+blockedTable = Table(blocked_items)
+project_req = Select("project_req", SelectItem("Project A","Project A"), SelectItem("Project B","Project B"), placeholder:"Choose project")
+headcountInput = Input("headcount","Number of people","2", number)
+projectField = FormControl("Project", project_req)
+headcountField = FormControl("Additional headcount", headcountInput)
+requestButtons = Buttons(Button("Submit request", primary))
+requestForm = Form("request-people", requestButtons, projectField, headcountField)
+archiveSelect = Select("archive_proj", SelectItem("Project A","Project A"), placeholder:"Choose project")
+archiveButtons = Buttons(Button("Archive", destructive), Button("Cancel", tertiary))
+archiveDialog = DialogBlock("Archive", "Archive Project", archiveSelect, archiveButtons, description:"Select a finished project to archive", triggerVariant:destructive)
+exportButton = Button("Export Review", primary)
+active_projects = |Project|Owner|Deadline|Health
+|Project A|Alice|2024-11-15|Good
+|Project B|Bob|2024-11-20|At Risk
+overdue_milestones = |Milestone|Project|DueDate|Status
+|Milestone 1|Project A|2024-10-01|Overdue
+budget_table = |Project|Spent|Allocation
+|Project A|120000|200000
+|Project B|80000|150000
+team_utilization = |Team|Utilization%
 |Team X|85
 |Team Y|70
-|Team Z|60
-, variant:grouped, xLabel:"Team", yLabel:"% Utilization")
-
-sectionRisks = SectionItem("risks", "Risks with Severity", riskTable)
-riskTable = Table(riskColRisk, riskColSeverity)
-riskColRisk = Col("Risk", data:["Scope creep","Tech debt"], type:string)
-riskColSeverity = Col("Severity", data:["Medium","High"], type:string)
-
-sectionDeadlines = SectionItem("deadlines", "Upcoming Deadlines (Next 2 weeks)", deadlineTable)
-deadlineTable = Table(deadlineColProj, deadlineColDate)
-deadlineColProj = Col("Project", data:["Proj A","Proj B"], type:string)
-deadlineColDate = Col("Deadline", data:["2024-09-25","2024-09-28"], type:string)
-
-sectionDelivery = SectionItem("delivery", "Delivery Pace (Past 6 Sprints)", deliveryChart)
-deliveryChart = LineChart(|Sprint|Delivered Stories
+risks = |Risk|Project|Severity
+|Risk 1|Project A|High
+|Risk 2|Project B|Medium
+upcoming_deadlines = |Project|Deadline
+|Project A|2024-11-10
+|Project B|2024-11-12
+delivery_pace = |Sprint|CompletedStories
 |S1|30
 |S2|28
 |S3|32
-|S4|35
+|S4|29
 |S5|31
-|S6|34
-, variant:linear, xLabel:"Sprint", yLabel:"Stories Delivered")
-
-sectionBlocked = SectionItem("blocked", "Blocked Work Items", blockedTable)
-blockedTable = Table(blockedColItem, blockedColProj, blockedColReason)
-blockedColItem = Col("Item", data:["Feature X","Bug Y"], type:string)
-blockedColProj = Col("Project", data:["Proj A","Proj B"], type:string)
-blockedColReason = Col("Reason", data:["Dependency","Awaiting approval"], type:string)
-
-sectionHealth = SectionItem("health", "Portfolio Health Summary", healthCallout)
-healthCallout = Callout(variant:info, title:"Portfolio Health", description:"Overall health is Good.")
-
-requestForm = Form("resource-request", formButtons, projectField, peopleField, reasonField)
-formButtons = Buttons(submitBtn, cancelBtn)
-submitBtn = Button("Submit", primary)
-cancelBtn = Button("Cancel", tertiary)
-projectField = FormControl("Project", projectSelect)
-projectSelect = Select("project", SelectItem("Proj A","Proj A"), SelectItem("Proj B","Proj B"), placeholder:"Select project")
-peopleField = FormControl("Additional people", peopleInput)
-peopleInput = Input("people", "Number of people", type:number)
-reasonField = FormControl("Reason", reasonTextArea)
-reasonTextArea = TextArea("reason", "Explain need", rows:3)
+|S6|30
+blocked_items = |Item|Project|Reason
+|Item 1|Project A|Dependency
+|Item 2|Project B|Design issue

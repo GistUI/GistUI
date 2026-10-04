@@ -1,0 +1,20 @@
+root = Card(CardHeader("Async Standup", "Today is " + new Date().toISOString().slice(0,10)), statusBlock, postUpdateSection, missingCount)
+statusBlock = SectionBlock(SectionItem("teammates", "Teammates' updates", teammatesSection))
+teammatesSection = ListBlock(teammateItems, variant:number)
+teammateItems = |Teammate|Update
+|Alice|Working on feature X
+|Bob|Blocked on API Y
+|Charlie|Reviewing PR Z
+|Dana|Deployed to staging
+blockedRow = SectionBlock(SectionItem("blocked", "Blocked today", blockedList))
+blockedList = ListBlock(blockedItems, variant:number)
+blockedItems = |Teammate|Reason
+|Bob|Awaiting API Y
+missingCount = CardHeader("Updates remaining", "counting today") 
+missingCounter = TextContent("5 updates remaining", size:default)
+todayDate = TextContent("Date: " + new Date().toLocaleDateString(), size:default)
+postUpdateSection = Card(Heading("Post your update", h4), postForm)
+postForm = Form("standup-post", postButtons, updateField)
+updateField = FormControl("Your update", TextArea("update", "", rows:3))
+postButtons = Buttons(Button("Post update", primary), Button("Skip", tertiary))
+missingCountInline = TextContent("|Updates remaining|5", size:small)

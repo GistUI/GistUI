@@ -13,8 +13,14 @@
  * | missing required prop          | filled (a name from the call, the first enum value, 0, [] …);   |
  * |                                | a missing component or data prop removes the component         |
  * | reference to nothing           | removed from the call                                           |
- * | statement nothing uses         | a component is added to root's children; anything else removed |
- * | unknown component, cycle       | the statement is removed                                        |
+ * | statement nothing uses         | a component is added to root's children, a data table is shown |
+ * |                                | in a Table there; anything else removed                         |
+ * | unknown component              | renamed when it is a typo, else a plain container               |
+ * | cycle                          | the reference that closes the loop is removed                   |
+ *
+ * Before that, on the text as written (`prepare`), so the parser drops nothing it could have read:
+ * a table written inside a call moves to its own statement, curly quotes become quotes, a reference
+ * that misses a statement by case or one letter points at it, and a bare component name is called.
  *
  * Every change is listed, so a caller can log or show what was repaired.
  */
@@ -114,6 +120,33 @@ function filler(spec: PropSpec, name: string, call: CompExpr, stmtId: string, ar
   }
 }
 
+/** A component that shows a data table by itself (`Table(rows)`): it takes a pipe table, or one required data argument. */
+function tableViewer(lib: Library): string | undefined {
+  const fits = [...lib.components.values()].filter(
+    (c) => c.spec.table || (c.requiredPositional === 1 && c.spec.props[(c.spec.args?.[0] ?? "").replace(/\?$/, "")]?.type === "data"),
+  );
+  return (fits.find((c) => c.spec.name === "Table") ?? fits[0])?.spec.name;
+}
+
+/** Every statement a value refers to. */
+function refsOf(e: unknown, out = new Set<string>()): Set<string> {
+  if (Array.isArray(e)) for (const x of e) refsOf(x, out);
+  else if (e && typeof e === "object") {
+    const o = e as Record<string, unknown>;
+    if (o.k === "ref" && typeof o.name === "string") out.add(o.name);
+    for (const k in o) if (k !== "name") refsOf(o[k], out);
+  }
+  return out;
+}
+
+/** Replaces every use of `from` in a value with `to`. */
+function replaceRef(e: Expr, from: string, to: Expr): Expr {
+  if (e.k === "ref" && e.name === from) return to;
+  if (e.k === "arr") return { ...e, items: e.items.map((x) => replaceRef(x, from, to)) };
+  return e;
+}
+const renameRef = (e: Expr, from: string, to: string): Expr => replaceRef(e, from, { k: "ref", name: to } as Expr);
+
 /** Removes every use of `name` from a value (a reference, or an item of a list). */
 function dropRef(e: Expr, name: string): Expr | null {
   if (e.k === "ref" && e.name === name) return null;
@@ -128,7 +161,7 @@ function dropRef(e: Expr, name: string): Expr | null {
  */
 function autofix(text: string, lib: Library, opts: { inline?: boolean; rounds?: number; shape?: "canonical" | "original" } = {}): AutofixResult {
   const changes: string[] = [];
-  let source = printProgram(parse(text, lib, { inline: opts.inline ?? false }).program, lib, { hoist: true });
+  let source = printProgram(parse(prepare(text, lib, changes), lib, { inline: opts.inline ?? false }).program, lib, { hoist: true });
   let errors: GistUIError[] = [];
   for (let round = 0; round < (opts.rounds ?? 6); round++) {
     const r = parse(source, lib);
@@ -137,7 +170,7 @@ function autofix(text: string, lib: Library, opts: { inline?: boolean; rounds?: 
     const stmts = statements(source);
     const byId = new Map(stmts.map((s) => [s.id, s]));
     const drop = new Set<string>();
-    const toRoot: string[] = [];
+    const toRoot: Expr[] = [];
     const shifted = new Set<string>();
     const edits = new Map<string, { call: CompExpr; remove: Set<number>; add: Arg[]; replace: Map<number, Expr> }>();
     const edit = (id: string) => {
@@ -154,6 +187,32 @@ function autofix(text: string, lib: Library, opts: { inline?: boolean; rounds?: 
     const argIndex = (call: CompExpr, arg: string | undefined) => (arg === undefined ? -1 : /^\d+$/.test(arg) ? Number(arg) : call.args.findIndex((a) => a.name === arg));
 
     const unused = errors.filter((x) => x.code === "unreachable" && x.stmtId).map((x) => x.stmtId!);
+    // Unused statements often use each other (a section and its table). Only the top of each group
+    // is placed; the rest comes along with it. Found from real references, so a name inside a string
+    // or a table header does not count, and a group that uses itself in a loop still gets placed.
+    const parsed = new Map<string, Expr | null>();
+    const valueOf = (id: string): Expr | null => {
+      if (parsed.has(id)) return parsed.get(id)!;
+      const s = byId.get(id);
+      const p = s ? parseStatement(s.text, lib).stmt : null;
+      const v = p?.kind === "assign" ? p.value : null;
+      parsed.set(id, v);
+      return v;
+    };
+    const unusedSet = new Set(unused);
+    const uses = new Map(unused.map((u) => [u, [...refsOf(valueOf(u))].filter((r) => r !== u && unusedSet.has(r))]));
+    const isCompStmt = (u: string) => valueOf(u)?.k === "comp";
+    const comesAlong = new Set<string>();
+    const carry = (u: string) => {
+      for (const r of uses.get(u) ?? []) if (!comesAlong.has(r)) (comesAlong.add(r), carry(r));
+    };
+    const tops = unused.filter((u) => !unused.some((p) => p !== u && isCompStmt(p) && uses.get(p)!.includes(u)));
+    for (const t of tops) if (isCompStmt(t)) carry(t);
+    for (const u of unused) {
+      if (comesAlong.has(u) || tops.includes(u)) continue;
+      tops.push(u);
+      if (isCompStmt(u)) carry(u);
+    }
     for (const err of errors) {
       const id = err.stmtId;
       if (!id) continue;
@@ -244,11 +303,13 @@ function autofix(text: string, lib: Library, opts: { inline?: boolean; rounds?: 
           const s = byId.get(id);
           const v = s ? parseStatement(s.text, lib).stmt : null;
           const isComp = v?.kind === "assign" && v.value.k === "comp";
+          // Data the model wrote but never showed (`riskRows = |Learner|Score …`) is shown as a table.
+          const viewer = v?.kind === "table" ? tableViewer(lib) : undefined;
           // Part of another unused statement (its child): it comes along with that one.
-          if (unused.some((u) => u !== id && new RegExp(`\\b${id}\\b`).test(byId.get(u)?.text.replace(HEAD, "") ?? ""))) break;
-          if (isComp && byId.has("root") && lib.get(edit("root")?.call.name ?? "")?.hasChildren) {
-            toRoot.push(id);
-            changes.push(`${id}: added to root (it was defined but not used)`);
+          if (comesAlong.has(id) && !tops.includes(id)) break;
+          if ((isComp || viewer) && byId.has("root") && lib.get(edit("root")?.call.name ?? "")?.hasChildren) {
+            toRoot.push(viewer ? ({ k: "comp", name: viewer, args: [{ value: { k: "ref", name: id } }] } as CompExpr) : ({ k: "ref", name: id } as Expr));
+            changes.push(viewer ? `${id}: shown in a ${viewer} on root (it was defined but not used)` : `${id}: added to root (it was defined but not used)`);
           } else {
             drop.add(id);
             changes.push(`${id}: removed (defined but not used)`);
@@ -300,7 +361,7 @@ function autofix(text: string, lib: Library, opts: { inline?: boolean; rounds?: 
         }
       }
     }
-    if (toRoot.length) edit("root")!.add.push(...toRoot.map((n): Arg => ({ value: { k: "ref", name: n } })));
+    if (toRoot.length) edit("root")!.add.push(...toRoot.map((value): Arg => ({ value })));
 
     const before = source;
     source = stmts
@@ -317,6 +378,131 @@ function autofix(text: string, lib: Library, opts: { inline?: boolean; rounds?: 
   }
   errors = parse(source, lib).errors.filter((e) => REPAIRABLE.has(e.code));
   return { source: opts.shape === "original" ? inlineHoisted(source, lib) : source, changes, errors, valid: errors.length === 0 };
+}
+
+/** Applies `fn` to the code between string literals and table rows, leaving those as written. */
+function outsideStrings(text: string, fn: (code: string) => string): string {
+  let out = "";
+  let code = "";
+  let i = 0;
+  const flush = () => ((out += fn(code)), (code = ""));
+  while (i < text.length) {
+    const c = text[i]!;
+    if (c === '"') {
+      flush();
+      let j = i + 1;
+      while (j < text.length && text[j] !== '"' && text[j] !== "\n") j += text[j] === "\\" ? 2 : 1;
+      out += text.slice(i, j + 1);
+      i = j + 1;
+    } else if (c === "|" && (i === 0 || text[i - 1] === "\n")) {
+      flush();
+      const j = text.indexOf("\n", i);
+      out += j < 0 ? text.slice(i) : text.slice(i, j);
+      i = j < 0 ? text.length : j;
+    } else (code += c), i++;
+  }
+  flush();
+  return out;
+}
+
+/**
+ * A table written inside a call (`Table(|Ticket|Subject|, |T1|Login|)`, `Card(|MRR|$12k|ARR|$140k)`)
+ * moves to its own statement, `<id>Rows`, and the call refers to it. Rows end at `|,` before the next
+ * `|`, at a literal `\n`, or where the next argument starts.
+ */
+function liftInlineTables(line: string, taken: Set<string>, changes: string[]): string[] {
+  const head = HEAD.exec(line);
+  if (!head || line.startsWith("|") || !line.includes("|")) return [line];
+  const extra: string[] = [];
+  let out = "";
+  let i = 0;
+  let depth = 0;
+  let prev = "";
+  while (i < line.length) {
+    const c = line[i]!;
+    if (c === '"') {
+      let j = i + 1;
+      while (j < line.length && line[j] !== '"') j += line[j] === "\\" ? 2 : 1;
+      out += line.slice(i, j + 1);
+      prev = '"';
+      i = j + 1;
+      continue;
+    }
+    if (c === "|" && depth > 0 && /[(,[]/.test(prev)) {
+      const rows: string[] = [];
+      let row = "";
+      let inner = 0;
+      let j = i;
+      for (; j < line.length; j++) {
+        const d = line[j]!;
+        if (d === "(" || d === "[") inner++;
+        else if ((d === ")" || d === "]") && inner > 0) inner--;
+        else if (d === ")" || d === "]") break;
+        else if (d === "\\" && line[j + 1] === "n" && line[j + 2] === "|") {
+          rows.push(row), (row = ""), j++;
+          continue;
+        } else if (d === "," && inner === 0) {
+          const rest = line.slice(j + 1);
+          if (/^\s*\|/.test(rest)) {
+            rows.push(row), (row = "");
+            j += rest.length - rest.trimStart().length;
+            continue;
+          }
+          if (/\|\s*$/.test(row) || /^\s*([a-z_]\w*\s*[:=]|[A-Za-z_]\w*\s*\(|[a-z_]\w*\s*[,)\]])/.test(rest)) break;
+        }
+        row += d;
+      }
+      if (row.trim()) rows.push(row);
+      const table = rows.map((r) => r.trim()).filter((r) => r.startsWith("|") && r.length > 1);
+      if (table.length) {
+        let name = `${head[1]}Rows`;
+        for (let n = 2; taken.has(name); n++) name = `${head[1]}Rows${n}`;
+        taken.add(name);
+        extra.push(`${name} = ${table.join("\n")}`);
+        out += name;
+        changes.push(`${head[1]}: moved an inline table to "${name}"`);
+        i = j;
+        prev = "x";
+        continue;
+      }
+    }
+    if (c === "(" || c === "[") depth++;
+    else if (c === ")" || c === "]") depth--;
+    if (!/\s/.test(c)) prev = c;
+    out += c;
+    i++;
+  }
+  return [out, ...extra];
+}
+
+/**
+ * Fixes before parsing, on the text as the model wrote it, so nothing is lost when the parser drops
+ * a statement it cannot read or a reference it cannot resolve:
+ * curly quotes used as string quotes, tables written inside a call, references that miss an existing
+ * statement by case or one letter (`MetricsRow`, `incidentsTable` for `incidentTable`), and a
+ * component named without parentheses (`Card(Separator)`).
+ */
+function prepare(text: string, lib: Library, changes: string[]): string {
+  let t = outsideStrings(text, (code) => code.replace(/[“”]/g, '"'));
+  if (t !== text) changes.push("curly quotes → straight quotes");
+  const taken = new Set([...t.matchAll(/^\$?([A-Za-z_]\w*)\s*=/gm)].map((m) => m[1]!));
+  t = t
+    .split("\n")
+    .flatMap((l) => liftInlineTables(l, taken, changes))
+    .join("\n");
+  const r = parse(t, lib);
+  const unused = r.errors.filter((e) => e.code === "unreachable" && e.stmtId).map((e) => e.stmtId!);
+  const rename = new Map<string, string>();
+  for (const e of r.errors) {
+    if (e.code !== "unresolved-ref" || !e.ref || rename.has(e.ref)) continue;
+    const low = e.ref.toLowerCase();
+    const meant = [...taken].find((k) => k !== e.ref && k.toLowerCase() === low) ?? (e.ref.length >= 6 ? unused.find((k) => editDistance(k.toLowerCase(), low) === 1) : undefined);
+    if (meant) rename.set(e.ref, meant);
+    else if (lib.get(e.ref)?.requiredPositional === 0) rename.set(e.ref, `${e.ref}()`);
+  }
+  if (!rename.size) return t;
+  for (const [from, to] of rename) changes.push(`"${from}" → "${to}"`);
+  return outsideStrings(t, (code) => code.replace(/\b[A-Za-z_]\w*\b(?!\s*\()/g, (w, at: number, all: string) => (rename.has(w) && !/[\w.$]$/.test(all.slice(0, at)) && !/^\s*[:=]/.test(all.slice(at + w.length)) ? rename.get(w)! : w)));
 }
 
 const HOISTED = /^_c\d+$/;

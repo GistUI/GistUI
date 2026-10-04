@@ -1,0 +1,77 @@
+root = Card(CardHeader("Content Studio Dashboard"), draftsPanel, publishedThisWeekPanel, mostReadPanel, readershipPanel, filterPanel, schedulePanel, commentsPanel, newDraftPanel)
+
+draftsPanel = Card(Heading("Drafts by status", h3), Table(draftRows))
+
+draftRows = |Status|Count
+|Draft|12
+|In Review|5
+|Ready|3
+
+publishedThisWeekPanel = Card(Heading("Pieces published this week", h3), Table(publishedRows))
+
+publishedRows = |Title|Platform|Date
+|"Editorial calendar kickoff"|web|2026-09-28
+|"Q1 recap"|newsletter|2026-09-30
+
+mostReadPanel = Card(Heading("Most-read article this month", h3), CardHeader("Month topper"), TextContent("Top article: 'How readers engage with long-form content'"))
+
+readershipPanel = Card(Heading(" readership over the past 30 days", h3), LineChart(readershipTable, natural, xLabel:"Day", yLabel:"Views"))
+
+readershipTable = |Day|Views
+|Day 1|1200
+|Day 2|1350
+|Day 3|1100
+|Day 4|1420
+|Day 5|980
+|Day 6|2100
+|Day 7|1900
+|Day 8|1700
+|Day 9|1600
+|Day 10|2000
+|Day 11|2300
+|Day 12|2200
+|Day 13|1800
+|Day 14|1950
+|Day 15|2100
+|Day 16|2400
+|Day 17|2600
+|Day 18|2500
+|Day 19|2700
+|Day 20|3000
+|Day 21|2900
+|Day 22|3100
+|Day 23|3200
+|Day 24|3300
+|Day 25|3400
+|Day 26|3500
+|Day 27|3600
+|Day 28|3700
+|Day 29|3800
+|Day 30|3900
+
+filterPanel = Card(Heading("Narrow by category", h3), Form("category-filter", filterButtons, categorySelect), sunk)
+
+categoryFilter = FormControl("Category", Select("category", SelectItem("News", "News"), SelectItem("Opinion", "Opinion"), SelectItem("Tutorial", "Tutorial"), SelectItem("Tutorial", "Tutorial"), placeholder:"Choose a category")) 
+filterButtons = Buttons(Button("Apply", primary))
+
+categorySelect = categoryFilter
+
+schedulePanel = Card(Heading("Schedule a piece", h3), Form("schedule-form", scheduleButtons, titleField, dateField), sunk)
+
+titleField = FormControl("Title", Input("title", "Untitled piece"))
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single))
+
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Save draft", secondary))
+
+newDraftPanel = Card(Heading("Start a new draft", h3), Form("new-draft", newDraftButtons, draftTitleField, draftCategoryField), sunk)
+
+draftTitleField = FormControl("Draft title", Input("draft_title", "Untitled draft"))
+draftCategoryField = FormControl("Category", Select("draft_category", SelectItem("News", "News"), SelectItem("Tutorial", "Tutorial"), placeholder:"Choose category"))
+
+newDraftButtons = Buttons(Button("Create draft", primary), Button("Discard", tertiary))
+
+commentsPanel = Card(Heading("Comments awaiting reply", h3), Table(commentRows))
+
+commentRows = |Comment|Author|Topic|Date
+|"Great article, any follow-up?"|"Ava"|"Long-form"|"2026-09-28"
+|"Could you expand on this point?"|"Liam"|"Editorial"|"2026-09-29"

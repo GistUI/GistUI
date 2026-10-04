@@ -1,74 +1,91 @@
-root = Card(header, controls, revenueCard, costsCard, profitCard, revenueChart, costsChart, budgetTable, headcountTable, risksCard, initiativesCard, runwayCard, pipelineCard, winRateCard, customersCard, npsCard, itemsCard, exportBtn)
+root = Card(header, filterCard, summaryCard, revenueChart, costChart, deptSection, riskSection, initiativeSection, boardSection, exportButtons)
 
-header = CardHeader("Quarterly Executive Dashboard", "Select quarter and region")
+filterCard = Card(quarterSelect, regionSelect, direction:row, gap:s)
 
-controls = Card(quarterSelect, regionSelect)
+summaryCard = Card(revMetric, costMetric, profitMetric, runwayMetric, pipelineMetric, winRateMetric, npsMetric, direction:row, gap:m, wrap)
 
-quarterSelect = FormControl("Quarter", Select("quarter", SelectItem("Q1", "Q1"), SelectItem("Q2", "Q2"), SelectItem("Q3", "Q3"), SelectItem("Q4", "Q4"), placeholder:"Select quarter"))
+deptSection = Card(CardHeader("Department Budget vs Plan"), budgetChart, headcountChart)
 
-regionSelect = FormControl("Region", Select("region", SelectItem("Americas", "Americas"), SelectItem("EMEA", "EMEA"), SelectItem("APAC", "APAC"), placeholder:"Select region"))
+riskSection = Card(CardHeader("Top Risks"), riskList)
 
-revenueCard = Card(CardHeader("Revenue"), TextContent("$12.4M", size:large), sunk)
+initiativeSection = Card(CardHeader("Strategic Initiatives"), initiativeList)
 
-costsCard = Card(CardHeader("Costs"), TextContent("$8.7M", size:large), sunk)
+boardSection = Card(CardHeader("Next Board Meeting Items"), boardList)
 
-profitCard = Card(CardHeader("Profit"), TextContent("$3.7M", size:large), sunk)
+exportButtons = Buttons(Button("Export Pack", variant:primary))
 
-revenueChart = Card(CardHeader("Revenue Over Four Quarters"), LineChart(revenueRows, linear, xLabel:"Quarter", yLabel:"Revenue"))
+header = CardHeader("Quarterly Executive Overview", "Q2 2024")
 
-costsChart = Card(CardHeader("Costs Over Four Quarters"), LineChart(costRows, linear, xLabel:"Quarter", yLabel:"Costs"))
+quarterSelect = Select("quarter", SelectItem("Q1","Q1"), SelectItem("Q2","Q2"), SelectItem("Q3","Q3"), SelectItem("Q4","Q4"), placeholder:"Select quarter", value:"Q2")
 
-budgetTable = Card(CardHeader("Budget vs Plan by Department"), Table(deptCol, budgetCol, planCol, varianceCol))
+regionSelect = Select("region", SelectItem("North America","North America"), SelectItem("EMEA","EMEA"), SelectItem("APAC","APAC"), placeholder:"Select region", value:"North America")
 
-deptCol = Col("Department", data:["Engineering","Marketing","Sales","Customer Success"], type:string)
-budgetCol = Col("Budget", data:[5000000,2000000,2500000,1500000], type:number)
-planCol = Col("Plan", data:[4500000,2200000,2600000,1400000], type:number)
-varianceCol = Col("Variance", data:[500000, -200000, -100000, 100000], type:number)
+revMetric = TextContent("**Revenue:** $130M", size:large)
 
-headcountTable = Card(CardHeader("Headcount by Department"), Table(deptCol2, headcountCol))
+costMetric = TextContent("**Costs:** $85M", size:large)
 
-deptCol2 = Col("Department", data:["Engineering","Marketing","Sales","Customer Success"], type:string)
-headcountCol = Col("Headcount", data:[120,45,60,30], type:number)
+profitMetric = TextContent("**Profit:** $45M", size:large)
 
-risksCard = Card(CardHeader("Top Risks"), Table(riskCol, ownerCol))
+runwayMetric = TextContent("**Runway:** 12 months", size:default)
 
-riskCol = Col("Risk", data:["Supply chain disruption","Regulatory change","Talent shortage"], type:string)
-ownerCol = Col("Owner", data:["Logistics VP","Legal Counsel","HR Director"], type:string)
+pipelineMetric = TextContent("**Sales Pipeline:** $25M", size:default)
 
-initiativesCard = Card(CardHeader("Strategic Initiatives"), Table(initCol, statusCol))
+winRateMetric = TextContent("**Win Rate:** 23%", size:default)
 
-initCol = Col("Initiative", data:["Launch New Product","Expand into APAC","Upgrade Core Platform"], type:string)
-statusCol = Col("Status", data:["On Track","Delayed","Completed"], type:string)
+npsMetric = Callout(variant:info, title:"NPS", description:"68")
 
-runwayCard = Card(CardHeader("Months of Runway"), TextContent("14 months", size:large))
+revenueChart = LineChart(revQuarter, variant:linear, xLabel:"Quarter", yLabel:"Revenue")
 
-pipelineCard = Card(CardHeader("Sales Pipeline Value"), TextContent("$9.3M", size:large))
+costChart = LineChart(costQuarter, variant:linear, xLabel:"Quarter", yLabel:"Cost")
 
-winRateCard = Card(CardHeader("Win Rate"), TextContent("27%", size:large))
+budgetChart = BarChart(budgetDept, variant:grouped, xLabel:"Department", yLabel:"Amount")
 
-customersCard = Card(CardHeader("Customers & Churn"), Table(custCol, churnCol))
+headcountChart = BarChart(headcountDept, variant:grouped, xLabel:"Department", yLabel:"Headcount")
 
-custCol = Col("Customers", data:[3400], type:number)
-churnCol = Col("Churn Rate", data:["5%"], type:string)
+riskList = ListBlock(risk1, risk2, risk3, variant:number)
 
-npsCard = Card(CardHeader("Net Promoter Score"), TextContent("68", size:large))
+initiativeList = ListBlock(initiative1, initiative2, initiative3, variant:number)
 
-itemsCard = Card(CardHeader("Items for Next Board Meeting"), ListBlock(item1, item2, item3, variant:number))
+boardList = ListBlock(board1, board2, board3, variant:number)
 
-item1 = ListItem("Approve FY budget")
-item2 = ListItem("Review risk mitigation plan")
-item3 = ListItem("Set Q3 targets")
+risk1 = ListItem("Supply chain disruption", "Owner: Logistics", "Mitigate")
 
-exportBtn = Buttons(Button("Export Pack", primary))
+risk2 = ListItem("Regulatory change", "Owner: Legal", "Review")
 
-revenueRows = |Quarter|Revenue
-|Q1|3.1M
-|Q2|3.0M
-|Q3|3.2M
-|Q4|3.1M
+risk3 = ListItem("Talent attrition", "Owner: HR", "Plan")
 
-costRows = |Quarter|Costs
-|Q1|2.2M
-|Q2|2.1M
-|Q3|2.3M
-|Q4|2.1M
+initiative1 = ListItem("Launch new product X", "Status: On Track", "Update")
+
+initiative2 = ListItem("Expand to EU market", "Status: Delayed", "Review")
+
+initiative3 = ListItem("Upgrade infrastructure", "Status: Completed", "Close")
+
+board1 = ListItem("Approve FY budget", "", "Open")
+
+board2 = ListItem("Discuss M&A opportunities", "", "Open")
+
+board3 = ListItem("Review ESG report", "", "Open")
+
+revQuarter = |Quarter|Revenue
+|Q1|120000
+|Q2|130000
+|Q3|125000
+|Q4|140000
+
+costQuarter = |Quarter|Cost
+|Q1|80000
+|Q2|85000
+|Q3|83000
+|Q4|87000
+
+budgetDept = |Department|Budget|Plan
+|Engineering|500000|550000
+|Marketing|300000|280000
+|Sales|400000|420000
+|HR|150000|150000
+
+headcountDept = |Department|Headcount
+|Engineering|45
+|Marketing|30
+|Sales|40
+|HR|15

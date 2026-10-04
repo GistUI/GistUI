@@ -1,0 +1,100 @@
+root = Card(CardHeader("Live-Ops Dashboard", "Studio: NeonForge"), Tabs())
+section_players = Card(Heading("Players & Activity", h3))
+section_revenue = Card(Heading("Revenue & Monetization", h3))
+section_engagement = Card(Heading("Engagement & Experience", h3))
+section_salt = Card(Heading("Administration & Operations", h3))
+
+root = Card(CardHeader("Live-Ops Dashboard", "Studio: NeonForge"), section_players, section_revenue, section_engagement, section_salt, Buttons(Button("Draft patch notes", primary), Button("Ship hotfix", secondary)))
+
+# 1. players online right now
+section_players = Card(Heading("Players online now", h4), TextContent("1234 players online right now", size:"default"), Separator())
+
+# 2. daily and monthly active players
+section_players = Card(Heading("DAU / MAU", h4), Table(|Metric|Value
+|DAU|12,345
+|MAU|678,901),)
+
+# 3. revenue today
+section_revenue = Card(Heading("Revenue today", h4), TextContent("$52,310", size:"large"))
+
+# 4. revenue per user
+section_revenue = Card(Heading("Revenue per user", h4), TextContent("$1.23", size:"default"))
+
+# 5. session length over the past two weeks
+trendTable = |Day|AvgSessionMin
+|Day1|22
+|Day2|21
+|Day3|23
+|Day4|20
+|Day5|25
+|Day6|24
+|Day7|22
+|Day8|23
+|Day9|21
+|Day10|22
+|Day11|24
+|Day12|23
+|Day13|22
+|Day14|25
+section_engagement = Card(Heading("Session length (past 14 days)", h4), LineChart(Table(trendTable), linear, xLabel:"Day", yLabel:"Minutes"))
+
+# 6. best-selling items with units for each
+bestSellers = |Item|Units
+|Sword of Dawn|1120
+|Dragon Shield|980
+|Arcane Potion|2400
+section_revenue = Card(Heading("Best-selling items", h4), Table(bestSellers))
+
+# 7. each server region and its health
+regions = |Region|Health
+|NA-East|Healthy
+|NA-West|Degraded
+|EU-Central|Healthy
+|APAC|Healthy
+section_players = Card(Heading("Server regions health", h4), Table(regions))
+
+# 8. crash rate by app version
+crashTable = |Version|Crashes%
+|1.4.0|0.8
+|1.4.1|1.2
+|1.4.2|0.5
+section_engagement = Card(Heading("Crash rate by app version", h4), Table(crashTable))
+
+# 9. live events running and upcoming
+eventsRunning = Card(Heading("Live events - running", h4), ListBlock(ListItem("Treasure Hunt", "Ends in 2h"), ListItem("Double XP Weekend", "Ends in 28h")), isFoldable)
+eventsUpcoming = Card(Heading("Upcoming events", h4), ListBlock(ListItem("Halloween Parade",), ListItem("New skin drop", "Starts in 3d")))
+
+# 10. player reports awaiting review
+reports = Card(Heading("Player reports awaiting review", h4), Table(|Report|Status
+|Report #10234|New
+|Report #10259|New),)
+
+# 11. ban appeals awaiting review
+appeals = Card(Heading("Ban appeals awaiting review", h4), Table(|Appeal|Status
+|Appeal #554|Pending
+|Appeal #555|Under Review),)
+
+# 12. in-game currency inflation
+inflation = Card(Heading("Currency inflation", h4), TextContent("Inflation rate: 3.2% per month", size:"default"))
+
+# 13. results of the two running experiments
+expA = |Metric|Value
+|Engagement lift|+6.5%
+|Retention lift|+2.1%
+expB = |Metric|Value
+|Monetization lift|+9.2%
+|ARPU lift|+4.7%
+experiments = Card(Heading("Experiments", h4), Table(expA), Table(expB))
+
+# 14. a way to draft patch notes
+draftPatch = CardHeader("Patch notes drafting")
+draftPatchCard = Card(Heading("Draft patch notes", h4), TextContent("Use Draft Patch Notes tool to outline changes, then review in QA.", size:"default"), Button("Open editor", primary))
+
+# 15. a way to focus on one region
+regionFocus = Card(Heading("Focus on region", h4), Form("region-focus", Buttons(Button("Apply focus", primary)), FormControl("Region", Select("region", SelectItem("NA-East","NA-East"), SelectItem("EU-Central","EU-Central"), SelectItem("APAC","APAC")),))
+
+# 16. a way to ship a hotfix
+hotfix = Card(Heading("Ship hotfix", h4), DialogBlock("Hotfix", "Ship hotfix", TextContent("Choose changes, deploy to region, monitor."), description:"Initiate hotfix workflow"))
+
+# Assemble final root
+root = Card(CardHeader("Live-Ops Dashboard", "Studio: NeonForge"), section_players, section_revenue, section_engagement, section_salt, eventsRunning, eventsUpcoming, reports, appeals, inflation, experiments, draftPatchCard, regionFocus, hotfix)

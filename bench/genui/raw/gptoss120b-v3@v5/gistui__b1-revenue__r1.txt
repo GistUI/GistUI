@@ -1,4 +1,0 @@
-root = Card(header, todayRevenue, yesterdayRevenue)
-header = CardHeader("Today's Revenue", "Mid‑morning check‑in")
-todayRevenue = TextContent("$12,340", size:large)
-yesterdayRevenue = TextContent("Yesterday same time: $11,980")

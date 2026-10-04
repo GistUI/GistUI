@@ -1,0 +1,58 @@
+root = Card(CardHeader("Store Manager Console", "Today’s snapshot"), ) 
+# Define sections
+section_sales = Card(Heading("Sales vs Target", h3), Table(salesTable), sunk)
+section_traffic = Card(Heading("Foot Traffic (Day)", h3), LineChart(trafficTable, natural, xLabel:"Time", yLabel:"People"), sunk)
+section_best = Card(Heading("Best Sellers", h3), Table(bestTable), sunk)
+section_stockout = Card(Heading("Out of Stock", h3), Table(stockoutTable), sunk)
+section_shift = Card(Heading("Shift Today", h3), Table(shiftTable), sunk)
+section_basket = Card(Heading("Avg Basket Size", h3), TextContent(""), sunk)
+section_returns = Card(Heading("Returns This Week", h3), Table(returnsTable), sunk)
+section_promos = Card(Heading("Promotions Performance", h3), BarChart(promosTable, xLabel:"Promotion", yLabel:"Revenue"), sunk)
+section_registers = Card(Heading("Registers", h3), Table(registersTable), sunk)
+section_reorder = Card(Heading("Reorder Item", h3), Form("reorder-form", reorderButtons, reorderControl), sunk)
+section_storeview = Card(Heading("View Another Store", h3), Form("store-switch", storeButtons, storeSelect), sunk)
+section_compare = Card(Heading("This Week vs Last Week", h3), Table(weekCompareTable), sunk)
+# Build root content
+root = Card(CardHeader("Store Manager Console", "Today’s snapshot"), section_sales, section_traffic, section_best, section_stockout, section_shift, section_basket, section_returns, section_promos, section_registers, section_reorder, section_storeview, section_compare, Buttons()) 
+# Data tables and controls (placeholders for layout)
+salesTable = |Metric|Today|Target
+|Sales|$5,420|$6,000
+|Revenue|$5,420|$6,000
+trafficTable = |Time|Foot Traffic
+|09:00|32
+|10:00|58
+|11:00|74
+|12:00|60
+|13:00|41
+|14:00|35
+bestTable = |Item|Units
+|Widget A|124
+|Widget B|97
+|Widget C|86
+stockoutTable = |Item|Stock
+|Widget Z|0
+|Widget Y|0
+|Widget X|0
+shiftTable = |Staff|Status
+|Alex|On
+|Priya|On
+|Diego|Off
+basketSizeNote = TextContent("Average basket size calculated from transactions today.", default)
+returnsTable = |Week|Returns
+|This Week|$1,200
+|Last Week|$1,050
+promosTable = |Promotion|Revenue
+|Summer Sale|$3,400
+|Bundle Offer|$2,100
+registersTable = |Register|Open
+| Register 1|Yes
+| Register 2|No
+| Register 3|Yes
+reorderControl = TextArea("notes", "Reason for reorder", "Ex: low stock")
+reorderButtons = Buttons(Button("Submit Reorder", primary), Button("Cancel", tertiary))
+storeButtons = Buttons(Button("Store 1", primary), Button("Store 2", secondary))
+storeSelect = Select("store", SelectItem("Store 1", "Store 1"), SelectItem("Store 2", "Store 2"), placeholder:"Choose store")
+weekCompareTable = |Metric|This Week|Last Week
+|Sales|$12,000|$11,500
+|Orders|1,320|1,210
+|Returns|$1,200|$1,050

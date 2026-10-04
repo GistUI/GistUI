@@ -1,88 +1,80 @@
-root = Card(enrollmentCard, applicationsCard, acceptanceCard, tuitionCard, courseFillCard, teachingLoadCard, riskCard, scholarshipCard, housingCard, eventsCard, alumniGivingCard, controlsCard, semesterCompareCard, waitlistCard, approveCourseCard, messageGroupCard)
-enrollmentCard = Card(CardHeader("Total Enrollment", "2023"), TextContent("**12,340** students", size:large), enrollmentChart)
-applicationsCard = Card(CardHeader("Applications by Program"), applicationsChart)
-acceptanceCard = Card(CardHeader("Acceptance Rate"), acceptanceCallout)
-tuitionCard = Card(CardHeader("Tuition Revenue 2023"), tuitionText)
-courseFillCard = Card(CardHeader("Course Offering Fill Rates"), courseFillChart)
-teachingLoadCard = Card(CardHeader("Teaching Load by Faculty"), teachingLoadChart)
-riskCard = Card(CardHeader("Students at Academic Risk"), riskTable)
-scholarshipCard = Card(CardHeader("Scholarship Budget Usage"), scholarshipChart)
-housingCard = Card(CardHeader("Housing Occupancy"), housingChart)
-eventsCard = Card(CardHeader("Campus Events This Month"), eventsList)
-alumniGivingCard = Card(CardHeader("Alumni Giving (Last 4 Years)"), alumniGivingChart)
-controlsCard = Card(CardHeader("Filters & Actions"), departmentSelect)
-semesterCompareCard = Card(CardHeader("This Semester vs Last"), semesterCompareChart)
-waitlistCard = Card(CardHeader("Waitlisted Students by Program"), waitlistChart)
-approveCourseCard = Card(CardHeader("Approve New Course"), approveButtons)
-messageGroupCard = Card(CardHeader("Message Student Group"), messageButtons)
-enrollmentChart = LineChart(enrollmentData, linear, xLabel:"Year", yLabel:"Students")
-applicationsChart = BarChart(applicationsData, grouped, xLabel:"Program", yLabel:"Applications")
-acceptanceCallout = TextCallout("Acceptance Rate", "68%", success)
-tuitionText = TextContent("$4.2M", size:large)
-courseFillChart = HorizontalBarChart(courseFillData, grouped, xLabel:"Fill %", yLabel:"Course")
-teachingLoadChart = BarChart(teachingLoadData, grouped, xLabel:"Faculty", yLabel:"Courses")
-riskTable = Table(riskNameCol, riskScoreCol, riskAdvisorCol)
-scholarshipChart = SingleStackedBarChart(scholarshipData)
-housingChart = HorizontalBarChart(housingData, grouped, xLabel:"Occupancy %", yLabel:"Residence")
-eventsList = ListBlock(event1, event2, event3, variant:number)
-alumniGivingChart = LineChart(alumniGivingData, linear, xLabel:"Year", yLabel:"Donations")
-departmentSelect = Select("department", SelectItem("Engineering","Engineering"), SelectItem("Arts","Arts"), SelectItem("Science","Science"), placeholder:"Select department", size:medium)
-semesterCompareChart = BarChart(semesterCompareData, grouped, xLabel:"Metric", yLabel:"Value")
-waitlistChart = BarChart(waitlistData, grouped, xLabel:"Program", yLabel:"Waitlist")
-approveButtons = Buttons(approveButton)
-messageButtons = Buttons(messageButton)
-approveButton = Button("Approve Course", primary)
-messageButton = Button("Send Message", primary)
-event1 = ListItem("Guest Lecture: AI Ethics", "Sept 12, 3pm", "Details")
-event2 = ListItem("Homecoming Parade", "Sept 20, 10am", "Details")
-event3 = ListItem("Career Fair", "Sept 25, 9am-4pm", "Details")
-enrollmentData = |Year|Students
-|2019|11000
-|2020|11250
-|2021|11500
-|2022|11900
-|2023|12340
+root = Card(header, deptFilter, enrollmentSection, applicationsSection, acceptanceSection, tuitionSection, courseOfferingSection, teachingLoadSection, academicRiskSection, scholarshipSection, housingSection, eventsSection, alumniSection, semesterCompSection, waitlistSection, newCourseForm, messageForm)
+header = CardHeader("University Admin Overview", "Key metrics and actions")
+deptFilter = Select("department", SelectItem("all", "All Departments"), SelectItem("eng", "Engineering"), SelectItem("arts", "Arts"), SelectItem("sci", "Science"), placeholder:"Select department")
+enrollmentSection = Card(Heading("Total Enrollment (5 years)", h3), LineChart(enrollmentTrend, linear, xLabel:"Year", yLabel:"Students"))
+applicationsSection = Card(Heading("Applications by Program", h3), BarChart(applicationsData, grouped, xLabel:"Program", yLabel:"Applications"))
+acceptanceSection = Card(Heading("Acceptance Rate", h3), Callout(variant:info, "Acceptance Rate", "78%"))
+tuitionSection = Card(Heading("Tuition Revenue (Current Year)", h3), Callout(variant:success, "Tuition Revenue", "$12.4M"))
+courseOfferingSection = Card(Heading("Course Offering Fill Levels", h3), HorizontalBarChart(courseOfferingData, grouped, xLabel:"Course", yLabel:"Enrollment %"))
+teachingLoadSection = Card(Heading("Teaching Load by Faculty", h3), BarChart(teachingLoadData, grouped, xLabel:"Faculty", yLabel:"Courses Taught"))
+academicRiskSection = Card(Heading("Students at Academic Risk", h3), Table(academicRiskTable))
+scholarshipSection = Card(Heading("Scholarship Budget Usage", h3), PieChart(scholarshipData, donut, appearance:circular))
+housingSection = Card(Heading("Housing Occupancy", h3), HorizontalBarChart(housingData, stacked, xLabel:"Residence Hall", yLabel:"Occupancy %"))
+eventsSection = Card(Heading("Campus Events This Month", h3), ListBlock(event1, event2, event3, variant:number))
+alumniSection = Card(Heading("Alumni Giving (Last 4 Years)", h3), LineChart(alumniData, linear, xLabel:"Year", yLabel:"Donations"))
+semesterCompSection = Card(Heading("This Semester vs Last", h3), BarChart(semesterCompData, grouped, xLabel:"Metric", yLabel:"Value"))
+waitlistSection = Card(Heading("Waitlisted Students per Program", h3), BarChart(waitlistData, grouped, xLabel:"Program", yLabel:"Waitlisted"))
+newCourseForm = Form("new-course", newCourseButtons, newCourseFieldDept, newCourseFieldName, newCourseFieldCredits, newCourseFieldDesc)
+newCourseButtons = Buttons(Button("Approve Course", primary), Button("Cancel", tertiary))
+newCourseFieldDept = FormControl("Department", Select("dept_select", SelectItem("eng", "Engineering"), SelectItem("arts", "Arts"), SelectItem("sci", "Science"), placeholder:"Choose department"))
+newCourseFieldName = FormControl("Course Name", Input("course_name", "Intro to AI"))
+newCourseFieldCredits = FormControl("Credits", Input("credits", "3", type:number))
+newCourseFieldDesc = FormControl("Description", TextArea("description", "Course description...", rows:4))
+messageForm = Form("message-group", messageButtons, messageFieldGroup, messageFieldMessage)
+messageButtons = Buttons(Button("Send Message", primary), Button("Cancel", tertiary))
+messageFieldGroup = FormControl("Student Group", Select("group_select", SelectItem("freshmen", "Freshmen"), SelectItem("seniors", "Seniors"), placeholder:"Select group"))
+messageFieldMessage = FormControl("Message", TextArea("msg_body", "Enter your message...", rows:5))
+enrollmentTrend = |Year|Students
+|2019|15000
+|2020|15500
+|2021|16000
+|2022|16500
+|2023|17000
 applicationsData = |Program|Applications
-|Engineering|2500
-|Arts|1800
-|Science|2100
-|Business|1600
-|Education|900
+|Engineering|3200
+|Arts|2100
+|Science|2800
+|Business|1900
+|Education|1500
+courseOfferingData = |Course|Fill%
+|Calculus I|95
+|Physics I|88
+|Literature|70
+|Economics|85
+|Biology|92
 teachingLoadData = |Faculty|Courses
 |Dr. Smith|4
 |Prof. Lee|3
 |Dr. Patel|5
-|Dr. Gomez|2
-|Prof. Chen|3
-courseFillData = |Course|Fill %
-|Math 101|95
-|History 202|80
-|Biology 303|88
-|CS 404|92
-|Art 505|70
-housingData = |Residence|Occupancy %
+|Prof. Garcia|2
+|Dr. Nguyen|4
+academicRiskTable = |Student|GPA|Credits|Risk Level
+|Alice Johnson|2.1|30|High
+|Bob Martinez|2.3|45|Medium
+|Carol Lee|1.9|20|High
+scholarshipData = |Category|Amount
+|Allocated|8000000
+|Used|6500000
+housingData = |Residence Hall|Occupancy%
 |Maple Hall|92
 |Oak Hall|85
 |Pine Hall|78
 |Cedar Hall|88
-scholarshipData = |Category|Value
-|Used|75
-|Remaining|25
-alumniGivingData = |Year|Donations
-|2020|500000
-|2021|550000
-|2022|600000
-|2023|650000
-semesterCompareData = |Metric|This Semester|Last Semester
-|Enrollment|12340|11900
-|Revenue|4200|4000
-|Applications|9000|8500
+event1 = ListItem("Science Fair", "April 12, 10am", "Details")
+event2 = ListItem("Alumni Reunion", "April 20, 6pm", "RSVP")
+event3 = ListItem("Spring Concert", "April 28, 8pm", "Tickets")
+alumniData = |Year|Donations
+|2020|1200000
+|2021|1350000
+|2022|1500000
+|2023|1650000
+semesterCompData = |Metric|This Semester|Last Semester
+|Enrollments|5200|5000
+|Applications|5800|5600
+|Revenue|3200000|3000000
 waitlistData = |Program|Waitlisted
 |Engineering|120
-|Arts|80
-|Science|95
-|Business|60
-|Education|30
-riskNameCol = Col("Student", data:["Alice Johnson","Bob Lee","Catherine Wu"], type:string)
-riskScoreCol = Col("Risk Score", data:[85,78,92], type:number)
-riskAdvisorCol = Col("Advisor", data:["Dr. Smith","Prof. Lee","Dr. Patel"], type:string)
+|Arts|45
+|Science|80
+|Business|30
+|Education|20

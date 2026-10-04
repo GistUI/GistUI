@@ -1,9 +1,13 @@
-root = Card(header, progress, modulesTable, nextLesson, ratingTag, actions)
-header = CardHeader("Advanced Data Science", "Instructor: Dr. Jane Doe")
-progress = Progress(68, "68% Complete")
-modulesTable = Table(moduleCol, statusCol)
-moduleCol = Col("Module", data:["Intro","Data Prep","Modeling","Evaluation"], type:string)
-statusCol = Col("Status", data:["✓","✓","✗","✗"], type:string)
-nextLesson = Callout(variant:info, "Next Lesson", "Modeling Techniques")
-ratingTag = Tag("4.5 ★", variant:info)
-actions = Buttons(Button("Continue", primary))
+root = Card(courseHeader, progressInfo, modulesSection, nextLesson, ratingInfo, continueActions)
+
+courseHeader = CardHeader("Course: Mastering GistUI", "Instructor: Alex Rivera")
+progressInfo = TextContent("Overall progress: **68%**", size:large)
+modulesSection = Card(Heading("Modules", h3), Table(modulesTable))
+modulesTable = |Module|Status
+|Introduction|Complete
+|Fundamentals|In progress
+|Advanced Topics|Not started
+
+nextLesson = Card(Heading("Next Lesson", h3), TextContent("**Lesson 4: Interactive Components**", size:default))
+ratingInfo = Card(Heading("Average Rating", h3), Tag("4.5 ★", variant:info))
+continueActions = Buttons(Button("Continue Learning", primary))

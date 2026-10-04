@@ -1,3 +1,0 @@
-root = Card(questionText, voteButtons)
-voteButtons = Buttons(Button("Sushi Place"), Button("Pizza Corner"), Button("Salad Bar"))
-questionText = TextContent("Where should we go for lunch on Friday?", size:large)

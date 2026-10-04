@@ -1,0 +1,69 @@
+root = Card([
+  header = CardHeader("HR Hiring Overview", "Live dashboard for hiring health"),
+  topRow = Card([
+    currentHeadcountCard = Card([
+      Heading("Current headcount", "h4"),
+      TextContent("Total employees across the company: 248", "large")
+    ], "card"),
+    openRolesCard = Card([
+      Heading("Open roles by department", "h4"),
+      openRolesTable = Table([
+        Col("Department", ["Engineering", "Marketing", "Sales", "People Ops"]),
+        Col("Open Roles", ["5", "2", "3", "1"])
+      ])
+    ], "card")
+  ], "row", "m"),
+  row2 = Card([
+    stagePipelineCard = Card([
+      Heading("Candidates by pipeline stage", "h4"),
+      stageList = ListBlock([
+        ListItem("Applied", "320 candidates", ["https://picsum.photos/seed/a/40/40"]),
+        ListItem("Phone Screen", "78 candidates", ["https://picsum.photos/seed/b/40/40"]),
+        ListItem("Onsite", "32 candidates", ["https://picsum.photos/seed/c/40/40"]),
+        ListItem("Offer", "12 candidates", ["https://picsum.photos/seed/d/40/40"])
+      ], "number")
+    ], "card"),
+    averageTimeToHireCard = Card([
+      Heading("Average time to hire", "h4"),
+      TextContent("Average days from opening to offer: 28 days", "default")
+    ], "card")
+  ], "row", "m"),
+  row3 = Card([
+    headcountDeptSplit = Card([
+      Heading("Headcount by department", "h4"),
+      radarOrBar = BarChart(["Engineering", "Marketing", "Sales", "People Ops", "Finance"], [
+        Series("Headcount", [120, 40, 60, 20, 8])
+      ], "grouped", "Department", "Count")
+    ], "card"),
+    interviewsThisWeekCard = Card([
+      Heading("Interviews scheduled this week", "h4"),
+      TextContent("Mon: 5 | Tue: 7 | Wed: 6 | Thu: 4 | Fri: 3", "default")
+    ], "card")
+  ], "row", "m"),
+  row4 = Card([
+    attritionCard = Card([
+      Heading("Attrition (past 6 months)", "h4"),
+      LineChart(["M1","M2","M3","M4","M5","M6"], [
+        Series("Attrition %", [1.2, 1.5, 1.1, 1.8, 1.4, 1.6])
+      ], "linear", "Month", "Percent")
+    ], "card"),
+    newRoleButtonCard = Card([
+      Heading("Add a new role", "h4"),
+      Button("Open new role form", null, "primary")
+    ], "card")
+  ], "row", "m")
+], "card")
+
+header = CardHeader("HR Hiring Overview", "Live dashboard for hiring health")
+topRow = Card([currentHeadcountCard, openRolesCard], "row", "m")
+currentHeadcountCard = Card([Heading("Current headcount", "h4"), TextContent("Total employees: 248", "default")], "card")
+openRolesCard = Card([Heading("Open roles by department", "h4"), Table([Col("Department", ["Engineering","Marketing","Sales","People Ops"]), Col("Open Roles", ["5","2","3","1"])])], "card")
+row2 = Card([stagePipelineCard, averageTimeToHireCard], "row", "m")
+stagePipelineCard = Card([Heading("Candidates by pipeline stage", "h4"), ListBlock([ListItem("Applied","320 candidates", ["https://picsum.photos/seed/a/40/40"]), ListItem("Phone Screen","78 candidates", ["https://picsum.photos/seed/b/40/40"]), ListItem("Onsite","32 candidates", ["https://picsum.photos/seed/c/40/40"]), ListItem("Offer","12 candidates", ["https://picsum.photos/seed/d/40/40"])], "number")], "card")
+averageTimeToHireCard = Card([Heading("Average time to hire", "h4"), TextContent("Average days from opening to offer: 28 days", "default")], "card")
+row3 = Card([headcountDeptSplit, interviewsThisWeekCard], "row", "m")
+headcountDeptSplit = Card([Heading("Headcount by department", "h4"), BarChart(["Engineering","Marketing","Sales","People Ops","Finance"], [Series("Headcount", [120,40,60,20,8])], "grouped", "Department", "Headcount")], "card")
+interviewsThisWeekCard = Card([Heading("Interviews scheduled this week", "h4"), TextContent("Mon: 5 | Tue: 7 | Wed: 6 | Thu: 4 | Fri: 3", "default")], "card")
+row4 = Card([attritionCard, newRoleButtonCard], "row", "m")
+attritionCard = Card([Heading("Attrition (past 6 months)", "h4"), LineChart(["M1","M2","M3","M4","M5","M6"], [Series("Attrition %", [1.2,1.5,1.1,1.8,1.4,1.6])], "linear", "Month", "Percent")], "card")
+newRoleButtonCard = Card([Heading("Add a new role", "h4"), Button("Open new role form", null, "primary")], "card")

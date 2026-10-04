@@ -1,32 +1,50 @@
-root = Card(headcountSection, openRolesSection, pipelineSection, avgTimeSection, deptSplitSection, interviewsSection, attritionSection, newRoleSection, gap:m)
+root = Card(headcountSection, openRolesSection, pipelineSection, avgTimeCard, deptSplitChart, interviewsSection, attritionChart, newRoleDialog)
 
-headcountSection = Card(Heading("Current Headcount", h2), TextContent("**125** employees", size:large-heavy))
+headcountSection = Card(CardHeader("Current Headcount"), Table(headcountTable))
+headcountTable = |Metric|Value
+|Total Employees|124
+|Full‑time|110
+|Part‑time|14
 
-openRolesSection = Card(Heading("Open Roles", h2), Table(openRolesColDept, openRolesColRole), gap:s)
+openRolesSection = Card(CardHeader("Open Roles"), Table(openRolesTable))
+openRolesTable = |Department|Open Roles|Count
+|Engineering|Software Engineer|4
+|Marketing|Content Strategist|2
+|Sales|Account Executive|3
 
-openRolesColDept = Col("Department", data:["Engineering","Marketing","Sales","Product"], type:string)
-openRolesColRole = Col("Role", data:["Backend Engineer","Content Strategist","Account Executive","Product Manager"], type:string)
+pipelineSection = Card(CardHeader("Candidates by Pipeline Stage"), Table(pipelineTable))
+pipelineTable = |Stage|Candidates
+|Applied|27
+|Phone Screen|15
+|Onsite|8
+|Offer|3
+|Hired|5
 
-pipelineSection = Card(Heading("Candidates by Pipeline Stage", h2), HorizontalBarChart(labels:["Applied","Phone Screen","Onsite","Offer"], Series("Candidates", values:[34,22,15,8]), variant:grouped, xLabel:"Count", yLabel:"Stage"))
+avgTimeCard = Card(CardHeader("Average Time to Hire"), TextContent("27 days", size:large))
 
-avgTimeSection = Card(Heading("Average Time to Hire", h2), TextContent("**45 days** average from posting to acceptance", size:large))
+deptSplitChart = Card(CardHeader("Headcount by Department"), HorizontalBarChart(deptSplitTable, variant:grouped, xLabel:"Headcount", yLabel:"Department"))
+deptSplitTable = |Department|Headcount
+|Engineering|45
+|Marketing|20
+|Sales|30
+|HR|12
+|Finance|17
 
-deptSplitSection = Card(Heading("Headcount by Department", h2), BarChart(labels:["Engineering","Marketing","Sales","Product","HR"], Series("Headcount", values:[45,20,30,15,15]), variant:grouped, xLabel:"Department", yLabel:"Employees"))
+interviewsSection = Card(CardHeader("Interviews Scheduled This Week"), Table(interviewsTable))
+interviewsTable = |Date|Interviews
+|Mon 10/07|5
+|Tue 10/08|3
+|Wed 10/09|4
+|Thu 10/10|2
+|Fri 10/11|6
 
-interviewsSection = Card(Heading("Interviews Scheduled This Week", h2), Table(interviewColCandidate, interviewColDate, interviewColStage), gap:s)
+attritionChart = Card(CardHeader("Attrition (Last 6 Months)"), LineChart(attritionTable, variant:linear, xLabel:"Month", yLabel:"% Attrition"))
+attritionTable = |Month|Attrition%
+|May|2.1
+|Jun|1.8
+|Jul|2.4
+|Aug|2.0
+|Sep|1.9
+|Oct|2.2
 
-interviewColCandidate = Col("Candidate", data:["Alice","Bob","Charlie","Dana"], type:string)
-interviewColDate = Col("Date", data:["Mon 10am","Tue 2pm","Wed 11am","Thu 3pm"], type:string)
-interviewColStage = Col("Stage", data:["Phone","Onsite","Phone","Onsite"], type:string)
-
-attritionSection = Card(Heading("Attrition (Last 6 Months)", h2), LineChart(attritionRows, variant:linear, xLabel:"Month", yLabel:"% Attrition"), gap:s)
-
-attritionRows = |Month|Attrition%
-|Jan|2.1
-|Feb|1.8
-|Mar|2.5
-|Apr|2.0
-|May|1.9
-|Jun|2.3
-
-newRoleSection = Card(Heading("Add New Role", h2), Buttons(Button("Open Role Form", primary)))
+newRoleDialog = DialogBlock("New Role", "Create New Role", MarkDownRenderer("Fill in the details for the new role.", variant:clear), description:"Add a new open position", triggerVariant:default)

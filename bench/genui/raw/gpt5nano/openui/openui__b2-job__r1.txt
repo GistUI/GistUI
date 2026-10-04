@@ -1,0 +1,53 @@
+root = Card([
+  headerSection
+  ,descriptionSection
+  ,qualificationsSection
+  ,salarySection
+  ,applicationSection
+  ,shareSection
+])
+headerSection = Card([
+  CardHeader("Senior Designer — Product Design Team", "Design • Product • UX"),
+  Heading("Role: Senior Designer, Product Design", "h2")
+], "card")
+descriptionSection = Card([
+  TextContent("We are seeking a talented Senior Designer to join our product design team. You will shape user experiences across web and mobile, collaborating with product, research, and engineering to deliver impactful outcomes. You’ll mentor junior designers and help elevate our design systems and processes.")
+  ,Separator("horizontal", false)
+], "card")
+qualificationsSection = Card([
+  Heading("Main Qualifications", "h3")
+  ,ListBlock([
+    ListItem("5+ years of product design experience in SaaS or consumer apps", null, null, null)
+    ,ListItem("Strong portfolio showcasing end-to-end product design work", null, null, null)
+    ,ListItem("Prototyping and user research experience", null, null, null)
+    ,ListItem("Expertise in design systems and responsive design", null, null, null)
+    ,ListItem("Collaborative, communicative, and mentor mindset", null, null, null)
+  ], "number")
+], "card")
+salarySection = Card([
+  Heading("Salary Range", "h3")
+  ,TextContent("$120k — $170k base salary, plus equity and benefits", "default")
+], "card")
+applicationSection = Card([
+  Heading("Apply Now", "h3")
+  ,TextContent("Provide your details and resume link below. We’ll review applications on a rolling basis.", "default")
+  ,Form("design-applicant", Buttons([submitBtn], "row"), [
+    nameField
+    ,emailField
+    ,resumeField
+  ])
+  ,nameField = FormControl("Full name", nameInput)
+  ,nameInput = Input("name", "Alex Doe")
+  ,emailField = FormControl("Email", emailInput, "We’ll contact you at this address")
+  ,emailInput = Input("email", "alex@example.com", "email")
+  ,resumeField = FormControl("Resume link", resumeInput)
+  ,resumeInput = Input("resume", "https://example.com/resume.pdf", "url")
+  ,submitBtn = Button("Submit Application", null, "primary")
+], "card")
+shareSection = Card([
+  Heading("Share this posting", "h3")
+  ,TextContent("Help spread the word about this opportunity.", "default")
+  ,Buttons([shareBtn], "row")
+  ,shareBtn = Button("Share posting", null, "secondary")
+], "card")
+ListBlock(items: []);

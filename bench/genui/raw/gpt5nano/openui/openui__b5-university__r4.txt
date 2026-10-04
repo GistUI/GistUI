@@ -1,0 +1,131 @@
+root = Card([
+  header = CardHeader("University Administration Overview", "Integrated dashboard for institutional metrics"),
+  topRow = Card([
+    totalEnrollmentCard = Card([
+      Heading("Total Enrollment & Five-Year Change", "h3"),
+      enrollmentSubtitle = TextContent("Five-year enrollment trend with year-over-year changes."),
+      enrollmentChart = LineChart(["Y0","Y1","Y2","Y3","Y4"], [enrollSeries], "linear", "Year", "Students")
+    ]),
+    programsByAppsCard = Card([
+      Heading("Applications by Program", "h3"),
+      appsTable = Table([
+        appsCol = Col("Program", ["Engineering","Arts & Sciences","Business","Education","Health"], "string"),
+        appsValCol = Col("Applications", [1250, 980, 1150, 540, 860], "number")
+      ])
+    ])
+  ], "row", "m"),
+  middleRow = Card([
+    acceptanceRateCard = Card([
+      Heading("Acceptance Rate", "h3"),
+      accRate = TextContent("Overall: 18.5% (Applicants vs. Admits)"),
+      accTrend = LineChart(["Y1","Y2","Y3","Y4","Y5"], [accSeries], "linear", "Year", "Rate %")
+    ]),
+    tuitionRevenueCard = Card([
+      Heading("Tuition Revenue This Year", "h3"),
+      revenueValue = TextContent("$128,400,000"),
+      revenueChart = BarChart(["Q1","Q2","Q3","Q4"], [tuitionSeries], "grouped", "Quarter", "Revenue USD")
+    ])
+  ], "row", "m"),
+  capacityRow = Card([
+    occupancyCard = Card([
+      Heading("Course Offering Capacity Utilization", "h3"),
+      capacityTable = Table([
+        courseCol = Col("Course", ["Calculus I","Intro to Psych","Algorithms","Organic Chem","World Lit"], "string"),
+        capacityCol = Col("Capacity Utilization", [92, 84, 77, 68, 85], "number")
+      ])
+    ]),
+    teachingLoadCard = Card([
+      Heading("Teaching Load by Faculty Member", "h3"),
+      loadTable = Table([
+        facultyCol = Col("Faculty", ["Dr. Chen","Prof. Patel","Dr. Rivera","Prof. Kim"], "string"),
+        loadCol = Col("Load (FTE)", [0.8, 0.9, 1.0, 0.75], "number")
+      ])
+    ])
+  ], "row", "m"),
+  riskRow = Card([
+    studentsAtRiskCard = Card([
+      Heading("Students at Academic Risk", "h3"),
+      atRiskList = ListBlock([
+        ListItem("Sophomore quantitative track", "GPA < 2.0", ["https://picsum.photos/seed/students1/200/120"]),
+        ListItem("First-gen engineering cohort", "Course completion concerns", ["https://picsum.photos/seed/students2/200/120"])
+      ], "image")
+    ]),
+    scholarshipBudgetCard = Card([
+      Heading("Scholarship Budget Used vs Total", "h3"),
+      budgetChart = BarChart(["Total Budget","Used So Far"], [scholarSeries], "grouped", "Category", "USD")
+    ])
+  ], "row", "m"),
+  housingRow = Card([
+    housingOccupancyCard = Card([
+      Heading("Housing Occupancy", "h3"),
+      occupancyValue = TextContent("Current occupancy: 94.2%"),
+      occupancyChart = RadialChart(["Residential","Graduate","Off-Campus"], [0.942,0.78,0.62])
+    ]),
+    eventsCard = Card([
+      Heading("Campus Events This Month", "h3"),
+      eventsList = ListBlock([
+        ListItem("Career Fair", "Sept 14, 10:00–16:00", ["https://picsum.photos/seed/events1/200/120"]),
+        ListItem("Homecoming Parade", "Sept 28, 09:00–12:00", ["https://picsum.photos/seed/events2/200/120"])
+      ], "image")
+    ])
+  ], "row", "m"),
+  alumniRow = Card([
+    alumniGivingCard = Card([
+      Heading("Alumni Giving Over Past Four Years", "h3"),
+      alumniChart = LineChart([201/1,201/2,201/3,201/4], [alumniSeries], "linear", "Year", "Donations USD")
+    ])
+  ], "row", "m"),
+  departmentFocusCard = Card([
+    Heading("Focus on One Department", "h3"),
+    deptSelector = Select("department_focus", [deptA, deptB, deptC], "Choose department"),
+    deptA = SelectItem("Engineering", "Engineering"),
+    deptB = SelectItem("Humanities", "Humanities"),
+    deptC = SelectItem("Sciences", "Sciences"),
+    deptPanel = Card([
+      TextContent("Department-specific metrics and notes will appear here after selection.")
+    ])
+  ]),
+  compareSemesterCard = Card([
+    Heading("This Semester vs Last Semester", "h3"),
+    compareChart = BarChart(["Courses","Lectures","Labs"], [compareSeries], "grouped", "Metric", "Count"),
+    compareSeries = Series("This vs Last", [120, 52, 48])
+  ]),
+  waitlistedCard = Card([
+    Heading("Waitlisted Students Per Program", "h3"),
+    waitlistedTable = Table([
+      progCol = Col("Program", ["Engineering","Business","Arts","Education"], "string"),
+      waitCol = Col("Waitlisted", [42, 18, 25, 12], "number")
+    ])
+  ]),
+  newCourseCard = Card([
+    Heading("Approve a New Course", "h3"),
+    reviewBlock = DialogBlock("Approve New Course", "Review Course Proposal", "Proposal details and impact assessment", "Approve", "Reject")
+  ]),
+  messagingCard = Card([
+    Heading("Send Message to Student Group", "h3"),
+    groupSelector = Select("student_group", [SelectItem("All Students","All Students"), SelectItem("Engineering Majors","Engineering Majors"), SelectItem("New Admit Cohort","New Admit Cohort")], "Choose group"),
+    messageBox = TextArea("message", "Enter message to group...", 6, [], ""),
+    sendBtn = Button("Send Message", null, "primary")
+  ]),
+  actionsRow = Card([
+    Buttons([
+      Button("Export Dashboard", null, "secondary"),
+      Button("Approve New Course", null, "primary")
+    ])
+  ], "row", "m")
+], "card", "row", "m")
+
+# Data placeholders ( hoisted for streaming )
+enrollSeries = Series("Enrollment", [21000, 21500, 22350, 23000, 23850])
+accSeries = Series("Acceptance Rate", [20, 19, 18, 18.5, 17.8])
+tuitionSeries = Series("Tuition Revenue", [31000000, 32000000, 32500000, 32700000, 32800000])
+scholarSeries = Series("Budget Used", [12_000_000, 16_000_000, 18_500_000, 22_000_000])
+alumniSeries = Series("Donations", [9_5, 10_1, 9_8, 11_2])
+compareSeries = Series("Semester Comparison", [120, 110, 130])
+# The above data series are placeholders; in a real setup they'd be populated from data sources.
+
+# Simple references to ensure all defined variables are reachable
+enrollmentSubtitle = TextContent("Enrollment trend over five years.")
+accRateMarker = TextContent("Current acceptance rate indicator.")
+header
+)

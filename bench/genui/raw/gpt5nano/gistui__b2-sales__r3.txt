@@ -1,0 +1,29 @@
+root = Card(CardHeader("Founder’s Monthly Sales Check"), revenueCard, trendSection, topProductsCard, conversionsCard, actions)
+
+revenueCard = Card(Heading("Revenue this month", h3), Table(monthlyTable))
+
+monthlyTable = |Metric|Value
+|Revenue|"$42,750"
+
+trendSection = Card(Heading("Revenue over last six months", h3), LineChart(trendTable, natural, xLabel:"Month", yLabel:"USD"))
+
+trendTable = |Month|Revenue
+|Apr|$32,100
+|May|$37,450
+|Jun|$40,200
+|Jul|$44,900
+|Aug|$42,750
+|Sep|$46,300
+
+topProductsCard = Card(Heading("Top 3 selling products", h3), Table(topProductsTable))
+
+topProductsTable = |Product|Units
+|Product A|1,230
+|Product B|980
+|Product C|860
+
+conversionsCard = Card(Heading("Conversion rate", h3), TextContent("Conversion rate: 3.8%", size:default))
+
+actions = Buttons(Button("Download CSV", action:["download"]), Button("Share", secondary))
+
+// helper sections (no separate rendering beyond root)

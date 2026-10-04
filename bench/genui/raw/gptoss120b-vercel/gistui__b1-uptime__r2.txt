@@ -1,3 +1,0 @@
-root = Card(uptimeSection, incidentSection, gap:m)
-uptimeSection = Card(CardHeader("API Uptime – This Month"), TextContent("**99.7%**", size:large), clear)
-incidentSection = Card(CardHeader("Recent Incident"), Callout(info, "Incident resolved", "A latency spike affected users on 2024‑09‑28 and was resolved at 14:35 UTC."), clear)

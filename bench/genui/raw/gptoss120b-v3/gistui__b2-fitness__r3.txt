@@ -1,18 +1,20 @@
-root = Card(stepsSection, caloriesSection, workoutsSection, actions)
-
-stepsSection = Card(CardHeader("Steps", "Today's progress"), Progress(8000, label:"8,000 / 10,000"))
-
-caloriesSection = Card(CardHeader("Calories Burned", "Today's total"), TextContent("You burned **560 kcal** today.", size:default))
-
-workoutsSection = Card(CardHeader("Workouts This Week", "Past 7 days"), BarChart(workoutRows, variant:grouped, xLabel:"Day", yLabel:"Duration (min)"))
-
-workoutRows = |Day|Duration
-|Mon|45
-|Tue|30
+root = Card(stepsCard, caloriesCard, workoutsCard, form, gap:m)
+stepsCard = Card(CardHeader("Steps", "Goal: 10,000"), stepsProgress, sunk)
+stepsProgress = Progress(75, label:"7,500 / 10,000")
+caloriesCard = Card(CardHeader("Calories Burned"), TextContent("$2,300", size:large), sunk)
+workoutsCard = Card(CardHeader("Workouts This Week"), workoutsChart, sunk)
+workoutsChart = BarChart(workoutsTable, variant:grouped, xLabel:"Day", yLabel:"Minutes")
+form = Form("log-workout", formButtons, typeField, durationField, notesField)
+formButtons = Buttons(Button("Log Workout", variant:primary))
+typeField = FormControl("Workout type", workoutSelect)
+workoutSelect = Select("type", SelectItem("run", "Run"), SelectItem("bike", "Bike"), SelectItem("yoga", "Yoga"), placeholder:"Select type")
+durationField = FormControl("Duration (min)", Input("duration", placeholder:"30", type:number))
+notesField = FormControl("Notes", TextArea("notes", placeholder:"Optional notes", rows:3))
+workoutsTable = |Day|Minutes
+|Mon|30
+|Tue|45
 |Wed|0
-|Thu|60
-|Fri|20
+|Thu|20
+|Fri|35
 |Sat|50
-|Sun|40
-
-actions = Buttons(Button("Log New Workout"))
+|Sun|0

@@ -1,0 +1,29 @@
+root = Card(CardHeader("Product Design Role – Design Team"), Tag("Now Hiring", info), SectionBlock(headSection, isFoldable) )
+headSection = SectionItem("intro", "Role Overview", Overview)
+Overview = Card(Heading("Senior Product Designer", h2), Tag("Team: Design Studio", neutral), MarkDownRenderer("### About the role\nDesign a\n", card))
+intro = null
+null = None
+
+sectionQualifications = SectionBlock(qualificationSection, isFoldable)
+qualificationSection = SectionItem("qualifications", "Qualifications", Qualifications)
+Qualifications = Table(qualTable)
+qualTable = |Area|Requirement
+|Design|3+ years in product design
+|Tools|Figma, FigJam, research methods
+|Portfolio|Strong case studies
+
+sectionSalary = SectionBlock(salarySection, isFoldable)
+salarySection = SectionItem("salary", "Salary", Salary)
+Salary = Tag("Salary range: $100k - $140k", neutral)
+
+sectionApply = SectionBlock(applySection, isFoldable)
+applySection = SectionItem("apply", "How to Apply", Apply)
+Apply = Card(Form("apply-form", applyButtons, nameField, emailField, resumeField), sunk)
+nameField = FormControl("Full name", Input("name", "Alex Doe"))
+emailField = FormControl("Email", Input("email", "alex@example.com"))
+resumeField = FormControl("Resume link", Input("resume", "https://example.com/resume.pdf"))
+applyButtons = Buttons(Button("Submit Application", primary))
+
+sectionShare = SectionBlock(shareSection, isFoldable)
+shareSection = SectionItem("share", "Share Posting", Share)
+Share = Card(Buttons(Button("Copy Link"), Button("Share via Email", secondary)),)

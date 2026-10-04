@@ -1,39 +1,15 @@
-root = Card(headerSection, totalCard, categoryCard, largestCard, controlsCard)
-
-headerSection = CardHeader("Personal Budget", "June 2024")
-
-totalCard = Card(Heading("Total spent vs Budget", h3), totalChart, sunk)
-totalChart = BarChart(labels:["Budget"], Series("Spent", values:[1200]), Series("Remaining", values:[300]), variant:stacked, xLabel:"Amount", yLabel:"")
-
-categoryCard = Card(Heading("Spending by Category", h3), categoryChart, sunk)
-categoryChart = HorizontalBarChart(labels:["Food","Rent","Transport","Entertainment"], Series("Amount", values:[500,800,150,200]), variant:grouped, xLabel:"Amount", yLabel:"Category")
-
-largestCard = Card(largestCallout, sunk)
-largestCallout = Callout(variant:info, "Largest expense", "Rent $800")
-
-controlsCard = Card(monthSelectControl, addExpenseDialog, sunk)
-
-monthSelectControl = FormControl("Month", monthSelect)
-monthSelect = Select("month", monthItemJan, monthItemFeb, placeholder:"Select month", value:"January")
-monthItemJan = SelectItem("Jan", "January")
-monthItemFeb = SelectItem("Feb", "February")
-
-addExpenseDialog = DialogBlock("Add expense", "New Expense", expenseForm, description:"Add a new expense", triggerVariant:default)
-
-expenseForm = Form("new-expense", expenseButtons, categoryField, amountField, dateField)
-
-expenseButtons = Buttons(saveButton, cancelButton)
-saveButton = Button("Save", primary)
-cancelButton = Button("Cancel", tertiary)
-
-categoryField = FormControl("Category", categorySelect)
-categorySelect = Select("category", categoryItemFood, categoryItemRent, categoryItemTransport, placeholder:"Choose category")
-categoryItemFood = SelectItem("Food", "Food")
-categoryItemRent = SelectItem("Rent", "Rent")
-categoryItemTransport = SelectItem("Transport", "Transport")
-
-amountField = FormControl("Amount", amountInput)
-amountInput = Input("amount", "0", type:number)
-
-dateField = FormControl("Date", datePicker)
-datePicker = DatePicker("date", mode:single)
+root = Card(budgetHeader, budgetChart, splitChart, largestCallout, monthSelect, addButton)
+budgetHeader = CardHeader("Personal Budget", "Current month")
+budgetChart = HorizontalBarChart(budgetTable, variant:grouped, xLabel:"Amount", yLabel:"Metric")
+budgetTable = |Metric|Amount
+|Budget|2000
+|Spent|1500
+splitChart = PieChart(categoryTable, variant:pie, appearance:circular)
+categoryTable = |Category|Amount
+|Food|500
+|Rent|800
+|Transport|200
+|Entertainment|0
+largestCallout = Callout(variant:info, "Largest expense", "Rent – $800")
+monthSelect = Select("month", SelectItem("2023-08", "August 2023"), SelectItem("2023-09", "September 2023"), placeholder:"Select month")
+addButton = Button("Add expense", primary)

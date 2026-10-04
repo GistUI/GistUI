@@ -1,0 +1,11 @@
+root = Card(CardHeader("Delivery status", "Track and manage your package"), SectionBlock(SectionItem("status", "Current location", LocationCard("Live location", "https://maps.google.com/?q=parcel"), SectionBlock?)), StatusSection, reportSection)
+
+LocationCard = Card(Heading("Current location", h3), TextContent("Your package is on its way and currently in transit."), Image("Map preview", "https://maps.google.com/maps?q=parcel&output=embed"), SectionBlock()) 
+
+StatusSection = Card(Heading("Delivery details", h3), Table(|Field|Value, |Status|In transit, |Estimated delivery|2026-10-12, _), Paragraph)
+
+reportSection = DialogBlock("Report issue", "Delivery problem", ReportForm, "Describe the issue and attach evidence.", triggerVariant:default) 
+
+ReportForm = Form("report-delivery", Buttons(Button("Submit report", primary)), FormControls) 
+
+FormControls = ListBlock(Plain("Please provide details"), FormControl("Order number", Input("order_number", "12345")), FormControl("Issue type", Select("issue_type", SelectItem("Damaged","Damaged item"), SelectItem("Missing item","Missing item"), SelectItem("Late delivery","Late delivery")), placeholder:"Choose a type"), FormControl("Additional details", TextArea("details", "Describe what happened")))

@@ -1,0 +1,14 @@
+root = Card(CardHeader("Course: Introduction to AI", "Instructor: Dr. Ada Lovelace"), SectionBlock(baseline, isFoldable), continuedSection) 
+SectionBlock(value1, isFoldable) = SectionBlock(SectionItem("course-info", "Course Overview", courseInfoCard), SectionItem("modules", "Module Progress", modulesCard), SectionItem("rating", "Average Rating", ratingCard))
+courseInfoCard = Card(Heading("Course: Introduction to AI", h3), TextContent("A learner's course home with progress, modules, next lesson, and rating."), Progress(60, "Overall progress"), sunk)
+modulesCard = Table(modulesTable)
+modulesTable = |Module|Status
+|Module 1: Basics|Completed
+|Module 2: Foundations|In progress
+|Module 3: Advanced Topics|Not started
+ratingCard = CardHeader("Average Rating", "4.8/5")
+ratingContent = TextContent("Learner rating reflects feedback from participants.", default)
+remainder = Tag("Continue learning", info)
+continuedSection = SectionBlock(SectionItem("continue", "Continue", continueCard))
+continueCard = Card(Heading("Next Lesson: Prompt Engineering", h4), TextContent("Dive into how prompts shape model behavior."), Button("Resume Lesson", action:["continue-lesson"]))
+Button = Button(label)

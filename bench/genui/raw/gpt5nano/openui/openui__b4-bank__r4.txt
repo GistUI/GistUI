@@ -1,0 +1,87 @@
+root = Card([header, dashboard, transactionsSection, spendingSection, billsSection, vacationSection, creditSection, transferSection, creditFreezeSection, statementsSection, alertsSection, disputesSection, actionsRow])
+
+header = CardHeader("Personal Banking Home", "Your financial snapshot")
+
+dashboard = Card([balancesRow, scoreRow], "card")
+
+balancesRow = Card([checkingBalance, savingsBalance, creditBalance], null)
+
+checkingBalance = TextContent("Checking: $4,512.30", "default")
+savingsBalance = TextContent("Savings: $12,240.75", "default")
+creditBalance = TextContent("Credit: $-1,240.50", "default")
+
+scoreRow = Card([creditScore], null)
+
+creditScore = TextContent("Credit score: 722", "default")
+
+transactionsSection = Card([transactionsHeading, transactionsList], "card")
+
+transactionsHeading = Heading("Recent Transactions", "h3")
+
+transactionsList = Table([Col("Merchant", ["Starbucks", "Apple Store", "Whole Foods", "Amazon"]), Col("Amount", ["$5.75", "$129.99", "$42.30", "$89.50"]), Col("Date", ["2026-09-28", "2026-09-27", "2026-09-26", "2026-09-25"])], null)
+
+spendingSection = Card([spendingHeading, spendingChart], "card")
+
+spendingHeading = Heading("This Month: Spending by Category", "h3")
+
+spendingChart = PieChart(["Groceries", "Dining", "Transport", "Entertainment", "Other"], ["320", "210", "150", "90", "230"], "donut", "circular")
+
+billsSection = Card([billsHeading, billsList], "card")
+
+billsHeading = Heading("Bills Due Soon", "h3")
+
+billsList = ListBlock([ListItem("Rent", "Due 2026-10-01", ["https://picsum.photos/seed/rent/40/40"]), ListItem("Utilities", "Due 2026-10-05", ["https://picsum.photos/seed/util/40/40"]), ListItem("Internet", "Due 2026-10-08", ["https://picsum.photos/seed/internet/40/40"])], "image")
+
+vacationSection = Card([vacationHeading, vacationProgress], "card")
+
+vacationHeading = Heading("Vacation Savings Goal", "h3")
+
+vacationProgress = Progress(65, "65% of $8,000")
+
+creditSection = Card([transferHeading, transferArea, freezeSection, statementSection], "card")
+
+transferHeading = Heading("Move Money Between Accounts", "h3")
+
+transferArea = Card([transferLabel, transferInput, transferBtn], null)
+
+transferLabel = TextContent("From to To and Amount", "default")
+
+transferInput = Input("transfer_amount", "Enter amount", "number")
+
+transferBtn = Button("Transfer", null, "primary")
+
+freezeSection = Card([freezeHeading, freezeBtn], null)
+
+freezeHeading = Heading("Freeze Credit Line", "h4")
+
+freezeBtn = Button("Freeze Credit Line", null, "secondary")
+
+statementSection = Card([statementHeading, statementPicker], null)
+
+statementHeading = Heading("Statement Period", "h4")
+
+statementPicker = Form("statement-period", Buttons([selectBtn]), [statementControl])
+
+selectBtn = Button("Apply", null, "primary")
+
+statementControl = Select("statement_period", [SelectItem("Last 30 days", "last30"), SelectItem("Last 90 days", "last90"), SelectItem("Year to date", "ytd")], "Choose period")
+
+alertsSection = Card([alertsHeading, alertControls], "card")
+
+alertsHeading = Heading("Alert Triggers", "h3")
+
+alertControls = SectionBlock([alertSectionOne], false)
+
+alertSectionOne = SectionItem("alerts1", "Price drop alerts", [TextContent("Choose what triggers alerts and how you want to be notified."), TagBlock(["Email", "SMS", "Push"])], null)
+
+disputesSection = Card([disputeHeading, disputeList], "card")
+
+disputeHeading = Heading("Dispute a Transaction", "h3")
+
+disputeList = Buttons([disputeBtn], "row")
+
+disputeBtn = Button("Dispute Transaction", null, "primary")
+
+actionsRow = Card([footerNote], null)
+
+footerNote = TextContent("Tip: You can expand sections to view details. All data is sample for this mock UI.", "small")

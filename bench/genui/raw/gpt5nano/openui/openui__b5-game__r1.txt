@@ -1,0 +1,139 @@
+root = Card([
+  header = CardHeader("Live-Ops Studio Dashboard", "Realtime metrics for live game ops"),
+  // Top row: high-priority KPIs
+  Card([
+    kpisRow = Card([
+      onlineNow = Card([
+        Heading("Players online now", "h4"),
+        TextContent(" placeholder for live count ", "default")
+      ]),
+      dauMauRow = Card([
+        Heading("DAU / MAU", "h4"),
+        TextContent("Today / Month-to-date", "default")
+      ]),
+      revenueRow = Card([
+        Heading("Revenue today", "h4"),
+        TextContent("$0", "default")
+      ]),
+      revenuePerUserRow = Card([
+        Heading("Revenue per user", "h4"),
+        TextContent("$0 / user", "default")
+      ])
+    ], "card")
+  ]),
+  // Two-week session length trend
+  SectionBlock([
+    SectionItem("session-length", "Session Length (Past 14d)", [
+      Heading("Session length (minutes) over 14 days", "h3"),
+      LineChart(["14d ago","13d","12d","11d","10d","9d","8d","7d","6d","5d","4d","3d","2d","1d","Today"],
+        [Series("Session Length", [22,21,23,20,19,21,22,24,23,22,21,20,19,20,21])], "linear", "Day", "Minutes")
+    ])
+  ]),
+  // Best-selling items
+  SectionBlock([
+    SectionItem("best-items", "Best-Selling Items", [
+      Heading("Best-Selling Items (Units)", "h3"),
+      Table([
+        Col("Item", ["Coin Pack", "XP Boost", "Skin Bundle"]),
+        Col("Units", [12500, 9800, 5400]),
+      ])
+    ])
+  ]),
+  // Server regions health
+  SectionBlock([
+    SectionItem("regions-health", "Server Regions Health", [
+      Heading("Regions & Health", "h3"),
+      BarChart(["NA","EU","ASIA","SA","OC"], [
+        Series("Latency (ms)", [32, 45, 38, 60, 52]),
+      ], "grouped", "Region", "Latency"),
+      TagBlock(["NA healthy","EU healthy","ASIA degraded","SA healthy","OC healthy"])
+    ])
+  ]),
+  // Crash rate by app version
+  SectionBlock([
+    SectionItem("crash-rate", "Crash Rate by App Version", [
+      Heading("Crash Rate", "h3"),
+      BarChart(["v1.2","v1.3","v1.4","v2.0"], [
+        Series("Crashes", [1.2, 0.9, 1.5, 0.5])
+      ], "grouped", "Version", "Crashes / 100k")
+    ])
+  ]),
+  // Live events running and upcoming
+  SectionBlock([
+    SectionItem("live-events", "Live & Upcoming Events", [
+      Heading("Live Events", "h3"),
+      ListBlock([
+        ListItem("Double XP Weekend", "Ends in 2h", []),
+        ListItem("Season Pass Live", "Active", [])
+      ]),
+      Heading("Upcoming Events", "h3"),
+      ListBlock([
+        ListItem("Halloween Event", "Starts in 3 days", []),
+        ListItem("New Map Release", "Starts in 1 week", [])
+      ])
+    ])
+  ]),
+  // Player reports awaiting review
+  SectionBlock([
+    SectionItem("player-reports", "Player Reports Awaiting Review", [
+      Heading("Reports", "h3"),
+      Table([
+        Col("Report", ["Cheating", "Harassment", "Bug exploit"]),
+        Col("Status", ["New", "In Progress", "Queued"]),
+      ])
+    ])
+  ]),
+  // Ban appeals awaiting review
+  SectionBlock([
+    SectionItem("ban-appeals", "Ban Appeals Awaiting Review", [
+      Heading("Ban Appeals", "h3"),
+      ListBlock([
+        ListItem("Appeal #1024", "Pending review", ["Evidence.pdf"]),
+        ListItem("Appeal #1029", "Under review", ["Screenshot.png"])
+      ])
+    ])
+  ]),
+  // In-game currency inflation
+  SectionBlock([
+    SectionItem("currency-inflation", "In-Game Currency Inflation", [
+      Heading("Inflation Indicators", "h3"),
+      LineChart(["Week -2","Week -1","Week 0","Week 1","Week 2"], [
+        Series("Currency Supply", [1000, 1050, 1100, 1120, 1150])
+      ], "linear", "Week", "Units")
+    ])
+  ]),
+  // Results of two running experiments
+  SectionBlock([
+    SectionItem("experiments", "Running Experiments", [
+      Heading("Experiment A vs B", "h3"),
+      Table([
+        Col("Metric", ["Revenue uplift","Retention","Engagement"]),
+        Col("A", ["+5.2%","+1.1pp","+0.4x"]),
+        Col("B", ["+3.8%","+0.8pp","+0.2x"])
+      ])
+    ])
+  ]),
+  // Patch notes drafting
+  SectionBlock([
+    SectionItem("draft-patch", "Draft Patch Notes", [
+      Heading("Draft Patch Notes", "h3"),
+      Blockquote("Draft notes go here with sections for fixes, changes, and known issues.", "Patch Script")
+    ])
+  ]),
+  // Focus on one region
+  SectionBlock([
+    SectionItem("focus-region", "Focus on Region", [
+      Heading("Region Focus", "h3"),
+      Select("regionFocus", [SelectItem("NA-East","NA East"), SelectItem("NA-West","NA West"), SelectItem("EU-Central","EU Central")], "Choose region")
+    ])
+  ]),
+  // Ship a hotfix
+  SectionBlock([
+    SectionItem("hotfix", "Ship Hotfix", [
+      Heading("Hotfix Deployment", "h3"),
+      TextContent("Trigger a quick patch: assess risk, apply hotfix, monitor dashboards.", "default"),
+      Button("Initiate Hotfix", null, "primary")
+    ])
+  ])
+  // Items 1-16 covered above, 17+ require separate blocks if needed
+]) , variant: "card")

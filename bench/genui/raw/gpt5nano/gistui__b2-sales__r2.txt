@@ -1,0 +1,33 @@
+root = Card(CardHeader("Founder’s Monthly Sales Check"), revenueThisMonth, sixMonthTrend, topProducts, conversionSection, downloadRow)
+
+revenueThisMonth = Card(Heading("Revenue this month", h3), Tag("USD", info))
+sixMonthTrend = Card(Heading("Revenue over last 6 months", h3), LineChart(sixMonthTable, natural, xLabel:"Month", yLabel:"USD"), sunk)
+
+topProducts = Card(Heading("Top 3 products by units sold", h3), Table(topProductsTable))
+
+conversionSection = Card(Heading("Conversion rate", h3), TextContent("Conversion rate for the month: 4.7%"), Table(conversionTable))
+
+downloadRow = Card(Buttons(Button("Download CSV", action:["download_csv"])),)
+
+sixMonthTable = |Month|Revenue
+|Apr|54000
+|May|59000
+|Jun|61200
+|Jul|64500
+|Aug|66000
+|Sep|70000
+
+topProductsTable = |Product|Units Sold
+|Product A|1200
+|Product B|980
+|Product C|760
+
+conversionTable = |Metric|Value
+|Conversion|4.7%
+
+revenueThisMonthText = TextContent("This month total revenue: USD 72,300", default)
+
+Notes:
+- The screen uses a single root Card containing all sections in reading order.
+- Each section is a Card with a heading and the relevant content.
+- The download action is wired to a CSV download trigger on the Download CSV button.

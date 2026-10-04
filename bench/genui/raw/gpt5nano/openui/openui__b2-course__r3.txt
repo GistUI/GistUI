@@ -1,0 +1,45 @@
+root = Card([
+  header,
+  progressCard,
+  modulesSection,
+  nextLessonCallout,
+  ratingCard,
+  continueSection
+])
+
+header = CardHeader("Course: Foundations of Analytics", "Instructor: Dr. Lena Hart")
+
+progressCard = Card([
+  Heading("Overall progress", "h3"),
+  TextContent("Progress: 72%", "default"),
+  Progress(72, "Overall progress")
+], "card")
+
+modulesSection = Card([
+  Heading("Modules", "h3"),
+  modulesList
+], "card")
+
+modulesList = ListBlock([module1, module2, module3, module4], "image")
+
+module1 = ListItem("Module 1: Introduction to Analytics", "Completed", ["https://picsum.photos/seed/mod1/40/40"])
+module2 = ListItem("Module 2: Data Cleaning", "In progress", ["https://picsum.photos/seed/mod2/40/40"])
+module3 = ListItem("Module 3: Descriptive Statistics", "Not started", ["https://picsum.photos/seed/mod3/40/40"])
+module4 = ListItem("Module 4: Inferential Methods", "Not started", ["https://picsum.photos/seed/mod4/40/40"])
+
+nextLessonCallout = Callout("info", "Next lesson is ready", "Module 2: Data Cleaning — Lesson 1: Handling missing values")
+
+ratingCard = Card([
+  Heading("Average learner rating", "h3"),
+  TextContent("4.6 out of 5 stars", "default"),
+  Tag("4.6 / 5", null, "md", "info")
+], "card")
+
+continueSection = Card([
+  Heading("Continue learning", "h3"),
+  TextContent("Tap to resume where you left off.", "default"),
+  Buttons([
+    Button("Resume Lesson 2", null, "primary"),
+    Button("Review Module 1", null, "secondary")
+  ])
+], "card")

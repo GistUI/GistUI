@@ -1,0 +1,9 @@
+root = Card(CardHeader("Shop Dashboard", "Mid-morning snapshot"), revenueCard, comparisonCard)
+revenueCard = Card(Heading("Revenue today", h3), Table(todayRows))
+todayRows = |Metric|Value
+|Revenue|$5,420
+|Orders|312
+comparisonCard = Card(Heading("Comparison to yesterday at this time", h3), Table(yesterdayRows))
+yesterdayRows = |Metric|Value
+|Revenue at this time yesterday|$4,980
+|Orders at this time yesterday|289

@@ -1,0 +1,41 @@
+root = Card([
+  header,
+  meetingCard
+])
+
+header = CardHeader("Upcoming calendar", "Next meeting overview")
+
+meetingCard = Card([
+  meetingHeader,
+  attendeesBlock,
+  joinBlock
+])
+
+meetingHeader = Heading("Next meeting", "h2")
+
+nextMeetingTitle = TextContent("Design sync", "default")
+startTime = TextContent("Starts at 10:30 AM", "default")
+
+meetingInfo = Card([nextMeetingTitle, startTime])
+
+attendeesBlock = Card([
+  TextContent("Attending:", "default"),
+  attendeesList
+])
+
+attendeesList = ListBlock([
+  ListItem("Alex Kim", "Product", nil, nil),
+  ListItem("Priya Nair", "Design", nil, nil),
+  ListItem("Miguel Santos", "Engineering", nil, nil)
+])
+
+joinBlock = Card([
+  TextContent("Join call", "default"),
+  joinButton
+])
+
+joinButton = Buttons([
+  Button("Join meeting", [ "join_link" ], "primary")
+], "row")
+
+(join_meeting_link) = null

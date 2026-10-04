@@ -1,0 +1,119 @@
+root = Card([
+  CardHeader("City Operations Center", "Live dashboard for city services"),
+  Separator("horizontal", false),
+  // 1. congestion right now
+  Card([
+    Heading("Congestion now", "h3"),
+    TextContent("Real-time traffic congestion level across major corridors and city center.")
+  ]),
+  // 2. transit punctuality
+  Card([
+    Heading("Transit punctuality", "h3"),
+    LineChart(["Now"], [Series("Buses", [92])], "linear", "Time", "On-time %")
+  ]),
+  // 3. air quality by district
+  Card([
+    Heading("Air quality by district", "h3"),
+    Image("Air quality map", "https://picsum.photos/seed/airquality/800/400")
+  ]),
+  // 4. energy use over the past week
+  Card([
+    Heading("Energy use (past week)", "h3"),
+    LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7"], [Series("Energy kWh", [105000, 98000, 110500, 107000, 112000, 109500, 115000])], "natural", "Day", "kWh")
+  ]),
+  // 5. water use today
+  Card([
+    Heading("Water use today", "h3"),
+    BarChart(["Today"], [Series("Water", [3600])], "grouped", "Metric", "Liters")
+  ]),
+  // 6. open incidents with location and severity for each
+  Card([
+    Heading("Open incidents", "h3"),
+    ListBlock([
+      ListItem("Bridge closure", "Location: 5th Ave & Main", ["https://picsum.photos/seed/incident1/60/60"]),
+      ListItem("Gas leak reported", "Location: Maple & 3rd", ["https://picsum.photos/seed/incident2/60/60"]),
+      ListItem("Fire alarm activation", "Location: Civic Center", ["https://picsum.photos/seed/incident3/60/60"])
+    ], "image")
+  ])
+  // 7. where emergency vehicles are deployed
+  , Card([
+    Heading("Emergency vehicle deployments", "h3"),
+    Image("Deployment map", "https://picsum.photos/seed/evdeploy/800/400")
+  ]),
+  // 8. parking availability downtown
+  Card([
+    Heading("Parking availability downtown", "h3"),
+    Image("Parking map", "https://picsum.photos/seed/parking/800/400")
+  ]),
+  // 9. public events this weekend
+  Card([
+    Heading("Public events this weekend", "h3"),
+    ListBlock([
+      ListItem("Downtown Music Fest", "Sat 6pm-10pm", ["https://picsum.photos/seed/event1/60/60"]),
+      ListItem("Farmers Market", "Sun 9am-2pm", ["https://picsum.photos/seed/event2/60/60"])
+    ])
+  ]),
+  // 10. citizen reports as they come in
+  Card([
+    Heading("Citizen reports", "h3"),
+    TextContent("Live feed of reports submitted by citizens with location and type.")
+  ]),
+  // 11. service request backlog
+  Card([
+    Heading("Service request backlog", "h3"),
+    Table([
+      Col("Request", ["Pothole repair","Streetlight outage","Graffiti cleanup"]),
+      Col("Count", [12, 5, 8]),
+      Col("Status", ["Open","Open","Open"])
+    ])
+  ]),
+  // 12. current weather
+  Card([
+    Heading("Current weather", "h3"),
+    TextContent("Clear, 72°F, light breeze.")
+  ]),
+  // 13. a way to focus on one district
+  Card([
+    Heading("District focus", "h3"),
+    Select("district_focus", [
+      SelectItem("downtown","Downtown"),
+      SelectItem("north","North District"),
+      SelectItem("south","South District"),
+      SelectItem("east","East District"),
+      SelectItem("west","West District")
+    ], "Choose district")
+  ]),
+  // 14. a way to dispatch a crew
+  Card([
+    Heading("Dispatch crew", "h3"),
+    Form("dispatch", Buttons([Button("Dispatch", null, "primary")]), [
+      FormControl("Crew", Input("crew_id", "Enter crew ID")),
+      FormControl("Team", Input("team", "E.g., Electrical"))
+    ])
+  ]),
+  // 15. a way to send a public alert with a message
+  Card([
+    Heading("Public alert", "h3"),
+    DialogBlock("Send alert", "Public Alert", "Broadcast to residents", [
+      TextContent("Enter alert message and target area."),
+      Form("alert_form", Buttons([Button("Send Alert", null, "primary")]), [
+        FormControl("Message", TextArea("message", "Alert message..."), "Provide clear instructions"),
+        FormControl("Area", Select("area", [SelectItem("citywide","City-wide"), SelectItem("district","District")]))
+      ])
+    ])
+  ]),
+  // 16. roadworks planned this month
+  Card([
+    Heading("Roadworks this month", "h3"),
+    ImageBlock("https://picsum.photos/seed/roadworks/800/400", "Roadworks map")
+  ]),
+  // 17. infrastructure jobs due for maintenance
+  Card([
+    Heading("Maintenance due", "h3"),
+    Table([
+      Col("Job", ["Bridge inspection","Substation servicing","Water treatment maintenance"]),
+      Col("Due date", ["2026-10-12","2026-10-18","2026-10-22"]),
+      Col("Status", ["Due","Scheduled","Planned"])
+    ])
+  ])
+])

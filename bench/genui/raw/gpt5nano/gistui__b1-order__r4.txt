@@ -1,0 +1,17 @@
+root = Card(CardHeader("Delivery status", "Track and report issues"), statusPanel, etaPanel, reportPanel)
+
+statusPanel = Card(Heading("Current location", h3), LocationBlock("In transit, nearest hub"), sunk)
+
+etaPanel = Card(Heading("Estimated delivery", h3), ETA("2026-10-08"), sunk)
+
+reportPanel = Card(Heading("Report a problem", h3), ReportForm("delivery-issue", formButtons, issueField, contactField), sunk)
+
+LocationBlock(text) = TextContent(text, default)
+ETA(text) = TextContent(text, default)
+
+ReportForm(name, Buttons, issueField, contactField) = Form("delivery-issue-form", formButtons, issueField, contactField)
+
+formButtons = Buttons(Button("Submit issue", primary), Button("Cancel", tertiary))
+
+issueField = FormControl("Issue details", TextArea("issue", "", rows:4), rules:[...])
+contactField = FormControl("Preferred contact method", Select("contact_method", SelectItem("Email", "Email"), SelectItem("Phone", "Phone"), placeholder:"Choose"), rules:[...])

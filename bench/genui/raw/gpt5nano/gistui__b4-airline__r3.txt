@@ -1,0 +1,33 @@
+root = Card(CardHeader("Hub Operations Dashboard"), Tabs(), SectionBlock(card, isFoldable), FollowUpBlock()) 
+Tabs() 
+SectionBlock(rootSection) 
+rootSection = SectionItem("today", "Today", onTimePerfCard, flightsTableCard, delayedFlightsCard, gateChangesCard, crewsCard, weatherCard, loadCard, connectionsCard, rebookCard, hubSelectorCard, cancellationsCard, turnaroundCard) 
+onTimePerfCard = CardHeader("On-time performance today") 
+onTimePerfCard = Card(TextContent("On-time performance today: 92% (example)")) 
+flightsTableCard = Card(Heading("Flights today by number, route, gate, status", h3), Table(flightsTable)) 
+flightsTable = |Flight|Route|Gate|Status
+|AA123|LAX-JFK|G12|On Time
+|BA456|LAX-LHR|D4|Delayed
+|UA789|LAX-SFO|A7|Boarding 
+delayedFlightsCard = Card(Heading("Delayed flights"), TextContent("Flights delayed or in-air dispute")) 
+delayedFlightsTable = Table(delayedFlightsTableBody) 
+delayedFlightsTableBody = |Flight|Route|Delay|Reason
+|BA456|LAX-LHR|2h|Crew delay
+|DL101|LAX-ATL|1h 15m|Weather
+gateChangesCard = Card(Heading("Recent gate changes"), Table(gateChangesTable)) 
+gateChangesTable = |Flight|Route|Old Gate|New Gate|Time
+|AA123|LAX-JFK|G12|G8|09:15
+|UA555|LAX-ORD|C3|B2|09:20 
+crewsCard = Card(Heading("Crews available for reassignment"), ListBlock(ListItem("Crew A — Intl Ops"), ListItem("Crew B — Domestic"), ListItem("Crew C — Long-haul"))) 
+weatherCard = Card(Heading("Weather advisories at hub"), TextContent("Thunderstorm advisory in vicinity; gusts to 35 mph; potential lightning hold")). 
+loadCard = Card(Heading("Average passenger load today"), TextContent("Avg load: 86%")) 
+connectionsCard = Card(Heading("Connections at risk of being missed"), ListBlock(ListItem("Flight AA123 connection to NYC at 10:30 risk"), ListItem("Flight UA555 to CHI at 11:05 risk"))) 
+rebookCard = Card(Heading("Rebook affected passengers"), Button("Open rebooking tool", primary)) 
+hubSelectorCard = Card(Heading("Look at a different hub"), Form("hub-select", Buttons(Button("Select hub", primary)), FormControl("Hub", Input("hub_name", "Airport Code")))) 
+cancellationsCard = Card(Heading("Cancellations today"), TextContent("Cancellations: 5 today")) 
+turnaroundCard = Card(Heading("Average turnaround time"), TextContent("Avg turnaround: 45m")) 
+# Ensure all defined ids are reachable from root
+rootChildren = Card(CardHeader("Hub Operations Dashboard"), Tabs(), SectionBlock(todaySection, isFoldable)) 
+todaySection = SectionItem("today" , "Today", onTimePerfCard, flightsTableCard, delayedFlightsCard, gateChangesCard, crewsCard, weatherCard, loadCard, connectionsCard, rebookCard, hubSelectorCard, cancellationsCard, turnaroundCard) 
+# Wire the root hierarchy properly
+root = Card(CardHeader("Hub Operations Dashboard"), onTimePerfCard, flightsTableCard, delayedFlightsCard, gateChangesCard, crewsCard, weatherCard, loadCard, connectionsCard, rebookCard, hubSelectorCard, cancellationsCard, turnaroundCard)

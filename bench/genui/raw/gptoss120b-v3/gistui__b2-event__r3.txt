@@ -1,41 +1,40 @@
-root = Card(header, days, agendaCard, speakersCard, ticketsCard, registerCard)
+root = Card(cardHeader, daysRemaining, agendaSection, speakersSection, ticketsSection, registerSection)
 
-header = CardHeader("TechFuture 2027", "June 15-17, San Francisco Convention Center")
+cardHeader = CardHeader("Tech Innovators Summit 2024", "June 15-17, 2024 • Silicon Valley Convention Center")
 
-days = Callout(variant:info, "Only 30 days left!", "Register soon to secure your spot.")
+daysRemaining = TextContent("⏳ 45 days left until the event", size:small)
 
-agendaCard = Card(Heading("Agenda", h3), agendaTable)
+agendaSection = Card(Heading("Agenda", h3), agendaTable, HorizontalBarChart(agendaTable, variant:grouped, xLabel:"Time", yLabel:"Session"))
 
 agendaTable = |Time|Session
 |09:00 AM|Opening Keynote
-|10:30 AM|AI in Healthcare
+|10:30 AM|AI & Machine Learning Panel
 |12:00 PM|Lunch Break
-|01:30 PM|Blockchain Workshop
-|03:00 PM|Panel Discussion
-|05:00 PM|Networking Reception
+|01:30 PM|Future of Quantum Computing
+|03:00 PM|Networking Session
+|04:30 PM|Closing Remarks
 
-speakersCard = Card(Heading("Speakers", h3), speakersList)
+speakersSection = Card(Heading("Speakers", h3), speakersTable)
 
-speakersList = ListBlock(speaker1, speaker2, speaker3, speaker4, variant:number)
+speakersTable = |Speaker|Bio
+|Dr. Alice Nguyen|AI researcher at OpenAI
+|Mr. Ben Ortiz|CTO of QuantumLeap
+|Ms. Carla Reyes|Founder of GreenTech
+|Prof. David Liu|Data Science professor, MIT
 
-speaker1 = ListItem("Dr. Maya Patel", "AI researcher, MIT")
-speaker2 = ListItem("Luis Gomez", "Blockchain entrepreneur")
-speaker3 = ListItem("Sara Liu", "CTO, CloudNova")
-speaker4 = ListItem("Tom Reed", "Product design lead, InnovateX")
-
-ticketsCard = Card(Heading("Ticket Tiers", h3), ticketsTable)
+ticketsSection = Card(Heading("Ticket Tiers", h3), ticketsTable)
 
 ticketsTable = |Tier|Price
 |General Admission|$199
 |Student|$99
 |VIP|$399
 
-registerCard = Card(Heading("Register", h3), registerForm)
+registerSection = Card(Heading("Register", h3), registrationForm)
 
-registerForm = Form("event-register", registerButtons, nameField, emailField)
+registrationForm = Form("event-registration", formButtons, nameField, emailField)
 
-nameField = FormControl("Full Name", Input("name", placeholder:"Your name"))
+nameField = FormControl("Full Name", Input("full_name", placeholder:"Your name"))
 
 emailField = FormControl("Email", Input("email", placeholder:"you@example.com", type:email))
 
-registerButtons = Buttons(Button("Submit", primary))
+formButtons = Buttons(Button("Register", primary))

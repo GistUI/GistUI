@@ -1,25 +1,36 @@
-root = Card(header, specialCallout, drinksSection, foodSection, hours, filterButtons)
+root = Card(CardHeader("Café Menu"), specialCallout, drinksSection, foodSection, hoursSection, filterButtons)
 
-header = CardHeader("Café Menu")
+specialCallout = Callout(variant:info, "Today's Special", "Caramel Latte – Freshly brewed espresso with caramel drizzle")
 
-specialCallout = Callout(info, "Today's Special", "Caramel Latte – $4.50 (served hot)")
+drinksSection = Card(Heading("Drinks", h3), Table(drinksTable))
 
-drinksSection = Card(Heading("Drinks", h3), drinksTable)
+drinksTable = |Item|Price
+|Espresso|$2.50
+|Americano|$3.00
+|Cappuccino|$3.50
+|Latte|$4.00
+|Tea|$2.00
+|Hot Chocolate|$3.20
 
-drinksTable = Table(drinksColName, drinksColPrice)
+foodSection = Card(Heading("Food", h3), Table(foodTable))
 
-drinksColName = Col("Drink", ["Espresso","Americano","Cappuccino","Latte","Tea"], type:string)
+foodTable = |Item|Price|Vegetarian
+|Croissant|$2.80|no
+|Bagel|$3.00|yes
+|Muffin|$2.50|yes
+|Turkey Sandwich|$5.50|no
+|Veggie Wrap|$5.00|yes
+|Soup of the Day|$4.20|yes
 
-drinksColPrice = Col("Price", ["$2.00","$2.50","$3.50","$4.00","$1.80"], type:string)
+hoursSection = Card(Heading("Opening Hours", h3), Table(hoursTable))
 
-foodSection = Card(Heading("Food", h3), foodTable)
+hoursTable = |Day|Hours
+|Monday|8:00 am – 6:00 pm
+|Tuesday|8:00 am – 6:00 pm
+|Wednesday|8:00 am – 6:00 pm
+|Thursday|8:00 am – 6:00 pm
+|Friday|8:00 am – 8:00 pm
+|Saturday|9:00 am – 8:00 pm
+|Sunday|Closed
 
-foodTable = Table(foodColName, foodColPrice)
-
-foodColName = Col("Food", ["Croissant","Bagel","Muffin","Veggie Sandwich","Salad"], type:string)
-
-foodColPrice = Col("Price", ["$2.80","$3.00","$2.70","$5.50","$4.90"], type:string)
-
-hours = TextContent("**Opening Hours**\n- Mon‑Fri: 7 am – 6 pm\n- Sat: 8 am – 4 pm\n- Sun: Closed", size:small)
-
-filterButtons = Buttons(Button("Show Vegetarian", primary))
+filterButtons = Buttons(Button("Show Vegetarian Only"))

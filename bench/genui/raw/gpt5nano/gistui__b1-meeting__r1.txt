@@ -1,0 +1,15 @@
+root = Card(CardHeader("Upcoming calendar", "Next meeting overview"), meetingCard)
+meetingCard = Card(Heading("Next meeting", h3), Table(nextMeetingTable), joinRow, attendeesRow)
+nextMeetingTable = Table(nextMeetingPipe)
+nextMeetingPipe = |Field|Value
+|Title|Project Sync
+|Start|2026-10-07T09:30:00
+attendeesRow = SectionBlock(SectionItem("attendees", "Attendees", attendeesList))
+attendeesList = ListBlock(attendeesListItems, variant:number)
+attendeesListItems = |Name|Role
+|Alex Kim|PM
+|Priya Singh|Engineer
+|Jordan Lee|Designer
+joinRow = SectionBlock(SectionItem("join", "Join call", joinButtonRow))
+joinButtonRow = Buttons(Button("Join call", action:[...joinURL]), direction:row)
+joinURL = "https://meet.example.com/room/next"

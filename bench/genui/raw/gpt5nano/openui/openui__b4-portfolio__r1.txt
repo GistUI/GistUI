@@ -1,0 +1,75 @@
+root = Card([header, overview, activeProjects, overdueMilestones, budgetAllocation, teamUtilization, risks, upcomingDeadlines, deliveryPace, blockedItems, healthSummary, quarterSwitcher, requestStaff, exportPanel, archivePanel])
+
+header = CardHeader("PMO Project Portfolio Review", "Current Quarter Overview")
+
+overview = TextContent("This screen presents the portfolio health at a glance, with actionable items to adjust staffing, prune risky work, and plan for upcoming quarters.", "default")
+
+activeProjects = Card([activeHeading, projectsTable])
+activeHeading = Heading("Active Projects", "h2")
+projectsTable = Table([colName, colOwner, colDeadline, colHealth])
+
+colName = Col("Project", ["Frontend Revamp", "Platform Migration", "Security Enhancements", "Data Lake Refresh"])
+colOwner = Col("Owner", ["Alex Kim", "Priya Patel", "Diego Ramirez", "Mei Chen"])
+colDeadline = Col("Deadline", ["2026-10-20", "2026-11-05", "2026-11-02", "2026-11-15"])
+colHealth = Col("Health", ["Healthy", "At Risk", "Healthy", "Warning"])
+
+overdueMilestones = Card([overdueHeading, overdueList])
+overdueHeading = Heading("Overdue Milestones", "h2")
+overdueList = ListBlock([ListItem("Frontend Revamp", " milestone: UI freeze overdue by 3 days", ["https://picsum.photos/seed/overdue1/40/40"]) , ListItem("Platform Migration", " migration block: dependency delay", ["https://picsum.photos/seed/overdue2/40/40"])], "number")
+
+budgetAllocation = Card([budgetHeading, budgetChart])
+budgetHeading = Heading("Budget Spent vs Allocation", "h2")
+budgetChart = BarChart(["Frontend", "Platform", "Security", "Data"], [Series("Spent", [120000, 98000, 52000, 45000]), Series("Allocation", [150000, 120000, 80000, 60000])], "grouped", "Projects", "USD")
+
+teamUtilization = Card([utilHeading, utilizationChart])
+utilHeading = Heading("Team Utilization", "h2")
+utilizationChart = HorizontalBarChart(["Frontend", "Platform", "Security", "Data"], [Series("Utilization", [72, 65, 58, 80])], "grouped", "Team", "%")
+
+risks = Card([risksHeading, risksTable])
+risksHeading = Heading("Risks with Severity", "h2")
+risksTable = Table([colRName, colSeverity, colImpact, colOwnerR])
+
+colRName = Col("Risk/Project", ["Frontend UX debt", "Platform uptime risk", "Data quality risk"])
+colSeverity = Col("Severity", ["High", "Medium", "Critical"])
+colImpact = Col("Impact", ["Delivery delay", "Cost overrun", "Regulatory"])
+colOwnerR = Col("Owner", ["Alex Kim", "Priya Patel", "Diego Ramirez"])
+
+upcomingDeadlines = Card([deadlinesHeading, deadlinesList])
+deadlinesHeading = Heading("Deadlines in Next 2 Weeks", "h2")
+deadlinesList = ListBlock([ListItem("Frontend Revamp", " milestone due 2026-10-18"), ListItem("Platform Migration", " milestone due 2026-10-23")])
+
+deliveryPace = Card([paceHeading, paceChart])
+paceHeading = Heading("Delivery Pace (Past 6 Sprints)", "h2")
+paceChart = LineChart([1,2,3,4,5,6], [Series("Velocity", [20, 22, 18, 25, 21, 23])], "linear", "Sprint", "Stories")
+
+blockedItems = Card([blockedHeading, blockedList])
+blockedHeading = Heading("Blocked Work Items", "h2")
+blockedList = ListBlock([ListItem("Data Lake Refresh", " Blocked by data quality gating"), ListItem("Security Enhancements", " Awaiting access approval")], "image")
+
+healthSummary = Card([healthHeading, healthText])
+healthHeading = Heading("Portfolio Health Summary", "h2")
+healthText = TextContent("Overall health: Mixed with 2 at Risk, 1 Critical, and 1 Healthy. Prioritize critical path items and staffing requests.", "default")
+
+quarterSwitcher = Card([quarterLabel, quarterControls])
+quarterLabel = Heading("View Quarter", "h2")
+quarterControls = Carousel([TextContent("Quarter: Q4 2024", "default"), TextContent("Quarter: Q1 2025", "default")], "card")
+
+requestStaff = Card([requestHeader, requestForm])
+requestHeader = Heading("Request More People for a Project", "h2")
+requestForm = Form("staff-request", staffButtons, [projectSelect, headcountInput, justificationInput])
+
+projectSelect = FormControl("Project", Select("project_id", [SelectItem("p1", "Frontend Revamp"), SelectItem("p2", "Platform Migration")]))
+headcountInput = FormControl("Number of FTEs", Input("qty", "2", "number"))
+justificationInput = FormControl("Justification", TextArea("notes", "Reason for request"))
+
+staffButtons = Buttons([sendRequestBtn], "row")
+sendRequestBtn = Button("Submit Request", null, "primary")
+
+exportPanel = Card([exportHeader, exportBtn, exportNote])
+exportHeader = Heading("Export Review", "h2")
+exportBtn = Button("Export CSV")
+exportNote = TextContent("Exports include active projects, risks, and milestones.", "default")
+
+archivePanel = Card([archiveHeader, archiveBtn])
+archiveHeader = Heading("Archive Finished Projects", "h2")
+archiveBtn = Button("Archive Completed", null, "secondary")

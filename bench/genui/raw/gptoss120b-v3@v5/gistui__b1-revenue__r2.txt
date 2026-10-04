@@ -1,4 +1,0 @@
-root = Card(header, today, compare, variant:card, direction:column, gap:m)
-header = CardHeader("Mid‑Morning Check‑in", "Shop performance")
-today = Card(Heading("Revenue so far today", h3), TextContent("$3,250", size:large), clear)
-compare = Card(Callout(variant:info, "Yesterday", "Revenue $2,900, up 12%"), clear)

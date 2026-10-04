@@ -1,0 +1,43 @@
+root = Card(CardHeader("Admin Overview", "SaaS Metrics Dashboard"), periodControl, kpisSection, customersSection, accountsSection, paymentsSection, featuresSection, npsSection, invitationSection, seatUtilSection, actionsSection)
+
+periodControl = Card(Tag("Period"), Toggle("periodToggle", variant:default))  // placeholder for period change trigger
+
+kpisSection = Card(Heading("Key Metrics", h3), kpiMRR, kpiARR, kpiChurn)
+
+kpiMRR = TextContent("MRR: $", size:default)
+kpiARR = TextContent("ARR: $", size:default)
+kpiChurn = TextContent("Churn this month: ", size:default)
+
+customersSection = Card(Heading("Customers by Plan", h3), Table(planTable), HorizontalBarChart(planTable, variant:grouped, xLabel:"Plan")) 
+planTable = |Plan|Customers|Seats|Spend
+|Starter|120|480|$24,000
+|Growth|75|380|$46,500
+|Scale|30|360|$72,000
+
+accountsSection = Card(Heading("Accounts at Risk", h3), Table(riskTable))
+riskTable = |Account|Reason
+|Acme Corp|Late payments
+|Globex|Upcoming renewal at risk
+
+paymentsSection = Card(Heading("Failed Payments", h3), Table(failedTable), Button("Retry all", primary))
+failedTable = |Account|Last Attempt|Reason
+|Initech|2024-09-28|Card decline
+|Umbrella|2024-09-30|Bank transfer failure
+
+featuresSection = Card(Heading("Adoption: New Features", h3), AreaChart(adoptionTable, natural, xLabel:"Feature", yLabel:"Adoption%), Table(adoptionTable)) 
+adoptionTable = |Feature|Adoption
+|Feature A|62
+|Feature B|39
+|Feature C|81
+
+npsSection = Card(Heading("NPS", h3), TextContent("Current NPS: 42", size:default))
+
+invitationSection = Card(Heading("Invite Admin", h3), Form("invite-admin", Buttons(Button("Send Invite", primary)), FormControl("Email", Input("email", "admin@company.com"))))
+
+seatUtilSection = Card(Heading("Seat Utilization", h3), BarChart(seatTable, xLabel:"Team", yLabel:"Seats")) 
+seatTable = |Team|Seats Used|Total Seats
+|Core|210|250
+|Analytics|120|140
+|Support|90|100
+
+actionsSection = Card(Buttons(Button("Export CSV"), Button("Print", secondary)))

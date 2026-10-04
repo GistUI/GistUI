@@ -1,0 +1,48 @@
+root = Card([header, statsPanel, ticketsPanel, actionsPanel], "card")
+
+header = CardHeader("Support Lead Morning View")
+
+statsPanel = Card([openTickets, avgResponseTime, recentTicketsHeading, recentTicketsTable], "card")
+
+openTickets = Heading("Open Tickets: 42", "h2")
+
+avgResponseTime = Heading("Avg First-Response: 1h 23m", "h3")
+
+recentTicketsHeading = Heading("Five Most Recent Tickets by Priority", "h4")
+
+recentTicketsTable = Table([col1, col2, col3, col4], "string")
+
+col1 = Col("Ticket", ["T-1042", "T-1043", "T-1044", "T-1045", "T-1046"])
+col2 = Col("Subject", ["Login issue", "Billing question", "SSO error", "Password reset", "Feature request"])
+col3 = Col("Priority", ["High", "Medium", "High", "Low", "High"])
+col4 = Col("Age", ["2m", "10m", "5m", "22m", "1m"])
+
+ticketsPanel = Card([filtersRow, ticketsList], "card")
+
+filtersRow = Row([highPriorityOnly, spacer, newTicketButton], "row", "m")
+
+highPriorityOnly = Tag("High priority only", null, "md", "info")
+
+spacer = Separator(null, true)
+
+newTicketButton = Button("New Ticket", null, "primary")
+
+ticketsList = ListBlock([ticketItem1, ticketItem2, ticketItem3, ticketItem4, ticketItem5], "list")
+
+ticketItem1 = ListItem("T-1046", "Feature request: dark mode", ["https://picsum.photos/seed/1/80/40"], "Open")
+ticketItem2 = ListItem("T-1045", "Password reset not sending", ["https://picsum.photos/seed/2/80/40"], "Open")
+ticketItem3 = ListItem("T-1044", "SSO error on login", ["https://picsum.photos/seed/3/80/40"], "Open")
+ticketItem4 = ListItem("T-1043", "Billing inquiry", ["https://picsum.photos/seed/4/80/40"], "Open")
+ticketItem5 = ListItem("T-1042", "Unable to access account", ["https://picsum.photos/seed/5/80/40"], "Open")
+
+actionsPanel = Card([exportBtnRow, hr], "card")
+
+exportBtnRow = Row([exportBtn, refreshBtn], "row", "s")
+
+exportBtn = Button("Export", null, "secondary")
+refreshBtn = Button("Refresh", null, "secondary")
+
+hr = Separator("horizontal")
+
+# Ensure every defined variable is included in root's children or referenced
+# Note: All variables above are referenced directly in root's children list.

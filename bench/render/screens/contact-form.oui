@@ -1,0 +1,12 @@
+root = Stack([title, form], "column", "l")
+title = TextContent("Contact Us", "large-heavy")
+form = Form("contact", formButtons, [nameField, emailField, phoneField, subjectField, messageField])
+nameField = FormControl("Name", Input("name", "Your full name", "text", {required: true, minLength: 2}))
+emailField = FormControl("Email", Input("email", "you@example.com", "email", {required: true, email: true}))
+phoneField = FormControl("Phone", Input("phone", "e.g., +1 555 123 4567", "text", {required: true, minLength: 7, maxLength: 20}))
+subjectField = FormControl("Subject", Select("subject", subjectOptions, "Select a subject...", {required: true}))
+messageField = FormControl("Message", TextArea("message", "How can we help?", 6, {required: true, minLength: 10}))
+subjectOptions = [SelectItem("general", "General inquiry"), SelectItem("support", "Support"), SelectItem("sales", "Sales"), SelectItem("billing", "Billing"), SelectItem("feedback", "Feedback")]
+formButtons = Buttons([submitBtn, cancelBtn], "row")
+submitBtn = Button("Submit", Action([@ToAssistant("Submit")]), "primary")
+cancelBtn = Button("Cancel", Action([@ToAssistant("Cancel")]), "secondary")

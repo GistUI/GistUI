@@ -1,0 +1,22 @@
+root = Card(CardHeader("Delivery status"), statusSection, dateSection, reportSection)
+
+statusSection = Card(Heading("Current package location", h3), LocationTable("tracking"), sunk)
+
+dateSection = Card(Heading("Estimated delivery date", h3), TextContent("Your package is expected to arrive by the date shown below."), DateValue("deliveryDate"), sunk)
+
+reportSection = Card(CardHeader("Report a problem with delivery"), reportForm)
+
+LocationTable(table) = Table(table)
+
+deliveryTable = |Location|Status
+|Hub A|In transit
+|Hub B|In transit
+|Final Node|Out for delivery
+table = deliveryTable
+
+DateValue = TextContent("2026-10-12", size:default)
+
+reportForm = Form("delivery-report", reportButtons, locationControl, issueControl)
+reportButtons = Buttons(Button("Submit report", primary))
+locationControl = FormControl("Current location", Input("location", "Hub B"))
+issueControl = FormControl("Issue details", TextArea("issue", "Describe the problem..."))

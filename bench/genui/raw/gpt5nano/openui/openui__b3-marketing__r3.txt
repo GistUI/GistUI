@@ -1,0 +1,71 @@
+root = Card([
+  header = CardHeader("Marketing Manager Dashboard", "Weekly overview with date range and exports"),
+  rangeRow,
+  topRow,
+  bottomRow
+])
+
+rangeRow = Card([rangeCard], "card")
+
+rangeCard = Form("range-control", exportInlineButtons, [
+  dateLabel,
+  dateRange
+])
+
+dateLabel = Label("Date range")
+
+dateRange = Input("date_range", "Last 30 days", "text")
+
+exportInlineButtons = Buttons([exportBtn], "row")
+
+exportBtn = Button("Export report")
+
+topRow = Card([visitorsCard, conversionsCard, sourcesCard, campaignsCard, bestCampaignCard], "card")
+
+visitorsCard = Card([
+  Heading("Site visitors (last 30 days)", "h3"),
+  LineChart(["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"], [Series("Visitors", [120, 150, 130, 170, 160, 180, 200])], "linear", "Date", "Visits"),
+])
+
+conversionsCard = Card([
+  Heading("Conversion rate", "h3"),
+  CardHeader(null, " Percentage"),
+  LineChart(["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"], [Series("CR", [2.1, 2.5, 2.3, 2.8, 2.6, 3.0, 3.2])], "linear", "Date", "CR %")
+])
+
+sourcesCard = Card([
+  Heading("Top traffic sources (share)", "h3"),
+  PieChart(["Direct", "Organic Search", "Paid Search", "Social", "Referral"], [40, 25, 20, 10, 5], "donut", "circular"),
+  TextContent("Direct leads the share, followed by Organic Search and Paid campaigns.")
+])
+
+campaignsCard = Card([
+  Heading("Running campaigns & spend", "h3"),
+  BarChart(["Campaign A", "Campaign B", "Campaign C", "Campaign D", "Campaign E"], [
+    Series("Spend", [500, 1200, 750, 400, 300])
+  ], "grouped", "Campaign", "Spend USD"),
+])
+
+bestCampaignCard = Card([
+  Heading("Best performing campaign", "h3"),
+  Callout("success", "Campaign B", "Highest ROI and conversions this week"),
+  TextContent("Campaign B performed best based on conversions per dollar spent.")
+])
+
+bottomRow = Card([subscribersCard, exportFooterCard, exportFooterCard2], "card")
+
+subscribersCard = Card([
+  Heading("Email subscriber growth this month", "h3"),
+  LineChart(["W1", "W2", "W3", "W4"], [Series("Subscribers", [120, 180, 260, 320])], "natural", "Week", "Subscribers")
+])
+
+exportFooterCard = Card([
+  Separator(),
+  TextContent("Export options: use the button near the top to export the current report as CSV or PDF.")
+])
+
+exportFooterCard2 = Card([
+  Spacer(),
+  Button("Export as CSV", null, "secondary"),
+  Button("Export as PDF", null, "secondary")
+])

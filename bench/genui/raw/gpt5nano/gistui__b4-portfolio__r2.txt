@@ -1,0 +1,74 @@
+root = Card(CardHeader("PMO Portfolio Review", "Current quarter"), healthSummary, timeframeSelector, exportButton, archiveButton, requestStaffButton, sections)
+
+healthSummary = Card(Heading("Portfolio health", h2), MarkDownRenderer("Portfolio health: overall status summarized in one line."), sunk)
+
+timeframeSelector = Card(Tag("Quarter"), Select("quarter", SelectItem("Q4 2024", "Q4 2024"), SelectItem("Q1 2025", "Q1 2025"), placeholder:"Choose quarter"))
+
+exportButton = Buttons(Button("Export review", primary))
+
+archiveButton = Buttons(Button("Archive finished projects", secondary))
+
+requestStaffButton = Buttons(Button("Request more people", secondary))
+
+sections = SectionBlock(SectionItem("active_projects", "Active Projects", activeProjects), SectionItem("overdue_milestones", "Overdue Milestones", overdueMilestones), SectionItem("budget_allocation", "Budget vs Allocation", budgetSection), SectionItem("team_utilization", "Team Utilization", teamUtil), SectionItem("risks", "Risks by Severity", risksSection), SectionItem("upcoming_deadlines", "Next 2 Weeks Deadlines", upcomingDeadlines), SectionItem("delivery_pace", "Delivery Pace (Past 6 Sprints)", deliveryPace), SectionItem("blocked_items", "Blocked Work Items", blockedItems), SectionItem("quick_view", "One-line Health Summary", oneLineHealth))
+
+activeProjects = Card(Heading("Active projects", h3), Table(activeTable), sunk)
+
+activeTable = |Project|Owner|Deadline|Health|Status
+|Apollo Revamp|Lena Kim|2026-02-28|Healthy|In progress
+|Nova Field Ops|Raj Patel|2026-03-12|Watchful|On track
+|Quanta Portal|Mina Chen|2026-04-05|At risk|At risk
+
+overdueMilestones = Card(Heading("Overdue milestones", h3), Table(overdueTable), sunk)
+
+overdueTable = |Milestone|Project|Due date|Days overdue
+|Launch v2|Apollo Revamp|2026-02-10|12
+|Migrate DB|Nova Field Ops|2026-02-22|6
+
+budgetSection = Card(Heading("Budget vs allocation per project", h3), Table(budgetTable), sunk)
+
+budgetTable = |Project|Budget Spent|Allocation|Variance
+|Apollo Revamp|$540k|$600k|-$60k
+|Nova Field Ops|$320k|$380k|-$60k
+|Quanta Portal|$210k|$240k|-$30k
+
+teamUtil = Card(Heading("Team utilization", h3), Table(utilTable), sunk)
+
+utilTable = |Team|Utilization
+|PMO|78%
+|Dev A|92%
+|Dev B|85%
+|QA|74%
+
+risksSection = Card(Heading("Risks by severity", h3), Table(risksTable), sunk)
+
+risksTable = |Risk|Project|Severity|Owner
+|Dependency lag|Apollo Revamp|High|Lena Kim
+|Vendor delay|Quanta Portal|Medium|Mina Chen
+|Resource contention|Nova Field Ops|High|Raj Patel
+
+upcomingDeadlines = Card(Heading("Deadlines next 2 weeks", h3), Table(deadlinesTable), sunk)
+
+deadlinesTable = |Date|Project|Milestone
+|2026-03-02|Apollo Revamp|Beta release milestone
+|2026-03-04|Nova Field Ops|Security review
+
+deliveryPace = Card(Heading("Delivery pace — past 6 sprints", h3), Table(paceTable), sunk)
+
+paceTable = |Sprint|Velocity
+|Sprint 1|42
+|Sprint 2|48
+|Sprint 3|47
+|Sprint 4|51
+|Sprint 5|46
+|Sprint 6|49
+
+blockedItems = Card(Heading("Blocked work items", h3), Table(blockedTable), sunk)
+
+blockedTable = |Item|Project|Reason|Impact
+|Item #124|Apollo Revamp|Awaiting external API|Medium
+|Item #98|Nova Field Ops|Licensing delay|High
+
+oneLineHealth = Card(Heading("Health summary", h3), TextContent("Overall portfolio health: Stable with a few at-risk projects; focus on Apollo Revamp and Quanta Portal to remove blockers."), sunk)
+
+TextContent = CardHeader("One-liner", "Health summary placeholder")

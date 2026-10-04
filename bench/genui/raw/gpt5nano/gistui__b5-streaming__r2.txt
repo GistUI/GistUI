@@ -1,0 +1,128 @@
+root = Card(CardHeader("Operations Room — Streaming Dashboard"), sections)
+
+sections = SectionBlock(section1, isFoldable)
+section1 = SectionItem("overview", "Overview", Overview)
+Overview = Card(Heading("Live metrics", h3), liveRow, uvChart, buffering, deliveryHealth, focusRegion, promotions)
+
+liveRow = Card(Heading("Live viewers", h4), Table(viewersTable))
+viewersTable = |Metric|Value
+|Viewers Now|12456
+
+uvChart = BarChart(monthlyWatchTable, xLabel:"Month", yLabel:"Hours") 
+monthlyWatchTable = |Month|Hours
+|Past30d|1200
+|Past60d|3100
+|Past90d|4500
+
+buffering = Card(Heading("Buffering rate", h4), LineChart(bufferTable, natural, xLabel:"Day", yLabel:"Buffer %")) 
+bufferTable = |Day|Buffer%
+|Day1|1.2
+|Day2|1.5
+|Day3|1.3
+
+deliveryHealth = Card(Heading("Delivery health by region", h4), HorizontalBarChart(deliveryTable, grouped, xLabel:"Region", yLabel:"Health")) 
+deliveryTable = |Region|Health
+|NA-East|98
+|NA-West|97
+|EU-South|95
+|APAC|93
+
+focusRegion = Card(Heading("Focus by region", h4), Select("region_focus", SelectItem("Global", "Global"), SelectItem("NA", "North America"), SelectItem("EU", "Europe"), SelectItem("APAC", "Asia"), placeholder:"Choose region"))
+
+promotions = Card(Heading("Promotions & recommendations", h4), Tag("Promote title on Home", info), Button("Promote now", primary))
+
+section2 = SectionItem("titles", "Most-watched titles", Titles)
+Titles = Card(Heading("Most-watched titles", h4), Table(titlesTable), BarChart(titlesTable, xLabel:"Hours watched")) 
+titlesTable = |Title|Hours
+|"The Grand Escape"|3420
+|"Moonlight Saga"|2890
+|"Echoes of War"|2640
+
+section3 = SectionItem("watchtime", "Watch time over the past month", WatchTime)
+WatchTime = Card(Heading("Watch time — past month", h4), LineChart(watchTable, linear, xLabel:"Date", yLabel:"Hours")) 
+watchTable = |Date|Hours
+|Day-1|120
+|Day-2|140
+|Day-3|110
+
+section4 = SectionItem("subsc_canc", "New subscribers vs cancellations", SubCanc)
+SubCanc = Card(Heading("Subscribers vs Cancellations", h4), Table(subTable)) 
+subTable = |Metric|Count
+|New Subscribers|3200
+|Cancellations|280
+
+section5 = SectionItem("genre", "Performance by genre", Genre)
+Genre = Card(Heading("Performance by genre", h4), Table(genreTable))
+genreTable = |Genre|Watch Time|Share
+|Drama|5600|0.28
+|Comedy|4200|0.21
+|Sci-Fi|3100|0.15
+|Documentary|1800|0.09
+
+section6 = SectionItem("buffer", "Buffering rate (overview)", Buffer)
+Buffer = Card(Heading("Buffering rate overview", h4), Table(bufferTable2))
+bufferTable2 = |Region|Buffer%
+|Global|1.4
+|NA|1.6
+|EU|1.2
+|APAC|1.8
+
+section7 = SectionItem("region", "Delivery health by region (alternate)", RegionHealth)
+RegionHealth = Card(Heading("Delivery health — by region", h4), Table(regionTable))
+regionTable = |Region|Health
+|Global|96
+|NA|97
+|EU|95
+|APAC|94
+
+section8 = SectionItem("releases", "Releases coming this month", Releases)
+Releases = Card(Heading("Releases coming this month", h4), Table(releaseTable))
+releaseTable = |Title|ReleaseDate
+|"Nova Heist"|2026-10-15
+|"Venture Quiet"|2026-10-22
+
+section9 = SectionItem("licenses", "Licenses expiring soon", Licenses)
+Licenses = Card(Heading("Licenses expiring soon", h4), Table(licenseTable))
+licenseTable = |License|Expires
+|"DramaWave"|2026-10-12
+|"Indie Pulse"|2026-10-28
+
+section10 = SectionItem("rec_clicks", "Recommendations clicked", RecClicks)
+RecClicks = Card(Heading("Recommendations clicked", h4), BarChart(recTable, grouped, xLabel:"Recommendation", yLabel:"Clicks")) 
+recTable = |Recommendation|Clicks
+|"Sci-Fi Picks"|520
+|"Top Comedies"|410
+|"New Thrillers"|370
+
+section11 = SectionItem("search_no_play", "Searches that ended without playback", SearchNoPlay)
+SearchNoPlay = Card(Heading("Searches without playback", h4), Table(searchTable))
+searchTable = |Query|Count
+|"Space opera film"|120
+|"Mystery series"|95
+
+section12 = SectionItem("revenue", "Revenue split by plan", Revenue)
+Revenue = Card(Heading("Revenue by plan", h4), Table(revenueTable))
+revenueTable = |Plan|Share
+|Basic|0.40
+|Standard|0.35
+|Premium|0.25
+
+section13 = SectionItem("device", "Viewing split by device", Device)
+Device = Card(Heading("Viewing by device", h4), Table(deviceTable))
+deviceTable = |Device|Share
+|Mobile|0.45
+|TV|0.30
+|Desktop|0.20
+|Tablet|0.05
+
+section14 = SectionItem("focus", "Region focus control", RegionFocus)
+RegionFocus = Card(Heading("Region focus", h4), Select("region_select", SelectItem("Global", "Global"), SelectItem("NA", "North America"), SelectItem("EU", "Europe"), SelectItem("APAC", "Asia")))
+
+section15 = SectionItem("flags", "Feature flags with state", Flags)
+Flags = Card(Heading("Feature flags", h4), TagBlock([ "BetaSearch", "NewUI", "AutoSubs" ]), SwitchGroup("flags_group", SwitchItem("BetaSearch", "Beta search", defaultChecked), SwitchItem("NewUI", "New home UI"), SwitchItem("AutoSubs", "Auto-subs"), value:[]))
+
+section16 = SectionItem("promote", "Promote a title on home screen", Promote)
+Promote = Card(Heading("Promote title on home home", h4), Form("promo-form", Buttons(Button("Promote", primary)), FormControl("Title", Input("title", "The Grand Escape"))))
+
+root_def = root
+root = Card(root_def)

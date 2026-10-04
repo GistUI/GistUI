@@ -1,87 +1,45 @@
-root = Card(header, balancesCard, transactionsCard, spendingCard, billsCard, goalCard, creditScoreCard, transferCard, freezeCard, statementCard, alertsCard, disputeCard)
-
-header = CardHeader("Personal Banking", "Overview")
-
-balancesCard = Card(Heading("Balances", h3), Table(balancesRows), clear)
-
-transactionsCard = Card(Heading("Recent Transactions", h3), Table(transactionsRows), clear)
-
-spendingCard = Card(Heading("Spending by Category (This Month)", h3), PieChart(spendingRows, donut), clear)
-
-billsCard = Card(Heading("Bills Due Soon", h3), Table(billsRows), clear)
-
-goalCard = Card(Heading("Vacation Savings Goal", h3), Progress(68, label:"$1,200 of $1,800"), clear)
-
-creditScoreCard = Card(Heading("Credit Score", h3), Tag("720", success), clear)
-
-transferCard = Card(Heading("Transfer Money", h3), transferForm, clear)
-
-freezeCard = Card(Heading("Credit Line", h3), Button("Freeze Credit Line", type:destructive), clear)
-
-statementCard = Card(Heading("Statement Period", h3), statementSelect, clear)
-
-alertsCard = Card(Heading("Alert Settings", h3), alertsForm, clear)
-
-disputeCard = Card(Heading("Dispute Transaction", h3), disputeDialog, clear)
-
-transferForm = Form("transfer", transferButtons, fromField, toField, amountField)
-
-transferButtons = Buttons(Button("Transfer", primary), Button("Cancel", tertiary))
-
-fromField = FormControl("From account", fromSelect)
-
-fromSelect = Select("from_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), placeholder:"Select source", size:small)
-
-toField = FormControl("To account", toSelect)
-
-toSelect = Select("to_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit Card"), placeholder:"Select destination", size:small)
-
-amountField = FormControl("Amount", Input("amount","0.00",type:number))
-
-statementSelect = Select("statement_period", SelectItem("30","Last 30 days"), SelectItem("60","Last 60 days"), SelectItem("90","Last 90 days"), placeholder:"Choose period", size:small)
-
-alertsForm = Form("alerts", alertsButtons, alertsCheckGroup)
-
-alertsButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))
-
-alertsCheckGroup = FormControl("Enable alerts for", CheckBoxGroup("alert_types", alertCheck1, alertCheck2, alertCheck3))
-
-alertCheck1 = CheckBoxItem("Low balance", "When balance falls below $100", "low_balance", false)
-
-alertCheck2 = CheckBoxItem("Large transaction", "When a transaction exceeds $500", "large_tx", false)
-
-alertCheck3 = CheckBoxItem("Bill due", "When a bill is due within 3 days", "bill_due", false)
-
-disputeDialog = DialogBlock("Dispute", "Dispute Transaction", disputeForm, description:"Select a transaction and provide a reason.", link)
-
-disputeForm = Form("dispute", disputeButtons, disputeSelectField, disputeReasonField)
-
-disputeButtons = Buttons(Button("Submit Dispute", primary), Button("Cancel", tertiary))
-
-disputeSelectField = FormControl("Transaction", disputeSelect)
-
-disputeSelect = Select("transaction_id", SelectItem("tx1","Coffee Shop - $4.50"), SelectItem("tx2","Grocery Store - $78.20"), placeholder:"Choose transaction", size:small)
-
-disputeReasonField = FormControl("Reason", TextArea("reason","Explain the issue", rows:4))
-
-balancesRows = |Account|Balance
-|Checking|$2,345.67
-|Savings|$8,910.12
-|Credit|$1,250.00
-
-transactionsRows = |Date|Merchant|Amount
-|2024-09-28|Coffee Shop|-$4.50
-|2024-09-27|Grocery Store|-$78.20
-|2024-09-26|Salary|$3,200.00
-
-spendingRows = |Category|Amount
-|Food|$350
-|Transport|$120
+root = Card(balancesSection, transactionsSection, spendingSection, billsSection, vacationSection, creditScoreSection, moveMoneySection, freezeSection, statementSection, alertsSection, disputeSection)
+balancesSection = Card(CardHeader("Balances"), Table(balancesTable), sunk)
+balancesTable = |Account|Balance
+|Checking|$2,350.45
+|Savings|$8,120.00
+|Credit|$1,200.00
+transactionsSection = Card(CardHeader("Recent Transactions"), Table(transactionsTable), sunk)
+transactionsTable = |Date|Merchant|Amount
+|2024-09-30|Coffee Shop|-$4.75
+|2024-09-29|Grocery Store|-$56.20
+|2024-09-28|Salary|+$2,500.00
+spendingSection = Card(CardHeader("Spending by Category"), PieChart(spendingTable, donut), sunk)
+spendingTable = |Category|Amount
+|Food|$320
+|Transport|$150
 |Entertainment|$200
 |Bills|$400
 |Other|$80
-
-billsRows = |Bill|Due Date|Amount
-|Electricity|2024-10-05|$90.00
+billsSection = Card(CardHeader("Bills Due Soon"), Table(billsTable), sunk)
+billsTable = |Bill|Due Date|Amount
+|Electricity|2024-10-05|$120.00
 |Internet|2024-10-07|$60.00
-|Credit Card|2024-10-10|$250.00
+|Rent|2024-10-01|$1,200.00
+vacationSection = Card(CardHeader("Vacation Savings Goal"), Progress(vacationProgress, label:"$1,200 saved of $2,000"), sunk)
+vacationProgress = 60
+creditScoreSection = Card(CardHeader("Credit Score"), TextContent("Your current credit score is 735", size:large), sunk)
+moveMoneySection = Card(CardHeader("Move Money"), Form(moveFormName, moveButtons, fromField, toField, amountField), sunk)
+moveFormName = "move-money"
+fromField = FormControl("From account", Select("from_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit"), placeholder:"Select account"))
+toField = FormControl("To account", Select("to_account", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit"), placeholder:"Select account"))
+amountField = FormControl("Amount", Input("amount", "$0.00", type:number))
+moveButtons = Buttons(Button("Transfer", primary))
+freezeSection = Card(CardHeader("Credit Line"), Button("Freeze Credit Line", destructive), sunk)
+statementSection = Card(CardHeader("Statement Period"), Form(statementFormName, statementButtons, periodSelect), sunk)
+statementFormName = "statement-period"
+periodSelect = FormControl("Period", Select("period", SelectItem("30","Last 30 days"), SelectItem("60","Last 60 days"), placeholder:"Select period"))
+statementButtons = Buttons(Button("Apply", primary))
+alertsSection = Card(CardHeader("Manage Alerts"), Form(alertsFormName, alertsButtons, alertsToggle), sunk)
+alertsFormName = "alerts-manage"
+alertsToggle = FormControl("Alert triggers", CheckBoxGroup("alerts", CheckBoxItem("Low balance","When balance < $100","low_balance",defaultChecked), CheckBoxItem("Large transaction","When > $500","large_tx",defaultChecked)))
+alertsButtons = Buttons(Button("Save", primary))
+disputeSection = Card(CardHeader("Dispute Transaction"), Form(disputeFormName, disputeButtons, disputeSelect), sunk)
+disputeFormName = "dispute-tx"
+disputeSelect = FormControl("Transaction", Select("tx_id", SelectItem("tx1","Coffee Shop - $4.75"), SelectItem("tx2","Grocery Store - $56.20"), placeholder:"Select transaction"))
+disputeButtons = Buttons(Button("Dispute", destructive))

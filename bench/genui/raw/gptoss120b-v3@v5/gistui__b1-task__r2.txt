@@ -1,4 +1,0 @@
-root = Card(taskHeader, statusTag, doneButtons, clear)
-taskHeader = CardHeader("Build annual report", "Deadline: Sep 30, 2026")
-doneButtons = Buttons(Button("Mark done", primary))
-statusTag = Tag("In Progress", variant:info)

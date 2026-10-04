@@ -1,51 +1,62 @@
-root = Card(header, filterSection, draftsSection, publishedSection, topArticle, readershipChart, scheduleForm, commentsSection, newDraftButton)
+root = Card(header, drafts, published, topArticle, readershipChart, filter, scheduleForm, comments, newDraftBtn)
 
-header = CardHeader("Editor Studio", "Content overview")
+header = CardHeader("Editor Content Studio")
 
-filterSection = Card(Select("category_filter", SelectItem("Tech","Tech"), SelectItem("Health","Health"), SelectItem("Culture","Culture"), placeholder:"All categories", size:medium))
+drafts = Card(Heading("Drafts", h3), Table(draftsTable))
+draftsTable = |Title|Status
+|"New feature rollout"|Draft
+|"Seasonal promo"|Review
+|"Blog intro"|Draft
 
-draftsSection = Card(Heading("Drafts", h3), draftsTable)
+published = Card(Heading("Published This Week", h3), Table(publishedTable))
+publishedTable = |Title|Published Date
+|"Quarterly Report"|2024-09-23
+|"Customer Story"|2024-09-25
+|"Tech Insights"|2024-09-27
 
-draftsTable = Table(draftTitleCol, draftCategoryCol, draftStatusCol)
+topArticle = Card(Heading("Most‑Read Article This Month", h3), MarkDownRenderer("**Title:** *The Future of AI*\n\n*Views:* 12,345", variant:clear))
 
-draftTitleCol = Col("Title", data:["Future of Space","Healthy Eating","City Guides"], type:string)
-draftCategoryCol = Col("Category", data:["Tech","Health","Travel"], type:string)
-draftStatusCol = Col("Status", data:["Draft","Review","Draft"], type:string)
+readershipChart = Card(Heading("Readership (Last 30 Days)", h3), LineChart(readershipTable, linear, xLabel:"Date", yLabel:"Views"))
+readershipTable = |Date|Views
+|2024-09-05|820
+|2024-09-06|950
+|2024-09-07|1020
+|2024-09-08|1100
+|2024-09-09|1080
+|2024-09-10|1150
+|2024-09-11|1200
+|2024-09-12|1250
+|2024-09-13|1300
+|2024-09-14|1280
+|2024-09-15|1350
+|2024-09-16|1400
+|2024-09-17|1380
+|2024-09-18|1450
+|2024-09-19|1500
+|2024-09-20|1520
+|2024-09-21|1550
+|2024-09-22|1580
+|2024-09-23|1600
+|2024-09-24|1620
+|2024-09-25|1650
+|2024-09-26|1680
+|2024-09-27|1700
+|2024-09-28|1720
+|2024-09-29|1750
+|2024-09-30|1780
 
-publishedSection = Card(Heading("Published this week", h3), publishedTable)
+filter = Card(Heading("Filter by Category", h3), Select(categorySelect, SelectItem("news", "News"), SelectItem("blog", "Blog"), SelectItem("research", "Research"), placeholder:"Select category"))
 
-publishedTable = Table(pubTitleCol, pubDateCol, pubViewsCol)
+categorySelect = Select("category", placeholder:"Select category")
 
-pubTitleCol = Col("Title", data:["AI Trends 2024","Nutrition Myths"], type:string)
-pubDateCol = Col("Date", data:["2024-09-24","2024-09-22"], type:string)
-pubViewsCol = Col("Views", data:[12345,9870], type:number)
+scheduleForm = Card(Heading("Schedule a Piece", h3), Form("schedule-piece", scheduleButtons, titleField, dateField))
+titleField = FormControl("Title", Input("title", "Enter title"))
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single))
+scheduleButtons = Buttons(Button("Schedule", primary))
 
-topArticle = Card(Heading("Most‑read article (this month)", h3), TextContent("**Title:** \"AI Trends 2024\"\n**Views:** 12,345", size:default))
+comments = Card(Heading("Comments Awaiting Reply", h3), Table(commentsTable))
+commentsTable = |Article|Comment|Author|Date
+|"The Future of AI"|"Great insights!"|Alice|2024-09-28
+|"Quarterly Report"|"Can you clarify Q2 numbers?"|Bob|2024-09-27
 
-readershipChart = Card(Heading("Readership (last 30 days)", h3), LineChart(readershipRows, linear, xLabel:"Date", yLabel:"Readers"))
-
-readershipRows = |Date|Readers
-|2024‑08‑31|4500
-|2024‑09‑07|6200
-|2024‑09‑14|7800
-|2024‑09‑21|9100
-|2024‑09‑28|10200
-
-scheduleForm = Card(Heading("Schedule a piece", h3), scheduleFormComponent)
-
-scheduleFormComponent = Form("schedule", scheduleButtons, titleField, dateField)
-
-titleField = FormControl("Title", Input("title", "Enter title...", type:text))
-dateField = FormControl("Publish date", Input("publish_date", "YYYY‑MM‑DD", type:date))
-
-scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
-
-commentsSection = Card(Heading("Comments awaiting reply", h3), commentsTable)
-
-commentsTable = Table(commentArticleCol, commentAuthorCol, commentExcerptCol)
-
-commentArticleCol = Col("Article", data:["AI Trends 2024","Nutrition Myths"], type:string)
-commentAuthorCol = Col("Author", data:["Jane Doe","John Smith"], type:string)
-commentExcerptCol = Col("Excerpt", data:["Great insights! …","I disagree…"], type:string)
-
-newDraftButton = Buttons(Button("New Draft", primary))
+newDraftBtn = Buttons(Button("Start New Draft", primary))

@@ -1,0 +1,47 @@
+root = Card(CardHeader("TechCon 2026", "October 12-14, 2026 • Grand Nova Hall"), Tag("Limited seats", warning), DaysRemainingSection(daysLeft:25))
+daysLeft = TextContent("Days until event: 25", size:default)
+DaysRemainingSection(daysLeft) = Card(Heading("Days remaining", h3), TextContent("Countdown to conference start."), sunk)
+RegisterSection(registerForm)
+AgendaSection(agendaTable)
+SpeakersSection(speakersList)
+TicketsSection(ticketsTable)
+EventInfoSection(eventName, eventDate, venue)
+
+EventInfoSection(eventName, eventDate, venue) = Card(Heading("TechCon 2026", h2), TextContent("October 12-14, 2026"), TextContent("Grand Nova Hall"), Separator())
+eventName = "TechCon 2026"
+eventDate = "October 12-14, 2026"
+venue = "Grand Nova Hall"
+
+AgendaSection(agendaTable) = Card(Heading("Agenda", h3), Table(agendaRows))
+
+agendaRows = |Time|Session|
+|09:00–09:30|Registration & Coffee|
+|09:30–10:15|Opening Keynote: The Future of AI|
+|10:30–11:15|Panel: AI in Production|
+|11:15–11:30|Coffee Break|
+|11:30–12:15|Track A: Cloud Native|
+|12:15–13:30|Lunch Break|
+|13:30–14:15|Track B: Edge & IoT|
+|14:30–15:15|Workshop: Kubernetes Deep Dive|
+|15:15–15:45|Speaker Q&A|
+
+SpeakersSection(speakersList) = Card(Heading("Speakers", h3), ListBlock(...SpeakersItem))
+
+SpeakersItem("Dr. Ada Lin - Innovations in AI safety") = ListItem("Dr. Ada Lin - Innovations in AI safety")
+SpeakersItem("Prof. Mateo Ruiz - Quantum computing trends") = ListItem("Prof. Mateo Ruiz - Quantum computing trends")
+SpeakersItem("Jin Park - Scalable cloud architectures") = ListItem("Jin Park - Scalable cloud architectures")
+
+TicketsSection(ticketsTable) = Card(Heading("Tickets", h3), Table(ticketsRows))
+
+ticketsRows = |Tier|Price|
+|Early Bird|$499|
+|Standard|$799|
+|VIP|$1299|
+
+RegisterSection(registerForm) = Card(Heading("Register", h3), Form("registration", formButtons, nameField, emailField))
+
+nameField = FormControl("Full name", Input("name", "Alex Doe"))
+emailField = FormControl("Email", Input("email", "alex@example.com"))
+formButtons = Buttons(Button("Submit registration", primary))
+
+Table(table) = Table(ticketsRows)

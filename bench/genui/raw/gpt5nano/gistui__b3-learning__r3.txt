@@ -1,0 +1,44 @@
+root = Card(CardHeader("Training Platform Analytics"), cohortFilter, metricGrid, engagementChart, cohortMessenger, rankedCourses, retentionTable, earlyWarnings, eightWeekTrend)
+cohortFilter = Form("cohort-filter", cohortButtons, cohortSelect)
+cohortButtons = Buttons(Button("Apply", primary))
+cohortSelect = Select("cohort", SelectItem("Cohort A", "A"), SelectItem("Cohort B", "B"), SelectItem("Cohort C", "C"), placeholder:"Choose cohort")
+cohortPanel = SectionBlock(SectionItem("cohort", "Cohort"), cohortFilter)
+metricGrid = Card(Heading("Active learners this week", h3), TextContent("**1,234** active learners this week", "default"), Heading("Course completion rate", h3), TextContent("**86%** completion rate", "default"), Heading("Average quiz score", h3), TextContent("**78%** average score", "default"), sunk)
+activeLearners = TextContent("This week: 1,234 learners active", "default")
+completionRate = TextContent("Completion rate: 86%", "default")
+avgQuiz = TextContent("Average quiz score: 78%", "default")
+activeKPIs = Card(SectionBlock(SectionItem("active", "Active KPIs"), activeLearners, completionRate, avgQuiz), Heading("Cohort focus", h4), cohortBadge)
+cohortBadge = Tag("Cohort filter: "+"" , neutral)
+rankingSection = Card(Heading("Courses ranked by enrollment", h3), Table(rankedTable), sunk)
+rankedTable = |Course|Enrollments
+|Python Basics|1,540
+|Data Science 101|1,230
+|React for Beginners|980
+|SQL Essentials|860
+cohortEngagement = Card(Heading("Engagement across the past eight weeks", h3), LineChart(engagementTable, natural, xLabel:"Week", yLabel:"Engagement"), sunk)
+engagementTable = |Week|Engagement
+|W1|72
+|W2|75
+|W3|78
+|W4|80
+|W5|82
+|W6|85
+|W7|83
+|W8|88
+cohortMessenger = DialogBlock("message-cohort", "Message cohort", CardHeader("Message cohort", "Send a message to the current cohort"), TextContent("Draft your message here."), Buttons(Button("Send", primary)), description:"Open messaging to cohort")
+messageArea = Card(TextContent("Draft your message here."), sunk)
+cohortCommunication = Card(Heading("Message cohort", h3), cohortMessenger)
+rankedByEnrollment = rankingSection
+enrollmentTable = rankedTable
+eightWeekTrend = Card(Heading("Engagement eight-week trend", h3), engagementChart, sunk)
+engagementChart = Table(engagementTable)
+atRiskSection = Card(Heading("Learners at risk of dropping out", h3), Table(riskTable), sunk)
+riskTable = |Learner|RiskScore|LastActive
+|Alex Chen|0.92|W6
+|Priya Kapoor|0.88|W5
+|Miguel Santos|0.85|W4
+riskAlert = Callout(info, "At-risk cohort detected", "Review high-risk learners and consider outreach")
+activeLearnings = Card(Heading("Active learners this week", h3), TextContent("1,234 active learners"), sunk)
+courseCompletion = Card(Heading("Course completion rate", h3), TextContent("86%"), sunk)
+averageQuiz = Card(Heading("Average quiz score", h3), TextContent("78%"), sunk)
+growth = SectionBlock(SectionItem("eight-weeks", "Eight weeks trend", eightWeekTrend))

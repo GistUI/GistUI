@@ -1,0 +1,5 @@
+root = Card([header, revenueToday, comparisonChart])
+header = CardHeader("Mid-Morning Check-in", "Revenue snapshot")
+revenueToday = TextContent("Revenue so far today: $5,240", "large")
+comparisonChart = BarChart(["Today", "Yesterday"], [todaySeries], "grouped", "Day", "Revenue")
+todaySeries = Series("Revenue", [5240, 4670])

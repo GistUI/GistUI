@@ -1,0 +1,51 @@
+root = Card(CardHeader("HR Hiring Overview", "Current snapshot and workflow"), sectionHeadcount, openRolesSection, pipelineSection, avgTimeSection, deptHeadcountSection, interviewsSection, attritionSection, newRoleSection) 
+sectionHeadcount = Card(Heading("Current headcount", h3), Table(headcountTable))
+headcountTable = |Department|Headcount
+|Engineering|34
+|Sales|18
+|HR|6
+|Marketing|9
+|Finance|7
+openRolesSection = Card(Heading("Open roles by department", h3), Table(openRolesTable))
+openRolesTable = |Department|Open Roles
+|Engineering|5
+|Sales|3
+|HR|2
+|Marketing|1
+|Finance|0
+pipelineSection = Card(Heading("Candidates by pipeline stage", h3), Table(pipelineTable))
+pipelineTable = |Stage|Count
+|Applied|72
+|Phone Screen|28
+|Onsite|12
+|Offer|4
+|Hired|2
+avgTimeSection = Card(Heading("Average time to hire", h3), TextContent("Average time to fill roles across all departments: 34 days", size:default))
+deptHeadcountSection = Card(Heading("Headcount by department", h3), Table(deptHeadcountTable))
+deptHeadcountTable = |Department|Headcount
+|Engineering|34
+|Sales|18
+|HR|6
+|Marketing|9
+|Finance|7
+interviewsSection = Card(Heading("Interviews scheduled this week", h3), Table(interviewsTable))
+interviewsTable = |Day|Interviews
+|Mon|9
+|Tue|7
+|Wed|5
+|Thu|6
+|Fri|4
+attritionSection = Card(Heading("Attrition (past 6 months)", h3), AreaChart(attritionTable, natural, xLabel:"Month", yLabel:"% Attrition"))
+attritionTable = |Month|Attrition
+|Apr-2026|2.1
+|May-2026|2.3
+|Jun-2026|2.0
+|Jul-2026|1.8
+|Aug-2026|2.2
+|Sep-2026|2.5
+newRoleSection = Card(Heading("Open a new role", h3), Form("new-role", newRoleButtons, roleTitleField, departmentField, roleTypeField, addButton)) 
+newRoleButtons = Buttons(Button("Create role", primary)) 
+roleTitleField = FormControl("Role title", Input("role_title", "Senior Software Engineer")) 
+departmentField = FormControl("Department", Select("department", SelectItem("Engineering", "Engineering"), SelectItem("Sales", "Sales"), SelectItem("HR", "HR"), SelectItem("Marketing", "Marketing"), SelectItem("Finance", "Finance")), placeholder:"Choose department") 
+roleTypeField = FormControl("Role type", RadioGroup("role_type", RadioItem("Full-time", "full-time"), RadioItem("Contract", "contract"))) 
+addButton = Button("Add role", action:["CreateRole"])

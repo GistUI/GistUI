@@ -1,6 +1,0 @@
-root = Card(pollHeader, pollForm)
-pollHeader = CardHeader("Where should we go for lunch on Friday?", "Team lunch poll")
-pollForm = Form("lunch-poll", voteButtons, restaurantField)
-restaurantField = FormControl("Choose one", restaurantRadio)
-restaurantRadio = RadioGroup("restaurant", RadioItem("Sushi Place", "Fresh sushi and sashimi", "sushi"), RadioItem("Taco Stand", "Street tacos and burritos", "tacos"), RadioItem("Pizza House", "Wood-fired pizza and salads", "pizza"))
-voteButtons = Buttons(Button("Vote", primary))

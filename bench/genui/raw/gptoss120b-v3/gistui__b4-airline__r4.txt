@@ -1,58 +1,56 @@
-root = Card(CardHeader("Hub Operations Desk", "Operations at selected hub"), hubSelect, onTimeCard, flightsSection, delayedCallout, gateChangesSection, crewsSection, weatherSection, loadCard, connectionsSection, rebookForm, cancellationsSection, turnaroundCard, sunk)
+root = Card(perfSection, flightsSection, delayedCallout, gateChangesSection, crewsSection, weatherSection, loadSection, riskSection, rebookSection, hubSwitchSection, cancellationsSection, turnaroundSection)
 
-onTimeCard = Card(TextContent("On‑time performance today: 92%", large))
+perfSection = Card(CardHeader("On‑time Performance – Today"), TextContent("On‑time arrivals: **92%**", size:large), TextContent("Average delay: **7 min**", size:default))
 
-hubSelect = Select("hub_select", SelectItem("JFK","JFK"), SelectItem("LAX","LAX"), SelectItem("ORD","ORD"), placeholder:"Select hub")
+flightsSection = Card(Heading("Flights – Today", h3), flightsTable)
 
-flightsSection = Card(Heading("Flights", h3), flightsTable)
+flightsTable = Table(|Number|Route|Gate|Status
+|AA101|NYC → LAX|A12|On‑time
+|DL202|ATL → ORD|B5|Delayed
+|UA303|SFO → SEA|C3|On‑time
+|SW404|DAL → MIA|D8|Cancelled
+|BA505|LHR → JFK|E2|On‑time)
 
-flightsTable = |Number|Route|Gate|Status
-|AA101|NYC‑LAX|A12|On Time
-|BA202|LHR‑ORD|B5|Delayed
-|DL303|ATL‑SFO|C3|On Time
-|UA404|ORD‑MIA|D2|Cancelled
-
-delayedCallout = Callout(warning, "Delayed Flights", "2 flights delayed: BA202, DL303")
+delayedCallout = Callout(variant:warning, "Delayed Flights", "DL202 – 45 min delay at gate B5")
 
 gateChangesSection = Card(Heading("Recent Gate Changes", h3), gateChangesTable)
 
-gateChangesTable = |Flight|Old Gate|New Gate|Time
-|UA404|C3|C7|10:15
-|DL303|D1|D4|11:05
+gateChangesTable = Table(|Flight|Old Gate|New Gate|Time
+|AA101|A12|A14|08:15
+|UA303|C3|C4|09:05)
 
 crewsSection = Card(Heading("Crews Available for Reassignment", h3), crewsTable)
 
-crewsTable = |Crew ID|Available Since|Location
-|C001|08:30|Hub
-|C002|09:15|Hub
-|C003|07:45|Hub
+crewsTable = Table(|Crew ID|Position|Current Status
+|C001|Pilot|Available
+|C014|Flight Attendant|Available
+|C023|Ground Ops|Available)
 
 weatherSection = Card(Heading("Weather Advisories", h3), weatherTable)
 
-weatherTable = |Advisory|Detail
-|Thunderstorms|Low visibility, possible delays
+weatherTable = Table(|Advisory|Detail
 |Wind|Gusts up to 30 kt
+|Visibility|Reduced to 4 km)
 
-loadCard = Card(TextContent("Average passenger load today: 78 %", large))
+loadSection = Card(Heading("Average Passenger Load – Today", h3), TextContent("Average load factor: **78%**", size:large))
 
-connectionsSection = Card(Heading("Connections at Risk", h3), connectionsRiskTable)
+riskSection = Card(Heading("Connections at Risk of Being Missed", h3), riskTable)
 
-connectionsRiskTable = |Connection|Risk Reason
-|NYC‑LAX|Late arrival of inbound flight
-|ORD‑MIA|Tight transfer window
+riskTable = Table(|Connection|Connecting Flight|Risk
+|NYC → LAX|AA102|High
+|ATL → ORD|DL203|Medium)
 
-rebookForm = Form("rebook", rebookButtons, passengerField, flightField)
+rebookSection = Card(Heading("Rebook Affected Passengers", h3), rebookButtons)
 
-passengerField = FormControl("Passenger name", Input("passenger", "Enter name"))
+rebookButtons = Buttons(Button("Rebook Selected", primary), Button("Cancel", tertiary))
 
-flightField = FormControl("New flight", Input("flight", "Enter flight number"))
+hubSwitchSection = Card(Heading("View Another Hub", h3), hubSwitchButtons)
 
-rebookButtons = Buttons(Button("Rebook", primary))
+hubSwitchButtons = Buttons(Button("Select Hub", secondary))
 
-cancellationsSection = Card(Heading("Cancellations Today", h3), cancellationsTable)
+cancellationsSection = Card(Heading("Cancellations – Today", h3), cancellationsTable)
 
-cancellationsTable = |Flight|Reason|Time
-|AA101|Mechanical issue|09:00
-|BA202|Crew shortage|10:30
+cancellationsTable = Table(|Flight|Route|Gate|Reason
+|SW404|DAL → MIA|D8|Technical issue)
 
-turnaroundCard = Card(TextContent("Average turnaround time: 42 min", large))
+turnaroundSection = Card(Heading("Average Turnaround Time – Today", h3), TextContent("Average turnaround: **42 min**", size:default))

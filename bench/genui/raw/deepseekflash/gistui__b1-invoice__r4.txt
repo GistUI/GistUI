@@ -1,5 +1,0 @@
- root = Card(invoiceCard)
-invoiceCard = Card(CardHeader("Invoice #INV-2024-001", "Freelance design services"), amountSection, dueDateSection, paySection)
-amountSection = Card(TextContent("Amount due (USD)", size:small), TextContent("**$2,400.00**", size:large-heavy), sunk)
-dueDateSection = Card(TextContent("Due date", size:small), TextContent("**March 31, 2025**", size:default), sunk)
-paySection = Buttons(Button("Pay now", primary))

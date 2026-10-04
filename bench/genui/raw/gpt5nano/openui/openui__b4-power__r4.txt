@@ -1,0 +1,139 @@
+root = Card([
+  header = CardHeader("Power Network Operator Console", "Live grid status and control"),
+  topRow = Card([
+    leftCol = Card([
+      currentLoadHeading := Heading("Current load", "h3"),
+      currentLoadValue := TextContent("12,340 MW", "default"),
+      capacityMarker := Tag("Near capacity", null, null, "warning")
+    ], "card"),
+    rightCol = Card([
+      capacityPctHeading := Heading("Capacity utilization", "h3"),
+      capacityPctValue := TextContent("92%", "large"),
+      progress = Progress(92, "Utilization")
+    ], "card")
+  ], "row"),
+  middleSection = Card([
+    splitHeading := Heading("Generation split by source", "h3"),
+    genChartPlaceholder := MarkDownRenderer("Placeholder for generation by source chart", "card"),
+    // inline inline data for sources
+    sourcesTable = Table([
+      Col("Source", ["Hydro", "Gas", "Nuclear", "Wind", "Solar", "Battery"], "string"),
+      Col("Share (MW)", [420, 3100, 1500, 1200, 800, 200], "number")
+    ])
+  ], "card"),
+  plantsSection = Card([
+    plantsHeading := Heading("Plants and status", "h3"),
+    plantsList = SectionBlock([
+      SectionItem("plant-hydro-1", "Hydro Plant A", [
+        TextContent("Hydro Plant A — Online", "default"),
+        TagBlock(["Online", "Gen: 420 MW"])
+      ]),
+      SectionItem("plant-gas-1", "Gas Turbine B", [
+        TextContent("Gas Turbine B — Online", "default"),
+        TagBlock(["Online", "Gen: 320 MW", "Maint window: none"])
+      ]),
+      SectionItem("plant-nuke-1", "Nuclear Core 1", [
+        TextContent("Nuclear Core 1 — Critical", "default"),
+        TagBlock(["Online", "Gen: 1500 MW"])
+      ]),
+      SectionItem("plant-wind-1", "Wind Farm North", [
+        TextContent("Wind Farm North — Variable", "default"),
+        TagBlock(["Online", "Gen: 1200 MW"])
+      ]),
+      SectionItem("plant-solar-1", "Solar Array East", [
+        TextContent("Solar Array East — Peak today", "default"),
+        TagBlock(["Online", "Gen: 800 MW"])
+      ])
+    ], true)
+  ], "card"),
+  outagesSection = Card([
+    outagesHeading := Heading("Outages and affected regions", "h3"),
+    outagesList = SectionBlock([
+      SectionItem("outage-1", "Region A", [
+        TextContent("Power line outage affecting Region A", "default"),
+        TagBlock(["Affected: Region A", "Estimated repair: 2h"])
+      ]),
+      SectionItem("outage-2", "Region C", [
+        TextContent("Substation outage", "default"),
+        TagBlock(["Affected: Region C", "Estimated repair: 5h"])
+      ])
+    ], true)
+  ], "card"),
+  forecastSection = Card([
+    forecastHeading := Heading("Demand forecast next 24 hours", "h3"),
+    forecastChart := LineChart(["0", "6h", "12h", "18h", "24h"],
+      [Series("Forecast Demand", [9800, 10500, 11200, 10850, 11000])], "natural", "Time", "MW")
+  ], "card"),
+  priceSection = Card([
+    priceHeading := Heading("Current price per MWh", "h3"),
+    priceValue := TextContent("$72.50", "large")
+  ], "card"),
+  maintenanceSection = Card([
+    maintenanceHeading := Heading("Maintenance planned this month", "h3"),
+    maintenanceList = ListBlock([
+      ListItem("Substation X upgrades", "Scheduled downtime 02:00–06:00", ["https://picsum.photos/seed/maintenance1/64/64"]),
+      ListItem("Transformer Y thermal upgrade", "Planned outage 03:00–07:00", ["https://picsum.photos/seed/maintenance2/64/64"]),
+      ListItem("Line Z conductor inspection", "Window 04:00–08:00", ["https://picsum.photos/seed/maintenance3/64/64"])
+    ], "image")
+  ], "card"),
+  liveAlertsSection = Card([
+    alertsHeading := Heading("Live alerts", "h3"),
+    alertsPane = ListBlock([
+      ListItem("Overload risk in Region B", "Load approaching 98% of local substation capacity", ["https://picsum.photos/seed/alert1/64/64"]),
+      ListItem("GEN Curtailment recommended", "Due to transmission constraints", ["https://picsum.photos/seed/alert2/64/64"])
+    ], "image")
+  ], "card"),
+  regionFocusSection = Card([
+    regionHeading := Heading("Focus by region", "h3"),
+    regionTabs = Tabs([
+      TabItem("region-a", "Region A", [
+        TextContent("Selected region: Region A", "default"),
+        Tag("Active", null, null, "info")
+      ]),
+      TabItem("region-b", "Region B", [
+        TextContent("Selected region: Region B", "default"),
+        Tag("Active", null, null, "info")
+      ]),
+      TabItem("region-c", "Region C", [
+        TextContent("Selected region: Region C", "default"),
+        Tag("Active", null, null, "info")
+      ])
+    ])
+  ], "card"),
+  curtailmentSection = Card([
+    curtailmentHeading := Heading("Order curtailment", "h3"),
+    curtailmentControls = Buttons([
+      Button("Request curtailment - Region A", null, "primary"),
+      Button("Request curtailment - Region B", null, "primary")
+    ], "row")
+  ], "card"),
+  emissionsSection = Card([
+    emissionsHeading := Heading("Emissions today", "h3"),
+    emissionsValue := TextContent("1,320 tCO2e", "large")
+  ], "card")
+])
+
+# Optional: lightweight references to ensure items are included in final render
+currentLoadHeading = null
+currentLoadValue = null
+capacityMarker = null
+genChartPlaceholder = null
+sourcesTable = null
+plantsHeading = null
+plantsList = null
+outagesHeading = null
+outagesList = null
+forecastHeading = null
+forecastChart = null
+priceHeading = null
+priceValue = null
+maintenanceHeading = null
+maintenanceList = null
+alertsHeading = null
+alertsPane = null
+regionHeading = null
+regionTabs = null
+curtailmentHeading = null
+curtailmentControls = null
+emissionsHeading = null
+emissionsValue = null

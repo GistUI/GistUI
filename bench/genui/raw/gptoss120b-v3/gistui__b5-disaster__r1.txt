@@ -1,138 +1,127 @@
-root = Card(sectionBlock, requestResources, broadcastUpdate, focusZoneForm, situationReportForm, actions)
+root = Card(sectionBlock)  
+sectionBlock = SectionBlock(incidentsItem, summaryItem, resourcesItem, sheltersItem, evacItem, weatherItem, casualtiesItem, volunteersItem, donationsItem, aidRequestsItem, commsItem, roadsClosedItem, hospitalsItem, tasksItem, resourceRequestItem, broadcastItem, focusZoneItem, situationReportItem, isFoldable)  
 
-sectionBlock = SectionBlock(
-  SectionItem("incidents", "Active Incidents", 
-    Table(
-      Col("Zone", data:["North","South","East","West"], type:string),
-      Col("Incident", data:["Fire","Flood","Power Outage","Chemical Leak"], type:string),
-      Col("Severity", data:["High","Medium","Low","High"], type:string)
-    ),
-    HorizontalBarChart(labels:["North","South","East","West"], Series("Severity", values:[3,2,1,3]), variant:grouped, xLabel:"Severity Level", yLabel:"Zone")
-  ),
-  SectionItem("summary", "Overall Severity Summary", 
-    PieChart(labels:["High","Medium","Low"], values:[5,3,2], variant:donut, appearance:circular)
-  ),
-  SectionItem("resources", "Resources Available", 
-    Table(
-      Col("Type", data:["Vehicles","Personnel","Supplies"], type:string),
-      Col("Available", data:[12,45,300], type:number)
-    )
-  ),
-  SectionItem("shelters", "Shelters Capacity", 
-    Table(
-      Col("Shelter", data:["Shelter A","Shelter B","Shelter C"], type:string),
-      Col("Capacity", data:[150,200,120], type:number),
-      Col("Occupancy", data:[80,150,60], type:number)
-    )
-  ),
-  SectionItem("routes", "Evacuation Route Status", 
-    Table(
-      Col("Route", data:["Route 1","Route 2","Route 3"], type:string),
-      Col("Status", data:["Open","Closed","Open"], type:string)
-    )
-  ),
-  SectionItem("weather", "48‑Hour Weather Forecast", 
-    LineChart(
-      |Time|Temp|Precip
-      |Now|22|0
-      |6h|24|0
-      |12h|26|10
-      |18h|25|20
-      |24h|23|5
-      |30h|21|0
-      |36h|20|0
-      |42h|19|0
-      |48h|18|0
-      , linear, xLabel:"Time", yLabel:"°C"
-    )
-  ),
-  SectionItem("casualties", "Rescues & Casualties", 
-    Table(
-      Col("Metric", data:["People Rescued","Casualties"], type:string),
-      Col("Count", data:[350,27], type:number)
-    )
-  ),
-  SectionItem("volunteers", "Volunteers on Duty", 
-    Table(
-      Col("Name", data:["Alice","Bob","Charlie"], type:string),
-      Col("Assignment", data:["Medical","Logistics","Search"], type:string)
-    )
-  ),
-  SectionItem("donations", "Donations Received", 
-    Table(
-      Col("Donor", data:["CorpX","LocalBiz","Individual"], type:string),
-      Col("Amount", data:["$10,000","$2,500","$300"], type:string)
-    )
-  ),
-  SectionItem("aidRequests", "Aid Requests Awaiting Action", 
-    Table(
-      Col("Request ID", data:["REQ-001","REQ-002","REQ-003"], type:string),
-      Col("Needed", data:["Water","Food","Medical Supplies"], type:string),
-      Col("Priority", data:["High","Medium","Low"], type:string)
-    )
-  ),
-  SectionItem("commChannels", "Communication Channels", 
-    Table(
-      Col("Channel", data:["Radio","Satellite","Cellular"], type:string),
-      Col("Status", data:["Up","Up","Down"], type:string)
-    )
-  ),
-  SectionItem("roadsClosed", "Roads Closed", 
-    ListBlock(
-      ListItem("Highway 5", "Closed due to landslide"),
-      ListItem("Main St", "Flooding")
-    )
-  ),
-  SectionItem("hospitals", "Nearby Hospitals", 
-    Table(
-      Col("Hospital", data:["General Hospital","City Clinic"], type:string),
-      Col("Free Beds", data:[12,5], type:number)
-    )
-  ),
-  SectionItem("tasks", "Open Tasks", 
-    Table(
-      Col("Task", data:["Assess Zone North","Restock Shelter B","Repair Route 2"], type:string),
-      Col("Assignee", data:["Team A","Team B","Team C"], type:string)
-    )
-  ),
-  isFoldable
-)
+incidentsItem = SectionItem("incidents", "Active Incidents", incidentsTable)  
+summaryItem = SectionItem("summary", "Severity Summary", severityChart)  
+resourcesItem = SectionItem("resources", "Resources Available", resourcesTable)  
+sheltersItem = SectionItem("shelters", "Shelters", sheltersTable)  
+evacItem = SectionItem("evacRoutes", "Evacuation Routes", evacRoutesTable)  
+weatherItem = SectionItem("weather", "Weather Forecast", weatherChart)  
+casualtiesItem = SectionItem("casualties", "Rescues & Casualties", rescueCallout)  
+volunteersItem = SectionItem("volunteers", "Volunteers", volunteersTable)  
+donationsItem = SectionItem("donations", "Donations Received", donationsTable)  
+aidRequestsItem = SectionItem("aidRequests", "Aid Requests", aidRequestsTable)  
+commsItem = SectionItem("comms", "Communications Channels", commsTable)  
+roadsClosedItem = SectionItem("roadsClosed", "Closed Roads", closedRoadsTable)  
+hospitalsItem = SectionItem("hospitals", "Nearby Hospitals", hospitalsTable)  
+tasksItem = SectionItem("tasks", "Open Tasks", tasksTable)  
+resourceRequestItem = SectionItem("resourceRequest", "Request Resources", requestForm)  
+broadcastItem = SectionItem("broadcast", "Broadcast Update", broadcastForm)  
+focusZoneItem = SectionItem("focusZone", "Focus Zone", focusForm)  
+situationReportItem = SectionItem("situationReport", "File Situation Report", reportForm)  
 
-requestResources = Form("resource-request", requestButtons,
-  FormControl("Resource Type", Select("resource_type",
-    SelectItem("vehicle", "Vehicle"),
-    SelectItem("personnel", "Personnel"),
-    SelectItem("supply", "Supply"),
-    placeholder:"Select type"
-  ), placeholder:"Choose resource"),
-  FormControl("Quantity", Input("quantity", "0", type:number))
-)
+incidentsTable = Table(incidents)  
+resourcesTable = Table(resources)  
+sheltersTable = Table(shelters)  
+evacRoutesTable = Table(evacRoutes)  
+volunteersTable = Table(volunteers)  
+donationsTable = Table(donations)  
+aidRequestsTable = Table(aidRequests)  
+commsTable = Table(comms)  
+closedRoadsTable = Table(closedRoads)  
+hospitalsTable = Table(hospitals)  
+tasksTable = Table(tasks)  
 
-broadcastUpdate = Form("broadcast-update", broadcastButtons,
-  FormControl("Message", TextArea("message", "Enter update...", "", rows:4))
-)
+rescueCallout = TextCallout("Rescued: 120", "Casualties: 5", success)  
 
-focusZoneForm = Form("focus-zone", focusButtons,
-  FormControl("Zone", Select("zone_select",
-    SelectItem("north", "North Zone"),
-    SelectItem("south", "South Zone"),
-    SelectItem("east", "East Zone"),
-    SelectItem("west", "West Zone"),
-    placeholder:"Select zone"
-  ))
-)
+severityChart = PieChart(severityData, donut)  
+weatherChart = LineChart(weather, linear, xLabel:"Hour", yLabel:"°C")  
 
-situationReportForm = Form("situation-report", reportButtons,
-  FormControl("Report", TextArea("report", "Enter report...", "", rows:6))
-)
+requestForm = Form("resource-request", requestButtons, typeSelectControl, quantityControl)  
+requestButtons = Buttons(Button("Submit Request", primary))  
+typeSelectControl = FormControl("Resource type", typeSelect)  
+quantityControl = FormControl("Quantity", Input("quantity", "Enter number", "", number))  
+typeSelect = Select("resource_type", SelectItem("vehicle", "Vehicle"), SelectItem("personnel", "Personnel"), SelectItem("supply", "Supply"), placeholder:"Select type")  
 
-requestButtons = Buttons(Button("Submit Request", primary))
-broadcastButtons = Buttons(Button("Send Broadcast", primary))
-focusButtons = Buttons(Button("Focus Zone", primary))
-reportButtons = Buttons(Button("File Report", primary))
+broadcastForm = Form("broadcast", broadcastButtons, messageArea)  
+broadcastButtons = Buttons(Button("Send Broadcast", primary))  
+messageArea = FormControl("Message", TextArea("broadcast_msg", "Enter update...", "", 4))  
 
-actions = Buttons(
-  Button("Refresh Data", primary),
-  Button("Export Summary", secondary),
-  direction:row
-)
+focusForm = Form("focus-zone", focusButtons, focusSelectControl)  
+focusButtons = Buttons(Button("Focus", primary))  
+focusSelectControl = FormControl("Zone", focusSelect)  
+focusSelect = Select("focus_zone", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Choose zone")  
+
+reportForm = Form("situation-report", reportButtons, reportArea)  
+reportButtons = Buttons(Button("Submit Report", primary))  
+reportArea = FormControl("Report", TextArea("situation_report", "Enter report...", "", 6))  
+
+incidents = |Zone|Severity
+|North|High
+|South|Medium
+|East|Low
+|West|Critical
+
+severityData = |Level|Count
+|Critical|2
+|High|5
+|Medium|8
+|Low|3
+
+resources = |Resource|Available
+|Vehicles|12
+|Personnel|45
+|Supplies|3000 units
+
+shelters = |Shelter|Capacity|Occupancy
+|Shelter A|200|150
+|Shelter B|150|120
+|Shelter C|300|280
+
+evacRoutes = |Route|Status
+|Route 1|Open
+|Route 2|Closed
+|Route 3|Open
+
+weather = |Hour|Temp|Precip
+|0|15|0
+|6|13|0
+|12|18|0
+|18|16|0
+|24|14|0
+|30|13|0
+|36|12|0
+|42|11|0
+|48|10|0
+
+volunteers = |Name|Assignment
+|Alice|Medical
+|Bob|Logistics
+|Carlos|Search
+
+donations = |Donor|Amount
+|Company X|$10,000
+|Individual Y|$500
+
+aidRequests = |Request|Status
+|Food supplies|Pending
+|Medical kits|Pending
+|Shelter beds|In progress
+
+comms = |Channel|Status
+|Radio|Up
+|Satellite|Down
+|Cellular|Up
+
+closedRoads = |Road|Reason
+|Highway 5|Flood
+|Route 12|Landslide
+
+hospitals = |Hospital|Free Beds
+|General Hospital|5
+|City Clinic|2
+
+tasks = |Task|Assignee|Status
+|Inspect Zone North|Alice|Open
+|Restock Shelter B|Bob|In Progress
+|Update Weather Feed|Carlos|Done

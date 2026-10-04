@@ -1,0 +1,30 @@
+root = Card([
+  header,
+  uptimeCard,
+  incidentCard
+])
+
+header = CardHeader("Platform Status", "Live uptime and incidents • This month")
+
+uptimeCard = Card([
+  Heading("API uptime (this month)", "h2"),
+  statusPanel
+], "card")
+
+statusPanel = Card([
+  TextContent("Current uptime: 99.92%", "default"),
+  Separator("horizontal", false),
+  TextContent("Uptime is calculated as the percentage of time the API responded with a successful status code within the current month.", "small")
+])
+
+incidentCard = Card([
+  Heading("Most recent incident", "h3"),
+  incidentDetails
+], "card")
+
+incidentDetails = Card([
+  TextContent("Incident: Database connectivity outage affecting API endpoints", "default"),
+  TextContent("Occurred: 2026-09-28 14:15 UTC", "default"),
+  TextContent("Resolved: 2026-09-28 17:40 UTC", "default"),
+  TextContent("Root cause: transient network fault in the primary region; failover to secondary region restored all endpoints.", "small")
+])

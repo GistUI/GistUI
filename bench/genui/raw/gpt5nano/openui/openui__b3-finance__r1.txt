@@ -1,0 +1,70 @@
+root = Card([
+  header = CardHeader("Month-end Finance Overview", "Current month: 2026-09"),
+  toolbar = Card([
+    monthSelector = Form("month-view", Buttons([downloadBtn, prevBtn, nextBtn], "row"), [
+      monthInput = FormControl("Month", inputMonth)
+      inputMonth = DatePicker("month", "single", null, ["2026-09"])
+    ])
+  ], "card"),
+
+  content = Card([
+    metricsRow = Card([
+      cashCard = Card([
+        Heading("Cash on hand", "h4"),
+        cashValue = TextContent("$2,450,000", "large")
+      ], "card"),
+      burnCard = Card([
+        Heading("Monthly burn", "h4"),
+        burnValue = TextContent("$320,000", "large")
+      ], "card"),
+      runwayCard = Card([
+        Heading("Months of runway", "h4"),
+        runwayValue = TextContent("7.7 months", "large")
+      ], "card")
+    ], "row"),
+
+    sections = Card([
+      expensesSectionHeader = Heading("Expenses by category", "h3"),
+      expensesTable = Table([catLabelCol, catValueCol]),
+      catLabelCol = Col("Category", ["Salaries", "R&D", "Sales & Marketing", "G&A", "Cloud & Infra"]),
+      catValueCol = Col("Amount", ["$420,000", "$150,000", "$180,000", "$90,000", "$60,000"])
+    ], "sunk"),
+
+    transactionsSection = Card([
+      transHeader = Heading("Transactions above 10,000 this month", "h3"),
+      transList = ListBlock([
+        ListItem("Vendor A - Payment", "Invoice #12345", ["https://picsum.photos/seed/a/40/40"]),
+        ListItem("Consulting B - Retainer", "Invoice #98765", ["https://picsum.photos/seed/b/40/40"]),
+        ListItem("Cloud Infra C - Hosting", "Invoice #55555", ["https://picsum.photos/seed/c/40/40"])
+      ], "image")
+    ], "card")
+
+  ], "column")
+
+  ])
+
+# Reusable components and data
+
+header = CardHeader("Month-end Finance Overview", "Current month: 2026-09")
+
+inputMonth = Select("month_selector", [ monthSep, monthAug, monthJul ], "Choose month")
+monthSep = SelectItem("2026-09", "September 2026")
+monthAug = SelectItem("2026-08", "August 2026")
+monthJul = SelectItem("2026-07", "July 2026")
+
+downloadBtn = Button("Download Statement", null, "secondary")
+prevBtn = Button("Previous Month", null, "secondary")
+nextBtn = Button("Next Month", null, "secondary")
+
+cashValue = TextContent("$2,450,000", "large")
+burnValue = TextContent("$320,000", "large")
+runwayValue = TextContent("7.7 months", "large")
+
+catLabelCol = Col("Category", ["Salaries", "R&D", "Sales & Marketing", "G&A", "Cloud & Infra"])
+catValueCol = Col("Amount", ["$420,000", "$150,000", "$180,000", "$90,000", "$60,000"])
+
+transItem1 = ListItem("Vendor A - Payment", "Invoice #12345", ["https://picsum.photos/seed/a/40/40"])
+transItem2 = ListItem("Consulting B - Retainer", "Invoice #98765", ["https://picsum.photos/seed/b/40/40"])
+transItem3 = ListItem("Cloud Infra C - Hosting", "Invoice #55555", ["https://picsum.photos/seed/c/40/40"])
+
+transList = ListBlock([transItem1, transItem2, transItem3], "image")

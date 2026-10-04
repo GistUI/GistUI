@@ -1,3 +1,7 @@
-root = Card(header, compChart, variant:clear)
-header = CardHeader("Revenue Today", "Mid-morning check-in")
-compChart = HorizontalBarChart(labels:["Today","Yesterday"], Series("Revenue", values:[12340,10210]), variant:grouped, xLabel:"Revenue ($)", yLabel:"Period")
+root = Card(CardHeader("Mid‑morning Check‑in", "Revenue overview"), todayRev, yesterdayRev, revChart)
+todayRev = TextContent("**Today:** $5,230 (up 12%)", size:large)
+yesterdayRev = TextContent("**Yesterday same time:** $4,670 (down 3%)", size:large)
+revChart = HorizontalBarChart(revTable, variant:grouped, xLabel:"Revenue", yLabel:"Period")
+revTable = |Period|Revenue
+|Today|5230
+|Yesterday|4670

@@ -1,0 +1,14 @@
+root = Card(CardHeader("Support Lead Morning View"), SectionBlock(rootTicketsSection, isFoldable))
+rootTicketsSection = SectionBlock(TicketsOverview, isFoldable)
+TicketsOverview = Card(Heading("Morning dashboard", h2), openTicketsRow, avgResponseRow, recentTicketsTable, narrowHighPriorityRow, newTicketRow)
+openTicketsRow = TextContent("Open tickets: 42", size:default)
+avgResponseRow = TextContent("Avg first response: 2h 15m", size:default)
+recentTicketsTable = Table(recentTable)
+recentTable = |Ticket|Priority|Created|Status
+|T-2048|High|2026-10-04 08:12|Open
+|T-2047|Medium|2026-10-04 08:01|Open
+|T-2046|High|2026-10-04 07:58|Open
+|T-2045|Low|2026-10-04 07:45|Open
+|T-2044|High|2026-10-04 07:30|Open
+narrowHighPriorityRow = Card(Tag("High-priority only", info)) 
+newTicketRow = DialogBlock("New ticket", "Create ticket", CardHeader("New ticket"), Form("new-ticket", Buttons(Button("Create", primary)), FormControl("Summary", Input("summary")), FormControl("Customer", Input("customer")), FormControl("Priority", Select("priority", SelectItem("Low","Low"), SelectItem("Medium","Medium"), SelectItem("High","High")))), description:"")

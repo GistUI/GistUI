@@ -1,70 +1,68 @@
-root = Card(header, filterSection, statsSection, bestPostsSection, audienceSection, scheduleSection, bestHourSection, commentsSection, earningsSection, collaborationSection, scheduleForm, followUp)
+root = Card(CardHeader("Creator Studio Dashboard"), filterSection, overviewSection, postsSection, scheduleSection, followup)
 
-header = CardHeader("Creator Studio Dashboard")
+filterSection = Card(MarkDownRenderer("**Filter:** Select platform to narrow view", clear), platformSelect)
 
-filterSection = Card("Filter", filterSelect)
+platformSelect = Select("platform_filter", SelectItem("all", "All Platforms"), SelectItem("instagram", "Instagram"), SelectItem("youtube", "YouTube"), SelectItem("tiktok", "TikTok"), placeholder:"Choose platform")
 
-filterSelect = Select("platform_filter", SelectItem("All", "All platforms"), SelectItem("Instagram", "Instagram"), SelectItem("YouTube", "YouTube"), SelectItem("TikTok", "TikTok"), placeholder:"Filter by platform")
+overviewSection = Card(Heading("Overview", h2), followerCard, engagementCard, earningsCard, collabCard, wrap)
 
-statsSection = Card(Heading("Followers", h3), followersTable, Heading("Engagement Rate", h3), TextContent("5.2%"))
+followerCard = Card(Heading("Followers", h3), TextContent("Total: **12.4k**", large), TextContent("Growth: **+8.2%** past month", small), LineChart(followerGrowth, linear, xLabel:"Date", yLabel:"Followers"))
 
-bestPostsSection = Card(Heading("Best Posts This Month", h3), bestPostsTable)
+followerGrowth = |Date|Followers
+|2023-09-01|11200
+|2023-09-08|11350
+|2023-09-15|11480
+|2023-09-22|11590
+|2023-09-29|12400
 
-audienceSection = Card(Heading("Audience Split by Platform", h3), HorizontalBarChart(labels:["Instagram","YouTube","TikTok"], Series("Audience", values:[55,30,15]), variant:grouped, xLabel:"Platform", yLabel:"%"))
+engagementCard = Card(Heading("Engagement Rate", h3), TextContent("**5.6%** average", large))
 
-scheduleSection = Card(Heading("Posts Scheduled This Week", h3), scheduleTable)
+earningsCard = Card(Heading("Earnings (this month)", h3), TextContent("**$1,240**", large), HorizontalBarChart(earningsTable, grouped, xLabel:"Source", yLabel:"USD"))
 
-bestHourSection = Card(Heading("Best Hour to Post", h3), BarChart(bestHourTable, variant:grouped, xLabel:"Hour", yLabel:"Engagement Score"))
+earningsTable = |Source|USD
+|Ads|720
+|Sponsorships|380
+|Merch|140
 
-commentsSection = Card(Heading("Comments Waiting for Reply", h3), commentsTable)
-
-earningsSection = Card(Heading("Earnings This Month", h3), earningsTable)
-
-collaborationSection = Card(Heading("Pending Collaboration Requests", h3), collabTable)
-
-scheduleForm = Form("schedule_post", formButtons, captionField, timeField, platformField)
-
-captionField = FormControl("Caption", TextArea("caption", placeholder:"Write your caption...", rows:4))
-
-timeField = FormControl("Publish Time", Input("time", placeholder:"HH:MM", type:text))
-
-platformField = FormControl("Platform", platformSelect)
-
-platformSelect = Select("platform", SelectItem("Instagram","Instagram"), SelectItem("YouTube","YouTube"), SelectItem("TikTok","TikTok"), placeholder:"Choose platform")
-
-formButtons = Buttons(Button("Schedule Post", primary), Button("Cancel", tertiary))
-
-followUp = FollowUpBlock(FollowUpItem("View detailed analytics"), FollowUpItem("Create new post"))
-
-followersTable = |Metric|Value
-|Total Followers|12,345
-|Growth (30d)|+8.2%
-
-bestPostsTable = |Post|Reach
-|Post A|45,000
-|Post B|38,200
-|Post C|33,500
-
-scheduleTable = |Day|Time|Caption
-|Mon|10:00|New product teaser
-|Tue|14:00|Behind the scenes
-|Wed|09:00|User testimonial
-
-commentsTable = |User|Comment|Platform
-|alice|Great post!|Instagram
-|bob|Love this!|TikTok
-
-earningsTable = |Metric|Amount
-|Revenue|$2,400
-|Payouts|$1,800
-|Net|$600
+collabCard = Card(Heading("Pending Collaboration Requests", h3), Table(collabTable))
 
 collabTable = |Brand|Request Date|Status
-|BrandX|2023-09-10|Pending
-|BrandY|2023-09-12|Pending
+|BrandA|2023-09-20|Pending
+|BrandB|2023-09-22|Pending
 
-bestHourTable = |Hour|Score
-|8am|70
-|12pm|85
-|5pm|60
-|9pm|95
+postsSection = Card(Heading("Posts", h2), bestPostsCard, scheduledPostsCard, bestHourCard, commentsCard, wrap)
+
+bestPostsCard = Card(Heading("Best Posts (this month)", h3), Table(bestPostsTable))
+
+bestPostsTable = |Post|Reach
+|Post 1|34,200
+|Post 2|29,800
+|Post 3|27,500
+
+scheduledPostsCard = Card(Heading("Posts Scheduled (this week)", h3), Table(scheduledTable))
+
+scheduledTable = |Date|Time|Caption
+|2023-10-02|10:00 AM|Morning motivation
+|2023-10-03|02:00 PM|Product showcase
+|2023-10-04|06:00 PM|Evening wrap-up
+
+bestHourCard = Card(Heading("Best Hour to Post", h3), TextContent("**2 PM** (based on historical engagement)", large))
+
+commentsCard = Card(Heading("Comments Awaiting Reply", h3), Table(commentsTable))
+
+commentsTable = |User|Comment|Received
+|user123|Great video!|2023-09-30 08:15
+|fan456|Loved the post|2023-09-30 09:40
+|viewer789|Question about product|2023-09-30 10:05
+
+scheduleSection = Card(Heading("Schedule a New Post", h2), scheduleForm)
+
+scheduleForm = Form("schedule_post", scheduleButtons, captionField, datetimeField)
+
+captionField = FormControl("Caption", TextArea("caption", "Write your caption here...", rows:4))
+
+datetimeField = FormControl("Publish time", Input("publish_time", "2023-10-05 14:00", type:datetime))
+
+scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+
+followup = FollowUpBlock(FollowUpItem("Show me last week's stats"), FollowUpItem("Add a new platform"))

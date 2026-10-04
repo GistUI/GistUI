@@ -1,0 +1,66 @@
+root = Card([
+  header,
+  dateRow,
+  teammatesSection,
+  statusPanel,
+  postUpdateCard,
+  missingCount
+])
+
+header = CardHeader("Async Standup", "Remote team update—today's snapshot")
+
+dateRow = Card([
+  Heading("Date", "h4"),
+  TextContent("", "default")
+])
+todayDate = "2026-10-04"
+dateRowText = TextContent(todayDate, "default")
+dateRow = Card([Heading("Today's date", "h4"), dateRowText])
+
+teammatesSection = Card([
+  SectionBlock([
+    SectionItem("teammates", "Teammates", [teammateList])
+  ])
+])
+
+teammateList = ListBlock([
+  ListItem("Alex Kim", "Updating on blockers: waiting for PR review", ["https://picsum.photos/seed/alex/40/40"], "Comment"),
+  ListItem("Priya Singh", "Status: working on feature flags", ["https://picsum.photos/seed/priya/40/40"], "Comment"),
+  ListItem("Diego Ramos", "Status: done with onboarding tasks", ["https://picsum.photos/seed/diego/40/40"], "Comment"),
+  ListItem("Mina Chen", "Blocked: depends on design spec", ["https://picsum.photos/seed/mina/40/40"], "Comment")
+], "image")
+
+statusPanel = Card([
+  Heading("Today’s updates", "h3"),
+  TextContent("Each teammate shows their status for today. Blocked items are clearly called out. You can post your update below.", "default"),
+  Separator("horizontal", false),
+  ListBlock([
+    ListItem("Alex Kim", "Updated: Code review in progress", ["https://picsum.photos/seed/alex/40/40"]),
+    ListItem("Priya Singh", "Updated: Feature flags merged", ["https://picsum.photos/seed/priya/40/40"]),
+    ListItem("Diego Ramos", "Updated: Onboarding tasks completed", ["https://picsum.photos/seed/diego/40/40"]),
+    ListItem("Mina Chen", "Blocked: Waiting on design spec", ["https://picsum.photos/seed/mina/40/40"])
+  ], "image")
+])
+
+postUpdateCard = Card([
+  Heading("Post your update", "h3"),
+  TextContent("Share your status for today. Mention blockers if any and what you need from the team.", "default"),
+  Form("standup-post", postButtons, [yourStatusField, blockersField])
+])
+
+yourStatusField = FormControl("Your status", TextArea("status", "What did you work on today?", 4, null, ""), "Be concise: what you accomplished, what you're working on, and blockers")
+
+blockersField = FormControl("Blockers (if any)", TextArea("blockers", "Describe blockers and needed help", 3, null, ""), "Be explicit about help needed")
+
+postButtons = Buttons([submitPostBtn, clearPostBtn])
+
+submitPostBtn = Button("Submit update", null, "primary")
+clearPostBtn = Button("Clear", null, "secondary")
+
+missingCount = Card([
+  Heading("Updates remaining", "h4"),
+  TextContent("There are still X teammate updates missing for today.", "default")
+])
+
+# End of definitions
+# Note: substitute dynamic values where the UI runtime provides data.

@@ -1,0 +1,118 @@
+root = Card([
+  header = CardHeader("Power Network Operator Console", "Real-time status dashboard"),
+  
+  // Top row: key metrics
+  metricsRow = Card([
+    currentLoadCard = Card([
+      Heading("Current Load", "h4"),
+      loadValue = TextContent("12,340 MW", "large"),
+      loadDelta = TextContent("+2.1% vs last hour", "default")
+    ]),
+    capacityCard = Card([
+      Heading("Capacity Margin", "h4"),
+      capacityGauge = TextContent("84% of capacity utilized", "default"),
+      capacityBar = TextContent("[||||||||||////] 84%", "default")
+    ]),
+    priceCard = Card([
+      Heading("Current price", "h4"),
+      priceValue = TextContent("$68.50/MWh", "large"),
+      priceComment = TextContent("Market price in effect now", "default")
+    ])
+  ], "card", "row", "m"),
+  
+  // Second row: generation split and plant list
+  genAndPlantsRow = Card([
+    // Generation split by source
+    genSplitCard = Card([
+      Heading("Generation by Source", "h4"),
+      BarChart(["Gas","Coal","Nuclear","Hydro","Wind","Solar"], [
+        Series("Gas", [320,330,340,360]),
+        Series("Coal", [520,510,495,480]),
+        Series("Nuclear", [300,300,305,310]),
+        Series("Hydro", [150,160,155,170]),
+        Series("Wind", [180,200,210,190]),
+        Series("Solar", [120,140,130,150])
+      ], "linear", "Source", "MW")
+    ]),
+    // Plants with output and status
+    plantsCard = Card([
+      Heading("Plants and Status", "h4"),
+      ListBlock([
+        ListItem("Plant A - North", "Output 950 MW • Online", ["https://picsum.photos/seed/plantA/40/40"], "Details"),
+        ListItem("Plant B - East", "Output 720 MW • Maintenance", ["https://picsum.photos/seed/plantB/40/40"], "Details"),
+        ListItem("Plant C - South", "Output 540 MW • Online", ["https://picsum.photos/seed/plantC/40/40"], "Details"),
+        ListItem("Plant D - West", "Output 410 MW • Offline", ["https://picsum.photos/seed/plantD/40/40"], "Details")
+      ], "image")
+    ])
+  ], "card", "row", "m"),
+  
+  // Outages with affected region
+  outagesSection = SectionBlock([
+    SectionItem("outages-region", "Active Outages", [
+      TextContent("Outage 1: Region Delta affected — estimated restoration 2h", "default"),
+      TextContent("Outage 2: Region Tau affected — restoration in progress", "default"),
+      TextContent("Outage 3: Region Sigma delayed due to equipment fault", "default")
+    ]),
+  ], true),
+  
+  // Demand forecast next 24 hours
+  forecastCard = Card([
+    Heading("Demand Forecast (Next 24h)", "h4"),
+    LineChart(
+      [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
+      [Series("Forecast", [12000,11850,11920,12100,12350,12500,12420,12600,12750,12800,12950,13020,13110,13200,13150,13250,13380,13420,13300,13210,13150,13080,12990,12900])],
+      "linear", "Hour", "MW"
+    )
+  ]),
+  
+  // Current regional focus and region filter
+  focusSection = Card([
+    Heading("Region Focus", "h4"),
+    TextContent("Focus the dashboard on a single region to isolate outages, demand, and generation for that area.", "default"),
+    Select("region_focus", [
+      SelectItem("north", "North Region"),
+      SelectItem("east", "East Region"),
+      SelectItem("south", "South Region"),
+      SelectItem("west", "West Region"),
+      SelectItem("all", "All Regions")
+    ], "Choose region")
+  ], "card"),
+  
+  // Curtailment orders
+  curtailSection = Card([
+    Heading("Order Curtailment", "h4"),
+    TextContent("Issue targeted output curtailments to balancing authorities or plants.", "default"),
+    Button("Issue Curtailment", null, "primary")
+  ]),
+  
+  // Emissions today
+  emissionsCard = Card([
+    Heading("Emissions Today", "h4"),
+    TextContent("CO2e: 9,200 kg — 7.4% below target", "default"),
+    BarChart(["CO2e"], [
+      Series("Emissions", [9200])
+    ], "linear", "Metric", "kg")
+  ]),
+  
+  // Maintenance planned this month
+  maintenanceCard = Card([
+    Heading("Maintenance Planned This Month", "h4"),
+    ListBlock([
+      ListItem("Plant B - East", "Switchgear inspection • 08:00-12:00", ["https://picsum.photos/seed/maintB/40/40"]),
+      ListItem("Plant D - West", "Turbine lubrication • 14:00-18:00", ["https://picsum.photos/seed/maintD/40/40"]),
+      ListItem("Substation 12", "Transformer testing • 01:00-03:00", ["https://picsum.photos/seed/maintS/40/40"])
+    ], "image")
+  ]),
+  
+  // Live alerts
+  alertsCard = Card([
+    Heading("Live Alerts", "h4"),
+    TextContent("Incoming: Frequency excursion reported in Central region.", "default"),
+    TextContent("Alert: Transmission line rating exceeded in region North.", "default"),
+    TextContent("Notice: Scheduled maintenance in 2 hours at Plant B-East.", "default")
+  ], "card"),
+  
+  // A way to focus on one region (duplicate reference for streaming)
+  // Placeholder for potential dynamic injected region focus; keep simple
+  regionFocusHint = TextContent("Tip: Use Region Focus above to center data on a specific region.", "small")
+], "card")

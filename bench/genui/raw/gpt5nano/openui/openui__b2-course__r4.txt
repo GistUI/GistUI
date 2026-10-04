@@ -1,0 +1,29 @@
+root = Card([
+  header = CardHeader("Course: Intro to AI", "Instructor: Dr. Ada Lovelace"),
+  progressRow = Card([
+    Heading("Course Progress", "h4"),
+    progressBar = Progress(68, "68% complete")
+  ], "card"),
+  modulesSection = Card([
+    Heading("Modules", "h4"),
+    ListBlock([
+      ListItem("Module 1: Foundations", "Completed", ["https://picsum.photos/seed/mo1/40/40"], "Review"),
+      ListItem("Module 2: Data & Tools", "In progress", ["https://picsum.photos/seed/mo2/40/40"], "Continue"),
+      ListItem("Module 3: Modeling", "Locked", ["https://picsum.photos/seed/mo3/40/40"], "Unlock"),
+      ListItem("Module 4: Evaluation", "Not started", ["https://picsum.photos/seed/mo4/40/40"], "Start")
+    ], "number")
+  ], "card"),
+  nextLessonCard = Card([
+    Heading("Next Lesson: Episode 3 - Neural Basics", "h3"),
+    TextContent("Dive into activation functions and how neurons combine signals to produce outputs."),
+    Button("Open Lesson", null, "primary")
+  ], "sunk"),
+  ratingBlock = Card([
+    Heading("Average Learner Rating", "h4"),
+    TextContent("4.7 out of 5 stars"),
+    Tag("Excellent", null, "md", "info")
+  ], "card"),
+  continueRow = Card([
+    Button("Continue Learning", null, "primary")
+  ], "card")
+])

@@ -1,0 +1,88 @@
+root = Card([
+  headerRow,
+  metricsGrid,
+  revenueRow,
+  churnAndSignups,
+  bigCustomers,
+  accountsAtRisk,
+  failedPayments,
+  featuresAdoption,
+  npsSection,
+  periodControls,
+  seatUtilization,
+  inviteAdmin,
+  footerNote
+])
+headerRow = CardHeader("Admin Overview", "SaaS Company – Live snapshot")
+metricsGrid = Card([
+  metricsCard("Monthly Recurring Revenue", "$1,234,567"),
+  metricsCard("Annual Recurring Revenue", "$14,814,804"),
+  metricsCard("Churn this month", "2.3%"),
+  metricsCard("New signups (90d)", "1,284")
+], "card")
+metricsCard(title: string, value: string) = CardHeader(title, value)
+revenueRow = Card([
+  Heading("Revenue by period", "h3"),
+  MarkDownRenderer("Monthly and annual revenue are shown above. Use the period control to adjust the window.", "card")
+], "card")
+churnAndSignups = Card([
+  SectionBlock([
+    SectionItem("periods", "Period Adjust", [
+      TextContent("Churn this month and new signups are shown for the selected period.")
+    ])
+  ])
+], "card")
+bigCustomers = Card([
+  Heading("Top 10 Customers by Seats and Spend", "h3"),
+  Table([
+    Col("Customer", ["ACME Corp", "Globex", "Initech", "Umbrella", "Stark Industries", "Wayne Enterprises", "Vehement LLC", "Hooli", "Massive Dynamics", "CybrTron"]),
+    Col("Seats", [120, 95, 88, 76, 74, 69, 63, 60, 58, 57]),
+    Col("Annual Spend", ["$360k", "$312k", "$296k", "$284k", "$270k", "$248k", "$240k", "$232k", "$228k", "$224k"])
+  ])
+], "card")
+accountsAtRisk = Card([
+  Heading("Accounts at Risk", "h3"),
+  Table([
+    Col("Account", ["ACME Corp", "Globex", "Initech"]),
+    Col("Reason", ["Payment failed last cycle", "Usage drop observed", "Contract renewal pending"]),
+    Col("Impact", ["High", "Medium", "Low"])
+  ])
+], "card")
+failedPayments = Card([
+  Heading("Failed Payments", "h3"),
+  ListBlock([
+    ListItem("ACME Corp – John Doe", "Retry suggested via admin panel", ["https://picsum.photos/seed/failed1/40/40"]),
+    ListItem("Globex – Jane Roe", "Card expired, update required", ["https://picsum.photos/seed/failed2/40/40"])
+  ])
+], "card")
+featuresAdoption = Card([
+  Heading("Newest Features Adoption", "h3"),
+  Table([
+    Col("Feature", ["Smart Invoicing", "AI Insights", "Custom Roles"]),
+    Col("Adopted", ["45%", "28%", "62%"])
+  ])
+], "card")
+npsSection = Card([
+  Heading("Net Promoter Score (NPS)", "h3"),
+  CardHeader(null, "Current NPS: 42"),
+  MarkDownRenderer("Promoter 60%, Passive 25%, Detractor 15%", "card")
+], "card")
+periodControls = Card([
+  Heading("Reporting Period", "h3"),
+  Button("Last 7 days", null, "secondary"),
+  Button("Last 30 days", null, "secondary"),
+  Button("Last 90 days", null, "primary")
+], "card")
+seatUtilization = Card([
+  Heading("Seat Utilization Across Company", "h3"),
+  BarChart(["Finance", "Engineering", "Sales", "Support", "Marketing"], [Series("Utilization", [78, 86, 74, 69, 81])], "grouped", "Department", "Utilization %")
+], "card")
+inviteAdmin = Card([
+  Heading("Invite Admin", "h3"),
+  Form("invite-admin", Buttons([Button("Send Invite", null, "primary")]), [
+    FormControl("Email", Input("admin_email", "admin@company.com"), "Invite to admin role")
+  ])
+], "card")
+footerNote = Card([
+  TextContent("Tip: Use the period controls to tailor reports. All data is simulated for this demo.")
+], "card")

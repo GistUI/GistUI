@@ -1,0 +1,147 @@
+root = Card([
+  header,
+  metricsRow,
+  platformFilter,
+  contentArea
+])
+
+header = CardHeader("Creator Studio", "Cross-platform analytics and scheduling")
+
+// 1. follower total and growth over past month
+followerCard = Card([
+  Heading("Followers", "h2"),
+  TextContent("Total followers: 128,450"),
+  TextContent("Growth over the last 30 days: +8.4%")
+], "card")
+
+// 2. engagement rate
+engagementCard = Card([
+  Heading("Engagement Rate", "h3"),
+  TextContent("Overall: 4.6%"),
+  TextContent("Likes + Comments per post: 2.1% average")
+], "card")
+
+// 3. best posts this month with reach for each
+bestPostsSection = Card([
+  Heading("Best posts this month", "h3"),
+  bestPostList
+], "card")
+
+bestPostList = ListBlock([
+  ListItem("Post A", "Reach: 28,400 • Engagement: 5.2%", ["https://picsum.photos/seed/postA/200/120"]),
+  ListItem("Post B", "Reach: 22,100 • Engagement: 4.8%", ["https://picsum.photos/seed/postB/200/120"]),
+  ListItem("Post C", "Reach: 19,750 • Engagement: 6.1%", ["https://picsum.photos/seed/postC/200/120"])
+], "number")
+
+// 4. audience split by platform
+audienceTable = Table([
+  Col("Platform", ["Instagram", "YouTube", "TikTok", "Twitter"]),
+  Col("Audience", ["62,000", "38,000", "18,000", "10,450"]),
+  Col("Share", ["46%", "28%", "13%", "8%"], "string")
+])
+
+audiencePanel = Card([
+  Heading("Audience split by platform", "h3"),
+  audienceTable
+], "card")
+
+// 5. posts scheduled this week
+scheduledList = ListBlock([
+  ListItem("Wednesday 10:00", "Caption: New release teaser", ["https://picsum.photos/seed/sched1/200/120"]),
+  ListItem("Friday 14:30", "Caption: Tutorial snapshot", ["https://picsum.photos/seed/sched2/200/120"]),
+  ListItem("Sunday 09:00", "Caption: Q&A reminder", ["https://picsum.photos/seed/sched3/200/120"])
+], "image")
+
+scheduledSection = Card([
+  Heading("Scheduled this week", "h3"),
+  scheduledList
+], "card")
+
+// 6. best hour to post based on history
+bestHourCard = Card([
+  Heading("Best hour to post (history)", "h3"),
+  TextContent("Top hour: 18:00 local • Peak engagement window: 17:00–19:00")
+], "card")
+
+// 7. comments waiting for a reply
+commentsCard = Card([
+  Heading("Comments awaiting reply", "h3"),
+  ListBlock([
+    ListItem("Comment from @fan42", "Nice content! any collab?", ["https://picsum.photos/seed/comment1/200/120"]),
+    ListItem("Comment from @creatorfan", "Loved this post, can you share more?", ["https://picsum.photos/seed/comment2/200/120"])
+  ], "image")
+])
+// 8. earnings this month
+earningsCard = Card([
+  Heading("Earnings this month", "h3"),
+  TextContent("Total: $4,320"),
+  TextContent("Ad revenue: $2,180 • Brand deals: $2,140")
+], "card")
+
+// 9. pending collaboration requests
+collabCard = Card([
+  Heading("Pending collaboration requests", "h3"),
+  ListBlock([
+    ListItem("Brand X – Product review", "Status: Pending approval", ["https://picsum.photos/seed/c1/200/120"]),
+    ListItem("AppY – Creator spotlight", "Status: Under review", ["https://picsum.photos/seed/c2/200/120"])
+  ], "image")
+], "card")
+
+// 10. a way to schedule a post with caption and time
+schedulePostCard = Card([
+  Heading("Schedule a post", "h3"),
+  Form("schedule-post", Buttons([Button("Schedule", null, "primary")], "row"), [
+    scheduleCaptionField,
+    scheduleTimeField
+  ])
+], "card")
+
+scheduleCaptionField = FormControl("Caption", TextArea("caption", "Write your post caption..."), "Describe the post to followers")
+scheduleTimeField = FormControl("Post time", DatePicker("schedule_time", "single"), "Choose date and time")
+
+// 11. narrow everything to one platform
+platformFilter = Card([
+  Heading("Platform filter", "h3"),
+  TextContent("Show data for a single platform to focus analysis"),
+  Select("platform_filter", [
+    SelectItem("instagram", "Instagram"),
+    SelectItem("youtube", "YouTube"),
+    SelectItem("tiktok", "TikTok"),
+    SelectItem("twitter", "Twitter/X")
+  ], "Choose platform", null, "instagram")
+], "card")
+
+// Compose main content area
+contentArea = Card([
+  followerCard,
+  engagementCard,
+  bestPostsSection,
+  audiencePanel,
+  scheduledSection,
+  bestHourCard,
+  commentsCard,
+  earningsCard,
+  collabCard,
+  schedulePostCard
+], "card")
+
+// definition usage linking: ensure all defined names are referenced
+root = Card([
+  header,
+  followerCard,
+  engagementCard,
+  bestPostsSection,
+  bestPostList,
+  audiencePanel,
+  audienceTable,
+  scheduledSection,
+  scheduledList,
+  bestHourCard,
+  commentsCard,
+  earningsCard,
+  collabCard,
+  schedulePostCard,
+  scheduleCaptionField,
+  scheduleTimeField,
+  platformFilter
+], "card")

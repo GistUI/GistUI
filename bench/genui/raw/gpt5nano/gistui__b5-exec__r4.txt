@@ -1,0 +1,1 @@
+root = Card(CardHeader("CEO Quarterly Command View"), sectionFilters, kpisSection, revenueOverFourQuarters, costsOverFourQuarters, budgetByDept, headcountByDept, topRisks, strategicInitiatives, runway, pipeline, winRate, customerMetrics, nps, boardItems, exportBar)

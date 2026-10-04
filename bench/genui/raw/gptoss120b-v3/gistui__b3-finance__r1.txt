@@ -1,40 +1,17 @@
-root = Card(header, financialSummary, expenseChart, transactionsTable, monthForm, downloadButtons)
-
-header = CardHeader("Month-End Finance Overview")
-
-financialSummary = Card(cashCard, burnCard, runwayCard, direction:row, gap:s, wrap)
-
-cashCard = Card(TextContent("**Cash on Hand**\n$125,000", size:large), variant:clear)
-
-burnCard = Card(TextContent("**Monthly Burn**\n$45,000", size:large), variant:clear)
-
-runwayCard = Card(TextContent("**Runway**\n2.8 months", size:large), variant:clear)
-
-expenseChart = Card(Heading("Expenses by Category", h3), PieChart(expenseData), variant:clear)
-
-expenseData = |Category|Amount
-|Product|45000
-|Marketing|30000
-|R&D|25000
-|Operations|20000
-
-transactionsTable = Card(Heading("Large Transactions (> $10k)", h3), Table(transactions), variant:clear)
-
-transactions = |Date|Description|Amount
-|2023-09-05|Client payment|12000
-|2023-09-12|Equipment purchase|15000
-|2023-09-20|Consulting fees|11000
-
-monthForm = Form("month-form", formButtons, monthSelectControl)
-
-monthSelectControl = FormControl("Select month", monthSelect)
-
-monthSelect = Select("month", monthSep, monthOct, monthNov, placeholder:"Select month")
-
-monthSep = SelectItem("2023-09", "September 2023")
-monthOct = SelectItem("2023-10", "October 2023")
-monthNov = SelectItem("2023-11", "November 2023")
-
-formButtons = Buttons(Button("Apply"))
-
-downloadButtons = Buttons(Button("Download Statement", primary))
+root = Card(CardHeader("Month-End Finance", "Overview"), monthSelect, cashContent, burnContent, runwayContent, expensesChart, transactionsTable, downloadButtons, direction:column, gap:m)
+monthSelect = Select("month", SelectItem("2023-08", "August 2023"), SelectItem("2023-07", "July 2023"), placeholder:"Select month", value:"2023-08")
+cashContent = TextContent("**Cash on Hand:** $150,000", size:large)
+burnContent = TextContent("**Monthly Burn:** $80,000", size:large)
+runwayContent = TextContent("**Runway:** 1.9 months", size:large)
+expensesChart = PieChart(expenseTable, variant:donut, appearance:circular)
+transactionsTable = Table(transactionTable)
+downloadButtons = Buttons(Button("Download statement", primary))
+expenseTable = |Category|Amount
+|Salaries|50000
+|Marketing|20000
+|R&D|15000
+|Operations|10000
+transactionTable = |Date|Description|Amount
+|2023-08-05|Client payment|12000
+|2023-08-12|Equipment purchase|15000
+|2023-08-20|Consulting fees|11000

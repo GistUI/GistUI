@@ -1,0 +1,57 @@
+root = Card(CardHeader("Power Network Operator Console"), TabBlock("Overview", "RegionFocus"), SectionBlock(regionSections...), Buttons(controlsButtons))
+regionSections = SectionBlock(SectionItem("all-regions", "All Regions", Card(Heading("Global Overview", h3), currentLoadSection, capacitySection, generationSection, plantsSection, outagesSection, forecastSection, priceSection, maintenanceSection, alertsSection, emissionsSection, mountSection), isFoldable))
+currentLoadSection = Card(Heading("Current Load", h3), TextContent("The current network load is **1,240 MW**.", size:default), Separator("horizontal", decorative))
+capacitySection = Card(Heading("Capacity Margin", h3), TextContent("Remaining capacity: **-60 MW** (close to limit)", size:default), TextContent("Utilization: 98%", size:default))
+generationSection = Card(Heading("Generation by Source", h3), Table(generationTable), Separator("horizontal", decorative))
+generationTable = |Source|Share|MW
+|Gas|40%|496
+|Nuclear|25%|310
+|Hydro|20%|248
+|Solar|10%|124
+|Wind|5%|62
+plantsSection = Card(Heading("Plants", h3), Table(plantsTable), Separator("horizontal", decorative))
+plantsTable = |Plant|Region|OutputMW|Status
+|Plant A|Region 1|320|Online
+|Plant B|Region 2|180|Maintenance
+|Plant C|Region 3|260|Online
+|Plant D|Region 1|480|Online
+outagesSection = Card(Heading("Outages", h3), Table(outagesTable), Separator("horizontal", decorative))
+outagesTable = |Region|Cause|ImpactMW
+|Region 2|Line fault|120
+|Region 4|Transformer fault|60
+forecastSection = Card(Heading("Demand Forecast (next 24h)", h3), TextContent("Forecasted demand by hour in the next 24 hours.", size:default), Table(forecastTable))
+forecastTable = |Hour|ForecastMW
+|00:00|1250
+|01:00|1235
+|02:00|1220
+|03:00|1210
+|04:00|1205
+|05:00|1215
+|06:00|1240
+|07:00|1275
+|08:00|1310
+|09:00|1340
+|10:00|1325
+|11:00|1330
+|12:00|1350
+|13:00|1365
+|14:00|1370
+|15:00|1380
+|16:00|1390
+|17:00|1400
+|18:00|1415
+|19:00|1405
+|20:00|1390
+|21:00|1375
+|22:00|1360
+|23:00|1350
+priceSection = Card(Heading("Price per MWh", h3), TextContent("$68.50 / MWh", size:default))
+maintenanceSection = Card(Heading("Maintenance This Month", h3), ListBlock(ListItem("Substation upgrade Region 2", "Scheduled for 12th", "Details", image:[]), ListItem("Transformer T-7 inspection Region 3", "Week 2", "Docs", image:[])), variant:number)
+alertsSection = Card(Heading("Live Alerts", h3), ListBlock(ListItem("Overload risk in Region 4", "Affects 4 sectors", "Acknowledge"), ListItem("Line fault detected in Region 2", "Investigating", "Escalate")), variant:number)
+regionFocus = Card(SectionBlock(SectionItem("focus-region", "Focus Region", RegionPicker("region"), CardHeader("Focus controls") )), isFoldable)
+RegionPicker(region) = Form("region-focus", Buttons(Button("Apply", primary)), FormControl("Region", Select("region_select", SelectItem("Region 1", "Region 1"), SelectItem("Region 2", "Region 2"), SelectItem("Region 3", "Region 3"), placeholder:"Choose region")))
+focusButton = Button("Focus on Region", action:[RegionPickerFocus])
+orderCurtailmentSection = Card(Heading("Order Curtailment", h3), TextContent("Initiate curtailment for selected region and time window.", size:default), Buttons(Button("Curtail Now", primary)))
+emissionsSection = Card(Heading("Emissions Today", h3), TextContent("Total CO2e today: **1,240 t**", size:default), TextContent("Breakdown: 540 t NOx, 480 t SO2, 220 t PM2.5", size:default))
+mountSection = Card(Heading("Maintenance & Alerts", h3), TextContent("Live alerts stream shown above; maintenance schedule updated monthly.", size:default))
+AlertsPaneltel = TextContent("Live alerts stream attached to Alerts section; new alerts appear in real-time.", size:default)

@@ -1,0 +1,14 @@
+root = Card(CardHeader("Account: Acme Corp", "Owner: Jessica Lee"), SectionBlock(AccountOverview, isFoldable), SectionBlock(RecentActivitySection, isFoldable), SectionBlock(ContactsSection, isFoldable), SectionBlock(FollowUpsSection, isFoldable), SectionBlock(NoteSection, isFoldable), SectionBlock(RenewalSection, isFoldable), SectionBlock(LogCallSection, isFoldable))
+AccountOverview = Card(Heading("Account Overview", h3), Table(accountTable), TotalDealValue(totalValueRow), CurrentStage(currentStageRow), warn:warning)
+accountTable = Table(|Metric|Value, |Account|Acme Corp, |Owner|Jessica Lee)
+totalValueRow = |Total value|$2,540,000
+currentStageRow = |Current deal stage|Negotiation
+RecentActivitySection = Card(Heading("Recent Activity", h3), ListBlock(|Date|Event), |2024-09-02|Call with client, |2024-09-04|Email exchange, |2024-09-07|Proposal sent)
+ContactsSection = Card(Heading("Contacts by role", h3), Table(|Role|Contact|Email|Phone, |Decision Maker|Sara Kim|sara@example.com|555-0101, |Sales Engineer|Miguel Perez|miguel@example.com|555-0102)
+FollowUpsSection = Card(Heading("Open follow-ups", h3), ListBlock(|Due|Follow-up|Status|Notes, |2024-09-20|Follow-up on proposal|Open|Prepare updated quote)
+NoteSection = Card(Heading("Add a note", h3), Form("note-entry", formButtons, noteField), noteField = FormControl("Note", TextArea("note", "", rows:4)))
+RenewalSection = Card(Heading("Renewal date", h3), TagBlock([Tag("Renewal: 2025-01-15", info)]), Warning("Renewal upcoming", "Renewal date is within 30 days", warning) )
+Warning(text?) = Callout(warning, "Renewal upcoming", "Renewal date is within 30 days")
+LogCallSection = Card(Heading("Log a call", h3), Form("log-call", callButtons, callNoteField), callNoteField = FormControl("Call notes", TextArea("call_notes", "" , rows:4)))
+formButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))
+callButtons = Buttons(Button("Log Call", primary), Button("Cancel", tertiary))

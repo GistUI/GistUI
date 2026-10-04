@@ -1,7 +1,0 @@
- root = Card(profileHeader, bioSection, messageSection)
-profileHeader = CardHeader("Jane Smith", "Senior Engineer")
-bioSection = TextContent("Jane has 8 years of experience in backend systems. She leads the payments team and loves mentoring.")
-messageSection = DialogBlock(triggerLabel:"Send message", title:"Message Jane", messageForm, description:"We'll deliver your message to Jane's inbox.")
-messageForm = Form("message", msgButtons, msgField)
-msgField = FormControl("Your message", TextArea("message", "Write your message...", rows:4))
-msgButtons = Buttons(Button("Send message", primary), Button("Cancel", tertiary))

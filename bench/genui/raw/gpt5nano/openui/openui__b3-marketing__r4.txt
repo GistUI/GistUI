@@ -1,0 +1,79 @@
+root = Card([
+  headerRow,
+  metricsRow,
+  sourcesPanel,
+  campaignsPanel,
+  bestCampaignPanel,
+  dateRangeControl,
+  subscribersPanel,
+  exportPanel
+])
+
+headerRow = CardHeader("Marketing Manager Weekly Dashboard", "Last 30 days view with current performance")
+
+metricsRow = Card([
+  visitorsCard,
+  conversionCard
+], "card")
+
+visitorsCard = Card([
+  Heading("Site Visitors", "h3"),
+  LineChart(["Day 1","Day 2","Day 3"], [Series("Visitors", [120, 150, 180])], "linear", "Day", " Visitors")
+], null)
+
+conversionCard = Card([
+  Heading("Conversion Rate", "h3"),
+  TextContent("Average conversion: 2.8% (sample data)"),
+  LineChart(["Day 1","Day 2","Day 3"], [Series("Conv", [2.5, 3.1, 2.8])], "linear", "Day", "Rate %")
+], null)
+
+sourcesPanel = Card([
+  CardHeader("Top Traffic Sources", "Share of visits by source"),
+  Table([]) // placeholder to hold content below
+], "card")
+
+sourcesTable = Table([
+  Col("Source", ["Direct","Organic","Paid","Social","Referral"]),
+  Col("Share", ["32%","28%","20%","12%","8%"])
+])
+
+-- attach table data via reference
+sourcesPanelChildren = sourcesTable
+
+sourcesPanel = Card([Heading("Top Traffic Sources", "h4"), sourcesTable], "card")
+
+campaignsPanel = Card([
+  CardHeader("Running Campaigns", "Spend by campaign"),
+  BarChart(["Campaign A","Campaign B","Campaign C","Campaign D","Campaign E"],
+           [Series("Spend", [1200, 950, 1400, 700, 500])], "grouped", "Campaign", "USD"),
+  ListBlock([
+    ListItem("Campaign A", "Q3 push", ["https://picsum.photos/seed/a/40/40"]),
+    ListItem("Campaign B", "Brand awareness", ["https://picsum.photos/seed/b/40/40"]),
+    ListItem("Campaign C", "Retargeting", ["https://picsum.photos/seed/c/40/40"]),
+  ])
+], "card")
+
+bestCampaignPanel = Card([
+  CardHeader("Best Performing Campaign", "Spotlight"),
+  Blockquote("Campaign A drove the highest ROAS this week.", "Marketing Analytics"),
+  Image("Campaign performance badge", "https://picsum.photos/seed/best/800/200")
+], "card")
+
+dateRangeControl = Card([
+  CardHeader("Date Range"),
+  TextContent("Use the control below to adjust the dashboard date window."),
+  DatePicker("date_range", "range", [], [])
+], "card")
+
+subscribersPanel = Card([
+  CardHeader("Email Subscribers Growth", "This Month"),
+  LineChart(["Week 1","Week 2","Week 3","Week 4"], [Series("Subscribers", [120, 260, 420, 520])], "linear", "Week", "Subscribers"),
+  TextContent("Cumulative subscribers: 1,320")
+], "card")
+
+exportPanel = Card([
+  CardHeader("Export & Share"),
+  Button("Export PDF"), 
+  Button("Export CSV"), 
+  Button("Share report", null, "secondary")
+], "card")

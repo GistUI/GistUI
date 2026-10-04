@@ -1,0 +1,117 @@
+root = Card([
+  header = CardHeader("Creator Studio Dashboard", "Cross-platform overview"),
+  topRow = Card([
+    followerCard = Card([
+      Heading("Followers", "h4"),
+      followersVal = TextContent("1,254, atteindre 1.3k"), // placeholder will be replaced by data stream
+      growth = TextContent("+12.4% this month")
+    ], null, "row", "l"),
+    engagementCard = Card([
+      Heading("Engagement Rate", "h4"),
+      engVal = TextContent("4.6%"),
+      engHint = TextContent("Average across platforms")
+    ], null, "row", "l")
+  ], "card"),
+
+  gridMain = Card([
+    // Section 3: Best posts this month with reach
+    sectionBestPosts = Card([
+      Heading("Best posts this month", "h3"),
+      postsList = Card([
+        post1 = CardHeader("Post A", "Reached 12.1k people"),
+        reach1 = TextContent("Reach: 12,100"),
+        post2 = CardHeader("Post B", "Reached 9.8k people"),
+        reach2 = TextContent("Reach: 9,800"),
+        post3 = CardHeader("Post C", "Reached 7.5k people"),
+        reach3 = TextContent("Reach: 7,500")
+      ], "sunk")
+    ], null, "column")
+  ], "card"),
+
+  // Section 4: Audience split by platform
+  audienceBlock = Card([
+    Heading("Audience by platform", "h3"),
+    platformPie = Image("Platform distribution (pie placeholder)", "https://picsum.photos/seed/audience/400/250")
+  ], null, "row"),
+
+  // Section 5: Posts scheduled this week
+  scheduledBlock = Card([
+    Heading("Scheduled posts this week", "h3"),
+    scheduledList = ListBlock([
+      ListItem("Launch teaser", "Tue 10:00", ["https://picsum.photos/seed/p1/40/40"], "Open"),
+      ListItem("Midweek recap", "Thu 14:00", ["https://picsum.photos/seed/p2/40/40"], "Edit")
+    ], "number")
+  ], null, "column"),
+
+  // Section 6: Best hour to post
+  bestHourBlock = Card([
+    Heading("Best hour to post", "h3"),
+    hourChart = Image("Histogram of posting hours", "https://picsum.photos/seed/hours/600/200"),
+    hourHint = TextContent("Based on history over past months")
+  ], null, "row"),
+
+  // Section 7: Comments waiting for a reply
+  commentsBlock = Card([
+    Heading("Comments awaiting reply", "h3"),
+    commentsList = ListBlock([
+      ListItem("Comment from follower", "Nice work on the latest post", ["https://picsum.photos/seed/c1/40/40"], "Reply"),
+      ListItem("Brand DM", "Interested in collab", ["https://picsum.photos/seed/c2/40/40"], "Reply")
+    ], "image")
+  ], null, "column"),
+
+  // Section 8: Earnings this month
+  earningsBlock = Card([
+    Heading("Earnings this month", "h3"),
+    earningsValue = TextContent("$8,420", "large"),
+    earningsBreakdown = TextContent("Ad revenue: $5,200 • Sponsorships: $3,220")
+  ], null, "row"),
+
+  // Section 9: Pending collaboration requests
+  collabBlock = Card([
+    Heading("Pending collaboration requests", "h3"),
+    collabList = ListBlock([
+      ListItem("Brand X", "Collab proposal: social posts", ["https://picsum.photos/seed/cb1/40/40"], "Review"),
+      ListItem("Apparel Co", "Product showcase", ["https://picsum.photos/seed/cb2/40/40"], "Review")
+    ], "image")
+  ], null, "column"),
+
+  // Section 10: Schedule a post with caption and time
+  schedulePostBlock = Card([
+    Heading("Schedule a post", "h3"),
+    scheduleForm = Form("schedule-post", scheduleButtons, [captionField, timePicker])
+  ], null, "column"),
+
+  // Section 11: Narrow everything to one platform
+  platformFilterBlock = Card([
+    Heading("Platform filter", "h3"),
+    filterRow = Row([
+      TextContent("Filter by:"), 
+      Select("platform_filter", [SelectItem("instagram", "Instagram"), SelectItem("youtube", "YouTube"), SelectItem("tiktok", "TikTok")], "Choose platform")
+    ])
+  ], null, "row")
+], "card")
+
+// Definitions of referenced components (inline hoisted items)
+header = CardHeader("Creator Studio Dashboard", "Cross-platform overview")
+
+// Data-driven placeholders (to be replaced with live data)
+followerTotal = TextContent("1,254,000", "large")
+monthlyGrowth = TextContent("+12.4% month over month")
+
+// Supporting components for layout
+textSpacer = Separator("horizontal", true)
+
+// Form controls for scheduling
+captionField = FormControl("Caption", TextArea("caption", "What's happening in this post?", 3), "Caption for your scheduled post")
+timePicker = DatePicker("scheduled_time", "single", null, [])
+
+// Schedule post form buttons
+scheduleSubmit = Button("Schedule Post", null, "primary")
+scheduleCancel = Button("Clear", null, "secondary")
+scheduleButtons = Buttons([scheduleSubmit, scheduleCancel])
+
+// Sub-structure references to ensure they render
+Platform = null // placeholder to satisfy hoisting rules
+
+// Ensure all defined references are used
+// The actual rendering references are connected through the root Card above.

@@ -1,0 +1,38 @@
+root = Card([
+  header = CardHeader("Invoice Overview", "Client: Acme Corp • Freelancer: You"),
+  dueInfoRow = Card([
+    amountCard = Card([
+      Heading("Amount due", "h3"),
+      amountValue = TextContent("$2,350.00", "large")
+    ], "card"),
+    currencyTag = Tag("USD", null, "md", "neutral")
+  ], "card"),
+
+  detailsSection = Card([
+    Heading("Invoice Details", "h4"),
+    ListBlock([
+      ListItem("Invoice #INV-2026-042", "Issue: 2026-09-20", ["https://picsum.photos/seed/invoice/40/40"]),
+      ListItem("Client PO", "PO-ACME-2026-081", ["https://picsum.photos/seed/po/40/40"]),
+      ListItem("Due date", "2026-10-04", [])
+    ], "image")
+  ]),
+
+  dueDateBlock = Card([
+    Heading("Due date", "h4"),
+    TextContent("October 4, 2026", "default")
+  ], "card"),
+
+  payNowBlock = Card([
+    Heading("Pay now", "h3"),
+    TextContent("Choose a payment method to settle the invoice instantly.", "default"),
+    payPanel = Card([
+      Button("Pay with Card", null, "primary"),
+      Button("Pay with Bank Transfer", null, "secondary")
+    ], "card")
+  ], "card"),
+
+  actionsBlock = Card([
+    Callout("info", "Need help?", "If you have questions about this invoice, reply here or contact support."),
+    Buttons([Button("Download PDF"), Button("Email to Client")])
+  ], "sunk")
+])

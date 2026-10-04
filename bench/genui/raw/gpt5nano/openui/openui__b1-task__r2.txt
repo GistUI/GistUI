@@ -1,0 +1,15 @@
+root = Card([header, taskCard])
+
+header = CardHeader("Personal Focus", "Single task view")
+
+taskCard = Card([taskHeader, deadlineRow, statusRow, actionsRow])
+
+taskHeader = Heading("Most Urgent Task", "h2")
+
+deadlineRow = TextContent("Deadline: " + "2026-10-31")
+
+statusRow = TextContent("Status: In progress")
+
+actionsRow = Buttons([markDoneBtn])
+
+markDoneBtn = Button("Mark as done", null, "primary")

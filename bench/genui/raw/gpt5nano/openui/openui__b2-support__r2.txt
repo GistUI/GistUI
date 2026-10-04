@@ -1,0 +1,36 @@
+root = Card([header, statsRow, filtersRow, ticketsPanel, actionsRow])
+
+header = CardHeader("Support Lead Morning View", "Overview of open tickets and recent activity")
+
+statsRow = Card([openCountCard, avgResponseCard], "card")
+
+openCountCard = Card([openCountHeading, openCountValue], "card")
+openCountHeading = Heading("Open Tickets", "h3")
+openCountValue = TextContent("12 open", "default")
+
+avgResponseCard = Card([avgResponseHeading, avgResponseValue], "card")
+avgResponseHeading = Heading("Avg First-Response Time", "h3")
+avgResponseValue = TextContent("2h 15m", "default")
+
+filtersRow = Card([highPriorityToggle], "card")
+
+highPriorityToggle = Form("priorityFilter", Buttons([filterLabelBtn], "row"), [priorityCheckbox])
+filterLabelBtn = Button("Only High Priority", null, "secondary")
+
+priorityCheckbox = CheckBoxGroup("priority", [highPriorityItem], null, null)
+highPriorityItem = CheckBoxItem("High", "Show only high priority tickets", "high", true)
+
+ticketsPanel = Card([recentTicketsHeading, ticketsList], "card")
+recentTicketsHeading = Heading("Five Most Recent Tickets", "h3")
+
+ticketsList = ListBlock([ticket1, ticket2, ticket3, ticket4, ticket5], "number")
+
+ticket1 = ListItem("TKT-10284: Login issues on mobile", "High priority • 2026-10-04 09:12", ["https://picsum.photos/seed/tkt1/40/40"])
+ticket2 = ListItem("TKT-10285: Payment processing delay", "High priority • 2026-10-04 09:04", ["https://picsum.photos/seed/tkt2/40/40"])
+ticket3 = ListItem("TKT-10286: Unable to export report", "Medium priority • 2026-10-04 08:58", ["https://picsum.photos/seed/tkt3/40/40"])
+ticket4 = ListItem("TKT-10287: Email alerts not firing", "Low priority • 2026-10-04 08:30", ["https://picsum.photos/seed/tkt4/40/40"])
+ticket5 = ListItem("TKT-10288: Dropdown menu misaligned", "High priority • 2026-10-04 08:15", ["https://picsum.photos/seed/tkt5/40/40"])
+
+actionsRow = Card([newTicketButton], "card")
+
+newTicketButton = Button("New Ticket", null, "primary")

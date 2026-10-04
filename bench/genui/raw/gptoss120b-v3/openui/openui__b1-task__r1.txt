@@ -1,0 +1,5 @@
+root = Card([taskHeader, taskInfo, statusInfo, doneButton])
+taskHeader = CardHeader("Urgent Task", null)
+taskInfo = TextContent("Task: Prepare quarterly report\nDeadline: 2024-10-15", "large")
+statusInfo = TextContent("Status: In progress", "default")
+doneButton = Button("Mark Done", null, "primary")

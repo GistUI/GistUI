@@ -1,0 +1,68 @@
+root = Card([performanceHeader, performanceText, flightsHeader, flightsTable, delayedHeader, delayedCallout, gateChangesHeader, gateChangesTable, crewsHeader, crewsList, weatherHeader, weatherText, loadHeader, loadText, riskHeader, riskList, rebookHeader, rebookForm, hubHeader, hubButtons, cancellationsHeader, cancellationsTable, turnaroundHeader, turnaroundText, followUp])
+
+performanceHeader = CardHeader("On‑time Performance Today")
+performanceText = TextContent("On‑time arrivals: 87% (up 2% from yesterday)", "large")
+
+flightsHeader = Heading("Flights Overview", "h2")
+flightsTable = Table([flightsColNumber, flightsColRoute, flightsColGate, flightsColStatus])
+flightsColNumber = Col("Flight", ["AA101", "DL202", "UA303", "BA404"])
+flightsColRoute = Col("Route", ["NYC‑LAX", "ATL‑ORD", "SFO‑SEA", "LHR‑DXB"])
+flightsColGate = Col("Gate", ["A12", "B5", "C3", "D9"])
+flightsColStatus = Col("Status", ["On‑time", "Delayed", "On‑time", "Cancelled"])
+
+delayedHeader = Heading("Delayed Flights", "h3")
+delayedCallout = Callout("warning", "Delayed Flights", "AA101, DL202 are delayed due to weather.")
+
+gateChangesHeader = Heading("Recent Gate Changes", "h3")
+gateChangesTable = Table([gateColFlight, gateColOld, gateColNew])
+gateColFlight = Col("Flight", ["UA303", "BA404"])
+gateColOld = Col("Old Gate", ["C3", "D9"])
+gateColNew = Col("New Gate", ["C5", "D12"])
+
+crewsHeader = Heading("Crews Available for Reassignment", "h3")
+crewsList = ListBlock([crewItem1, crewItem2, crewItem3])
+crewItem1 = ListItem("Crew A", "Available since 08:15", null, "Assign")
+crewItem2 = ListItem("Crew B", "Available since 09:00", null, "Assign")
+crewItem3 = ListItem("Crew C", "Available since 09:30", null, "Assign")
+
+weatherHeader = Heading("Weather Advisories", "h3")
+weatherText = TextContent("Thunderstorms expected at 14:00‑16:00, possible low visibility.", "default")
+
+loadHeader = Heading("Average Passenger Load Today", "h3")
+loadText = TextContent("Average load factor: 78%", "large")
+
+riskHeader = Heading("Connections at Risk", "h3")
+riskList = ListBlock([riskItem1, riskItem2])
+riskItem1 = ListItem("DL202 to AA505", "Connection window < 30 min", null, "Notify")
+riskItem2 = ListItem("UA303 to BA707", "Connection window < 20 min", null, "Notify")
+
+rebookHeader = Heading("Rebook Affected Passengers", "h3")
+rebookForm = Form("rebook", rebookButtons, [passengerField, flightSelectField])
+passengerField = FormControl("Passenger Name", passengerInput)
+passengerInput = Input("passenger", "John Doe")
+flightSelectField = FormControl("New Flight", flightSelect)
+flightSelect = Select("new_flight", [flightOpt1, flightOpt2, flightOpt3], "Select flight")
+flightOpt1 = SelectItem("AA102", "AA102 – NYC‑LAX")
+flightOpt2 = SelectItem("DL203", "DL203 – ATL‑ORD")
+flightOpt3 = SelectItem("UA304", "UA304 – SFO‑SEA")
+rebookButtons = Buttons([rebookSubmit, rebookCancel])
+rebookSubmit = Button("Rebook", null, "primary")
+rebookCancel = Button("Cancel", null, "tertiary")
+
+hubHeader = Heading("Switch Hub", "h3")
+hubButtons = Buttons([hubBtnJFK, hubBtnLAX, hubBtnORD])
+hubBtnJFK = Button("JFK")
+hubBtnLAX = Button("LAX")
+hubBtnORD = Button("ORD")
+
+cancellationsHeader = Heading("Cancellations Today", "h2")
+cancellationsTable = Table([cancelColFlight, cancelColReason])
+cancelColFlight = Col("Flight", ["BA404"])
+cancelColReason = Col("Reason", ["Technical issue"])
+
+turnaroundHeader = Heading("Average Turnaround Time", "h3")
+turnaroundText = TextContent("Average turnaround: 42 minutes", "default")
+
+followUp = FollowUpBlock([followItem1, followItem2])
+followItem1 = FollowUpItem("View detailed performance metrics")
+followItem2 = FollowUpItem("Export today's report")

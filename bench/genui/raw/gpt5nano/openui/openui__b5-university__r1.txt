@@ -1,0 +1,151 @@
+root = Card([
+    CardHeader("University Administrator Overview", "Comprehensive dashboard for institutional metrics"),
+    
+    // 1. total enrollment and how it moved over five years
+    Heading("Enrollment Overview", "h2"),
+    Card([
+        TextContent("Total enrollment: 42,380 students", "default"),
+        TextContent("Five-year trend: 2019: 38,200 → 2020: 39,500 → 2021: 40,900 → 2022: 41,600 → 2023: 42,380", "default"),
+        // simple trend display
+        LineChart(["2019","2020","2021","2022","2023"], [Series("Enrollment", [38200,39500,40900,41600,42380])], "natural", "Year", "Students")
+    ]),
+    
+    // 2. applications by program
+    Heading("Applications by Program", "h3"),
+    Table([
+        Col("Program", ["Engineering", "Business", "Arts & Sciences", "Education", "Health Sciences"]),
+        Col("Applications", [12400, 9800, 15600, 5400, 7200]),
+        Col("Acceptance Rate", ["25%", "32%", "18%", "40%", "29%"])
+    ]),
+    
+    // 3. acceptance rate
+    Card([
+        Heading("Overall Acceptance Rate", "h4"),
+        TextContent("Current overall acceptance rate: 28%", "default"),
+        Progress(28, "Acceptance progress")
+    ]),
+    
+    // 4. tuition revenue this year
+    Card([
+        Heading("Tuition Revenue This Year", "h4"),
+        TextContent("Total tuition revenue: $" , "default"),
+        TextContent("124,560,000", "large"),
+        // breakdown
+        BarChart(["Undergraduates","Graduates","Professional"], [
+            Series("Revenue", [80000000, 42000000, 12000000])
+        ], "grouped", "Category", "USD")
+    ]),
+    
+    // 5. how full each course offering is
+    Card([
+        Heading("Course Offerings Capacity Utilization", "h4"),
+        ImageBlock("https://picsum.photos/seed/courseutil/800/300", "Utilization heatmap placeholder"),
+        // simple list per course
+        ListBlock([
+            ListItem("Calculus I", "80% full", ["https://picsum.photos/seed/calculus/60/60"], "Details"),
+            ListItem("Intro to Programming", "92% full", ["https://picsum.photos/seed/programming/60/60"], "Details"),
+            ListItem("Organic Chemistry", "68% full", ["https://picsum.photos/seed/chemistry/60/60"], "Details")
+        ], "image")
+    ]),
+    
+    // 6. teaching load by faculty member
+    Card([
+        Heading("Teaching Load by Faculty", "h4"),
+        Table([
+            Col("Faculty", ["Dr. A. Kumar", "Prof. L. Chen", "Dr. S. Martinez", "Prof. R. Gupta"]),
+            Col("Courses", [3, 2, 4, 3]),
+            Col("Credit Hours", [9, 6, 12, 9])
+        ])
+    ]),
+    
+    // 7. students at academic risk
+    Card([
+        Heading("Students at Academic Risk", "h4"),
+        TagBlock(["Warning: 312 students at risk", "Interventions in progress"])
+    ]),
+    
+    // 8. scholarship budget used against total
+    Card([
+        Heading("Scholarship Budget Utilization", "h4"),
+        TextContent("Budget allocated: $25,000,000", "default"),
+        TextContent("Used this year: $14,200,000 (56%)", "default"),
+        Progress(56, "Scholarships utilized")
+    ]),
+    
+    // 9. housing occupancy
+    Card([
+        Heading("Housing Occupancy", "h4"),
+        Image("Dorm occupancy map", "https://picsum.photos/seed/housing/600/300"),
+        Table([
+            Col("Residence Hall", ["Maple Hall", "Cedar Hall", "Oak Hall", "Pine Hall"]),
+            Col("Occupancy", ["92%", "87%", "95%", "88%"])
+        ])
+    ]),
+    
+    // 10. campus events this month
+    Card([
+        Heading("Campus Events This Month", "h4"),
+        Carousel([
+            Card([TextContent("Career Fair - Oct 12, 10am-4pm", "default"), Image("Fair flyer", "https://picsum.photos/seed/career/400/200")]),
+            Card([TextContent("Homecoming Parade - Oct 20, 9am", "default"), Image("Parade", "https://picsum.photos/seed/homecoming/400/200")]),
+            Card([TextContent("Research Symposium - Oct 28", "default"), Image("Symposium", "https://picsum.photos/seed/symp/400/200")])
+        ], "card")
+    ]),
+    
+    // 11. alumni giving over the past four years
+    Card([
+        Heading("Alumni Giving (Past 4 Years)", "h4"),
+        LineChart(["2020","2021","2022","2023"], [Series("Alumni Giving", [12.5, 14.2, 16.1, 18.3])], "linear", "Year", "Million USD"),
+    ]),
+    
+    // 12. a way to focus on one department
+    Card([
+        Heading("Focus on Department", "h4"),
+        TextContent("Select a department to filter all charts and tables below.", "default"),
+        Select("dept_focus", [SelectItem("Engineering","Engineering"), SelectItem("Business","Business"), SelectItem("Arts & Sciences","Arts & Sciences"), SelectItem("Education","Education"), SelectItem("Health Sciences","Health Sciences")], "Choose department")
+    ]),
+    
+    // 13. this semester compared with last
+    Card([
+        Heading("This Semester vs Last Semester", "h4"),
+        BarChart(["Enrollment","Applications","Admissions"], [
+            Series("This Semester", [2100, 3200, 780]),
+            Series("Last Semester", [2050, 3000, 750])
+        ], "grouped", "Metric", "Count")
+    ]),
+    
+    // 14. waitlisted students per program
+    Card([
+        Heading("Waitlisted Students by Program", "h4"),
+        Table([
+            Col("Program", ["Engineering", "Business", "Arts & Sciences", "Education"]),
+            Col("Waitlisted", [120, 85, 210, 60])
+        ])
+    ]),
+    
+    // 15. a way to approve a new course
+    Card([
+        Heading("Approve New Course", "h4"),
+        TextContent("Propose, review, and approve new course offerings.", "default"),
+        Form("course-approval", Buttons([Button("Approve", null, "primary"), Button("Reject", null, "destructive")]), [
+            FormControl("Course Title", Input("title", "New Quantum Mechanics")),
+            FormControl("Department", Select("dept", [SelectItem("Engineering","Engineering"), SelectItem("Arts & Sciences","Arts & Sciences")], "Choose department")),
+            FormControl("Credits", Input("credits", "3", "number"))
+        ])
+    ]),
+    
+    // 16. a way to send a message to a student group
+    Card([
+        Heading("Message Student Group", "h4"),
+        TextContent("Send targeted messages to groups such as year cohorts or programs.", "default"),
+        DialogBlock("Message Group", "Compose Message", [
+            TextContent("Choose group and craft message.", "default"),
+            Form("message-form", Buttons([Button("Send", null, "primary")]), [
+                FormControl("Group", Select("group", [SelectItem("All Students","All Students"), SelectItem("Engineering Seniors","Engineering Seniors"), SelectItem("Business Majors","Business Majors")], "Select group")),
+                FormControl("Subject", Input("subject", "Important Update")),
+                FormControl("Message", TextArea("message", "Enter your message here..."))
+            ])
+        ])
+    ])
+    
+])

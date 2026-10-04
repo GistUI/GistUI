@@ -1,8 +1,0 @@
-root = Card(header, today, yesterday, comparisonChart)
-header = CardHeader("Today's Revenue", "Mid‑morning check‑in")
-today = Card(Heading("Revenue Today", h3), TextContent("$5,230", size:large), Tag("Up", success))
-yesterday = Card(Heading("Revenue Yesterday", h3), TextContent("$4,890", size:large), Tag("Down", warning))
-comparisonChart = BarChart(compRows, variant:grouped, xLabel:"Day", yLabel:"Revenue")
-compRows = |Day|Revenue
-|Today|5230
-|Yesterday|4890

@@ -1,0 +1,159 @@
+root = Card([
+  header = CardHeader("Streaming Operations Dashboard", "Live, streaming and growth metrics"),
+  focusPanel = Card([
+    CardHeader("Region focus", "Filter by region"),
+    regionSelect = Select("region", [
+      SelectItem("na", "North America"),
+      SelectItem("eu", "Europe"),
+      SelectItem("apac", "APAC"),
+      SelectItem("latam", "LATAM"),
+      SelectItem("global", "Global")
+    ], "Choose a region")
+  ], "sunk"),
+
+  // 1. viewers watching right now
+  viewersCard = Card([
+    Heading("Live viewers now", "h3"),
+    TextContent("Currently watching: 124,357 across all regions."),
+    // Visualization placeholder
+    Image("Live viewer map", "https://picsum.photos/seed/viewers/800/200")
+  ]),
+
+  // 2. most-watched titles with hours for each
+  topTitlesCard = Card([
+    Heading("Top titles this hour (hours watched)", "h3"),
+    Table([
+      Col("Title", ["The Midnight Escape", "Galaxy Quest", "Mystic River", "Coastline"], "string"),
+      Col("Hours", [12.4, 9.8, 9.2, 7.5], "number")
+    ])
+  ]),
+
+  // 3. watch time over the past month
+  watchTimeChart = Card([
+    Heading("Watch time trend (past 30 days)", "h3"),
+    LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10","Day 11","Day 12","Day 13","Day 14","Day 15","Day 16","Day 17","Day 18","Day 19","Day 20","Day 21","Day 22","Day 23","Day 24","Day 25","Day 26","Day 27","Day 28","Day 29","Day 30"],
+      [Series("Watch time", [200,210,190,230,250,240,260,270,300,310,290,320,330,350,360,370,380,390,400,420,410,430,440,450,460,470,480,490,500,520])], "natural", "Day", "Hours")
+  ]),
+
+  // 4. new subscribers against cancellations
+  subCancelCard = Card([
+    Heading("New subscribers vs cancellations (monthly)", "h3"),
+    BarChart(["Jan","Feb","Mar","Apr","May","Jun"], [
+      Series("Subscribers", [1200,1250,1400,1350,1500,1600]),
+      Series("Cancellations", [200,180,210,190,230,250])
+    ], "grouped", "Month", "Count")
+  ]),
+
+  // 5. performance by genre
+  genrePerfCard = Card([
+    Heading("Performance by genre (watch share)", "h3"),
+    PieChart(["Drama","Comedy","Sci-Fi","Documentary","Action"], [45,25,15,8,7], "donut", "circular")
+  ]),
+
+  // 6. buffering rate
+  bufferingCard = Card([
+    Heading("Buffering rate by region", "h3"),
+    HorizontalBarChart(["NA","EU","APAC","LATAM","MEA"], [
+      Series("Buffering %", [1.2,0.9,1.5,2.0,1.1])
+    ], "grouped", "Region", "Buffering %")
+  ]),
+
+  // 7. delivery health by region
+  deliveryHealthCard = Card([
+    Heading("Delivery health by region", "h3"),
+    RadarChart(["NA","EU","APAC","LATAM"], [
+      Series("Reliability", [95,92,88,90]),
+      Series("Latency", [20,28,35,25])
+    ])
+  ]),
+
+  // 8. releases coming this month
+  releasesCard = Card([
+    Heading("Releases coming this month", "h3"),
+    ListBlock([
+      ListItem("The Last Horizon", "Premiere on 2026-10-14", ["https://picsum.photos/seed/release1/40/40"]),
+      ListItem("Stellar Noir: Ep. 4", "Streaming from 2026-10-21", ["https://picsum.photos/seed/release2/40/40"]),
+      ListItem("Documentary: Earthrise", "Debut 2026-10-28", ["https://picsum.photos/seed/release3/40/40"])
+    ], "image")
+  ]),
+
+  // 9. licenses expiring soon
+  licensesCard = Card([
+    Heading("Licenses expiring soon", "h3"),
+    Table([
+      Col("Title", ["The Midnight Escape","Galaxy Quest","Coastline"]),
+      Col("License Expiry", ["2026-11-05","2026-11-12","2026-11-20"])
+    ])
+  ]),
+
+  // 10. how often recommendations get clicked
+  recClicksCard = Card([
+    Heading("Recommendations clicked", "h3"),
+    BarChart(["Week 1","Week 2","Week 3","Week 4"], [
+      Series("Clicks", [420, 510, 535, 590])
+    ], "linear", "Week", "Clicks")
+  ]),
+
+  // 11. searches that ended without playback
+  noPlaybackCard = Card([
+    Heading("Searches ending without playback", "h3"),
+    AreaChart(["W1","W2","W3","W4"], [
+      Series("No playback", [120, 90, 110, 95])
+    ], "linear", "Week", "Counts")
+  ]),
+
+  // 12. revenue split by plan
+  revenueSplitCard = Card([
+    Heading("Revenue split by plan", "h3"),
+    PieChart(["Basic","Standard","Premium"], [32000,54000,76000], "pie", "circular")
+  ]),
+
+  // 13. viewing split by device
+  deviceSplitCard = Card([
+    Heading("Viewing by device", "h3"),
+    DonutChart(["Mobile","Desktop","TV","Tablet"], [65,20,10,5], "donut", "circular")
+  ]),
+
+  // 14. a way to focus on one region
+  regionFocusCard = Card([
+    Heading("Region focus toggle", "h3"),
+    TextContent("Use the Region focus to drill down metrics for a single region. The dashboard below mirrors region-specific data when selected.")
+  ]),
+
+  // 15. feature flags with state for each
+  featureFlagsCard = Card([
+    Heading("Feature flags and state", "h3"),
+    Table([
+      Col("Feature", ["HDR Support","Dolby Atmos","Offline Download","Smart Recommendations"], "string"),
+      Col("State", ["Enabled","Disabled","Preview","Enabled"], "string")
+    ])
+  ]),
+
+  // 16. promote a title on the home screen
+  promoteTitleCard = Card([
+    Heading("Promote a title on Home", "h3"),
+    TextContent("Select a title to feature on the home screen. Changes push to all regional homes after review."),
+    Image("Preview of featured tile", "https://picsum.photos/seed/featured/800/200")
+  ]),
+
+  // 1-16 assembly into a single scrollable column
+  // Ensure every defined item is included in the root's children in order
+  // (The above items are defined as variables; now assemble the full list)
+  // Root continues with all items in order
+  viewersCard,
+  topTitlesCard,
+  watchTimeChart,
+  subCancelCard,
+  genrePerfCard,
+  bufferingCard,
+  deliveryHealthCard,
+  releasesCard,
+  licensesCard,
+  recClicksCard,
+  noPlaybackCard,
+  revenueSplitCard,
+  deviceSplitCard,
+  regionFocusCard,
+  featureFlagsCard,
+  promoteTitleCard
+])

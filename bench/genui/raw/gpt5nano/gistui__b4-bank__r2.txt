@@ -1,0 +1,121 @@
+root = Card(CardHeader("Personal Banking Dashboard"), 
+    sections, 
+    actions)
+
+sections = SectionBlock(OverviewSection, TransactionsSection, SpendingSection, BillsSection, GoalsSection, CreditSection, TransferSection, CreditFreezeSection, StatementSection, AlertsSection, DisputesSection)
+
+OverviewSection = SectionItem("overview", "Overview",
+  Card("balances and quick stats",
+    BalanceRow(checking, "Checking"), BalanceRow(savings, "Savings"), BalanceRow(credit, "Credit"),
+    CreditScoreWidget(creditScore)
+  )
+)
+
+BalanceRow(account, label) = Block(TextContent(label, "default"), TextContent(account.balance, "default"))
+
+checkings = Balance("checking",  "Checking",  "$3,210.45")
+savings  = Balance("savings",   "Savings",   "$12,540.80")
+credit   = Balance("credit",    "Credit",    "$-1,230.50")
+
+creditScore = 650
+
+TransactionsSection = SectionItem("transactions", "Recent Transactions",
+  Card("Recent transactions",
+    Table(transactionsTable)
+  )
+)
+
+transactionsTable = |Merchant|Date|Amount|Category
+|Starbucks|2026-09-28|-$6.25|Coffee
+|Grocery Aisle|2026-09-27|-$123.40|Groceries
+|Uber|2026-09-26|-$14.75|Transport
+)
+
+SpendingSection = SectionItem("spending", "This Month's Spending by Category",
+  Card("Spending by category",
+    RadarChart(spendingTable)
+  )
+)
+
+spendingTable = |Category|Amount
+|Groceries|$452.30
+|Dining|$198.40
+|Transport|$84.20
+|Entertainment|$120.00
+
+BillsSection = SectionItem("bills", "Bills Due Soon",
+  Card("Upcoming Bills",
+    Table(billsTable)
+  )
+)
+
+billsTable = |Bill|Due|Amount
+|Electric|2026-10-01|$92.10
+|Internet|2026-10-03|$64.99
+|Credit Card|2026-10-05|$210.00
+
+GoalsSection = SectionItem("goals", "Vacation Savings Goal",
+  Card("Vacation progress",
+    Progress(value:60, label:"62 days to go")
+  )
+)
+
+TransferSection = SectionItem("transfer", "Move Money Between Accounts",
+  Card("Transfer money",
+    Form("transfer-form", Buttons(Button("Submit transfer", primary)), 
+      FormControl("From", Select("from_account", SelectItem("Checking","Checking"), SelectItem("Savings","Savings")), 
+      FormControl("To", Select("to_account", SelectItem("Savings","Savings"), SelectItem("Credit","Credit"))),
+      FormControl("Amount", Input("amount", placeholder:"$0.00"))
+    )
+  )
+)
+
+CreditFreezeSection = SectionItem("freeze", "Credit Line Control",
+  Card("Credit line actions",
+    Button("Freeze credit line", action:["freezeCredit"])
+  )
+)
+
+StatementSection = SectionItem("statement", "Statement Period",
+  Card("Statement period",
+    Form("statement-period", Buttons(Button("Apply period", primary)),
+      FormControl("Period", Select("period", SelectItem("This Month","This Month"), SelectItem("Last 3 Months","Last 3 Months"), SelectItem("Year to Date","Year to Date")))
+    )
+  )
+)
+
+AlertsSection = SectionItem("alerts", "Alerts and Triggers",
+  Card("Alert preferences",
+    Form("alerts-form", Buttons(Button("Save alerts", primary)),
+      FormControl("Alert triggers", TagBlock(["Low Balance","Large Transfer","Unusual Activity"]))
+    )
+  )
+)
+
+DisputesSection = SectionItem("disputes", "Dispute a Transaction",
+  Card("Dispute",
+    Form("dispute-form", Buttons(Button("Submit dispute", primary)),
+      FormControl("Transaction ID", Input("txn_id", placeholder:"Enter id")),
+      FormControl("Reason", TextArea("reason", placeholder:"Describe issue"))
+    )
+  )
+)
+
+# References to ensure reachability
+checkings
+savings
+credit
+transactionsTable
+billsTable
+spendingTable
+spendingChart
+spendingSection
+overviewSection
+transactionsSection
+billsSection
+goalsSection
+transferSection
+freezeSection
+statementSection
+alertsSection
+disputesSection

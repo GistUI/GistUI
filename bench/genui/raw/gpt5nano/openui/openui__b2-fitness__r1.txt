@@ -1,0 +1,47 @@
+root = Card([
+  header,
+  statsRow,
+  weeklyPerfCard,
+  logWorkoutBlock
+])
+
+header = CardHeader("Daily Summary", "Your fitness snapshot for today")
+
+statsRow = Card([
+  Card([
+    TextContent("Steps today: 7,248 / 10,000", "default"),
+    Separator("horizontal", false)
+  ], "card"),
+  Card([
+    TextContent("Calories burned: 560 kcal", "default")
+  ], "card")
+], "row")
+
+weeklyPerfCard = Card([
+  CardHeader("Last 7 days: Workout performance"),
+  HorizontalBarChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+    [Series("Sessions", [1,0,1,1,0,1,1])], "grouped", "Day", "Sessions")
+])
+
+logWorkoutBlock = Card([
+  CardHeader("Log a new workout"),
+  Form("log-workout", logButtons, [logTypeField, logDurationField, logNotesField])
+])
+
+logTypeField = FormControl("Workout type", typeSelect)
+typeSelect = Select("workout_type", [cardioItem, strengthItem, yogaItem], "Choose type")
+
+cardioItem = SelectItem("cardio", "Cardio")
+strengthItem = SelectItem("strength", "Strength")
+yogaItem = SelectItem("yoga", "Yoga")
+
+logDurationField = FormControl("Duration (min)", durationInput)
+durationInput = Input("duration_min", "30", "number")
+
+logNotesField = FormControl("Notes", notesInput)
+notesInput = TextArea("notes", "Include intensity, mood, etc.", 4)
+
+logButtons = Buttons([submitLogBtn, cancelLogBtn])
+
+submitLogBtn = Button("Log workout", null, "primary")
+cancelLogBtn = Button("Clear", null, "secondary")

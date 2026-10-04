@@ -1,0 +1,28 @@
+root = Card(CardHeader("Clinic Day View"), todayAppointmentsSection, summarySection, roomsSection, nextPatientSection, checkInSection, navigationSection)
+
+todayAppointmentsSection = Card(Heading("Today's Appointments", h2), Table(appointmentsTable), sunk)
+
+appointmentsTable = |Time|Patient|Reason|Room
+|09:00|Alice Chen|Checkup|Room 2
+|09:30|David Park|Consult|Room 3
+|10:15|Maria Lopez|Follow-up|Room 1
+|11:00|Sam Patel|New patient|Room 4
+
+summarySection = Card(Heading("Today at a glance", h3), TagBlock([ "Appointments: 4", "Expected: 4" ]), Tag("No-show rate this month", neutral), Progress(60, "No-show rate"), sunk)
+
+roomsSection = Card(Heading("Rooms status", h3), Table(roomsTable))
+
+roomsTable = |Room|Status
+|Room 1|Occupied
+|Room 2|Free
+|Room 3|Occupied
+|Room 4|Free
+
+nextPatientSection = Card(Heading("Next patient called out", h3), TextContent("11:45 - Li Wei", size:default), sunk)
+
+checkInSection = Card(Heading("Check-in a patient", h3), Form("checkin", Buttons(Button("Check in", primary)), nameField, idField), sunk)
+
+nameField = FormControl("Patient name", Input("patient_name", "Li Wei"))
+idField = FormControl("Patient ID", Input("patient_id", "W12345"))
+
+navigationSection = Card(Heading("Navigate", h3), DatePicker("day", mode:single, value:["2026-10-04"]), Buttons(Button("Previous day"), Button("Next day")), sunk)

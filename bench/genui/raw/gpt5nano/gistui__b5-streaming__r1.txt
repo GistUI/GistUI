@@ -1,0 +1,82 @@
+root = Card(CardHeader("Operations Dashboard"), regionFilter, metricsGrid, chartsPanel, promotionsPanel, flagsPanel, sectionsPanel)
+
+regionFilter = Card(Tag("Focus region: Global", info))  # placeholder header for region focus
+metricsGrid = Card(Heading("Overview Metrics", h2), GridRegion("metrics") )
+
+sectionsPanel = SectionBlock(
+  SectionItem("views", "Viewers"),
+  SectionItem("titles", "Most-watched Titles"),
+  SectionItem("watchtime", "Watch Time"),
+  SectionItem("subscr_canc", "Subscribers vs Cancellations"),
+  SectionItem("genre", "Genre Performance"),
+  SectionItem("buffer", "Buffering"),
+  SectionItem("delivery", "Delivery Health"),
+  SectionItem("releases", "Releases this Month"),
+  SectionItem("licenses", "Licenses Expiring Soon"),
+  SectionItem("reco_clicks", "Recommendations Clicks"),
+  SectionItem("search_no_playback", "Searches without Playback"),
+  SectionItem("revenue_plan", "Revenue by Plan"),
+  SectionItem("device_split", "Viewing by Device"),
+  SectionItem("focus_region", "Region Focus"),
+  SectionItem("flags", "Feature Flags"),
+  SectionItem("promote_title", "Promote Title on Home")
+)
+
+# 1. viewers watching right now
+views = CardHeader("Live Viewers"), TextContent("Currently watching: 1240 viewers", size:"default")
+
+# 2. most-watched titles with hours for each
+titlesTable = Table(|Title|Hours), |The Office|120), |Avatar|95), |Stranger Things|88)
+
+# 3. watch time over the past month
+watchTime = LineChart(Table(|Day|Hours), natural, xLabel:"Day", yLabel:"Hours")
+
+# 4. new subscribers against cancellations
+subCanc = BarChart(Table(|Month|New|Cancellations), grouped, xLabel:"Month", yLabel:"Count")
+
+# 5. performance by genre
+genreTable = RadarChart(Table(|Genre|Metric1|Metric2|Metric3),)
+
+# 6. buffering rate
+bufferPanel = CardHeader("Buffering Rate"), BarChart(Table(|Region|Buffer%), grouped, xLabel:"Region", yLabel:"Buffer %")
+
+# 7. delivery health by region
+deliveryTable = HorizontalBarChart(Table(|Region|Health%),,)
+
+# 8. releases coming this month
+releasesTable = Table(|Release|Date|Status), |Movie A|2026-10-12|Upcoming, |Show B|2026-10-18|Upcoming
+
+# 9. licenses expiring soon
+licensesTable = Table(|License|Expires|Region), |Show X|2026-11-01|Global, |Movie Y|2026-11-15|US
+
+# 10. how often recommendations get clicked
+recoClicks = LineChart(Table(|Date|Clicks), linear, xLabel:"Date", yLabel:"Clicks")
+
+# 11. searches that ended without playback
+noPlayback = Table(|Search|Count|Region), |Drama|320|US, |Comedy|210|EU
+
+# 12. revenue split by plan
+revenueTable = PieChart(Table(|Plan|Revenue), donut, appearance:semiCircular)
+
+# 13. viewing split by device
+deviceTable = PieChart(Table(|Device|Views), donut)
+
+# 14. a way to focus on one region
+regionFocus = Form("region-filter", Buttons(Button("Apply", primary)), FormControl("Region", Select("region", SelectItem("US","United States"), SelectItem("EU","Europe"), SelectItem("APAC","Asia Pacific"), placeholder:"Choose region")))
+
+# 15. feature flags with state for each
+flagsPanel = CardHeader("Feature Flags"), Tag("A/B Testing", info)
+
+flagsList = Table(|Flag|State|Description),
+|NewUI|enabled|Enables new UI elements|
+
+
+# 16. a way to promote a title on the home screen
+promoteTitle = CardHeader("Promote Title"), Form("promo-title", Buttons(Button("Promote", primary)), FormControl("Title", Input("title", "The Grand Escape")), FormControl("Region", Input("region", "Global")))
+
+# Now assemble
+metricsGrid = Card(Heading("Key Metrics", h3), views, titlesTable, watchTime)
+
+promotionsPanel = Card(Heading("Home Promotion", h3), promoteTitle)
+
+flagsPanel = Card(Heading("Feature Flags", h3), flagsList)

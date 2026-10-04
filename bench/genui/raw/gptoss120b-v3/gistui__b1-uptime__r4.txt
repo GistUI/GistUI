@@ -1,4 +1,6 @@
-root = Card(uptimeCard, incidentCard)
-uptimeCard = Card(CardHeader("API Uptime","This month"), TextContent("**99.97%** uptime",size:large))
-incidentCard = Card(CardHeader("Recent Incident"), incidentCallout)
-incidentCallout = Callout(variant:warning,"Database latency spike","Resolved 2 hours ago: switched to read replica")
+root = Card(header, uptimeSection, incidentSection)
+header = CardHeader("Platform Status", "Overview")
+uptimeSection = Card(Heading("API Uptime (This Month)", h3), Table(uptimeTable))
+incidentSection = Card(Callout(variant:warning, "Recent Incident", "Resolved Sep 30 2024 – Database outage caused latency spikes"))
+uptimeTable = |Metric|Value
+|API Uptime|99.7%

@@ -1,0 +1,47 @@
+root = Card([
+  header = CardHeader("Design Role: Senior Product Designer", "Team: Experience & Design"),
+  description = TextContent("We are seeking a collaborative Senior Product Designer to lead end-to-end product design for our core platform. You’ll partner with product, engineering, and research to define the future of our product experiences and drive measurable impact.", "default"),
+  qualificationsSection = Card([
+    Heading("Main qualifications", "h3"),
+    ListBlock([
+      ListItem("5+ years in product design, interaction design, or UX", "Strong portfolio across web and mobile", []),
+      ListItem("Prototyping and visual design proficiency", "Figma/Sketch, motion, and design systems", []),
+      ListItem("Experience with design systems and cross-functional collaboration", "Ability to mentor junior designers", []),
+      ListItem("User-centered mindset with data-informed decision making", "Experience conducting or interpreting user research", [])
+    ], "number")
+  ]),
+  salaryBlock = Card([
+    Heading("Salary range", "h4"),
+    TextContent("Competitive, DOE ($120k - $180k base) + equity", "default")
+  ], "card"),
+  applySection = Card([
+    Heading("Apply to this role", "h3"),
+    Form("design-app", buttonsRow, [nameField, emailField, resumeField]),
+    nameField = FormControl("Full name", nameInput),
+    nameInput = Input("name", "Jane Smith"),
+    emailField = FormControl("Work email", emailInput),
+    emailInput = Input("email", "jane@company.com", "email"),
+    resumeField = FormControl("Resume link", resumeInput),
+    resumeInput = Input("resume", "https://example.com/resume.pdf", "url")
+  ], "card"),
+  shareSection = Card([
+    Heading("Share this posting", "h3"),
+    TextContent("Spread the word about this opportunity to attract great designers.", "default"),
+    Buttons([shareBtn], "row"),
+    shareBtn = Button("Share posting", null, "secondary")
+  ], "card")
+])
+
+header = CardHeader("Design Role: Senior Product Designer", "Team: Experience & Design")
+descriptionIntro = TextContent("Short role description: Lead end-to-end product design for our core platform, partnering across product, engineering, and research to shape user experiences and drive impact.", "default")
+shortDescription = Card([descriptionIntro], "card")
+
+nameField = FormControl("Full name", nameInput)
+nameInput = Input("name", "Jane Smith")
+emailField = FormControl("Work email", emailInput)
+emailInput = Input("email", "jane@company.com", "email")
+resumeField = FormControl("Resume link", resumeInput)
+resumeInput = Input("resume", "https://example.com/resume.pdf", "url")
+
+buttonsRow = Buttons([shareBtn], "row")
+shareBtn = Button("Share posting", null, "secondary")

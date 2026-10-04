@@ -1,0 +1,144 @@
+root = Card(CardHeader("University Administrator Overview"), tabsSection, actionsRow)
+
+tabsSection = Tabs(tabOverview, tabPrograms, tabStudents, tabFinance)
+
+tabOverview = TabItem("overview", "Overview", Card(Heading("Overview Dashboard", h2), totalEnrollmentSection, applicationsByProgram, acceptanceRateCard, tuitionRevenueCard, courseFillSection, teachingLoadSection, riskStudentsSection, scholarshipBudgetSection, housingOccupancySection, campusEventsSection, alumniGivingSection, focusDepartmentSection, semesterComparisonSection, waitlistedSection, newCourseApproval, messageStudentGroup))
+
+tabPrograms = TabItem("programs", "Programs", ProgramManagementSection)
+
+tabStudents = TabItem("students", "Students", StudentsSection)
+
+tabFinance = TabItem("finance", "Finance", FinanceSection)
+
+-- Section: 1. total enrollment and how it moved over five years
+totalEnrollmentSection = Card(CardHeader("Total Enrollment & Five-Year Trend"), Table(enrollmentTable), sunk)
+
+enrollmentTable = |Year|Enrollment
+|2022|21450
+|2023|22210
+|2024|23080
+|2025|23890
+|2026|24730
+
+-- Section 2/15/14/16/17/18 etc are placed as inline items inside sections or separate items as needed
+applicationProgramSectionHeading = Heading("Applications by Program", h3)
+
+applicationsByProgram = Card(applicationProgramSectionHeading, Table(applicationsTable), sunk)
+
+applicationsTable = |Program|Applications
+|Engineering|5200
+|Arts & Humanities|4200
+|Sciences|6100
+|Business|3900
+|Education|2600
+|Medicine|1800
+
+acceptanceRateCard = Card(CardHeader("Acceptance Rate"), TextContent("Overall acceptance rate: 18.4% for this cycle."), sunk)
+
+tuitionRevenueCard = Card(CardHeader("Tuition Revenue This Year"), Table(tuitionTable), sunk)
+
+tuitionTable = |Month|Revenue
+|Fall|$128,400,000
+|Spring|$112,000,000
+|Summer|$22,500,000
+
+courseFillSection = Card(CardHeader("Course Fill Rate by Offering"), BarChart(courseFillTable, xLabel:"Offering", yLabel:"Fill Rate"), sunk)
+
+courseFillTable = |Offering|Fill
+|Course A|92%
+|Course B|85%
+|Course C|78%
+|Course D|96%
+
+teachingLoadSection = Card(CardHeader("Teaching Load by Faculty"), Table(teachingTable), sunk)
+
+teachingTable = |Faculty|Load
+|Dr. Smith|3.2
+|Prof. Lee|3.8
+|Dr. Patel|2.9
+|Prof. García|3.5
+|Dr. Rossi|3.1
+
+riskStudentsSection = Card(CardHeader("Students at Academic Risk"), Table(riskTable), sunk)
+
+riskTable = |Student|Program|Risk
+|Alex Kim|Engineering|High
+|Maria Chen|Biology|Elevated
+|Luis Martinez|Economics|Moderate
+|Sara Ahmed|Chemistry|High
+
+scholarshipBudgetSection = Card(CardHeader("Scholarship Budget Used vs Total"), Table(scholarshipTable), sunk)
+
+scholarshipTable = |Category|Used|Total
+|Scholarships|$18,400,000|$45,000,000
+|Grants|$7,200,000|$15,000,000
+
+housingOccupancySection = Card(CardHeader("Housing Occupancy"), RadarChart(housingTable), sunk)
+
+housingTable = |Housing Type|Occupancy
+|Dorms|92%
+|Apartments|86%
+|Graduate Housing|94%
+
+campusEventsSection = Card(CardHeader("Campus Events This Month"), Table(eventsTable), sunk)
+
+eventsTable = |Event|Date|Expected Attendance
+|Homecoming Parade|2026-10-12|1200
+|Science Fair|2026-10-18|800
+|Career Fair|2026-10-25|1500
+
+alumniGivingSection = Card(CardHeader("Alumni Giving (Past 4 Years)"), LineChart(alumniTable, natural, xLabel:"Year", yLabel:"Donations"), sunk)
+
+alumniTable = |Year|Donations
+|2023|$12,400,000
+|2024|$13,200,000
+|2025|$14,100,000
+|2026|$15,600,000
+
+focusDepartmentSection = Card(CardHeader("Focus on One Department"), Form("focus-dept-form", Buttons(Button("Apply Focus", primary)), FormControl("Department", Select("department", SelectItem("Engineering","Engineering"), SelectItem("Arts & Humanities","Arts & Humanities"), SelectItem("Sciences","Sciences"), SelectItem("Business","Business")))), sunk)
+
+semesterComparisonSection = Card(CardHeader("This Semester vs Last"), Table(semesterTable), sunk)
+
+semesterTable = |Metric|This Semester|Last Semester
+|Enrollment|12050|11230
+|Applications|10400|9800
+|Holdbacks|210|190
+
+waitlistedSection = Card(CardHeader("Waitlisted Students per Program"), Table(waitlistTable), sunk)
+
+waitlistTable = |Program|Waitlisted
+|Engineering|72
+|Arts & Humanities|38
+|Sciences|54
+|Business|31
+|Education|19
+|Medicine|12
+
+newCourseApproval = DialogBlock("Approve New Course", "New Course Approval", CardHeader("Course Details"), TextContent("Propose course: Advanced AI Systems"), description:"Review and approve the new course request")
+
+messageStudentGroup = DialogBlock("Message Student Group", "Send Message", CardHeader("Select Group"), TextContent("Choose a group and draft message"), description:"Opens messaging composer to the selected group")
+
+-- Section 12: a way to focus on one department (already defined as focus-dept-form)
+
+-- Section 7 and 9 and 10 already included above
+
+-- 11 alumni giving included
+
+-- 13 this semester compared with last included
+
+-- 4 Tuition revenue this year included
+
+-- 5 how full each course offering included
+
+-- 16 a way to approve a new course included as newCourseApproval
+
+-- 17 a way to send a message to a student group included as messageStudentGroup
+
+actionsRow = CardsRow actionsLeft, actionsRight
+
+actionsLeft = Button("Export Data", primary)
+
+actionsRight = Button("Request Digest", secondary)
+
+-- Ensure all ids defined are used
+-- No extra placeholders; all defined ids are reachable from root through the tabs and cards above

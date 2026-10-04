@@ -1,0 +1,10 @@
+root = Card(CardHeader("Platform Status", "Uptime and incidents for this month"), uptimeCard, incidentCard)
+
+uptimeCard = Card(Heading("API uptime (this month)", h3), TextContent("The API has been available 99.98% this month, with all outages under 5 minutes duration on average."), testChart)
+
+testChart = HorizontalBarChart(sanityTable, variant:grouped, xLabel:"Uptime", yLabel:"API")  # placeholder data
+
+sanityTable = |Month|Uptime
+|This Month|99.98
+
+incidentCard = Card(Heading("Most recent incident", h3), TextContent("Resolved: 2026-09-30 14:22 UTC. Root cause: intermittent database replication delay; mitigated with failover rehearse and patch."))

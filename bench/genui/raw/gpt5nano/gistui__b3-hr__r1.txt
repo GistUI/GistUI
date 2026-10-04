@@ -1,0 +1,71 @@
+root = Card(CardHeader("HR Hiring Overview"), SectionBlock(pipelineSection, headcountSection, departmentsSection, newRoleButtonSection, attritionSection, interviewsSection, timeToHireSection, headcountSplitSection))
+
+pipelineSection = SectionItem("pipeline", "Open roles by department", Card(Heading("Open roles by department", h3), Table(openRolesTable), sunk))
+
+openRolesTable = |Department|Role|Openings
+|Engineering|Frontend Engineer|2
+|Engineering|Backend Engineer|1
+|Product|Product Designer|1
+|People|Talent Partner|1
+
+headcountSection = Card(Heading("Current headcount", h3), Tag("Total: 128", default), Table(headcountTable))
+
+headcountTable = |Department|Headcount
+|Engineering|48
+|Product|18
+|Design|12
+|People|10
+|Sales|20
+
+departmentsSection = Card(Heading("Headcount by department", h3), BarChart(headcountByDeptTable, xLabel:"Department", yLabel:"Headcount"))
+
+headcountByDeptTable = |Department|Headcount
+|Engineering|48
+|Product|18
+|Design|12
+|People|10
+|Sales|20
+
+newRoleButtonSection = Card(Buttons(Button("New role", action:[openNewRoleDialog], primary)),)
+
+openNewRoleDialog = DialogBlock("New role", "Create a new role", Card(Heading("New role", h3), newRoleForm), "Use this to add a role to the openings", triggerVariant:default)
+
+newRoleForm = Form("new-role", Buttons(Button("Create", primary)), formControls)
+
+formControls = ListBlock(FormControl("Job title", Input("title", "Senior Data Analyst")), FormControl("Department", Select("department", SelectItem("Engineering","Engineering"), SelectItem("People","People"), SelectItem("Product","Product")), placeholder:"Choose department"), FormControl("Location", Input("location","New York")))
+
+attritionSection = Card(Heading("Attrition (past 6 months)", h3), LineChart(attritionTable, natural, xLabel:"Month", yLabel:"Attritions"))
+
+attritionTable = |Month|Attritions
+|Apr-26|4
+|May-26|5
+|Jun-26|3
+|Jul-26|6
+|Aug-26|5
+|Sep-26|4
+
+interviewsSection = Card(Heading("Interviews scheduled this week", h3), Table(interviewsTable))
+
+interviewsTable = |Day|Interviews
+|Mon|6
+|Tue|4
+|Wed|5
+|Thu|7
+|Fri|3
+
+timeToHireSection = Card(Heading("Average time to hire", h3), TextContent("Average days from opening to offer: 24 days", size:default))
+
+headcountSplitSection = Card(Heading("Headcount split by department", h3), DonutChart?headcountPie, variant:default)
+headcountPie = PieChart(headcountSplitTable, variant:pie)
+
+headcountSplitTable = |Department|Headcount
+|Engineering|48
+|Product|18
+|Design|12
+|People|10
+|Sales|20
+
+Notes:
+- The root contains all sections in reading order.
+- Each section id is defined and used.
+- All items 1-8 are represented.

@@ -1,0 +1,61 @@
+root = Card([
+  CardHeader("Airline Hub Operations Desk"),
+  SectionBlock([
+    SectionItem("on_time_today", "On-time today", [
+      TextContent("On-time performance today: 92.4% all flights on-time; 7.6% delayed. Summary by hour available on hover in live view.", "default")
+    ]),
+    SectionItem("today_flights", "Flights overview", [
+      Heading("Today's Flights", "h2"),
+      Table([
+        Col("Flight", ["AA123", "DL204", "UA410", "SW777"]),
+        Col("Route", ["JFK-LAX", "ORD-ATL", "SFO-SEA", "BOS-MIA"]),
+        Col("Gate", ["G12", "A5", "C3", "D9"]),
+        Col("Status", ["On-time", "Delayed", "Boarding", "Cancelled"])
+      ])
+    ]),
+    SectionItem("delayed_calls_out", "Delayed flights highlight", [
+      Heading("Delayed Flights", "h3"),
+      ListBlock([
+        ListItem("DL204", "ORD-ATL to be re-timed", ["https://picsum.photos/seed/dl204/200/120"]),
+        ListItem("SW777", "BOS-MIA awaiting gate hold", ["https://picsum.photos/seed/sw777/200/120"])
+      ])
+    ]),
+    SectionItem("recent_gate_changes", "Recent gate changes", [
+      TextContent("Recent gate changes: SW777 moved from D7 to D9; DL204 moved from A5 to A6. Real-time feed available.", "default")
+    ]),
+    SectionItem("crews_reassignment", "Crews available for reassignment", [
+      Table([
+        Col("Crew", ["Crew A", "Crew B", "Crew C"]),
+        Col("Base", ["JFK", "LAX", "ORD"]),
+        Col("Available Since", ["09:15", "09:30", "09:45"]),
+        Col("Certs", ["A320, B737", "A321, A320", "B737"])
+      ])
+    ]),
+    SectionItem("weather_advisories", "Weather advisories at hub", [
+      Callout("warning", "Thunderstorm advisory", "Expect localized turbulence and possible gate hold; monitor wind shear alerts and runway availability.")
+    ]),
+    SectionItem("load_today", "Passenger load today", [
+      TextContent("Average passenger load today: 1760 passengers; load factor 88.2% across all active flights.", "default")
+    ]),
+    SectionItem("connections_risk", "Connections at risk", [
+      TextContent("Connections at risk of being missed: 7 connections with less than 60 minutes connection time; prioritize gate-to-gate coordination and rebook options.", "default")
+    ]),
+    SectionItem("rebook_passengers", "Rebook affected passengers", [
+      Button("Open Rebooking Console", null, "primary")
+    ]),
+    SectionItem("different_hub", "View a different hub", [
+      Button("Choose Hub", null, "secondary")
+    ]),
+    SectionItem("cancellations_today", "Cancellations today", [
+      Table([
+        Col("Flight", ["AA256", "DL402"]),
+        Col("Route", ["JFK-LAX", "ORD-MIA"]),
+        Col("Reason", ["Crew illness", "Weather"]),
+        Col("Status", ["Cancelled", "Cancelled"])
+      ])
+    ]),
+    SectionItem("avg_turnaround", "Average turnaround time", [
+      TextContent("Average turnaround time today: 52 minutes per aircraft cycle.", "default")
+    ])
+  ], false)
+])

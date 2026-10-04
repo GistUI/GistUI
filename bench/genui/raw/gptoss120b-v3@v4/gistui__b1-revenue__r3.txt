@@ -1,9 +1,0 @@
-root = Card(header, todaySection, yesterdaySection, comparisonChart, wrap)
-
-header = CardHeader("Mid‑Morning Check‑in", "Shop performance overview")
-
-todaySection = Card(Heading("Revenue Today", h3), TextContent("$12,500", size:large), sunk)
-
-yesterdaySection = Card(Heading("Revenue Same Time Yesterday", h3), TextContent("$10,800", size:large), sunk)
-
-comparisonChart = Card(HorizontalBarChart(labels:["Revenue"], Series("Today", [12500]), Series("Yesterday", [10800]), variant:grouped, xLabel:"Amount ($)", yLabel:"", clear))

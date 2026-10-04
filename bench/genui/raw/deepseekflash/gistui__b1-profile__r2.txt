@@ -1,7 +1,0 @@
-root = Card(header, avatar, bio, messageForm)
-header = CardHeader("Alex Rivera", "Senior Product Designer")
-avatar = Avatar("AR")
-bio = TextContent("Alex is a product designer with 8 years of experience crafting tools for creative teams. They lead the design system initiative and care deeply about accessible, human-centered interfaces.\n\nBefore joining, Alex shipped products at two early-stage startups and taught a night course on prototyping.")
-messageForm = Form("message", formButtons, messageField)
-messageField = FormControl("Message", TextArea("message", "Write a message..."), "We usually reply within a day")
-formButtons = Buttons(Button("Send message", primary), Button("Cancel", tertiary))

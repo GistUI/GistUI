@@ -1,0 +1,141 @@
+root = Card([
+  header = CardHeader("Personal Banking Home", "Your financial snapshot"),
+  dashboard = Card([
+    balancesSection,
+    transactionsSection,
+    spendingSplitSection,
+    billsSection,
+    vacationProgressSection,
+    creditScoreSection,
+    transferSection,
+    creditFreezeSection,
+    statementPeriodSection,
+    alertsSection,
+    disputeSection
+  ], "card"),
+  footerNote
+])
+
+header = CardHeader("Personal Banking Home", "Your financial snapshot")
+
+balancesSection = Card([
+  Heading("Balances", "h3"),
+  BalancesCard(balances)
+], "card")
+
+balances = {
+  "Checking":  ["1234", 2540.75],
+  "Savings":   ["5678", 10235.40],
+  "Credit":    ["9012", -420.25]
+}
+BalanceCol1 = Col("Account", ["Checking", "Savings", "Credit"])
+BalanceCol2 = Col("Balance", ["$2,540.75", "$10,235.40", "$-420.25"])
+balancesCard = Table([BalanceCol1, BalanceCol2])
+
+BalancesCard = Card([TextContent("Total available across accounts shown above."), balancesCard], "card")
+
+transactionsSection = Card([
+  Heading("Recent Transactions", "h3"),
+  TransactionsList(transactions)
+], "card")
+
+transactions = [
+  { "merchant": "Star Coffee", "amount": "-$4.50" },
+  { "merchant": "Whole Foods", "amount": "-$76.20" },
+  { "merchant": "Salary", "amount": "+$3,200.00" },
+  { "merchant": "Amazon", "amount": "-$42.10" }
+]
+TransactionsList = Table([Col("Merchant", [t.merchant for t in transactions]), Col("Amount", [t.amount for t in transactions])])
+
+spendingSplitSection = Card([
+  Heading("This Month Spending by Category", "h3"),
+  SpendingPie([ "Food", "Groceries", "Transport", "Entertainment", "Bills", "Other" ],
+              [ 520, 980, 210, 160, 320, 140 ])
+], "card")
+
+SpendingPie = PieChart(["Food","Groceries","Transport","Entertainment","Bills","Other"], [520,980,210,160,320,140], "donut", "circular")
+
+billsSection = Card([
+  Heading("Bills Due Soon", "h3"),
+  BillsList(bills)
+], "card")
+
+bills = [
+  { "name": "Internet", "due": "2026-10-06", "amount": "$60" },
+  { "name": "Electric", "due": "2026-10-08", "amount": "$120" },
+  { "name": "Credit Card", "due": "2026-10-12", "amount": "$42" }
+]
+BillsList = ListBlock([
+  ListItem(b["name"], b["due"] + " due " + b["amount"]) for b in bills
+], "number")
+
+vacationProgressSection = Card([
+  Heading("Vacation Savings Progress", "h3"),
+  Progress(65, "Goal: 65%")
+], "card")
+
+creditScoreSection = Card([
+  Heading("Credit Score", "h3"),
+  ScoreCard(score=725)
+], "card")
+
+ScoreCard = CardHeader("Score: 725", "Fair to Good")
+
+transferSection = Card([
+  Heading("Move Money Between Accounts", "h3"),
+  TransferPanel
+], "card")
+
+TransferPanel = Card([
+  Input("from_account", value="Checking"),
+  Input("to_account", value="Savings"),
+  Slider("amount", "continuous", 1, 5000, 1, "Amount"),
+  Button("Transfer", ["Transfer Complete"])
+], "column")
+
+freezeSection = Card([
+  Heading("Credit Line Control", "h3"),
+  FreezePanel
+], "card")
+
+FreezePanel = Card([
+  Button("Freeze Credit Line", ["freeze_requested"], "secondary")
+], "column")
+
+statementPeriodSection = Card([
+  Heading("Statement Period", "h3"),
+  StatementPicker
+], "card")
+
+StatementPicker = Card([
+  Select("statement_period", [SelectItem("Last 30 days","30d"), SelectItem("Last 90 days","90d"), SelectItem("This year","12m")], "Choose period")
+], "row")
+
+alertsSection = Card([
+  Heading("Alerts & Triggers", "h3"),
+  AlertsPanel
+], "card")
+
+AlertsPanel = Card([
+  TextContent("Manage when you receive alerts and what events trigger them."),
+  CheckBoxGroup("alerts_triggers", [
+    CheckBoxItem("Low Balance", "Notify when balance below threshold", "low_balance", false),
+    CheckBoxItem("Large Transaction", "Notify on large card transactions", "large_tx", true),
+    CheckBoxItem("Payment Due", "Notify before due date", "due", true)
+  ]),
+  TextContent("Delivery method: push and email.")
+], "column")
+
+disputeSection = Card([
+  Heading("Dispute a Transaction", "h3"),
+  DisputePanel
+], "card")
+
+DisputePanel = Card([
+  TextContent("Select a transaction to dispute and provide details."),
+  Select("dispute_tx", [SelectItem("tx1","Transaction 1"), SelectItem("tx2","Transaction 2")], "Choose transaction"),
+  TextArea("dispute_details", "Describe issue", 4, [], ""),
+  Button("Submit Dispute", ["dispute_submitted"])
+], "column")
+
+footerNote = TextContent("All data is fictional for demonstration purposes.", "small")

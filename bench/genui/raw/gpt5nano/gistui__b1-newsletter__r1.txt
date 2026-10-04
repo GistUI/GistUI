@@ -1,0 +1,7 @@
+root = Card(CardHeader("Weekly Product Newsletter", "Join the list to get a concise weekly briefing"), content)
+content = SectionBlock(SectionItem("intro", "Overview", intro), SectionItem("signup", "Subscribe", signup), SectionItem("thanks", "Next steps", thanks), isFoldable)
+intro = TextContent("Subscribers receive a short weekly digest with a new feature highlight, a quick tips section, and a link to the full release notes.", size:default)
+signup = Form("newsletter-signup", Buttons(Button("Subscribe", primary)), emailField)
+emailField = FormControl("Email address", Input("email", "", emailPlaceholder?), "We’ll never share your email")
+emailPlaceholder? = "user@example.com"
+thanks = TextContent("You’re on the list! Look for the newsletter every week in your inbox.", size:default)

@@ -1,7 +1,0 @@
-root = Card(meetingHeader, attendeesList, joinButtons)
-meetingHeader = CardHeader("Project Sync", "Starts at 10:30 AM")
-attendeesList = ListBlock(att1, att2, att3, variant:number)
-att1 = ListItem("Alice Johnson")
-att2 = ListItem("Bob Smith")
-att3 = ListItem("Cara Lee")
-joinButtons = Buttons(Button("Join call", primary))

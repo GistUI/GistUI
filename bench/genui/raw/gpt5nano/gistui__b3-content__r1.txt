@@ -1,0 +1,43 @@
+root = Card(CardHeader("Editor's Content Studio"), draftPanel, publishedPanel, mostReadPanel, readershipPanel, filterPanel, schedulePanel, commentsPanel, newDraftPanel)
+
+draftPanel = Card(Heading("Drafts"), Table(draftsTable))
+draftsTable = |Draft|Status|Updated
+|Draft A|Drafting|2h ago
+|Draft B|Editing|1h ago
+|Draft C|Scheduled|Just now
+
+publishedPanel = Card(Heading("Pieces Published This Week"), Table(publishedTable))
+publishedTable = |Title|Author|Published
+|How to Edit|A. Smith|Mon
+|Time to Polish|J. Lee|Tue
+|Story Drafts|R. Chen|Wed
+
+mostReadPanel = Card(Heading("Most-Read Article This Month"), CardHeader("Top article"), TextContent("The most-read article this month is the piece on best practices for editors.", size:default))
+
+readershipPanel = Card(Heading(" readership over the past 30 days"), LineChart(readershipTable, linear, xLabel:"Day", yLabel:"Readers"))
+readershipTable = |Day|Readers
+|1|1200
+|2|1350
+|3|980
+|4|1420
+|5|1710
+|6|1560
+
+filterPanel = Card(Heading("Filter by category"), Form("category-filter", formButtons, categorySelect))
+categorySelect = FormControl("Category", Select("category", SelectItem("All", "All"), SelectItem("News", "News"), SelectItem("Features", "Features"), SelectItem("Opinion", "Opinion"), placeholder:"Choose a category"))
+formButtons = Buttons(Button("Apply", primary))
+
+schedulePanel = Card(Heading("Schedule a piece"), Form("schedule-form", formButtons2, titleField, dateField, categoryField, publishField))
+titleField = FormControl("Title", Input("title", "Untitled piece"))
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single, value:"2026-10-15"))
+categoryField = FormControl("Category", Select("schedule_category", SelectItem("News", "News"), SelectItem("Features", "Features"), placeholder:"Choose category"))
+publishField = FormControl("Time", Input("time", "09:00"))
+
+formButtons2 = Buttons(Button("Schedule", primary), Button("Save Draft", tertiary))
+
+commentsPanel = Card(Heading("Comments awaiting reply"), ListBlock(ListItem("Comment on Draft A", "Needs clarification", "Reply now"), ListItem("Draft B comment", "Consider update", "Reply"), ListItem("Draft C comment", "Pending review"))) 
+
+newDraftPanel = Card(Heading("Start a new draft"), Form("new-draft", formButtons3, newDraftTitleField, newDraftCategoryField))
+newDraftTitleField = FormControl("Title", Input("new_title", "Untitled draft"))
+newDraftCategoryField = FormControl("Category", Select("new_category", SelectItem("News", "News"), SelectItem("Features", "Features"), placeholder:"Choose category"))
+formButtons3 = Buttons(Button("Create Draft", primary), Button("Cancel", tertiary))

@@ -1,0 +1,53 @@
+root = Card(CardHeader("Training Platform Analytics"), sectionBlock)
+
+sectionBlock = SectionBlock(OverviewSection, NarrowCohortSection, MessagingSection, DataSection)
+
+OverviewSection = SectionItem("overview", "Overview", Card(Heading("Overview", h3), Tag("Active this week: 1,024", info), Tag("Completion rate: 72%", info), Tag("Avg quiz score: 86%", info), HorizontalBarChart(enrollmentTable, variant:grouped, xLabel:"Course", yLabel:"Enrollments"), sunk))
+
+NarrowCohortSection = SectionItem("cohort", "Narrow to cohort", Form("cohort-filter", formButtons, cohortField))
+
+cohortField = FormControl("Cohort", Select("cohort", SelectItem("All learners", "All"), SelectItem("Cohort A", "Cohort A"), SelectItem("Cohort B", "Cohort B"), placeholder:"Choose cohort"))
+
+formButtons = Buttons(Button("Apply", primary))
+
+DataSection = SectionItem("data", "Key metrics and engagement", Card(ChartStack, RangeSelector), isFoldable)
+
+ChartStack = Card(SectionBlock(ActiveLearnersCard, CompletionRateCard, AvgQuizCard, RankedEnrollmentsCard, DropoutRiskCard, EngagementChart), variant:card)
+
+ActiveLearnersCard = CardHeader("Active learners this week"), Tag("1,024 active", success)
+
+CompletionRateCard = Card(Heading("Course completion rate", h4), TextContent("Completion rate across courses"), Table(enrollmentCompletionTable))
+
+AvgQuizCard = Card(Heading("Average quiz score", h4), Table(quizScoreTable))
+
+RankedEnrollmentsCard = Card(Heading("Courses ranked by enrollment", h4), BarChart(rankedEnrollmentTable, xLabel:"Course", yLabel:"Enrollments"))
+
+DropoutRiskCard = Card(Heading("Learners at risk of dropping out", h4), Table(riskyLearnersTable))
+
+EngagementChart = HorizontalBarChart(engagementTable, variant:grouped, xLabel:"Week", yLabel:"Engagement")
+
+NarrowCohortSection = SectionItem("cohort-controls", "Cohort controls", Form("cohort-controls-form", cohortFormButtons, cohortDateRange, cohortStatus))
+
+cohortFormButtons = Buttons(Button("Filter", primary), Button("Reset", tertiary))
+
+cohortDateRange = FormControl("Date range", Input("date_range", ""))
+
+cohortStatus = FormControl("Status", Select("status", SelectItem("Active", "active"), SelectItem("Graduated", "graduated"), placeholder:"Select status"))
+
+MessagingSection = SectionItem("message", "Message a cohort", DialogBlock("Message cohort", "Send message", Card(Heading("New message", h4), TextContent("Draft your message to the selected cohort."), Buttons(Button("Send", primary), Button("Cancel", tertiary))), description:"Open composer to send to cohort", triggerVariant:default)
+
+MessagesPreview = CardHeader("Cohort messaging", subtitle="Selected cohort: All learners")
+
+cohortTable = Table( |Cohort|Members|Unread|, |All learners|1,200|12|, |Cohort A|320|2| )
+
+enrollmentTable = Table(|Course|Enrollments|, |Intro to AI|320|, |Data Science 101|280|, |Python Prog|240|)
+
+enrollmentCompletionTable = Table(|Course|Completion Rate|, |Intro to AI|78%|, |Data Science 101|65%|, |Python Prog|82%|)
+
+quizScoreTable = Table(|Course|Average Quiz Score|, |Intro to AI|88|, |Data Science 101|84|, |Python Prog|90|)
+
+rankedEnrollmentTable = Table( |Course|Enrollments|, |Intro to AI|320|, |Python Prog|240|, |Data Science 101|280|)
+
+riskyLearnersTable = Table(|Learner|Risk Score|, |Ava Kim|0.82|, |Liam Chen|0.79|, |Noah Patel|0.76|)
+
+engagementTable = Table(|Week|Engagement|, |W1|72|, |W2|75|, |W3|70|, |W4|78|, |W5|81|, |W6|74|, |W7|77|, |W8|79|)

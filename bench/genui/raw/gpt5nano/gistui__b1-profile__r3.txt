@@ -1,0 +1,5 @@
+root = Card(CardHeader("Name of Person", "Role Title"), Separator()) 
+personSection = Card(Heading("Name of Person", h2), TextContent("Bio goes here describing the person and role in the company.")) 
+bioSection = Card(Heading("About", h3), TextContent("A concise bio that highlights expertise, interests, and background.")) 
+contactSection = Card(Heading("Message", h3), Form("contact-message", Buttons(Button("Send", primary)), FormControl("Subject", Input("subject", "Hello from…")), FormControl("Message", TextArea("message", "Hi there, I’d love to connect...", rows:5)))) 
+root = Card(CardHeader("Name of Person", "Role Title"), bioSection, contactSection, personSection)

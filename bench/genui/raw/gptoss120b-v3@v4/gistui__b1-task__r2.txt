@@ -1,6 +1,0 @@
-root = Card(taskHeader, taskInfo, markButton)
-taskHeader = CardHeader("Most Urgent Task", "Deadline: Sep 30, 2026")
-taskInfo = Card(TextContent("Implement UI for personal focus view", large), statusTag, deadlineTag)
-statusTag = Tag("In Progress", variant:warning)
-deadlineTag = Tag("Sep 30, 2026", variant:info)
-markButton = Buttons(Button("Mark Done", primary))

@@ -1,71 +1,48 @@
-root = Card(CardHeader("Weekly Marketing Dashboard", "Last 30 days"), visitorsSection, conversionSection, trafficSection, campaignsSection, bestCampaignCallout, subscriberSection, exportButtons, dateRangeForm, gap:m, direction:column)
+root = Card(CardHeader("Weekly Marketing Dashboard", "Last 30 days"), dateRangeForm, visitorsSection, conversionSection, trafficSection, campaignsSection, bestCampaignCallout, subscriberSection, exportButtons)
 
-visitorsSection = Card(Heading("Site Visitors", h3), visitorsChart)
-
-visitorsChart = LineChart(visitorsData, linear, xLabel:"Date", yLabel:"Visitors")
-
-visitorsData = |Date|Visitors
-|2023-08-01|1240
-|2023-08-02|1385
-|2023-08-03|1520
-|2023-08-04|1490
-|2023-08-05|1605
-|2023-08-06|1702
-|2023-08-07|1650
-|2023-08-08|1803
-|2023-08-09|1750
-|2023-08-10|1902
-|2023-08-11|1850
-|2023-08-12|2001
-|2023-08-13|1955
-|2023-08-14|2100
-|2023-08-15|2050
-|2023-08-16|2205
-|2023-08-17|2150
-|2023-08-18|2300
-|2023-08-19|2250
-|2023-08-20|2400
-|2023-08-21|2350
-|2023-08-22|2505
-|2023-08-23|2450
-|2023-08-24|2600
-|2023-08-25|2550
-|2023-08-26|2700
-|2023-08-27|2650
-|2023-08-28|2800
-|2023-08-29|2750
-|2023-08-30|2900
-
-conversionSection = Card(Heading("Conversion Rate", h3), conversionMetric)
-
-conversionMetric = TextContent("**2.8 %**", size:large)
-
-trafficSection = Card(Heading("Top 5 Traffic Sources", h3), trafficPie)
-
-trafficPie = PieChart(trafficLabels, trafficValues, donut, appearance:circular)
-
-trafficLabels = ["Organic","Paid Search","Social","Referral","Email"]
-trafficValues = [45,25,15,10,5]
-
-campaignsSection = Card(Heading("Running Campaigns", h3), campaignsTable)
-
-campaignsTable = Table(campaignNameCol, campaignSpendCol)
-
-campaignNameCol = Col("Campaign", ["Spring Sale","Summer Promo","Back to School","Holiday Blast","Clearance"], type:string)
-campaignSpendCol = Col("Spend (USD)", [1200,950,780,1500,430], type:number)
-
-bestCampaignCallout = Callout(success, "Best Performing Campaign", "Spring Sale – 12.5 % conversion")
-
-subscriberSection = Card(Heading("Email Subscribers Growth", h3), subscriberMetric)
-
-subscriberMetric = TextContent("**+1,240** new subscribers this month", size:large)
-
-exportButtons = Buttons(Button("Export PDF", primary), Button("Export CSV", secondary))
-
-dateRangeForm = Form("date-range", dateFormButtons, dateRangeField)
-
-dateRangeField = FormControl("Date range", datePicker)
-
-datePicker = DatePicker("range", mode:range)
-
+dateRangeForm = Form("date-range", dateFormButtons, startDateField, endDateField)
+startDateField = FormControl("Start date", Input("start", placeholder:"YYYY-MM-DD", type:date))
+endDateField = FormControl("End date", Input("end", placeholder:"YYYY-MM-DD", type:date))
 dateFormButtons = Buttons(Button("Apply", primary))
+
+visitorsSection = Card(Heading("Site Visitors", h3), LineChart(visitorsTable, linear, xLabel:"Date", yLabel:"Visitors"))
+
+visitorsTable = |Date|Visitors
+|2023-09-01|1240
+|2023-09-08|1385
+|2023-09-15|1520
+|2023-09-22|1675
+|2023-09-29|1800
+
+conversionSection = Card(Heading("Conversion Rate", h3), TextContent("Overall conversion rate for the period: **2.8%**", size:large))
+
+trafficSection = Card(Heading("Top 5 Traffic Sources", h3), PieChart(trafficTable, donut, appearance:circular))
+
+trafficTable = |Source|Share
+|Organic Search|45
+|Direct|25
+|Referral|15
+|Social|10
+|Email|5
+
+campaignsSection = Card(Heading("Running Campaigns Spend", h3), BarChart(campaignsTable, grouped, xLabel:"Campaign", yLabel:"Spend (USD)"))
+
+campaignsTable = |Campaign|Spend
+|Spring Sale|12000
+|Summer Promo|8500
+|Back to School|6300
+|Holiday Blast|15000
+|Clearance|4700
+
+bestCampaignCallout = Callout(success, "Best Performing Campaign", "Holiday Blast achieved the highest ROI with $15,000 spend and 8.2% conversion.")
+
+subscriberSection = Card(Heading("Email Subscriber Growth", h3), LineChart(subscriberTable, linear, xLabel:"Date", yLabel:"New Subscribers"))
+
+subscriberTable = |Date|NewSubscribers
+|2023-09-01|320
+|2023-09-08|410
+|2023-09-15|380
+|2023-09-22|450
+|2023-09-29|500
+
+exportButtons = Buttons(Button("Export Report", primary))

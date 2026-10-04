@@ -1,0 +1,42 @@
+root = Card(CardHeader("Finance View - Month End"), Tabs(TabList), SectionBlock(SectionItem("summary", "Summary", cashCard, burnChart, runwayCard, exportButton)), SectionBlock(SectionItem("expenses", "Expenses by Category", expensesTable), SectionItem("transactions", "Large Transactions", largeTxTable)), SectionBlock(SectionItem("lookup", "Look at Another Month", monthPicker, loadButton)), FollowUpBlock(FollowUpItem("Request updated statement for previous month")))
+
+TabList = Tabs(TabItem("summary", "Summary", cashCard, burnChart, runwayCard), TabItem("details", "Details", expensesSection, transactionsSection, lookupSection))
+
+cashCard = CardHeader("Key Figures")
+summaryPanel = Card(TextContent("Cash on hand: $X", size:"default"), TextContent("Monthly burn: $Y", size:"default"), TextContent("Runway: Z months", size:"default"))
+
+burnChart = RadialChart(|Month|Value
+|Current|120000
+|ThisMonth|40000)
+
+runwayCard = Card(TextContent("Projected runway based on current burn.", size:"default"), Table(|Month|Runway
+|Current Month|18
+|Next Month|17))
+
+expensesSection = Card(Heading("Expenses by Category", h3), Table(expensesTable))
+
+expensesTable = Table(|Category|Amount
+|Salaries|42000
+|R&D|15000
+|Marketing|12000
+|Ops|8000
+|Misc|5000)
+
+largeTxTable = Table(|Date|Description|Amount
+|2026-09-28|Vendor A|10050
+|2026-09-29|Vendor B|12500
+|2026-09-30|Vendor C|15000)
+
+transactionsSection = Card(Heading("Transactions over 10,000 this month", h4), largeTxTable)
+
+lookupSection = Card(Heading("Look at a different month", h4), Form("month-lookup", formButtons, monthInput), Buttons(Button("Load Month", primary)))
+
+monthInput = FormControl("Month", Input("month", "2026-09", value:"2026-09"))
+
+formButtons = Buttons(Button("Load Month", primary), Button("Download CSV", secondary))
+
+downloadButton = Buttons(Button("Download CSV", primary))
+
+monthPicker = Input("month", placeholder:"YYYY-MM", value:"2026-09")
+
+exportButton = Button("Download Statement", primary)

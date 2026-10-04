@@ -1,32 +1,37 @@
-root = Card(cardHeader, descriptionSection, qualificationsSection, salarySection, applySection, shareButtons)
+root = Card(header, desc, quals, salary, applyForm, shareButtons)
 
-cardHeader = CardHeader("Senior UI/UX Designer", "Design Team")
+header = CardHeader("Senior UI/UX Designer", "Design Team")
 
-descriptionSection = Card(MarkDownRenderer("**Role Overview**\nWe are looking for a creative UI/UX Designer to lead the design of our SaaS products, collaborating closely with product and engineering.", variant:clear))
+desc = TextContent("We are looking for a creative UI/UX Designer to craft intuitive, beautiful experiences for our web and mobile products. Join a collaborative team that values innovation and user‑centered design.", size:default)
 
-qualificationsSection = Card(Heading("Key Qualifications", h3), qualificationsList)
+quals = ListBlock(
+  ListItem("5+ years of UI/UX design experience"),
+  ListItem("Proficiency with Figma, Sketch, or Adobe XD"),
+  ListItem("Strong portfolio demonstrating end‑to‑end design processes"),
+  ListItem("Experience conducting user research and usability testing"),
+  ListItem("Excellent communication and teamwork skills")
+, variant:number)
 
-qualificationsList = ListBlock(qualItem1, qualItem2, qualItem3, qualItem4, variant:number)
+salary = Callout(variant:info, "Salary Range", "$80,000 – $110,000")
 
-qualItem1 = ListItem("5+ years of UI/UX design experience")
-qualItem2 = ListItem("Strong portfolio showcasing user-centered design")
-qualItem3 = ListItem("Proficiency with Figma, Sketch, or Adobe XD")
-qualItem4 = ListItem("Excellent communication and teamwork skills")
+applyForm = Form("job-apply", formButtons,
+  nameCtrl,
+  emailCtrl,
+  resumeCtrl
+)
 
-salarySection = Card(Heading("Salary Range", h3), salaryTable)
+nameCtrl = FormControl("Full name", Input("name", placeholder:"Jane Doe"))
 
-salaryTable = |Component|Amount
-|Base Salary|$90,000 – $120,000
-|Bonus|Up to 15% of base
+emailCtrl = FormControl("Email address", Input("email", placeholder:"jane@example.com", type:email))
 
-applySection = Card(Heading("Apply Now", h3), applyForm)
+resumeCtrl = FormControl("Resume URL", Input("resume", placeholder:"https://", type:url))
 
-applyForm = Form("apply", formButtons, nameField, emailField, resumeField)
+formButtons = Buttons(
+  Button("Submit Application", primary),
+  Button("Cancel", secondary)
+)
 
-nameField = FormControl("Full name", Input("name", "Your name"))
-emailField = FormControl("Email address", Input("email", "you@example.com", type:email))
-resumeField = FormControl("Resume link", Input("resume", "Link to your PDF", type:url))
-
-formButtons = Buttons(Button("Submit Application", primary), Button("Cancel", tertiary))
-
-shareButtons = Buttons(Button("Share on LinkedIn", secondary), Button("Copy Link", secondary))
+shareButtons = Buttons(
+  Button("Share on LinkedIn", primary),
+  Button("Copy link", secondary)
+)

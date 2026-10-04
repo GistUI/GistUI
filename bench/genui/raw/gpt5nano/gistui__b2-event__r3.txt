@@ -1,0 +1,22 @@
+root = Card(CardHeader("Global Dev Conference 2026", "Oct 18-20, 2026 • Berlin, Germany"), daysRemaining, agendaSection, speakersSection, ticketsSection, registerSection)
+daysRemaining = Card(Heading("Days until event", h2), TextContent("128 days remaining until the conference.", size:default))
+agendaSection = Card(Heading("Agenda", h3), Table(agendaTable))
+agendaTable = |Time|Session|
+|09:00|Registration & Coffee|
+|10:00|Keynote: The Future of Dev|
+|11:30|Panel: Growth Hacking for Startups|
+|13:00|Lunch Break|
+|14:00|Workshops Round 1|
+|16:00|Workshops Round 2|
+|18:00|Evening Networking|
+speakersSection = Card(Heading("Speakers", h3), ListBlock(|Speaker|Title|Company|, |Ada Lovelace|AI Pioneers|TechLabs|, |Grace Hopper|CS Legend|CodeForge|))
+speakersBlock = ListBlock(ListItem("Ada Lovelace — AI Pioneers, TechLabs"), ListItem("Grace Hopper — CS Legend, CodeForge"))
+speakersSection = Card(Heading("Speakers", h3), speakersBlock)
+ticketsSection = Card(Heading("Tickets", h3), Table(ticketsTable))
+ticketsTable = |Tier|Price|Perks|
+|Early Bird|$299|Access to all talks, networking, swag|
+|Standard|$399|All talks, expo, swag|
+|VIP|$599|All talks, expo, VIP lounge, mentor session|
+registerSection = Card(Heading("Register", h3), Form("registration", Buttons(Button("Submit", primary)), nameField, emailField))
+nameField = FormControl("Full name", Input("name", "Alex Doe"))
+emailField = FormControl("Email", Input("email", "alex@example.com"))

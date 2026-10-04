@@ -1,0 +1,96 @@
+root = Card([
+  header,
+  todaySection,
+  statsSection,
+  noShowSection,
+  roomsSection,
+  nextCalledSection,
+  checkInSection,
+  navigationSection
+])
+header = CardHeader("Clinic Day View", "Receptionist dashboard for today")
+
+todaySection = Card([
+  Heading("Today's Appointments", "h2"),
+  appointmentsList
+], "card")
+
+appointmentsList = ListBlock(appointments, "default")
+appointments = [
+  ListItem("9:00 AM - John Doe", "Check-in complete", ["https://picsum.photos/seed/JohnDoe/48/48"]),
+  ListItem("9:30 AM - Jane Smith", "Checked in", ["https://picsum.photos/seed/JaneSmith/48/48"]),
+  ListItem("10:15 AM - Marcus Lee", "Waiting", ["https://picsum.photos/seed/MarcusLee/48/48"]),
+  ListItem("11:00 AM - Priya Patel", "Waiting", ["https://picsum.photos/seed/PriyaPatel/48/48"]),
+  ListItem("11:45 AM - Ahmed Khan", "No-show", ["https://picsum.photos/seed/AhmedKhan/48/48"])
+]
+
+todayHint = TextContent("Appointments for today are shown with status. Use the controls below to update check-ins and navigate.", "default")
+
+statsSection = Card([
+  Heading("Today's Summary", "h2"),
+  kpisRow
+], "card")
+
+kpisRow = Card([
+  TagBlock(["Total today: 5", "Expected today: 5"])
+], "card")
+
+noShowSection = Card([
+  Heading("This Month No-Show Rate", "h2"),
+  noShowCard
+], "card")
+
+noShowCard = Card([
+  TextContent("No-show rate this month: 12% (calculated from scheduled vs. attended no-shows).", "default")
+])
+
+roomsSection = Card([
+  Heading("Rooms Status - Free Now", "h2"),
+  roomsGrid
+], "card")
+
+roomsGrid = Card([
+  ImageBlock("https://picsum.photos/seed/RoomA/200/120", "Room A"),
+  ImageBlock("https://picsum.photos/seed/RoomB/200/120", "Room B"),
+  ImageBlock("https://picsum.photos/seed/RoomC/200/120", "Room C")
+])
+
+nextCalledSection = Card([
+  Heading("Next Patient Called", "h2"),
+  nextCalledCard
+], "card")
+
+nextCalledCard = Card([
+  TextContent("Next up: 9:00 AM - John Doe (Checked in)", "default")
+])
+
+checkInSection = Card([
+  Heading("Check-In Patient", "h2"),
+  checkInForm
+], "card")
+
+checkInForm = Form("checkin", buttonsRow, [checkInName, checkInID, checkInNotes])
+checkInName = FormControl("Patient Name", Input("patient_name", "Enter name"), "Name to be checked in")
+checkInID = FormControl("Patient ID", Input("patient_id", "PID-"), "Patient identifier")
+checkInNotes = FormControl("Notes", TextArea("notes", "Add a note"), "Optional notes")
+
+buttonsRow = Buttons([
+  Button("Check-In", null, "primary"),
+  Button("Cancel", null, "secondary")
+])
+
+navigationSection = Card([
+  Heading("Navigate / Schedule", "h2"),
+  navigationRow
+], "card")
+
+navigationRow = Card([
+  SubHeading("Move to another day"),
+  dayPicker
+])
+
+SubHeading(text: string) = Heading(text, "h3")
+dayPicker = Image("Day picker placeholder", "https://picsum.photos/seed/Calendar/400/120")
+
+# End of UI
+# Note: Refs are defined above and used in the root; all items are reachable from root.

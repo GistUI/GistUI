@@ -1,0 +1,150 @@
+root = Card([
+    header,
+    dashboardRow
+])
+
+header = CardHeader("CEO Quarterly Command View", "Executive dashboard for quarterly performance and planning")
+
+dashboardRow = Card([sectionLeft, sectionRight], "card")
+
+sectionLeft = Card([kpiPanel, chartsPanel, budgetsPanel, orgPanel], "card")
+
+sectionRight = Card([risksPanel, initiativesPanel, runwayPanel, pipelinePanel, boardPrepPanel], "card")
+
+kpiPanel = Card([
+    Heading("Key KPIs", "h3"),
+    kpisRow
+], "card")
+
+kpisRow = Card([
+    revenueCard,
+    costsCard,
+    profitCard
+], "card")
+
+revenueCard = Card([
+    TextContent("Revenue", "default"),
+    TagBlock(["Quarterly Revenue"])
+], "card")
+
+costsCard = Card([
+    TextContent("Costs", "default"),
+    TagBlock(["Total Costs"])
+], "card")
+
+profitCard = Card([
+    TextContent("Profit", "default"),
+    TagBlock(["Net Profit"])
+], "card")
+
+chartsPanel = Card([
+    Heading("Revenue & Costs by Quarter", "h4"),
+    twoLineChart
+], "card")
+
+twoLineChart = Card([
+    LineChart(["Q1","Q2","Q3","Q4"], [revLine, costLine], "linear", "Quarter", "USD")
+], "card")
+
+revLine = Series("Revenue", [120000, 135000, 128000, 142000])
+costLine = Series("Costs", [70000, 72000, 69000, 80000])
+
+budgetsPanel = Card([
+    Heading("Budget by Department vs Plan", "h4"),
+    budgetsTable
+], "card")
+
+budgetsTable = Table([
+    Col("Department", ["Sales","R&D","Operations","Marketing","HR"], "string"),
+    Col("Plan", ["$320k","$420k","$180k","$260k","$90k"], "string"),
+    Col("Actual", ["$310k","$390k","$170k","$250k","$95k"], "string"),
+    Col("Variance", ["-$10k","-$30k","-$10k","-$10k","+$5k"], "string")
+])
+
+orgPanel = Card([
+    Heading("Headcount by Department", "h4"),
+    headcountTable
+], "card")
+
+headcountTable = Table([
+    Col("Department", ["Sales","Engineering","Ops","Marketing","People"], "string"),
+    Col("Headcount", [24, 58, 22, 16, 8], "number"),
+    Col("Change QoQ", [2, -1, 0, 1, 0], "number")
+])
+
+risksPanel = Card([
+    Heading("Top Risks & Owners", "h4"),
+    risksList
+], "card")
+
+risksList = ListBlock([
+    ListItem("Cyber risk in release cycle", "Owner: A. Chen", ["https://picsum.photos/seed/risks1/40/40"]),
+    ListItem("Supply chain disruption", "Owner: M. Singh", ["https://picsum.photos/seed/risks2/40/40"]),
+    ListItem("Market acceptance risk", "Owner: J. Kim", ["https://picsum.photos/seed/risks3/40/40"])
+], "image")
+
+initiativesPanel = Card([
+    Heading("Strategic Initiatives & Status", "h4"),
+    initiativesList
+], "card")
+
+initiativesList = ListBlock([
+    ListItem("Platform migration to cloud", "Status: On Track", ["https://picsum.photos/seed/ini1/40/40"]),
+    ListItem("New product launch v2", "Status: At Risk", ["https://picsum.photos/seed/ini2/40/40"]),
+    ListItem("Cost optimization program", "Status: Completed", ["https://picsum.photos/seed/ini3/40/40"])
+], "image")
+
+runwayPanel = Card([
+    Heading("Months of Runway", "h4"),
+    runwayGauge
+], "card")
+
+runwayGauge = TextContent("Runway: 14 months remaining", "default")
+
+pipelinePanel = Card([
+    Heading("Sales Pipeline Value", "h4"),
+    pipelineChart
+], "card")
+
+pipelineChart = LineChart(["Jan","Feb","Mar","Apr","May","Jun"], [pipelineSeries], "linear", "Month", "USD")
+
+pipelineSeries = Series("Pipeline", [540000, 560000, 590000, 610000, 630000, 650000])
+
+boardPrepPanel = Card([
+    Heading("Board Meeting Prep Items", "h4"),
+    boardList
+], "card")
+
+boardList = ListBlock([
+    ListItem("Q4 performance summary", "Owner: CEO", []),
+    ListItem("Strategic risks & mitigations", "Owner: CRO", []),
+    ListItem("Budget & headcount plan for next quarter", "Owner: CFO", [])
+], "image")
+
+sectionRightHeader = CardHeader("Quarter Controls", null)
+
+changeQuarter = DialogBlock("Change Quarter", "Select Quarter", null, null, null)
+
+quarterPicker = Select("quarter", [
+    SelectItem("Q1 2026","Q1 2026"),
+    SelectItem("Q2 2026","Q2 2026"),
+    SelectItem("Q3 2026","Q3 2026"),
+    SelectItem("Q4 2026","Q4 2026")
+], "Choose quarter")
+
+regionFilter = Select("region", [
+    SelectItem("All Regions","All Regions"),
+    SelectItem("Americas","Americas"),
+    SelectItem("EMEA","EMEA"),
+    SelectItem("APAC","APAC")
+], "Filter by region")
+
+exportPackBtn = Button("Export Pack", null, "secondary")
+
+controlsRow = Card([
+    Button("Change Quarter", null, "secondary"),
+    Button("Focus Region", null, "secondary"),
+    exportPackBtn
+], "card")
+
+root = Card([header, dashboardRow, controlsRow])

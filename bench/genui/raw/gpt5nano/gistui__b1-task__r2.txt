@@ -1,0 +1,5 @@
+root = Card(CardHeader("Personal Focus", "Single task view"), taskSection, Buttons(Button("Mark Done", action:["mark_done"]), Button("Back", primary)))
+taskSection = Card(Heading("Most urgent task", h3), taskDetails, statusRow, actionsRow)
+taskDetails = TextContent("### Task\n- Buy groceries\n- Deadline: 2026-10-10", "default")
+statusRow = Card(Tag("Urgent", danger), Tag("Deadline: 2026-10-10", default))
+actionsRow = Card(Button("Mark as Done", action:["mark_done"]))

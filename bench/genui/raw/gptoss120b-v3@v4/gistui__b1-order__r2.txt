@@ -1,4 +1,0 @@
-root = Card(CardHeader("Track Your Package"), locationSection, dateSection, reportDialog)
-locationSection = Card(Heading("Current location", h3), TextContent("Your package is at the local hub in Springfield.", size:default))
-dateSection = Card(Heading("Estimated delivery", h3), TextContent("Expected delivery: September 5, 2026", size:default))
-reportDialog = DialogBlock("Report issue", "Report a problem", Callout(variant:warning, "Delivery Issue", "Please describe the problem."), description:"Tell us what went wrong.", triggerVariant:secondary)

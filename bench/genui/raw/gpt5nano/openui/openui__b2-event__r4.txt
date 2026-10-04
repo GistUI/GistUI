@@ -1,0 +1,71 @@
+root = Card([
+  header = CardHeader("Global Tech Conference 2026", "November 12–14, 2026 • Grand Aurora, Tokyo"),
+  daysRemaining = TextContent("Days until event: 42", "default"),
+  agendaSection = Card([
+    Heading("Agenda", "h2"),
+    schedule = Table([
+      Col("Time", ["09:00", "10:30", "12:00", "14:00", "16:00"]),
+      Col("Session", ["Registration & Coffee", "Keynote: The Next Era", "Lunch & Networking", "Breakout Tracks", "Closing Remarks"])
+    ]),
+  ]),
+  speakersSection = Card([
+    Heading("Speakers", "h2"),
+    speakerList = ListBlock([
+      ListItem("Dr. Aiko Tanaka", "AI & ethics in the next decade"),
+      ListItem("Mr. Lucas Chen", "Building resilient cloud architectures"),
+      ListItem("Prof. Maria Rossi", "Sustainable tech innovation"),
+    ])
+  ]),
+  ticketsSection = Card([
+    Heading("Ticket Tiers", "h2"),
+    ticketsTable = Table([
+      Col("Tier", ["Standard", "Workshop+", "VIP"]),
+      Col("Price", ["€399", "€699", "€1299"])
+    ])
+  ]),
+  registrationSection = Card([
+    Heading("Register", "h2"),
+    regForm = Form("registration", Buttons([registerBtn, resetBtn]), [
+      FormControl("Full name", nameInput),
+      FormControl("Email", emailInput)
+    ])
+  ]),
+  footerNote = TextContent("Register now to secure your place. Early-bird pricing ends soon.", "default")
+])
+
+header = CardHeader("Global Tech Conference 2026", "November 12–14, 2026 • Grand Aurora, Tokyo")
+daysRemaining = TextContent("Days until event: 42", "default")
+agendaSection = Card([
+  Heading("Agenda", "h2"),
+  schedule = Table([
+    Col("Time", ["09:00", "10:30", "12:00", "14:00", "16:00"]),
+    Col("Session", ["Registration & Coffee", "Keynote: The Next Era", "Lunch & Networking", "Breakout Tracks", "Closing Remarks"])
+  ])
+])
+speakersSection = Card([
+  Heading("Speakers", "h2"),
+  speakerList = ListBlock([
+    ListItem("Dr. Aiko Tanaka", "AI & ethics in the next decade"),
+    ListItem("Mr. Lucas Chen", "Building resilient cloud architectures"),
+    ListItem("Prof. Maria Rossi", "Sustainable tech innovation")
+  ])
+])
+ticketsSection = Card([
+  Heading("Ticket Tiers", "h2"),
+  ticketsTable = Table([
+    Col("Tier", ["Standard", "Workshop+", "VIP"]),
+    Col("Price", ["€399", "€699", "€1299"])
+  ])
+])
+registrationSection = Card([
+  Heading("Register", "h2"),
+  regForm = Form("registration", Buttons([registerBtn, resetBtn]), [
+    FormControl("Full name", nameInput),
+    FormControl("Email", emailInput)
+  ])
+])
+footerNote = TextContent("Register now to secure your place. Early-bird pricing ends soon.", "default")
+nameInput = Input("name", "Alex Johnson")
+emailInput = Input("email", "alex@example.com", "email")
+registerBtn = Button("Register", null, "primary")
+resetBtn = Button("Reset", null, "secondary")

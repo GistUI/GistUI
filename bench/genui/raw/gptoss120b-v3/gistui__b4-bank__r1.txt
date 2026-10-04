@@ -1,65 +1,60 @@
-root = Card(balanceSection, transactionsSection, spendingSection, billsSection, vacationSection, creditScoreSection, transferSection, freezeSection, statementSection, alertsSection, disputeSection)
+root = Card(CardHeader("My Banking"), balancesSection, transactionsSection, spendingSection, billsSection, goalSection, creditScoreSection, actionsSection, alertSettingsSection, disputeSection)
 
-balanceSection = Card(Heading("Account balances", h3), balancesTable)
-transactionsSection = Card(Heading("Recent transactions", h3), transactionsTable, disputeButton)
-spendingSection = Card(Heading("Spending by category", h3), spendingPie)
-billsSection = Card(Heading("Bills due soon", h3), billsTable)
-vacationSection = Card(Heading("Vacation savings goal", h3), vacationProgress)
-creditScoreSection = Card(Heading("Credit score", h3), creditScoreTag)
-transferSection = Card(Heading("Transfer money", h3), transferForm)
-freezeSection = Card(Heading("Credit line", h3), freezeButton)
-statementSection = Card(Heading("Statement period", h3), statementSelect)
-alertsSection = Card(Heading("Alert settings", h3), alertsSwitchGroup)
-disputeSection = Card(Heading("Dispute transaction", h3), disputeDialog)
+balancesSection = Card(Heading("Account Balances", h3), Table(balances))
 
-spendingPie = PieChart(labels:["Food","Transport","Shopping","Bills"], values:[500,200,300,150], donut)
-
-vacationProgress = Progress(value:3500, label:"$3,500 of $5,000")
-
-creditScoreTag = Tag("720", variant:info)
-
-freezeButton = Button("Freeze credit line", primary)
-
-statementSelect = Select("statement_period", SelectItem("30d","Last 30 days"), SelectItem("90d","Last 90 days"), placeholder:"Select period")
-
-alertsSwitchGroup = SwitchGroup("alerts", lowBalanceSwitch, largeTxnSwitch, variant:clear)
-
-lowBalanceSwitch = SwitchItem("low_balance","Low balance","Alert when < $100", defaultChecked)
-largeTxnSwitch = SwitchItem("large_txn","Large transaction","Alert on > $500", defaultChecked)
-
-transferForm = Form("transfer", transferButtons, amountField, fromField, toField)
-
-amountField = FormControl("Amount", Input("amount", "$0.00", type:number))
-fromField = FormControl("From account", fromSelect)
-toField = FormControl("To account", toSelect)
-
-fromSelect = Select("from_acc", SelectItem("checking","Checking"), SelectItem("savings","Savings"), placeholder:"Select account")
-toSelect = Select("to_acc", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit Card"), placeholder:"Select account")
-
-transferButtons = Buttons(Button("Transfer", primary))
-
-disputeButton = Button("Dispute transaction", primary)
-
-disputeDialog = DialogBlock("Dispute", "Dispute transaction", disputeForm, description:"Select a transaction to dispute", triggerVariant:default)
-
-disputeForm = Form("dispute", disputeButtons, disputeSelect, disputeReason)
-
-disputeSelect = FormControl("Transaction", Select("txn_id", SelectItem("txn1","Starbucks $5.00"), SelectItem("txn2","Amazon $120.00"), placeholder:"Select transaction"))
-disputeReason = FormControl("Reason", TextArea("reason", "Enter reason", rows:4))
-
-disputeButtons = Buttons(Button("Submit dispute", primary), Button("Cancel", tertiary))
-
-balancesTable = |Account|Balance
+balances = |Account|Balance
 |Checking|$2,350.00
-|Savings|$5,120.00
+|Savings|$8,120.00
 |Credit|$1,200.00
 
-transactionsTable = |Date|Merchant|Amount
-|2023-09-20|Starbucks|$5.20
-|2023-09-19|Amazon|$120.00
-|2023-09-18|Rent|$1,200.00
+transactionsSection = Card(Heading("Recent Transactions", h3), Table(transactions), Button("Dispute Transaction", primary))
 
-billsTable = |Bill|Due|Amount
-|Electricity|2023-10-05|$80.00
-|Internet|2023-10-07|$60.00
-|Gym|2023-10-10|$45.00
+transactions = |Date|Merchant|Amount
+|2023-09-20|Coffee Shop|-$4.50
+|2023-09-19|Grocery Store|-$76.20
+|2023-09-18|Salary|+$2,500.00
+
+spendingSection = Card(Heading("Spending This Month", h3), PieChart(spendingPie, donut, circular))
+
+spendingPie = |Category|Amount
+|Food|300
+|Transport|120
+|Entertainment|80
+
+billsSection = Card(Heading("Bills Due Soon", h3), Table(bills))
+
+bills = |Bill|Due Date|Amount
+|Electricity|2023-09-25|$90
+|Internet|2023-09-27|$60
+
+goalSection = Card(Heading("Vacation Savings Goal", h3), Progress(70, "70% to goal"))
+
+creditScoreSection = Card(Heading("Credit Score", h3), TextContent("Credit Score: 750", size:large))
+
+actionsSection = Card(Heading("Move Money", h3), transferForm, Button("Freeze Credit Line", destructive))
+
+transferForm = Form("transfer", transferButtons, fromField, toField, amountField)
+
+fromField = FormControl("From account", Select("from_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), placeholder:"Select account", value:"checking"))
+
+toField = FormControl("To account", Select("to_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), SelectItem("credit", "Credit Card"), placeholder:"Select account", value:"savings"))
+
+amountField = FormControl("Amount", Input("amount", "$0.00", type:number))
+
+transferButtons = Buttons(Button("Transfer", primary), Button("Cancel", tertiary))
+
+alertSettingsSection = Card(Heading("Alert Settings", h3), alertsForm)
+
+alertsForm = Form("alerts", alertsButtons, alertsCheckbox)
+
+alertsCheckbox = FormControl("Alert triggers", CheckBoxGroup("alerts", CheckBoxItem("Low balance", "When balance < $100", "low_balance", defaultChecked), CheckBoxItem("Large purchase", "When > $500", "large_purchase", defaultChecked), value:["low_balance","large_purchase"]))
+
+alertsButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))
+
+disputeSection = Card(Heading("Dispute a Transaction", h3), Form("dispute", disputeButtons, disputeSelect, disputeReason))
+
+disputeSelect = FormControl("Transaction", Select("txn", SelectItem("txn1", "Coffee Shop - $4.50"), SelectItem("txn2", "Grocery Store - $76.20"), placeholder:"Select transaction"))
+
+disputeReason = FormControl("Reason", TextArea("reason", "Enter reason", rows:4))
+
+disputeButtons = Buttons(Button("Submit Dispute", primary), Button("Cancel", tertiary))

@@ -1,0 +1,46 @@
+root = Card([
+  header = CardHeader("Analytics Dashboard", "Training Platform - Cohort Insights"),
+  topRow = Card([
+    metric1Card = Card([Heading("Active learners this week", "h4"), TextContent("128 active learners this week", "default")]),
+    metric2Card = Card([Heading("Course completion rate", "h4"), TextContent("74%", "default")]),
+    metric3Card = Card([Heading("Average quiz score", "h4"), TextContent("86%", "default")]),
+  ], "card"),
+  cohortRow = Card([
+
+    cohortLabel = Heading("Cohort filter", "h4"),
+    cohortDesc = TextContent("Narrow analytics to a single cohort for deeper insights.", "default"),
+    cohortControls = Buttons([
+      Button("Select cohort", null, "secondary")
+    ])
+  ], "card"),
+  rankingBlock = Card([
+    Heading("Courses ranked by enrollment", "h4"),
+    rankingTable = Table([
+      Col("Course", ["Intro to AI", "Data Science 101", "Python for Web"], "string"),
+      Col("Enrollments", [320, 275, 210], "number")
+    ]),
+  ], "card"),
+  atRiskBlock = Card([
+    Heading("Learners at risk of dropping out", "h4"),
+    ListBlock([
+      ListItem("Alex Kim", "4 assignments overdue", ["https://picsum.photos/seed/alex/40/40"]),
+      ListItem("Priya Patel", "Inactive for 14 days", ["https://picsum.photos/seed/priya/40/40"]),
+      ListItem("Miguel Santos", "Low quiz participation", ["https://picsum.photos/seed/miguel/40/40"])
+    ], "image")
+  ]),
+  engagementLast8Weeks = Card([
+    Heading("Engagement across the past eight weeks", "h4"),
+    LineChart(["W1","W2","W3","W4","W5","W6","W7","W8"], [Series("Engagement", [65,68,70,72,71,74,75,78])], "natural", "Week", "Engagement %")
+  ], "card"),
+  messageCohortBlock = Card([
+    Heading("Message a cohort", "h4"),
+    TextContent("Send a targeted message to the selected cohort.", "default"),
+    DialogBlock("Message Cohort", "Compose message to cohort", "Draft a message to all learners in the chosen cohort.", [
+      Form("message-form", Buttons([Button("Send", null, "primary")]), [
+        FormControl("Subject", Input("subject", "Update on course schedule")),
+        FormControl("Body", TextArea("body", "Hi cohort, ..."),
+          )
+      ])
+    ])
+  ], "card")
+], "card")

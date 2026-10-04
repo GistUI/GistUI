@@ -1,17 +1,34 @@
-root = Card(menuHeader, specialCallout, vegSwitch, drinksCard, foodCard, hoursCard)
-menuHeader = CardHeader("Cafe Menu")
-specialCallout = Callout(variant:info, "Today's Special", "Grilled Veggie Panini - $7.99")
-vegSwitch = SwitchGroup("veg_filter", SwitchItem("veg", "Vegetarian only", defaultChecked), variant:clear)
-drinksCard = Card(Heading("Drinks", h3), Table(drinksRows))
-foodCard = Card(Heading("Food", h3), Table(foodRows))
-hoursCard = Card(Heading("Opening Hours", h3), TextContent("Mon-Fri: 7am - 6pm\nSat: 8am - 4pm\nSun: Closed"))
-drinksRows = |Drink|Price
+root = Card(CardHeader("Cafe Menu"), todaySpecial, filterButtons, drinksSection, foodSection, hoursSection)
+
+todaySpecial = Callout(variant:info, "Today's Special", "Caramel Macchiato – Freshly brewed espresso with caramel drizzle")
+
+filterButtons = Buttons(Button("Vegetarian only", primary))
+
+drinksSection = Card(Heading("Drinks", h3), Table(drinksTable))
+
+foodSection = Card(Heading("Food", h3), Table(foodTable))
+
+hoursSection = Card(Heading("Opening Hours", h3), Table(hoursTable))
+
+drinksTable = |Item|Price
 |Espresso|$2.50
+|Americano|$3.00
 |Cappuccino|$3.50
-|Latte|$3.75
+|Latte|$4.00
 |Tea|$2.00
-foodRows = |Food|Price
-|Croissant|$2.80
-|Bagel|$2.50
-|Veggie Panini|$7.99
-|Soup of the Day|$4.50
+
+foodTable = |Item|Price
+|Croissant|$2.75
+|Bagel|$3.00
+|Veggie Sandwich|$5.50
+|Chicken Panini|$6.25
+|Salad Bowl|$5.00
+
+hoursTable = |Day|Open
+|Monday|8:00 AM – 6:00 PM
+|Tuesday|8:00 AM – 6:00 PM
+|Wednesday|8:00 AM – 6:00 PM
+|Thursday|8:00 AM – 6:00 PM
+|Friday|8:00 AM – 8:00 PM
+|Saturday|9:00 AM – 8:00 PM
+|Sunday|Closed

@@ -1,0 +1,5 @@
+root = Card([header, revenueTable])
+header = CardHeader("Mid-morning Check", "Revenue Overview")
+revenueTable = Table([colMetric, colValue])
+colMetric = Col("Metric", ["Today", "Yesterday"])
+colValue = Col("Revenue", ["$5,200", "$4,800"])

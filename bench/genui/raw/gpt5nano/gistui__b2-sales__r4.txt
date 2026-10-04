@@ -1,0 +1,30 @@
+root = Card(CardHeader("Founder’s Monthly Sales Check"), revenueThisMonth, sixMonthTrend, bestSellers, conversionSection, downloadBlock)
+
+revenueThisMonth = Card(Heading("Revenue This Month", h3), Tag("Live"), TextContent("This month: $78,420", size:default))
+
+sixMonthTrend = Card(Heading("Revenue Momentum (Last 6 Months)", h3), LineChart(sixMonthTable, natural, xLabel:"Month", yLabel:"USD"))
+
+sixMonthTable = |Month|Revenue
+|Apr|64520
+|May|70200
+|Jun|68900
+|Jul|74500
+|Aug|79200
+|Sep|78400
+
+bestSellers = Card(Heading("Top-Selling Products (Units)", h3), Table(topProductsTable))
+
+topProductsTable = |Product|Units
+|Widget A|9,340
+|Gadget B|7,810
+|Device C|6,275
+
+conversionSection = Card(Heading("Conversion Rate", h3), TextContent("Conversion: 3.2%", size:default))
+
+downloadBlock = Card(Buttons(Button("Download CSV", action:["download_csv"])), Separator(orientation:horizontal))
+
+Notes:
+- Each section is a separate Card under root to keep layout clean.
+- The six-month data sits in a pipe table consumed by LineChart.
+- The top products are shown in a two-column table for readability; LineChart and Table references follow the required pipe-table input format.
+- The download action is wired via a Button inside a Buttons group.

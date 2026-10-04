@@ -1,0 +1,116 @@
+root = Card([
+  header,
+  periodBar,
+  grid1,
+  grid2,
+  grid3,
+  grid4,
+  grid5,
+  grid6,
+  grid7,
+  grid8,
+  grid9,
+  grid10,
+  actionsRow
+])
+
+header = CardHeader("Admin Overview", "SaaS metrics at a glance")
+
+periodBar = Card([
+  Heading("Reporting period", "h3"),
+  PeriodSelector("period", ["Last 7 days", "Last 30 days", "Last 90 days", "Year to date"])
+], "card")
+
+PeriodSelector(name: string, options: (string)[]) = TextContent("Period selector placeholder")
+
+grid1 = Card([
+  SectionBlock([
+    SectionItem("mrr", "MRR", [TextContent("Monthly Recurring Revenue"), TextContent("$128,000")]),
+    SectionItem("arr", "ARR", [TextContent("Annual Recurring Revenue"), TextContent("$1,540,000")]),
+  ])
+], "card")
+
+grid2 = Card([
+  SectionBlock([
+    SectionItem("churn", "Churn", [TextContent("Churn this month"), TextContent("2.1%")]),
+  ])
+], "card")
+
+grid3 = Card([
+  Heading("New signups (90d)", "h3"),
+  ImageBlock("https://picsum.photos/seed/signups/600/200", "Signups trend"),
+  // Simple representation of a small chart via image
+  BarChartPreview("new_signups_90d")
+], "sunk")
+
+BarChartPreview(name: string) = Image("bar chart placeholder", "https://picsum.photos/seed/"+name+"/800/300")
+
+grid4 = Card([
+  SectionBlock([
+    SectionItem("customers_by_plan", "Customers by Plan", [
+      TextContent("Plan distribution")
+    ]),
+    BarChartPreview("customers_by_plan")
+  ])
+], "card")
+
+grid5 = Card([
+  SectionBlock([
+    SectionItem("top_customers", "Top 10 Customers", [
+      Image("customer list placeholder")
+    ]),
+  ])
+], "card")
+
+grid6 = Card([
+  SectionBlock([
+    SectionItem("accounts_at_risk", "Accounts at Risk", [
+      TextContent("Reason per account")
+    ]),
+  ])
+], "card")
+
+grid7 = Card([
+  SectionBlock([
+    SectionItem("failed_payments", "Failed Payments", [
+      TextContent("Retry options per payment")
+    ]),
+  ])
+], "card")
+
+grid8 = Card([
+  SectionBlock([
+    SectionItem("adoption_features", "Adoption of New Features", [
+      TextContent("Feature 1 adoption"),
+      TextContent("Feature 2 adoption"),
+      TextContent("Feature 3 adoption")
+    ]),
+  ])
+], "card")
+
+grid9 = Card([
+  SectionBlock([
+    SectionItem("nps", "Current NPS", [
+      TextContent("NPS score"),
+      TextContent("39")
+    ]),
+  ])
+], "card")
+
+grid10 = Card([
+  SectionBlock([
+    SectionItem("seat_utilization", "Seat Utilization", [
+      TextContent("Utilization by department")
+    ]),
+  ])
+], "card")
+
+actionsRow = Card([
+  SectionBlock([
+    SectionItem("invite_admin", "Invite Admin", [
+      TextContent("Invite a new admin to the workspace")
+    ]),
+  ])
+], "card")
+
+Image(alt: string, src?: string) = TextContent("image")

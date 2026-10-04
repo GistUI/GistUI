@@ -1,0 +1,19 @@
+root = Card([header, summaryCard, dueDateRow, payRow])
+
+header = CardHeader("Invoice", "Freelancer Billing")
+
+summaryCard = Card([amountLine, currencyLine, statusLine], "card")
+
+amountLine = Heading("Amount due", "h2")
+currencyLine = TextContent("$1,250.00", "default")
+statusLine = TextContent("USD", "small")
+
+dueDateRow = Card([dueLabel, dueValue], "card")
+
+dueLabel = TextContent("Due date", "default")
+dueValue = TextContent("2026-10-31", "default")
+
+payRow = Card([payHeading, payButton], "card")
+
+payHeading = Heading("Pay now", "h3")
+payButton = Button("Pay now", null, "primary")

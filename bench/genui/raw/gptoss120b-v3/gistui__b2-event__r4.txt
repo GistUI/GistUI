@@ -1,24 +1,33 @@
-root = Card(headerCard, agendaCard, speakersCard, ticketsCard, registerCard, daysCallout)
-headerCard = Card(CardHeader("Tech Summit 2024", "June 15-17, 2024 • San Francisco, CA"))
-agendaCard = Card(Heading("Agenda", h3), agendaTable)
-speakersCard = Card(Heading("Speakers", h3), speakersList)
-ticketsCard = Card(Heading("Ticket Tiers", h3), ticketsTable)
-registerCard = Card(Heading("Register", h3), registerForm)
-daysCallout = Callout(info, "Days Remaining", "12 days left")
-speaker1 = ListItem("Dr. Alice Johnson", "AI Researcher, XYZ Labs")
-speaker2 = ListItem("Bob Smith", "CTO, Acme Corp")
-speaker3 = ListItem("Carol Lee", "Product Lead, Innovate Ltd")
-speakersList = ListBlock(speaker1, speaker2, speaker3, variant:number)
-nameField = FormControl("Full Name", Input("name", "Your name"))
-emailField = FormControl("Email", Input("email", "you@example.com", type:email))
-formButtons = Buttons(Button("Register", primary))
-registerForm = Form("event-register", formButtons, nameField, emailField)
-tierCol = Col("Tier", data:["Standard","Premium","VIP"])
-priceCol = Col("Price", data:["$199","$399","$599"], type:string)
-ticketsTable = Table(tierCol, priceCol)
-agendaTable = |Time|Session
+root = Card(CardHeader("TechFuture 2027", "June 12-14, 2027 • Innovation Hall"), daysRemaining, agendaSection, speakersSection, ticketsSection, registrationSection)
+
+daysRemaining = TextContent("**5 days left** until the conference!", size:large)
+
+agendaSection = Card(Heading("Agenda", h3), agendaTable)
+
+agendaTable = Table(agendaRows)
+agendaRows = |Time|Session
 |09:00 AM|Opening Keynote
-|10:30 AM|Machine Learning Workshop
+|10:30 AM|AI in Healthcare
 |12:00 PM|Lunch Break
-|01:30 PM|Panel Discussion
-|03:00 PM|Networking
+|01:30 PM|Future of Quantum Computing
+|03:00 PM|Panel: Sustainable Tech
+|04:30 PM|Closing Remarks
+
+speakersSection = Card(Heading("Speakers", h3), speakersList)
+speakersList = ListBlock(speaker1, speaker2, speaker3, variant:number)
+speaker1 = ListItem("Dr. Maya Patel", "AI researcher, Stanford")
+speaker2 = ListItem("Liam O'Connor", "CTO, GreenTech Ltd.")
+speaker3 = ListItem("Aisha Khan", "Quantum Computing Lead, Nova Labs")
+
+ticketsSection = Card(Heading("Ticket Tiers", h3), ticketsTable)
+ticketsTable = Table(ticketsRows)
+ticketsRows = |Tier|Price
+|Standard|$199
+|Premium|$349
+|VIP|$599
+
+registrationSection = Card(Heading("Register", h3), registrationForm)
+registrationForm = Form("event-registration", regButtons, nameField, emailField)
+nameField = FormControl("Full Name", Input("full_name", placeholder:"Your name"))
+emailField = FormControl("Email", Input("email", placeholder:"you@example.com", type:email))
+regButtons = Buttons(Button("Register", primary))

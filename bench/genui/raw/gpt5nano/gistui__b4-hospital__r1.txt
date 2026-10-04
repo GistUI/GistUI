@@ -1,0 +1,56 @@
+root = Card(CardHeader("Hospital Operations Command View"), bedOccupancy, erWait, admissionsTable, deptPatients, staffShifts, criticalPatients, dischargePhase, orBookings, suppliesLow, incidentForm, dayViewer, transferRequest)
+bedOccupancy = Card(Heading("Bed Occupancy", h3), Table(bedTable))
+erWait = Card(Heading("Current ER Wait", h3), TextContent("ER wait time: 32 min", size:default))
+admissionsTable = Card(Heading("Admissions: Past Two Weeks", h3), Table(admissionsTableData))
+deptPatients = Card(Heading("Patients per Department", h3), Table(deptTable))
+staffShifts = Card(Heading("Staff on Shift by Role", h3), Table(staffTable))
+criticalPatients = Card(Heading("Critical Patients Called Out", h3), Table(criticalTable))
+dischargePhase = Card(Heading("Patients Ready for Discharge", h3), Table(dischargeTable))
+orBookings = Card(Heading("Today's Operating Room Bookings", h3), Table(orTable))
+suppliesLow = Card(Heading("Supplies Running Low", h3), Table(suppliesTable))
+incidentForm = Form("incident-report", incidentButtons, incidentControl)
+incidentButtons = Buttons(Button("Submit Incident", primary))
+incidentControl = FormControl("Incident Details", TextArea("details", placeholder:"Describe incident"),)
+dayViewer = Card(Heading("Look at Another Day", h3), DatePicker("date", mode:single), Button("Go", primary))
+transferRequest = Card(Heading("Request Patient Transfer", h3), Form("transfer-form", transferButtons, patientSelect, toDepartmentSelect)) 
+patientSelect = FormControl("Patient", Input("patient", placeholder:"Select patient"))
+toDepartmentSelect = FormControl("Target Department", Select("department", SelectItem("ICU","ICU"), SelectItem("Surgery","Surgery"), SelectItem("Ward A","Ward A")))
+transferButtons = Buttons(Button("Request Transfer", primary))
+admissionsTableData = |Date|Admissions
+|2026-09-28|14
+|2026-10-02|19
+|2026-10-03|16
+|2026-10-04|22
+|2026-10-05|18
+bedTable = |Bed|Status
+|B101|Occupied
+|B102|Available
+|B103|Occupied
+|B104|Occupied
+|B105|Available
+deptTable = |Department|Patients
+|ER|12
+|Cardiology|9
+|Neurology|7
+|ICU|5
+|Surgery|11
+|Pediatrics|8
+staffTable = |Role|Staff
+|Nurse|12
+|Physician|6
+|Technician|4
+|Admin|3
+criticalTable = |Patient|Reason
+|P001|Ventilated, unstable
+|P002|Code blue overdue
+dischargeTable = |Patient|Status
+|P003|Ready for discharge
+|P004|Ready for discharge
+orTable = |Operating Room|Today|Time
+|OR1|08:00-10:30|08:00
+|OR2|11:00-13:30|11:00
+suppliesTable = |Item|Level
+|Oxygen tanks|Low
+|Syringes|Low
+|IV fluids|OK
+|Gloves|Low

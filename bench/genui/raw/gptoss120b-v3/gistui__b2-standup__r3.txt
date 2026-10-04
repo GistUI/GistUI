@@ -1,11 +1,22 @@
-root = Card(dateHeader, updatesList, blockedCallout, missingCount, postForm)
-dateHeader = CardHeader("Standup", "2023-10-05")
-updatesList = ListBlock(aliceItem, bobItem, carolItem, variant:number)
-blockedCallout = Callout(variant:warning, "Blocked", "Bob is blocked on DB migration.")
-missingCount = TextContent("2 teammates haven't posted yet.", size:small)
-postForm = Form("standup-update", buttons:formButtons, updateControl)
-formButtons = Buttons(Button("Post", [], variant:primary))
-updateControl = FormControl("Your update", TextArea("update", "Write your update...", "", rows:4))
-aliceItem = ListItem("Alice", "Completed UI mockups for the new dashboard.")
-bobItem = ListItem("Bob", "Investigating latency spikes in the API.")
-carolItem = ListItem("Carol", "Reviewing PRs and updating documentation.")
+root = Card(dateHeader, updatesList, blockedCallout, missingCallout, postForm, actions
+
+dateHeader = TextContent("## Standup - 2023-10-04", size:large)
+
+updatesList = ListBlock(teamItem1, teamItem2, teamItem3, teamItem4, variant:number)
+
+teamItem1 = ListItem("Bob", "Working on API integration")
+teamItem2 = ListItem("Carol", "Reviewing PRs")
+teamItem3 = ListItem("Dave", "Designing new feature")
+teamItem4 = ListItem("Eve", "Testing release pipeline")
+
+blockedCallout = Callout(variant:warning, "Blocked", "Alice is blocked on authentication bug")
+
+missingCallout = TextCallout(description:"2 teammates have not submitted updates yet", variant:info)
+
+postForm = Form("standup-post", formButtons, updateField)
+
+updateField = FormControl("Your update", TextArea("update", placeholder:"Enter your update here", rows:4))
+
+formButtons = Buttons(Button("Submit", primary))
+
+actions = Buttons(Button("Refresh", secondary))

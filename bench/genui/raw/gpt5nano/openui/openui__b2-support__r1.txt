@@ -1,0 +1,38 @@
+root = Card([header, statsRow, recentSection, controlRow, newTicketDialogButton])
+
+header = CardHeader("Support Lead Morning View", "Overview of tickets and readiness for the day")
+
+statsRow = Card([openCountCard, avgFirstResponseCard], "card", "row", "m")
+
+openCountCard = Card([Heading("Open tickets", "h3"), openCountValue], null, "column", "m")
+openCountValue = TextContent("12 open", "default")
+
+avgFirstResponseCard = Card([Heading("Avg. first-response", "h3"), avgFirstResponseValue], null, "column", "m")
+avgFirstResponseValue = TextContent("2h 15m", "default")
+
+recentSection = Card([recentHeading, recentList], "card", "column", "m")
+
+recentHeading = Heading("Five most recent tickets", "h3")
+
+recentList = ListBlock([recentItem1, recentItem2, recentItem3, recentItem4, recentItem5], "number")
+
+recentItem1 = ListItem("Ticket #1289", "User: Acme Co. - High priority", ["https://picsum.photos/seed/1/40/40"])
+recentItem2 = ListItem("Ticket #1290", "User: Beta LLC - Medium priority", ["https://picsum.photos/seed/2/40/40"])
+recentItem3 = ListItem("Ticket #1291", "User: Gamma Inc. - High priority", ["https://picsum.photos/seed/3/40/40"])
+recentItem4 = ListItem("Ticket #1292", "User: Delta Co. - Low priority", ["https://picsum.photos/seed/4/40/40"])
+recentItem5 = ListItem("Ticket #1293", "User: Eta Ltd. - High priority", ["https://picsum.photos/seed/5/40/40"])
+
+controlRow = Card([filterRow, actionsRow], "card", "row", "m")
+
+filterRow = Card([TextContent("Filter: "), highPriorityToggle], "sunk", "row", "xs")
+
+highPriorityToggle = Button("High priority only", null, "secondary")
+
+actionsRow = Card([openNewTicketButton], "sunk", "row", "xs")
+
+openNewTicketButton = Button("New ticket", [null], "primary")
+
+newTicketDialogButton = OpenDialogPlaceholder // placeholder for the dialog trigger
+
+FollowUpBlock([]) // no follow-ups
+undefined_placeholder = null

@@ -1,0 +1,39 @@
+root = Card([header, statusCard, reportSection])
+
+header = CardHeader("Delivery Tracker", "Track your package in real-time")
+
+statusCard = Card([TrackingStatus, Separator("horizontal"), EstimatedDate], "card")
+
+TrackingStatus = Heading("Current location", "h2")
+currentLocation = TextContent("Package is in transit: Milwaukee, WI", "default")
+LocationBlock = Card([TrackingStatus, currentLocation])
+
+EstimatedDate = Card([Heading("Estimated delivery", "h2"), DeliveryDate], "card")
+
+DeliveryDate = TextContent("Estimated by: 2026-10-08", "default")
+
+reportSection = SectionBlock([reportValue], false)
+
+reportValue = SectionItem("report", "Report a delivery issue", [ReportPanel])
+
+ReportPanel = Card([ReportIntro, ReportForm, ReportActions])
+
+ReportIntro = TextContent("If your delivery has a problem, open a ticket to notify the carrier and start a resolution.", "default")
+
+ReportForm = Form("delivery-issue", reportButtons, [issueTypeField, descriptionField])
+
+issueTypeField = FormControl("Issue type", issueTypeInput)
+issueTypeInput = Select("issue_type", [issueDamaged, issueMissing, issueDelay], "Choose issue")
+
+issueDamaged = SelectItem("damaged", "Damaged item")
+issueMissing = SelectItem("missing", "Missing item")
+issueDelay = SelectItem("delayed", "Delivery delayed")
+
+descriptionField = FormControl("Description", descriptionInput)
+
+descriptionInput = TextArea("description", "Describe the problem in detail")
+
+reportButtons = Buttons([submitIssueBtn, cancelIssueBtn])
+
+submitIssueBtn = Button("Submit issue", null, "primary")
+cancelIssueBtn = Button("Cancel", null, "secondary")

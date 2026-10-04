@@ -1,0 +1,24 @@
+root = Card([
+  header = CardHeader("Invoice Overview", "Freelancer invoice for client"),
+  summaryRow = Card([
+    amountCard = Card([
+      Heading("Amount due", "h4"),
+      amountValue = TextContent("$1,250.00", "large")
+    ], "card"),
+    dueDateCard = Card([
+      Heading("Due date", "h4"),
+      dueDateValue = TextContent("2026-10-31", "large")
+    ], "card"),
+  ], "card"),
+  actionsRow = Card([
+    payNowHeading = Heading("Pay now", "h3"),
+    payNowBlock = Card([
+      TextContent("Choose a payment method to settle the invoice now.", "default"),
+      paymentMethods = ImageGallery([ "https://picsum.photos/seed/pay1/800/400", "https://picsum.photos/seed/pay2/800/400" ]),
+      payButtonRow = Buttons([
+        Button("Pay Now with Card", null, "primary"),
+        Button("Pay Now with Bank Transfer", null, "secondary")
+      ])
+    ], "card")
+  ], "sunk")
+])

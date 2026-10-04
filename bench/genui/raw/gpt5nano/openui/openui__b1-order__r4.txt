@@ -1,0 +1,51 @@
+root = Card([header, statusCard, mapSection, etaSection, reportSection])
+
+header = CardHeader("Delivery Status", "Track your package in real-time")
+
+statusCard = Card([
+  Heading("Current location", "h2"),
+  LocationBlock(),
+  Separator("horizontal", false),
+  Heading("Estimated delivery", "h2"),
+  etaCard
+], "card")
+
+LocationBlock() = Blockquote("Package is at: Sorting Center, Philadelphia, PA 19153", "System")
+
+etaCard = TextContent("Estimated delivery: 2026-10-07 by 6:00 PM")
+
+mapSection = Card([
+  Heading("Live location map", "h3"),
+  Image("Map view showing current route", "https://maps.googleapis.com/maps/api/staticmap?center=Philadelphia,PA&zoom=12&size=600x300&markers=color:red|Sorting%20Center")
+])
+
+etaSection = Card([
+  Heading("Delivery date", "h3"),
+  TextContent("Your package is scheduled to arrive on Tuesday, October 7, 2026."),
+  TextContent("Tip: If you need updates, we’ll notify you automatically.")
+])
+
+reportSection = Card([
+  Heading("Report a problem", "h3"),
+  TextContent("If there's an issue with the delivery, tell us what happened and we’ll assist."),
+  reportForm
+], "card")
+
+reportForm = Form("delivery-report", reportButtons, [reasonField, detailsField])
+
+reasonField = FormControl("Issue type", reasonSelect)
+reasonSelect = Select("issue_type", [issueMissing, issueDamaged, issueDelay, issueOther], "Choose an issue")
+
+issueMissing = SelectItem("missing", "Package missing")
+issueDamaged = SelectItem("damaged", "Package damaged")
+issueDelay = SelectItem("delay", "Delivery delayed")
+issueOther = SelectItem("other", "Other")
+
+detailsField = FormControl("Details", detailsInput)
+
+detailsInput = TextArea("details", "Describe what happened", 4)
+
+reportButtons = Buttons([submitReportBtn, cancelReportBtn])
+
+submitReportBtn = Button("Submit report", null, "primary")
+cancelReportBtn = Button("Cancel", null, "secondary")

@@ -1,0 +1,108 @@
+root = Card(CardHeader("Trading Desk Morning Workspace"), 
+  SectionBlock(
+    SectionItem("finance", TagBlock(["Portfolio"],), true)
+  ),
+  portfolioPanel
+  )
+
+portfolioPanel = Card(Heading("Overview", h3), 
+  Table(portfolioTable),
+  LineChart(portfolioTrend, linear, xLabel:"Time", yLabel:"Value"),
+  sunk
+)
+
+portfolioTable = Table(|Metric|Value|) 
+|Portfolio value|$12,340,000
+|P&L today|$128,400
+
+positionsPanel = Card(Heading("Positions", h3), positionsTable)
+
+positionsTable = Table(|Ticker|Size|Entry|Current|) 
+|AAPL|100|$180.00|$182.50
+|TSLA|50|$720.00|$745.00
+|MSFT|200|$260.00|$295.00
+
+exposurePanel = Card(Heading("Exposure by Sector", h3), HorizontalBarChart(exposureTable, variant:grouped, xLabel:"Sector", yLabel:"Exposure"))
+
+exposureTable = |Sector|Exposure| 
+|Tech|42%
+|Healthcare|18%
+|Financials|16%
+|Energy|9%
+|Industrials|15%
+
+varPanel = Card(Heading("Value at Risk", h3), TextContent("VaR across portfolio is 3.4% of notional", size:default))
+
+gainersPanel = Card(Heading("Today's Gainers", h3), Table(|Ticker|Change||) 
+|NVDA|+4.6%
+|AMZN|+2.1%
+
+losersPanel = Card(Heading("Today's Losers", h3), Table(|Ticker|Change|) 
+|NFLX|-3.2%
+|SHOP|-2.8%
+
+watchPanel = Card(Heading("Watchlist", h3), Table(|Ticker|Price|) 
+|UBER|$37.20
+|SQ|$86.50)
+
+ordersPanel = Card(Heading("Working Orders", h3), Table(|Order|Ticker|Quantity|Side|Status|) 
+|Order1|AAPL|100|Buy|Open
+|Order2|TSLA|50|Sell|Partial
+
+marginPanel = Card(Heading("Margin in Use", h3), TextContent("Margin used: 34.2%", size:default))
+
+headlinesPanel = Card(Heading("Market Headlines", h3),
+  Table(|Headline|Sentiment|)
+  |"Stocks rally on earnings optimism"|Positive
+  |"Yield curve steepens as inflation cools"|Neutral
+)
+
+econPanel = Card(Heading("Economic Releases This Week", h3),
+  ListBlock( ListItem("CPI release"), ListItem("PMI readings"), ListItem("Unemployment claims") )
+)
+
+strategiesPanel = Card(Heading("Strategy Returns This Year", h3),
+  Table(|Strategy|Return|) 
+  |MeanReversion|+8.7%
+  |Momentum|+12.4%
+  |Growth|+6.1%
+)
+
+drawdownPanel = Card(Heading("Drawdown Last Year", h3),
+  LineChart(drawdownTable, linear, xLabel:"Month", yLabel:"Drawdown")
+)
+
+drawdownTable = |Month|Drawdown|
+|Jan|-1.2%
+|Feb|-2.3%
+|Mar|-1.8%
+|Apr|-3.0%
+
+riskPanel = Card(Heading("Risk Limits Near Breach", h3),
+  TagBlock(["VaR limit 4.5%","Exposure limit 85%","Margin limit 40%"])
+)
+
+rebalancePanel = Card(Heading("Rebalance", h3),
+  Buttons(Button("Run Rebalance", primary), Button("Cancel", tertiary))
+)
+
+orderPanel = Card(Heading("Place Order", h3),
+  Form("order-entry", Buttons(Button("Submit order", primary)),
+    FormControl("Ticker", Input("ticker")),
+    FormControl("Side", Select("side", SelectItem("Buy","Buy"), SelectItem("Sell","Sell"), placeholder:"Choose side")),
+    FormControl("Quantity", Input("qty", value:"100", type:"number"))
+  )
+)
+
+timeframePanel = Card(Heading("Timeframe", h3),
+  SwitchGroup("timeframe", 
+    SwitchItem("tf-day","1D"), 
+    SwitchItem("tf-week","1W"), 
+    SwitchItem("tf-month","1M"), 
+    switches = [SwitchItem("tf-year","1Y")]
+  )
+)
+
+rootIncludes = [
+  portfolioPanel, positionsPanel, exposurePanel, varPanel, gainersPanel, losersPanel, watchPanel, ordersPanel, marginPanel, headlinesPanel, econPanel, strategiesPanel, drawdownPanel, riskPanel, rebalancePanel, orderPanel, timeframePanel
+]

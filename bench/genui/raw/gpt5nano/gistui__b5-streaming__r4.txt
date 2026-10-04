@@ -1,0 +1,87 @@
+root = Card(CardHeader("Operations Dashboard", "Streaming Service"), Sections(allSections)) 
+allSections = SectionBlock(SectionItem("overview", "Overview", overviewSection), SectionItem("titles", "Top Titles", titlesSection), SectionItem("time", "Watch Time", timeSection), SectionItem("subs", "Subscribers vs Cancellations", subsSection), SectionItem("genre", "Performance by Genre", genreSection), SectionItem("buffer", "Buffering", bufferSection), SectionItem("delivery", "Delivery Health by Region", deliverySection), SectionItem("releases", "Releases This Month", releasesSection), SectionItem("licenses", "Licenses Expiring Soon", licensesSection), SectionItem("rec", "Recommendations Click-Through", recSection), SectionItem("search", "Searches Without Playback", searchSection), SectionItem("revenue", "Revenue Split by Plan", revenueSection), SectionItem("devices", "Viewing by Device", devicesSection), SectionItem("region", "Focus Region", regionSection), SectionItem("flags", "Feature Flags", flagsSection), SectionItem("promote", "Promote Title on Home", promoteSection)) 
+
+overviewSection = Card(Heading("Overview", h3), viewerCountLine, regionSelector, promotedTitleBar) 
+viewerCountLine = TextContent("### Viewers now\n**2,134** watching across all regions", size:default) 
+regionSelector = Form("region-filter", Buttons(Button("Apply", primary)), FormControl("Region", Select("region", SelectItem("amer", "Americas"), SelectItem("emea", "EMEA"), SelectItem("apac", "APAC")), placeholder:"Choose region")) 
+promotedTitleBar = Card(Tag("Promote today", info), Tag("Home spotlight", info)) 
+
+titlesSection = Card(Heading("Most-watched Titles", h3), Table(topTitlesTable)) 
+topTitlesTable = |Title|Hours
+|The Grand Odyssey|124.5
+|Mystery of Moonlight|98.2
+|Skyline Runners|87.0
+|Pulse Reactor|76.4
+
+timeSection = Card(Heading("Watch Time Over Past Month", h3), LineChart(monthLineTable, natural, xLabel:"Day", yLabel:"Hours")) 
+monthLineTable = |Day|Hours
+|Day1|120
+|Day2|135
+|Day3|128
+|Day4|142
+
+subsSection = Card(Heading("New Subscribers vs Cancellations", h3), BarChart(subsTable, xLabel:"Metric", yLabel:"Count")) 
+subsTable = |Metric|Count
+|New Subscribers|5400
+|Cancellations|980
+
+genreSection = Card(Heading("Performance by Genre", h3), RadarChart(genreTable)) 
+genreTable = |Genre|WatchTime|Subs|Revenue
+|Drama|4200|1200|21000
+|Sci-Fi|3100|980|16800
+|Comedy|3600|1100|19000
+
+bufferSection = Card(Heading("Buffering Rate", h3), Table(bufferTable)) 
+bufferTable = |Region|Buffer Rate
+|Global|2.4%
+|Americas|2.1%
+|EMEA|2.8%
+|APAC|2.2%
+
+deliverySection = Card(Heading("Delivery Health by Region", h3), Table(deliveryTable)) 
+deliveryTable = |Region|Health|Incidents
+|Americas|99.7%|12
+|EMEA|99.2%|18
+|APAC|99.5%|9
+
+releasesSection = Card(Heading("Releases This Month", h3), Table(releasesTable)) 
+releasesTable = |Title|Release Date|Priority
+|Nova Pulse|2026-10-11|High
+|Azure Skies|2026-10-20|Medium
+
+licensesSection = Card(Heading("Licenses Expiring Soon", h3), ListBlock(ListItem("The Grand Odyssey – License ending", "End date: 2026-11-01"))) 
+
+recSection = Card(Heading("How Often Recommendations Are Clicked", h3), BarChart(recTable, xLabel:"Recommendation", yLabel:"Clicks")) 
+recTable = |Recommendation|Clicks
+|Movie A|320
+|Movie B|210
+|Show C|410
+
+searchSection = Card(Heading("Searches Ending Without Playback", h3), Table(searchTable)) 
+searchTable = |Query|Count
+|"Trending now"|120
+|"New releases"|95
+|"Popular dramas"|78
+
+revenueSection = Card(Heading("Revenue Split by Plan", h3), PieChart(revenueTable, variant:pie)) 
+revenueTable = |Plan|Revenue
+|Basic|520000
+|Standard|780000
+|Premium|1120000
+
+devicesSection = Card(Heading("Viewing Split by Device", h3), HorizontalBarChart(devicesTable, variant:grouped, xLabel:"Device", yLabel:"Hours")) 
+devicesTable = |Device|Hours
+|TV|5400
+|Mobile|3200
+|Desktop|2100
+|Tablet|900
+
+regionSection = Card(Heading("Focus on a Region", h3), Form("region-focus", Buttons(Button("Clear", secondary)), FormControl("Region", Select("region", SelectItem("amer", "Americas"), SelectItem("emea", "EMEA"), SelectItem("apac", "APAC")), placeholder:"Choose region")) 
+
+flagsSection = Card(Heading("Feature Flags", h3), Table(flagsTable)) 
+flagsTable = |Feature|State
+|LiveChat|enabled
+|RecommendationEngine|disabled
+|NewUI|enabled
+
+promoteSection = Card(Heading("Promote a Title on Home Screen", h3), Form("promote-form", Buttons(Button("Promote", primary)), FormControl("Title", Input("title", "The Grand Odyssey")), FormControl("Region", Select("region", SelectItem("all", "All Regions"), SelectItem("amer", "Americas")))))

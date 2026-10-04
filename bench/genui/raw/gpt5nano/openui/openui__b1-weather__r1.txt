@@ -1,0 +1,18 @@
+root = Card([header, weatherCard, outlookSection, sunTimes])
+
+header = CardHeader("Morning Weather Brief", " Bengaluru")
+
+weatherCard = Card([currentTempRow], "card")
+
+currentTempRow = Heading(" Bengaluru: 28°C, Clear", "h2")
+
+outlookSection = SectionBlock([outlookItem1, outlookItem2, outlookItem3], false)
+
+outlookItem1 = SectionItem("day1", "Day 1", [TextContent("Mon: 29°C / Sunny"), Image("Sunny icon", "https://picsum.photos/seed/sun/60/60")])
+outlookItem2 = SectionItem("day2", "Day 2", [TextContent("Tue: 27°C / Partly cloudy"), Image("Cloudy icon", "https://picsum.photos/seed/cloud/60/60")])
+outlookItem3 = SectionItem("day3", "Day 3", [TextContent("Wed: 26°C / Chance of rain"), Image("Rain icon", "https://picsum.photos/seed/rain/60/60")])
+
+sunTimes = Card([sunrise, sunset], "card")
+
+sunrise = TextContent("Sunrise: 06:04") 
+sunset = TextContent("Sunset: 18:28")

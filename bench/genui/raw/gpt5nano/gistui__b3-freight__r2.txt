@@ -1,0 +1,49 @@
+root = Card(CardHeader("Logistics Operations Board", "Shipments in transit, status, and KPIs"), searchPanel, statusPanel, metricsPanel, chartsPanel, lastRefresh)
+
+searchPanel = Card(Heading("Search by route", h4), Form("route-search", Buttons(Button("Search", primary)), FormControl("Route", Input("route", placeholder:"e.g. NYC-LAX"))))
+
+statusPanel = Card(Heading("Delayed shipments", h3), ListBlock(delayedItem1, delayedItem2))
+
+delayedItem1 = ListItem("Route NYC-LAX", "Delay 2h due to weather", "Acknowledge", Image("delay icon","https://picsum.photos/seed/delay/40/40"))
+delayedItem2 = ListItem("Route CHI-SEA", "Customs hold 1 day", "Investigate")
+
+metricsPanel = Card(Heading("On-time percentage this month", h3), TextContent("78.4%", size:default), Separator("horizontal", decorative))
+
+chartsPanel = Card(SectionBlock(OptionalSection), SectionBlock(OptionalSection2)) 
+OptionalSection = SectionItem("volume-split", "Volume split by carrier", CarrierSplitChart, "Carrier breakdown by share") 
+CarrierSplitChart = HorizontalBarChart(carrierTable, variant:grouped, xLabel:"Volume", yLabel:"Carrier")
+carrierTable = |Carrier|Volume
+|UPS|4200
+|FedEx|3300
+|DHL|2100
+|USPS|1500
+OptionalSection2 = SectionItem("weekly-volume", "Weekly volume (last 8 weeks)", WeeklyVolumeChart)
+
+WeeklyVolumeChart = LineChart(weeklyTable, linear, xLabel:"Week", yLabel:"Volume")
+weeklyTable = |Week|Volume
+|W1|3400
+|W2|4200
+|W3|3900
+|W4|4500
+|W5|4800
+|W6|5000
+|W7|4700
+|W8|5200
+
+shipmentsPanel = Card(Heading("Shipments in transit", h3), ShipmentsTable)
+
+shipmentsTable = Table(shipmentsTableData)
+shipmentsTableData = |Shipment|Origin|Destination|ETA|Status
+|SHP-001|New York|Los Angeles|2026-10-06|In transit
+|SHP-002|Chicago|Miami|2026-10-07|In transit
+|SHP-003|Seattle|Atlanta|2026-10-05|In transit
+|SHP-004|Houston|Denver|2026-10-08|In transit
+
+flagShipmentPanel = Card(Heading("Flag a shipment", h3), FlagsTable)
+
+FlagsTable = Table(flagsTableData)
+flagsTableData = |Shipment|Issue|Flag|Action
+|SHP-003|Late by 2 days|Delay|Mark Resolved
+|SHP-004|Docs missing|Docs|Request documents
+
+lastRefresh = TextContent("Last refreshed: 2026-10-04 14:22 UTC", size:small)

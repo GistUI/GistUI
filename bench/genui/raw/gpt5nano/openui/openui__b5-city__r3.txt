@@ -1,0 +1,81 @@
+root = Card([
+  header = CardHeader("City Operations Center", "Live dashboard for urban management"),
+  dashboard = Card([
+    row1 = Card([
+      congestionCard = Card([Heading("Congestion Right Now", "h3"), TextContent("Traffic density across major corridors: moderate to high in downtown and river crossings."), LineChartPlaceholder("Congestion indices")], "card"),
+      transitCard = Card([Heading("Transit Punctuality", "h3"), TextContent("On-time performance: buses 88%, trains 92% (last 15 minutes snapshot)."), Separator("horizontal")], "card"),
+    ], "row"),
+
+    row2 = Card([
+      airQualityCard = Card([Heading("Air Quality by District", "h3"), ImageBlock("https://picsum.photos/seed/airquality/800/200", "Air quality heatmap")], "card"),
+    ], "row"),
+
+    row3 = Card([
+      energyCard = Card([Heading("Energy Use — Past Week", "h3"), LineChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], [Series("City", [120,115,130,125,140,150,145])], "linear", "Day", "MW")], "card"),
+      waterCard = Card([Heading("Water Use Today", "h3"), TextContent("Total: 12.8 million liters; peak at 14:00."), BarChart(["Today"], [Series("Water", [12.8])], "grouped")], "card"),
+    ], "row"),
+
+    row4 = Card([
+      incidentsCard = Card([Heading("Open Incidents by Location & Severity", "h3"), SectionBlock([
+        SectionItem("inc1","Downtown - Fire", [TextContent("Severity: High"), Tag("Downtown", null, "md", "default")]),
+        SectionItem("inc2","Riverside - Traffic Accident", [TextContent("Severity: Medium"), Tag("Riverside", null, "md", "default")]),
+        SectionItem("inc3","Industrial Park - Gas Leak", [TextContent("Severity: Critical"), Tag("Industrial Park", null, "md", "default")]),
+      ]], true)], "card"),
+      emsCard = Card([Heading("Emergency Vehicles Deployed", "h3"), TextContent("Current deployment: 5 units across 3 zones"), ImageBlock("https://picsum.photos/seed/ems/600/200", "EMS deployment map")], "card"),
+      parkingCard = Card([Heading("Parking Availability Downtown", "h3"), TextContent("Available spaces: 124 of 540 monitored lots."), Image("Downtown Parking Map", "https://picsum.photos/seed/parking/800/200")], "card"),
+    ], "row"),
+
+    row5 = Card([
+      eventsCard = Card([Heading("Public Events This Weekend", "h3"), ListBlock([
+        ListItem("Summer Street Festival", "Sat 10:00-22:00", ["https://picsum.photos/seed/event1/40/40"]),
+        ListItem("Downtown Farmers Market", "Sat 08:00-14:00", ["https://picsum.photos/seed/event2/40/40"]),
+        ListItem("Cultural Parade", "Sun 12:00-17:00", ["https://picsum.photos/seed/event3/40/40"])
+      ], "number")], "card"),
+      citizenCard = Card([Heading("Citizen Reports (live)", "h3"), TextContent("Latest: streetlight outage reported on 5th & Maple."), ImageBlock("https://picsum.photos/seed/reports/800/200", "Citizen reports feed")], "card"),
+      backlogCard = Card([Heading("Service Request Backlog", "h3"), LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5"], [Series("Backlog", [34,28,40,37,45])], "linear", "Day", "Requests")], "card"),
+    ], "row"),
+
+    row6 = Card([
+      weatherCard = Card([Heading("Current Weather", "h3"), TextContent("Temp: 22°C, Humidity: 60%, Wind: 12 km/h, Clear skies."), Image("Weather Radar", "https://picsum.photos/seed/weather/600/200")], "card"),
+      focusDistrictCard = Card([Heading("Focus on District", "h3"), TextContent("Select a district to view focused metrics."), Select("district", [SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("Riverside","Riverside")], "Choose district")], "card"),
+    ], "row"),
+
+    row7 = Card([
+      dispatchCard = Card([Heading("Dispatch a Crew", "h3"), Form("dispatch-form", Buttons([Button("Send Dispatch"), Button("Clear")], "row"), [
+        FormControl("Crew Type", Select("crew_type", [SelectItem("Electrical"), SelectItem("Roadworks"), SelectItem("Water")], "Select crew"), "Crew assignment"),
+        FormControl("District", Select("district_dispatch", [SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown")], "Select district"), "District"),
+        FormControl("Notes", TextArea("notes_dispatch", "Enter details"), "Additional information")
+      ]), TextContent("Use to assign a crew with location and task." )], "card"),
+      alertCard = Card([Heading("Public Alert", "h3"), TextContent("Send message to residents in a district."), TextArea("alert_message", "Enter alert message"), Button("Send Alert")], "card"),
+    ], "row"),
+
+    row8 = Card([
+      roadworksCard = Card([Heading("Roadworks Planned This Month", "h3"), Table([
+        Col("Area", ["Downtown Core","Riverfront","Industrial Park"]),
+        Col("Start", ["2026-10-05","2026-10-12","2026-10-20"]),
+        Col("Status", ["Planned","In Progress","Planned"])
+      ])], "card"),
+      infraCard = Card([Heading("Infrastructure Maintenance Jobs", "h3"), ListBlock([
+        ListItem("Bridge inspection - Midtown", "Due this month"),
+        ListItem("Sewer line rehab - North District", "Due this quarter")
+      ], "image")], "card"),
+    ], "row"),
+
+  ], "column", "row", true)
+])
+
+# The following are placeholders and references to keep structure valid within the constraints.
+LineChartPlaceholder = function(title) {
+  return Card([Heading(title, "h3"), TextContent("Data feed: live metrics streaming."), ImageBlock("https://picsum.photos/seed/placeholder/800/200", "Live data")], "card")
+}
+ImageBlock = function(src, alt) {
+  return ImageBlockComponent(src, alt)
+}
+ImageBlockComponent = (src, alt) => ImageBlock(src, alt)
+LineChart = function(labels, series, variant, xLabel, yLabel) {
+  return Card([Heading("Line Chart", "h3"), TextContent("Chart placeholder"), Image("Chart: "+labels.length+" points","https://picsum.photos/seed/chart/800/200")], "card")
+}
+BarChart = function(labels, series, variant, xLabel, yLabel) {
+  return Card([Heading("Bar Chart", "h3"), TextContent("Chart placeholder"), Image("Bar chart","https://picsum.photos/seed/chart2/800/200")], "card")
+}
+Table = function(columns) { return Card([Heading("Table", "h3"), Image("Table placeholder","https://picsum.photos/seed/table/800/200")], "card") }

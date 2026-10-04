@@ -1,68 +1,55 @@
-root = Card(CardHeader("Weekly Marketing Dashboard", "Last 30 days"), dateRangeForm, visitorsChart, conversionCallout, trafficSourcesChart, campaignsTable, bestCampaignCallout, subscriberGrowthChart, exportButtons, gap:m, direction:column)
-
-dateRangeForm = Form("date-range", dateFormButtons, startDateControl, endDateControl)
-
-dateFormButtons = Buttons(Button("Apply", primary))
-
-startDateControl = FormControl("Start date", DatePicker("start", mode:single, value:["2023-08-01"]))
-
-endDateControl = FormControl("End date", DatePicker("end", mode:single, value:["2023-08-31"]))
-
-visitorsChart = LineChart(visitorsData, linear, xLabel:"Date", yLabel:"Visitors", variant:linear)
-
-visitorsData = |Date|Visitors
-|2023-08-01|1200
-|2023-08-02|1350
-|2023-08-03|1100
-|2023-08-04|1480
-|2023-08-05|1600
-|2023-08-06|1550
-|2023-08-07|1700
-|2023-08-08|1650
-|2023-08-09|1800
-|2023-08-10|1750
-|2023-08-11|1900
-|2023-08-12|1850
-|2023-08-13|2000
-|2023-08-14|1950
-|2023-08-15|2100
-|2023-08-16|2050
-|2023-08-17|2200
-|2023-08-18|2150
-|2023-08-19|2300
-|2023-08-20|2250
-|2023-08-21|2400
-|2023-08-22|2350
-|2023-08-23|2500
-|2023-08-24|2450
-|2023-08-25|2600
-|2023-08-26|2550
-|2023-08-27|2700
-|2023-08-28|2650
-|2023-08-29|2800
-|2023-08-30|2750
-
-conversionCallout = Callout(info, "Conversion Rate", "2.4% of visitors completed a goal", variant:info)
-
-trafficSourcesChart = PieChart(trafficLabels, trafficValues, donut, appearance:circular)
-
-trafficLabels = ["Organic","Paid Search","Social","Referral","Email"]
-trafficValues = [45,25,15,10,5]
-
-campaignsTable = Table(campaignNameCol, campaignSpendCol)
-
-campaignNameCol = Col("Campaign", ["Spring Sale","Summer Blast","Fall Promo","Holiday Deals","Clearance"], type:string)
-campaignSpendCol = Col("Spend", [1200,950,800,1500,600], type:number)
-
-bestCampaignCallout = Callout(success, "Best Performing Campaign", "Holiday Deals achieved the highest ROI", variant:success)
-
-subscriberGrowthChart = BarChart(subscriberData, grouped, xLabel:"Date", yLabel:"Subscribers")
-
-subscriberData = |Date|Subscribers
-|2023-08-01|300
-|2023-08-08|420
-|2023-08-15|560
-|2023-08-22|710
-|2023-08-29|880
-
-exportButtons = Buttons(Button("Export CSV", primary))
+root = Card(dashboardHeader, dateRangeForm, visitorsChart, conversionCallout, trafficSourcesChart, campaignsChart, bestCampaignCallout, subscriberGrowth, exportButtons)
+dashboardHeader = CardHeader("Marketing Weekly Dashboard")
+dateRangeForm = Form("date-range", dateButtons, dateSelect)
+dateSelect = Select("date_range", SelectItem("last_7", "Last 7 days"), SelectItem("last_30", "Last 30 days"), SelectItem("last_90", "Last 90 days"), placeholder:"Select range")
+dateButtons = Buttons(Button("Apply"))
+visitorsChart = LineChart(visitorsTable, linear, xLabel:"Date", yLabel:"Visitors")
+visitorsTable = |Date|Visitors
+|2023-09-01|1200
+|2023-09-02|1350
+|2023-09-03|1100
+|2023-09-04|1450
+|2023-09-05|1300
+|2023-09-06|1250
+|2023-09-07|1400
+|2023-09-08|1500
+|2023-09-09|1550
+|2023-09-10|1600
+|2023-09-11|1580
+|2023-09-12|1620
+|2023-09-13|1650
+|2023-09-14|1700
+|2023-09-15|1720
+|2023-09-16|1680
+|2023-09-17|1750
+|2023-09-18|1800
+|2023-09-19|1780
+|2023-09-20|1820
+|2023-09-21|1850
+|2023-09-22|1900
+|2023-09-23|1880
+|2023-09-24|1920
+|2023-09-25|1950
+|2023-09-26|1980
+|2023-09-27|2000
+|2023-09-28|2020
+|2023-09-29|2050
+|2023-09-30|2100
+conversionCallout = TextCallout("Conversion Rate", "2.4% (up 0.3%)", info)
+trafficSourcesChart = PieChart(trafficTable, donut, circular)
+trafficTable = |Source|Share
+|Organic|45
+|Paid Search|25
+|Social|15
+|Referral|10
+|Email|5
+campaignsChart = BarChart(campaignsTable, grouped, xLabel:"Campaign", yLabel:"Spend ($)")
+campaignsTable = |Campaign|Spend
+|Spring Sale|1200
+|Summer Promo|950
+|Back to School|780
+|Holiday Blast|1650
+|Clearance|430
+bestCampaignCallout = Callout(success, "Best Campaign", "Holiday Blast achieved the highest ROI")
+subscriberGrowth = TextCallout("Email Subscribers", "+1,200 this month", neutral)
+exportButtons = Buttons(Button("Export PDF", primary), Button("Export CSV", secondary))

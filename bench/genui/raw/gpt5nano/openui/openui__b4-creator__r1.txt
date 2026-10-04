@@ -1,0 +1,151 @@
+root = Card([
+  header = CardHeader("Creator Studio", "Cross-platform dashboard"),
+  topBar = Card([
+    platformFilterRow
+  ], "sunk"),
+  contentGrid
+])
+
+header = CardHeader("Creator Studio", "Cross-platform dashboard")
+
+platformFilterRow = Card([
+  TextContent("Platform filter: "),
+  platformSelect
+], "card")
+
+platformSelect = Select("platform", [
+  SelectItem("all", "All platforms"),
+  SelectItem("youtube", "YouTube"),
+  SelectItem("tiktok", "TikTok"),
+  SelectItem("instagram", "Instagram"),
+  SelectItem("twitter", "X/T)"),
+], "Choose platform")
+
+// 1. follower total and growth over the past month
+followerCard = Card([
+  TextContent("Followers"),
+  followersValue = TextContent("12,345", "large"),
+  growthLine = MarkDownRenderer("Growth over last 30 days: +8.2%")
+], "card")
+
+// 2. engagement rate
+engagementCard = Card([
+  TextContent("Engagement Rate"),
+  engagementValue = TextContent("4.7%", "large")
+], "card")
+
+// 3. best posts this month with reach for each
+bestPostsSection = Card([
+  Heading("Best posts this month", "h3"),
+  bestPostList
+], "card")
+
+bestPostList = ListBlock([
+  ListItem("Post A", "Reach 42k", ["https://picsum.photos/seed/posta/40/40"]),
+  ListItem("Post B", "Reach 38k", ["https://picsum.photos/seed/postb/40/40"]),
+  ListItem("Post C", "Reach 35k", ["https://picsum.photos/seed/postc/40/40"])
+], "number")
+
+// 4. audience split by platform
+audienceByPlatform = Card([
+  Heading("Audience by platform", "h3"),
+  pieAudience
+], "card")
+
+pieAudience = PieChart(["YouTube","TikTok","Instagram","Other"], ["32000","21000","15000","5000"], "donut")
+
+// 5. posts scheduled this week
+scheduledThisWeekCard = Card([
+  Heading("Posts scheduled this week", "h3"),
+  scheduledList
+], "card")
+
+scheduledList = ListBlock([
+  ListItem("Wed 10:00", "Caption draft: \"New vlog teaser\"","[image]"),
+  ListItem("Thu 14:00", "Caption draft: \"Q&A session\"","[image]"),
+  ListItem("Sat 09:00", "Caption draft: \"Behind the scenes\"","[image]")
+], "image")
+
+// 6. the best hour to post based on history
+bestHourCard = Card([
+  TextContent("Best post hour (history)"),
+  bestHourValue = TextContent("18:00", "large")
+], "card")
+
+// 7. comments waiting for a reply
+commentsCard = Card([
+  Heading("Comments awaiting reply", "h3"),
+  commentsList
+], "card")
+
+commentsList = ListBlock([
+  ListItem("Comment on Post A", "2 replies pending", ["https://picsum.photos/seed/c1/40/40"]),
+  ListItem("Comment on Post D", "1 reply pending", ["https://picsum.photos/seed/c2/40/40"])
+], "image")
+
+// 8. earnings this month
+earningsCard = Card([
+  Heading("Earnings this month", "h3"),
+  earningsValue = TextContent("$3,240", "large")
+], "card")
+
+// 9. pending collaboration requests
+collabCard = Card([
+  Heading("Pending collaboration requests", "h3"),
+  collabList
+], "card")
+
+collabList = ListBlock([
+  ListItem("Brand X collab", "Negotiating deliverables", ["https://picsum.photos/seed/bx/40/40"]),
+  ListItem("Podcast feature", "Awaiting approval", ["https://picsum.photos/seed/pp/40/40"])
+], "image")
+
+// 10. a way to schedule a post with caption and time
+schedulePostCard = Card([
+  Heading("Schedule a post", "h3"),
+  scheduleForm
+], "card")
+
+scheduleForm = Form("schedule-post", scheduleButtons, [captionField, timeField, platformField])
+
+captionField = FormControl("Caption", TextArea("caption", "Write your caption here"), "Caption for your post")
+timeField = FormControl("Post time", DatePicker("schedule_time", "single"), "Choose when to publish")
+platformField = FormControl("Platform", Select("plan_platform", [SelectItem("youtube","YouTube"), SelectItem("tiktok","TikTok"), SelectItem("instagram","Instagram")], "Platform"), "Platform to publish on")
+
+scheduleButtons = Buttons([scheduleBtn, cancelBtn])
+
+scheduleBtn = Button("Schedule post", nil, "primary")
+cancelBtn = Button("Cancel", nil, "secondary")
+
+// 11. narrow everything to one platform
+singlePlatformCard = Card([
+  TextContent("Single platform mode active: " + (platformSelectValue ?? "All"), "default")
+], "card")
+
+platformSelectValue = "all"
+
+// Assemble dashboard sections into a grid layout
+dashboardGrid = SectionBlock([
+  SectionItem("followers", "Followers & Growth", [followerCard, growthNote]),
+  SectionItem("engagement", "Engagement", [engagementCard]),
+  SectionItem("bestposts", "Top posts", [bestPostsSection]),
+  SectionItem("audience", "Audience", [audienceByPlatform]),
+  SectionItem("scheduled", "Scheduled this week", [scheduledThisWeekCard]),
+  SectionItem("besthour", "Best posting hour", [bestHourCard]),
+  SectionItem("comments", "Comments awaiting reply", [commentsCard]),
+  SectionItem("earnings", "Earnings", [earningsCard]),
+  SectionItem("collab", "Pending collaborations", [collabCard]),
+  SectionItem("schedule", "Schedule a post", [schedulePostCard]),
+  SectionItem("singleplatform", "Filter to one platform", [singlePlatformCard])
+], false)
+
+growthNote = TextContent("Growth is calculated over the last 30 days.", "default")
+
+// Root children
+rootChildren = [
+  header,
+  dashboardGrid
+]
+
+// Final root rendering
+root = Card(rootChildren, "card")

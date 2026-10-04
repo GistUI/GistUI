@@ -1,0 +1,12 @@
+root = Card(CardHeader("Weekly Product Newsletter Sign-up", "Get the latest product updates every week"), IntroSentence, SubscribeForm)
+
+IntroSentence = TextContent("Subscribers get a concise, weekly roundup of product news, feature releases, and tips to get more value from the product.", size:default)
+
+SubscribeForm = Form("newsletter-signup", Buttons(Button("Subscribe", primary)), EmailField)
+
+EmailField = FormControl("Email address", Input("email", "", "Enter your email"), Description)
+
+Description = Text("We’ll only send a weekly update and you can unsubscribe anytime.")
+
+Text = TextContent("### What you’ll get\n- A brief weekly digest with top features\n- Quick tips to maximize value\n- Early access to new improvements", size:small)
+Note = Separator(orientation:horizontal)

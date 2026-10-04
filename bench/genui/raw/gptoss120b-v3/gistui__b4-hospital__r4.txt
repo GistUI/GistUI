@@ -1,62 +1,106 @@
-root = Card(header, bedOccupancy, erWait, admissionsChart, deptBarChart, staffTable, criticalTable, dischargeTable, orTable, suppliesTable, incidentButton, datePicker, transferButton)
+root = Card(header, bedSection, erSection, admissionsSection, deptSection, staffSection, criticalSection, dischargeSection, orSection, suppliesSection, incidentSection, dateNavSection, transferSection)
 
-header = CardHeader("Hospital Operations Command Center", "Real‑time overview")
+header = CardHeader("Hospital Operations Command", "Live overview")
 
-bedOccupancy = Card(Heading("Bed Occupancy", h3), HorizontalBarChart(labels:["ICU","General","Pediatrics","Maternity"], Series("Occupied", values:[85,210,120,60]), Series("Available", values:[15,40,30,20]), variant:stacked, xLabel:"Beds", yLabel:"Count"))
+bedSection = Card(Heading("Bed Occupancy", h3), bedTable, clear)
 
-erWait = Card(Heading("Current ER Wait", h3), TextContent("Average wait time: **45 minutes**", size:large))
+bedTable = Table(bedData)
 
-admissionsChart = Card(Heading("Admissions (Last 14 Days)", h3), LineChart(|Date|Admissions
-|2023-09-16|45
-|2023-09-17|52
-|2023-09-18|48
-|2023-09-19|55
-|2023-09-20|50
-|2023-09-21|60
-|2023-09-22|58
-|2023-09-23|62
-|2023-09-24|57
-|2023-09-25|61
-|2023-09-26|59
-|2023-09-27|63
-|2023-09-28|66
-|2023-09-29|70), variant:linear, xLabel:"Date", yLabel:"Admissions"))
+bedData = |Ward|Occupied|Total
+|ICU|12|20
+|General|45|80
+|Pediatrics|30|50
 
-deptBarChart = Card(Heading("Patients per Department", h3), BarChart(|Department|Patients
-|Cardiology|78
-|Neurology|65
-|Oncology|54
-|Surgery|82
-|Emergency|95
-|Pediatrics|70), variant:grouped, xLabel:"Department", yLabel:"Patients"))
+erSection = Card(Heading("Current ER Wait", h3), erWait, clear)
 
-staffTable = Card(Heading("Staff on Shift", h3), Table(
-Col("Name", data:["Dr. Alice","Nurse Bob","Tech Carol","Dr. Dan"], type:string),
-Col("Role", data:["Physician","Nurse","Technician","Surgeon"], type:string),
-Col("Shift", data:["Day","Night","Day","Night"], type:string)))
+erWait = TextContent("Average wait time: **45 minutes**", size:large)
 
-criticalTable = Card(Heading("Critical Patients", h3), Table(
-Col("Patient ID", data:["P1023","P1108","P1156"], type:string),
-Col("Condition", data:["Sepsis","Cardiac Arrest","Respiratory Failure"], type:string),
-Col("Room", data:["ICU-4","ICU-7","ICU-2"], type:string)))
+admissionsSection = Card(Heading("Admissions (Last 14 Days)", h3), BarChart(admissionsData, variant:grouped, xLabel:"Date", yLabel:"Admissions"), clear)
 
-dischargeTable = Card(Heading("Patients Ready for Discharge", h3), Table(
-Col("Patient ID", data:["P1201","P1215"], type:string),
-Col("Expected Discharge", data:["2023-09-30","2023-09-30"], type:string),
-Col("Ward", data:["General-12","General-15"], type:string)))
+admissionsData = |Date|Admissions
+|2024-09-20|34
+|2024-09-21|28
+|2024-09-22|31
+|2024-09-23|27
+|2024-09-24|30
+|2024-09-25|26
+|2024-09-26|29
+|2024-09-27|33
+|2024-09-28|32
+|2024-09-29|35
+|2024-09-30|31
+|2024-10-01|28
+|2024-10-02|30
+|2024-10-03|34
 
-orTable = Card(Heading("Today's OR Bookings", h3), Table(
-Col("Room", data:["OR1","OR2","OR3"], type:string),
-Col("Procedure", data:["Appendectomy","Hip Replacement","Cataract Surgery"], type:string),
-Col("Time", data:["08:00‑10:00","10:30‑13:00","14:00‑15:30"], type:string)))
+deptSection = Card(Heading("Patients per Department", h3), HorizontalBarChart(deptData, variant:grouped, xLabel:"Patients", yLabel:"Department"), clear)
 
-suppliesTable = Card(Heading("Supplies Running Low", h3), Table(
-Col("Supply", data:["Syringes","Gloves","IV Bags"], type:string),
-Col("Remaining", data:["120","200","45"], type:string),
-Col("Reorder Level", data:["150","250","50"], type:string)))
+deptData = |Department|Patients
+|Cardiology|58
+|Neurology|42
+|Oncology|37
+|Surgery|65
+|Maternity|48
 
-incidentButton = Card(Buttons(Button("File Incident", primary), direction:row))
+staffSection = Card(Heading("Staff on Shift", h3), Table(staffData), clear)
 
-datePicker = Card(Heading("Select Date", h3), DatePicker("view_date", mode:single, value:["2023-09-30"]))
+staffData = |Name|Role|Shift
+|Dr. Smith|Surgeon|Day
+|Nurse Lee|ER Nurse|Night
+|Dr. Patel|Cardiologist|Day
+|Nurse Gomez|ICU Nurse|Day
+|Dr. Chen|Anesthesiologist|Night
 
-transferButton = Card(Buttons(Button("Request Patient Transfer", primary), direction:row))
+criticalSection = Card(Heading("Critical Patients", h3), Table(criticalData), clear)
+
+criticalData = |Patient ID|Name|Condition|Location
+|P001|John Doe|Severe Trauma|ER
+|P023|Maria Ruiz|Cardiac Arrest|ICU
+|P045|Ahmed Khan|Respiratory Failure|ICU
+
+dischargeSection = Card(Heading("Patients Ready for Discharge", h3), Table(dischargeData), clear)
+
+dischargeData = |Patient ID|Name|Ward|Expected Discharge
+|P012|Linda Park|General|Today 14:00
+|P034|Samir Gupta|Maternity|Today 16:30
+|P056|Emily Zhang|Pediatrics|Today 18:00
+
+orSection = Card(Heading("Today's OR Bookings", h3), Table(orData), clear)
+
+orData = |OR|Time|Procedure|Surgeon
+|OR1|08:00-10:00|Appendectomy|Dr. Smith
+|OR2|10:30-12:30|CABG|Dr. Patel
+|OR3|13:00-15:00|C-Section|Dr. Lee
+|OR4|15:30-17:30|Hip Replacement|Dr. Chen
+
+suppliesSection = Card(Heading("Supplies Running Low", h3), Table(suppliesData), clear)
+
+suppliesData = |Item|Current Stock|Threshold
+|Syringes|120|200
+|IV Bags|45|100
+|Gloves|300|500
+|Bandages|80|150
+
+incidentSection = Card(Heading("Report Incident", h3), incidentForm, clear)
+
+incidentForm = Form("incident-report", incidentButtons, incidentDesc, incidentType)
+
+incidentDesc = FormControl("Description", Input("desc", "Brief description...", type:text))
+
+incidentType = FormControl("Type", Select("type", SelectItem("safety", "Safety"), SelectItem("equipment", "Equipment"), SelectItem("patient", "Patient"), placeholder:"Select type"))
+
+incidentButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+dateNavSection = Card(Heading("View Another Day", h3), DatePicker("date-nav", mode:single, placeholder:"Select date"))
+
+transferSection = Card(Heading("Request Patient Transfer", h3), transferForm, clear)
+
+transferForm = Form("transfer-request", transferButtons, transferPatient, transferFrom, transferTo)
+
+transferPatient = FormControl("Patient ID", Input("patient_id", placeholder:"e.g., P012", type:text))
+
+transferFrom = FormControl("Current Dept", Select("from_dept", SelectItem("ICU","ICU"), SelectItem("General","General"), SelectItem("ER","ER"), placeholder:"Select"))
+
+transferTo = FormControl("Target Dept", Select("to_dept", SelectItem("ICU","ICU"), SelectItem("General","General"), SelectItem("ER","ER"), placeholder:"Select"))
+
+transferButtons = Buttons(Button("Request Transfer", primary), Button("Cancel", tertiary))

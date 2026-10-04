@@ -1,0 +1,129 @@
+root = Card([
+  header = CardHeader("CEO Quarterly Command View", "Executive dashboard for quarterly performance"),
+  controlRow = Card([quarterSelector, regionFilter, exportButton], "card", "row", "m"),
+  metricsGrid,
+  breakdownSection,
+  topRisksSection,
+  strategicInitiativesSection,
+  runwaySection,
+  pipelineSection,
+  countsSection,
+  npsSection,
+  boardNotesSection
+])
+
+quarterSelector = DropdownLike("quarter", ["Q1", "Q2", "Q3", "Q4"]) 
+regionFilter = Button("Focus Region: All", null, "secondary")
+exportButton = Button("Export Pack", null, "primary")
+
+metricsGrid = Card([
+  RowBlock("Revenue", revenueValue),
+  RowBlock("Costs", costsValue),
+  RowBlock("Profit", profitValue),
+  RowBlock("Revenue (Q1-Q4)", revenueFourQuartersChart),
+  RowBlock("Costs (Q1-Q4)", costsFourQuartersChart)
+], "card")
+
+revenueValue = TagBlock(["Revenue: ", "$12.3M"],)
+costsValue = TagBlock(["Costs: ", "$7.8M"],)
+profitValue = TagBlock(["Profit: ", "$4.5M"],)
+
+revenueFourQuartersChart = LineChart([1,2,3,4], [Series("Revenue", [3.2,3.5,4.0,4.6])], "linear", "Quarter", "USD")
+costsFourQuartersChart = LineChart([1,2,3,4], [Series("Costs", [2.0,2.3,2.5,2.9])], "linear", "Quarter", "USD")
+
+breakdownSection = Card([
+  Heading("Budget by Department vs Plan", "h3"),
+  BudgetTable
+], "card")
+
+BudgetTable = Table([
+  Col("Department", ["Sales","Engineering","Marketing","HR","Support"]),
+  Col("Plan Budget", ["$5.0M","$6.0M","$3.0M","$1.5M","$2.0M"]),
+  Col("Actual Spend", ["$4.8M","$5.8M","$3.2M","$1.6M","$1.9M"]),
+  Col("Variance", ["-0.2M","-0.2M","0.2M","+0.1M","-0.1M"])
+])
+
+topRisksSection = Card([
+  Heading("Top Risks with Owners", "h3"),
+  RisksAccordion
+], "card")
+
+RisksAccordion = Accordion([
+  RisksItem("R1", "Supply chain disruption", "Operations lead: Dana", ["Owner: Dana", "Mitigation: diversify suppliers"]),
+  RisksItem("R2", "Regulatory changes", "Compliance lead: Priya", ["Owner: Priya", "Mitigation: lobby + contingency"]),
+  RisksItem("R3", "Key talent retention", "People lead: Omar", ["Owner: Omar", "Mitigation: retention bonuses"])
+])
+
+RisksItem = function(value, trigger, content) // placeholder for inline construction
+  AccordionItem(value, trigger, content)
+
+strategicInitiativesSection = Card([
+  Heading("Strategic Initiatives with Status", "h3"),
+  InitiativesTable
+], "card")
+
+InitiativesTable = Table([
+  Col("Initiative", ["Digital Transformation","New Market Entry","Cost Optimization","AI Enablement"]),
+  Col("Owner", ["CTO","GM APAC","CFO","Head of Data"]),
+  Col("Status", ["In Progress","On Track","Delayed","Planned"])
+])
+
+runwaySection = Card([
+  Heading("Months of Runway", "h3"),
+  RunwayGauge
+], "card")
+
+RunwayGauge = Progress(12, "Runway months")
+
+pipelineSection = Card([
+  Heading("Sales Pipeline Value", "h3"),
+  PipelineChart
+], "card")
+
+PipelineChart = LineChart(["Stage1","Stage2","Stage3","Stage4"], [Series("Pipeline", [2.1,2.5,3.0,3.6])], "linear", "Stage", "M USD")
+
+countsSection = Card([
+  Heading("Headcount by Department", "h3"),
+  HeadcountTable,
+  Heading("Customer Count and Churn", "h3"),
+  CustomerTable
+], "card")
+
+HeadcountTable = Table([
+  Col("Department", ["Sales","Engineering","Marketing","Support","HR"]),
+  Col("Headcount", [120, 210, 95, 150, 40])
+])
+
+CustomerTable = Table([
+  Col("Metric", ["Customers", "Churn (mo)"]),
+  Col("Value", ["3,450", "2.1%"])
+])
+
+npsSection = Card([
+  Heading("NPS", "h3"),
+  NpsGauge
+], "card")
+
+NpsGauge = Progress(62, "NPS")
+
+boardNotesSection = Card([
+  Heading("Next Board Meeting - Action Items", "h3"),
+  BoardItems
+], "card")
+
+BoardItems = ListBlock([
+  ListItem("Approve strategic initiatives budget", "Owner: exec team", [], "Open"),
+  ListItem("Review headcount plan by region", "Owner: HR", [], "Open"),
+  ListItem("Finalize risk mitigations", "Owner: Risk Lead", [], "Open")
+])
+
+ListBlock = function(items, variant) // placeholder to fit structure
+  Card([Heading(" "), items], "card")
+
+Heading = function(text, level) // placeholder
+  TextContent(text)
+
+DropdownLike = function(name, options) // placeholder
+  TextContent("Quarter selector")
+
+blockSpacer = Separator("horizontal", false)

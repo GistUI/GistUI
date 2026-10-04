@@ -1,0 +1,92 @@
+root = Card(CardHeader("CEO Quarterly Command View"), focusRegionTag, exportBar, sections)
+
+focusRegionTag = Tag("Global focus: All Regions", info)
+
+exportBar = Buttons(Button("Export Pack", action:["export"]), Button("Change Quarter", triggerVariant:default))
+
+sections = SectionBlock(rootSections, isFoldable)
+
+rootSections = SectionItem("rev-cost-profit", "Overview & KPIs", revenueSection, quarterTrend, budgetSection, headcountSection, risksSection, initiativesSection, runwaySection, pipelineSection, winrateSection, customersSection, npsSection, boardItemsSection, changeQuarterSection, regionFocusSection, exportSection)
+
+revenueSection = Card(Heading("Revenue, Costs, Profit", h3), kpiTable, sunk)
+
+kpiTable = Table(revCostProfitTable)
+
+revCostProfitTable = |Metric|QX
+|Revenue|$1,284,000
+|Costs|$892,000
+|Profit|$392,000
+
+quarterTrend = Card(Heading("Revenue by Quarter", h4), LineChart(quarterTrendTable, natural, xLabel:"Quarter", yLabel:"USD"))
+
+quarterTrendTable = |Quarter|Revenue
+|Q1|320000
+|Q2|365000
+|Q3|410000
+|Q4|530000
+
+budgetSection = Card(Heading("Budget by Department vs Plan", h4), Table(budgetTable))
+
+budgetTable = |Department|Budget|Plan
+|Sales|$420k|$450k
+|Engineering|$560k|$600k
+|Marketing|$180k|$200k
+|Support|$140k|$150k
+
+headcountSection = Card(Heading("Headcount by Department", h4), Table(headcountTable))
+
+headcountTable = |Department|Headcount
+|Sales|24
+|Engineering|42
+|Marketing|12
+|Support|8
+
+risksSection = Card(Heading("Top Risks with Owner", h4), Table(risksTable))
+
+risksTable = |Risk|Owner
+|Regulatory changes|A. Patel
+|Supplier delay|J. Kim
+|Tech debt|R. Singh
+|Data privacy|M. Chen
+
+initiativesSection = Card(Heading("Strategic Initiatives with Status", h4), Table(initiativesTable))
+
+initiativesTable = |Initiative|Status
+|Growth via partnerships|On track
+|Platform modernization|In review
+|Customer success program|Launched
+|Geo expansion|Planning
+
+runwaySection = Card(Heading("Months of Runway"), TextContent("14 months", size:default))
+
+pipelineSection = Card(Heading("Sales Pipeline Value", h4), Table(pipelineTable))
+
+pipelineTable = |Stage|Value
+|Qualified|$1,200,000
+|Proposal|$2,450,000
+|Negotiation|$1,050,000
+|Closed Won|$3,600,000
+
+winrateSection = Card(Heading("Win Rate"), TextContent("28%", size:default))
+
+customersSection = Card(Heading("Customers & Churn", h4), kpisTable2)
+
+kpisTable2 = Table(customersTable)
+
+customersTable = |Metric|Value
+|Customers|1,350
+|Churn (monthly)|0.9%
+
+npsSection = Card(Heading("NPS"), TextContent("Net Promoter Score: 42", size:default))
+
+boardItemsSection = Card(Heading("Next Board Meeting - Key Items"), ListBlock(ListItem("Financials review", "Revenue, Costs, Profit", "Export pack"), ListItem("Strategy updates"), ListItem("Risk review")))
+
+changeQuarterSection = Card(Heading("Change Quarter"), Form("quarter-selector", formButtons, quarterField), sunk)
+
+quarterField = FormControl("Select Quarter", Select("quarter", SelectItem("Q1 FY24", "Q1 FY24"), SelectItem("Q2 FY24", "Q2 FY24"), SelectItem("Q3 FY24", "Q3 FY24"), SelectItem("Q4 FY24", "Q4 FY24"), placeholder:"Choose quarter"))
+
+formButtons = Buttons(Button("Apply", primary), Button("Cancel", tertiary))
+
+regionFocusSection = Card(Heading("Focus Region"), TextContent("Region: All Regions", size:default))
+
+exportSection = Card(Heading("Export"), Button("Export Pack", action:["exportPack"]))

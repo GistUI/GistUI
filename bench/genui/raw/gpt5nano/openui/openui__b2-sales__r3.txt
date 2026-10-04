@@ -1,0 +1,53 @@
+root = Card([
+  header,
+  metricsRow,
+  sixMonthTrendCard,
+  topProductsCard,
+  conversionCard,
+  downloadCard
+])
+
+header = CardHeader("Founder’s Monthly Sales Check", "Overview of this month’s performance")
+
+metricsRow = Card([
+  revenueCard,
+  conversionCardRow
+], "card")
+
+revenueCard = Card([
+  Heading("Revenue this month", "h3"),
+  TextContent("$", "default")
+], "card")
+
+conversionCardRow = Card([
+  TagBlock(["Revenue", "Conversions", "AOV"])
+], "card")
+
+sixMonthTrendCard = Card([
+  Heading("Revenue movement — last 6 months", "h3"),
+  LineChart(["M1","M2","M3","M4","M5","M6"], [Series("Revenue", [42000, 51000, 48000, 56000, 60000, 75000])], "linear", "Month", "USD")
+])
+
+topProductsCard = Card([
+  Heading("Top selling products", "h3"),
+  productsTable
+], "card")
+
+productsTable = Table([
+  Col("Product", ["Widget A", "Gadget B", "Tool C"]),
+  Col("Units Sold", [1200, 980, 860])
+])
+
+conversionCard = Card([
+  Heading("Conversion percentage", "h3"),
+  TextContent("Conversion: 3.4%", "default")
+], "card")
+
+downloadCard = Card([
+  Heading("Download numbers", "h3"),
+  TextContent("Export the current month’s data as CSV or PDF.", "default"),
+  Buttons([downloadCSVBtn, downloadPDFBtn], "row")
+], "card")
+
+downloadCSVBtn = Button("Download CSV", null, "secondary")
+downloadPDFBtn = Button("Download PDF", null, "secondary")

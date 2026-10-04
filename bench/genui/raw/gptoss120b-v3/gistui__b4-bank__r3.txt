@@ -1,57 +1,45 @@
-root = Card(balancesSection, transactionsSection, spendingSection, billsSection, vacationSection, creditScoreSection, moveMoneyForm, freezeButton, statementSelect, alertsForm, disputeButton)
+root = Card(balancesSection, transactionsSection, spendingSection, billsSection, goalSection, creditScoreSection, moveMoneyForm, freezeButton, statementSelect, alertsSwitches, disputeButton)
 
-balancesSection = Card(CardHeader("Account balances"), balancesTable, clear)
-
+balancesSection = Card(CardHeader("Account balances"), Table(balancesTable))
 balancesTable = |Account|Balance
 |Checking|$2,340.75
 |Savings|$8,120.00
-|Credit|$1,150.20
+|Credit|$1,250.30
 
-transactionsSection = Card(CardHeader("Recent transactions"), transactionsList, clear)
+transactionsSection = Card(CardHeader("Recent transactions"), Table(transactionsTable))
+transactionsTable = |Date|Merchant|Amount
+|2026-09-28|Coffee Shop|-$4.50
+|2026-09-27|Grocery Store|-$76.20
+|2026-09-26|Salary|+$2,500.00
+|2026-09-25|Online Subscription|-$12.99
 
-transactionsList = ListBlock(tx1, tx2, tx3, tx4, variant:number)
+spendingSection = Card(CardHeader("Spending this month"), PieChart(spendingTable, donut))
+spendingTable = |Category|Amount
+|Food|$420
+|Transport|$150
+|Entertainment|$200
+|Bills|$300
+|Other|$80
 
-tx1 = ListItem("Starbucks", "-$5.45", "View", image:["https://picsum.photos/seed/starbucks/100/100"])
-tx2 = ListItem("Amazon", "-$23.99", "View", image:["https://picsum.photos/seed/amazon/100/100"])
-tx3 = ListItem("Payroll", "+$2,500.00", "View", image:["https://picsum.photos/seed/payroll/100/100"])
-tx4 = ListItem("Electric Co.", "-$78.20", "View", image:["https://picsum.photos/seed/electric/100/100"])
+billsSection = Card(CardHeader("Bills due soon"), Table(billsTable))
+billsTable = |Bill|Due Date|Amount
+|Electricity|2026-10-10|$120.00
+|Internet|2026-10-12|$60.00
+|Credit Card|2026-10-15|$250.00
 
-spendingSection = Card(CardHeader("Spending by category (this month)"), spendingChart, clear)
+goalSection = Card(CardHeader("Vacation savings goal"), Progress(value:6500, label:"$6,500 of $10,000"))
+creditScoreSection = Card(CardHeader("Credit score"), TextContent("Your current credit score is **720**", size:large))
 
-spendingChart = PieChart(spendingLabels, spendingValues, donut)
+moveMoneyForm = Form("move-money", moveMoneyButtons, amountField, fromSelect, toSelect)
+amountField = FormControl("Amount", Input("amount", "$", type:number))
+fromSelect = Select("from_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), placeholder:"From", value:"checking")
+toSelect = Select("to_account", SelectItem("savings", "Savings"), SelectItem("checking", "Checking"), placeholder:"To", value:"savings")
+moveMoneyButtons = Buttons(Button("Transfer", primary))
 
-spendingLabels = ["Food","Shopping","Bills","Travel","Other"]
-spendingValues = [420,310,150,90,70]
+freezeButton = Button("Freeze credit line", destructive)
 
-billsSection = Card(CardHeader("Bills due soon"), billsTable, clear)
+statementSelect = Card(CardHeader("Statement period"), Select("statement_period", SelectItem("30d", "Last 30 days"), SelectItem("90d", "Last 90 days"), placeholder:"Select period"))
 
-billsTable = |Bill|Due date|Amount
-|Rent|2026-10-01|$1,200.00
-|Internet|2026-09-15|$60.00
-|Gym|2026-09-20|$45.00
-
-vacationSection = Card(CardHeader("Vacation savings goal"), vacationProgress, clear)
-
-vacationProgress = Progress(65, "65% saved")
-
-creditScoreSection = Card(CardHeader("Credit score"), TextContent("Your current credit score is **720**", size:large), clear)
-
-moveMoneyForm = Form("move-money", moveButtons, fromAccountField, toAccountField, amountField)
-
-fromAccountField = FormControl("From account", Select("from_acct", SelectItem("checking","Checking"), SelectItem("savings","Savings"), placeholder:"Select account", value:"checking"))
-toAccountField = FormControl("To account", Select("to_acct", SelectItem("checking","Checking"), SelectItem("savings","Savings"), SelectItem("credit","Credit"), placeholder:"Select account", value:"savings"))
-amountField = FormControl("Amount", Input("amount", "$0.00", type:number))
-
-moveButtons = Buttons(Button("Transfer", primary))
-
-freezeButton = Button("Freeze credit line", primary)
-
-statementSelect = Select("statement_period", SelectItem("30d","Last 30 days"), SelectItem("90d","Last 90 days"), SelectItem("ytd","Year to date"), placeholder:"Select period", value:"30d")
-
-alertsForm = Form("alerts", alertsButtons, alertsToggle)
-
-alertsToggle = FormControl("Alert triggers", SwitchGroup("alert_triggers", SwitchItem("low_balance","Low balance", "Notify when balance < $100", false), SwitchItem("large_tx","Large transaction", "Notify for > $500", false), variant:clear))
-
-alertsButtons = Buttons(Button("Save alerts", primary))
+alertsSwitches = Card(CardHeader("Alert settings"), SwitchGroup("alerts", variant:clear, SwitchItem("low_balance", "Low balance", "Notify when balance < $100", defaultChecked), SwitchItem("large_txn", "Large transaction", "Notify for transactions > $500", defaultChecked)))
 
 disputeButton = Button("Dispute a transaction", primary)

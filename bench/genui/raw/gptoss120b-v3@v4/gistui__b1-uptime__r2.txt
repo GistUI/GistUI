@@ -1,9 +1,0 @@
-root = Card(header, uptime, incident, actions)
-
-header = CardHeader("Platform Status", "Live overview")
-
-uptime = TextContent("**API Uptime (this month):** 99.7%", size:large)
-
-incident = Callout(info, "Recent Incident", "Database outage on Sep 28, resolved at 14:35 UTC")
-
-actions = Buttons(Button("Refresh", primary), Button("View history", secondary))

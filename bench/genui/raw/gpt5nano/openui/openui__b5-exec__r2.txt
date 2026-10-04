@@ -1,0 +1,217 @@
+root = Card([
+  headerSection,
+  metricsRow,
+  chartsRow,
+  budgetsRow,
+  headcountRow,
+  risksSection,
+  initiativesSection,
+  runwayRow,
+  pipelineRow,
+  npsRow,
+  boardItemsSection,
+  controlsRow,
+  exportSection
+])
+
+headerSection = CardHeader("CEO Quarterly Command View", "Q currently: 202X-QY")
+
+controlsRow = Card([
+  quarterPicker,
+  regionFilter,
+  exportButton
+], "card")
+
+quarterPicker = Form("quarter-select", Buttons([quarterApplyBtn], "row"), [quarterField])
+quarterField = FormControl("Quarter", quarterSelect)
+quarterSelect = Select("quarter", [q1, q2, q3, q4], "Choose quarter")
+q1 = SelectItem("Q1", "Q1")
+q2 = SelectItem("Q2", "Q2")
+q3 = SelectItem("Q3", "Q3")
+q4 = SelectItem("Q4", "Q4")
+quarterApplyBtn = Button("Apply Quarter")
+
+regionFilter = Form("region-filter", Buttons([regionApplyBtn], "row"), [regionField])
+regionField = FormControl("Region", regionSelect)
+regionSelect = Select("region", [regionNA, regionNA2], "Choose region")
+regionNA = SelectItem("All Regions", "All Regions")
+regionNA2 = SelectItem("Americas", "Americas")
+regionApplyBtn = Button("Apply Region")
+
+exportButton = Button("Export Pack", null, "secondary")
+
+metricsRow = Card([
+  revenueCard,
+  costsCard,
+  profitCard
+], "card")
+
+revenueCard = Card([
+  Heading("Revenue", "h3"),
+  TextContent("$2.34M this quarter", "large")
+], "sunk")
+
+costsCard = Card([
+  Heading("Costs", "h3"),
+  TextContent("$1.12M this quarter", "large")
+], "sunk")
+
+profitCard = Card([
+  Heading("Profit", "h3"),
+  TextContent("$1.22M", "large")
+], "sunk")
+
+chartsRow = Card([
+  revenueOverFourQuartersCard,
+  costsOverFourQuartersCard
+], "card")
+
+revenueOverFourQuartersCard = Card([
+  Heading("Revenue over four quarters", "h4"),
+  LineChart(["Q1","Q2","Q3","Q4"], [LineSeries("Revenue", [520, 610, 590, 640])], "linear", "Quarter", "USD")
+], "card")
+
+LineSeries(name, values) = Series(name, values)
+
+costsOverFourQuartersCard = Card([
+  Heading("Costs over four quarters", "h4"),
+  LineChart(["Q1","Q2","Q3","Q4"], [LineSeries("Costs", [320, 360, 340, 380])], "linear", "Quarter", "USD")
+], "card")
+
+budgetsRow = Card([
+  budgetByDepartmentCard,
+  headcountByDepartmentCard
+], "card")
+
+budgetByDepartmentCard = Card([
+  Heading("Budget by department vs. plan", "h4"),
+  Table([deptCol, budgetCol, planCol])
+], "card")
+
+deptCol = Col("Department", ["Sales","Engineering","Marketing","Operations"])
+budgetCol = Col("Budget", ["$1.2M","$2.4M","$0.8M","$0.6M"])
+planCol = Col("Plan", ["$1.3M","$2.2M","$0.9M","$0.5M"])
+
+headcountByDepartmentCard = Card([
+  Heading("Headcount by department", "h4"),
+  Table([deptHeadCol, hcCol])
+], "card")
+
+deptHeadCol = Col("Department", ["Sales","Engineering","Marketing","Ops"])
+hcCol = Col("Headcount", [42, 78, 24, 16])
+
+risksSection = Card([
+  risksTable
+], "card")
+
+risksTable = Table([riskOwnerCol, riskCol, statusCol])
+riskOwnerCol = Col("Owner", ["Alice","Bob","Carmen"])
+riskCol = Col("Risk", ["Market slowdown","Supplier disruption","Regulatory changes"])
+statusCol = Col("Owner Status", ["Active","Mitigating","Monitoring"])
+
+initiativesSection = Card([
+  initiativesTable
+], "card")
+
+initiativesTable = Table([itiCol, statusICol, ownerICol])
+itiCol = Col("Initiative", ["Digital LP Rollout","Staff Augmentation","Security Upgrade"])
+statusICol = Col("Status", ["On Track","At Risk","Planned"])
+ownerICol = Col("Owner", ["Dana","Eli","Fay"])
+
+runwayRow = Card([
+  monthsRunwayCard
+], "card")
+
+monthsRunwayCard = Card([
+  Heading("Months of runway", "h4"),
+  TextContent("18 months projected at current burn", "default")
+], "card")
+
+pipelineRow = Card([
+  pipelineCard
+], "card")
+
+pipelineCard = Card([
+  Heading("Sales pipeline value", "h4"),
+  TextContent("$9.2M", "large"),
+  Heading("Win rate", "h5"),
+  TextContent("28%", "default"),
+  Heading("Customer count", "h5"),
+  TextContent("1,245", "default"),
+  Heading("Churn", "h5"),
+  TextContent("1.8% monthly", "default")
+], "card")
+
+npsRow = Card([
+  npsCard
+], "card")
+
+npsCard = Card([
+  Heading("NPS", "h4"),
+  TextContent("Net Promoter Score: 42", "large")
+], "card")
+
+boardItemsSection = Card([
+  boardItemsList
+], "card")
+
+boardItemsList = ListBlock([
+  ListItem("Item 1: Prepare board briefing", "Include KPIs, risks, initiatives", [], "Open"),
+  ListItem("Item 2: Review run rate and forecast", "Align quarter plan", [], "Open"),
+  ListItem("Item 3: Confirm strategic priorities", "Board commentary needed", [], "Open")
+], "number")
+
+boardSectionHeader = Heading("Items for the next board meeting", "h3")
+
+boardItemsSectionChildren = Card([
+  boardSectionHeader,
+  boardItemsSection
+], "card")
+
+boardItemsSection = boardItemsSectionChildren
+
+boardItemsSectionRef = boardItemsSection
+
+boardItemsSectionRef
+
+boardItemsSection = Card([
+  boardSectionHeader,
+  boardItemsSection
+], "card")
+
+boardItems = boardItemsSection
+
+boardSectionRoot = Card([
+  boardItems
+], "card")
+
+boardItemsSectionRoot = boardSectionRoot
+
+boardItemsSectionRoot
+
+boardItemsRoot = Card([
+  boardSectionHeader,
+  boardItems
+], "card")
+
+boardItemsRoot
+
+sectionSpacer = Separator("horizontal")
+
+boardHeader = CardHeader("Board Meeting Prep", "Agenda and decisions")
+
+headingInfo = Heading("Executive Pack Summary", "h2")
+
+boardArt = Image("Board icons", "https://picsum.photos/seed/board/800/400")
+
+FooterNote = TextContent("Export generated pack to share with executives and board members.", "small")
+
+exportSection = Card([
+  SectionBlock([SectionItem("export-section", "Export Options", [
+    TextContent("Export format: PDF or PPTX", "default"),
+    Button("Export Pack", null, "secondary")
+  ])], true)
+], "card")
+
+# Ensure all defined names are referenced by root
+root

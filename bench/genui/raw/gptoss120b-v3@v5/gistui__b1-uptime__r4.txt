@@ -1,7 +1,0 @@
-root = Card(cardHeader, uptimeNote, incidentNote)
-
-cardHeader = CardHeader("Platform Status", "Live overview")
-
-uptimeNote = TextContent("**Current API Uptime (this month): 99.96%**", size:large)
-
-incidentNote = MarkDownRenderer("**Recent Incident**\n- **Resolved:** March 27, 2024 at 14:32 UTC\n- **Summary:** Intermittent latency spikes affecting authentication endpoints.", variant:clear)

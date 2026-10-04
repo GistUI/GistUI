@@ -1,0 +1,56 @@
+root = Card([
+1_heading = CardHeader("Month-end Finance Overview", "Current month metrics and statement"),
+sheet = Card([
+  headerRow = CardHeader("Month Selector", null),
+  monthControls = Card([
+    monthDropdown = Form("month-view", Buttons([downloadBtn, prevBtn, nextBtn]), [
+      Field1 = FormControl("Month", Select("month", [SelectItem("2026-08", "August 2026"), SelectItem("2026-07", "July 2026")], "Choose month"), ),
+    ]),
+  ]),
+  metricsGrid = Card([
+    cashCard = Card([
+      cashHeading = Heading("Cash on Hand", "h3"),
+      cashValue = TextContent("$1,234,567", "large"),
+    ]),
+    burnCard = Card([
+      burnHeading = Heading("Monthly Burn", "h3"),
+      burnValue = TextContent("$89,000", "large"),
+    ]),
+    runwayCard = Card([
+      runwayHeading = Heading("Months of Runway", "h3"),
+      runwayValue = TextContent("14.0 months", "large"),
+    ]),
+  ], "card"),
+  sectionSplit = Card([
+    splitHeading = Heading("Expenses by Category", "h3"),
+    expensesTable = Table([
+      Col("Category", ["Salaries", "Rent", "Marketing", "R&D", "Operations"]),
+      Col("Amount", ["$120,000", "$40,000", "$32,000", "$28,000", "$9,500"])
+    ])
+  ], "card"),
+  transCard = Card([
+    transHeading = Heading("Transactions above 10,000 this month", "h3"),
+    transList = ListBlock([
+      ListItem("ACME Corp — Payment received", "Invoice #4557", ["https://picsum.photos/seed/txn1/80/80"]),
+      ListItem("CloudX Ltd — Hosting", "Invoice #4602", ["https://picsum.photos/seed/txn2/80/80"]),
+      ListItem("FinServe – Services", "Invoice #4621", ["https://picsum.photos/seed/txn3/80/80"])
+    ], "number")
+  ])
+], "card"),
+downloadRow = Card([
+  downloadBlock = Card([
+    dlHeading = Heading("Statement download", "h3"),
+    dlButtons = Buttons([downloadBtn2, emailBtn], "row")
+  ])
+]),
+downloadBtn = Button("Download statement", null, "primary"),
+downloadBtn2 = Button("Download CSV", null, "primary"),
+emailBtn = Button("Send to email", null, "secondary"),
+prevBtn = Button("Previous month", null, "secondary"),
+nextBtn = Button("Next month", null, "secondary")
+])
+
+# Notes:
+# - The root screen includes: cash on hand, monthly burn, runway, expenses by category, large transactions, month navigation, and download action.
+# - All items are represented with headings and simple blocks; data are placeholders and can be hooked to real values.
+# - Items 1-3 are in a top metrics trio; item 4 is an expenses breakdown; item 5 is a high-value transactions list; item 6 is a month navigator; item 7 is a download action.

@@ -1,0 +1,54 @@
+root = Card([
+  header = CardHeader("Analytics Dashboard", "Training Platform"),
+  topRow = Card([
+    kpisRow = Card([
+      activeLearners = Card([
+        Heading("Active learners this week", "h4"),
+        TextContent("1,248 learners active this week", "default")
+      ]),
+      completionRate = Card([
+        Heading("Course completion rate", "h4"),
+        TextContent("72%", "default")
+      ]),
+      avgQuizScore = Card([
+        Heading("Average quiz score", "h4"),
+        TextContent("84%", "default")
+      ])
+    ], "card")
+  ], null, "row", "m"),
+  section2 = Card([
+    coursesRankedHeader = Heading("Courses ranked by enrollment", "h3"),
+    coursesTable = Table([
+      Col("Course", ["Intro to AI", "Data Science 101", "Advanced ML", "Python Basics"]),
+      Col("Enrollments", [320, 275, 230, 210], "number"),
+      Col("Completion", ["68%", "75%", "54%", "60%"], "string")
+    ])
+  ]),
+  section3 = Card([
+    learnersAtRiskHeader = Heading("Learners at risk of dropping out", "h3"),
+    atRiskList = ListBlock([
+      ListItem("Alex Kim", "1 week inactive, risk high", ["https://picsum.photos/seed/Alex/80/80"]),
+      ListItem("Priya Patel", "Missing two quizzes this month", ["https://picsum.photos/seed/Priya/80/80"]),
+      ListItem("Jon Doe", "Low activity in last 14 days", ["https://picsum.photos/seed/Jon/80/80"])
+    ], "image")
+  ], "sunk"),
+  section4 = Card([
+    cohortNarrowHeader = Heading("Narrow to a cohort", "h3"),
+    cohortSelector = Form("cohort-filter", Buttons([Button("Apply", null, "secondary")]), [
+      Select("cohort", [SelectItem("All cohorts", "All cohorts"), SelectItem("Cohort A", "Cohort A"), SelectItem("Cohort B", "Cohort B")], "Choose cohort")
+    ])
+  ]),
+  section5 = Card([
+    engPastHeader = Heading("Engagement across the past eight weeks", "h3"),
+    engagementChart = LineChart([1,2,3,4,5,6,7,8], [Series("Engagement", [65, 70, 68, 72, 75, 78, 80, 82])], "linear", "Week", "Engagement %")
+  ]),
+  section6 = Card([
+    messageCohortHeader = Heading("Message a cohort", "h3"),
+    messageBox = Form("message-cohort", Buttons([Button("Send message", null, "primary")]), [
+      TextArea("message", "Enter message to cohort", 4, [], "Hello cohort, please update your progress."),
+      Select("target-cohort", [SelectItem("Cohort A", "Cohort A"), SelectItem("Cohort B", "Cohort B")], "Select cohort")
+    ])
+  ])
+], "card")
+
+header = CardHeader("Analytics Dashboard", "Training Platform")

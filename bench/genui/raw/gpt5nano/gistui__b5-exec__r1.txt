@@ -1,0 +1,52 @@
+root = Card(CardHeader("CEO Quarterly Command View", "Q2 2024"), focusPanel, exportRow, metricsRow, quartersRow, budgetsRow, headcountRow, risksRow, initiativesRow, runwayRow, pipelineRow, winRateRow, customersRow, npsRow, boardItemsRow, quarterPicker, regionPicker)
+focusPanel = Card(Heading("Focus controls", h3), SectionBlock(SectionItem("region", "Region focus", regionHint), isFoldable), SectionBlock(SectionItem("quarter", "Quarter", quarterHint), isFoldable))
+regionHint = TextContent("Choose a region to focus the dashboard view.", size:"default")
+quarterHint = TextContent("Select a quarter to update all time-series and targets.", size:"default")
+exportRow = Buttons(Button("Export Pack", action:["export"]), Button("Refresh", primary))
+metricsRow = Card(Heading("Key metrics", h3), |Revenue|$12.3M|Costs|$7.4M|Profit|$4.9M, Table|Metrics|Value|Revenue|$12.3M|Costs|$7.4M|Profit|$4.9M)
+quartersRow = Card(Heading("Revenue over four quarters", h3), Table(quartersTable))
+quartersTable = |Quarter|Revenue|Costs|Profit
+|Q1|$3.1M|$2.2M|$0.9M
+|Q2|$3.4M|$2.0M|$1.4M
+|Q3|$3.2M|$2.1M|$1.1M
+|Q4|$2.6M|$1.9M|$0.7M
+budgetsRow = Card(Heading("Budget by department against plan", h3), Table(budgetsTable))
+budgetsTable = |Department|Budget|Plan|Variance
+|Sales|$4.2M|$4.5M|-0.3M
+|R&D|$2.1M|$2.0M|+0.1M
+|Ops|$1.3M|$1.5M|-0.2M
+|Marketing|$1.5M|$1.6M|-0.1M
+headcountRow = Card(Heading("Headcount by department", h3), Table(headcountTable))
+headcountTable = |Department|Headcount
+|Sales|120
+|R&D|85
+|Ops|60
+|Marketing|40
+risksRow = Card(Heading("Top risks with owner for each", h3), Table(risksTable))
+risksTable = |Risk|Owner
+|Market slowdown|A. Patel
+|Key supplier disruption|L. Chen
+|Regulatory change|M. Rossi
+|Talent gap|J. Kim
+initiativesRow = Card(Heading("Strategic initiatives with status for each", h3), Table(initiativesTable))
+initiativesTable = |Initiative|Owner|Status
+|Growth engine program|A. Patel|On track
+|Cost optimization|L. Chen|Behind
+|Digital transformation|M. Rossi|On hold
+|Talent development|J. Kim|In progress
+runwayRow = Card(Heading("Months of runway", h3), TextContent("7 months", size:"default"))
+pipelineRow = Card(Heading("Sales pipeline value", h3), Table(pipelineTable))
+pipelineTable = |Stage|Value
+|Qualified|$2.1M
+|Proposals|$4.2M
+|Negotiation|$3.0M
+|Closed|$5.5M
+winRateRow = Card(Heading("Win rate", h3), TextContent("38%", size:"default"))
+customersRow = Card(Heading("Customers and churn", h3), Table(customersTable))
+customersTable = |Metric|Value
+|Customers|$350
+|Churn|5%
+npsRow = Card(Heading("NPS", h3), TextContent("+42", size:"default"))
+boardItemsRow = Card(Heading("Board meeting items", h3), ListBlock(ListItem("Review quarterly performance", "Financials and KPIs"), ListItem("Risks and mitigations", "Top risks and owners"), ListItem("Strategic initiatives status", "Progress and blockers"), ListItem("Resource allocations", "Headcount and budgets")))
+quarterPicker = DialogBlock("Change Quarter", "Select Quarter", Card(Heading("Quarter selection", h3), TextContent("Choose the quarter to view.", size:"default")), description:"Select quarter to update overview", triggerVariant:default)
+regionPicker = DialogBlock("Focus Region", "Select Region", Card(Heading("Region selection", h3), TextContent("Choose region to filter metrics.", size:"default")), description:"Filter dashboard by region", triggerVariant:default)

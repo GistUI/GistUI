@@ -1,0 +1,5 @@
+root = Card([taskHeader, deadlineText, statusTag, doneButton])
+taskHeader = Heading("Finish quarterly report", "h2")
+deadlineText = TextContent("Due: 2026-10-15 17:00", "small")
+statusTag = Tag("In Progress", null, null, "info")
+doneButton = Button("Mark as done", ["mark_done"], "primary")

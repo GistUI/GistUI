@@ -1,89 +1,48 @@
-root = Card(balancesSection, transactionsSection, spendingSection, billsSection, vacationSection, creditScoreSection, actionsSection, statementSection, alertsSection, disputeSection, gap:m, direction:column)
+root = Card(balancesSection, transactionsSection, spendingSection, billsSection, vacationSection, creditScoreSection, actionsSection, alertsSection, disputeSection)
 
-balancesSection = Card(CardHeader("Account balances"), balancesTable, clear)
-
-balancesTable = Table(accountCol, balanceCol)
-
-accountCol = Col("Account", data:["Checking","Savings","Credit"], type:string)
-
-balanceCol = Col("Balance", data:["$2,340.00","$8,120.00","$1,200.00"], type:string)
-
-transactionsSection = Card(CardHeader("Recent transactions"), transactionsTable, clear)
-
-transactionsTable = Table(merchantCol, amountCol)
-
-merchantCol = Col("Merchant", data:["Coffee Shop","Grocery Store","Online Retailer","Gas Station"], type:string)
-
-amountCol = Col("Amount", data:["-$4.50","-$76.23","-$120.00","-$35.80"], type:string)
-
-spendingSection = Card(CardHeader("Spending by category (this month)"), spendingChart, clear)
-
-spendingChart = PieChart(spendingLabels, spendingValues, variant:donut)
-
-spendingLabels = |Category|
-|Food|
-|Groceries|
-|Shopping|
-|Transport|
-
-spendingValues = |Value|
-|15|
-|30|
-|25|
-|10|
-
-billsSection = Card(CardHeader("Bills due soon"), billsTable, clear)
-
-billsTable = Table(billCol, dueCol, amountBillCol)
-
-billCol = Col("Bill", data:["Electricity","Internet","Rent"], type:string)
-
-dueCol = Col("Due", data:["2024-10-05","2024-10-07","2024-10-01"], type:string)
-
-amountBillCol = Col("Amount", data:["$120.00","$60.00","$1,200.00"], type:string)
-
-vacationSection = Card(CardHeader("Vacation savings goal"), vacationProgress, clear)
-
-vacationProgress = Progress(4500, label:"$4,500 saved of $5,000 goal")
-
-creditScoreSection = Card(CardHeader("Credit score"), creditScoreText, clear)
-
-creditScoreText = TextContent("Your credit score: **720**", size:large)
-
-actionsSection = Card(CardHeader("Move money"), moveForm, freezeButton, clear)
-
-moveForm = Form("move-money", moveButtons, amountField, fromField, toField)
-
-amountField = FormControl("Amount", Input("amount", "$0.00", type:number))
-
-fromField = FormControl("From account", fromSelect)
-
-fromSelect = Select("from_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), placeholder:"Select account")
-
-toField = FormControl("To account", toSelect)
-
-toSelect = Select("to_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), placeholder:"Select account")
-
-moveButtons = Buttons(Button("Transfer", primary))
+balancesSection = Card(CardHeader("Account balances"), Table(balancesTable))
+transactionsSection = Card(CardHeader("Recent transactions"), Table(transRows))
+spendingSection = Card(CardHeader("Spending by category"), PieChart(spendingTable, donut))
+billsSection = Card(CardHeader("Bills due soon"), Table(billsTable))
+vacationSection = Card(CardHeader("Vacation savings goal"), Progress(value:6500, label:"$6,500 of $10,000"))
+creditScoreSection = Card(CardHeader("Credit score"), TextContent("Your current credit score is **720**.", size:large), freezeButton)
+actionsSection = Card(CardHeader("Transfer money"), Form("transfer", transferButtons, amountField, fromSelect, toSelect))
+alertsSection = Card(CardHeader("Alert settings"), Form("alerts", alertsButtons, spendSwitch, billSwitch))
+disputeSection = Card(CardHeader("Dispute a transaction"), Form("dispute", disputeButtons, disputeSelect, disputeDesc))
 
 freezeButton = Button("Freeze credit line", primary)
 
-statementSection = Card(CardHeader("Statement period"), statementSelect, clear)
-
-statementSelect = Select("statement_period", SelectItem("30d", "Last 30 days"), SelectItem("90d", "Last 90 days"), SelectItem("ytd", "Year to date"), placeholder:"Choose period")
-
-alertsSection = Card(CardHeader("Alert settings"), alertsForm)
-
-alertsForm = Form("alerts", alertsButtons, alertsCheckbox)
-
-alertsCheckbox = FormControl("Enable alerts for", CheckBoxGroup("alert_types", CheckBoxItem("Low balance", "When balance falls below $100", "low_balance", false), CheckBoxItem("Large transaction", "When a transaction exceeds $500", "large_tx", false), defaultChecked:[], value:[]))
+transferButtons = Buttons(Button("Transfer", primary))
+amountField = FormControl("Amount", Input("amount", "0.00", type:number))
+fromSelect = Select("from_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), placeholder:"From", value:"checking")
+toSelect = Select("to_account", SelectItem("checking", "Checking"), SelectItem("savings", "Savings"), SelectItem("credit", "Credit Card"), placeholder:"To", value:"savings")
 
 alertsButtons = Buttons(Button("Save", primary))
-
-disputeSection = Card(CardHeader("Dispute a transaction"), disputeForm)
-
-disputeForm = Form("dispute", disputeButtons, disputeSelect)
-
-disputeSelect = Select("dispute_tx", SelectItem("tx1", "Coffee Shop - $4.50"), SelectItem("tx2", "Grocery Store - $76.23"), placeholder:"Select transaction")
+spendSwitch = FormControl("Spending alerts", SwitchGroup("spend_alerts", SwitchItem("high_spend", "High spend", "Notify when spending exceeds $500", defaultChecked), variant:clear))
+billSwitch = FormControl("Bill due alerts", SwitchGroup("bill_alerts", SwitchItem("bill_due", "Bill due", "Notify 3 days before due", defaultChecked), variant:clear))
 
 disputeButtons = Buttons(Button("Submit dispute", primary))
+disputeSelect = Select("transaction", SelectItem("txn1", "Starbucks - $5.45"), SelectItem("txn2", "Amazon - $32.10"), placeholder:"Select transaction")
+disputeDesc = FormControl("Reason", TextArea("reason", "Enter reason", rows:4))
+
+balancesTable = |Account|Balance
+|Checking|$2,340.75
+|Savings|$8,120.00
+|Credit|$1,250.30
+
+transRows = |Date|Merchant|Amount
+|2024-09-28|Starbucks|-$5.45
+|2024-09-27|Amazon|-$32.10
+|2024-09-26|Payroll|+$2,500.00
+
+spendingTable = |Category|Amount
+|Food|$450
+|Transport|$120
+|Entertainment|$200
+|Bills|$300
+|Other|$80
+
+billsTable = |Bill|Due|Amount
+|Electricity|Sep 10|$75
+|Internet|Sep 12|$55
+|Gym|Sep 15|$40

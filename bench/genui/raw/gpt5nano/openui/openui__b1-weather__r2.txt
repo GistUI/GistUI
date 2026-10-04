@@ -1,0 +1,27 @@
+root = Card([ header, currentWeather, outlook, sunTimes ])
+
+header = CardHeader("Morning Weather Brief", " Bengaluru")
+
+currentWeather = Card([
+  Heading("Current conditions", "h2"),
+  Blockquote("Bengaluru", "Location"),
+  TextContent("Temp: 28°C, Clear skies with light breeze.", "large")
+])
+
+outlook = Card([
+  Heading("3-day outlook", "h2"),
+  DayItem("Day 1", "Tue", "29°C / 18°C", "Sunny"),
+  DayItem("Day 2", "Wed", "27°C / 17°C", "Partly cloudy"),
+  DayItem("Day 3", "Thu", "28°C / 18°C", "Thunder possible")
+])
+
+sunTimes = Card([
+  Heading("Sunrise & Sunset", "h2"),
+  SunRow("Sunrise", "06:14 AM"),
+  SunRow("Sunset", "06:32 PM")
+])
+
+DayItem(label: string, date: string, temp: string, condition: string)
+
+DayItem = (name, date, temp, cond) => null
+SunRow = (label, time) => null

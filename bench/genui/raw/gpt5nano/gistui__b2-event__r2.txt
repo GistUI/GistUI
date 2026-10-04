@@ -1,0 +1,25 @@
+root = Card(CardHeader("Global Tech Conference 2026", "March 24-26, 2026 • San Francisco Conference Center"), Tag("Early bird", info), Tag("Limited seats", warning), daysLeft)
+daysLeft = TextContent("Days remaining: 18", size:default)
+agendaSection = Card(Heading("Agenda", h3), Table(agendaTable))
+agendaTable = |Time|Session
+|09:00|Registration & Breakfast
+|10:00|Keynote: The Next 10 Years
+|11:15|Panel: AI in Industry
+|13:00|Lunch Break
+|14:00|Workshop: Cloud Architecture
+|16:00|Closing Remarks
+speakersSection = Card(Heading("Speakers", h3), ListBlock(|Speaker|Bio|, |Alex Kim|CTO, Acme AI|, |Priya Singh|Head of Platform, NovaCloud|, |Luis Ortega|Founder, Loop Labs|))
+speakers = |Speaker|Bio
+|Alex Kim|CTO, Acme AI
+|Priya Singh|Head of Platform, NovaCloud
+|Luis Ortega|Founder, Loop Labs
+ticketsSection = Card(Heading("Ticket Tiers", h3), Table(ticketTable))
+ticketTable = |Tier|Price
+|Standard|$399
+|Premium|$799
+|VIP|$1499
+registrationSection = Card(Heading("Register", h3), Form("registration", formButtons, nameControl, emailControl))
+nameControl = FormControl("Full name", Input("name", "Jane Smith"))
+emailControl = FormControl("Email", Input("email", "jane@example.com"), "We will contact you with your registration confirmation") 
+formButtons = Buttons(Button("Register", primary))
+root = Card(CardHeader("Global Tech Conference 2026", "March 24-26, 2026 • San Francisco Conference Center"), daysLeft, Card(Heading("Event Highlights", h3), agendaSection, speakersSection, ticketsSection, registrationSection), TagBlock(["New"], info))

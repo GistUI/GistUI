@@ -1,41 +1,44 @@
-root = Card(uptimeSection, cpuMemChart, errorRateCallout, regionFilter, incidentsSection, slowEndpointsSection, alertThresholdSection, actions)
+root = Card(header, regionFilter, uptimeSection, usageChart, errorRate, incidentsSection, endpointsSection, alertForm, acknowledgeButton)
 
-uptimeSection = Card(CardHeader("Uptime (Q2)", "Current quarter"), TextContent("99.97%"))
+header = CardHeader("Service Health Dashboard", "On‑call view")
 
-cpuMemChart = Card(Heading("CPU & Memory (last 24h)", h3), LineChart(cpuMemData, variant:linear, xLabel:"Hour", yLabel:"Usage %"))
+regionFilter = Form("region-filter", regionButtons, regionSelect)
+regionSelect = Select("region", SelectItem("us-east", "US East"), SelectItem("us-west", "US West"), SelectItem("eu-central", "EU Central"), placeholder:"Select region")
+regionButtons = Buttons(Button("Apply", primary))
 
-cpuMemData = |Hour|CPU|Memory
-|00|45|68
-|04|50|70
-|08|55|72
-|12|60|75
-|16|58|73
-|20|52|69
-|24|48|66
+uptimeSection = Card(Heading("Uptime (Q3)", h3), TextContent("99.97%"), clear)
 
-errorRateCallout = Card(Callout(variant:warning, "Error Rate", "0.8% (last 5 min)"))
+usageChart = Card(Heading("CPU & Memory (24h)", h3), LineChart(cpuMemTable, linear, xLabel:"Time", yLabel:"%"))
 
-regionFilter = Card(Form("region-filter", filterButtons, regionSelect))
+cpuMemTable = |Time|CPU|Memory
+|00:00|45|68
+|04:00|50|70
+|08:00|55|72
+|12:00|60|75
+|16:00|58|73
+|20:00|52|69
+|24:00|48|66
 
-regionSelect = FormControl("Region", Select("region", SelectItem("us-east-1","US East 1"), SelectItem("us-west-2","US West 2"), SelectItem("eu-central-1","EU Central 1"), placeholder:"All regions"))
+errorRate = Card(Heading("Current Error Rate", h3), TextContent("0.4%"), clear)
 
-filterButtons = Buttons(Button("Apply", primary))
+incidentsSection = Card(Heading("Open Incidents", h3), Table(incidentsTable), clear)
 
-incidentsSection = Card(CardHeader("Open Incidents", "Severity levels"), Table(incIdCol, incSeverityCol, incDescCol))
+incidentsTable = |ID|Severity|Description
+|INC123|high|Database connectivity loss
+|INC124|medium|Cache miss spikes
+|INC125|low|Minor latency jitter
 
-incIdCol = Col("Incident ID", data:["INC001","INC002","INC003"])
-incSeverityCol = Col("Severity", data:["Critical","Warning","Info"])
-incDescCol = Col("Description", data:["Database timeout","Memory leak","Cache miss"])
+acknowledgeButton = Buttons(Button("Acknowledge Incident", primary))
 
-slowEndpointsSection = Card(CardHeader("Slowest Endpoints", "Top 5 latency"), Table(endpointCol, latencyCol))
+endpointsSection = Card(Heading("5 Slowest Endpoints", h3), Table(endpointsTable), clear)
 
-endpointCol = Col("Endpoint", data:["/api/orders","/api/payments","/api/users","/api/inventory","/api/reports"])
-latencyCol = Col("Latency (ms)", data:[420,385,360,340,330], type:number)
+endpointsTable = |Endpoint|Avg Latency (ms)
+|/api/v1/orders|350
+|/api/v1/payments|340
+|/api/v1/users|330
+|/api/v1/inventory|320
+|/api/v1/reports|310
 
-alertThresholdSection = Card(CardHeader("Set Alert Threshold", "Configure alerts"), Form("alert-form", alertButtons, thresholdField))
-
-thresholdField = FormControl("Latency Threshold (ms)", Input("latency_threshold", "500", type:number))
-
-alertButtons = Buttons(Button("Save", primary))
-
-actions = Buttons(Button("Acknowledge All", primary))
+alertForm = Form("alert-threshold", alertButtons, thresholdField)
+thresholdField = FormControl("Alert Threshold (%)", Input("threshold", "Enter %", type:number))
+alertButtons = Buttons(Button("Set Alert", primary))

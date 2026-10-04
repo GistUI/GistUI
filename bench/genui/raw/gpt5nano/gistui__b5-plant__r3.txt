@@ -1,0 +1,73 @@
+root = Card(CardHeader("Factory Floor Supervisor Console"), focusSection, andonAlerts, exportActions)
+focusSection = SectionBlock(SectionItem("overview", "Overview",
+  Card(Heading("Overall Performance", h3), OEECard, todayTargetCard, lineFocusSection, defectTrendChart, downtimeChart)
+), isFoldable)
+OEECard = CardHeader("Overall Equipment Effectiveness"), Card(TextContent("OEE today: 86% (target 85%)", size:default))
+todayTargetCard = Card(TextContent("Today target vs produced: 7,500 units target; produced 7,420", size:default))
+lineFocusSection = Card(Tag("Focus on line", info), Card(Heading("Line focus", h4), LineList(lines)))
+LineList(lines) = SectionBlock(SectionItem("lines", "Production lines",
+  Table(linesTable)
+))
+linesTable = |Line|Rate|Status
+|Line A|1200/min|Running
+|Line B|980/min|Running
+|Line C|0/min|Maintenance
+defectTrendChart = RadialChart(defectTable)
+defectTable = |Day|Defects
+|Last 7 days|34
+|Last 14 days|56
+|Last 30 days|210
+downtimeChart = BarChart(downtimeTable, xLabel:"Cause", yLabel:"Minutes")
+downtimeTable = |Cause|Minutes
+|Preventive|180
+|Unplanned|240
+|Electrical|120
+|Mechanical|90
+maintenanceDue = SectionBlock(SectionItem("maint", "Maintenance due",
+  Card(Heading("Maintenance due", h3), Table(maintTable))
+), isFoldable)
+maintTable = |Machine|DueDate|Priority
+|MX-12|2026-10-10|High
+|MX-07|2026-10-12|Medium
+stockSection = Card(Heading("Stock levels", h3), StockTable)
+StockTable = Table(stockPipeTable)
+stockPipeTable = |Item|Quantity|Unit
+|Steel|1200|kg
+|Resin|320|kg
+|Packaging|450|kg
+supplierDeliveries = Card(Heading("Supplier deliveries this week", h3), Table(supTable))
+supTable = |Supplier|DeliveryDate|Qty
+|SteelCo|2026-10-05|5400
+|ResinInc|2026-10-06|1200
+|PackMfg|2026-10-07|3000
+shiftOutput = Card(Heading("Shift output comparison", h3), Table(shiftTable))
+shiftTable = |Shift|Output|Target
+|A|4800|5000
+|B|5100|5000
+|C|4900|5000
+safetyIncidents = Card(Heading("Safety incidents", h3), TextContent("Incidents this year: 4", size:default), TextContent("Days since last: 22", size:default))
+qualityHold = Card(Heading("Quality hold batches", h3), Table(holdTable))
+holdTable = |Batch|Reason|Date
+|QH-041|Stability|2026-09-28
+|QH-042|Composition|2026-09-30
+energyToday = Card(Heading("Energy use today", h3), TextContent("Total: 12.4 MWh", size:default))
+openWorkOrders = Card(Heading("Open work orders by priority", h3), Table(woTable))
+woTable = |WO|Priority|Machine|Due
+|WO-1101|High|Line A|2026-10-04
+|WO-1102|Medium|Line B|2026-10-05
+|WO-1103|High|Line C|2026-10-04
+scheduleMaintenance = DialogBlock("Schedule maintenance", "Maintenance planning", 
+  Card(Heading("New maintenance entry", h3), ScheduleForm)
+, description:"Enter machine and date to schedule maintenance")
+ScheduleForm = Form("maint-schedule", formButtons, machineField, dateField)
+machineField = FormControl("Machine", Input("machine", "Line A MX-12"))
+dateField = FormControl("Date", Input("date", "2026-10-15"))
+formButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+allLinesFocus = ButtonSection = SectionBlock(SectionItem("focus", "Focus on one line",
+  Card(Heading("Focus mode", h3), LineSelector)
+), isFoldable)
+LineSelector = Form("line-select", formButtons2, lineInput)
+lineInput = FormControl("Line", Input("line", "Line A"))
+formButtons2 = Buttons(Button("Apply focus", primary))
+liveAndon = Card(Heading("Live Andon alerts", h3), TextContent("Active alerts: 2", size:default))
+exportActions = Buttons(Button("Export Shift Report", primary), Button("Export All", secondary))

@@ -1,0 +1,26 @@
+root = Card([header, profileCard, messageSection])
+header = CardHeader("Person Profile", null)
+
+profileCard = Card([nameLine, roleLine, bioBlock], "card")
+nameLine = Heading("Alex Kim", "h2")
+roleLine = TextContent("Frontend Engineer at Acme Corp", "default")
+bioBlock = TextContent("Alex is a frontend engineer focusing on accessible design and scalable UI patterns. Passionate about performance and delightful user experiences.", "default")
+
+messageSection = SectionBlock([messageSectionItem], false)
+messageSectionItem = SectionItem("contact", "Message", [contactCard])
+
+contactCard = Card([contactHeader, contactForm], "card")
+contactHeader = CardHeader("Send a message", null)
+contactForm = Form("message-form", messageButtons, [recipientField, subjectField, bodyField])
+recipientField = FormControl("To", RecipientSelect)
+subjectField = FormControl("Subject", SubjectInput)
+bodyField = FormControl("Message", MessageInput)
+RecipientSelect = Select("recipient_id", [recipientAlice, recipientTeam], "Choose recipient")
+recipientAlice = SelectItem("alice", "Alice Johnson")
+recipientTeam = SelectItem("team", "Team")
+SubjectInput = Input("subject", "Hello Alex")
+MessageInput = TextArea("message", "Hi Alex,\n\n")
+
+messageButtons = Buttons([sendBtn, resetBtn])
+sendBtn = Button("Send message", null, "primary")
+resetBtn = Button("Clear", null, "secondary")

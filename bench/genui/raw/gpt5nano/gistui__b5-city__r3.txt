@@ -1,0 +1,130 @@
+root = Card(CardHeader("City Operations Center", "Live dashboard"), content)
+
+content = SectionBlock(infoSection, isFoldable)
+infoSection = SectionItem("overview", "Overview", overviewCard)
+overviewCard = Card(Heading("City Operations Overview", h2), TextContent("Live status across systems. Click a district to focus, dispatch crews, or send alerts."), SectionBlock(sections, isFoldable), sunk)
+
+sections = SectionBlock(schedule, isFoldable)
+
+schedule = SectionItem("focus", "Focus by District", districtFocus)
+districtFocus = Card(Tag("District Focus"), Form("focus-form", focusButtons, districtSelect), sunk)
+
+focusButtons = Buttons(Button("Apply Focus", primary))
+
+districtSelect = FormControl("District", Select("district", SelectItem("Downtown", "Downtown"), SelectItem("Uptown", "Uptown"), SelectItem("Harbor", "Harbor"), placeholder:"Choose district"))
+
+focusCard = Card(Heading("District Spotlight", h3), Table(districtTable), LineChart(districtTrend, natural, xLabel:"Hour", yLabel:"Incidents"), sunk)
+districtTable = |District|ActiveIncidents|AirQuality|ETA
+|Downtown|2|Good|On duty
+|Uptown|1|Moderate|In progress
+|Harbor|0|Excellent|Pending
+
+districtTrend = |Hour|Incidents
+|9|2
+|10|3
+|11|1
+
+infoRow = CardHeader("Live metrics", "All systems monitored"), SectionBlock(liveCharts, isFoldable)
+
+liveCharts = SectionItem("metrics", "Metrics", metricsCard)
+metricsCard = Card(HorizontalBarChart(congestionTable, grouped, xLabel:"Districts", yLabel:"Congestion"), LineChart(weatherTable, linear, xLabel:"Time", yLabel:"Value"), sunk)
+
+congestionTable = |District|Concentration
+|Downtown|78
+|Uptown|65
+|Harbor|40
+
+weatherTable = |Hour|Temperature
+|Now|72F
+|1h Ago|70F
+|2h Ago|68F
+
+congestionCard = Card(Heading("Congestion Right Now", h3), Table(congestionTableForCard), BarChart(congestionTableForCard, "District"), sunk)
+congestionTableForCard = |District|Concentration
+|Downtown|78
+|Uptown|65
+|Harbor|40
+
+transitCard = Card(Heading("Transit Punctuality", h3), Table(transitTable), RadarChart(transitTable), sunk)
+transitTable = |Line|OnTime|Late|Missed
+|Today|92|6|2
+
+airQualityCard = Card(Heading("Air Quality by District", h3), Table(airQualityTable), PieChart(airQualityTable, variant:donut), sunk)
+airQualityTable = |District|AQI
+|Downtown|42
+|Uptown|55
+|Harbor|30
+
+energyUseCard = Card(Heading("Energy Use – Last Week", h3), Table(energyTable), AreaChart(energyTable, natural, xLabel:"Day", yLabel:"kWh"), sunk)
+energyTable = |Day|Usage
+|Mon|1200
+|Tue|1350
+|Wed|1280
+|Thu|1420
+|Fri|1500
+|Sat|1600
+|Sun|1550
+
+waterUseCard = Card(Heading("Water Use Today", h3), TextContent("Today’s water consumption across districts"), LineChart(waterTable, linear, xLabel:"District", yLabel:"Liters"), sunk)
+waterTable = |District|Usage
+|Downtown|98000
+|Uptown|72000
+|Harbor|54000
+
+openIncidentsCard = Card(Heading("Open Incidents by Location", h3), Table(openIncidentsTable), ScatterChart(openIncidentsTable, xLabel:"Location", yLabel:"Severity"), sunk)
+openIncidentsTable = |Location|Severity|Status
+|Downtown Ave|Critical|Open
+|Harbor Rd|High|Open
+|Uptown Sq|Medium|Open
+
+emergencyDeployCard = Card(Heading("Emergency Vehicles Deployment", h3), Table(deploymentTable), MapBlock, sunk)
+deploymentTable = |Unit|Status|Location
+|Unit A|En Route|Downtown
+|Unit B|On Scene|Harbor
+|Unit C|Standby|Uptown
+
+parkingCard = Card(Heading("Parking Availability – Downtown", h3), Table(parkingTable), BarChart(parkingTable, "District"), sunk)
+parkingTable = |Lot|Available
+|Lot 1|120
+|Lot 2|45
+|Lot 3|0
+
+publicEventsCard = Card(Heading("Public Events This Weekend", h3), Table(eventsTable), ImageBlock("https://picsum.photos/seed/events/800/400", "Events"), sunk)
+eventsTable = |Event|Time|Location
+|Parade|Sat 10:00|Downtown
+|Concert|Sun 18:00|Harbor
+
+citizenReportsCard = Card(Heading("Citizen Reports (live)", h3), Table(reportsTable), TextContent("New reports stream in real-time"), sunk)
+reportsTable = |Time|Type|District|Status
+|10:12|Noise|Downtown|New
+|10:15|Pothole|Uptown|Acknowledged
+
+serviceBacklogCard = Card(Heading("Service Request Backlog", h3), Table(backlogTable), AreaChart(backlogTable, linear, xLabel:"Queue", yLabel:"Requests"), sunk)
+backlogTable = |Request|Count
+|Electrical|12
+|Plumbing|7
+|Sanitation|5
+
+weatherCard = Card(Heading("Current Weather", h3), TextContent("Conditions right now: Sunny, 72F, light breeze"), BarChart(weatherTable, "Time"), sunk)
+
+dispatchCard = Card(Heading("Dispatch Crew", h3), Form("dispatch", dispatchButtons, crewSelect, incidentSelect), Buttons(Button("Dispatch", primary)), sunk)
+dispatchButtons = Buttons(Button("Dispatch", primary))
+crewSelect = FormControl("Crew", Select("crew", SelectItem("Crew 1","Crew 1"), SelectItem("Crew 2","Crew 2"), placeholder:"Choose crew"))
+incidentSelect = FormControl("Incident", Select("incident", SelectItem("Downtown outage","Downtown outage"), SelectItem("Water main","Water main")), placeholder:"Select incident")
+
+publicAlertCard = Card(Heading("Public Alert", h3), Form("alert-form", alertButtons, alertMessage), Buttons(Button("Send Alert", primary)), sunk)
+alertButtons = Buttons(Button("Send", primary))
+alertMessage = FormControl("Message", TextArea("message", placeholder:"Alert message"),)
+
+roadworksCard = Card(Heading("Roadworks This Month", h3), Table(roadworksTable), LineChart(roadworksTable, linear, xLabel:"Week", yLabel:"Progress"), sunk)
+roadworksTable = |Week|Road|Status
+|W1|Main St|Planned
+|W2|2nd Ave|In Progress
+|W3|Broadway|Planned
+
+infraJobsCard = Card(Heading("Infrastructure Maintenance", h3), Table(infraJobsTable), BarChart(infraJobsTable, "Category"), sunk)
+infraJobsTable = |Job|District|Due
+|Cable Upgrade|Downtown|This Month
+|Bridge Inspect|Harbor|Next Month
+
+root = Card(CardHeader("City Operations Center", "Overview and controls"), congestionCard, transitCard, airQualityCard, energyUseCard, waterUseCard, openIncidentsCard, emergencyDeployCard, parkingCard, publicEventsCard, citizenReportsCard, serviceBacklogCard, weatherCard, dispatchCard, publicAlertCard, roadworksCard, infraJobsCard, focusCard, focusButtons)

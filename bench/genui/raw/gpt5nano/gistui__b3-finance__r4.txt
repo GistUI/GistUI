@@ -1,0 +1,29 @@
+root = Card(CardHeader("Finance Overview", "Month-end view"), Tabs(tabA, tabB), Button("Download CSV", action:download), SectionBlock(isFoldable))
+tabA = SectionItem("overview", "Overview", cashPanel, burnPanel, runwayPanel)
+cashPanel = Card(Heading("Cash on hand", h3), Table(cashTable))
+burnPanel = Card(Heading("Monthly burn", h3), Table(burnTable))
+runwayPanel = Card(Heading("Months of runway", h3), Table(runwayTable), FollowUpBlock())
+cashTable = |Metric|Value
+|Cash on hand|$1,234,000
+burnTable = |Month|Burn
+|Current month|$85,000
+runwayTable = |Metric|Value
+|Runway (months)|12
+expensesPanel = Card(Heading("Expenses by category", h3), Table(expensesTable))
+expensesTable = |Category|Amount
+|SaaS|$24,000
+|Payroll|$52,000
+|Marketing|$18,000
+|Operations|$9,000
+transactionsPanel = Card(Heading("Transactions over 10k this month", h3), Table(transactionsTable))
+transactionsTable = |Date|Description|Amount
+|2026-09-12|Vendor X|$12,500
+|2026-09-20|Vendor Y|$15,200
+monthSelector = DialogBlock("Choose month", "Select Month", MonthPicker, description:"Pick a month to view") 
+MonthPicker = DatePicker("month", mode:single)
+downloadButton = Button("Download CSV", action:download)
+sectionOverview = SectionItem("overview", "Overview", cashPanel, burnPanel, runwayPanel)
+ spends = expensesPanel
+transactions = transactionsPanel
+monthNav = Button("Month: Sep 2026", action:openMonth)
+rootAdd = Card(SectionBlock(sectionOverview, expensesPanel, transactionsPanel), monthNav, monthSelector, downloadButton)

@@ -1,0 +1,3 @@
+root = Stack(title, form, gap:lg)
+title = Header("Contact Us", size:lg)
+form = Form("contact", Input("name", "Name", placeholder:"Your full name", minLength:2, required), Input("email", "Email", type:email, placeholder:"you@example.com", required), Input("phone", "Phone", placeholder:"e.g., +1 555 123 4567", minLength:7, maxLength:20, required), Select("subject", "Subject", ["General inquiry", "Support", "Sales", "Billing", "Feedback"], placeholder:"Select a subject...", required), TextArea("message", "Message", placeholder:"How can we help?", rows:6, minLength:10, required), Buttons(Button("Submit"), Button("Cancel", v:secondary)))

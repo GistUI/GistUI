@@ -1,0 +1,30 @@
+root = Card(CardHeader("Daily Summary", "Your fitness snapshot"), todayPanel, caloriesPanel, weekPanel, logPanel)
+
+todayPanel = Card(Heading("Today", h3), StepProgress("Steps today", 8600, 10000), BreakfastNote, sunk)
+
+caloriesPanel = Card(Heading("Calories Burned", h3), TextContent("860 kcal today", size:default), sunk)
+
+weekPanel = Card(Heading("Past Week Workouts", h3), WeekChart(WorkoutsTable), sunk)
+
+logPanel = Card(DialogBlock("Log Workout", "Log a new workout", logForm, description:"Record details for today"), Tag("New workout available"), sunk)
+
+StepProgress(label, value:num, goal:num)
+TextContent("8600 / 10000 steps", size:default)
+BreakfastNote = TextContent("Keep moving to hit your goal!", size:small)
+
+WeekChart(table, variant:linear, xLabel:"Day", yLabel:"Duration") — Table data provided below
+WorkoutsTable = Table(table)
+table = |Day|Workout|Duration|Calories
+|Mon|Run|30|300
+|Tue|Cycling|45|420
+|Wed|Rest|0|0
+|Thu|HIIT|25|280
+|Fri|Yoga|40|180
+|Sat|Run|35|320
+|Sun|Swimming|50|500
+
+logForm = Form("log-workout", logButtons, workoutTypeField, durationField, caloriesField)
+workoutTypeField = FormControl("Workout type", Select("type", SelectItem("Run","Run"), SelectItem("Cycling","Cycling"), SelectItem("HIIT","HIIT"), SelectItem("Yoga","Yoga")),)
+durationField = FormControl("Duration (min)", Input("duration", "30"),)
+caloriesField = FormControl("Calories (optional)", Input("cal", "")) 
+logButtons = Buttons(Button("Save Workout", primary))

@@ -1,0 +1,8 @@
+root = Card([header, searchField, thresholdInfo, lowInventoryList])
+header = CardHeader("Low Inventory Alerts", "Items below their reorder threshold")
+searchField = Input("search", "Search items...", "text")
+thresholdInfo = Callout("info", "Threshold", "An alert is shown when remaining units fall below the defined threshold.")
+lowInventoryList = ListBlock([itemA, itemB, itemC])
+itemA = ListItem("Widget A", "5 units left (threshold: 10)", null, "Reorder")
+itemB = ListItem("Gadget B", "2 units left (threshold: 5)", null, "Reorder")
+itemC = ListItem("Component C", "1 unit left (threshold: 3)", null, "Reorder")

@@ -1,119 +1,90 @@
-root = Card(header, periodSelect, metricsRow, signupChart, planPie, topCustomersTable, riskTable, failedPaymentsTable, featureAdoptionChart, npsCallout, seatUtilChart, inviteForm)
+root = Card(header, overviewSection, signupSection, planChartSection, topCustomersSection, riskAccountsSection, failedPaymentsSection, featureAdoptionSection, npsSection, reportingForm, seatUtilSection, inviteForm)
 
 header = CardHeader("Admin Overview", "Key metrics and actions")
 
-periodSelect = FormControl("Reporting period", periodSelectInput)
-periodSelectInput = Select("report_period", 
-  SelectItem("last_30", "Last 30 days"), 
-  SelectItem("last_90", "Last 90 days"), 
-  SelectItem("year_to_date", "Year to date"), 
-  placeholder:"Select period")
+overviewSection = Card(Heading("Revenue", h2), mrrCard, arrCard, churnCard)
 
-metricsRow = Card(
-  Card(
-    TextContent("**Monthly Recurring Revenue**\n$120,000", large),
-    variant:card
-  ),
-  Card(
-    TextContent("**Annual Recurring Revenue**\n$1,440,000", large),
-    variant:card
-  ),
-  Card(
-    TextContent("**Churn This Month**\n2.5%", large),
-    variant:card
-  ),
-  wrap
-)
+mrrCard = Card(MarkDownRenderer("**Monthly Recurring Revenue**\n$120,000", variant:clear))
 
-signupChart = Card(
-  Heading("New Signups (90 days)", h3),
-  LineChart(signupRows, linear, xLabel:"Date", yLabel:"Signups")
-)
+arrCard = Card(MarkDownRenderer("**Annual Recurring Revenue**\n$1,440,000", variant:clear))
 
-signupRows = |Date|Signups
-|2024-07-01|45
-|2024-07-08|52
-|2024-07-15|38
-|2024-07-22|47
-|2024-07-29|55
-|2024-08-05|60
-|2024-08-12|58
-|2024-08-19|63
-|2024-08-26|70
-|2024-09-02|68
-|2024-09-09|72
-|2024-09-16|75
-|2024-09-23|80
-|2024-09-30|78
+churnCard = Card(TextCallout("Churn This Month", "2.5%", variant:warning))
 
-planPie = Card(
-  Heading("Customers by Plan", h3),
-  PieChart(planLabels, planValues, donut)
-)
+signupSection = Card(Heading("New Signups (90 days)", h3), signupChart)
 
-planLabels = ["Free","Pro","Enterprise"]
-planValues = [1200, 350, 150]
+signupChart = LineChart(signupsTable, variant:linear, xLabel:"Date", yLabel:"Signups")
 
-topCustomersTable = Card(
-  Heading("Top 10 Customers", h3),
-  Table(
-    Col("Customer", data:["Acme Corp","Beta LLC","Gamma Inc","Delta Co","Epsilon Ltd","Zeta GmbH","Eta SA","Theta Pty","Iota BV","Kappa AG"], type:string),
-    Col("Seats", data:[250,200,180,150,130,120,110,100,95,90], type:number),
-    Col("Spend", data:["$25,000","$20,000","$18,000","$15,000","$13,000","$12,000","$11,000","$10,000","$9,500","$9,000"], type:string)
-  )
-)
+planChartSection = Card(Heading("Customers by Plan", h3), PieChart(planTable, variant:donut, appearance:circular))
 
-riskTable = Card(
-  Heading("Accounts at Risk", h3),
-  Table(
-    Col("Customer", data:["Omega Ltd","Sigma Corp","Lambda LLC"], type:string),
-    Col("Reason", data:["Low usage","Payment overdue","Support tickets"], type:string)
-  )
-)
+topCustomersSection = Card(Heading("Top 10 Customers", h3), Table(topCustomersTable))
 
-failedPaymentsTable = Card(
-  Heading("Failed Payments", h3),
-  Table(
-    Col("Invoice", data:["#1001","#1002","#1003"], type:string),
-    Col("Customer", data:["Acme Corp","Beta LLC","Gamma Inc"], type:string),
-    Col("Amount", data:["$1,200","$1,000","$950"], type:string),
-    Col("Action", data:["Retry","Retry","Retry"], type:string)
-  )
-)
+riskAccountsSection = Card(Heading("Accounts at Risk", h3), Table(riskTable))
 
-featureAdoptionChart = Card(
-  Heading("Adoption of New Features", h3),
-  BarChart(featureRows, grouped, xLabel:"Feature", yLabel:"Adoption %")
-)
+failedPaymentsSection = Card(Heading("Failed Payments", h3), failedList)
 
-featureRows = |Feature|Adoption
-|Feature A|68
-|Feature B|54
-|Feature C|42
+failedList = ListBlock(failedItem1, failedItem2, failedItem3)
 
-npsCallout = Callout(variant:info, "Current NPS", "73 – Excellent promoter score")
+failedItem1 = ListItem("Payment #1234", "Insufficient funds", "Retry")
+failedItem2 = ListItem("Payment #5678", "Card expired", "Retry")
+failedItem3 = ListItem("Payment #9012", "Bank decline", "Retry")
 
-seatUtilChart = Card(
-  Heading("Seat Utilization", h3),
-  HorizontalBarChart(seatLabels, seatSeries, stacked, xLabel:"% Utilization", yLabel:"Department")
-)
+featureAdoptionSection = Card(Heading("Feature Adoption", h3), HorizontalBarChart(adoptionTable, variant:grouped, xLabel:"Adoption %", yLabel:"Feature"))
 
-seatLabels = ["Engineering","Sales","Marketing","Support","HR"]
-seatSeries = Series("Utilization", values:[85,70,60,55,40])
+npsSection = Card(Heading("Net Promoter Score", h3), npsCallout)
 
-inviteForm = Card(
-  Heading("Invite New Admin", h3),
-  Form("invite-admin", inviteButtons,
-    emailField,
-    roleField
-  )
-)
+npsCallout = Callout("NPS", "68", variant:info)
 
-emailField = FormControl("Admin email", Input("admin_email", "email@example.com", type:email))
-roleField = FormControl("Role", roleSelect)
-roleSelect = Select("admin_role", 
-  SelectItem("admin", "Admin"),
-  SelectItem("viewer", "Viewer"),
-  placeholder:"Select role"
-)
-inviteButtons = Buttons(Button("Send Invite", primary))
+reportingForm = Form("reporting-form", reportingFormButtons, periodControl)
+
+periodControl = FormControl("Reporting period", periodSelect)
+
+periodSelect = Select("reporting_period", SelectItem("last_month","Last month"), SelectItem("last_quarter","Last quarter"), SelectItem("custom","Custom"), placeholder:"Select period")
+
+reportingFormButtons = Buttons(Button("Apply", variant:primary))
+
+seatUtilSection = Card(Heading("Seat Utilization", h3), BarChart(seatUtilTable, variant:grouped, xLabel:"Utilization %", yLabel:"Department"))
+
+inviteForm = Form("invite-admin", inviteButtons, inviteEmailControl)
+
+inviteEmailControl = FormControl("Admin email", Input("admin_email", "admin@example.com", type:email))
+
+inviteButtons = Buttons(Button("Send Invite", variant:primary), Button("Cancel", variant:tertiary))
+
+signupsTable = |Date|Signups
+|2023-07-01|30
+|2023-07-08|45
+|2023-07-15|50
+|2023-07-22|55
+|2023-07-29|60
+
+planTable = |Plan|Customers
+|Basic|1200
+|Pro|800
+|Enterprise|200
+
+topCustomersTable = |Customer|Seats|Spend
+|Acme Corp|500|$50,000
+|Beta Ltd|400|$40,000
+|Gamma Inc|350|$35,000
+|Delta LLC|300|$30,000
+|Epsilon Co|250|$25,000
+|Zeta Ltd|200|$20,000
+|Eta Corp|180|$18,000
+|Theta Inc|150|$15,000
+|Iota LLC|120|$12,000
+|Kappa Co|100|$10,000
+
+riskTable = |Account|Risk Reason
+|Gamma Inc|Low usage
+|Delta LLC|Payment failures
+
+adoptionTable = |Feature|Adoption%
+|Feature A|75
+|Feature B|60
+|Feature C|45
+
+seatUtilTable = |Department|Utilization%
+|Engineering|80
+|Sales|65
+|Support|70
+|Marketing|55

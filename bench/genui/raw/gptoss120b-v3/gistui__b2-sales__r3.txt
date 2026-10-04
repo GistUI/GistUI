@@ -1,25 +1,20 @@
-root = Card(revenueSection, trendSection, topProductsSection, conversionSection, downloadSection, gap:m)
-
-revenueSection = Card(CardHeader("Revenue This Month"), revenueTable)
-revenueTable = |Metric|Value
-|Revenue|$124,300
-
-trendSection = Card(CardHeader("Revenue Last 6 Months"), revenueTrendChart)
-revenueTrendChart = LineChart(revenueTrendRows, linear, xLabel:"Month", yLabel:"Revenue")
-revenueTrendRows = |Month|Revenue
-|Jan|102500
-|Feb|108900
-|Mar|115200
-|Apr|119800
-|May|122400
-|Jun|124300
-
-topProductsSection = Card(CardHeader("Top‑Selling Products"), topProductsTable)
-topProductsTable = |Product|Units Sold
-|Product A|1,240
-|Product B|1,110
-|Product C|985
-
-conversionSection = Card(CardHeader("Conversion Rate"), TextContent("**Conversion:** 4.7 %"))
-
-downloadSection = Card(Buttons(Button("Download CSV", primary)))
+root = Card(header, revenueCard, revChartSection, bestProductsSection, conversionSection, actions)
+header = CardHeader("Monthly Sales Check", "Founder Dashboard")
+revenueCard = Card(Heading("Revenue This Month", h2), TextContent("$125,000", size:large), sunk)
+revChartSection = Card(Heading("Revenue Over Last 6 Months", h3), revChart, sunk)
+bestProductsSection = Card(Heading("Top 3 Products", h3), Table(bestProductsTable), sunk)
+conversionSection = Card(Heading("Conversion", h3), conversionCallout, sunk)
+actions = Buttons(Button("Download CSV", primary))
+revChart = LineChart(revChartTable, linear, xLabel:"Month", yLabel:"Revenue")
+conversionCallout = TextCallout("Conversion Rate", "2.5%", variant:info)
+revChartTable = |Month|Revenue
+|Jan|95000
+|Feb|102000
+|Mar|108000
+|Apr|115000
+|May|120000
+|Jun|125000
+bestProductsTable = |Product|Units Sold
+|Product A|340
+|Product B|275
+|Product C|210

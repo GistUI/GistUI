@@ -1,0 +1,9 @@
+root = Card(CardHeader("Lunch poll", "Friday lunch location"), Heading("Where should we go for lunch on Friday?", h2), restaurantOptions, resultsTable, Buttons(Button("Submit vote", primary))) 
+restaurantOptions = ListBlock(SectionBlock(restaurant1, isFoldable), SectionBlock(restaurant2, isFoldable), SectionBlock(restaurant3, isFoldable)) 
+restaurant1 = SectionItem("r1", "Restaurant A", TagBlock(["Vote for Restaurant A"])) 
+restaurant2 = SectionItem("r2", "Restaurant B", TagBlock(["Vote for Restaurant B"])) 
+restaurant3 = SectionItem("r3", "Restaurant C", TagBlock(["Vote for Restaurant C"])) 
+resultsTable = Table(|Restaurant|Votes
+|Restaurant A|0
+|Restaurant B|0
+|Restaurant C|0)

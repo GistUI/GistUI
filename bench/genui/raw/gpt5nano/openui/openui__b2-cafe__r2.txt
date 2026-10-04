@@ -1,0 +1,56 @@
+root = Card([header, tabsSection, hoursBlock, followUp])
+
+header = CardHeader("Café Aurora Menu", "Fresh coffee, bites & specials")
+
+tabsSection = Tabs([drinksItem, foodItem, specialsItem, vegFilterItem, hoursItem])
+
+drinksItem = TabItem("drinks", "Drinks", [drinksCard])
+drinksCard = Card([drinksHeading, drinksList])
+
+drinksHeading = Heading("Drinks", "h2")
+
+drinksList = Table([colNames, colPrices])
+
+colNames = Col("Drink", ["Espresso", "Latte", "Cappuccino", "Americano", "Espresso Con Panna"])
+colPrices = Col("Price", ["$3.00", "$4.50", "$4.50", "$3.50", "$4.00"])
+
+foodItem = TabItem("food", "Food", [foodCard])
+foodCard = Card([foodHeading, foodList])
+
+foodHeading = Heading("Food", "h2")
+
+foodList = Table([foodNames, foodPrices])
+
+foodNames = Col("Dish", ["Croissant", "Avocado Toast", "Quiche", "Scone", "Muffin"])
+foodPrices = Col("Price", ["$3.50", "$6.00", "$7.50", "$3.75", "$3.00"])
+
+specialsItem = TabItem("specials", "Today's Special", [specialsCard])
+specialsCard = Card([specialsHeading, specialsContent])
+
+specialsHeading = Heading("Today's Special", "h2")
+
+specialsContent = TextContent("Today we feature a creamy truffle mushroom croissant with a side of herb salad.", "default")
+
+vegFilterItem = TabItem("vegetarian", "Vegetarian", [vegSection])
+vegSection = Card([vegHeading, vegToggle, vegList])
+
+vegHeading = Heading("Vegetarian Menu", "h2")
+
+vegToggle = TextContent("Show vegetarian items only", "default")
+
+vegList = Table([vegNames, vegPrices])
+
+vegNames = Col("Dish", ["Croissant", "Avocado Toast", "Scone", "Muffin"])
+vegPrices = Col("Price", ["$3.50", "$6.00", "$3.75", "$3.00"])
+
+hoursItem = TabItem("hours", "Opening Hours", [hoursCard])
+hoursCard = Card([hoursHeading, hoursTable])
+
+hoursHeading = Heading("Opening Hours", "h2")
+
+hoursTable = Table([days, times])
+
+days = Col("Day", ["Mon–Fri", "Sat", "Sun"])
+times = Col("Hours", ["7:00–19:00", "8:00–18:00", "8:00–16:00"])
+
+header = CardHeader("Café Aurora Menu", "Fresh coffee, bites & specials")

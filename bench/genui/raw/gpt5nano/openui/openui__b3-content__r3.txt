@@ -1,0 +1,81 @@
+root = Card([
+  header = CardHeader("Content Studio", "Editor's dashboard"),
+  controlsRow = Card([
+    draftPanelHeader = Heading("Drafts & Scheduling", "h3"),
+    draftFilters = TagBlock(["All", "Draft", "In Review", "Scheduled"]) ]),
+  mainGrid = Card([
+    // Left column: drafts with status, and comments awaiting reply
+    draftsSection = Card([
+      Heading("Drafts with Status", "h4"),
+      draftsList = Table([statusColHeader, titleColHeader], [
+        // data rows will be filled as separate variables
+      ])
+    ], "card"),
+    // Scheduling panel: schedule a piece with title and publish date
+    schedulingPanel = Card([
+      Heading("Schedule a Piece", "h4"),
+      scheduleForm = Form("schedule-piece", scheduleButtons, [
+        titleField = FormControl("Title", titleInput),
+        publishDateField = FormControl("Publish date", datePickerInput)
+      ])
+    ], "card"),
+    // Right column: published this week, most-read this month, readership chart
+    publishedThisWeekPanel = Card([
+      Heading("Published This Week", "h4"),
+      publishedList = TagBlock(["Article A", "Article B", "Article C"])
+    ], "card"),
+    mostReadPanel = Card([
+      Heading("Most-Read Article This Month", "h4"),
+      mostReadItem = TextContent("Untitled") // placeholder for article title
+    ], "card"),
+    readershipPanel = Card([
+      Heading("Readership Over Last 30 Days", "h4"),
+      readershipChart = LineChart([0], [Series("Readership", [0])])
+    ], "card"),
+    // Category filter
+    categoryFilterPanel = Card([
+      Heading("Narrow by Category", "h4"),
+      categorySelect = Select("category_filter", [catAll, catTech, catNews, catLifestyle], "All categories")
+    ], "card"),
+    // Comments awaiting reply
+    commentsPanel = Card([
+      Heading("Comments Awaiting Reply", "h4"),
+      commentsList = Table([Col("Comment", [""]/* dynamic */)], [
+        Col("Comment", ["Need clarification on publishing date?", "Please adjust category."])
+      ])
+    ], "card"),
+  ], "row"),
+  // New draft action
+  newDraftBar = Card([
+    Heading("Start a New Draft", "h4"),
+    newDraftButton = Button("New Draft", null, "primary")
+  ], "sunk")
+])
+
+// Definitions for referenced items (to satisfy hoisting & rendering)
+titleInput = Input("draft_title", "Untitled Draft")
+datePickerInput = DatePicker("publish_date", "single", [], null)
+
+// Schedule form controls
+scheduleButtons = Buttons([saveScheduleBtn, cancelScheduleBtn], "row")
+saveScheduleBtn = Button("Schedule", null, "primary")
+cancelScheduleBtn = Button("Cancel", null, "secondary")
+
+catAll = SelectItem("all", "All")
+catTech = SelectItem("tech", "Technology")
+catNews = SelectItem("news", "News")
+catLifestyle = SelectItem("lifestyle", "Lifestyle")
+
+// Placeholder data for tables/charts to ensure definitions exist
+statusColHeader = Col("Status", [
+  "Draft",
+  "In Review",
+  "Scheduled"
+])
+titleColHeader = Col("Drafts", [
+  "Explainer: AI Assistants",
+  "Monthly Recap: Product Updates",
+  "Opinion: The Future of Interfaces"
+])
+readershipChart = LineChart(["Day 1"], [Series("Readers", [120])])
+mostReadItem = TextContent("Untitled")

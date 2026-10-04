@@ -1,0 +1,28 @@
+root = Card(CardHeader("Account: Acme Corp", "Owner: Jane Doe"), salesOverview, recentActivity, contactsSection, openFollowUps, notesSection, renewalPanel, logCallSection, actionsRow)
+
+salesOverview = Card(Heading("Overview", h3), Table(salesTable), currentDealStage, totalDealValue)
+
+totalDealValue = TextContent("Total deal value: $1,234,000", size:default)
+
+salesTable = |Metric|Value
+|Total Value|$1,234,000
+
+currentDealStage = TextContent("Current deal stage: Proposal", size:default)
+
+recentActivity = Card(Heading("Recent activity", h3), ListBlock( ListItem("Note added: Updated pricing", "2026-09-28", nil, nil), ListItem("Call logged", "2026-09-27"), ListItem("Email sent", "2026-09-26") ), variant:number)
+
+contactsSection = Card(Heading("Contacts", h3), Table(contactsTable))
+
+contactsTable = |Name|Role|Email
+|Alex Kim|Primary Contact|alex@example.com
+|Maria Lopez|Technical Lead|maria@example.com
+
+openFollowUps = Card(Heading("Open follow-ups", h3), Table(followUpsTable))
+
+followUpsTable = |Follow-up|Due
+|Prepare renewal proposal|2026-10-15
+|Schedule demo for stakeholders|2026-10-20
+
+notesSection = Card(Heading("Notes", h3), TextArea("notes", placeholder:"Write a quick note about the account", value:""), Buttons(Button("Save note", primary)))
+
+renewalPanel = Card(Heading("Renewal", h3), TextContent("Renewal date: 2027-03-15", size:default))

@@ -1,0 +1,77 @@
+root = Card([
+  header = CardHeader("HR - Hiring Overview", "Live dashboard for current staffing and progress"),
+  topRow = Card([
+    currentHeadcountCard = Card([
+      Heading("Current headcount", "h4"),
+      TextContent("Total employees across all teams"),
+      kpiHeadcount = TextContent("1,237", "large")
+    ], "card"),
+    openRolesCard = Card([
+      Heading("Open roles by department", "h4"),
+      openRolesTable = Table([
+        Col("Department", ["Engineering", "Sales", "Marketing", "HR", "Finance"]),
+        Col("Open Roles", [12, 5, 4, 1, 2])
+      ])
+    ], "card")
+  ], "row"),
+  middleRow = Card([
+    // Candidates at each pipeline stage
+    SectionBlock([
+      SectionItem("pipeline", "Candidates in Pipeline", [
+        CardHeader("Candidates by stage", null),
+        Table([
+          Col("Stage", ["Applied", "Phone Screen", "Technical Interview", "Offer", "Hired"]),
+          Col("Count", [210, 54, 22, 6, 2])
+        ])
+      ])
+    ], false),
+    // Average time to hire
+    SectionBlock([
+      SectionItem("timeToHire", "Average Time to Hire", [
+        TextContent("Average days from role opening to hire"),
+        kpiTime = TextContent("28 days")
+      ])
+    ], false)
+  ], "card"),
+  bottomRow = Card([
+    // Headcount split by department
+    Card([
+      Heading("Headcount by department", "h4"),
+      BarChart(["Engineering", "Sales", "Marketing", "HR", "Finance"], [
+        Series("Headcount", [520, 210, 180, 60, 67])
+      ], "grouped", "Department", "Headcount")
+    ], "card"),
+    // Interviews scheduled this week
+    Card([
+      Heading("Interviews scheduled this week", "h4"),
+      Table([
+        Col("Day", ["Mon", "Tue", "Wed", "Thu", "Fri"]),
+        Col("Interviews", [14, 9, 12, 7, 5])
+      ])
+    ], "card"),
+  ], "row"),
+  // Attrition chart
+  attritionCard = Card([
+    Heading("Attrition (past 6 months)", "h4"),
+    LineChart(["Month 1", "Month 2", "Month 3", "Month 4", "Month 5", "Month 6"], [
+      Series("Attrition", [1.8, 1.6, 1.9, 2.1, 1.7, 2.0])
+    ], "linear", "Month", "Percent")
+  ], "card"),
+  // Action to open a new role
+  DrawerBlock("New Role", "Create New Role", "Open a form to define a new job opening", [
+    Form("new-role", Buttons([Button("Create", null, "primary")]), [
+      FormControl("Job Title", Input("title", "e.g., Senior Backend Engineer"), "Enter role title"),
+      FormControl("Department", Select("dept", [SelectItem("Engineering","Engineering"), SelectItem("Sales","Sales"), SelectItem("Marketing","Marketing"), SelectItem("HR","HR"), SelectItem("Finance","Finance")], "Select department")),
+      FormControl("Location", Input("location", "Remote"), "Location or office"),
+      FormControl("Openings", Slider("openings", "discrete", 1, 3, 1, "Number of openings"), null),
+      FormControl("Job Level", Select("level", [SelectItem("Junior","Junior"), SelectItem("Mid","Mid"), SelectItem("Senior","Senior")], "Level"), null)
+    ])
+  ], "default"),
+  // Ensure every defined item is reachable via root's children
+  // References kept to satisfy hoisting rules
+  header,
+  topRow,
+  middleRow,
+  bottomRow,
+  attritionCard
+])

@@ -1,0 +1,6 @@
+root = Stack(title, tabs, gap:lg)
+title = Header("User Settings", size:lg)
+tabs = Tabs(Tab("Profile", profileCard), Tab("Security", securityCard), Tab("Notifications", notificationsCard))
+profileCard = Card(Header("Profile", "Update your personal information and avatar.", size:sm), Form("profile_update", Input("display_name", "Display name", placeholder:"e.g., Alex Johnson", minLength:2, maxLength:60, required), Input("avatar_url", "Avatar URL", type:url, placeholder:"https://example.com/avatar.png"), Buttons(Button("Save changes"), Button("Reset", v:secondary))))
+securityCard = Card(Header("Security", "Manage sign-in protection and account security.", size:sm), Card(Switch("two_fa", "Two-factor authentication (2FA)"), v:sunk), Callout("After enabling 2FA, you may be asked to set up an authenticator app or backup codes.", title:"Tip", tone:info))
+notificationsCard = Card(Header("Notifications", "Choose what you want to be notified about.", size:sm), Card(Switch("notif_email", "Email notifications", checked), Switch("notif_product", "Product updates"), Switch("notif_security", "Security alerts", checked), v:sunk))

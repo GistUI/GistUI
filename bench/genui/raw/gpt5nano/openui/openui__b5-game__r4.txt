@@ -1,0 +1,132 @@
+root = Card([
+    header = CardHeader("Live-Ops Dashboard", "Game Studio - Real-time Ops Room"),
+    mainGrid = Card([
+        leftPanel = Card([
+            Heading("Overview", "h2"),
+            SectionBlock([
+                SectionItem("servers", "Global metrics", [
+                    TextContent("Players online now: 12,345", "default"),
+                    TextContent("Daily MAU: 128,000", "default"),
+                    TextContent("Weekly MAU (rolling): 1,250,000", "default")
+                ])
+            ])
+        ]),
+        rightPanel = Card([
+            TagBlock(["LIVE-OPS", "INTEL"]) 
+        ])
+    ], "card"),
+    // 1. Players online right now
+    playersOnline = Card([
+        Heading("Players Online Right Now", "h3"),
+        TextContent("12,345 players online at this moment", "default")
+    ]),
+    // 2. Daily and monthly active players
+    maus = Card([
+        Heading("Active Players", "h3"),
+        Table([
+            Col("Metric", ["Daily Active Players", "Monthly Active Players"]),
+            Col("Value", ["128,000", "1,250,000"])
+        ])
+    ]),
+    // 3. Revenue today
+    revenueToday = Card([
+        Heading("Revenue Today", "h3"),
+        TextContent("$58,400", "default")
+    ]),
+    // 4. Revenue per user
+    revenuePerUser = Card([
+        Heading("Revenue per User", "h3"),
+        TextContent("$0.45 per user", "default")
+    ]),
+    // 5. Session length over the past two weeks
+    sessionLengthChart = Card([
+        Heading("Session Length - Past 14 Days", "h3"),
+        LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10","Day 11","Day 12","Day 13","Day 14"],
+            [Series("Avg Session (min)", [9,9.2,9.1,9.3,9.0,9.4,9.2,9.5,9.3,9.1,9.0,9.2,9.4,9.6])], "linear", "Day", "Minutes")
+        )
+    ]),
+    // 6. Best-selling items with units for each
+    bestSelling = Card([
+        Heading("Best-Selling Items", "h3"),
+        Table([
+            Col("Item", ["Sword of Light", "Potion Pack", "Dragon Scale", "Armor Upgrade"]),
+            Col("Units Sold", [12450, 9800, 7600, 5400])
+        ])
+    ]),
+    // 7. Each server region and its health
+    regionsHealth = Card([
+        Heading("Server Regions Health", "h3"),
+        Table([
+            Col("Region", ["NA-East", "NA-West", "EU-Central", "AP-South"]),
+            Col("Health", ["OK 99.9%", "Degraded 92%", "OK 99.7%", "Poor 88%"])
+        ])
+    ]),
+    // 8. Crash rate by app version
+    crashRate = Card([
+        Heading("Crash Rate by App Version", "h3"),
+        Table([
+            Col("Version", ["1.6.3", "1.6.2", "1.6.1"]),
+            Col("Crash Rate", ["0.24%", "0.18%", "0.30%"])
+        ])
+    ]),
+    // 9. Live events running and upcoming
+    liveEvents = Card([
+        Heading("Live Events", "h3"),
+        ListBlock([
+            ListItem("Currently Running", "Double XP Weekend", ["https://picsum.photos/seed/event1/200/120"]),
+            ListItem("Upcoming", "Halloween Special", ["https://picsum.photos/seed/event2/200/120"])
+        ])
+    ]),
+    // 10. Player reports awaiting review
+    playerReports = Card([
+        Heading("Player Reports Awaiting Review", "h3"),
+        ListBlock([
+            ListItem("Report #10245", "Offensive language in chat", ["https://picsum.photos/seed/report1/200/120"]),
+            ListItem("Report #10246", "Exploiting bug in quest", ["https://picsum.photos/seed/report2/200/120"])
+        ])
+    ]),
+    // 11. Ban appeals awaiting review
+    banAppeals = Card([
+        Heading("Ban Appeals Awaiting Review", "h3"),
+        ListBlock([
+            ListItem("Appeal #A-221", "Appeal for temporary ban", ["https://picsum.photos/seed/appeal1/200/120"]),
+            ListItem("Appeal #A-222", "Permanent ban reconsideration", ["https://picsum.photos/seed/appeal2/200/120"])
+        ])
+    ]),
+    // 12. In-game currency inflation
+    currencyInflation = Card([
+        Heading("In-Game Currency Inflation", "h3"),
+        LineChart(["Week 1","Week 2","Week 3","Week 4","Week 5"],
+            [Series("Gold in Circulation", [1000000, 1020000, 1045000, 1062000, 1078000])], "natural", "Week", "Currency units")
+        )
+    ]),
+    // 13. Results of the two running experiments
+    experiments = Card([
+        Heading("Experiments - A/B Tests", "h3"),
+        Tabs([
+            TabItem("expA","Experiment A", [
+                MarkDownRenderer("Variant A showed +5% retention in the first 24h.", "card")
+            ]),
+            TabItem("expB","Experiment B", [
+                MarkDownRenderer("Variant B increased revenue per user by 3%.", "card")
+            ])
+        ])
+    ]),
+    // 14. Draft patch notes
+    patchNotesDraft = Card([
+        Heading("Draft Patch Notes", "h3"),
+        TextContent("Patch 1.2.3 - Draft", "default"),
+        TextArea("patch_notes_content", "Describe changes, bug fixes, and balance changes here.", 6)
+    ]),
+    // 15. Focus on one region
+    regionFocus = Card([
+        Heading("Focus Region", "h3"),
+        Select("focus_region", [SelectItem("NA-East","NA East"), SelectItem("NA-West","NA West"), SelectItem("EU-Central","EU Central"), SelectItem("AP-South","AP South")], "Choose a region")
+    ]),
+    // 16. Ship a hotfix
+    hotfixShip = Card([
+        Heading("Hotfix Deployment", "h3"),
+        TextContent("Prepare and deploy hotfix to targeted region(s).", "default"),
+        Buttons([Button("Queue Hotfix", null, "primary")])
+    ])
+], "card")

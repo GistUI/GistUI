@@ -1,28 +1,24 @@
-root = Card(header, description, qualifications, salary, applySection, shareSection)
+root = Card(header, description, quals, salary, applyForm, shareButtons)
 
-header = Card(CardHeader("Senior Product Designer", "Design Team"))
+header = CardHeader("Senior Product Designer", "Design Team")
 
-description = Card(MarkDownRenderer("We are looking for a creative **Senior Product Designer** to lead the design of our next generation SaaS platform. You will collaborate with product, engineering, and marketing to create intuitive, user‑centered experiences.", variant:clear))
+description = TextContent("We are looking for a visionary designer to shape user experiences across our product suite. Join a collaborative team that values creativity, user‑centered design, and rapid iteration.", size:large)
 
-qualifications = Card(Heading("Main qualifications", h3), ListBlock(qualItem1, qualItem2, qualItem3, qualItem4, variant:number))
+quals = ListBlock(qualItem1, qualItem2, qualItem3, qualItem4, variant:number)
 
-qualItem1 = ListItem("5+ years of product design experience")
-qualItem2 = ListItem("Strong portfolio showcasing UI/UX work")
-qualItem3 = ListItem("Proficiency with Figma, Sketch, or Adobe XD")
-qualItem4 = ListItem("Excellent communication and collaboration skills")
+qualItem1 = ListItem("5+ years of product design experience", "Strong portfolio showcasing end‑to‑end design work")
+qualItem2 = ListItem("Expertise in Figma, Sketch, or Adobe XD", "Proficient with design systems and component libraries")
+qualItem3 = ListItem("User research and usability testing skills", "Ability to translate insights into design decisions")
+qualItem4 = ListItem("Excellent communication and collaboration", "Experience working with cross‑functional teams")
 
-salary = Card(Heading("Salary range", h3), TextContent("$120k – $150k per year", size:default))
+salary = Callout(variant:info, "Salary Range", "$120k – $150k per year")
 
-applySection = Card(Heading("Apply now", h3), applyForm)
+applyForm = Form("apply", formButtons, nameField, emailField, resumeField)
 
-applyForm = Form("apply", applyButtons, nameField, emailField, resumeField)
+nameField = FormControl("Full name", Input("name", placeholder:"Jane Doe"))
+emailField = FormControl("Email address", Input("email", placeholder:"jane@example.com", type:email))
+resumeField = FormControl("Resume link", Input("resume", placeholder:"https://", type:url))
 
-nameField = FormControl("Full name", Input("name", "John Doe"))
-emailField = FormControl("Email address", Input("email", "john@example.com", type:email))
-resumeField = FormControl("Resume URL", Input("resume", "https://example.com/resume.pdf", type:url))
+formButtons = Buttons(Button("Apply now", primary), Button("Save for later", secondary))
 
-applyButtons = Buttons(Button("Submit application", primary))
-
-shareSection = Card(Heading("Share this posting", h3), shareButtons)
-
-shareButtons = Buttons(Button("Copy link", secondary), Button("Share on LinkedIn", secondary))
+shareButtons = Buttons(Button("Share on LinkedIn", secondary), Button("Copy link", secondary))

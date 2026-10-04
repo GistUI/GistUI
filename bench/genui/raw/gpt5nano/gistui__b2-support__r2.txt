@@ -1,0 +1,36 @@
+root = Card(CardHeader("Support Lead Morning View"), statsPanel, recentTicketsPanel, controlsPanel, newTicketPanel)
+
+statsPanel = Card(Heading("Overview", h2), Table(statsTable), sunk)
+
+statsTable = |Metric|Value
+|Open tickets|42
+|Avg first response (hrs)|2.3
+
+recentTicketsPanel = Card(Heading("Recent tickets with priority", h3), RecentTicketsList)
+
+RecentTicketsList = SectionBlock(SectionItem("recent-1", "Recent Tickets", recentTable), isFoldable)
+
+recentTable = Table(recentRows)
+
+recentRows = |Ticket|Subject|Priority|Opened
+|1|Login issue prevented access|High|2026-10-04 08:15
+|2|Billing question on invoice|Medium|2026-10-04 08:07
+|3|Password reset not working|High|2026-10-04 07:50
+|4|Feature request: export data|Low|2026-10-04 07:30
+|5|Error on checkout page|High|2026-10-04 07:10
+
+controlsPanel = Card(Heading("Filters", h3), HighPriorityToggle, ClearFilters)
+
+HighPriorityToggle = Form("filters", formButtons, ToggleRow)
+ToggleRow = FormControl("Priority", SwitchGroup("priority", SwitchItem("high", "High priority only", defaultChecked)))
+formButtons = Buttons(Button("Apply filters", primary), Button("Reset", tertiary))
+
+ClearFilters = Button("Clear all filters", action:[])
+ 
+newTicketPanel = Card(Heading("New ticket", h3), NewTicketForm)
+
+NewTicketForm = Form("new-ticket", formButtons2, ticketFields)
+
+formButtons2 = Buttons(Button("Create ticket", primary), Button("Cancel", tertiary))
+
+ticketFields = ListBlock(FormControl("Subject", Input("subject", "")), FormControl("Customer", Input("customer", "")))

@@ -1,6 +1,0 @@
-root = Card(header, bio, messageForm)
-header = CardHeader("Jane Doe", "Senior Engineer")
-bio = TextContent("Jane has been with the company for 5 years, focusing on backend systems and cloud infrastructure.", size:default)
-messageForm = Form("contact", formButtons, messageField)
-formButtons = Buttons(Button("Send", primary))
-messageField = FormControl("Message", TextArea("msg", "Type your message here...", "", 4))

@@ -1,0 +1,117 @@
+root = Card([
+  header = CardHeader("PMO Project Portfolio Review", "Current Quarter: Q3 2025"),
+  summaryRow = Card([
+    healthSummaryHeading = Heading("Portfolio Health", "h2"),
+    healthSummary = TextContent("Overall health: Stable. 2 at risk, 1 critical, 7 on track.", "default"),
+  ]),
+  topFilters = Card([quarterSelector, exportButton, archiveButton], "card"),
+  quarterSelector = Button("Change Quarter", null, "secondary"),
+  exportButton = Button("Export Review", null, "primary"),
+  archiveButton = Button("Archive Finished Projects", null, "tertiary"),
+  // 6 deadlines in next two weeks
+  SectionBlock([
+    SectionItem("deadlines-2w", "Upcoming Deadlines (Next 2 weeks)", [Blockquote("Upcoming milestones due within 14 days.", "PMO Scheduler")])
+  ]),
+  // 1 Active projects with owner, deadline, health
+  SectionBlock([
+    SectionItem("active-projects", "Active Projects", [
+      Card([activeProjectsHeader, activeProjectsTable]),
+    ])
+  ]),
+  activeProjectsHeader = Heading("Active Projects", "h3"),
+  activeProjectsTable = Table([ownerCol, deadlineCol, healthCol], [
+    Col("Project", ["Platform Upgrade", "Data Platform Cleanse", "Mobile App Revamp", "Security Patch 2025"], "string"),
+    Col("Owner", ["A. Chen", "M. Singh", "J. Rivera", "L. Kim"], "string"),
+    Col("Deadline", ["2025-10-18", "2025-10-22", "2025-11-02", "2025-11-12"], "string"),
+    Col("Health", ["On Track", "At Risk", "Healthy", "At Risk"], "string"),
+  ]),
+  ownerCol = Col("Owner", ["A. Chen", "M. Singh", "J. Rivera", "L. Kim"]),
+  deadlineCol = Col("Deadline", ["2025-10-18", "2025-10-22", "2025-11-02", "2025-11-12"]),
+  healthCol = Col("Health", ["On Track", "At Risk", "Healthy", "At Risk"]),
+  // 2 Overdue milestones
+  SectionBlock([
+    SectionItem("overdue-milestones", "Overdue Milestones", [
+      ListBlock([
+        ListItem("Platform Upgrade: Milestone 3 overdue", "Owner: A. Chen", ["https://picsum.photos/seed/m1/40/40"]),
+        ListItem("Data Platform Cleanse: Milestone 2 overdue", "Owner: M. Singh"),
+      ], "image")
+    ])
+  ]),
+  // 3 Budget spent against allocation per project
+  SectionBlock([
+    SectionItem("budget-allocation", "Budget vs Allocation", [
+      BarChart(["Platform Upgrade", "Data Platform Cleanse", "Mobile App Revamp", "Security Patch 2025"], [
+        Series("Allocated", [1200, 900, 1500, 400]),
+        Series("Spent", [950, 700, 1100, 350]),
+      ], "grouped", "Allocation (k)", "Spent (k)")
+    ])
+  ]),
+  // 4 Team utilization
+  SectionBlock([
+    SectionItem("team-utilization", "Team Utilization", [
+      HorizontalBarChart(["Platform Upgrade", "Data Platform Cleanse", "Mobile App Revamp", "Security Patch 2025"], [
+        Series("Utilization", [72, 65, 80, 55])
+      ], "grouped", "Utilization (%)", "")
+    ])
+  ]),
+  // 5 Risks with severity for each
+  SectionBlock([
+    SectionItem("risks", "Risks by Project", [
+      Table([projCol, sevCol, descCol], [
+        Col("Project", ["Platform Upgrade", "Data Platform Cleanse", "Mobile App Revamp"], "string"),
+        Col("Severity", ["Critical", "High", "Medium"], "string"),
+        Col("Description", ["Dependency on vendor UI kit delay", "Data quality issues risk", "UX deliverable risk"], "string"),
+      ])
+    ])
+  ]),
+  projCol = Col("Project", ["Platform Upgrade", "Data Platform Cleanse", "Mobile App Revamp"]),
+  sevCol = Col("Severity", ["Critical", "High", "Medium"]),
+  descCol = Col("Description", ["Dependency on vendor UI kit delay", "Data quality issues risk", "UX deliverable risk"]),
+  // 6 deadlines in next two weeks (already included, but provide a dedicated view)
+  SectionBlock([
+    SectionItem("next-2w-deadlines", "Deadlines in Next 2 Weeks", [
+      ListBlock([
+        ListItem("Platform Upgrade: Milestone 4 due 2025-10-20", "Owner: A. Chen"),
+        ListItem("Data Platform Cleanse: Milestone 3 due 2025-10-23", "Owner: M. Singh"),
+        ListItem("Mobile App Revamp: Milestone 1 due 2025-10-25", "Owner: J. Rivera"),
+      ])
+    ])
+  ]),
+  // 7 delivery pace over past six sprints
+  SectionBlock([
+    SectionItem("delivery-pace", "Delivery Pace (Past 6 Sprints)", [
+      LineChart([1,2,3,4,5,6], [Series("Velocity", [8, 7, 9, 6, 10, 7])], "linear", "Sprint", "Stories")
+    ])
+  ]),
+  // 8 blocked work items
+  SectionBlock([
+    SectionItem("blocked-work", "Blocked Work Items", [
+      ListBlock([
+        ListItem("Platform Upgrade: Milestone 4 blocked by vendor API changes", null, ["https://picsum.photos/seed/b1/40/40"]),
+        ListItem("Mobile App Revamp: UI design sign-off blocked", null, ["https://picsum.photos/seed/b2/40/40"]),
+      ], "image")
+    ])
+  ]),
+  // 9 one-line health summary
+  TextContent("Portfolio Health Summary: 2 at risk, 1 critical, 7 healthy.", "default"),
+  // 10 way to look at a different quarter
+  SectionBlock([
+    SectionItem("quarter-view", "Quarter View", [
+      Card([TextContent("Select Quarter:", "default"), Button("Q4 2025", null, "secondary")], "card")
+    ])
+  ]),
+  // 11 request more people for a project
+  SectionBlock([
+    SectionItem("request-resources", "Request More Resources", [
+      Form("resource-request", Buttons([Button("Submit Request", null, "primary")]), [
+        FormControl("Project", Input("project", "Platform Upgrade"), null),
+        FormControl("Team Role", Input("role", "Backend Engineer"), null),
+        FormControl("Quantity", Input("count", "2"), null),
+      ])
+    ])
+  ]),
+  // 12 export the review
+  // already included as Export button in topFilters
+  // 13 archive finished projects
+  // included as Archive button in topFilters
+])

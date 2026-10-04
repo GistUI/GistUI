@@ -1,0 +1,23 @@
+root = Card(CardHeader("Account: Acme Corp", "Owner: Jordan Lee"), SectionBlock(cardSection, isFoldable)) 
+cardSection = SectionBlock(SectionItem("acct-overview", "Overview", accountOverview), SectionItem("activities", "Recent Activity", recentActivity), SectionItem("contacts", "Contacts", contactsSection), SectionItem("followups", "Open Follow-Ups", followUpsSection), SectionItem("notes", "Notes", noteSection), SectionItem("renewal", "Renewal", renewalSection), SectionItem("logcall", "Log a Call", logCallSection))
+accountOverview = Card(Heading("Account details", h3), Table(accountTable), sunk)
+accountTable = |Field|Value
+|Account|Acme Corp
+|Owner|Jordan Lee
+|Total Deal Value|$1,230,000
+|Current Stage|Negotiation
+recentActivity = Table :=|Date|Activity|Owner
+|2026-09-28|Call with prospect|Jordan Lee
+|2026-09-25|Sent proposal|Jordan Lee
+|2026-09-20|Email: scoping|Jordan Lee
+contactsSection = Table(contactsTable)
+contactsTable = |Contact|Role|Phone|Email
+|Alex Kim|Decision Maker|555-0101|alex@acme.example
+|Priya Singh|Champion|555-0102|priya@acme.example
+followUpsSection = Table(followUpsTable)
+followUpsTable = |Follow-Up|Due Date|Status
+|Proposal revision|2026-10-05|Open
+|Demo reschedule|2026-10-12|Open
+noteSection = Card(Heading("Add a note", h4), TextContent(" jot a note about next steps after calls or updates.", size:default)) 
+renewalSection = Card(Heading("Renewal", h4), TextContent("Renewal date: 2027-01-15", size:default), Callout(warning, "Renewal due soon", "Consider renewal conversation start 60 days out")) 
+logCallSection = Card(Heading("Log a call", h4), Form("log-call", Buttons(Button("Log Call", primary)), FormControl("Date", Input("call_date", "2026-09-28")), FormControl("Summary", TextArea("summary", "Discussed pricing and milestones"))))

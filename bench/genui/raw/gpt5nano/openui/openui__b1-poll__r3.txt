@@ -1,0 +1,33 @@
+root = Card([header, pollCard])
+
+header = CardHeader("Team lunch poll", null)
+
+pollCard = Card([questionHeading, restaurantOptions, submitRow], "card")
+
+questionHeading = Heading("Where should we go for lunch on Friday?", "h2")
+
+restaurantOptions = SectionBlock([restaurantASection, restaurantBSection, restaurantCSection], false)
+
+restaurantASection = SectionItem("a", "Restaurant A", [restaurantA_heading, restaurantA_choices])
+
+restaurantA_heading = Heading("Restaurant A", "h3")
+
+restaurantA_choices = TagBlock(["Vote: A", "80 votes"])  // placeholder status
+
+restaurantBSection = SectionItem("b", "Restaurant B", [restaurantB_heading, restaurantB_choices])
+
+restaurantB_heading = Heading("Restaurant B", "h3")
+
+restaurantB_choices = TagBlock(["Vote: B", "60 votes"])  // placeholder status
+
+restaurantCSection = SectionItem("c", "Restaurant C", [restaurantC_heading, restaurantC_choices])
+
+restaurantC_heading = Heading("Restaurant C", "h3")
+
+restaurantC_choices = TagBlock(["Vote: C", "40 votes"])  // placeholder status
+
+submitRow = Buttons([voteBtn, resultsBtn], "row")
+
+voteBtn = Button("Vote", null, "primary")
+
+resultsBtn = Button("View results", null, "secondary")

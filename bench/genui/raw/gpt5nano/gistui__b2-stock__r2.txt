@@ -1,0 +1,9 @@
+root = Card(CardHeader("Low Inventory Warning"), SearchField("search", placeholder:"Search items"), lowInventorySection, ThresholdInfo("threshold", 20))
+lowInventorySection = Card(Heading("Items running low", h3), Table(lowInventoryTable), ReorderButtonsForItems)
+lowInventoryTable = Table(|Item|Remaining|Action
+|Widget A|12|Reorder
+|Gadget B|4|Reorder
+|Item C|2|Reorder
+|Part D|15|Reorder)
+ReorderButtonsForItems = ListBlock(SectionBlock(SectionItem("reorder", "Reorder all items below"), ListBlock(Buttons(Button("Reorder A"), Button("Reorder B"), Button("Reorder C"), Button("Reorder D")))))
+ThresholdInfo(name, value:num) = Card(Header("Threshold"), TextContent("Low inventory threshold: "+value))

@@ -1,0 +1,5 @@
+root = Card([header, sep, todayRev, compareRev])
+header = CardHeader("Mid‑Morning Check‑in", "Shop Owner Dashboard")
+sep = Separator()
+todayRev = TextContent("Revenue so far today: $5,230", "large")
+compareRev = TextContent("Same time yesterday: $4,870 (up 7.4%)", "default")

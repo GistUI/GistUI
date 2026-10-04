@@ -1,0 +1,125 @@
+root = Card(CardHeader("Store Manager Console"),
+
+  // 12: this week compared with last week
+  Card(Heading("This week vs last week", h3), Table(weeklyComparison), sunk),
+
+  // 1: sales today against target
+  Card(Heading("Sales Today vs Target", h4), Table(salesVsTarget), Tag("On track", success)),
+
+  // 2: foot traffic through the day
+  Card(Heading("Foot Traffic Through the Day", h4), LineChart(trafficTable, linear, xLabel:"Time", yLabel:"People")),
+
+  // 3: best sellers with units for each
+  Card(Heading("Best Sellers (Units)", h4), Table(bestSellers)),
+
+  // 4: items out of stock
+  Card(Heading("Out of Stock", h4), Table(outOfStock)),
+
+  // 5: who is on shift today
+  Card(Heading("Shift Today", h4), Table(shiftTable)),
+
+  // 6: average basket size
+  Card(Heading("Average Basket Size", h4), Table(averageBasketTable)),
+
+  // 7: returns this week
+  Card(Heading("Returns This Week", h4), BarChart(returnsTable, xLabel:"Day", yLabel:"Returns")),
+
+  // 8: how each running promotion is doing
+  Card(Heading("Promotions Performance", h4), Table(promotionsTable)),
+
+  // 9: each register and whether it is open
+  Card(Heading("Register Status", h4), Table(registerStatusTable)),
+
+  // 10: a way to reorder an item
+  Card(Heading("Reorder Item", h4), Form("reorder-form", reorderButtons, reorderNameField, reorderQtyField)),
+
+  // 11: a way to view a different store
+  Card(Heading("Switch Store", h4), Form("store-switch", storeSwitchButtons, storeSelect)),
+
+  // optional: any actions
+  CardsEndHint
+)
+
+salesToday = |Metric|Value
+|Sales Today|$9,320
+|Target|$10,000
+salesVsTarget = |Metric|Today|Target
+|Sales|9320|10000
+|Forecast|9800|10000
+
+trafficTable = |Hour|Foot Traffic
+|9am|120
+|10am|180
+|11am|250
+|12pm|310
+|1pm|290
+|2pm|260
+|3pm|240
+|4pm|210
+|5pm|170
+
+bestSellers = |Item|Units
+|Widget A|312
+|Gadget B|289
+|Thingamajig C|174
+
+outOfStock = |Item|Category|Restock ETA
+|Widget D|Electronics|Today
+|Gizmo E|Home|2 days
+
+shiftTable = |Staff|Role|Shift
+|Alex|Manager|9am-5pm
+|Priya| Cashier|9am-5pm
+|Liam|Stock|12pm-8pm
+
+averageBasketTable = |Store|Avg Basket
+|Downtown|$42.50
+|Uptown|$39.75
+
+returnsTable = |Day|Returns
+|Mon|24
+|Tue|19
+|Wed|21
+|Thu|15
+|Fri|22
+|Sat|18
+|Sun|20
+
+promotionsTable = |Promotion|Status|Sales
+|Summer Sale|Active|+$4,200
+|Coupon Rally|Active|+$1,150
+|Clearance|Ended|-$500
+
+registerStatusTable = |Register|Open
+|Register 1|Open
+|Register 2|Closed
+|Register 3|Open
+
+reorderNameField = FormControl("Item name", Input("item", "Widget A"))
+reorderQtyField = FormControl("Quantity", Input("qty", "10", value), "Enter reorder quantity")
+reorderButtons = Buttons(Button("Submit Reorder", primary), Button("Cancel", tertiary))
+
+storeSelect = Select("store_id",
+  SelectItem("Downtown", "Downtown"),
+  SelectItem("Uptown", "Uptown"),
+  SelectItem("Midtown", "Midtown"),
+  placeholder:"Choose store")
+
+storeSwitchButtons = Buttons(Button("View Sales", secondary), Button("View Inventory", secondary))
+
+reorderFormButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
+
+weeklyComparison = |Metric|This Week|Last Week
+|Sales|$53,400|$50,200
+|Orders|1,210|1,150
+|Returns|112|98
+
+trafficSeries = |Hour|Foot Traffic
+|9|120
+|10|180
+|11|250
+|12|310
+|13|290
+|14|260
+
+Table(table) = Table(weeklyComparison)

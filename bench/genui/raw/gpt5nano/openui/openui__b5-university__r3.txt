@@ -1,0 +1,158 @@
+root = Card([
+  header = CardHeader("University Administrator Dashboard", "Overview of current academic year"),
+  row1 = Card([overviewCardsRow], "card"),
+
+  // Overview cards for items 1-4
+  overviewCardsRow = Card([
+    totalEnrollmentCard,
+    applicationsByProgramCard,
+    acceptanceRateCard,
+    tuitionRevenueCard
+  ], "card"),
+
+  totalEnrollmentCard = Card([
+    Heading("Total Enrollment and Five-Year Trend", "h3"),
+    LineChart(["Year 1","Year 2","Year 3","Year 4","Year 5"], [enrollTrendSeries], "linear", "Year", "Students"),
+    enrollTrendSeries = Series("Enrollment", [18000, 18520, 19240, 19860, 20540]),
+    TextContent("Total enrollment: 20,540 (+5.0% over five years).", "default")
+  ]),
+
+  applicationsByProgramCard = Card([
+    Heading("Applications by Program", "h3"),
+    Table([Col("Program", ["Engineering","Business","Arts & Sciences","Education","Health"], "string"), Col("Applications", [4200, 5100, 6800, 2100, 3200], "number")]),
+  ]),
+
+  acceptanceRateCard = Card([
+    Heading("Acceptance Rate", "h3"),
+    TextContent("Overall acceptance rate: 28% (last admission cycle).", "default"),
+  ]),
+
+  tuitionRevenueCard = Card([
+    Heading("Tuition Revenue This Year", "h3"),
+    TextContent("Tuition revenue: $312,400,000", "default"),
+  ]),
+
+  // Item 5: course occupancy
+  courseOccupancyCard = Card([
+    Heading("Course Offering Occupancy", "h3"),
+    HorizontalBarChart(["Calculus I","Intro to CS","Organic Chemistry","World History","Philosophy"], [Series("Seats", [120, 95, 60, 130, 80])], "grouped", "Course", "Seats Filled")
+  ]),
+
+  // Item 6: teaching load by faculty
+  teachingLoadCard = Card([
+    Heading("Teaching Load by Faculty Member", "h3"),
+    BarChart(["Smith","Nguyen","Patel","O'Connor","Kim"], [Series("Load", [3, 4, 3, 2, 5])], "linear", "Faculty", "Courses Taught")
+  ]),
+
+  // Item 7: students at academic risk
+  academicRiskCard = Card([
+    Heading("Students at Academic Risk", "h3"),
+    ListBlock([
+      ListItem("Freshman at Risk", "First-year retention concerns", ["https://picsum.photos/seed/freshman/80/60"]),
+      ListItem("Math-Required Courses", "Low pass rates in key prerequisites"),
+      ListItem("Cohort 2024", "Elevated risk indicators in multiple courses")
+    ])
+  ]),
+
+  // Item 8: scholarship budget vs total
+  scholarshipBudgetCard = Card([
+    Heading("Scholarship Budget Used Against Total", "h3"),
+    HorizontalBarChart(["Budget Used","Budget Remaining"], [Series("Scholarships", [42000000, 54000000])], "grouped", "Category", "USD"),
+    TextContent("Total scholarship budget: $100M; Used: $42M this year.", "default")
+  ]),
+
+  // Item 9: housing occupancy
+  housingOccupancyCard = Card([
+    Heading("Housing Occupancy", "h3"),
+    TextContent("On-campus housing occupancy: 92%", "default"),
+    ImageBlock("https://picsum.photos/seed/housing/600/200", "Dorm occupancy trend")
+  ]),
+
+  // Item 10: campus events this month
+  campusEventsCard = Card([
+    Heading("Campus Events This Month", "h3"),
+    ListBlock([
+      ListItem("Homecoming Kickoff", "Sep 12, 6:00 PM", ["https://picsum.photos/seed/homecoming/80/60"]),
+      ListItem("Career Fair", "Sep 20, 10:00 AM"),
+      ListItem("Alumni Reception", "Sep 28, 7:00 PM")
+    ])
+  ]),
+
+  // Item 11: alumni giving past four years
+  alumniGivingCard = Card([
+    Heading("Alumni Giving Over the Past Four Years", "h3"),
+    PieChart(["201?","2022","2023","2024"], [valuesGiving], "donut", "circular"),
+    valuesGiving = [1200, 980, 1120, 1350]
+  ]),
+
+  // Item 12: focus on one department
+  focusDepartmentCard = Card([
+    Heading("Focus on Department", "h3"),
+    Select("department_focus", [
+      SelectItem("ENG","Engineering"),
+      SelectItem("BUS","Business"),
+      SelectItem("SCI","Sciences"),
+      SelectItem("ART","Arts & Humanities")
+    ], "Choose department"),
+    TextContent("Selected department will filter subsequent views to show department-specific metrics.", "default"),
+    Card([TextContent("Filtered view will show programs, faculty, and performance for the chosen department." , "default")], "sunk")
+  ]),
+
+  // Item 13: this semester vs last
+  semesterComparisonCard = Card([
+    Heading("This Semester vs Last Semester", "h3"),
+    LineChart(["This","Last"], [Series("Enrollment", [10240, 9860])], "linear", "Semester", "Students"),
+  ]),
+
+  // Item 14: waitlisted students per program
+  waitlistedCard = Card([
+    Heading("Waitlisted Students by Program", "h3"),
+    Table([Col("Program", ["Engineering","Business","Arts","Education"]), Col("Waitlisted", [120, 90, 60, 40], "number")])
+  ]),
+
+  // Item 15: approve a new course
+  approveCourseCard = Card([
+    Heading("Approve a New Course", "h3"),
+    TextContent("Submit proposal details and approve via confirmation.", "default"),
+    Button("Open Approval Dialog", null, "primary"),
+  ]),
+
+  // Item 16: message to student group
+  messageGroupCard = Card([
+    Heading("Message Student Group", "h3"),
+    TextContent("Send a message to a selected student group.", "default"),
+    Button("Open Message Composer", null, "secondary")
+  ]),
+
+  // Controls: keep all referenced items reachable
+  // Ensure each item is reachable by listing them in the root's children past the header
+  // Layout: place all sections in a vertical stack
+  sectionsColumn = Card([
+    totalEnrollmentCard,
+    applicationsByProgramCard,
+    acceptanceRateCard,
+    tuitionRevenueCard,
+    courseOccupancyCard,
+    teachingLoadCard,
+    academicRiskCard,
+    scholarshipBudgetCard,
+    housingOccupancyCard,
+    campusEventsCard,
+    alumniGivingCard,
+    focusDepartmentCard,
+    semesterComparisonCard,
+    waitlistedCard,
+    approveCourseCard,
+    messageGroupCard
+  ], "card"),
+
+  // Layout grouping: top row with 4 high-level metrics, then a second row with the rest
+  mainGrid = Card([
+    overviewCardsRow,
+    sectionsColumn
+  ], "card"),
+
+  // Final assembly: place main grid under header
+  // Root-level children
+  mainGrid
+])

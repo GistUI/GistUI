@@ -1,0 +1,25 @@
+root = Card([
+  CardHeader("Morning Weather Brief", " Bengaluru"),
+  SectionBlock([
+    SectionItem("current", "Current conditions", [
+      TextContent(" Bengaluru: 28°C, Clear sky "),
+      Tag("today", "neutral")
+    ]),
+  ]),
+  Heading("Today's Outlook", "h2"),
+  Accordion([
+    AccordionItem("t1", "Day 1 - Today", [
+      TextContent(" Bengaluru - Clear with a gentle breeze. High: 30°C, Low: 22°C.")
+    ]),
+    AccordionItem("t2", "Day 2 - Tomorrow", [
+      TextContent(" Partly cloudy with a slight chance of shower. High: 31°C, Low: 23°C.")
+    ]),
+    AccordionItem("t3", "Day 3 - Day After", [
+      TextContent(" Sunny intervals. High: 32°C, Low: 24°C.")
+    ])
+  ]),
+  Separator(),
+  Heading("Sunrise & Sunset", "h3"),
+  TextContent(" Sunrise: 06:11 AM • Sunset: 06:52 PM "),
+  ImageBlock("https://picsum.photos/seed/sun/800/400", "Sunrise and sunset illustration")
+])

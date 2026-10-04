@@ -1,0 +1,18 @@
+root = Card(CardHeader("Upcoming meeting", "Next on the calendar"), meetingCard, joinButton)
+
+meetingCard = Card(Heading("Next meeting", h3), meetingTable, attendeesList, meetingTime)
+
+meetingTable = Table(nextMeetingTable)
+
+nextMeetingTable = |Item|Detail
+|Title|Team Standup
+|Start|2026-10-06T09:30:00-04:00
+|Location|Video Call
+
+attendeesList = TagBlock(attendees)
+
+attendees = |Alice|Bob|Charlie|Dana|
+
+meetingTime = TextContent("The next meeting starts at 9:30 AM local time. Please join a few minutes early to avoid delays.", size:default)
+
+joinButton = DialogBlock("Join meeting", "Join Call", TextContent("Click the button to join the live call."), description:"Join link will open in your browser")

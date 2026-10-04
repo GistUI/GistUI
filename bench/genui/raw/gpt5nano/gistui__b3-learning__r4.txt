@@ -1,0 +1,63 @@
+root = Card(CardHeader("Analytics Dashboard"), section1, section2, section3, section4, section5, section6, section7, section8, actions, sunk)
+
+section1 = Card(Heading("Active learners this week", h2), Table(activeLearnersTable))
+
+activeLearnersTable = Table(activeTable)
+
+activeTable = |Metric|Value
+|Active learners|1280
+
+section2 = Card(Heading("Course completion rate", h2), TextContent("Completion rate across courses this week.", default), Progress(78))
+
+section3 = Card(Heading("Average quiz score", h2), Table(quizScoreTable))
+
+quizScoreTable = |Course|Average Score
+|Python Basics|82
+|Data Science A|88
+|React Fundamentals|79
+
+section4 = Card(Heading("Courses ranked by enrollment", h2), BarChart(rankTable, xLabel:"Course", yLabel:"Enrollment"))
+
+rankTable = |Course|Enrollment
+|Python Basics|1200
+|Data Science A|980
+|React Fundamentals|860
+|Machine Learning|740
+
+section5 = Card(Heading("Learners at risk of dropping out", h2), Table(riskTable))
+
+riskTable = |Learner|RiskLevel
+|Alex Kim|High
+|Sam Patel|Medium
+|Priya Singh|High
+
+section6 = Card(Heading("Narrow to a cohort", h2), Form("cohort-filter", cohortButtons, cohortSelect))
+
+cohortButtons = Buttons(Button("Apply", primary), Button("Reset", tertiary))
+
+cohortSelect = FormControl("Cohort", Select("cohort", SelectItem("All Users", "All"), SelectItem("Cohort A", "Cohort A"), SelectItem("Cohort B", "Cohort B"), placeholder:"Choose cohort"))
+
+section7 = Card(Heading("Engagement across the past eight weeks", h2), LineChart(engagementTable, natural, xLabel:"Week", yLabel:"Engagement"))
+
+engagementTable = |Week|Engagement
+|W1|65
+|W2|70
+|W3|72
+|W4|68
+|W5|74
+|W6|77
+|W7|69
+|W8|81
+
+section8 = Card(Heading("Message a cohort", h2), DialogBlock("message-cohort", "Message cohort", Card(TextContent("Draft message to selected cohort.")), description:"Send a message to all members of the chosen cohort"))
+
+section9 = Card(Heading("Cohort messaging controls", h2), Buttons(Button("Open messaging", primary), Button("Copy message", secondary)),)
+
+recruit = FollowUpBlock(FollowUpItem("View cohort details"), FollowUpItem("Export cohort list"))
+
+section10 = Card(Heading("Notes and actions", h2), ListBlock(ListItem("Tip: Use cohort filter to narrow analytics"), ListItem("Export weekly report"), ListItem("Schedule follow-up"), variant:number))
+
+section11 = Card(Heading("Engagement export", h2), Form("export-form", Buttons(Button("Export CSV", primary)), FormControl("Date range", Input("date-range", "Last 8 weeks"))))
+
+root_members = [section1, section2, section3, section4, section5, section6, section7, section8, section9, section10, section11]
+root = Card(CardHeader("Training Platform Analytics"), root_members..., sunk)

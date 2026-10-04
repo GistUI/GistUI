@@ -1,0 +1,118 @@
+root = Card([
+  header = CardHeader("CEO Quarterly Command View", "Executive dashboard"),
+  controlsRow,
+  metricsGrid,
+  quarterlySection,
+  budgetSection,
+  headcountSection,
+  risksSection,
+  initiativesSection,
+  runwaySection,
+  pipelineSection,
+  salesSection,
+  boardSection,
+  quarterRegionExportSection
+])
+
+header = TextContent("Overview for the current quarter with focus controls to adjust scope and export the pack.", "default")
+
+controlsRow = Card([
+  QuarterSelector(["Q1", "Q2", "Q3", "Q4"], "Q2"),
+  RegionSelector(["Americas", "EMEA", "APAC", "Global"], "Global"),
+  ExportButton("Export Dashboard Pack")
+], "sunk")
+
+metricsGrid = Card([
+  CardRow([
+    kpiRevenue = Card([TextContent("Revenue", "default"), ValueBlock("$12.3M")]),
+    kpiCosts = Card([TextContent("Costs", "default"), ValueBlock("$7.4M")]),
+    kpiProfit = Card([TextContent("Profit", "default"), ValueBlock("$4.9M")])
+  ], "horizontal"),
+  CardRow([
+    revenueTrend4q = Card([Heading("Revenue 4Q", "h4"), LineChart(["Q1","Q2","Q3","Q4"], [Series("Revenue", [3.2, 3.5, 4.1, 4.8])], "natural")])
+  ])
+], "card")
+
+CardRow(items, variant? = null) = null
+ValueBlock(value) = TextContent(value, "large")
+
+quarterlySection = SectionBlock([
+  SectionItem("quarters", "Quarterly Metrics", [
+    Card([TextContent("Revenue (4Q)", "default"), LineChart(["Q1","Q2","Q3","Q4"], [Series("Revenue", [12, 14, 15, 16])])]),
+    Card([TextContent("Costs (4Q)", "default"), LineChart(["Q1","Q2","Q3","Q4"], [Series("Costs", [8, 9, 9.5, 10])])]),
+    Card([TextContent("Profit (4Q)", "default"), LineChart(["Q1","Q2","Q3","Q4"], [Series("Profit", [4, 5, 5.5, 6])])])
+  ])
+], false)
+
+budgetSection = SectionBlock([
+  SectionItem("budget_by_dept", "Budget by Department vs Plan", [
+    Table([Col("Department", ["Sales","R&D","Ops","Marketing"]), Col("Budget", ["$2.4M","$3.1M","$1.8M","$1.5M"]), Col("Plan", ["$2.6M","$3.0M","$1.9M","$1.6M"])])
+  ])
+], false)
+
+headcountSection = SectionBlock([
+  SectionItem("headcount_by_dept", "Headcount by Department", [
+    Table([Col("Department", ["Sales","Engineering","Ops","Marketing"]), Col("Headcount", [120, 340, 95, 60])])
+  ])
+], false)
+
+risksSection = SectionBlock([
+  SectionItem("top_risks", "Top Risks with Owner", [
+    ListBlock([
+      ListItem("Market slowdown", "Owner: A. Singh", ["https://picsum.photos/seed/risks1/40/40"]),
+      ListItem("Key supplier delay", "Owner: J. Kim", ["https://picsum.photos/seed/risks2/40/40"]),
+      ListItem("Regulatory change impact", "Owner: L. Chen", ["https://picsum.photos/seed/risks3/40/40"])
+    ])
+  ])
+], false)
+
+initiativesSection = SectionBlock([
+  SectionItem("initiatives", "Strategic Initiatives & Status", [
+    ListBlock([
+      ListItem("Go-to-market acceleration", "Status: On Track", []),
+      ListItem("Platform refactor", "Status: At Risk", []),
+      ListItem("Sustainability program", "Status: Completed", [])
+    ])
+  ])
+], false)
+
+runwaySection = SectionBlock([
+  SectionItem("runway", "Months of Runway", [
+    TextContent("Runway to cash Breakeven: 14 months", "default")
+  ])
+], false)
+
+pipelineSection = SectionBlock([
+  SectionItem("pipeline", "Sales Pipeline Value & Win Rate", [
+    Card([TextContent("Pipeline Value", "default"), ValueBlock("$28.4M")]),
+    Card([TextContent("Win Rate", "default"), ValueBlock("32%")])
+  ])
+], false)
+
+salesSection = SectionBlock([
+  SectionItem("customer_metrics", "Customer Count & Churn", [
+    Card([TextContent("Customers", "default"), ValueBlock("1,248")]),
+    Card([TextContent("Churn (m/m)", "default"), ValueBlock("1.2%")])
+  ]),
+  SectionItem("net_promoter", "NPS", [
+    Card([TextContent("NPS Score", "default"), ValueBlock("54")])
+  ])
+], false)
+
+boardSection = SectionBlock([
+  SectionItem("board_meeting", "Next Board Meeting Items", [
+    ListBlock([
+      ListItem("Q4 results review", "", []),
+      ListItem("Strategic initiatives update", "", []),
+      ListItem("Risks and mitigations", "", []),
+      ListItem("Budget reforecast", "", [])
+    ])
+  ])
+], false)
+
+quarterRegionExportSection = Card([
+  TextContent("Change quarter and focus region, then export the pack", "default"),
+  Buttons([
+    Button("Export Pack", null, "primary")
+  ])
+], "card")

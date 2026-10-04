@@ -1,0 +1,27 @@
+root = Card([header, taskCard])
+
+header = CardHeader("My Focus: Single Task", null)
+
+taskCard = Card([taskSummary, statusRow, actionRow], "card")
+
+taskSummary = Heading("Most urgent task", "h2")
+
+taskDetails = TextContent("Task: Prepare quarterly report\nDeadline: 2026-10-12 17:00", "default")
+
+deadlineLine = TextContent("Deadline: 2026-10-12 17:00", "default")
+
+taskSummaryBlock = Card([taskDetails, deadlineLine], null)
+
+taskSummary = Card([taskSummaryBlock], null)
+
+statusRow = Card([StatusLabel("Status", "Urgent"), StatusValue("In progress")], null)
+
+StatusLabel(text: string, value?: string) = TextContent(text, "default")
+
+StatusValue(text: string) = TextContent(text, "default")
+
+statusValue = Card([TextContent("In progress", "default")], null)
+
+markDoneButton = Button("Mark as Done", null, "primary")
+
+actionRow = Buttons([markDoneButton], "row")

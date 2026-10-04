@@ -1,0 +1,30 @@
+root = Card(CardHeader("Cafe Menu", "Today’s Specials Highlighted"), SectionBlock(SectionItem("drinks", "Drinks", drinksSection), SectionItem("food", "Food", foodSection), SectionItem("special", "Today’s Special", specialSection), SectionItem("vegetarian", "Vegetarian Only", vegetarianSection), SectionItem("hours", "Opening Hours", hoursSection), isFoldable), buttonsBlock)
+
+drinksSection = Card(Heading("Drinks", h3), Table(drinksTable))
+drinksTable = |Drink|Price
+|Espresso|3.50
+|Latte|4.75
+|Cappuccino|4.75
+|Iced Tea|3.95
+|Orange Juice|4.25
+
+foodSection = Card(Heading("Food", h3), Table(foodTable))
+foodTable = |Item|Price
+|Avocado Toast|6.50
+|Eggs Benedict|9.00
+|Blueberry Pancakes|7.50
+|Granola Bowl|6.00
+
+specialSection = Card(Heading("Today’s Special", h3), TextContent("Today’s special: Creamy mushroom risotto with parmesan. Come early to enjoy it!", size:default))
+
+vegetarianSection = Card(Heading("Vegetarian Options (toggle to show)", h3), SwitchGroup("veg", SwitchItem("showAll","Show all"), SwitchItem("onlyVeg","Vegetarian only")), Table(vegetarianTable))
+
+vegetarianTable = |Item|Price
+|Margherita Pizza|12.00
+|Grilled Veg Wrap|9.50
+|Tomato Basil Soup|6.50
+|Quinoa Salad|8.75
+
+hoursSection = Card(Heading("Opening Hours", h3), TextContent("Mon-Fri: 7:00 AM - 9:00 PM\nSat-Sun: 8:00 AM - 11:00 PM", size:default))
+
+buttonsBlock = Buttons(Button("Order Now", primary), Button("View Cart", secondary))

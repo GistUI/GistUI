@@ -1,0 +1,22 @@
+root = Card([
+    CardHeader("Upcoming Calendar", "Next meeting overview"),
+    Heading("Next meeting details", "h2"),
+    meetingCard = Card([
+        meetingTitle = TextContent("Team Sync — Product Roadmap", "default"),
+        Separator("horizontal"),
+        startTimeRow = TextContent("Starts at: 10:00 AM, Oct 12", "default"),
+        Separator("horizontal"),
+        attendeesHeading = Heading("Attendees", "h3"),
+        attendeesList = ListBlock([
+            ListItem("Alex Kim", "Product Lead", ["https://picsum.photos/seed/Alex/40/40"]),
+            ListItem("Priya Singh", "Engineering", ["https://picsum.photos/seed/Priya/40/40"]),
+            ListItem("Maria Lopez", "Design", ["https://picsum.photos/seed/Maria/40/40"])
+        ], "image"),
+        Separator("horizontal"),
+        joinHeading = Heading("Join call", "h3"),
+        joinButtonLine = Buttons([
+            Button("Join Google Meet", ["join_meet"], "primary"),
+            Button("Copy meeting link", ["copy_link"], "secondary")
+        ], "row")
+    ])
+])

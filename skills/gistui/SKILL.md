@@ -279,6 +279,8 @@ Follow `reference.md`. The rules that matter most:
 - Enums and flags are bare words (`gap:lg`, `type:bar`, `Row(a, b, wrap)`). An enum value alone sets the one prop that has it: `Card(a, b, sunk)`, `Tag("Live", success)`. A statement with the same name always wins, so `Card(a, row)` with `row = …` defined is a child. Keep `key:value` when two props share a value. **Inside arrays, strings must be quoted** (`icons:["user", "users"]`); a bare word in an array is a reference.
 - Give ids to sections and write small parts inline where they are used: `Buttons(Button("Save"), Button("Cancel", v:ghost))`. Each extra statement costs its id twice plus a line.
 - Strings are JSON strings; a string child is Markdown.
+- Text arguments are quoted, `Form("signup", …)`, `Select("plan", …)`; a bare word is a reference to a statement.
+- Each component has its own enum values: copy them from that component's signature, never from a similar one.
 - Tables are pipe rows (`|Month|Revenue` then `|Jul|380000`); the first column is the x axis or category. One table can feed Table, Chart, Stats and Timeline.
 - Every id you use is defined exactly once. Keep ids short and lowercase, and never use a flag name as an id (the reference lists them).
 

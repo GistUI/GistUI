@@ -1,0 +1,97 @@
+root = Card([
+  header = CardHeader("Power Network Operator Console", "Real-time grid operations"),
+  mainGrid = Card([
+    leftCol = Card([
+      currentLoadHeading = Heading("Current network load", "h3"),
+      currentLoadValue = TextContent("Load: 4,820 MW", "default"),
+      capacityGauge = Callout("info", "Capacity", "Usage at " + "78% of available capacity"),
+      emissionsToday = Card([
+        Heading("Emissions today", "h4"),
+        TextContent("CO2e: 12,450 t", "default")
+      ])
+    ], "card"),
+    middleCol = Card([
+      capacitySummaryHeading = Heading("Capacity proximity", "h3"),
+      capacityProgress = TextContent("95% towards capacity", "default"),
+      capacityBar = ImageBlock("https://picsum.photos/seed/capacity/600/150", "capacity"),
+      forecastHeader = Heading("Demand forecast next 24h", "h3"),
+      forecastChartPlaceholder = Image("Forecast chart placeholder", "https://picsum.photos/seed/forecast/600/180")
+    ], "card"),
+    rightCol = Card([
+      generationSplitHeading = Heading("Generation by source", "h3"),
+      generationGallery = ImageGallery([
+        "https://picsum.photos/seed/solar/200/120",
+        "https://picsum.photos/seed/wind/201/120",
+        "https://picsum.photos/seed/hydro/202/120",
+        "https://picsum.photos/seed/gas/203/120",
+        "https://picsum.photos/seed/nuclear/204/120"
+      ]),
+      outagesHeading = Heading("Outages by region", "h3"),
+      outagesList = ListBlock([
+        ListItem("Region A", "Line fault", ["https://picsum.photos/seed/regionA/40/40"]),
+        ListItem("Region C", "Transformer offline", ["https://picsum.photos/seed/regionC/40/40"]),
+        ListItem("Region F", "Scheduled maintenance", ["https://picsum.photos/seed/regionF/40/40"])
+      ], "image")
+    ], "card"),
+  ], "row", "l"),
+  divider = Separator("horizontal", false),
+  bottomPanel = Card([
+    // Live alerts and region focus
+    alertsSection = SectionBlock([
+      SectionItem("alerts", "Live alerts", [
+        TextContent("Alert: Frequency deviation detected in Region B", "default"),
+        TextContent("Alert: Plant Y outage suspected", "default")
+      ]),
+      SectionItem("focus-region", "Focus on region", [
+        TextContent("Current focus region: Region B", "default")
+      ])
+    ], false),
+  ], "card"),
+  focusPanel = Card([
+    focusHeader = Heading("Focus controls", "h3"),
+    regionSelector = Form("region-focus", Buttons([Button("Apply Focus", null, "primary")]), [
+      Select("region", [
+        SelectItem("regA", "Region A"),
+        SelectItem("regB", "Region B"),
+        SelectItem("regC", "Region C"),
+        SelectItem("regD", "Region D")
+      ], "Choose region")
+    ]),
+  ], "card"),
+  actionsPanel = Card([
+    focusRegionTitle = Heading("Curtailment orders", "h3"),
+    curtailmentNote = TextContent("Issue targeted demand curtailment to regions as needed.", "default"),
+    curtailmentButtons = Buttons([
+      Button("Order curtailment Region B", null, "secondary"),
+      Button("Order curtailment All Regions", null, "secondary")
+    ])
+  ], "card"),
+  maintenancePanel = Card([
+    maintenanceHeader = Heading("Maintenance planned this month", "h3"),
+    maintenanceList = ListBlock([
+      ListItem("Region A substation", "Maintenance window 02:00-06:00", ["https://picsum.photos/seed/maintA/40/40"]),
+      ListItem("Generation Plant Z", "Turbine inspection", ["https://picsum.photos/seed/maintZ/40/40"]),
+      ListItem("Relay upgrades", "Several interstate lines", ["https://picsum.photos/seed/maintRelay/40/40"])
+    ], "image")
+  ], "card"),
+  pricePanel = Card([
+    priceHeader = Heading("Current price per MWh", "h3"),
+    priceValue = TextContent("$92.15 / MWh", "large"),
+  ], "card"),
+  plantTable = Card([
+    tableHeader = Heading("Plant status and output", "h3"),
+    plantTableBlock = Table([
+      Col("Plant", ["Plant A", "Plant B", "Plant C", "Plant D"], "string"),
+      Col("Output (MW)", [420, 610, 180, 340], "number"),
+      Col("Status", ["Online", "Maintenance", "Online", "Online"], "string"),
+      Col("Region", ["North", "South", "East", "West"], "string")
+    ])
+  ], "card"),
+  liveAlertsPanel = Card([
+    alertsHeader = Heading("Live alerts", "h3"),
+    liveAlertList = ListBlock([
+      ListItem("Frequency excursion", "Region B", ["https://picsum.photos/seed/alert1/40/40"]),
+      ListItem("Line outage", "Region D", ["https://picsum.photos/seed/alert2/40/40"])
+    ], "image")
+  ])
+], "card")

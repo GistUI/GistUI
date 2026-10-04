@@ -1,17 +1,20 @@
-root = Card(titleSection, progressBar, sep1, modulesSection, sep2, nextLessonCallout, ratingSection, continueButtons, gap:m)
+root = Card(cardHeader, progressBar, modulesTable, nextLesson, ratingTag, continueButtons)
 
-titleSection = CardHeader("Advanced Data Science", "Instructor: Dr. Jane Doe")
-progressBar = Progress(68, "68% Complete")
-sep1 = Separator(orientation:horizontal, decorative)
-modulesSection = Card(Heading("Modules", h3), modulesTable)
-sep2 = Separator(orientation:horizontal, decorative)
-nextLessonCallout = Callout(info, "Next Lesson", "Machine Learning Basics")
-ratingSection = TextContent("**Average Rating:** ⭐ 4.3 / 5", size:small)
-continueButtons = Buttons(Button("Continue", primary))
+cardHeader = CardHeader("Advanced Data Science", "Dr. Jane Doe")
+
+progressBar = Progress(78, "Overall progress")
 
 modulesTable = Table(modulesRows)
 
-modulesRows = |Module|Completion
-|Intro|100%
-|Basics|75%
-|Advanced|0%
+modulesRows = |Module|Status
+|Introduction to Data|Complete
+|Data Wrangling|Complete
+|Exploratory Analysis|In Progress
+|Model Building|Not Started
+|Model Evaluation|Not Started
+
+nextLesson = Card(Heading("Next Lesson: Model Building Basics", h3), Buttons(Button("Start Lesson", primary)))
+
+ratingTag = Tag("4.5 ★", variant:info)
+
+continueButtons = Buttons(Button("Continue Learning", primary))

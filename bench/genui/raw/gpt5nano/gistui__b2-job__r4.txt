@@ -1,0 +1,12 @@
+root = Card(CardHeader("Design Role: Product Design Lead","Design Team"), Tag("Hiring", success), Card(Heading("Role overview", h3), TextContent("We are seeking a Product Design Lead to shape the experience across our core product, partner with product and engineering, and mentor a growing design team."), sunk), roleSection, applySection, shareSection, salarySection)
+roleSection = Card(Heading("Role title and team", h4), TextContent("Product Design Lead, Design Team"), Tag("Full-time"), sunk)
+applySection = Card(Heading("How to apply", h3), Form("design-application", Buttons(Button("Submit application", primary)), nameField, emailField, resumeField))
+nameField = FormControl("Full name", Input("name", "Alex Doe"))
+emailField = FormControl("Email address", Input("email", "alex@company.com", "alex@example.com"))
+resumeField = FormControl("Resume link", Input("resume", "https://example.com/resume.pdf"))
+shareSection = Card(Heading("Share this posting", h3), Buttons(Button("Copy link"), Button("Share to LinkedIn", secondary)))
+salarySection = Card(Heading("Salary range", h3), TextContent(" USD 120k - 160k per year "), )
+
+Top-level notes:
+- The root includes all sections in reading order: role title/team, description, qualifications, salary, apply, share.
+- All defined ids are used by referencing them in root or as part of their parent.

@@ -8,6 +8,8 @@ const lib = defineLibrary({
     { name: "Dialog", args: ["label"], children: true, props: { label: { type: "string", required: true }, tone: { type: "enum", values: ["default", "outline"] } } },
     { name: "Item", args: ["value", "title"], props: { value: { type: "string", required: true }, title: { type: "string", required: true } } },
     { name: "Text", args: ["text"], props: { text: { type: "string", required: true } } },
+    { name: "Table", args: ["rows"], props: { rows: { type: "data", required: true } } },
+    { name: "Divider", props: {} },
   ],
 });
 const errorsOf = (src: string) => parse(src, lib).errors.filter((e) => e.severity === "error" || ["unknown-prop", "invalid-prop", "invalid-enum", "unreachable"].includes(e.code));
@@ -43,6 +45,56 @@ describe("autofix (deterministic repair, no model)", () => {
   test("every change is listed", () => {
     const r = autofix(`root = Card(d)\nd = Dialog("Open", tone:primary)\n`, lib);
     expect(r.changes.some((c) => c.includes("tone"))).toBe(true);
+  });
+});
+
+describe("autofix keeps what the model wrote", () => {
+  test("a table written inside a call moves to its own statement, commas in cells included", () => {
+    const r = autofix(`root = Card(t)\nt = Table(|Speaker|Bio|, |Alex|CTO, Acme|, |Priya|Head of Platform|)\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toContain(`t = Table(tRows)`);
+    expect(r.source).toContain(`|Alex|CTO, Acme`);
+    expect(r.source).toContain(`|Priya|Head of Platform`);
+  });
+
+  test("an inline table with literal \\n between rows, followed by more arguments", () => {
+    const r = autofix(`root = Card(t, variant:sunk)\nt = Table(|Day|Rate\\n|Mon|2.1\\n|Tue|1.8|)\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toContain(`|Mon|2.1`);
+    expect(r.source).toContain(`|Tue|1.8`);
+    expect(r.source).toContain(`root = Card(t, variant:sunk)`);
+  });
+
+  test("curly quotes used as string quotes", () => {
+    const r = autofix(`root = Card(Text(“Hello”))\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toContain(`"Hello"`);
+  });
+
+  test("a reference that misses a statement by case or one letter points at it", () => {
+    const r = autofix(`root = Card(MetricsCard, incidentsPanel)\nmetricsCard = Text("MRR")\nincidentPanel = Text("2 open")\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toContain(`root = Card(metricsCard, incidentPanel)`);
+  });
+
+  test("a component named without parentheses is called", () => {
+    const r = autofix(`root = Card(Text("a"), Divider)\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toMatch(/Divider\(\)/);
+  });
+
+  test("unused sections that only mention each other in text are still placed", () => {
+    // `genre` appears in genreRows' header, and genreRows is used by genre: only genre goes on root.
+    const r = autofix(`root = Card(Text("Overview"))\ngenre = Card(Text("By genre"), Table(genreRows))\ngenreRows = |genre|share\n|Drama|40\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toMatch(/root = Card\(_c\d+, genre\)/);
+  });
+
+  test("a data table nobody used is shown in a table, not deleted", () => {
+    const r = autofix(`root = Card(Text("Learners"))\nrisk = |Learner|Score\n|Ann|3\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toMatch(/root = Card\(_c\d+, Table\(risk\)\)|root = Card\(_c\d+, _c\d+\)/);
+    expect(r.source).toContain(`|Ann|3`);
   });
 });
 

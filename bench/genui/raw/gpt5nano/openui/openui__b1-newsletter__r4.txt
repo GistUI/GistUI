@@ -1,0 +1,17 @@
+root = Card([
+  header,
+  introText,
+  formBlock
+])
+
+header = CardHeader("Weekly Product Newsletter", "Stay in the loop with our product updates")
+introText = TextContent("Get a concise weekly summary of our newest features, releases, and product tips delivered straight to your inbox.", "default")
+
+formBlock = Card([formHeading, emailField, subscribeButton], "card")
+formHeading = Heading("Join the newsletter", "h2")
+emailField = FormControl("Email address", emailInput, "We'll never share your email")
+emailInput = Input("email", "you@example.com", "email")
+subscribeButton = Buttons([subscribeBtn], "row")
+subscribeBtn = Button("Subscribe", null, "primary")
+
+root = Card([header, introText, formBlock])

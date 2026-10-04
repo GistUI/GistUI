@@ -1,0 +1,152 @@
+root = Card([
+    header,
+    metricsRow,
+    panels
+])
+
+header = CardHeader("Streaming Operations Dashboard", "Live status and analytics for the streaming service")
+
+metricsRow = Card([
+    viewersCard,
+    regionSelector,
+    focusRegionNote
+], "card")
+
+viewersCard = Card([
+    Heading("Viewers currently watching", "h3"),
+    TextContent("Live viewer count across all regions and devices.", null),
+    Tag("Realtime", "info")
+], null)
+
+regionSelector = Form("region_focus", Buttons([focusBtn], "row"), [regionSelectControl])
+focusBtn = Button("Focus on region", null, "primary")
+regionSelectControl = FormControl("Region", Select("region", [SelectItem("US", "United States"), SelectItem("EU", "Europe"), SelectItem("APAC", "Asia-Pacific")], "Choose region"), "Focus region scope")
+
+focusRegionNote = Card([
+    TextContent("Tip: Use the region pill to center the dashboard on a single region across all charts." , "default")
+], null)
+
+panels = Card([
+    titlePanelPair("Most-watched titles", mostWatchedPanel),
+    titlePanelPair("Watch time over past month", watchTimePanel),
+    titlePanelPair("New subscribers vs cancellations", subsCancelPanel),
+    titlePanelPair("Performance by genre", genrePanel),
+    titlePanelPair("Buffering rate", bufferingPanel),
+    titlePanelPair("Delivery health by region", deliveryPanel),
+    titlePanelPair("Releases this month", releasesPanel),
+    titlePanelPair("Licenses expiring soon", licensesPanel),
+    titlePanelPair("Recommendations clicked", recClickPanel),
+    titlePanelPair("Searches with no playback", searchNoPlayPanel),
+    titlePanelPair("Revenue split by plan", revenuePanel),
+    titlePanelPair("Viewing split by device", devicePanel),
+    titlePanelPair("Promotions — promote a title on home screen", promotePanel),
+    titlePanelPair("Feature flags", featureFlagsPanel)
+], "sunk")
+
+titlePanelPair = funcTitlePanelPair(title, panel) -> Card([
+    Heading(title, "h3"),
+    panel
+], null)
+
+mostWatchedPanel = Card([
+    TextContent("Top titles by hours viewed in the period.", "default"),
+    BarChart(["City Nights", "Ocean Dive", "Galaxy Wars", "Runaway Bride"], [
+        Series("Hours", [1200, 980, 860, 720])
+    ], "grouped", "Title", "Hours")
+], null)
+
+watchTimePanel = Card([
+    TextContent("Total watch time by day for the past month.", "default"),
+    LineChart([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30], [
+        Series("Watch Time", [40,42,45,50,48,55,60,58,62,70,68,72,75,78,80,85,88,90,92,95,100,98,102,105,110,108,112,115,118,120])
+    ], "linear", "Day", "Hours")
+], null)
+
+subsCancelPanel = Card([
+    TextContent("New subscribers vs cancellations over time.", "default"),
+    BarChart([ "Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7"], [
+        Series("Subs", [120, 150, 180, 160, 200, 190, 210]),
+        Series("Cancellations", [20, 25, 15, 30, 22, 28, 26])
+    ], "grouped", "Day", "Count")
+], null)
+
+genrePanel = Card([
+    TextContent("Performance by genre (watch time and hours).", "default"),
+    HorizontalBarChart(["Drama","Sci-Fi","Comedy","Thriller","Documentary"], [
+        Series("Hours", [340, 280, 260, 180, 120])
+    ], "grouped", "Genre", "Hours")
+], null)
+
+bufferingPanel = Card([
+    TextContent("Buffering rate by region and over time.", "default"),
+    LineChart(["Week 1","Week 2","Week 3","Week 4"], [
+        Series("Buffering %", [1.2, 1.0, 1.5, 1.1])
+    ], "linear", "Week", "Buffering %")
+], null)
+
+deliveryPanel = Card([
+    TextContent("Delivery health by region (packet loss, latency, success rate).", "default"),
+    RadarChart(["US","EU","APAC","LATAM"], [
+        Series("Health", [95, 92, 89, 88])
+    ])
+], null)
+
+releasesPanel = Card([
+    TextContent("Releases coming this month.", "default"),
+    ListBlock([
+        ListItem("Nova Heist 2", "Global release on 2026-10-12", ["https://picsum.photos/seed/title1/40/40"]),
+        ListItem("Wanderers: Echoes", "Premieres 2026-10-20", ["https://picsum.photos/seed/title2/40/40"])
+    ])
+], null)
+
+licensesPanel = Card([
+    TextContent("Licenses expiring soon.", "default"),
+    Table([
+        Col("License", ["US-Corp","EU-Studios","APAC-Group"]),
+        Col("Expires", ["2026-11-10","2026-11-28","2026-12-15"]),
+        Col("Status", ["Active","Renewal due","Active"])
+    ])
+], null)
+
+recClickPanel = Card([
+    TextContent("How often recommendations get clicked.", "default"),
+    PieChart(["Clicked","Total Impressions","Ignored"], [
+        Series("Clicks", [420, 900, 480])
+    ], "pie", "circular")
+], null)
+
+searchNoPlayPanel = Card([
+    TextContent("Searches that ended without playback.", "default"),
+    BarChart(["Tech","Drama","Comedy","Documentary"], [
+        Series("Counts", [120, 85, 60, 40])
+    ], "grouped", "Category", "Count")
+], null)
+
+revenuePanel = Card([
+    TextContent("Revenue split by plan.", "default"),
+    DonutChart(["Free","Standard","Pro"], [
+        Series("Revenue", [120000, 320000, 210000])
+    ], "donut", "circular")
+], null)
+
+devicePanel = Card([
+    TextContent("Viewing split by device.", "default"),
+    HorizontalBarChart(["Mobile","Desktop","TV","Tablet"], [
+        Series("Views", [4200, 3600, 2900, 1500])
+    ], "grouped", "Device", "Views")
+], null)
+
+promotePanel = Card([
+    TextContent("Promote a title on the home screen.", "default"),
+    ImageBlock("https://picsum.photos/seed/homepromo/800/400", "Promoted title preview"),
+    Buttons([Button("Promote title A", null, "primary"), Button("Promote title B", null, "secondary")], "row")
+], null)
+
+featureFlagsPanel = Card([
+    TextContent("Feature flags with state for each.", "default"),
+    ListBlock([
+        ListItem("NewUI", "Enabled in US region", ["https://picsum.photos/seed/ff1/40/40"]),
+        ListItem("BetaRecommendations", "Disabled by default", ["https://picsum.photos/seed/ff2/40/40"]),
+        ListItem("LiveTelemetry", "Enabled globally", ["https://picsum.photos/seed/ff3/40/40"])
+    ])
+], null)

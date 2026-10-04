@@ -1,4 +1,0 @@
-root = Card(CardHeader("Invoice #1042", "Acme Design Studio"), amountSection, dueSection, payBlock, gap:l)
-amountSection = Card(TextContent("Amount due", small), TextContent("**$2,450.00 USD**", large-heavy), variant:sunk)
-dueSection = Card(TextContent("Due date", small), TextContent("**May 15, 2025**", default), variant:sunk)
-payBlock = Buttons(Button("Pay now", primary, size:large), Button("View details", tertiary))

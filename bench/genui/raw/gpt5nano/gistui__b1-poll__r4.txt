@@ -1,0 +1,10 @@
+root = Card(CardHeader("Lunch poll", "Where should we go for lunch on Friday?"), pollOptions, pollResults)
+pollOptions = SectionBlock(SectionItem("restaurants", "Choose a restaurant", restaurantList))
+restaurantList = ListBlock(restaurantItems)
+restaurantItems = ListItem("Thai Basil")
+restaurantItems2 = ListItem("Poke Bowl House")
+restaurantItems3 = ListItem("Casa Verde")
+pollResults = SectionBlock(SectionItem("results", "Current votes", resultsTable), ResultsChart)
+resultsTable = Table(pollTable)
+pollTable = |Restaurant|Votes||Thai Basil|0||Poke Bowl House|0||Casa Verde|0|
+ResultsChart = BarChart(pollTable, xLabel:"Restaurant", yLabel:"Votes")

@@ -1,0 +1,33 @@
+root = Card(CardHeader("CEO Quarterly Command View"), sectorTabs, metricsPanel, quarterlyTrend, budgetPanel, headcountPanel, risksPanel, initiativesPanel, runwayPanel, pipelinePanel, winratePanel, customersPanel, npsPanel, boardItemsPanel, exportButtons)
+sectorTabs = Tabs(TabItem("q1q4", "Quarter", sectorRegion)) 
+sectorRegion = Card(Tag("Global", info)) 
+metricsPanel = Card(Heading("Overview", h3), KPI("Revenue", ">$1.2B"), KPI("Costs", "$980M"), KPI("Profit", "$220M"), sunk)
+KPI(label, value) = TextContent(label + ": " + value)
+quarterlyTrend = Card(Heading("Revenue by Quarter", h3), Table(quartersTable))
+quartersTable = |Quarter|Revenue| |Q1|$300M| |Q2|$320M| |Q3|$310M| |Q4|$270M
+budgetPanel = Card(Heading("Budget by Department vs Plan", h3), Table(budgetTable))
+budgetTable = |Department|Budget|Plan| |Sales|$120M|$125M| |R&D|$95M|$90M| |Ops|$60M|$65M
+headcountPanel = Card(Heading("Headcount by Department", h3), Table(headcountTable))
+headcountTable = |Department|Headcount| |Sales|210| |R&D|180| |Ops|120
+risksPanel = Card(Heading("Top Risks with Owner", h3), Table(risksTable))
+risksTable = |Risk|Owner|Impact| |Cyberattack|A. Lee|High| |SupplyDelay|B. Chen|Medium|
+initiativesPanel = Card(Heading("Strategic Initiatives with Status", h3), Table(initiativesTable))
+initiativesTable = |Initiative|Owner|Status| |DigitalSales|M. Rivera|On Track| |CostOptimization|L. Kumar|In Progress|
+runwayPanel = Card(Heading("Months of Runway", h3), Table(runwayTable))
+runwayTable = |Month|RunwayMonths| |T+12|12| |T+9|9| |T+6|6| |T+3|3
+pipelinePanel = Card(Heading("Sales Pipeline Value", h3), Table(pipelineTable))
+pipelineTable = |Stage|Value| |Prospects|$5.0M| |Proposals|$3.2M| |Negotiations|$2.1M| |Closed|$1.8M
+winratePanel = Card(Heading("Win Rate", h3), TextContent("Win rate targets and actuals displayed here.", default))
+customersPanel = Card(Heading("Customers & Churn", h3), Table(customersTable))
+customersTable = |Metric|Value| |Customers|1024| |Churn (monthly)|2.1%|
+npsPanel = Card(Heading("NPS", h3), TextContent("NPS score and trend line", default))
+boardItemsPanel = Card(Heading("Next Board Meeting Items", h3), ListBlock(
+  ListItem("Strategic priorities update", "Executive summary", "Open Agenda"),
+  ListItem("Financials deep dive", "P&L and cash flow", "Prepare slide"),
+  ListItem("Risks and mitigations", "Operational risks", "Assign owners")
+))
+exportButtons = Buttons(Button("Export Pack", action:["export"], variant:primary), Button("Share Link", variant:secondary))
+Table(...table) = Table(table)
+TextContent(...) = TextContent("###", "default")
+Heading(text, level) = Heading("Quarterly Command", h2)
+ListBlock(...) = ListBlock("", "number")

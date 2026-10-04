@@ -1,0 +1,34 @@
+root = Card(CardHeader("Clinic Day View"), ToolbarSection, todaySection, summarySection, roomsSection, nextSection, checkinSection, navigationSection)
+ToolbarSection = SectionBlock("toolbar", isFoldable)
+SectionItem("today", "Today", todaySection)
+todaySection = Card(Heading("Today's appointments", h3), AppointmentsTable(appointmentsTable), NoShowRateBadge, SchedSummary)
+appointmentsTable = Table(appointmentsTableData)
+NoShowRateBadge = Tag("No-show rate this month", info)
+SchedSummary = TextContent("Total appointments today: 0", size:default)
+appointmentsList = |Time|Patient
+|09:00|Alice Smith
+|09:30|John Doe
+|10:15|Mary Johnson
+|11:00|David Lee
+NoShowList = |Patient
+|Alice Smith
+|John Doe
+summarySection = Card(Heading("Today overview", h3), SummaryGrid)
+SummaryGrid = Card(StatBox("Expected today", value:num), StatBox("No-show rate this month", value:"5%"), StatBox("Free rooms now", value:num))
+StatBox(label, value) = CardHeader(label, value)
+roomsSection = Card(Heading("Free rooms right now", h3), FreeRoomsTable(freeRooms))
+freeRoomsTable = Table(roomsTable)
+roomsTable = |Room|Status
+|101|Free
+|102|Free
+|103|Occupied
+nextSection = Card(Heading("Next patient called", h3), NextPatient(nextPat))
+NextPatient = TextContent("Next: " + nextPatName, size:default)
+nextPatName = "Sarah Kim"
+checkinSection = Card(Heading("Check-in patient", h3), CheckInForm)
+CheckInForm = Form("checkin", formButtons, patientField, appointmentField)
+patientField = FormControl("Patient name", Input("patient_name", "Enter name"))
+appointmentField = FormControl("Appointment time", Input("appointment_time", "09:00"))
+formButtons = Buttons(Button("Check in", primary), Button("Cancel", tertiary))
+navigationSection = Card(Heading("Navigate", h3), DaySwitcher)
+DaySwitcher = Form("navigate-day", Buttons(Button("Previous day"), Button("Next day")))

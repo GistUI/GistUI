@@ -1,0 +1,109 @@
+root = Card(CardHeader("Factory Floor Supervisor Console"), focusLineSection, overallSection, exportSection)
+
+overallSection = Card(Heading("Overall metrics", h2), Table(ovTable), liveAndon, sunk)
+
+ovTable = |Metric|Value
+|OEE|78.5%
+|Today Productivity|1120 units
+
+focusLineSection = Card(Heading("Focus on a line", h3), LineSelector, LineDetail)
+
+LineSelector = Form("focus-line-form", Buttons(Button("Apply", primary)), Select("line_id", SelectItem("Line A", "Line A"), SelectItem("Line B", "Line B"), SelectItem("Line C", "Line C"), placeholder:"Choose a line"))
+
+LineDetail = Card(Heading("Line detail", h4), LineStatusTable)
+
+LineStatusTable = Table(lineStatusTable)
+
+lineStatusTable = |Line|Rate|Status
+|Line A|520 uph|running
+|Line B|480 uph|paused
+|Line C|640 uph|running
+
+liveAndon = Card(Heading("Live Andon alerts", h4), Table(andonTable))
+
+andonTable = |Time|Line|Alert
+|12:05|Line B|Overheat
+|12:12|Line C|Jam detected
+
+exportSection = Card(Heading("Actions", h3), Buttons(exportButtons), maintenanceScheduler, weeklyDeliveries)
+
+exportButtons = Button("Export shift report", action:["export_shift"])
+
+weeklyDeliveries = Card(Heading("Supplier deliveries due this week", h4), Table(deliveryTable))
+
+deliveryTable = |Supplier|Due
+|Acme Steel|Thu
+|PolyResin|Fri
+
+maintenanceScheduler = Card(Heading("Schedule maintenance", h4), Form("maint-sched", Buttons(Button("Schedule", primary)), MachineField, DateField))
+
+MachineField = FormControl("Machine", Select("machine", SelectItem("Line A - Press 1", "Line A - Press 1"), SelectItem("Line B - Forge", "Line B - Forge"), SelectItem("Line C - Cutter", "Line C - Cutter"), placeholder:"Choose machine"))
+
+DateField = FormControl("Date", DatePicker("date", mode:single))
+
+overallSections = Card(Heading("Key production metrics", h2), SectionBlock(lineSections), SummaryCards)
+
+lineSections = SectionItem("lines", "Production lines", LineTable)
+
+LineTable = Table(lineTable)
+
+lineTable = |Line|Rate|Target|Status
+|Line A|520|540|running
+|Line B|480|520|running
+|Line C|640|650|running
+
+SummaryCards = ListBlock( ListItem("AOD Metrics", "OEE and today output"), ListItem("Quality & defect", "Defect rate, holds"), ListItem("Maintenance", "Due/overdue"))
+
+defectSection = Card(Heading("Defect rate", h3), Table(defectTable))
+
+defectTable = |Date|DefectRate
+|2026-09|2.3%
+|2026-10|2.1%
+|2026-11|2.4%
+|2026-12|2.0%
+
+downtimeSection = Card(Heading("Downtime by cause", h3), Table(downtimeTable))
+
+downtimeTable = |Cause|Minutes
+|Maintenance|120
+|Breakdown|60
+|Setup|45
+
+machinesSection = Card(Heading("Machines due for maintenance", h3), Table(maintenanceTable))
+
+maintenanceTable = |Machine|Due|Status
+|Line A - Press 1|Today|Due
+|Line B - Forge|Thu|Due
+|Line C - Cutter|Fri|Due
+
+stockSection = Card(Heading("Inventory stock", h3), Table(stockTable))
+
+stockTable = |Item|Quantity
+|Steel|3200 kg
+|Resin|1200 L
+|Packaging|560 units
+
+energySection = Card(Heading("Energy use today", h3), TextContent("Today energy consumption shows real-time kWh from main meters.", size:"default"))
+
+qualityHoldSection = Card(Heading("Batches on quality hold", h3), Table(holdTable))
+
+holdTable = |Batch|Reason
+|B-1287|Dimensional deviation
+|B-1294|Supplier hold
+
+openWOsSection = Card(Heading("Open work orders by priority", h3), Table(woTable))
+
+woTable = |WO|Priority|Machine|Summary
+|WO-450|P1|Line A - Press 1|Repair feeder jam
+|WO-453|P2|Line B - Forge|Calibrate spindle
+
+safetySection = Card(Heading("Safety incidents this year", h3), Table(safetyTable))
+
+safetyTable = |Month|Incidents|Days since last
+|Jan|0|365
+|Feb|1|330
+|Mar|0|310
+
+openWOsSection2 = openWOsSection
+# End of screen components
+root = Card(CardHeader("Factory Floor Supervisor Console"), overallSection, overallSections, defectSection, downtimeSection, machinesSection, stockSection, energySection, qualityHoldSection, openWOsSection, safetySection, openWOsSection2, focusLineSection)

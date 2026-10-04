@@ -1,4 +1,5 @@
-root = Card(header, uptime, incident)
-header = CardHeader("Platform Status", "API uptime & incidents")
-uptime = TextContent("**Uptime this month:** 99.96%", size:large)
-incident = Callout(variant:warning, "Recent Incident", "Database outage on Sep 28, resolved at 14:35 UTC.")
+root = Card(uptime, incident)
+
+uptime = TextContent("**API Uptime (this month): 99.92%**", size:large)
+
+incident = Callout(variant:info, "Recent Incident", "Resolved on Sep 30, 2024: Database latency spike.")

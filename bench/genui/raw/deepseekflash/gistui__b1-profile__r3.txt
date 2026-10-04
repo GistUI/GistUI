@@ -1,8 +1,0 @@
- root = Card(header, bio, messageSection)
-header = CardHeader("Alex Rivera", "Senior Product Designer")
-bio = TextContent("Alex is a product designer with 8 years of experience across fintech and developer tools. He is passionate about turning complex workflows into simple, human-centered experiences. Based in Lisbon, he works closely with product, engineering, and research to ship polished features end to end.")
-messageSection = Card(Heading("Send a message", h3), messageForm)
-messageForm = Form("contact", formButtons, messageField)
-messageField = FormControl("Message", messageInput, "We usually reply within a day")
-messageInput = TextArea("message", "Hi Alex,", rows:4)
-formButtons = Buttons(Button("Send message", primary))

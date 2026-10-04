@@ -1,66 +1,40 @@
-root = Card(draftsSection, publishedSection, topArticle, readershipChart, filterSection, scheduleSection, commentsSection, newDraftButton, gap:m)
+root = Card(draftsSection, publishedSection, mostReadSection, readershipSection, filterSection, scheduleSection, commentsSection, actionsSection)
 
-draftsSection = Card(CardHeader("Drafts", "Current status"), draftsTable, wrap)
-draftsTable = |Title|Status
-|"Morning Brew"|Draft
-|"Tech Trends"|Review
-|"Travel Guide"|Pending
+draftsSection = Card(Heading("Drafts", h3), Table(drafts), Card(variant:clear))
+drafts = |Title|Status
+|"Article A"|Draft
+|"Article B"|Review
 
-publishedSection = Card(CardHeader("Published This Week", "Recent releases"), publishedTable, wrap)
-publishedTable = |Title|Date
-|"Summer Recipes"|2023-09-18
-|"AI Insights"|2023-09-20
-|"City Guides"|2023-09-22
+publishedSection = Card(Heading("Published This Week", h3), Table(published), Card(variant:clear))
+published = |Title|PublishedDate
+|"News 1"|2023-09-10
+|"News 2"|2023-09-12
 
-topArticle = Card(CardHeader("Most‑Read Article This Month", "Highlights"), TextContent("**\"AI Revolution\"** – 12,345 reads", size:large), wrap)
+mostReadSection = Card(Heading("Most-Read Article This Month", h3), Table(mostRead), Card(variant:clear))
+mostRead = |Title|Views
+|"Top Story"|12456
 
-readershipChart = Card(CardHeader("Readership (Last 30 Days)", "Daily visitors"), LineChart(readershipRows, linear, xLabel:"Date", yLabel:"Visits"), wrap)
-readershipRows = |Date|Visits
-|2023-08-31|340
-|2023-09-01|415
-|2023-09-02|398
-|2023-09-03|422
-|2023-09-04|389
-|2023-09-05|450
-|2023-09-06|470
-|2023-09-07|460
-|2023-09-08|480
-|2023-09-09|500
-|2023-09-10|520
-|2023-09-11|530
-|2023-09-12|540
-|2023-09-13|560
-|2023-09-14|580
-|2023-09-15|590
-|2023-09-16|610
-|2023-09-17|620
-|2023-09-18|630
-|2023-09-19|640
-|2023-09-20|650
-|2023-09-21|660
-|2023-09-22|670
-|2023-09-23|680
-|2023-09-24|690
-|2023-09-25|700
-|2023-09-26|710
-|2023-09-27|720
-|2023-09-28|730
-|2023-09-29|740
-|2023-09-30|750
+readershipSection = Card(Heading("Readership (Last 30 Days)", h3), LineChart(readershipData, linear, xLabel:"Date", yLabel:"Readers"), Card(variant:clear))
+readershipData = |Date|Readers
+|2023-08-31|150
+|2023-09-07|200
+|2023-09-14|180
+|2023-09-21|220
+|2023-09-28|210
 
-filterSection = Card(CardHeader("Filter by Category", "Narrow results"), categorySelect, wrap)
-categorySelect = Select("category", SelectItem("news", "News"), SelectItem("tech", "Tech"), SelectItem("travel", "Travel"), placeholder:"All categories")
+filterSection = Card(Heading("Filter by Category", h3), categoriesSelect, Card(variant:clear))
+categoriesSelect = Select("category", SelectItem("tech","Tech"), SelectItem("life","Life"), SelectItem("culture","Culture"), placeholder:"All categories")
 
-scheduleSection = Card(CardHeader("Schedule a Piece", "Set title and date"), scheduleForm, wrap)
-scheduleForm = Form("schedule-piece", scheduleButtons, titleField, dateField)
-titleField = FormControl("Title", Input("title", "Enter title"))
+scheduleSection = Card(Heading("Schedule a Piece", h3), scheduleForm, Card(variant:clear))
+scheduleForm = Form("schedule", scheduleButtons, titleField, dateField)
+titleField = FormControl("Title", Input("title", placeholder:"Enter title"))
 dateField = FormControl("Publish date", DatePicker("publish_date", mode:single))
-scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+scheduleButtons = Buttons(Button("Schedule", primary))
 
-commentsSection = Card(CardHeader("Comments Awaiting Reply", "Pending moderation"), commentsTable, wrap)
-commentsTable = |Author|Comment|Date
-|Alice|Great article!|2023-09-29
-|Bob|I have a question...|2023-09-30
-|Carol|Can you elaborate?|2023-09-30
+commentsSection = Card(Heading("Comments Awaiting Reply", h3), Table(comments), Card(variant:clear))
+comments = |Article|Comment|Status
+|"Top Story"| "Great piece!"|Pending
+|"News 1"| "Needs clarification."|Pending
 
-newDraftButton = Buttons(Button("New Draft", primary))
+actionsSection = Card(Buttons(newDraft))
+newDraft = Button("New draft", primary)

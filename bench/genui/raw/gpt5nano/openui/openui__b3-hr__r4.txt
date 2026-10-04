@@ -1,0 +1,91 @@
+root = Card([
+  header = CardHeader("Hiring Overview", "HR leads view of current recruiting pipeline"),
+  summaryRow = Card([
+    TextContent("Current headcount: 128", "default"),
+    TextContent("Avg. time to hire: 32 days", "default"),
+  ], "card"),
+  panels = Card([
+    deptHeadcountHeading = Heading("Headcount by Department", "h3"),
+    deptHeadcountChart = BarChart(["Engineering","Marketing","Sales","People"], [Series("Headcount", [40, 28, 34, 26])], "grouped", "Department", "Count"),
+  ], "card"),
+  twoCol = Card([
+    leftCol = Card([
+      openRolesSection = Heading("Open Roles by Department", "h3"),
+      openRoleTable = Table([
+        Col("Department", ["Engineering","Marketing","Sales","HR"]),
+        Col("Open Roles", [5, 3, 4, 1]),
+        Col("Seniority", ["Senior","Mid","Senior","Junior"])
+      ]),
+      newRoleButtonRow = Buttons([newRoleBtn], "row")
+    ]),
+    rightCol = Card([
+      candidatesPipelineHeading = Heading("Candidates in Pipeline by Stage", "h3"),
+      pipelineChart = HorizontalBarChart(
+        ["Applied","Phone Screen","Tech Interview","On-site","Offer"],
+        [Series("Roles", [120, 60, 28, 15, 6])]
+      ),
+      avgTimeToHire = Card([
+        TextContent("Average time to hire by stage: ", "default"),
+        TextContent("Overall: 32 days", "default")
+      ], "card")
+    ])
+  ], "card"),
+  metricsRow = Card([
+    col1 = Card([
+      SectionBlock([
+        SectionItem("attrition", "Attrition (6m)", [
+          TextContent("Attrition rate: 6.8%","default"),
+          LineChart(["M-1","M-2","M-3","M-4","M-5","M-6"], [Series("Attrition", [0.7,0.8,0.9,1.0,0.9,0.95])], "linear", "Month","%")
+        ])
+      ], false)
+    ]),
+    col2 = Card([
+      interviewsCard = Card([
+        TextContent("Interviews scheduled this week: 22","default"),
+        ScheduleList = ListBlock([
+          ListItem("Mon 9am - Eng Sr. Backend","$","", "View"),
+          ListItem("Tue 11am - PM Marketing","$","", "View"),
+          ListItem("Wed 2pm - Sales Lead","$","", "View")
+        ], "number")
+      ], "card")
+    ])
+  ], "card"),
+  openNewRole = DialogBlock("New Role", "Create a new role", "Fill in the details to open a new position", [
+    Form("new-role", Buttons([saveRoleBtn, cancelRoleBtn]), [
+      FormControl("Title", Input("title", "e.g., Senior Frontend Engineer")),
+      FormControl("Department", Select("dept", [SelectItem("Engineering","Engineering"), SelectItem("Marketing","Marketing"), SelectItem("Sales","Sales"), SelectItem("HR","HR")])),
+      FormControl("Location", Input("location", "Remote")),
+      FormControl("Proposed headcount", Input("headcount","1","number")),
+      FormControl("Job description", TextArea("desc","Describe responsibilities and requirements"))
+    ])
+  ], "default"),
+  // define buttons used above
+  newRoleBtn = Button("Open new role", null, "primary"),
+  saveRoleBtn = Button("Save role", null, "primary"),
+  cancelRoleBtn = Button("Cancel", null, "secondary")
+])
+
+// Additional inline components to satisfy references
+header = CardHeader("Hiring Overview", "HR leads view of current recruiting pipeline")
+TextContent("Current headcount: 128", "default")
+TextContent("Open roles across departments with counts and seniorities.", "default")
+LineChart = null
+ScheduleList = ListBlock([], "number")
+ListBlock = ListBlock
+Table = Table
+BarChart = BarChart
+HorizontalBarChart = HorizontalBarChart
+SectionBlock = SectionBlock
+SectionItem = SectionItem
+DialogBlock = DialogBlock
+Form = Form
+FormControl = FormControl
+Input = Input
+Select = Select
+SelectItem = SelectItem
+TextArea = TextArea
+Button = Button
+Buttons = Buttons
+CardHeader = CardHeader
+Card = Card
+DatePicker = DatePicker

@@ -1,0 +1,82 @@
+root = Card([
+  header,
+  metricsRow,
+  notebookSection
+])
+
+header = CardHeader("Month-end Finance Dashboard", "Current month view")
+
+metricsRow = Card([
+  cashOnHandCard,
+  burnCard,
+  runwayCard
+], "card")
+
+cashOnHandCard = Card([
+  Heading("Cash on Hand", "h3"),
+  TextContent(" $4,237,880.00 ", "large")
+], "sunk")
+
+burnCard = Card([
+  Heading("Monthly Burn", "h3"),
+  TextContent("-$1,152,300.00", "large")
+], "sunk")
+
+runwayCard = Card([
+  Heading("Months of Runway", "h3"),
+  TextContent("Approximately 3.7 months", "large")
+], "sunk")
+
+ expensesSection = Card([
+  Heading("Expenses by Category", "h3"),
+  areaChartBlock
+], "card")
+
+ areaChartBlock = Card([
+  BarChart(["Salaries", "R&D", "Marketing", "Ops", "General"], [Series("Current Month", [420000, 260000, 180000, 110000, 90000])], "grouped", "Category", "USD")
+])
+
+ transactionsBlock = Card([
+  Heading("Transactions above 10,000 this month", "h3"),
+  TableBlock
+], "card")
+
+ TableBlock = Table([
+  Col("Date", ["2026-09-05", "2026-09-12", "2026-09-20"]),
+  Col("Description", ["Enterprise software", "Vendor services", "Capital equipment"]),
+  Col("Amount", ["$12,500", "$15,200", "$42,800"], "number")
+])
+
+ notebookSection = Card([
+  controlsRow,
+  dataTableRow,
+  actionsRow,
+  sectionFooter
+], "clear")
+
+ controlsRow = Card([
+  DatePicker("month", "single", null, ["2026-09-01"])
+], "row")
+
+ dataTableRow = Card([
+  transactionsBlock,
+  expensesSection
+], "row")
+
+ actionsRow = CardsRow([
+  downloadButton,
+  monthPickerButton,
+  statementButton
+])
+
+ CardsRow = Card([
+  downloadButton
+], "row")
+
+ downloadButton = Button("Download Statement", null, "secondary")
+ monthPickerButton = Button("View Month...", null, "secondary")
+ statementButton = Button("Download Statement (CSV)", null, "primary")
+
+ sectionFooter = Card([
+  TextContent("Tip: Use the month picker to compare periods and export the current view as a PDF or CSV.")
+])

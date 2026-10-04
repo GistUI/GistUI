@@ -1,6 +1,0 @@
-root = Card(header, uptimeTable, incidentCallout)
-header = CardHeader("Platform Status", "API uptime and incidents")
-uptimeTable = Table(colMetric, colValue)
-colMetric = Col("Metric", ["Uptime"], type:string)
-colValue = Col("Value", ["99.7%"], type:string)
-incidentCallout = Callout(info, "Recent Incident", "Database outage resolved at 2023-09-28 14:05 UTC")

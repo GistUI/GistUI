@@ -1,0 +1,91 @@
+root = Card([
+  header,
+  overviewCard,
+  recentActivityCard,
+  contactsSection,
+  followUpsSection,
+  noteSection,
+  renewalCard,
+  logCallCard
+])
+
+header = CardHeader("Account: Acme Corp", "Owned by Jordan Lee")
+
+overviewCard = Card([
+  CardHeader("Account Snapshot"),
+  kpiRow
+], "card")
+
+kpiRow = Card([
+  TextContent("Owner: Jordan Lee", "default"),
+  TextContent("Total Deal Value: $1,240,000", "default"),
+  TextContent("Current Deal Stage: Negotiation", "default")
+], "card")
+
+recentActivityCard = Card([
+  CardHeader("Recent Activity"),
+  activityList
+], "card")
+
+activityList = ListBlock([
+  ListItem("Meeting with client on 2026-09-28", "Discussed renewal options", ["https://picsum.photos/seed/activity1/40/40"]),
+  ListItem("Email: Proposal sent", "Updated terms and pricing", ["https://picsum.photos/seed/activity2/40/40"]),
+  ListItem("Call: Discovery", "Gained budget info", ["https://picsum.photos/seed/activity3/40/40"])
+], "image")
+
+contactsSection = Card([
+  CardHeader("Contacts by Role"),
+  contactsTable
+], "card")
+
+contactsTable = Table([
+  Col("Role", ["Decision Maker", "Procurement", "Technical Liaison"]),
+  Col("Contact", ["Alex Kim", "Priya Shah", "Miguel Santos"]),
+  Col("Phone", ["(555) 101-0101", "(555) 202-0202", "(555) 303-0303"])
+])
+
+openRoles = Table([])  // placeholder to ensure structure compatibility
+
+followUpsSection = Card([
+  CardHeader("Open Follow-Ups"),
+  followUpsList
+], "card")
+
+followUpsList = ListBlock([
+  ListItem("Renewal quote review", "Due: 2026-10-15", ["https://picsum.photos/seed/follow1/40/40"]),
+  ListItem("Security waiver approval", "Due: 2026-10-20", ["https://picsum.photos/seed/follow2/40/40"])
+], "image")
+
+noteSection = Card([
+  CardHeader("Add Note"),
+  NoteSection
+], "card")
+
+NoteSection = Card([
+  TextArea("note", "Enter note here...", 5, null, "")
+], "card")
+
+renewalCard = Card([
+  CardHeader("Renewal Date"),
+  renewalInfo
+], "card")
+
+renewalInfo = Card([
+  TextContent("Renewal Date: 2026-11-01", "default"),
+  renewalWarning
+], "card")
+
+renewalWarning = TextContent("Warning: Renewal date is within 30 days", "large-heavy")
+
+logCallCard = Card([
+  CardHeader("Log a Call"),
+  logCallForm
+], "card")
+
+logCallForm = Form("log-call", Buttons([logCallBtn]), [
+  FormControl("Date", DatePicker("call_date"), "Select the date of the call"),
+  FormControl("Duration", Input("duration", "30", "number"), "Call duration in minutes"),
+  FormControl("Notes", TextArea("call_notes", "What was discussed?", 4), "Summary of call")
+])
+
+logCallBtn = Button("Log Call", null, "primary")

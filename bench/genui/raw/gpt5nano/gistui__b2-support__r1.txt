@@ -1,0 +1,29 @@
+root = Card(CardHeader("Support Lead Morning View"), metricsRow, recentTicketsSection, filterRow, newTicketButton)
+
+metricsRow = Card(Heading("Today’s snapshot", h3), Table(metricsTable), sunk)
+
+metricsTable = |Metric|Value
+|Open tickets|42
+|Avg first response (hrs)|2.3
+
+recentTicketsSection = Card(Heading("Recent tickets", h3), RecentTable(recentTable), sunk)
+
+RecentTable(table, limit:5) — table data from pipe table
+recentTable = |Ticket|Priority|Customer|TimeOpened
+|#10234|High|Acme Co|1h
+|#10233|Medium|Globex|2h
+|#10232|High|Initech|3h
+|#10231|Low|Stark Industries|4h
+|#10230|Medium|Wayne Enterprises|5h
+
+filterRow = Card(Tag("High-priority only", variant:info), Buttons(Button("Clear filter", tertiary), Button("Show all", secondary)))
+
+newTicketButton = DialogBlock("new-ticket", "New ticket", NewTicketContent, description:"Open a new ticket form", triggerVariant:default)
+
+NewTicketContent = Card(CardHeader("Create ticket"), Form("new-ticket-form", formButtons, customerField, issueField), sunk)
+
+customerField = FormControl("Customer", Input("customer", "Acme Co"), "Customer name")
+
+issueField = FormControl("Issue summary", TextArea("issue", "Describe the issue"), "Brief summary of the issue")
+
+formButtons = Buttons(Button("Create ticket", primary), Button("Cancel", tertiary))

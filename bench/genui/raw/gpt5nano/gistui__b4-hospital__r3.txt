@@ -1,0 +1,106 @@
+root = Card(CardHeader("Hospital Operations Command View"), content)
+
+content = SectionBlock(overviewSection, severitiesSection, operationsSection, incidentsSection, navigationSection, transferSection)
+
+overviewSection = Card(Heading("Overview", h2), bedOccupancyCard, erWaitCard, admissionsChart)
+
+bedOccupancyCard = Card(Heading("Bed Occupancy", h3), Table(occupancyTable))
+
+occupancyTable = |Ward|Occupied|Available|%
+|ICU|12|3|80%
+|General|48|12|80%
+|Pediatric|7|5|58%
+
+erWaitCard = Card(Heading("ER Wait Time", h3), TextContent("Current average wait: 42 minutes", size:default))
+
+admissionsChart = Card(Heading("Admissions – Last 14 days", h3), LineChart(admissionsTable, natural, xLabel:"Date", yLabel:"Admissions"))
+
+admissionsTable = |Date|Admissions
+|Day-14|34
+|Day-13|29
+|Day-12|41
+|Day-11|38
+|Day-10|45
+|Day-9|37
+|Day-8|50
+|Day-7|46
+|Day-6|39
+|Day-5|42
+|Day-4|44
+|Day-3|33
+|Day-2|40
+|Day-1|48
+|Today|52
+
+severitiesSection = Card(Heading("Critical Flags", h2), criticalPatientsList)
+
+criticalPatientsList = ListBlock(criticalItem1, criticalItem2, criticalItem3, criticalItem4, variant:number)
+
+criticalItem1 = ListItem("Patient A - Ward 3", "ICU transfer required", "Details")
+criticalItem2 = ListItem("Patient B - ED", "Ventilation needed", "Details")
+criticalItem3 = ListItem("Patient C - ICU", "Code status monitoring", "Details")
+criticalItem4 = ListItem("Patient D - OR", "Scheduled for emergent surgery", "Details")
+
+operationsSection = Card(Heading("Operations & Throughput", h2), deptsCard, todayORCard, suppliesCard, dischargeWatch)
+
+deptsCard = Card(Heading("Patients per Department", h3), Table(deptTable))
+
+deptTable = |Department|Patients
+|Cardiology|24
+|Neurology|15
+|Oncology|18
+|Pediatrics|12
+|Orthopedics|20
+|Emergency|30
+
+todayORCard = Card(Heading("Today's Operating Room Bookings", h3), Table(orTable))
+
+orTable = |Operating Room|Time|Procedure
+|OR1|08:00|Knee replacement
+|OR2|09:30|Appendectomy
+|OR3|11:15|C-section
+|OR1|13:00|Spine fusion
+|OR4|15:00|Hip replacement
+
+suppliesCard = Card(Heading("Supplies Running Low", h3), ListBlock(lowItem1, lowItem2, lowItem3))
+
+lowItem1 = ListItem("Sodium chloride IV bags", "Stock: 12 days",)
+lowItem2 = ListItem("Gauze rolls", "Stock: 5 boxes",)
+lowItem3 = ListItem("Syringes", "Stock: 2 cases",)
+
+dischargeWatch = Card(Heading("Discharge Readiness", h3), Table(dischargeTable))
+
+dischargeTable = |Patient|Room|Status
+|Patient X|Ward 2|Ready
+|Patient Y|Ward 4|Pending clearance
+|Patient Z|ICU|Ready
+
+incidentsSection = Card(Heading("Incidents & Reporting", h2), incidentButton)
+
+incidentButton = DialogBlock("Report Incident", "Incident Report", incidentForm, description:str)
+
+incidentForm = Card(Heading("Incident Form", h3), formBody)
+
+formBody = SectionBlock(reportSection, followUpSection)
+
+reportSection = Card(Heading("Report Details", h4), TextContent("Fill with patient and incident details."))
+
+followUpSection = Card(Heading("Follow-Up", h4), TagBlock(["Immediate review","Assign case manager"]))
+
+navigationSection = Card(Heading("Navigate Day / Transfers", h2), dayPicker, transferButton)
+
+dayPicker = DialogBlock("Change Day", "Select Day", day chooser,)
+
+dayChooser = Card(Heading("Choose Day", h3), TextContent("Use calendar to select a different date."))
+
+transferButton = DialogBlock("Request Transfer", "Transfer Request", transferForm, description:str)
+
+transferForm = Card(Heading("Transfer Request", h3), transferFields)
+
+transferFields = SectionBlock(transferDept, transferDetails)
+
+transferDept = Card(Heading("From Department", h4), TextContent("Source department for transfer."))
+
+transferDetails = Card(Heading("To Department & Patient", h4), TextContent("Destination and patient details."))
+
+actions = FollowUpBlock()

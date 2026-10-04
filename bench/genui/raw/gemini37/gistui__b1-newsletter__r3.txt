@@ -1,5 +1,0 @@
-root = Card(header, newsletterForm, gap:l)
-header = CardHeader("The Product Weekly", "Every Thursday, get curated case studies, teardowns, and actionable product strategies delivered straight to your inbox.")
-newsletterForm = Form("subscribe_form", formButtons, emailControl)
-emailControl = FormControl("Email address", Input("email", "you@company.com", email), "No spam, unsubscribe anytime in one click.")
-formButtons = Buttons(Button("Subscribe", primary, size:medium))

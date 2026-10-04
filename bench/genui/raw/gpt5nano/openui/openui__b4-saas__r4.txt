@@ -1,0 +1,158 @@
+root = Card([
+  header = CardHeader("Admin Overview", "SaaS platform — current period dashboard"),
+  periodBar,
+  grid = Card([
+    kpisCard,
+    churnCard,
+    signupsCard,
+    planSplitCard,
+    topCustomersCard,
+    atRiskCard,
+    failedPaymentsCard,
+    adoptionCard,
+    npsCard,
+    inviteCard
+  ], "card"),
+  footerBlock
+])
+
+# Period selector
+periodBar = Card([
+  TextContent("Reporting period:", "default"),
+  periodButtons,
+  periodSummary
+], "card")
+
+periodButtons = Buttons([
+  Button("Last 7 days", null, "secondary"),
+  Button("Last 30 days", null, "secondary"),
+  Button("Last 90 days", null, "primary")
+])
+
+periodSummary = TextContent("Period: current", "default")
+
+# 1 & 2: MRR and ARR
+kpisCard = Card([
+  Heading("Financials", "h3"),
+  kpiGrid
+], "card")
+
+kpiGrid = Card([
+  mrrBlock,
+  arrBlock
+], "card")
+
+mrrBlock = Card([
+  TextContent("Monthly Recurring Revenue (MRR)", "default"),
+  ValueBlock("$" + "120,000")
+], "card")
+
+arrBlock = Card([
+  TextContent("Annual Recurring Revenue (ARR)", "default"),
+  ValueBlock("$" + "1,440,000")
+], "card")
+
+ValueBlock(value: string) = TextContent(value, "large")
+
+# 3: churn this month
+churnCard = Card([
+  Heading("Churn", "h3"),
+  TextContent("Churn this month", "default"),
+  TagBlock(["3.2% churn this month"])
+], "card")
+
+# 4: new signups over past 90 days
+signupsCard = Card([
+  Heading("New Signups (90d)", "h3"),
+  LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10"], [Series("Signups", [12,15,9,20,14,18,22,19,24,30])], "linear", "Day", "Signups"),
+  TextContent("Total new signups in period: 210", "default")
+], "card")
+
+# 5: customers split by plan
+planSplitCard = Card([
+  Heading("Customers by Plan", "h3"),
+  BarChart(["Starter","Growth","Scale"], [
+    Series("Customers", [120, 230, 80])
+  ], "grouped", "Plan", "Customers"),
+  TagBlock(["Monthly: Starter 60, Growth 120, Scale 30"])
+], "card")
+
+# 6: ten largest customers with seats and spend
+topCustomersCard = Card([
+  Heading("Top 10 Customers by Spend", "h3"),
+  Table([
+    Col("Customer", ["Acme Co","Globex","Initech","Soylent","Umbrella","Stark Industries","Hooli","Vehement","Massive Dynamics","Zenith Corp"]),
+    Col("Seats", [150, 120, 110, 105, 95, 90, 85, 80, 78, 75], "number"),
+    Col("Spend", ["$540k","$480k","$430k","$410k","$380k","$360k","$350k","$340k","$330k","$320k"], "string")
+  ])
+], "card")
+
+# 7: accounts at risk with reason
+atRiskCard = Card([
+  Heading("Accounts at Risk", "h3"),
+  ListBlock([
+    ListItem("Acme Co", "Lapsed usage, payment due", ["https://picsum.photos/seed/acme/40/40"]),
+    ListItem("Globex", "Low engagement; renewal pending", ["https://picsum.photos/seed/globex/40/40"]),
+    ListItem("Initech", "Delinquent payments; credit hold", ["https://picsum.photos/seed/itech/40/40"])
+  ], "default")
+], "card")
+
+# 8: failed payments with retry
+failedPaymentsCard = Card([
+  Heading("Failed Payments", "h3"),
+  ListBlock([
+    ListItem("Acme Co", "Card expired", ["https://picsum.photos/seed/acme2/40/40"], "Retry"),
+    ListItem("Stark Industries", "Insufficient funds", ["https://picsum.photos/seed/stark/40/40"], "Retry"),
+  ], "default")
+], "card")
+
+# 9: adoption of the three newest features
+adoptionCard = Card([
+  Heading("Feature Adoption (Newest 3)", "h3"),
+  ImageGallery([
+    "https://picsum.photos/seed/feature1/800/400",
+    "https://picsum.photos/seed/feature2/800/400",
+    "https://picsum.photos/seed/feature3/800/400"
+  ]),
+  TextContent("Feature usage: Feature A 62%, Feature B 48%, Feature C 37%", "default")
+], "card")
+
+# 10: current NPS
+npsCard = Card([
+  Heading("Net Promoter Score (NPS)", "h3"),
+  TextContent("NPS: 42", "large"),
+  Tag("Promoters", "😊", "md", "info"),
+  Tag("Passives", "😐", "md", "default"),
+  Tag("Detractors", "😞", "md", "warning")
+], "card")
+
+# 11: change reporting period
+periodCard = Card([
+  Heading("Change Reporting Period", "h3"),
+  TextContent("Adjust the range for all charts and metrics", "default"),
+  periodButtons
+], "card")
+
+# 12: seat utilization across the company
+utilCard = Card([
+  Heading("Seat Utilization", "h3"),
+  HorizontalBarChart(["Engineering","Sales","Support","Marketing","Finance"], [
+    Series("Utilization", [78, 66, 54, 71, 63])
+  ], "grouped", "Team", "Utilization %"),
+], "card")
+
+# 13: invite another admin
+inviteCard = Card([
+  Heading("Invite Admin", "h3"),
+  TextContent("Invite another administrator to manage the org", "default"),
+  Form("admin-invite", Buttons([Button("Send Invite", null, "primary")], "row"), [
+    FormControl("Email", Input("invite_email", "admin@newco.com"), "Enter admin email"),
+    FormControl("Role", Select("role", [SelectItem("admin","Admin"), SelectItem("viewer","Viewer")], "Choose role"), "Select access level")
+  ])
+], "card")
+
+# Reuse simple wrappers
+ListBlock(items: (ListItem)[]) = ListBlock
+ListItem(title: string, subtitle?: string, image?: (string | number)[], actionLabel?: string) = ListItem
+Header placeholders to satisfy references
+footerBlock = Separator("horizontal", false)

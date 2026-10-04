@@ -1,0 +1,12 @@
+root = Card(CardHeader("Shop Dashboard", "Mid-morning view"), revenueCard, comparisonCard) 
+revenueCard = Card(Heading("Revenue today", h3), Table(todayTable))
+todayTable = |Metric|Value
+|Revenue (today)|$12,540
+revenueTrend = LineChart(trendTable, natural, xLabel:"Time", yLabel:"USD")
+trendTable = |Time|Revenue
+|10:00|12540
+|11:00|? 
+comparisonCard = Card(Heading("Comparison to yesterday", h3), comparisonChart)
+comparisonChart = BarChart(comparisonTable, xLabel:"Metric", yLabel:"USD")
+comparisonTable = |Time|Yesterday|Today
+|Mid-morning|$11,210|$12,540

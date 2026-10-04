@@ -1,0 +1,93 @@
+root = Card(CardHeader("Power Network Dashboard", "Live operations"), liveAlerts, regionFocus, curtailmentPanel, statusPanel, outputPanel, forecastPanel, maintenancePanel, emissionsPanel, pricePanel, capacityPanel, generationPanel)
+
+liveAlerts = SectionBlock(SectionItem("alerts", "Alerts", alertsList), isFoldable)
+
+alertsList = Table(alertsTable)
+
+alertsTable = |Time|Region|Event|Severity
+|12:05|North|Line fault|critical
+|12:12|South|Telemetry drop|warning
+
+regionFocus = Card(CardHeader("Region Focus"), RegionSelector("region"), RegionPanel)
+
+RegionSelector(name) = Form("region-form", formButtons, regionInput)
+
+regionInput = FormControl("Focus region", Input("region", "North"))
+
+formButtons = Buttons(Button("Apply", primary))
+
+RegionPanel = Card(Heading("Focused Region"), regionInfo, regionChart)
+
+regionInfo = TextContent("Current load, capacity proximity, and local generation status for the selected region.", size:default)
+
+regionChart = Table(regionTable)
+
+regionTable = |Metric|Value
+|Region|North
+|Load|1250 MW
+|Capacity Utilization|82%
+
+curtailmentPanel = Card(CardHeader("Curtaintment Control"), CurtaintmentControls)
+
+CurtaintmentControls = Form("curtailment", formButtons, regionField, actionField)
+
+regionField = FormControl("Region", Input("cur_region", "North"))
+actionField = FormControl("Action", Select("curtail_action", SelectItem("Curtail 100 MW", "100"), SelectItem("Curtail 200 MW", "200"), placeholder:"Choose"))
+
+MaintenancePanel = Card(CardHeader("Maintenance Planned"), maintenanceTable)
+
+maintenanceTable = Table(maintenanceTableData)
+
+maintenanceTableData = |Date|Plant|Region|Status
+|2026-10-12|Plant A|North|Scheduled
+|2026-10-20|Plant B|South|Planned Down
+
+emissionsPanel = Card(CardHeader("Emissions Today"), emissionsContent)
+
+emissionsContent = TextContent("CO2-equivalent emissions today: 1,420 t", size:default)
+
+pricePanel = Card(CardHeader("Price per MWh"), priceContent)
+
+priceContent = TextContent("$62.45 per MWh", size:default)
+
+capacityPanel = Card(CardHeader("Current Load & Capacity"), capacityContent)
+
+capacityContent = TextContent("Current load: 7,850 MW | Capacity: 9,200 MW | Utilization: 85.3%", size:default)
+
+generationPanel = Card(CardHeader("Generation Split by Source"), generationContent)
+
+generationContent = Table(generationTable)
+
+generationTable = |Source|Output
+|Solar|1,240 MW
+|Wind|2,480 MW
+|Hydro|1,060 MW
+|Gas|2,800 MW
+|Nuclear|820 MW
+
+outputPanel = Card(CardHeader("Plants & Status"), plantsPanel)
+
+plantsPanel = SectionBlock(SectionItem("plants", "Plants", plantsList), isFoldable)
+
+plantsList = Table(plantsTable)
+
+plantsTable = |Plant|Region|Output MW|Status
+|Plant A|North|520|Online
+|Plant B|South|430|Online
+|Plant C|East|210|Maintenance
+|Plant D|West|640|Online
+|Plant E|North|320|Offline
+
+forecastPanel = Card(CardHeader("Demand Forecast next 24h"), forecastContent)
+
+forecastContent = TextContent("Forecasted demand for the next 24 hours shows a gradual rise to 8,200 MW by hour 24.", size:default)
+
+TablePlaceHolder = Table(forecastTable)
+
+forecastTable = |Hour|Forecast MW
+|H1|8200
+|H2|8180
+|H3|8150
+|H4|8170
+|H5|8210
+|H6|8240

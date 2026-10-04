@@ -1,41 +1,38 @@
-root = Card(filterSection, summarySection, enrollmentChart, riskSection, engagementChart, messageSection, gap:m)
+root = Card(CardHeader("Training Platform Analytics", "Overview of learner activity"), filterSection, metricsSection, enrollmentChart, riskTable, engagementChart, messageSection, actions)
 
-filterSection = Card(CardHeader("Cohort filter"), cohortSelect, wrap)
+filterSection = Card(Select("cohort_select", SelectItem("all", "All cohorts"), SelectItem("cohort_a", "Cohort A"), SelectItem("cohort_b", "Cohort B"), placeholder:"Select cohort"))
 
-cohortSelect = Select("cohort", SelectItem("2023 Q1", "2023 Q1"), SelectItem("2023 Q2", "2023 Q2"), SelectItem("2023 Q3", "2023 Q3"), placeholder:"Select cohort")
+metricsSection = Card(TextContent("Active learners this week: **128**", size:large), TextContent("Course completion rate: **78%**", size:large), TextContent("Average quiz score: **85%**", size:large))
 
-summarySection = Card(CardHeader("Weekly Overview"), activeLearnersCard, completionRateCard, avgQuizScoreCard, gap:s, wrap)
+enrollmentChart = Card(HorizontalBarChart(enrollmentTable, variant:grouped, xLabel:"Enrollments", yLabel:"Course"))
 
-activeLearnersCard = Card(TagBlock(tags:["Active Learners"]), TextContent("**1,254** learners active this week", large-heavy))
+enrollmentTable = |Course|Enrollments
+|Intro to AI|240
+|Data Science 101|180
+|Advanced Python|150
+|UX Design|120
+|Marketing Basics|90
 
-completionRateCard = Card(TagBlock(tags:["Course Completion"]), TextContent("**78%** completion rate", large-heavy))
+riskTable = Card(Table(riskTableData))
 
-avgQuizScoreCard = Card(TagBlock(tags:["Avg Quiz Score"]), TextContent("**84%** average score", large-heavy))
+riskTableData = |Learner|Risk Level
+|Alice Johnson|High
+|Bob Smith|Medium
+|Carol Lee|High
+|David Kim|Medium
 
-enrollmentChart = Card(CardHeader("Courses by Enrollment", "Top 5 courses"), HorizontalBarChart(labels:["Course A","Course B","Course C","Course D","Course E"], Series("Enrollments", values:[1240, 980, 860, 750, 630]), variant:grouped, xLabel:"Enrollments", yLabel:"Course"))
+engagementChart = Card(LineChart(engagementTable, variant:linear, xLabel:"Week", yLabel:"Engagement Score"))
 
-riskSection = Card(CardHeader("Learners at Risk"), riskTable, gap:s)
+engagementTable = |Week|Engagement
+|Week 1|70
+|Week 2|75
+|Week 3|78
+|Week 4|80
+|Week 5|82
+|Week 6|85
+|Week 7|87
+|Week 8|90
 
-riskTable = Table(riskCol)
+messageSection = Card(TextContent("Message this cohort:", size:default), TextArea("message_body", placeholder:"Enter your message here...", rows:4))
 
-riskCol = Col("Learner", data:["Alice Johnson","Bob Smith","Carlos Ruiz","Dana Lee"], type:string)
-
-engagementChart = Card(CardHeader("Engagement Over Past 8 Weeks"), LineChart(engagementRows, linear, xLabel:"Week", yLabel:"Engagement Score"))
-
-engagementRows = |Week|Score
-|W1|68
-|W2|71
-|W3|73
-|W4|75
-|W5|77
-|W6|78
-|W7|80
-|W8|82
-
-messageSection = Card(CardHeader("Message Cohort"), messageForm)
-
-messageForm = Form("cohort-message", formButtons, messageField)
-
-messageField = FormControl("Message", TextArea("msg", "Enter your message here...", "", rows:4))
-
-formButtons = Buttons(Button("Send", primary))
+actions = Buttons(Button("Send Message", primary), Button("Export Data", secondary))

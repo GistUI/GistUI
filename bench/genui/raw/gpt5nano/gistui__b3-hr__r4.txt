@@ -1,0 +1,63 @@
+root = Card(CardHeader("HR Hiring Overview"), TabContainer)
+
+TabContainer = Tabs(TabItem("overview", "Overview", overviewSection), TabItem("openings", "Open Roles", openingsSection), TabItem("pipeline", "Pipeline", pipelineSection), TabItem("stats", "Stats", statsSection))
+overviewSection = Card(Heading("Current headcount by department", h3), Table(headcountTable), Separator("horizontal"), CardHeader("Headcount by dept"), Table(deptTable), sunk)
+headcountTable = |Department|Headcount
+|Engineering|48
+|Sales|22
+|Marketing|15
+|HR|8
+|Finance|9
+deptTable = |Department|Headcount
+|Engineering|48
+|Sales|22
+|Marketing|15
+|HR|8
+|Finance|9
+OpenRolesSection = Card(Heading("Open roles by department", h3), Table(openRolesTable), ButtonRow)
+openRolesTable = |Department|Role|Open positions
+|Engineering|Software Engineer|6
+|Engineering|Data Scientist|2
+|Sales|Account Executive|3
+|Marketing|Content Strategist|1
+|HR|HR Generalist|1
+ButtonRow = Buttons(Button("Open new role", action:["openModal"]), Button("Refresh", primary))
+pipelineSection = Card(Heading("Candidates by pipeline stage", h3), Table(pipelineTable), SectionNote)
+pipelineTable = |Stage|Count
+|New|12
+|Phone Screen|7
+|Onsite|4
+|Offer|2
+SectionNote = TextContent("Stage counts reflect active candidates in current pipeline.", size:"default")
+StatsSection = Card(Heading("Hiring metrics", h3), MetricsBoard, SectionBreak, OpenNewRole)
+MetricsBoard = Card(VerticalStack, 
+  TextContent("Average time to hire: 28 days", size:"default"),
+  TextContent("Interviews scheduled this week: 34", size:"default"),
+  TextContent("Attrition (six months): 5.2%", size:"default")
+)
+SectionBreak = Separator("horizontal", decorative)
+OpenNewRole = CardHeader("Create new role", "Open a new opening to staffing needs")
+OpenNewRoleButton = Buttons(Button("Open new role", action:["openModal"]), Button("Cancel", tertiary))
+HeadcountByDeptSection = Card(Heading("Headcount by department", h4), Table(headcountDeptTable))
+headcountDeptTable = |Department|Headcount
+|Engineering|48
+|Sales|22
+|Marketing|15
+|HR|8
+|Finance|9
+InterviewsWeekSection = Card(Heading("Interviews scheduled this week", h3), Table(interviewsTable))
+interviewsTable = |Day|Interviews
+|Mon|9
+|Tue|8
+|Wed|12
+|Thu|5
+|Fri|0
+AttritionSection = Card(Heading("Attrition over past six months", h3), LineChart(attritionTable, natural, xLabel:"Month", yLabel:"Attrition %"))
+attritionTable = |Month|Attrition
+|Apr|0.8
+|May|1.0
+|Jun|0.9
+|Jul|1.2
+|Aug|1.1
+|Sep|0.9
+OpenNewRoleModal = DialogBlock("Open new role", "Create role", Card(Heading("New role details"), Form("new-role", Buttons(Button("Create", primary)), RoleNameInput, DepartmentSelect, PositionField), description:"Fill required fields"), description:"Use this to add an open role")

@@ -1,0 +1,154 @@
+root = Card([
+  header = CardHeader("Store Manager Daily Console", "Owned by RetailCo • All stores • Local time: 10:42")
+  statusBar = Card([
+    salesCard,
+    footTrafficCard,
+    bestSellersCard,
+    outOfStockCard,
+    onShiftCard,
+    basketCard,
+    returnsCard,
+    promotionsCard,
+    registersCard,
+    reorderCard,
+    viewStoreCard,
+    weeklyCompareCard
+  ], "card")
+  ,
+  navRow = Card([
+    viewStoreButton,
+    lastWeekButton
+  ], "sunk")
+])
+
+# Section: Sales today against target
+salesCard = Card([
+  Heading("Sales Today", "h3"),
+  TextContent("Today you have achieved ${salesToday} revenue against a target of ${salesTarget}."),
+  BarChart(["Target", "Actual"], [Series("Sales", [salesTargetValue, salesTodayValue])], "grouped", "Metric", "USD")
+], null)
+
+salesToday = 1
+salesTarget = 1
+salesTodayValue = 5820
+salesTargetValue = 7500
+
+# Section: Foot traffic through the day
+footTrafficCard = Card([
+  Heading("Foot Traffic Through the Day", "h3"),
+  LineChart(["9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm"], [Series("Foot Traffic", [12,18,25,30,28,22,20,15,10])], "linear", "Time of Day", "People")
+], null)
+
+# Section: Best sellers with units for each
+bestSellersCard = Card([
+  Heading("Best Sellers Today", "h3"),
+  Table([
+    Col("Item", ["Widget A","Gadget B","Widget C"]),
+    Col("Units Sold", [42, 37, 29])
+  ])
+], null)
+
+# Section: Items out of stock
+outOfStockCard = Card([
+  Heading("Items Out of Stock", "h3"),
+  ListBlock([
+    ListItem("Widget Z", "Expected restock: today", []),
+    ListItem("Gizmo Y", "Backorder available", [])
+  ])
+], null)
+
+# Section: Who is on shift today
+onShiftCard = Card([
+  Heading("Today's Shifts", "h3"),
+  ListBlock([
+    ListItem("Store Lead", "Alice Nguyen", ["https://picsum.photos/seed/lead/40/40"]),
+    ListItem("Floor Lead", "Marco Perez", ["https://picsum.photos/seed/lead2/40/40"]),
+    ListItem("Cashier 1", "Priya Singh", ["https://picsum.photos/seed/cash1/40/40"]),
+    ListItem("Cashier 2", "Jon Kim", ["https://picsum.photos/seed/cash2/40/40"])
+  ])
+], null)
+
+# Section: Average basket size
+basketCard = Card([
+  Heading("Average Basket Size", "h3"),
+  TextContent("Average basket size today: ${avgBasket} USD."),
+  Progress(avgBasketPercent, "Progress toward daily target")
+], null)
+
+avgBasket = 48.75
+avgBasketPercent = 0.975
+
+# Section: Returns this week
+returnsCard = Card([
+  Heading("Returns This Week", "h3"),
+  TextContent("Returns value: ${returnsValue} USD across ${returnsCount} orders."),
+  BarChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], [Series("Returns", [120, 80, 150, 60, 90, 40, 20])], "grouped", "Day", "USD")
+], null)
+
+returnsValue = 650
+returnsCount = 13
+
+# Section: How each running promotion is doing
+promotionsCard = Card([
+  Heading("Promotions Performance", "h3"),
+  Table([
+    Col("Promotion", ["Summer Sale", "Bonus Points", "Clearance"]),
+    Col("Today", [2100, 980, 420]),
+    Col("This Week", [9800, 4200, 1600])
+  ])
+], null)
+
+# Section: Each register and whether it is open
+registersCard = Card([
+  Heading("Register Status", "h3"),
+  ListBlock([
+    ListItem("Register 1", "Open", ["https://picsum.photos/seed/reg1/40/40"]),
+    ListItem("Register 2", "Closed", ["https://picsum.photos/seed/reg2/40/40"]),
+    ListItem("Register 3", "Open", ["https://picsum.photos/seed/reg3/40/40"])
+  ])
+], null)
+
+# Section: A way to reorder an item
+reorderCard = Card([
+  Heading("Reorder an Item", "h3"),
+  Form("reorder-form", reorderButtons, [
+    FormControl("Item", Input("item", "e.g., Widget A"), "Choose common SKU"),
+    FormControl("Quantity", Input("qty", "1", "number"), "Quantity to reorder"),
+    FormControl("Vendor", Select("vendor", [
+      SelectItem("vendor1", "Vendor One"),
+      SelectItem("vendor2", "Vendor Two")
+    ], "Select vendor"))
+  ])
+], null)
+
+reorderButtons = Buttons([
+  Button("Submit Reorder", null, "primary")
+], "row")
+
+# Section: View a different store
+viewStoreCard = Card([
+  Heading("View Another Store", "h3"),
+  Form("store-selector", Buttons([Button("View Store", null, "primary")]), [
+    FormControl("Store", Select("store", [
+      SelectItem("store_001", "Downtown"),
+      SelectItem("store_002", "Uptown"),
+      SelectItem("store_003", "Mall East")
+    ], "Choose store"), "Select the store to view")
+  ])
+], null)
+
+# Section: This week compared with last week
+weeklyCompareCard = Card([
+  Heading("This Week vs Last Week", "h3"),
+  LineChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], [
+    Series("This Week", [3200, 4100, 3800, 4200, 3900, 3600, 4500]),
+    Series("Last Week", [3000, 3800, 3600, 4100, 3700, 3400, 4300])
+  ], "linear", "Day", "USD"),
+  TextContent("Sales trend comparison for the current week versus the previous week.")
+], null)
+
+# References for hoisting (definitions must appear before or can hoist)
+# Note: In this language, hoisting allows definitions to appear after root; all are defined above for clarity.
+
+# End of UI
+;

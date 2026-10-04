@@ -1,0 +1,39 @@
+root = Card(CardHeader("Personal Banking Overview"), balancesSection, transactionsSection, spendingSection, billsSection, vacationSection, creditScoreSection, transferSection, creditFreezeSection, periodSection, alertsSection, disputeSection)
+balancesSection = Card(Heading("Balances", h3), kbdNote, balancesTable, sunk)
+kbdNote = TextContent("Balances reflect real-time data") 
+balancesTable = Table(balances)
+balances = |Account|Balance
+|Checking|$2,145.32
+|Savings|$8,504.10
+|Credit|-$1,234.50
+transactionsSection = Card(Heading("Recent transactions", h3), Table(transactionsTable), sunk)
+transactionsTable = Table(txRows)
+txRows = |Merchant|Amount
+|Starbucks|-$6.75
+|Grocery Mart|-$82.40
+|Gas Station|-$34.20
+|Online Store|-$129.99
+spendingSection = Card(Heading("This month's spending by category", h3), AreaChart(spendingTable, linear, xLabel:"Category", yLabel:"USD"), sunk)
+spendingTable = |Category|Amount
+|Groceries|-$912.40
+|Dining|-$210.15
+|Utilities|-$156.80
+|Transport|-$118.00
+|Entertainment|-$95.60
+billsSection = Card(Heading("Bills due soon", h3), ListBlock(ListItem("Rent", "Due in 3 days", "Pay now"), ListItem("Credit card min", "Due in 5 days", "Set auto-pay"), ListItem("Utilities", "Due in 7 days")), sunk)
+vacationSection = Card(Heading("Vacation savings progress", h3), Progress(value:68, label:"68%"), sunk)
+creditScoreSection = Card(Heading("Credit score", h3), TextContent("Current score: 788", size:"default"), sunk)
+transferSection = Card(Heading("Move money between accounts", h3), Form("transfer-form", Buttons(Button("Submit", primary)), transferFields), sunk)
+transferFields = FormControl("From", Select("from_account", SelectItem("Checking", "Checking"), SelectItem("Savings", "Savings"), placeholder:"Choose a source")) 
+transferFields2 = FormControl("To", Select("to_account", SelectItem("Checking", "Checking"), SelectItem("Savings", "Savings"), placeholder:"Choose a destination"))
+transferAmount = FormControl("Amount", Input("amount", placeholder:"0.00", value:"", type:"number"))
+transferForm = Form("transfer-form", Buttons(Button("Move", primary)), transferFrom, transferTo, transferAmount)
+transferFrom = transferFields
+transferTo = transferFields2
+transferFormLine = transferForm
+transferButtonsHelp = TextContent("Enter an amount and choose accounts to transfer between.")
+transferSection = Card(transferFormLine, transferButtonsHelp, sunk)
+creditFreezeSection = Card(Heading("Freeze credit line", h3), Button("Freeze now", type:"normal", variant:"primary") ), sunk
+periodSection = Card(Heading("Statement period", h3), Form("period-form", Buttons(Button("Apply period", primary)), DatePicker("statement_period", mode:single)), sunk)
+alertsSection = Card(Heading("Alerts & triggers", h3), TagBlock(tags:["Payment due","Low balance","Large withdrawal"]), Button("Manage alerts", secondary), sunk)
+disputeSection = Card(Heading("Dispute a transaction", h3), Form("dispute-form", Buttons(Button("Submit dispute", primary)), FormControl("Transaction ID", Input("tx_id", placeholder:"Enter TXN ID")), TextArea("notes", placeholder:"Describe issue...")), sunk)

@@ -1,0 +1,43 @@
+root = Card([
+  header,
+  currentWeatherSection,
+  outlookSection,
+  sunTimesSection
+])
+
+header = CardHeader("Morning Weather Brief", "Bengaluru")
+
+currentWeatherSection = Card([currentHeading, currentTempCard, currentConditions])
+currentHeading = Heading("Current conditions", "h2")
+currentTempCard = Card([tempValue, conditionsText], "card")
+tempValue = TextContent("28°C", "large")
+conditionsText = TextContent("Sunny with light clouds", "default")
+
+outlookSection = Card([outlookHeading, day1Panel, day2Panel, day3Panel])
+outlookHeading = Heading("3-day outlook", "h2")
+
+day1Panel = Card([day1Heading, day1Temp, day1Summary], "sunk")
+day1Heading = Heading("Day 1", "h3")
+day1Temp = TextContent("29°C / 18°C", "default")
+day1Summary = TextContent("Sunny morning, increasing clouds by afternoon", "default")
+
+day2Panel = Card([day2Heading, day2Temp, day2Summary], "sunk")
+day2Heading = Heading("Day 2", "h3")
+day2Temp = TextContent("30°C / 19°C", "default")
+day2Summary = TextContent("Partly cloudy with a chance of shower late evening", "default")
+
+day3Panel = Card([day3Heading, day3Temp, day3Summary], "sunk")
+day3Heading = Heading("Day 3", "h3")
+day3Temp = TextContent("28°C / 17°C", "default")
+day3Summary = TextContent("Clear skies, comfortable humidity", "default")
+
+sunTimesSection = Card([sunHeading, sunriseRow, sunsetRow])
+sunHeading = Heading("Sunrise & Sunset", "h2")
+
+sunriseRow = Card([sunriseLabel, sunriseTime], "card")
+sunriseLabel = TextContent("Sunrise", "default")
+sunriseTime = TextContent("06:12 AM", "default")
+
+sunsetRow = Card([sunsetLabel, sunsetTime], "card")
+sunsetLabel = TextContent("Sunset", "default")
+sunsetTime = TextContent("06:40 PM", "default")

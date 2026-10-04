@@ -1,6 +1,6 @@
-root = Card(header, summary, revTable, clear)
-header = CardHeader("Today's Revenue", "Mid‑morning check")
-summary = TextContent("**Revenue so far today:** $5,200\n**Compared to same time yesterday:** $4,800 (up 8%)", size:default)
-revTable = Table(periodCol, revenueCol)
-periodCol = Col("Period", data:["Today","Yesterday"], type:string)
-revenueCol = Col("Revenue", data:["$5,200","$4,800"], type:string)
+root = Card(CardHeader("Today's Revenue"), revenueTable, revenueCallout)
+revenueTable = Table(revTable)
+revTable = |Period|Revenue
+|Today|$1,240
+|Yesterday|$1,080
+revenueCallout = Callout(success, "Good job!", "Revenue is up 15% compared to yesterday")

@@ -1,0 +1,34 @@
+root = Card(CardHeader("Async Standup", "Today’s update"), dateHeader, teammateList, postUpdateCard, missingCount)
+
+dateHeader = Heading("2026-10-04", h3)
+
+teammateList = SectionBlock(teammate1, teammate2, teammate3, isFoldable)
+
+teammate1 = SectionItem("teammate-alex", "Alex", Card(Heading("Alex - status update", h4), TextContent("Working through blockers on the API; should be done by EOD."), blockedTag("Blocked by API"), Divider?))
+teammate2 = SectionItem("teammate-sam", "Sam", Card(Heading("Sam - status update", h4), TextContent("Completed in-flight sync, reviewing backlog.")))
+teammate3 = SectionItem("teammate-jee", "Jee", Card(Heading("Jee - status update", h4), TextContent("Waiting on design spec to finalize UI details."), blockedTag("Blocked by spec")))
+
+blockedTag = Tag("Blocked", danger)
+
+postUpdateCard = Card(CardHeader("Post your update"), updateForm)
+
+updateForm = Form("standup-post", Buttons(Button("Submit", primary)), formControls)
+
+formControls = SectionBlock(inputControls)
+
+inputControls = ListBlock(nameControl, statusControl)
+
+nameControl = FormControl("Your name", Input("name", "Your name"))
+statusControl = FormControl("Update", TextArea("status", "What you did, what you’ll do, blockers", rows:3)) 
+
+missingCount = Card(Heading("Updates still missing", h3), missingTable)
+
+missingTable = Table(missingRows)
+
+missingRows = |Teammate|Status
+|Alex|Pending
+|Sam|Done
+|Jee|Pending
+
+Note:
+- The blocked statuses use a Tag inside each teammate’s card as shown (Blocked).

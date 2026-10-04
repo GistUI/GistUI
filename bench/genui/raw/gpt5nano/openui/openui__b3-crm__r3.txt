@@ -1,0 +1,114 @@
+root = Card([
+  header = CardHeader("Account: Acme Corp", "Owner: Jordan Lee"),
+  metricsRow = Card([
+    totalValueHeading = Heading("Total Deal Value", "h3"),
+    totalValue = TextContent("$1,250,000"),
+    stageHeading = Heading("Current Deal Stage", "h3"),
+    currentStage = TextContent("Negotiation"),
+  ], "card"),
+  separator1 = Separator("horizontal"),
+  contentArea = Card([
+    // Recent activity
+    SectionBlock([
+      SectionItem("recent-activity", "Recent Activity", [
+        Heading("Recent Activity", "h4"),
+        activityList = ListBlock([
+          ListItem("Feb 02, Call with client", "Discussed pricing and timeline", ["https://picsum.photos/seed/act1/40/40"], "View"),
+          ListItem("Jan 28, Email: Proposal sent", "Awaiting feedback", ["https://picsum.photos/seed/act2/40/40"], "Open"),
+          ListItem("Jan 15, Meeting", "Demo and Q&A", ["https://picsum.photos/seed/act3/40/40"], "Details")
+        ], "image")
+      ])
+    ]),
+    // Contacts with role
+    SectionBlock([
+      SectionItem("contacts", "Contacts", [
+        Heading("Contacts", "h4"),
+        ListBlock([
+          ListItem("Alex Kim", "Sales Engineer", ["https://picsum.photos/seed/alex/40/40"], "Primary"),
+          ListItem("Priya Singh", "Account Manager", ["https://picsum.photos/seed/priya/40/40"], "Secondary")
+        ], "image")
+      ])
+    ]),
+    // Open follow-ups with due dates
+    SectionBlock([
+      SectionItem("followups", "Open Follow-Ups", [
+        Heading("Open Follow-Ups", "h4"),
+        ListBlock([
+          ListItem("Renewal quote review", "Due: 2026-10-12", ["https://picsum.photos/seed/f1/40/40"], "Open"),
+          ListItem("Contract amendment", "Due: 2026-10-18", ["https://picsum.photos/seed/f2/40/40"], "In Progress")
+        ], "image")
+      ])
+    ]),
+  ], "card"),
+  separator2 = Separator("horizontal"),
+  actionsRow = Card([
+    // Note taking
+    SectionBlock([
+      SectionItem("note", "Quick Note", [
+        Heading("Jot a Note", "h4"),
+        noteField = FormControl("Note", TextArea("new_note", "Log meeting outcomes, decisions..."), "Internal note for team")
+      ])
+    ]),
+    // Renewal date with warning
+    SectionBlock([
+      SectionItem("renewal", "Renewal", [
+        Heading("Renewal Date", "h4"),
+        renewalDate = TextContent("2026-11-30"),
+        renewalWarning = Callout("warning", "Renewal soon", "Renewal is within 60 days")
+      ])
+    ]),
+    // Log a call
+    SectionBlock([
+      SectionItem("logCall", "Log a Call", [
+        Heading("Log Call", "h4"),
+        CallLogForm = Form("log-call", Buttons([submitCallBtn]), [
+          FormControl("Subject", Input("call_subject", "Call topic"), "Subject of the call"),
+          FormControl("Date", DatePicker("call_date"), "Date of call"),
+          FormControl("Notes", TextArea("call_notes"), "Summary of discussion")
+        ])
+      ])
+    ])
+  ]),
+  // Ensure all items referenced above are included as root children
+  // After root, define any additional inline components used above
+])
+
+// Definitions for referenced components (ensure streaming visibility)
+header = CardHeader("Account: Acme Corp", "Owner: Jordan Lee")
+totalSection = Card([
+  TextContent("Total Deal Value", "default"),
+  TextContent("$1,250,000")
+])
+currentStageBlock = Card([
+  TextContent("Current Deal Stage", "default"),
+  TextContent("Negotiation")
+])
+contactsBlock = Card([
+  ListBlock([
+    ListItem("Alex Kim", "Sales Engineer", ["https://picsum.photos/seed/alex/40/40"], "Primary"),
+    ListItem("Priya Singh", "Account Manager", ["https://picsum.photos/seed/priya/40/40"], "Secondary")
+  ], "image")
+])
+followupsBlock = Card([
+  ListBlock([
+    ListItem("Renewal quote review", "Due: 2026-10-12", ["https://picsum.photos/seed/f1/40/40"], "Open"),
+    ListItem("Contract amendment", "Due: 2026-10-18", ["https://picsum.photos/seed/f2/40/40"], "In Progress")
+  ], "image")
+])
+notesSection = Card([
+  Form("log-note", Buttons([Button("Save Note")]), [
+    FormControl("Note", TextArea("new_note"), "Internal note for team")
+  ])
+])
+renewalBlock = Card([
+  TextContent("Renewal Date", "default"),
+  TextContent("2026-11-30"),
+  Callout("warning", "Renewal approaching", "Renewal is within 60 days")
+])
+logCallBlock = Card([
+  Form("log-call", Buttons([Button("Submit Call")]), [
+    FormControl("Subject", Input("call_subject", "Call topic"), "Subject of the call"),
+    FormControl("Date", DatePicker("call_date"), "Date of call"),
+    FormControl("Notes", TextArea("call_notes"), "Summary of discussion")
+  ])
+])

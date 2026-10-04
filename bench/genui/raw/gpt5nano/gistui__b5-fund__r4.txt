@@ -1,0 +1,93 @@
+root = Card(CardHeader("Morning Desk"), LayoutSection("Overview"), positionsSection, exposureSection, riskSection, watchlistSection, ordersSection, headlinesSection, econSection, strategiesSection, drawdownSection, riskLimitsSection, rebalanceSection, orderEntrySection, timeframeSection)
+
+LayoutSection("Overview") = Card(Heading("Dashboard", h2), Table(overviewTable))
+
+overviewTable = |Metric|Value
+|Portfolio Value|$12,540,000
+|P/L Today|+$124,500
+
+positionsSection = Card(CardHeader("Positions"), Table(positionsTable))
+
+positionsTable = |Ticker|Size|Entry Price|Current Price|P/L
+|AAPL|100|$150.00|$152.30|$2300
+|MSFT|50|$290.00|$305.40|$750
+|AMZN|20|$102.00|$110.50|$176
+
+exposureSection = Card(CardHeader("Exposure by Sector"), BarChart(exposureTable, xLabel:"Sector", yLabel:"Exposure"))
+
+exposureTable = |Sector|Exposure
+|Technology|45%
+|Healthcare|20%
+|Finance|15%
+|Energy|10%
+|Consumer|10%
+
+riskSection = Card(CardHeader("Risk & VaR"), HorizontalBarChart(vraTable, variant:grouped, xLabel:"Metric", yLabel:"Value"), Tag("Near breach", warning))
+
+vraTable = |Metric|Value
+|VaR 1d|$1.2M
+|VaR 10d|$3.8M
+|Drawdown (1y)|-12.4%
+
+watchlistSection = Card(CardHeader("Instruments watched"), Table(watchTable))
+
+watchTable = |Ticker|Price|Change
+| BTC-USD|$26,540.00|+1.2%
+|ETH-USD|$1,720.50|+0.5%
+|NQ=|$12,350.00|-0.3%
+
+ordersSection = Card(CardHeader("Working Orders"), Table(ordersTable))
+
+ordersTable = |Order|Ticker|Side|Qty|Status
+|O-132|AAPL|Buy|50|Open
+|O-133|MSFT|Sell|20|Partial
+
+marginSection = Card(CardHeader("Margin in Use"), Progress(72, label:"% used"))
+
+marketHeadlinesSection = Card(CardHeader("Market Headlines"), Table(headlinesTable))
+
+headlinesTable = |Headline|Sentiment
+|Fed hints at rate pause|neutral
+|Trump tariffs re-emerge|negative
+|Tech rally strengthens|positive
+
+econSection = Card(CardHeader("Economic Releases This Week"), Table(econTable))
+
+econTable = |Release|Time|Impact
+|CPI|Wed 8:30|Moderate
+|PMI|Thu 9:45|Strong
+|Jobs|Fri 8:30|Mixed
+
+strategiesSection = Card(CardHeader("Strategies YTD Returns"), Table(stratTable))
+
+stratTable = |Strategy|YTD Return
+|Mean Reversion|+9.4%
+|Momentum|+14.2%
+|Pair Trading|+5.1%
+
+drawdownSection = Card(CardHeader("Drawdown (1y)"), AreaChart(drawdownTable, variant:linear, xLabel:"Date", yLabel:"Drawdown"))
+
+drawdownTable = |Date|Drawdown
+|2025-10-01|-2.1%
+|2025-11-01|-4.5%
+|2025-12-01|-6.8%
+|2026-01-01|-5.2%
+|2026-02-01|-7.3%
+
+riskLimitsSection = Card(CardHeader("Risk Limits Near Breach"), Table(limitsTable))
+
+limitsTable = |Limit|Used|Remaining|BreacheRisk
+|VaR 1d|$1.2M|$0.6M|Low
+|Credit Util|$15M|$4M|Watch
+
+rebalanceSection = Card(CardHeader("Rebalance"), Button("Rebalance Portfolio", primary))
+
+orderEntrySection = Card(CardHeader("Place Order"), Form("order-entry", Buttons(Button("Submit", primary)), tickerField, sideField, qtyField))
+
+tickerField = FormControl("Ticker", Input("ticker", "NVDA"))
+sideField = FormControl("Side", RadioGroup("side", RadioItem("Buy","", "buy"), RadioItem("Sell","", "sell")))
+qtyField = FormControl("Quantity", Input("qty", "100", type:"number"))
+
+timeframeSection = Card(CardHeader("Timeframe"), Form("timeframe-form", Buttons(Button("Apply", primary)), timeframeSelect))
+
+timeframeSelect = FormControl("Timeframe", Select("tf", SelectItem("1D","1 Day"), SelectItem("1W","1 Week"), SelectItem("1M","1 Month"), SelectItem("1Y","1 Year"), placeholder:"Choose timeframe"))

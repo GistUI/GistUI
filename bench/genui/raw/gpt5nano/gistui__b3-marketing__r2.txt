@@ -1,0 +1,38 @@
+root = Card(CardHeader("Marketing Weekly Dashboard", "Last 30 days"), rangeBar, topRows, sourcesTable, campaignsTable, bestCampaignTag, exportRow, subscriberChart, footer) 
+rangeBar = Form("date-range", Buttons(Button("Apply", primary)), DatePicker("range_start", mode:single), DatePicker("range_end", mode:single)) 
+topRows = SectionBlock(SectionItem("visitors", "Site Visitors", Card(Heading("Visitors (last 30 days)", h3), LineChart(visitorsTable, linear, xLabel:"Date", yLabel:"Visitors"))), SectionItem("conv", "Conversion Rate", Card(Heading("Conversion Rate", h3), TextContent("Modelled on last 30 days; percentage-based metric."))) , isFoldable) 
+visitorsTable = |Date|Visitors
+|Day-30|12345
+|Day-29|11890
+|Day-28|12560
+|Day-27|11980
+|Day-26|13010 
+convLine = LineChart(|Date|Rate
+|Day-30|3.2
+|Day-29|3.5
+|Day-28|3.7
+|Day-27|3.4
+|Day-26|3.9, linear, xLabel:"Date", yLabel:"Conversion %" ) 
+sourcesTable = CardHeader("Top traffic sources", "Share by source"), Table(sources) 
+sources = |Source|Share
+|Organic|42%
+|Paid Search|28%
+|Social|15%
+|Referral|8%
+|Email|7% 
+campaignsTable = Card(CardHeader("Active campaigns", "Spend so far"), Table(campaignRows)) 
+campaignRows = |Campaign|Spend
+|Summer Sale|$4,200
+|Retargeting Boost|$2,150
+|Email Nurture|$3,000
+|Brand Awareness|$1,600
+|Flash Promo|$2,800 
+bestCampaignTag = Tag("Best performing: Summer Sale", info) 
+exportRow = DialogBlock("Export", "Export Report", Card(Heading("Export options", h4), TextContent("Choose format and range"), Buttons(Button("Export CSV", primary))), description:"Exports the current view") 
+subscriberChart = Card(Heading("Email subscribers this month", h3), Table(subRowTable)) 
+subRowTable = |Date|Subscribers
+|1-7|1,200
+|8-15|1,450
+|16-23|1,730
+|24-30|2,010 
+footer = SectionBlock(SectionItem("export", "Export", exportRow), SectionItem("range", "Change date range", rangeBar))

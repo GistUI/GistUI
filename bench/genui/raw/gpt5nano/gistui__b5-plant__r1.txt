@@ -1,0 +1,67 @@
+root = Card(CardHeader("Factory Floor Supervisor Console"), focusLineTag, andonPanel, exportPanel, metricsPanel, linesPanel, statusPanel, defectsPanel, downtimePanel, maintenancePanel, inventoryPanel, deliveriesPanel, shiftsPanel, safetyPanel, qualityPanel, energyPanel, workOrdersPanel, schedulePanel, livePanel)
+focusLineTag = Tag("Focus mode: Line A", info)
+andonPanel = Card(CardHeader("Live Andon Alerts"), ListBlock(SectionItem("andon1", "Alerts", ListBlock(…)))) 
+exportPanel = Card(CardHeader("Actions"), Buttons(Button("Export Shift Report", action:[]), Button("Print", secondary)))
+metricsPanel = Card(CardHeader("Key Metrics"), Table(tableMetrics) )
+tableMetrics = |Metric|Value|Target
+|OEE|78.5%|100%
+|Today Production|560|600
+|Defect Rate|1.2%|<1.0%
+linesPanel = Card(CardHeader("Production Lines"), SectionBlock(SectionItem("line1", "Line 1", LineRow("L1", "Running", 120)), SectionItem("line2", "Line 2", LineRow("L2", "Paused", 95))))
+LineRow(line, status, rate) = Card(Heading(line, h4), Separator(), TextContent("Rate: " + rate + "/hr"), TextContent("Status: " + status))
+statusPanel = Card(CardHeader("Overall Status"), Table(lineStatus) )
+lineStatus = |Line|Status|Rate
+|Line 1|Running|120
+|Line 2|Paused|95
+defectsPanel = Card(CardHeader("Defect Rate (Past Month)"), LineChart(defectsTable, natural, xLabel:"Day", yLabel:"Defects"))
+defectsTable = |Day|Defects
+|1|24
+|2|19
+|3|22
+|4|18
+|5|25
+|6|20
+|7|17
+downtimePanel = Card(CardHeader("Downtime by Cause"), BarChart(downtimeTable, grouped, xLabel:"Cause", yLabel:"Minutes"))
+downtimeTable = |Cause|Minutes
+|Maintenance|320
+|Breakdown|180
+|Electrical|240
+maintenancePanel = Card(CardHeader("Machines Due for Maintenance"), Table(maintenanceTable))
+maintenanceTable = |Machine|DueIn|Status
+|M-01|3d|Scheduled
+|M-02|7d|Upcoming
+inventoryPanel = Card(CardHeader("Stock Levels"), Table(stockTable))
+stockTable = |Item|Quantity
+|Steel|5200 kg
+|Resin|320 L
+|Packaging|12000 units
+deliveriesPanel = Card(CardHeader("Supplier Deliveries This Week"), Table(deliveriesTable))
+deliveriesTable = |Supplier|DeliveryDate|Items
+|AeroParts|Wed|Steel 2000 kg
+|ResinCo|Thu|Resin 1500 L
+|PackMate|Fri|Packaging 4000 units
+shiftsPanel = Card(CardHeader("Shifts Output Comparison"), Table(shiftsTable))
+shiftsTable = |Shift|Output|Target
+|Morning|420|450
+|Evening|390|420
+|Night|340|360
+safetyPanel = Card(CardHeader("Safety Incidents"), Table(safetyTable))
+safetyTable = |Metric|This Year|Days Since Last
+|Incidents|5|12
+|Near Misses|9|— 
+qualityPanel = Card(CardHeader("Batches on Quality Hold"), Table(qualityTable))
+qualityTable = |Batch|Reason|PlannedDate
+|B-204|Smell|2026-10-07
+|B-210|Contamination|2026-10-08
+energyPanel = Card(CardHeader("Energy Use Today"), TextContent("Total energy today: 1.2MWh", default))
+workOrdersPanel = Card(CardHeader("Open Work Orders by Priority"), Table(woTable))
+woTable = |WO|Priority|Machine|TargetDate
+|WO-125|High|M-03|2026-10-04
+|WO-128|Medium|M-04|2026-10-05
+schedulePanel = Card(CardHeader("Schedule Maintenance"), Form("schedule-maint", scheduleButtons, machineField, dateField, detailsField))
+scheduleButtons = Buttons(Button("Plan Maintenance", primary), Button("Cancel", tertiary))
+machineField = FormControl("Machine", Select("machine", SelectItem("M-01","M-01"), SelectItem("M-02","M-02"), SelectItem("M-03","M-03")), hint:"Select machine")
+dateField = FormControl("Date", DatePicker("date", mode:single), hint:"Choose date")
+detailsField = FormControl("Details", TextArea("notes", placeholder:"Describe maintenance scope"))
+livePanel = Card(CardHeader("Live Andon Feed") , TextContent("No new alerts") )

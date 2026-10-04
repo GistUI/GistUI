@@ -1,0 +1,112 @@
+root = Card(CardHeader("Morning Workspace"), changeTimeframe, marketHeadlinesSection, portfolioPanel, ordersPanel, watchlistPanel, exposuresPanel, pnlPanel, positionsPanel, riskPanel, capitalPanel, strategiesPanel, drawdownPanel, riskLimitsPanel, rebalancePanel, orderEntryPanel, economicReleasesPanel, todayMoversPanel, marginsPanel, instrumentsPanel, footer)
+
+changeTimeframe = CardHeader("Timeframe")  // placeholder header
+
+marketHeadlinesSection = Card(Heading("Market headlines", h3), Table(marketHeadlinesTable))
+
+marketHeadlinesTable = |Headline|Sentiment
+|Fed signals rate pause|positive
+|Tech earnings beat|positive
+|Oil prices slip|negative
+
+portfolioPanel = Card(Heading("Portfolio value & P&L"), Table(portfolioTable), SectionBlock(SectionItem("profitBreakdown", "Breakdown by asset type", Table(portfolioBreakdownTable)), isFoldable))
+
+portfolioTable = |Metric|Value
+|Portfolio Value|$1,235,420,00
+|P/L Today|+$12,540
+
+portfolioBreakdownTable = |Asset|Value
+|Stocks|$920,120
+|Bonds|$210,000
+|Cash|$105,300
+
+pnlPanel = Card(Heading("P&L today"), TextContent("+$12,540 today across all positions", size:"default"))
+
+positionsPanel = Card(Heading("Positions"), Table(positionsTable))
+
+positionsTable = |Ticker|Size|Entry|Current
+| AAPL|100|$150.00|$156.20
+| MSFT|50|$280.00|$295.10
+| TSLA|20|$720.00|$690.50
+
+exposuresPanel = Card(Heading("Exposure by sector"), HorizontalBarChart(exposuresTable, xLabel:"% exposure", yLabel:"Sector"))
+
+exposuresTable = |Sector|Exposure
+|Technology|32
+|Financials|18
+|Energy|14
+|Healthcare|12
+|Industrial|8
+
+riskPanel = Card(Heading("Value at Risk"), Table(vatTable))
+
+vatTable = |Period|VaR
+|1d|-$52,000
+|5d|-$210,000
+
+todayMoversPanel = Card(Heading("Today's biggest gainers & losers"), Table(moversTable))
+
+moversTable = |Ticker|Change
+| AAPL|+3.2%
+| NFLX|-2.4%
+| AMZN|+1.7%
+
+instrumentsPanel = Card(Heading("Instruments watched"), Table(watchListTable))
+
+watchListTable = |Ticker|Price
+| BTCUSD|$63,200
+| ETHUSD|$4,230
+| USDJPY|$149.3
+
+workingOrdersPanel = Card(Heading("Working orders"), Table(ordersTable))
+
+ordersTable = |Order|Ticker|Side|Qty|Status
+| #1023|AAPL|Buy|100|Open
+| #1024|MSFT|Sell|50|Working
+
+marginPanel = Card(Heading("Margin in use"), TextContent("Used: $320,000 of $1,000,000 available", size:"default"))
+
+economicReleasesPanel = Card(Heading("Economic releases this week"), Table(econTable))
+
+econTable = |Release|Time|Impact
+| CPI|08:30|High
+| GDP|12:00|Medium
+| PMIs|10:00|High
+
+strategiesPanel = Card(Heading("Strategy returns this year"), Table(stratTable))
+
+stratTable = |Strategy|YTD Return
+| MeanReversion|+8.4%
+| Momentum|+12.1%
+| Carry|+5.6%
+
+drawdownPanel = Card(Heading("Drawdown last year"), AreaChart(drawdownTable, linear, xLabel:"Month", yLabel:"Drawdown"))
+
+drawdownTable = |Month|Drawdown
+| Jan|-4.2%
+| Feb|-3.8%
+| Mar|-5.1%
+| Apr|-2.7%
+| May|-3.4%
+| Jun|-1.9%
+| Jul|-4.0%
+| Aug|-4.8%
+| Sep|-3.2%
+| Oct|-2.5%
+| Nov|-3.9%
+| Dec|-6.1%
+
+riskLimitsPanel = Card(Heading("Risk limits near breach"), Table(riskLimitsTable))
+
+riskLimitsTable = |Limit|Current|Status
+| VaR 1d|$210k|Near Breach
+| Stop Loss|$500k|Safe
+| Position Exposure|75%|Near Breach
+
+rebalancePanel = Card(Heading("Rebalance"), TextContent("Allocate to target risk buckets; verify liquidity and cost"), Buttons(Button("Run rebalance", primary)))
+
+orderEntryPanel = Card(Heading("Place an order"), Form("order-entry", Buttons(Button("Submit Order", primary)), FormControl("Ticker", Input("ticker", "AAPL")), FormControl("Side", RadioGroup("side", RadioItem("Buy","", "buy"), RadioItem("Sell","", "sell")) , FormControl("Quantity", Input("qty", "", value:"100"))))
+
+changeTimeframePanel = Card(Heading("Timeframe"), Select("timeframe", SelectItem("1D","1 Day"), SelectItem("1W","1 Week"), SelectItem("1M","1 Month"), SelectItem("YTD","Year to date")),)
+
+footer = SectionBlock(SectionItem("notes", "Notes", TextContent("All figures are illustrative.")))

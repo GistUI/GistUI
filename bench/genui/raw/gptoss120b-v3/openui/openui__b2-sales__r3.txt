@@ -1,0 +1,12 @@
+root = Card([header, revenueText, conversionTag, chart, topProductsTable, downloadButtons])
+header = CardHeader("Monthly Sales Check", "Founder overview")
+revenueText = TextContent("Revenue this month: $45,200", "large")
+conversionTag = Tag("Conversion: 3.8%", null, null, "info")
+downloadBtn = Button("Download CSV")
+downloadButtons = Buttons([downloadBtn])
+chart = LineChart(labels, [revSeries], "natural", "Month", "Revenue")
+labels = ["Jan","Feb","Mar","Apr","May","Jun"]
+revSeries = Series("Revenue", [12000,15000,18000,21000,25000,45200])
+topProductsTable = Table([productCol, unitsCol])
+productCol = Col("Product", ["Product A","Product B","Product C"])
+unitsCol = Col("Units Sold", [340, 275, 190])

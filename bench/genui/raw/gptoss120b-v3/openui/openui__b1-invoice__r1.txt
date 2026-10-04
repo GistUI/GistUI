@@ -1,0 +1,5 @@
+root = Card([amountDue, dueDate, payActions])
+amountDue = TextContent("Amount Due: $1,250 USD", "large")
+dueDate = TextContent("Due Date: 2024-10-15", "default")
+payBtn = Button("Pay Now", null, "primary")
+payActions = Buttons([payBtn])

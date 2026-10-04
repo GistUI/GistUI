@@ -1,0 +1,36 @@
+root = Card(CardHeader("Hub Operations Desk", "Airline Hub: JFK"), onTimeToday, flightsTable, delayedFlights, gateChanges, crewsAvailable, weatherAdvisories, loadToday, connectionsAtRisk, rebookPassengers, hubSelector, cancellationsToday, turnaroundAvg)
+
+onTimeToday = Card(Heading("On-Time Performance Today", h3), TextContent("Today’s on-time percentage: 92% across all flights."), variant:card)
+
+flightsTable = Card(CardHeader("Today's Flights", "Number, Route, Gate, Status"), Table(flightsTableData))
+
+flightsTableData = |Flight|Route|Gate|Status
+|AA101|JFK-LAX|A12|On Time
+|DL205|JFK-ORD|B7|Delayed
+|UA330|JFK-SFO|C3|Boarding
+|EK202|JFK-DXB|D4|Cancelled
+
+delayedFlights = Card(Heading("Delayed Flights", h4), Table(delayedTable))
+
+delayedTable = |Flight|Route|Delay|Reason
+|DL205|JFK-ORD|1h 20m|Crew Availability
+
+gateChanges = Card(Heading("Recent Gate Changes", h4), TextContent("Gates updated for 12 flights in the last 2 hours."))
+
+crewsAvailable = Card(Heading("Crews Available for Reassignment", h4), ListBlock(ListItem("Crew A - B737 - 12 available"), ListItem("Crew B - A320 - 8 available")))
+
+weatherAdvisories = Card(Heading("Weather Advisories at Hub", h4), TextContent("Strong winds expected this afternoon; crosswind limits in effect."))
+
+loadToday = Card(Heading("Average Passenger Load Today", h4), TextContent("Average load factor: 87% across flights."))
+
+connectionsAtRisk = Card(Heading("Connections at Risk of Being Missed", h4), TextContent("15 connections at risk; notify connecting passengers."))
+
+rebookPassengers = Card(Heading("Rebook Affected Passengers", h4), DialogBlock("Rebook Passengers", "Rebooking Console", rebookContent, description:"Open to rebook scenarios")) 
+
+rebookContent = Card(Heading("Rebooking Console"), Form("rebook-form", Buttons(Button("Search Flights", primary)), FormControl("Passenger Name", Input("passenger_name", "")), FormControl("Original Flight", Input("flight", "")))) 
+
+hubSelector = Card(Heading("Change Hub / View Other Hubs", h4), Form("hub-select", Buttons(Button("Go", primary)), FormControl("Hub", Select("hub", SelectItem("JFK", "JFK"), SelectItem("LAX", "LAX")), placeholder:"Choose hub"))) 
+
+cancellationsToday = Card(Heading("Cancellations Today", h4), TextContent("Total cancellations: 3 today."))
+
+turnaroundAvg = Card(Heading("Average Turnaround Time", h4), TextContent("Average turnaround: 42 minutes."))

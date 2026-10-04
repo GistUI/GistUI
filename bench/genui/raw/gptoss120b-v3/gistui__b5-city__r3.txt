@@ -1,46 +1,94 @@
-root = Card(congestionSection, transitSection, airQualitySection, energySection, waterSection, incidentsSection, vehiclesSection, parkingSection, eventsSection, reportsSection, backlogSection, weatherSection, districtControl, dispatchDialog, alertDialog, roadworksSection, jobsSection, focusDialog, actions)
+root = Card(header, districtSelect, congestion, transit, airQuality, energyChart, waterUse, incidentsTable, vehiclesMap, parkingChart, eventsList, reportsFeed, backlogTable, weatherCard, roadworksTable, infraJobsTable, dispatchDialog, alertDialog)
 
-congestionSection = Card(CardHeader("Traffic Congestion", "Current status"), HorizontalBarChart(labels:["Downtown","Uptown","Midtown","Suburbs"], Series("Congestion", values:[78,55,62,40]), variant:grouped, xLabel:"Road", yLabel:"Congestion %"))
+header = CardHeader("City Operations Center", "Real‑time overview")
 
-transitSection = Card(CardHeader("Transit Punctuality", "Last 24h"), BarChart(labels:["Bus","Metro","Tram"], Series("On-time", values:[92,88,85]), variant:grouped, xLabel:"Mode", yLabel:"% On-time"))
+districtSelect = Form("district-focus", focusButtons, districtField)
+districtField = FormControl("District", Select("district", SelectItem("Downtown", "Downtown"), SelectItem("North", "North"), SelectItem("East", "East"), SelectItem("West", "West"), placeholder:"Select district"))
+focusButtons = Buttons(Button("Focus", primary))
 
-airQualitySection = Card(CardHeader("Air Quality by District", "PM2.5 μg/m³"), RadarChart(labels:["Downtown","Uptown","Midtown","Eastside","Westside"], Series("PM2.5", values:[35,28,30,22,40])))
+congestion = Card(CardHeader("Current Congestion"), HorizontalBarChart(congestionTable, grouped, xLabel:"Road", yLabel:"Delay (min)"))
+congestionTable = |Road|Delay
+|I‑5|12
+|Main St|8
+|Broadway|5
+|2nd Ave|3
 
-energySection = Card(CardHeader("Energy Use", "Past Week"), LineChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("kWh", values:[1200,1350,1280,1400,1500,1300,1250]), variant:linear, xLabel:"Day", yLabel:"kWh"))
+transit = Card(CardHeader("Transit Punctuality"), BarChart(transitTable, grouped, xLabel:"Line", yLabel:"On‑time %"))
+transitTable = |Line|OnTime%
+|Red|92
+|Blue|87
+|Green|95
 
-waterSection = Card(CardHeader("Water Use", "Today"), SingleStackedBarChart(labels:["Total"], values:[8500]), TextContent("Current consumption: 8,500 L"))
+airQuality = Card(CardHeader("Air Quality by District"), Table(airTable))
+airTable = |District|AQI
+|Downtown|78
+|North|45
+|East|62
+|West|55
 
-incidentsSection = Card(CardHeader("Open Incidents", "Location & Severity"), Table(Col("ID", data:["I102","I87","I54"], type:string), Col("Location", data:["5th Ave","Main St","River Rd"], type:string), Col("Severity", data:["High","Medium","Low"], type:string)))
+energyChart = Card(CardHeader("Energy Use (Last Week)"), LineChart(energyTable, linear, xLabel:"Day", yLabel:"MWh"))
+energyTable = |Day|Energy
+|Mon|1200
+|Tue|1150
+|Wed|1180
+|Thu|1220
+|Fri|1190
+|Sat|1100
+|Sun|1080
 
-vehiclesSection = Card(CardHeader("Emergency Vehicles Deployed"), Table(Col("Vehicle ID", data:["E-12","E-7","E-3"], type:string), Col("Type", data:["Ambulance","Fire Truck","Police Car"], type:string), Col("Location", data:["5th Ave","Central Park","Broadway"], type:string)))
+waterUse = Card(CardHeader("Water Use Today"), TextContent("Total: 3,450 kL", size:large))
 
-parkingSection = Card(CardHeader("Parking Availability Downtown"), TextContent("Available spots: 342 / 500", size:large))
+incidentsTable = Card(CardHeader("Open Incidents"), Table(incidentsData))
+incidentsData = |Location|Severity|Description
+|5th & Main|High|Gas leak
+|Elm St|Medium|Power outage
+|River Rd|Low|Street flooding
 
-eventsSection = Card(CardHeader("Public Events This Weekend"), ListBlock(ListItem("Music Festival", "Central Plaza", "Details", ["https://picsum.photos/seed/music/800/500"]), ListItem("Art Fair", "Riverfront", "Details", ["https://picsum.photos/seed/art/800/500"]), variant:number))
+vehiclesMap = Card(CardHeader("Emergency Vehicles Deployed"), TextContent("4 units active: 2 ambulances, 1 firetruck, 1 police car", size:default))
 
-reportsSection = Card(CardHeader("Citizen Reports (Live)"), Table(Col("Report ID", data:["R201","R202"], type:string), Col("Topic", data:["Pothole","Street Light"], type:string), Col("Status", data:["New","In Progress"], type:string)))
+parkingChart = Card(CardHeader("Downtown Parking Availability"), PieChart(parkingTable, donut, circular))
+parkingTable = |Status|Spots
+|Available|340
+|Occupied|560
+|Reserved|100
 
-backlogSection = Card(CardHeader("Service Request Backlog"), Table(Col("Request ID", data:["S301","S302","S303"], type:string), Col("Category", data:["Road Repair","Water Leak","Signal Failure"], type:string), Col("Age (days)", data:[12,7,3], type:number)))
+eventsList = Card(CardHeader("Public Events This Weekend"), ListBlock(event1, event2, event3, variant:number))
+event1 = ListItem("Farmers Market", "Sat 9 am–2 pm", "Details")
+event2 = ListItem("Jazz Concert", "Sat 6 pm–9 pm", "Details")
+event3 = ListItem("Art Walk", "Sun 10 am–4 pm", "Details")
 
-weatherSection = Card(CardHeader("Current Weather"), MarkDownRenderer("**Sunny**, 27°C, Light breeze", variant:clear))
+reportsFeed = Card(CardHeader("Live Citizen Reports"), Table(reportsData))
+reportsData = |Time|Report|Status
+|08:12|Pothole on 3rd St|New
+|08:45|Broken streetlight|In progress
+|09:05|Noise complaint|Resolved
 
-districtControl = Form("district-select", formButtons, districtSelect)
-districtSelect = Select("district", SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("Midtown","Midtown"), placeholder:"Select district")
-formButtons = Buttons(Button("Apply", primary))
+backlogTable = Card(CardHeader("Service Request Backlog"), Table(backlogData))
+backlogData = |Category|Open|AvgDays
+|Road repair|27|5
+|Trash collection|15|3
+|Graffiti removal|8|2
 
-dispatchDialog = DialogBlock("Dispatch Crew", "Dispatch Emergency Crew", TextContent("Select crew and location:"), Form("dispatch-form", dispatchButtons, crewSelect, locationInput), description:"Dispatch a crew to an incident", triggerVariant:primary)
-crewSelect = Select("crew", SelectItem("Team A","Team A"), SelectItem("Team B","Team B"), placeholder:"Choose crew")
-locationInput = Input("location", "Enter location", "", text)
+weatherCard = Card(CardHeader("Current Weather"), TextContent("Sunny, 78 °F, Light winds", size:default))
+
+roadworksTable = Card(CardHeader("Planned Roadworks (This Month)"), Table(roadworksData))
+roadworksData = |Street|Start|End|Impact
+|Maple Ave|2024‑10‑05|2024‑10‑12|Lane closure
+|Pine St|2024‑10‑15|2024‑10‑20|Detour
+
+infraJobsTable = Card(CardHeader("Infrastructure Maintenance Jobs Due"), Table(infraJobsData))
+infraJobsData = |Asset|Due Date|Priority
+|Water pump #3|2024‑10‑10|High
+|Traffic signal #12|2024‑10‑22|Medium
+|Sewer line #5|2024‑10‑30|Low
+
+dispatchDialog = DialogBlock("Dispatch Crew", "Dispatch Emergency Crew", dispatchForm, description:"Select crew and location", triggerVariant:secondary)
+dispatchForm = Form("dispatch", dispatchButtons, crewSelect, locationInput)
+crewSelect = FormControl("Crew", Select("crew", SelectItem("EMS", "EMS"), SelectItem("Fire", "Fire"), SelectItem("Police", "Police"), placeholder:"Choose crew"))
+locationInput = FormControl("Location", Input("location", "Enter address"))
 dispatchButtons = Buttons(Button("Send Dispatch", primary))
 
-alertDialog = DialogBlock("Send Alert", "Public Alert", TextContent("Compose alert message:"), Form("alert-form", alertButtons, alertMessage), description:"Broadcast a city-wide alert", triggerVariant:destructive)
-alertMessage = TextArea("alert", "Message...", "", 4)
-alertButtons = Buttons(Button("Send", primary), Button("Cancel", tertiary))
-
-roadworksSection = Card(CardHeader("Planned Roadworks This Month"), Table(Col("Project", data:["Main St Repave","5th Ave Bridge"], type:string), Col("Start", data:["2024-10-05","2024-10-12"], type:string), Col("End", data:["2024-10-20","2024-11-01"], type:string)))
-
-jobsSection = Card(CardHeader("Infrastructure Maintenance Jobs Due"), Table(Col("Asset", data:["Water Pump","Traffic Light"], type:string), Col("Due Date", data:["2024-10-15","2024-10-18"], type:string)))
-
-focusDialog = DialogBlock("Focus District", "District Focus", Select("focus-district", SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("Midtown","Midtown"), placeholder:"Choose district"), description:"Zoom into a specific district", triggerVariant:secondary)
-
-actions = Buttons(Button("Refresh Data"), Button("Export PDF", secondary))
+alertDialog = DialogBlock("Send Alert", "Public Alert", alertForm, description:"Compose message for citywide alert", triggerVariant:secondary)
+alertForm = Form("public-alert", alertButtons, messageInput)
+messageInput = FormControl("Message", TextArea("alert_msg", rows:4))
+alertButtons = Buttons(Button("Send Alert", primary))

@@ -1,22 +1,31 @@
-root = Card(header, statsSection, appointmentsSection, roomsSection, nextPatientSection, actionsSection)
-statsSection = Card(Heading("Stats", h3), expectedPatients, noShowRate)
-appointmentsSection = Card(Heading("Appointments", h3), appointmentsTable)
-roomsSection = Card(Heading("Free Rooms", h3), freeRoomsList)
-nextPatientSection = Card(Heading("Next Patient Called", h3), TextContent("**09:15 – Sarah Lee**"))
-actionsSection = Buttons(checkInBtn, prevDayBtn, nextDayBtn)
-header = CardHeader("Today's Clinic Schedule", "Reception Desk")
-expectedPatients = TextContent("**Expected patients today:** 24", size:large)
-noShowRate = TextCallout("No-show rate", "5% this month", warning)
-freeRoomsList = ListBlock(freeRoom1, freeRoom2, freeRoom3, variant:number)
-freeRoom1 = ListItem("Room 101")
-freeRoom2 = ListItem("Room 102")
-freeRoom3 = ListItem("Room 103")
+root = Card(CardHeader("Clinic Reception - Today"), appointmentsSection, statsSection, roomsSection, nextPatientCallout, actionsSection)
+
+appointmentsSection = Card(Heading("Today's Appointments", h3), Table(appointments))
+
+appointments = |Time|Patient
+|09:00|John Doe
+|09:30|Jane Smith
+|10:00|Bob Johnson
+
+statsSection = Card(Heading("Key Metrics", h3), expectedPatients, noShowRate)
+
+expectedPatients = TextCallout(title:"Expected Patients", description:"15 patients scheduled", variant:info)
+
+noShowRate = TextCallout(title:"No‑Show Rate (this month)", description:"12 %", variant:warning)
+
+roomsSection = Card(Heading("Room Availability", h3), Table(rooms))
+
+rooms = |Room|Status
+|101|Occupied
+|102|Free
+|103|Occupied
+
+nextPatientCallout = Callout(variant:info, title:"Next Patient Called", description:"09:00 – John Doe")
+
+actionsSection = Card(Heading("Actions", h3), Buttons(checkInBtn, prevDayBtn, nextDayBtn))
+
 checkInBtn = Button("Check In", primary)
+
 prevDayBtn = Button("Previous Day", secondary)
+
 nextDayBtn = Button("Next Day", secondary)
-appointmentsTable = |Time|Patient
-|08:00|John Doe
-|08:30|Jane Smith
-|09:00|Bob Johnson
-|09:30|Alice Brown
-|10:00|Mike Davis

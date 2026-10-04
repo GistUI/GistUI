@@ -1,35 +1,141 @@
-root = Card(salesSection, trafficSection, bestSellersSection, outOfStockSection, shiftSection, basketSection, returnsSection, promotionsSection, registersSection, reorderSection, storeSelectSection, comparisonSection)
+root = Card(
+    CardHeader("Store Dashboard", "Daily console"),
+    salesSection,
+    trafficSection,
+    bestSellersSection,
+    outOfStockSection,
+    shiftSection,
+    basketSection,
+    returnsSection,
+    promotionsSection,
+    registersSection,
+    actionsSection,
+    storeSelect
+)
 
-salesSection = Card(CardHeader("Sales Today", "Target vs Actual"), HorizontalBarChart(labels:["Sales"], Series("Today", values:[12000]), Series("Target", values:[15000]), variant:grouped, xLabel:"Amount ($)", yLabel:"", wrap))
+salesSection = Card(
+    Heading("Sales Today vs Target", h3),
+    Table(salesTodayTable),
+    BarChart(salesTodayTable, variant:grouped, xLabel:"Metric", yLabel:"USD")
+)
 
-trafficSection = Card(CardHeader("Foot Traffic", "Hourly count"), LineChart(labels:["8am","10am","12pm","2pm","4pm","6pm","8pm"], Series("Visitors", values:[45,78,120,95,80,60,30]), variant:linear, xLabel:"Time", yLabel:"Visitors", wrap))
+salesTodayTable = |Metric|Value
+|Sales|12500
+|Target|15000
 
-bestSellersSection = Card(CardHeader("Best Sellers", "Units sold"), Table(Col("Item", data:["T-Shirt","Jeans","Sneakers"], type:string), Col("Units", data:[120,85,60], type:number), wrap))
+trafficSection = Card(
+    Heading("Foot Traffic", h3),
+    LineChart(trafficTable, variant:linear, xLabel:"Hour", yLabel:"Visitors")
+)
 
-outOfStockSection = Card(CardHeader("Out of Stock Items"), Table(Col("Item", data:["Hat","Socks"], type:string), Col("Last Stocked", data:["2024-09-20","2024-09-18"], type:string), wrap))
+trafficTable = |Hour|Visitors
+|08:00|45
+|09:00|78
+|10:00|120
+|11:00|150
+|12:00|200
+|13:00|180
+|14:00|160
+|15:00|140
+|16:00|130
+|17:00|110
+|18:00|90
+|19:00|60
 
-shiftSection = Card(CardHeader("On‑Shift Staff"), ListBlock(ListItem("Alice Johnson", "Cashier"), ListItem("Bob Lee", "Floor Manager"), ListItem("Cara Patel", "Stock Associate"), variant:number, wrap))
+bestSellersSection = Card(
+    Heading("Best Sellers", h3),
+    Table(bestSellersTable)
+)
 
-basketSection = Card(CardHeader("Average Basket Size"), TextCallout("Average basket size today: $45.20", variant:info, wrap))
+bestSellersTable = |Item|Units
+|Blue Jeans|34
+|White T‑Shirt|29
+|Sneakers|22
+|Backpack|19
 
-returnsSection = Card(CardHeader("Returns This Week"), Callout(variant:warning, title:"Returns", description:"$1,200 returned across 15 transactions", wrap))
+outOfStockSection = Card(
+    Heading("Out of Stock", h3),
+    Table(outOfStockTable)
+)
 
-promotionsSection = Card(CardHeader("Running Promotions"), Table(Col("Promotion", data:["Buy 1 Get 1 Free","20% Off Jackets"], type:string), Col("Sales", data:[3400,2100], type:number), Col("Units Sold", data:[200,150], type:number), wrap))
+outOfStockTable = |Item|SKU
+|Leather Jacket|LJ-001
+|Winter Coat|WC-023
 
-registersSection = Card(CardHeader("Register Status"), Table(Col("Register", data:["Reg‑1","Reg‑2","Reg‑3"], type:string), Col("Open", data:["Yes","No","Yes"], type:string), wrap))
+shiftSection = Card(
+    Heading("On Shift Today", h3),
+    Table(shiftTable)
+)
 
-reorderSection = Card(CardHeader("Reorder Item"), Form("reorder", reorderButtons, reorderItemField, reorderQtyField))
+shiftTable = |Employee|Role
+|Alice|Cashier
+|Bob|Floor Manager
+|Cara|Stock Associate
 
-reorderItemField = FormControl("Item SKU", Select("item_sku", SelectItem("TSHIRT001","T‑Shirt"), SelectItem("JEANS002","Jeans"), SelectItem("SNKRS003","Sneakers"), placeholder:"Select SKU", value:""))
+basketSection = Card(
+    Heading("Average Basket Size", h3),
+    TextContent("Average basket: $45.20", size:large)
+)
 
-reorderQtyField = FormControl("Quantity", Input("quantity", "Enter quantity", type:number))
+returnsSection = Card(
+    Heading("Returns This Week", h3),
+    Table(returnsTable)
+)
 
-reorderButtons = Buttons(Button("Submit", primary), Button("Cancel", secondary))
+returnsTable = |Day|Returns
+|Mon|2
+|Tue|1
+|Wed|3
+|Thu|0
+|Fri|4
+|Sat|1
+|Sun|2
 
-storeSelectSection = Card(CardHeader("Select Store"), Form("storeSelect", storeSelectButtons, storeSelectField))
+promotionsSection = Card(
+    Heading("Running Promotions", h3),
+    Table(promotionsTable)
+)
 
-storeSelectField = FormControl("Store", Select("store_id", SelectItem("001","Downtown"), SelectItem("002","Uptown"), SelectItem("003","Suburb"), placeholder:"Choose store", value:"001"))
+promotionsTable = |Promotion|Sales|Target
+|Spring Sale|8200|10000
+|Clearance|4500|5000
 
-storeSelectButtons = Buttons(Button("Switch", primary))
+registersSection = Card(
+    Heading("Register Status", h3),
+    Table(registersTable)
+)
 
-comparisonSection = Card(CardHeader("Weekly Comparison"), BarChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("This Week", values:[800,950,1100,1200,1300,1250,900]), Series("Last Week", values:[750,900,1050,1150,1250,1200,850]), variant:grouped, xLabel:"Day", yLabel:"Sales ($)", wrap)
+registersTable = |Register|Status
+|Reg 1|Open
+|Reg 2|Closed
+|Reg 3|Open
+|Reg 4|Closed
+
+actionsSection = Card(
+    Heading("Reorder Items", h3),
+    Buttons(
+        Button("Reorder Blue Jeans", primary),
+        Button("Reorder White T‑Shirt", primary),
+        Button("Reorder Sneakers", primary)
+    )
+)
+
+storeSelect = Card(
+    Heading("Select Store", h3),
+    Form(
+        "store-switch",
+        Buttons(Button("Switch", primary)),
+        storeField
+    )
+)
+
+storeField = FormControl(
+    "Store",
+    Select(
+        "store_id",
+        SelectItem("001", "Main Street"),
+        SelectItem("002", "Mall Plaza"),
+        SelectItem("003", "Airport"),
+        placeholder:"Choose store"
+    )
+)

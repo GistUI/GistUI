@@ -1,0 +1,70 @@
+root = Card(CardHeader("Creator Studio", "Cross-platform dashboard"), sectionTabs, followerPanel, engagementPanel, bestPostsPanel, audiencePanel, schedulePanel, bestHourPanel, commentsPanel, earningsPanel, collaborationsPanel, schedulePostPanel, platformFilter)
+
+sectionTabs = Tabs(TabItem("overview", "Overview", followerPanel, engagementPanel, bestPostsPanel, audiencePanel), TabItem("scheduling", "Scheduling", schedulePanel, schedulePostPanel), TabItem("settings", "Settings", platformFilter))
+
+followerPanel = Card(Heading("Followers", h3), TextContent("Total: 12,345\nGrowth last 30 days: +4.2%", default), LineChart(followerTable, natural, xLabel:"Date", yLabel:"Followers"))
+
+followerTable = |Date|Followers
+|2026-08-01|12340
+|2026-08-15|12450
+|2026-08-31|12345
+
+engagementPanel = Card(Heading("Engagement", h3), TextContent("Engagement rate: 4.8%"), BarChart(engagementTable, grouped, xLabel:"Metric", yLabel:"Rate"))
+
+engagementTable = |Metric|Value
+|Likes|2.1%
+|Comments|1.2%
+|Saves|1.5%
+
+bestPostsPanel = Card(Heading("Best posts this month", h3), Table(bestPostsTable), RadarChart(bestPostsTable))
+
+bestPostsTable = |Post|Reach
+|Post A|12000
+|Post B|9800
+|Post C|8600
+
+audiencePanel = Card(Heading("Audience by platform", h3), PieChart(audienceTable, donut), TagBlock(["Instagram","TikTok","YouTube"]))
+
+audienceTable = |Platform|Share
+|Instagram|52%
+|TikTok|32%
+|YouTube|16%
+
+schedulePanel = Card(Heading("Posts scheduled this week", h3), Table(scheduledTable))
+
+scheduledTable = |Post|Scheduled
+|Launch teaser|Mon 10:00
+|Behind the scenes|Wed 14:00
+|Q&A session|Fri 18:00
+
+bestHourPanel = Card(Heading("Best hour to post", h3), TextContent("Based on history: 18:00 shows highest engagement."))
+
+commentsPanel = Card(Heading("Comments waiting for a reply", h3), Table(commentsTable))
+
+commentsTable = |Comment|Author|Posted
+|Nice work!|fan123|2026-09-28 09:15
+|Love this!|user77|2026-09-29 11:42
+
+earningsPanel = Card(Heading("Earnings this month", h3), TextContent("$3,420.75"), BarChart(earningsTable, stacked, xLabel:"Week", yLabel:"USD"))
+
+earningsTable = |Week|Revenue
+|W1|980
+|W2|1250
+|W3|1190
+|W4|0
+
+collaborationsPanel = Card(Heading("Pending collaboration requests", h3), ListBlock(ListItem("Brand A: Hoodie collab", "Pending review", "Respond", ["https://example.com"],)), ListBlock(ListItem("Brand B: Live event", "Awaiting approval", "Open", ["https://example.com"],)))
+
+schedulePostPanel = Card(Heading("Schedule a post", h3), Form("schedule-post", buttons, captionField, timeField, platformField), captionField, timeField, platformField)
+
+buttons = Buttons(Button("Schedule Post", primary), Button("Cancel", tertiary))
+
+captionField = FormControl("Caption", TextArea("caption", "What's on your mind?", "We love your audience!"),)
+
+timeField = FormControl("Post time", Input("time", "2026-10-07T15:00:00"),)
+
+platformField = FormControl("Platform", Select("platform", SelectItem("Instagram", "Instagram"), SelectItem("TikTok", "TikTok"), SelectItem("YouTube", "YouTube"), placeholder:"Choose platform"))
+
+PlatformFilter = Card(Heading("Filter by platform", h4), Select("platform-filter", SelectItem("All", "all"), SelectItem("Instagram", "instagram"), SelectItem("TikTok", "tiktok"), SelectItem("YouTube", "youtube"), value:"all"))
+
+root = Card(CardHeader("Creator Studio", "Cross-platform dashboard"), sectionTabs, followerPanel, engagementPanel, bestPostsPanel, audiencePanel, schedulePanel, bestHourPanel, commentsPanel, earningsPanel, collaborationsPanel, schedulePostPanel, PlatformFilter)

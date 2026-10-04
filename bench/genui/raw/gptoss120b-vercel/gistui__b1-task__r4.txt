@@ -1,6 +1,0 @@
-root = Card(taskCard)
-taskCard = Card(taskHeader, deadlineTag, statusTag, doneButtons)
-taskHeader = TextContent("**Urgent Task:** Finish quarterly report", size:large)
-deadlineTag = Tag("Due: Sep 30", variant:warning)
-statusTag = Tag("Status: In Progress", variant:info)
-doneButtons = Buttons(Button("Mark as Done", primary))

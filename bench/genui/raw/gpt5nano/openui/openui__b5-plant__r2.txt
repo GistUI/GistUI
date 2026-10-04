@@ -1,0 +1,168 @@
+root = Card([
+  header = CardHeader("Factory Floor Supervisor Console", "Live production overview"),
+  mainGrid
+  ])
+
+header
+mainGrid = Card([
+  leftColumn,
+  rightColumn
+], "card")
+
+# 1 Overall Equipment Effectiveness (OEE)
+oeeCard = Card([
+  Heading("Overall Equipment Effectiveness", "h3"),
+  TextContent("OEE: 74.2% • Availability 92% • Performance 81% • Quality 88%", "default"),
+  Separator("horizontal")
+])
+
+# 2 Today's production vs target
+todaysProductionCard = Card([
+  Heading("Today's Production vs Target", "h3"),
+  BarChart(["Target","Actual"], [Series("Production", [1000, 940])], "grouped", "Metric", "Units"),
+  TextContent("Target: 1000 units • Actual: 940 units", "default")
+])
+
+# 3 Production lines status
+linesHeader = Heading("Production Lines Status", "h3")
+lineA = Card([TextContent("Line A - Rate: 210 units/hr • Status: Running"), Tag("Running", "🟢", "md", "info")])
+lineB = Card([TextContent("Line B - Rate: 180 units/hr • Status: Paused"), Tag("Paused", "🔻", "md", "warning")])
+lineC = Card([TextContent("Line C - Rate: 195 units/hr • Status: Running"), Tag("Running", "🟢", "md", "info")])
+linesSection = Card([linesHeader, lineA, lineB, lineC])
+
+# 4 Defect rate over past month
+defectChart = LineChart([ "Day-29","Day-28","Day-27","Day-26","Day-25","Day-24","Day-23","Day-22","Day-21","Day-20","Day-19","Day-18","Day-17","Day-16","Day-15","Day-14","Day-13","Day-12","Day-11","Day-10","Day-9","Day-8","Day-7","Day-6","Day-5","Day-4","Day-3","Day-2","Day-1","Today" ],
+  [ Series("DefectRate", [1.2,1.1,1.0,1.3,1.4,1.0,0.9,1.1,1.2,1.3,1.2,1.0,0.8,0.9,1.0,1.1,1.3,1.2,1.0,0.9,1.1,1.2,1.5,1.4,1.3,1.2,1.1,1.0,1.0,0.9,0.95]) ) ],
+  "natural", "Day", "Defect Rate (%)")
+
+# 5 Downtime by cause
+downtimePie = PieChart(["Power","Maintenance","Tooling","Set-up","Other"], [ "35","15","20","18","12" ], "donut", "circular")
+downtimeCard = Card([Heading("Downtime by Cause", "h3"), downtimePie])
+
+# 6 Machines due for maintenance
+maintDueList = ListBlock([
+  ListItem("Press #3", "Due in 2 days", ["https://picsum.photos/seed/press3/40/40"]),
+  ListItem("Cutter #7", "Overdue 1 day", ["https://picsum.photos/seed/cutter7/40/40"]),
+  ListItem("Wrench-9 Conveyor", "Due in 4 days", ["https://picsum.photos/seed/conveyor9/40/40"])
+], "image")
+
+# 7 Stock levels
+stockCard = Card([
+  Heading("Stock Levels", "h3"),
+  Table([
+    Col("Item", ["Steel", "Resin", "Packaging"], "string"),
+    Col("Stock", ["1250 kg", "320 kg", "860 units"], "string"),
+  ])
+])
+
+# 8 Supplier deliveries due this week
+deliveriesList = ListBlock([
+  ListItem("Steel Co", "Mon, Tue deliveries due", ["https://picsum.photos/seed/steelco/40/40"]),
+  ListItem("Resin Ltd", "Wed delivery due", ["https://picsum.photos/seed/resinlt/40/40"]),
+  ListItem("Packaging Inc", "Thu delivery due", ["https://picsum.photos/seed/packaging/40/40"])
+], "image")
+
+# 9 Each shift's output comparison
+shiftChart = BarChart(["Shift 1","Shift 2","Shift 3"], [Series("Output", [520, 610, 580]), Series("Target", [600, 600, 600])], "grouped", "Shift", "Units")
+shiftCompareCard = Card([Heading("Shifts Output vs Target", "h3"), shiftChart])
+
+# 10 Safety incidents this year and days since last
+safetyIncidents = Card([
+  Heading("Safety Incidents (This Year)", "h3"),
+  TextContent("Total incidents: 3", "default"),
+  BarChart(["Q1","Q2","Q3","Q4"], [Series("Incidents", [1,0,1,1])], "linear", "Quarter", "Incidents"),
+  TextContent("Days since last incident: 28", "default")
+])
+
+# 11 Batches on quality hold
+qualityHoldList = ListBlock([
+  ListItem("Batch #Q-4821", "Hold: Dimensional issue", ["https://picsum.photos/seed/qa1/40/40"]),
+  ListItem("Batch #Q-4824", "Hold: Material defect", ["https://picsum.photos/seed/qa2/40/40"])
+], "image")
+
+# 12 Energy use today
+energyCard = Card([
+  Heading("Energy Use Today", "h3"),
+  LineChart(["00:00","04:00","08:00","12:00","16:00","20:00","24:00"], [Series("Energy", [120, 210, 180, 240, 300, 260, 190])], "linear", "Hour", "kWh"),
+  TextContent("Total today: 1300 kWh", "default")
+])
+
+# 13 Open work orders with priority per area
+workOrdersTable = Table([
+  Col("Area", ["Line A","Line B","Maintenance","Logistics"], "string"),
+  Col("Open WO", ["WO-1024","WO-1025","WO-1030","WO-1032"], "string"),
+  Col("Priority", ["High","Medium","Urgent","Low"], "string")
+])
+
+# 14 Schedule maintenance form
+scheduleCard = Card([
+  Heading("Schedule Maintenance", "h3"),
+  Form("schedule-maint", Buttons([Button("Submit")]), [
+    FormControl("Machine", Input("machine", "Line A - Press #3")),
+    FormControl("Date", DatePicker("scheduleDate")),
+    FormControl("Description", TextArea("scheduleDesc", "Describe maintenance scope"))
+  ])
+])
+
+# 15 Focus on one line
+focusLineCard = Card([
+  Heading("Focus on One Line", "h3"),
+  TextContent("Choose a line to zoom into its metrics and live status.", "default"),
+  Select("focusLine", [SelectItem("Line A","Line A"), SelectItem("Line B","Line B"), SelectItem("Line C","Line C")], "Select line")
+])
+
+# 16 Live andon alerts
+andonCard = Card([
+  Heading("Live Andon Alerts", "h3"),
+  ListBlock([
+    ListItem("Line B - Alarm", "Stall in spindle", ["https://picsum.photos/seed/andon1/40/40"]),
+    ListItem("Line C - Lightning fast restart", "Solved", ["https://picsum.photos/seed/andon2/40/40"])
+  ], "image")
+])
+
+# 17 Export shift report
+exportButton = Button("Export Shift Report", null, "primary")
+
+# Assemble the grid sections into the UI
+leftColumn = Card([
+  oeeCard,
+  tod
+  ])
+# Corrected composite items for left/right placement
+tod = Card([todaysProductionCard, qualityHoldList], "card")
+
+rightColumn = Card([
+  oeeCard,  # reuse in both columns if desired
+  linesSection,
+  defectChart,
+  downtimeCard,
+  maintDueList,
+  stockCard,
+  deliveriesList,
+  shiftCompareCard,
+  safetyIncidents,
+  qualityHoldList,
+  energyCard
+])
+
+#  Note: The following additional components are included in a single screen layout.
+#  12-17 are included above; 1-11 are covered in the aggregates and cards defined.
+
+# Final screen composition
+screen = Card([
+  header,
+  Card([ oeeCard, todaysProductionCard, linesSection, defectChart, downtimeCard ]),
+  Card([ maintDueList, stockCard, deliveriesList ]),
+  Card([ shiftCompareCard, safetyIncidents, qualityHoldList ]),
+  energyCard,
+  Card([ Table([ Col("Open WOs", ["WO-1024","WO-1025","WO-1030","WO-1032"], "string") ]) ]),
+  scheduleCard,
+  focusLineCard,
+  andonCard,
+  Card([ Button("Export Shift Report") ])
+])
+
+root = Card([
+  header,
+  screen
+])

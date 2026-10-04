@@ -1,0 +1,3 @@
+root = Card(CardHeader("Platform Status", "Current month uptime and incident summary"), uptimeCard, incidentCard)
+uptimeCard = Card(Heading("API uptime this month", h3), TextContent("API uptime: 99.97% for the current month"), sunk)
+incidentCard = Card(Heading("Most recent incident", h3), Paragraph("Resolved on 2026-09-xx. Brief note here."))

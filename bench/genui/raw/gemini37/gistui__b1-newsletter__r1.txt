@@ -1,5 +1,0 @@
-root = Card(CardHeader("The Product Weekly", "Join 15,000+ builders getting our weekly digest"), summary, subscribeForm, gap:l)
-summary = TextContent("Every Thursday, you'll receive a curated breakdown of top product teardowns, design patterns, and growth case studies directly in your inbox.", size:default)
-subscribeForm = Form("newsletter_signup", formActions, emailControl)
-emailControl = FormControl("Email address", Input("email", "you@company.com", type:email), hint:"No spam, unsubscribe anytime in one click.")
-formActions = Buttons(Button("Subscribe", variant:primary))

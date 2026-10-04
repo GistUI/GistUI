@@ -1,0 +1,48 @@
+root = Card([
+  header = CardHeader("Clinic Day View", "Today’s schedule"),
+  grid = Card([
+    leftColumn = Card([
+      CardHeader("Today's Appointments", null),
+      apptList = SectionBlock([
+        SectionItem("appt1", "Morning Appointments", [Heading("Order of arrivals", "h4"), TextContent("09:00 — John Doe"), TextContent("09:30 — Jane Smith"), TextContent("10:15 — Carlos Lee")]),
+        SectionItem("appt2", "Upcoming", [TextContent("10:45 — Mia Patel"), TextContent("11:20 — Alex Kim")])
+      ]),
+      Separator("horizontal")
+    ]),
+    rightColumn = Card([
+      CardHeader("Overview", null),
+      stats = ListBlock([
+        ListItem("Appointments today", "Total scheduled for today", null, "View"),
+        ListItem("No-show rate (this month)", "Projected from current trend", null, "Details"),
+        ListItem("Free rooms right now", null, ["https://picsum.photos/seed/rooms/40/40"], "More")
+      ], "number"),
+      Separator("horizontal"),
+      noShow = Card([
+        Heading("No-show rate (this month)", "h3"),
+        TextContent("No-shows: 4 of 62 appointments", "default")
+      ]),
+      nextCalled = Card([
+        CardHeader("Next patient called out", null),
+        TextContent("11:20 — Michael Chen", "large")
+      ])
+    ], null, "column", "s")
+  ], "card")
+  ,
+  controlsRow = Card([
+    Heading("Check-in & Day Navigation", "h3"),
+    inOutRow = Card([
+      inCard = Card([
+        CardHeader("Check-in Patient", null),
+        inputRow = Form("checkin", Buttons([Button("Check-in", null, "primary")]), [
+          FormControl("Patient ID", Input("patient_id", "Enter or scan ID"), "Scan an ID to check in")
+        ])
+      ], "card"),
+      dayNav = Card([
+        CardHeader("Move to another day", null),
+        Button("Previous Day", null, "secondary"),
+        Button("Next Day", null, "secondary"),
+        Button("Today", null, "secondary")
+      ])
+    ], "row")
+  ], "card")
+])

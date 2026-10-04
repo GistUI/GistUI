@@ -2,6 +2,27 @@
 
 All packages are released together, with one version.
 
+## 0.2.0
+
+- **A stronger autofix** (`@gistui/core`). It now keeps more of what the model wrote:
+  - a table written inside a call (`Table(|A|B|, |1|2|)`, or rows joined by a literal `\n`) moves to its
+    own statement with every row, instead of being lost or read as one long row;
+  - a data table nobody used is shown in a `Table` on the root instead of being deleted;
+  - unused sections that only mention each other in text (a section and its table) are placed; before,
+    neither was;
+  - a reference that misses a statement by case or one letter (`MetricsRow`, `incidentsTable`) points at
+    it; a component named without `()` is called; curly quotes are read as quotes.
+
+  On 1,159 saved answers from four models, 99.2% are valid after repair; gpt-5-nano goes from 96.7% to
+  98.4%.
+- **Prompt:** a list prop with no item type prints as `[…]` instead of `list`, so models no longer copy
+  the word `list` into their answers.
+- **Agent skill:** two more rules (quoted text arguments, enum values from each component's own signature).
+- **Benchmarks:** gpt-5-nano added next to gpt-oss-120b, with the OpenUI answers for both in
+  `bench/genui/raw`. The runner can generate OpenUI answers (`BENCH_FORMAT=openui`) and keep to a
+  provider's rate limit (`BENCH_RPM`, `BENCH_GATEWAY_PROVIDERS`). New: `bench/render`, rendering speed in
+  Chrome against OpenUI.
+
 ## 0.1.0
 
 First release.

@@ -1,62 +1,95 @@
-root = Card(header, periodForm, mrrSection, arrSection, churnSection, signupsSection, planPie, topCustomersTable, riskTable, failedPaymentsTable, featureAdoptionChart, npsCallout, seatUtilChart, inviteAdminForm, followUps)
+root = Card(CardHeader("Admin Overview"), periodForm, mrrCard, arrCard, churnCard, signupsChart, planPie, topCustomersTable, riskTable, failedPaymentsTable, featureAdoptionChart, npsCard, seatUtilChart, inviteForm)
 
-header = CardHeader("Admin Overview", "Key SaaS metrics")
-
-periodForm = Form("report-period", periodButtons, periodSelect)
-periodSelect = Select("period", SelectItem("last_30_days","Last 30 days"), SelectItem("last_90_days","Last 90 days"), SelectItem("year_to_date","Year to date"), placeholder:"Select period")
+periodForm = Form("reporting-period", periodButtons, periodSelect)
+periodSelect = Select("period", SelectItem("last_30", "Last 30 days"), SelectItem("last_90", "Last 90 days"), SelectItem("year_to_date", "Year to date"), placeholder:"Select period")
 periodButtons = Buttons(Button("Apply", primary))
 
-mrrSection = Card(Heading("Monthly Recurring Revenue (MRR)", h3), TextContent("$1.2M", size:large), sunk)
-arrSection = Card(Heading("Annual Recurring Revenue (ARR)", h3), TextContent("$14.4M", size:large), sunk)
-churnSection = Card(Heading("Churn This Month", h3), TextContent("2.3%", size:large), sunk)
-signupsSection = Card(Heading("New Signups (90 days)", h3), BarChart(signupsData, grouped, xLabel:"Date", yLabel:"Signups"), sunk)
+mrrCard = Card(Heading("Monthly Recurring Revenue", h3), Table(mrrTable), BarChart(mrrTable, variant:grouped, xLabel:"Month", yLabel:"Revenue"))
+mrrTable = |Month|MRR
+|Jan|120000
+|Feb|125000
+|Mar|130000
+|Apr|135000
+|May|140000
+|Jun|145000
 
-signupsData = |Date|Signups
-|2023-06-01|45
-|2023-07-01|52
-|2023-08-01|48
-|2023-09-01|60
-|2023-10-01|55
-|2023-11-01|58
-|2023-12-01|62
-|2024-01-01|70
-|2024-02-01|68
-|2024-03-01|73
+arrCard = Card(Heading("Annual Recurring Revenue", h3), Table(arrTable), LineChart(arrTable, variant:linear, xLabel:"Year", yLabel:"ARR"))
+arrTable = |Year|ARR
+|2021|1500000
+|2022|1650000
+|2023|1800000
 
-planPie = Card(Heading("Customers by Plan", h3), PieChart(planLabels, planValues, donut), sunk)
-planLabels = ["Free","Pro","Enterprise"]
-planValues = [1200, 340, 80]
+churnCard = Card(Heading("Churn This Month", h3), Table(churnTable), HorizontalBarChart(churnTable, variant:grouped, xLabel:"Customer", yLabel:"Churn %"))
+churnTable = |Customer|Churn%
+|Acme Corp|5
+|Beta Ltd|3
+|Gamma Inc|4
 
-topCustomersTable = Card(Heading("Top 10 Customers", h3), Table(colCustomer, colSeats, colSpend), sunk)
-colCustomer = Col("Customer", data:["Acme Corp","Beta Ltd","Gamma Inc","Delta LLC","Epsilon Co","Zeta Group","Eta Ventures","Theta Solutions","Iota Systems","Kappa Enterprises"], type:string)
-colSeats = Col("Seats", data:[250,200,180,150,140,130,120,110,100,95], type:number)
-colSpend = Col("Spend", data:["$250k","$200k","$180k","$150k","$140k","$130k","$120k","$110k","$100k","$95k"], type:string)
+signupsChart = Card(Heading("New Signups (90 days)", h3), BarChart(signupsTable, variant:grouped, xLabel:"Date", yLabel:"Signups"))
+signupsTable = |Date|Signups
+|2023-07-01|15
+|2023-07-08|20
+|2023-07-15|18
+|2023-07-22|22
+|2023-07-29|19
+|2023-08-05|25
+|2023-08-12|23
+|2023-08-19|27
+|2023-08-26|30
+|2023-09-02|28
+|2023-09-09|32
+|2023-09-16|35
+|2023-09-23|33
+|2023-09-30|38
 
-riskTable = Card(Heading("Accounts At Risk", h3), Table(colRiskCustomer, colReason), sunk)
-colRiskCustomer = Col("Customer", data:["Omega Corp","Sigma Ltd"], type:string)
-colReason = Col("Reason", data:["Low usage","High churn risk"], type:string)
+planPie = Card(Heading("Customers by Plan", h3), PieChart(planTable, variant:donut, appearance:circular))
+planTable = |Plan|Customers
+|Free|1200
+|Pro|800
+|Enterprise|200
 
-failedPaymentsTable = Card(Heading("Failed Payments", h3), Table(colFailCustomer, colAmount, colRetry), sunk)
-colFailCustomer = Col("Customer", data:["Acme Corp","Beta Ltd"], type:string)
-colAmount = Col("Amount", data:["$5,000","$3,200"], type:string)
-colRetry = Col("Retry", data:[Button("Retry", primary), Button("Retry", primary)], type:action)
+topCustomersTable = Card(Heading("Top 10 Customers", h3), Table(topCustomers))
+topCustomers = |Customer|Seats|Spend
+|GlobalTech|500|$250,000
+|InnovateX|450|$225,000
+|AlphaSystems|400|$200,000
+|BetaSolutions|380|$190,000
+|GammaEnterprises|360|$180,000
+|DeltaCorp|340|$170,000
+|EpsilonLtd|320|$160,000
+|ZetaGroup|300|$150,000
+|EtaHoldings|280|$140,000
+|ThetaInc|260|$130,000
 
-featureAdoptionChart = Card(Heading("Adoption of New Features", h3), HorizontalBarChart(featureLabels, featureSeries, stacked, xLabel:"Adoption %", yLabel:"Feature"), sunk)
-featureLabels = ["Feature A","Feature B","Feature C"]
-featureSeries = Series("Adoption", values:[45,30,20])
+riskTable = Card(Heading("Accounts at Risk", h3), Table(risk))
+risk = |Customer|Reason
+|Acme Corp|Low usage
+|Beta Ltd|High support tickets
+|Gamma Inc|Payment failures
+|DeltaCo|Contract renewal overdue
 
-npsCallout = CardCallout(variant:info, "NPS", "Current NPS: 68")
+failedPaymentsTable = Card(Heading("Failed Payments", h3), Table(failedPayments))
+failedPayments = |Customer|Amount|Reason|Action
+|Acme Corp|$1,200|Card declined|Retry
+|Beta Ltd|$800|Insufficient funds|Retry
+|Gamma Inc|$1,500|Expired card|Retry
 
-seatUtilChart = Card(Heading("Seat Utilization", h3), BarChart(seatUtilData, grouped, xLabel:"Department", yLabel:"Utilization %"), sunk)
-seatUtilData = |Department|Utilization
+featureAdoptionChart = Card(Heading("Adoption of New Features", h3), BarChart(featureTable, variant:grouped, xLabel:"Feature", yLabel:"Adoption %"))
+featureTable = |Feature|Adoption%
+|Feature A|45
+|Feature B|30
+|Feature C|25
+
+npsCard = Card(Heading("Current NPS", h3), TextContent("**+62**", size:large-heavy))
+
+seatUtilChart = Card(Heading("Seat Utilization", h3), HorizontalBarChart(seatUtilTable, variant:grouped, xLabel:"Department", yLabel:"Utilization %"))
+seatUtilTable = |Department|Utilization%
 |Engineering|85
 |Sales|70
-|Marketing|60
-|Support|75
-|HR|50
+|Marketing|65
+|Support|80
+|HR|60
 
-inviteAdminForm = Form("invite-admin", inviteButtons, emailField)
-emailField = FormControl("Admin Email", Input("admin_email", "admin@example.com", type:email))
+inviteForm = Card(Heading("Invite Another Admin", h3), Form("invite-admin", inviteButtons, emailField))
+emailField = FormControl("Admin email", Input("admin_email", "email@example.com", type:email))
 inviteButtons = Buttons(Button("Send Invite", primary))
-
-followUps = FollowUpBlock(FollowUpItem("View detailed report"), FollowUpItem("Export data"))

@@ -1,0 +1,87 @@
+root = Card([
+  header = CardHeader("Store Manager Daily Console", "Today’s overview • Store: Northwest Ave"),
+  grid = Card([], "card") /* container for sections, will fill with sections below in order */
+])
+
+storeHeader = CardHeader("Store Overview", null)
+storeSelector = Button("Switch store", null, "secondary")
+reorderSection = Card([Heading("Reorder an item", "h3"), reorderTable], "card")
+reorderTable = Table([Col("Item", ["Broom","Detergent","Shelf Label"]), Col("SKU", ["BR-01","DT-02","SL-03"]), Col("Stock", ["2","0","15"])])
+openStores = Card([Heading("View different store", "h3"), Button("Select store", null, "primary")], "card")
+
+salesCard = Card([
+  Heading("Sales today", "h3"),
+  TextContent("Today: $4,320 of $5,000 target", "default"),
+  Progress(86, "Progress to target")
+], "card")
+
+footTrafficCard = Card([
+  Heading("Foot traffic by hour", "h3"),
+  BarChart(["9","10","11","12","13","14","15","16","17"], [Series("Foot Traffic", [12, 18, 25, 34, 28, 40, 22, 18, 15])], "linear", "Hour", "People")
+], "card")
+
+bestSellersCard = Card([
+  Heading("Best sellers (units)", "h3"),
+  Table([Col("Item", ["Widget A","Gadget B","Thingamajig C"]), Col("Units", [120, 95, 70])])
+], "card")
+
+stockOutCard = Card([
+  Heading("Items out of stock", "h3"),
+  ListBlock([
+    ListItem("Widget Z", "Expected restock: Thu", null),
+    ListItem("Gizmo Y", "Backorder available", null)
+  ])
+], "card")
+
+shiftCard = Card([
+  Heading("Who is on shift today", "h3"),
+  TagBlock(["Alex–Morning","Priya–Afternoon","Luis–Evening"])
+], "card")
+
+avgBasketCard = Card([
+  Heading("Average basket size", "h3"),
+  TextContent("Average: $42.75 per sale", "default")
+], "card")
+
+returnsCard = Card([
+  Heading("Returns this week", "h3"),
+  LineChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], [Series("Returns", [2,1,0,3,2,1,0])], "linear", "Day", "Items")
+], "card")
+
+promotionsCard = Card([
+  Heading("Promotions performance", "h3"),
+  Table([Col("Promotion", ["Holiday Sale","Clearance","BOGO"]), Col("Sales", ["$1,200","$760","$540"])])
+], "card")
+
+registersCard = Card([
+  Heading("Registers & Status", "h3"),
+  Table([Col("Register", ["Reg 1","Reg 2","Reg 3"]), Col("Open", ["Yes","No","Yes"])])
+], "card")
+
+viewWeeklyCard = Card([
+  Heading("This week vs last week", "h3"),
+  LineChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], [Series("This Week", [520, 610, 700, 690, 720, 810, 860]), Series("Last Week", [480, 550, 650, 640, 690, 770, 800])], "linear", "Day", "Sales")
+], "card")
+
+layout = Card([
+  header = CardHeader("Store Manager Daily Console", "Today’s overview • Northwest Ave"),
+  tools = Card([storeSelector, Button("View store", null, "secondary")], "card"),
+  sectionsRow = Card([
+    salesCard,
+    footTrafficCard,
+    bestSellersCard,
+    stockOutCard
+  ], "row"),
+  sectionsRow2 = Card([
+    shiftCard,
+    avgBasketCard,
+    returnsCard,
+    promotionsCard,
+    registersCard,
+    reorderSection
+  ], "row"),
+  footerRow = Card([
+    viewWeeklyCard,
+    openStores
+  ], "row")
+], "card")

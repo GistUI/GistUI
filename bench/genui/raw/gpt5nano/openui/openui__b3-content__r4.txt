@@ -1,0 +1,78 @@
+root = Card([
+  header = CardHeader("Content Studio Editor", "Manage drafts, publishing and engagement"),
+  toolbar = SectionBlock([
+    SectionItem("cat-filter", "Filter by Category", [
+      Blockquote("Narrow by category to focus your workflow", "Guidance"),
+      Select("category", [SelectItem("All", "All"), SelectItem("News", "News"), SelectItem("Features", "Features"), SelectItem("Opinion", "Opinion"), SelectItem("Tutorial", "Tutorial")], "Choose a category"),
+    ]),
+  ]),
+  contentGrid = Card([
+    // Row 1: drafts with status for each & start new draft
+    Card([
+      Heading("Drafts by Status", "h2"),
+      draftsList = ListBlock([
+        draft1 = ListItem("Product launch timeline", "Draft • In progress", ["https://picsum.photos/seed/draft1/40/40"], "Open"),
+        draft2 = ListItem("AI ethics explainer", "Draft • Needs review", ["https://picsum.photos/seed/draft2/40/40"], "Open"),
+        draft3 = ListItem("Newsletter teaser", "Draft • Submitted to editor", ["https://picsum.photos/seed/draft3/40/40"], "Open"),
+      ], "image"),
+      newDraftBtn = Buttons([Button("Start New Draft", null, "primary")])
+    ], "card"),
+    // Row 2: pieces published this week
+    Card([
+      Heading("Published This Week", "h2"),
+      publishedThisWeek = Table([
+        Col("Title", ["Company outage coverage", "Product update Q4", "Staff spotlight"]),
+        Col("Publish Time", ["Mon 10:00", "Tue 14:30", "Wed 09:15"]),
+        Col("Category", ["News", "News", "Feature"])
+      ]),
+    ], "card"),
+  ], "column", "row", "m"),
+  // Row 3: most-read article this month
+  Card([
+    Heading("Most-Read Article This Month", "h2"),
+    mostRead = Card([
+      TextContent("“Behind the scenes of the product launch”", "large"),
+      TextContent("Reads: 42,100  •  Category: Features  •  Published: this month", "default")
+    ], null)
+  ], "card"),
+  // Row 4: readership over past 30 days
+  Card([
+    Heading(" readership over the past 30 days", "h2"),
+    LineChart([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+              [Series("Readers", [120,135,150,170,190,210,230,250,300,320,340,360,380,400,420,440,460,480,500,520,540,560,580,600,620,640,660,680,700,730])]),
+              "linear", "Day", "Readers"
+    )
+  ], "card"),
+  // Row 5: narrow by category already added; also scheduling a piece with title and publish date
+  Card([
+    Heading("Schedule a Piece", "h2"),
+    Form("schedule-form", Buttons([Button("Schedule", null, "primary")]),
+      [
+        FormControl("Title", Input("title", "Untitled piece"), "Enter the draft title"),
+        FormControl("Publish date", DatePicker("publish_date"), "Select publish date"),
+      ]
+    )
+  ], "card"),
+  // Row 6: comments awaiting reply
+  Card([
+    Heading("Comments Awaiting Reply", "h2"),
+    ListBlock([
+      ListItem("Comment on 'Product update Q4'", "Awaiting reply from editor", ["https://picsum.photos/seed/comment1/40/40"], "Reply"),
+      ListItem("Feedback on 'AI ethics explainer'", "Moderation needed", ["https://picsum.photos/seed/comment2/40/40"], "Reply"),
+      ListItem("Suggestion on 'Newsletter teaser'", "Assigned to writer", ["https://picsum.photos/seed/comment3/40/40"], "Reply")
+    ], "image"),
+  ], "card"),
+  // Row 7: start a new draft callout
+  Card([
+    Heading("Create a New Draft", "h2"),
+    newDraftCard = Card([
+      TextContent("Start drafting a new piece from scratch. Provide a title, assign category, and set a publish date if needed.", "default"),
+      Form("new-draft", Buttons([Button("Create Draft", null, "primary")]),
+        [
+          FormControl("Title", Input("new_title"), "Draft title"),
+          FormControl("Category", Select("new_category", [SelectItem("News","News"), SelectItem("Feature","Feature")]), "Choose category"),
+        ]
+      )
+    ], null),
+  ], "card"),
+], "card")

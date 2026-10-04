@@ -1,0 +1,57 @@
+root = Card([
+  headerCard,
+  profileSection,
+  messageBlock
+])
+
+headerCard = CardHeader("Alexandra Reed", "Product Manager")
+profileSection = Card([
+  nameRole = Heading("Alexandra Reed — Product Manager", "h2"),
+  bio = TextContent("Alexandra leads cross-functional teams to define product strategy and drive delivery. She focuses on user-centered design and measurable impact.", "default"),
+  socialBlock
+], "card")
+
+socialBlock = Card([
+  TextContent("Bio", "default"),
+  separator
+], "card")
+
+separator = Separator("horizontal", false)
+
+nameRole
+nameRole = Heading("Alexandra Reed — Product Manager", "h2")
+
+bio
+bio = TextContent("Alexandra leads cross-functional teams to define product strategy and drive delivery. She focuses on user-centered design and measurable impact.", "default")
+
+messageBlock
+messageBlock = Card([
+  chatHeader,
+  messageForm
+], "clear")
+
+chatHeader = CardHeader("Send a message to Alexandra", "via company directory")
+
+messageForm
+messageForm = Form("message Alexandra", messageButtons, [recipientField, subjectField, bodyField])
+
+recipientField
+recipientField = FormControl("To", Select("recipient", [rAlexandra], "Choose recipient"), "Select recipient from directory")
+
+rAlexandra
+rAlexandra = SelectItem("alexandra.reed@company.com", "Alexandra Reed")
+
+subjectField
+subjectField = FormControl("Subject", Input("subject", "Hello Alexandra", "text"), "Optional subject line")
+
+bodyField
+bodyField = FormControl("Message", TextArea("message", "Hi Alexandra, ..."), "Your message") 
+
+messageButtons
+messageButtons = Buttons([sendBtn, cancelBtn])
+
+sendBtn
+sendBtn = Button("Send message", null, "primary")
+
+cancelBtn
+cancelBtn = Button("Clear", null, "secondary")

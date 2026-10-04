@@ -1,0 +1,43 @@
+root = Card(CardHeader("Editor’s Content Studio"), contentBar, draftsSection, publishedWeekSection, topArticleSection, readershipChartSection, filterBar, scheduleSection, commentsSection, newDraftSection)
+
+contentBar = Tabs(TabItem("overview","Overview", Card(Heading("Overview", h3), TextContent("Use the tabs to skim through drafts, publishing activity, and readership trends.")))), TabItem("details","Details"))
+
+draftsSection = Card(Heading("Drafts by status", h3), ListBlock(draftItemDraft, draftItemInReview, draftItemReady), variant:number)
+draftItemDraft = ListItem("Draft: The City Lights", "Status: Draft", "Open", image:[])
+draftItemInReview = ListItem("Draft: Q2 Recap", "Status: In Review", "Open")
+draftItemReady = ListItem("Draft: Launch Teaser", "Status: Ready", "Open")
+
+publishedWeekSection = Card(Heading("Pieces published this week", h3), Table(publishedWeekTable))
+
+publishedWeekTable = |Title|Author|PublishedDate|Reads
+|"Tech Pulse: AI Assistants"|"A. Rivera"|"2026-09-30"|"12,400"
+|"Morning Brief: Market\"|"L. Chen"|"2026-09-29"|"9,800"
+
+topArticleSection = Card(Heading("Most-read article this month", h3), CardHeader("Top article"), TextContent("### Article performance"), Table(topArticleTable))
+
+topArticleTable = |Article|Reads
+|"The Ultimate Editor’s Desk"|"52,000"
+
+readershipChartSection = Card(Heading(" readership over the past 30 days", h3), LineChart(readershipTable, linear, xLabel:"Day", yLabel:"Readers"))
+
+readershipTable = |Day|Readers
+|Day 1|1200
+|Day 2|1350
+|Day 3|980
+|Day 30|1570
+
+filterBar = Card(Heading("Narrow by category", h3), Select("category", SelectItem("All", "All"), SelectItem("News", "News"), SelectItem("Opinion", "Opinion"), SelectItem("Tech", "Tech"), placeholder:"Choose a category"))
+
+scheduleSection = Card(Heading("Schedule a piece", h3), Form("schedule-form", scheduleButtons, titleField, publishDateField))
+
+titleField = FormControl("Title", Input("title", "Untitled Piece"))
+publishDateField = FormControl("Publish date", DatePicker("publish_date", single, value:"2026-10-15"))
+
+scheduleButtons = Buttons(Button("Schedule", primary))
+
+commentsSection = Card(Heading("Comments awaiting reply", h3), ListBlock(commentItem1, commentItem2, commentItem3), variant:number)
+commentItem1 = ListItem("Comment on 'The City Lights'", "Awaiting reply", "Open")
+commentItem2 = ListItem("Feedback on 'Launch Teaser'", "Awaiting reply", "Open")
+commentItem3 = ListItem("Query: Morning Brief", "Awaiting reply", "Open")
+
+newDraftSection = Card(Heading("Start a new draft", h3), Button("New Draft", primary))

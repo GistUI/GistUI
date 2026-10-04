@@ -1,0 +1,8 @@
+root = Card([header, bio, messageForm])
+header = CardHeader("Alex Johnson", "Senior Product Manager")
+bio = TextContent("Alex leads product strategy and works closely with cross‑functional teams to deliver innovative solutions. Passionate about user experience and data‑driven decisions.", "default")
+messageForm = Form("send-message", formButtons, [messageField])
+messageField = FormControl("Message", messageInput)
+messageInput = TextArea("message", "Type your message...", 4)
+formButtons = Buttons([sendBtn])
+sendBtn = Button("Send", null, "primary")

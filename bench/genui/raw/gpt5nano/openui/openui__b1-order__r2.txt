@@ -1,0 +1,19 @@
+root = Card([statusSection, deliveryDateSection, reportSection])
+
+statusSection = Card([statusHeader, statusContent])
+
+statusHeader = CardHeader("Delivery status", "Track your package in real time")
+
+statusContent = TextContent("Current location: Warehouse A - Sorting Center\nStatus: In transit\nLast updated: 2 minutes ago", "default")
+
+deliveryDateSection = Card([dateHeader, dateContent])
+
+dateHeader = CardHeader("Estimated delivery", null)
+
+dateContent = TextContent("Estimated delivery date: 2026-10-12", "default")
+
+reportSection = Card([reportHeader, reportBody])
+
+reportHeader = CardHeader("Report a problem with delivery", null)
+
+reportBody = TextContent("If your package has not arrived, arrived late, or you have other delivery issues, use the reporting options below to notify the carrier and request assistance.", "default")

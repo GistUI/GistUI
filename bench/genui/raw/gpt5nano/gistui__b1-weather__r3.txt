@@ -1,0 +1,12 @@
+root = Card(CardHeader("Morning Weather Brief", " Bengaluru"), SectionBlock(SectionItem("current", "Current Conditions", currentSection), SectionItem("threeDays", "3-Day Outlook", outlookSection), SectionItem("sun", "Sunrise & Sunset", sunSection)))
+currentSection = Card(Heading("Bengaluru • 72°F ⛅", h3), Tag("Partly cloudy", info))
+outlookSection = Card(Heading("Next 3 days", h4), Table(outlookTable), LineChart(outlookTrend, natural, xLabel:"Day", yLabel:"Temp"))
+sunSection = Card(Heading("Sunrise & Sunset", h4), TextContent("Sunrise 06:12 AM | Sunset 06:45 PM", size:default))
+outlookTable = |Day|Conditions|High|Low
+|Tomorrow|Sunny→Mostly sunny|85|66
+|Day+2|Cloudy with PM showers|83|67
+|Day+3|Clear skies|86|68
+outlookTrend = |Day|Temp
+|Tomorrow|85
+|Day+2|83
+|Day+3|86

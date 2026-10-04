@@ -1,0 +1,73 @@
+root = Card([
+  header = CardHeader("Content Studio", "Editorial dashboard for your newsroom"),
+  topPanel = Card([
+    draftSummaryHeading = Heading("Drafts by status", "h3"),
+    draftsByStatus = Table([statusCol, countCol], "status-table"),
+    statusCol = Col("Status", ["Draft", "In Review", "Scheduled", "Needs Revision"]),
+    countCol = Col("Count", [4, 2, 1, 0]),
+  ]),
+  weekPublishedPanel = Card([
+    headingWeek = Heading("Pieces published this week", "h3"),
+    weekList = ListBlock([
+      ListItem("Feature: New UI for editors", "Published this week", ["https://picsum.photos/seed/p1/40"], "View"),
+      ListItem("Opinion: The changing newsroom workflow", "Published this week", ["https://picsum.photos/seed/p2/40"], "View"),
+      ListItem("Interview: Behind the scenes with the editor", "Published this week", ["https://picsum.photos/seed/p3/40"], "View")
+    ])
+  ]),
+  mostReadPanel = Card([
+    headingMonth = Heading("Most-read article this month", "h3"),
+    mostRead = Card([
+      TextContent("Exploring the future of journalism: AI, ethics, and trust", "default"),
+      Tag("Month:", "🔥", "md"),
+      Tag("Reads:", null, "md"),
+    ])
+  ]),
+  readershipPanel = Card([
+    heading30 = Heading(" readership over the past 30 days", "h3"),
+    lineChartPanel = LineChart(
+      ["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10","Day 11","Day 12","Day 13","Day 14","Day 15","Day 16","Day 17","Day 18","Day 19","Day 20","Day 21","Day 22","Day 23","Day 24","Day 25","Day 26","Day 27","Day 28","Day 29","Day 30"],
+      [Series("Readers", [120,132,128,150,170,160,180,190,210,230,240,250,260,270,260,280,300,290,310,320,330,340,350,360,355,370,380,390,400,410])],
+      "linear", "Day", "Readers"
+    )
+  ]),
+  categoryNarrowPanel = Card([
+    narrowHeading = Heading("Narrow by category", "h3"),
+    formRow = Form("category-filter", Buttons([Button("Apply"), Button("Reset")], "row"), [
+      categorySelectControl = FormControl("Category", Select("category", [
+        SelectItem("all", "All"),
+        SelectItem("news", "News"),
+        SelectItem("features", "Features"),
+        SelectItem("opinion", "Opinion"),
+        SelectItem("interviews", "Interviews")
+      ], "Choose a category"))
+    ])
+  ]),
+  schedulingPanel = Card([
+    schedHeading = Heading("Schedule a piece", "h3"),
+    scheduleForm = Form("schedule-piece", Buttons([Button("Schedule", null, "primary")], "row"), [
+      titleField = FormControl("Title", Input("title", "Untitled draft")),
+      dateField = FormControl("Publish date", DatePicker("publish_date"))
+    ])
+  ]),
+  commentsPanel = Card([
+    commentsHeading = Heading("Comments awaiting reply", "h3"),
+    commentsList = ListBlock([
+      ListItem("Comment on 'Exploring the future of journalism'","Awaiting reply from author","", "Respond"),
+      ListItem("Comment on 'New editor UI'","Awaiting reply from editor","", "Reply"),
+      ListItem("Comment on 'Interview: Behind the scenes'","Awaiting reply from producer","", "Reply")
+    ], "image")
+  ]),
+  newDraftPanel = Card([
+    newDraftHeading = Heading("Start a new draft", "h3"),
+    newDraftForm = Form("new-draft", Buttons([Button("Create Draft", null, "primary")], "row"), [
+      FormControl("Title", Input("draft_title")),
+      FormControl("Category", Select("draft_category", [
+        SelectItem("news", "News"),
+        SelectItem("features", "Features"),
+        SelectItem("opinion", "Opinion"),
+        SelectItem("interviews", "Interviews")
+      ], "Choose category")),
+      FormControl("Section", TextArea("draft_body", "Write here..."))
+    ])
+  ])
+], "card", "row", "m")

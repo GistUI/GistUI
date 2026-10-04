@@ -1,0 +1,140 @@
+root = Card([
+  header = CardHeader("Airline Hub Operations Desk", "Live status dashboard"),
+  main = Card([
+    // 1. On-time performance today
+    SectionBlock([
+      SectionItem("ot-tt-line", "today-on-time", [
+        Heading("On-Time Performance Today", "h3"),
+        TextContent("Overall on-time percentage: 92.7%", "default"),
+        TextContent("Gate-level punctuality: improving across peak windows.", "default")
+      ])
+    ]),
+
+    // 2. Flights list with number, route, gate, status
+    SectionBlock([
+      SectionItem("flight-list", "flights", [
+        Heading("Flights Today", "h3"),
+        flightsTable = Table([
+          Col("Flight", ["AA101", "DL204", "UA310", "SW400"]),
+          Col("Route", ["LAX > JFK", "JFK > ORD", "ORD > LAX", "SFO > SEA"]),
+          Col("Gate", ["A12", "C3", "B7", "D1"]),
+          Col("Status", ["On Time", "Delayed", "Boarding", "Cancelled"])
+        ])
+      ])
+    ]),
+
+    // 3. Delayed flights called out
+    SectionBlock([
+      SectionItem("delayed-flights", "delayed", [
+        Heading("Delayed Flights", "h3"),
+        ListBlock([
+          ListItem("AA101", "Estimated departure 22:15", ["https://picsum.photos/seed/flight1/40/40"]),
+          ListItem("UA310", "Estimated new departure 22:40", ["https://picsum.photos/seed/flight2/40/40"])
+        ])
+      ])
+    ]),
+
+    // 4. Recent gate changes
+    SectionBlock([
+      SectionItem("gate-changes", "gates", [
+        Heading("Recent Gate Changes", "h3"),
+        Table([
+          Col("Flight", ["DL204", "SW400"]),
+          Col("From Gate", ["C3", "D1"]),
+          Col("To Gate", ["B2", "A9"]),
+          Col("Time", ["10:12", "10:25"])
+        ])
+      ])
+    ]),
+
+    // 5. Crews available for reassignment
+    SectionBlock([
+      SectionItem("crews", "crews", [
+        Heading("Crews Available for Reassignment", "h3"),
+        ListBlock([
+          ListItem("Crew 12A", "BOS - Aisle 5", ["https://picsum.photos/seed/crew1/40/40"]),
+          ListItem("Crew 7B", "ATL - Middle Section", ["https://picsum.photos/seed/crew2/40/40"])
+        ])
+      ])
+    ]),
+
+    // 6. Weather advisories at the hub
+    SectionBlock([
+      SectionItem("weather", "weather", [
+        Heading("Weather Advisories", "h3"),
+        TextContent("Wind gusts 25-30 mph. Moderate rain expected in 2 hours. Hold patterns if visibility drops below 3 SM.", "default")
+      ])
+    ]),
+
+    // 7. Average passenger load today
+    SectionBlock([
+      SectionItem("load", "load", [
+        Heading("Average Passenger Load Today", "h3"),
+        TextContent("Current average load factor: 84%", "default"),
+        TextContent("Seat utilization across flights: 76% - 92%", "default")
+      ])
+    ]),
+
+    // 8. Connections at risk of being missed
+    SectionBlock([
+      SectionItem("missed-conns", "connections", [
+        Heading("Connections at Risk of Being Missed", "h3"),
+        ListBlock([
+          ListItem("AA101 > DL204", "30 min connection window remaining", ["https://picsum.photos/seed/conn1/40/40"]),
+          ListItem("UA310 > SW400", "25 min connection window remaining", ["https://picsum.photos/seed/conn2/40/40"])
+        ])
+      ])
+    ]),
+
+    // 9. Rebook affected passengers
+    SectionBlock([
+      SectionItem("rebook", "rebook", [
+        Heading("Rebooking Affected Passengers", "h3"),
+        ModalLikeHint = TextContent("Use the rebooking panel to issue new itineraries and apply standby options.", "default"),
+        Card([
+          TextContent("Rebooking Console", "default"),
+          Table([
+            Col("Passenger", ["John Doe", "Jane Smith"]),
+            Col("Original", ["AA101 JFK-LAX", "UA310 ORD-LAX"]),
+            Col("New Itinerary", ["AA101 JFK-ATL-LAX", "UA310 ORD-SFO-LAX"])
+          ])
+        ])
+      ])
+    ]),
+
+    // 10. Look at a different hub
+    SectionBlock([
+      SectionItem("hub-switch", "hub-switch", [
+        Heading("Switch Hub", "h3"),
+        TextContent("Choose another hub to monitor: JFK, ORD, SFO", "default"),
+        Select("hub_select", [SelectItem("JFK", "John F. Kennedy"), SelectItem("ORD", "O'Hare"), SelectItem("SFO", "San Francisco")], "Select hub")
+      ])
+    ]),
+
+    // 11. Cancellations today
+    SectionBlock([
+      SectionItem("cancellations", "cancellations", [
+        Heading("Cancellations Today", "h3"),
+        ListBlock([
+          ListItem("SW400", "Cancelled due to weather", ["https://picsum.photos/seed/cancel1/40/40"])
+        ])
+      ])
+    ]),
+
+    // 12. Average turnaround time
+    SectionBlock([
+      SectionItem("turnaround", "turnaround", [
+        Heading("Average Turnaround Time Today", "h3"),
+        TextContent("Overall: 45 minutes", "default"),
+        TextContent("Gate-to-gate averages by airline: AA 42m, DL 48m, UA 47m", "default")
+      ])
+    ])
+  ], "card", "row", "m"),
+
+  // Optional: bottom action controls
+  Buttons([
+    Button("Reassign Crew", null, "primary"),
+    Button("Flag Delays for 5-min Updates", null, "secondary"),
+  ], "row")
+  
+])

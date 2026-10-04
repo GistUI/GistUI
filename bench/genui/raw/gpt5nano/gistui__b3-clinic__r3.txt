@@ -1,0 +1,38 @@
+root = Card(CardHeader("Clinic Day View"), SectionBlock(SectionItem("today-appointments", "Today’s Appointments",
+  Card(Heading("Appointments for Today", h3),
+    Table(todayTable),
+    LineChart(lineTrend, natural, xLabel:"Time", yLabel:"Patients"))),
+  SectionBlock(SectionItem("counts", "Today Summary",
+    ListBlock(ListItem("Patients expected", "3 today"), ListItem("No-show rate this month", "6%"), ListItem("Free rooms right now", "Room 2, Room 5")))),
+  SectionBlock(SectionItem("next", "Next actions",
+    Card(Heading("Next patient called", h3), TextContent("Alexandra Kim, 10:25 AM", default))),
+  SectionBlock(SectionItem("checkin", "Check-in",
+    Form("checkin-form", formButtons, checkinNameField, checkinTimeField)))),
+  SectionBlock(SectionItem("navigate", "Navigate",
+    Buttons(Button("Move to another day", primary))))),
+  SectionBlock(SectionItem("data", "Data Tables",
+    Table(roomsTable))))), variant:card)
+
+todayTable = |Time|Patient
+|09:00|John Doe
+|09:30|Mary Smith
+|10:15|Alexandra Kim
+|11:00|David Lee
+
+roomsTable = |Room|Status
+|Room 1|Free
+|Room 2|Occupied
+|Room 3|Free
+|Room 4|Occupied
+|Room 5|Free
+
+lineTrend = |Time|Queue
+|08:00|1
+|09:00|2
+|10:00|2
+|11:00|3
+
+checkinNameField = FormControl("Patient name", Input("patient_name", placeholder:"Enter patient name"))
+checkinTimeField = FormControl("Check-in time", Input("checkin_time", placeholder:"HH:MM"))
+
+formButtons = Buttons(Button("Check-in patient", primary), Button("Cancel", tertiary))

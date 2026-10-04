@@ -1,0 +1,56 @@
+root = Card(CardHeader("Logistics Operations Dashboard"), searchSection, inTransitSection, delaysSection, performanceSection, carrierVolumeSection, refreshNote)
+
+searchSection = Card(Heading("Search by route", h3), Form("route-search", searchButtons, routeInput), sunk)
+
+searchButtons = Buttons(Button("Search", primary))
+
+routeInput = FormControl("Route", Input("route", "NYC-LON"), "Enter route to filter")
+
+inTransitSection = Card(Heading("Shipments in transit", h4), Table(inTransitTable), ActionRow)
+
+inTransitTable = |Route|Origin|Destination|ETA|Status
+|NYC-LON|New York|London|2026-10-08|In transit
+|SFO-YYZ|San Francisco|Toronto|2026-10-06|In transit
+|MIA-CDG|Miami|Paris|2026-10-09|In transit
+
+delaysSection = Card(Heading("Delayed shipments", h4), Table(delaysTable))
+
+delaysTable = |Route|Origin|Destination|ETA|Status
+|NYC-LON|New York|London|2026-10-08|Delayed
+|LAX-NRT|Los Angeles|Tokyo|2026-10-05|Delayed
+
+performanceSection = Card(Heading("On-time percentage this month", h4), KPI(onTimePct:"88%"), Heading("Average cost per shipment", h4), KPI(avgCost:"$412.50"), sunk)
+
+KPI(value) = TextContent(value)
+
+carrierVolumeSection = Card(Heading("Volume split by carrier", h4), PieChart(carrierTable, variant:donut, appearance:circular))
+
+carrierTable = |Carrier|Volume
+|DHL|320
+|FedEx|410
+|UPS|260
+|Other|110
+
+refreshNote = TextContent("Data refreshed: 2026-10-04 14:22 UTC", size:"small")
+
+Also include weeklyVolumeSection and flagSection to satisfy remaining items
+
+weeklyVolumeSection = Card(Heading("Weekly volume (past 8 weeks)", h4), LineChart(weeklyTable, natural, xLabel:"Week", yLabel:"Volume"))
+
+weeklyTable = |Week|Volume
+|W1|1820
+|W2|2100
+|W3|1990
+|W4|2250
+|W5|2400
+|W6|2320
+|W7|2480
+|W8|2600
+
+flagSection = Card(Heading("Flag an shipment", h4), Form("flag-shipment", flagButtons, shipmentInput, flagReason), sunk)
+
+flagButtons = Buttons(Button("Flag shipment", primary))
+
+shipmentInput = FormControl("Shipment ID", Input("shipment_id", "SHIP-12345"))
+
+flagReason = FormControl("Reason", Input("reason", "Delay due to weather"))

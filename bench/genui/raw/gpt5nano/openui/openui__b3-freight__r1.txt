@@ -1,0 +1,58 @@
+root = Card([
+  CardHeader("Logistics Coordinator Dashboard", "Live operations overview"),
+  SectionBlock([
+    SectionItem("shipmentsInTransit", "Shipments in Transit", [
+      Heading("Shipments in Transit", "h3"),
+      TextContent("Monitor active shipments with origin, destination, ETA, and current status. Click flag to mark exceptions.", "default"),
+      Table([],[])
+    ]),
+  ]),
+  SectionBlock([
+    SectionItem("delayedCallout", "Delayed Shipments", [
+      Callout("warning", "Delayed Shipments", "List of shipments currently delayed with reason and ETA updates")
+    ]),
+  ]),
+  SectionBlock([
+    SectionItem("onTimePct", "On-Time Percentage", [
+      Card([TextContent("This Month On-Time Percentage", "default"), 
+            Progress(78, "78% on-time")], "card")
+    ]),
+  ]),
+  SectionBlock([
+    SectionItem("volumeSplit", "Volume Split by Carrier", [
+      PieChart(["Carrier A","Carrier B","Carrier C"], [Series("Volume", [120, 200, 80]).values], "donut")
+    ]),
+  ]),
+  SectionBlock([
+    SectionItem("searchRoute", "Search by Route", [
+      Form("route-search", Buttons([Button("Search", null, "primary")]), [
+        FormControl("Route", Input("route", "Origin-Destination"), "Enter origin-destination")
+      ])
+    ]),
+  ]),
+  SectionBlock([
+    SectionItem("avgCost", "Average Cost per Shipment", [
+      TextContent("Average cost per shipment this month: $52.40", "default")
+    ]),
+  ]),
+  SectionBlock([
+    SectionItem("weeklyVolume", "Weekly Volume (Past 2 Months)", [
+      LineChart([ "W6","W7","W8","W9","W10","W11","W12","W13","W14","W15","W16","W17" ],
+        [Series("Volume", [320,350,390,420,410,455,480,500,470,490,520,540])],
+        "natural","Week","Shipments")
+    ]),
+  ]),
+  SectionBlock([
+    SectionItem("flagShipment", "Flag a Shipment", [
+      Form("flag-form", Buttons([Button("Flag Shipment", null, "secondary")]), [
+        FormControl("Shipment ID", Input("flag_id", "SHIP-"), null),
+        FormControl("Reason", TextArea("flag_reason", "Reason for flag"), null)
+      ])
+    ]),
+  ]),
+  SectionBlock([
+    SectionItem("refreshInfo", "Data Refresh", [
+      TextContent("Last refreshed: 2026-10-04 10:15 UTC", "small")
+    ]),
+  ])
+])

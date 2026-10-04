@@ -1,0 +1,51 @@
+root = Card(CardHeader("Live-Ops Room", "Studio Dashboard"), focusRegionTag, metricsRow, revenuePanel, sessionsChart, bestSellersTable, regionsTable, crashRateChart, eventsPanel, reviewsPanel, appealsPanel, inflationPanel, experimentsPanel, patchDraft, shipHotfixButton, regionFocusControls)
+focusRegionTag = TagBlock(["Region Focus"])
+metricsRow = Card(Heading("Overview", h3), metricCardsRow)
+metricCardsRow = Card( // horizontal row of quick metrics
+  Card(Heading("Players online now", h4), TextContent("1,245"), sunk),
+  Card(Heading("Active users", h4), TextContent("DAU: 34,000\nMAU: 210,000"), sunk),
+  Card(Heading("Revenue today", h4), TextContent("$58,420"), sunk),
+  Card(Heading("Revenue per user", h4), TextContent("$2.12"), sunk)
+  , wrap)
+revenuePanel = Card(Heading("Revenue & engagement", h3), revenueTable, revenueTrend, xLabel:"Day")
+revenueTable = Table(revenueTableData)
+revenueTrend = LineChart(trendTable, natural, xLabel:"Date", yLabel:"USD")
+trendTable = |Date|Revenue
+|Today|58420
+|Yesterday|47100
+sessionsChart = Card(Heading("Session length (past 14 days)", h3), LineChart(sessionsTable, linear, xLabel:"Date", yLabel:"Minutes"))
+sessionsTable = |Date|AvgSession
+|14d-ago|22.1
+|13d-ago|21.8
+|Today|23.4
+bestSellersTable = Card(Heading("Best-selling items", h3), Table(bestSellTable))
+bestSellTable = |Item|Units
+|Sword of Dawn|1320
+|Mana Crystal|987
+|Dragon Helm|754
+regionsTable = Card(Heading("Regions & Health", h3), Table(regionsTableData))
+regionsTableData = |Region|Health
+|NA-East|Healthy
+|NA-West|Degraded
+|EU-Central|Healthy
+|APAC|Critical
+crashRateChart = Card(Heading("Crash rate by app version", h3), Table(crashTable))
+crashTable = |Version|CrashRate
+|v1.4|0.9%
+|v1.5|1.2%
+|v1.6|0.5%
+eventsPanel = Card(Heading("Live events", h3), ListBlock(EventItem, variant:number))
+EventItem(text) = ListItem(text)
+reviewsPanel = Card(Heading("Player reports awaiting review", h3), ListBlock("Report 1", "Report 2", "Report 3"), variant:number)
+appealsPanel = Card(Heading("Ban appeals awaiting review", h3), ListBlock("Appeal A", "Appeal B"), variant:number)
+inflationPanel = Card(Heading("In-game currency inflation", h3), TextContent("Inflation rate: 3.7% this month"), sunk)
+experimentsPanel = Card(Heading("Running experiments", h3), ListBlock("Experiment 1: A/B UI", "Experiment 2: Loot drop tuning"), variant:number)
+patchDraft = Card(Heading("Draft patch notes", h3), TextContent("### Patch draft\n- Adjust balance\n- Fix crash on login\n- Update event timing"), CardHeader("Patch Notes"), ButtonDraft)
+ButtonDraft = Buttons(Button("Open patch notes draft", primary))
+shipHotfixButton = DialogBlock("Ship hotfix", "Hotfix shipping", Card(Heading("Hotfix deployment", h3), TextContent("Deploying critical fix to regions with latency > 120ms"), Button("Confirm", primary)))
+regionFocusControls = Card(Heading("Region focus controls", h3), Form("region-focus", regionButtons, regionList))
+regionButtons = Buttons(Button("Focus NA-East", primary), Button("Focus EU-Central"), Button("Clear focus"))
+regionList = FormControl("Region", Select("region_select", SelectItem("NA-East","NA-East"), SelectItem("NA-West","NA-West"), SelectItem("EU-Central","EU-Central"), SelectItem("APAC","APAC"), placeholder:"Choose region") )
+RegionFocusNote = TextContent("Use region focus to isolate metrics to a single region while monitoring global performance.")
+Notes = Card(RegionFocusNote)
+rest = SectionBlock(SectionItem("region", "Region focus", regionFocusControls, Notes), isFoldable)

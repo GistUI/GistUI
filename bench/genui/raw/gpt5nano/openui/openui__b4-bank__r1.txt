@@ -1,0 +1,135 @@
+root = Card([
+  header = CardHeader("Personal Banking", "Your financial snapshot"),
+  statusRow,
+  mainGrid
+])
+
+header = CardHeader("Personal Banking", "Your financial snapshot")
+
+statusRow = Card([
+  balancesCard
+], "card")
+
+balancesCard = Card([
+  SectionBlock([
+    SectionItem("balances", "balances-section", [
+      Row([balanceCheck, balanceSave, balanceCredit])
+    ])
+  ])
+], "card")
+
+balanceCheck = TagBlock(["Checking: $2,480.72"])
+balanceSave = TagBlock(["Savings: $11,540.21"])
+balanceCredit = TagBlock(["Credit: $1,230.55"])
+
+balancesSectionHeading = Heading(" balances overview ", "h3")
+
+Row(children) = Card([RowBlock(children)])
+
+RowBlock = function(children) {
+  return Card([TextContent("", "default")], null)
+}
+
+TextLine = TextContent("")
+
+balancesSection = Card([
+  Heading("Balances", "h2"),
+  TextContent("Checking: $2,480.72, Savings: $11,540.21, Credit: $1,230.55")
+], "card")
+
+transactionsHeading = Heading("Recent transactions", "h2")
+
+transactionsList = ListBlock([
+  ListItem("Starbucks", "Coffee purchase", ["https://picsum.photos/seed/starbucks/40", "https://picsum.photos/seed/starbucks2/40"], "View"),
+  ListItem("Whole Foods", "Grocery", ["https://picsum.photos/seed/groceries/40"], "View"),
+  ListItem("Amazon", "Online purchase", ["https://picsum.photos/seed/amazon/40"], "View")
+], "image")
+
+exportIcon = Image("Exportable", "https://picsum.photos/seed/export/40")
+
+recentTransactions = Card([
+  transactionsHeading,
+  transactionsList,
+  exportIcon
+], "card")
+
+recentTransactionsSection = recentTransactions
+
+spendingHeading = Heading("This Month: Spending by Category", "h2")
+
+spendingChart = PieChart(["Groceries","Dining","Transport","Entertainment","Other"], ["500","320","170","210","150"], "donut")
+
+spendingSection = Card([
+  spendingHeading,
+  spendingChart
+], "card")
+
+billsHeading = Heading("Bills Due Soon", "h2")
+
+billsList = ListBlock([
+  ListItem("Rent", "Due Apr 5", ["https://picsum.photos/seed/rent/40"], "Pay now"),
+  ListItem("Internet", "Due Apr 10", ["https://picsum.photos/seed/internet/40"], "Pay now"),
+  ListItem("Car loan", "Due Apr 15", ["https://picsum.photos/seed/loan/40"], "Pay now")
+], "number")
+
+billsSection = Card([
+  billsHeading,
+  billsList
+], "card")
+
+vacationProgressHeading = Heading("Vacation Savings Progress", "h2")
+
+vacationProgress = Progress(65, "65% of $5,000")
+
+vacationCard = Card([
+  vacationProgressHeading,
+  vacationProgress
+], "card")
+
+creditScoreHeading = Heading("Credit Score", "h2")
+
+creditScoreBadge = Tag("720", "credit", "md", "neutral")
+
+creditSection = Card([
+  creditScoreHeading,
+  creditScoreBadge
+], "card")
+
+moveMoneySection = Card([
+  Heading("Move Money Between Accounts", "h2"),
+  Card([
+    TextContent("From"),
+    Select("from_account", [SelectItem("Checking","Checking"), SelectItem("Savings","Savings"), SelectItem("Credit","Credit")], "Choose from"),
+    TextContent("To"),
+    Select("to_account", [SelectItem("Checking","Checking"), SelectItem("Savings","Savings"), SelectItem("Credit","Credit")], "Choose to"),
+    TextContent("Amount"),
+    Input("amount", "0.00", "number")
+  ], "sunk")
+], "card")
+
+freezeCreditSection = Card([
+  Heading("Freeze Credit Line", "h2"),
+  Button("Freeze now", null, "secondary")
+], "card")
+
+statementPeriodSection = Card([
+  Heading("Statement Period", "h2"),
+  Select("statement_period", [SelectItem("Last 30 days","Last 30 days"), SelectItem("Last 90 days","Last 90 days"), SelectItem("Custom","Custom")], "Select period")
+], "card")
+
+alertsManagementSection = Card([
+  Heading("Alerts & Triggers", "h2"),
+  TextContent("Manage what triggers alerts: balance thresholds, transactions, and payment reminders."),
+  Button("Open alert settings", null, "primary")
+], "card")
+
+disputeSection = Card([
+  Heading("Dispute a Transaction", "h2"),
+  TextContent("Find a transaction above and click to dispute it."),
+  Button("Dispute selected", null, "destructive")
+], "card")
+
+root = Card([
+  header,
+  Card([balancesCard, recentTransactionsSection, spendingSection, billsSection, vacationCard, creditSection, moveMoneySection, freezeCreditSection, statementPeriodSection, alertsManagementSection, disputeSection], "card")
+])

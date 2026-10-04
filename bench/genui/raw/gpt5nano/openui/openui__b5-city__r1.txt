@@ -1,0 +1,127 @@
+root = Card([
+  CardHeader("City Operations Center Dashboard", "Live status overview across city services"),
+  SectionBlock([
+    SectionItem("congestion", "Current congestion", [
+      Heading("Congestion Right Now", "h3"),
+      TextContent("Traffic flow across key corridors is being monitored in real time. Overall citywide congestion index: 72% (moderate). Hotspots: downtown radial, river bridge approaches.", "default"),
+      Image("Live map", "https://picsum.photos/seed/congestion/800/400")
+    ]),
+    SectionItem("transit", "Transit Punctuality", [
+      Heading("Transit Punctuality", "h3"),
+      LineChart(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], [
+        Series("Bus", [92, 89, 90, 88, 91, 87, 93]),
+        Series("Tram", [96, 95, 94, 93, 95, 92, 97])
+      ], "natural", "Day", "Percent")
+    ]),
+    SectionItem("airQuality", "Air Quality by District", [
+      Heading("Air Quality by District", "h3"),
+      Image("AQI Map", "https://picsum.photos/seed/airquality/800/400"),
+      PieChart(["Downtown","Uptown","Westside","Eastside","Harbor"], [40, 60, 55, 45, 50], "donut", "circular")
+    ]),
+    SectionItem("energyWater", "Energy and Water Use", [
+      Heading("Energy Use Over Past Week", "h3"),
+      AreaChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], [
+        Series("Energy kWh", [1200, 1250, 1180, 1300, 1280, 1220, 1350])
+      ], "linear", "Day", "kWh"),
+      Separator("horizontal"),
+      Heading("Water Use Today", "h3"),
+      Progress(68, "Water usage - 68% of daily capacity"),
+      Tag("Reservoir level safe", "water", "md", "info")
+    ]),
+    SectionItem("incidents", "Open Incidents by Location", [
+      Heading("Open Incidents", "h3"),
+      ListBlock([
+        ListItem("Bridge collision, Main St & 5th", "Severity: High", ["https://picsum.photos/seed/inc1/40/40"], "View"),
+        ListItem("Gas leak reported, Riverfront Ave", "Severity: Critical", ["https://picsum.photos/seed/inc2/40/40"], "View"),
+        ListItem("Electrical outage, Market District", "Severity: Medium", ["https://picsum.photos/seed/inc3/40/40"], "View")
+      ], "image")
+      ]),
+    SectionItem("evac", "Emergency Vehicles Deployment", [
+      Heading("Emergency Vehicle Deployment", "h3"),
+      ImageBlock("https://picsum.photos/seed/ems/800/400", "EMS Deployment Map"),
+    ]),
+    SectionItem("parking", "Parking Availability Downtown", [
+      Heading("Parking Availability", "h3"),
+      HorizontalBarChart(["Lot A","Lot B","Garage C","Street meters"], [
+        Series("Available", [12, 5, 8, 20])
+      ], "grouped", "Location", "Spaces")
+    ]),
+    SectionItem("events", "Public Events This Weekend", [
+      Heading("Public Events This Weekend", "h3"),
+      Table([
+        Col("Event", ["Festival on Riverbank","Concert in Square","Farmers Market"], "string"),
+        Col("Time", ["Sat 10-22","Sun 12-20","Sat 08-14"], "string"),
+        Col("Location", ["Downtown Park","City Plaza","Old Town Market"], "string")
+      ])
+    ]),
+    SectionItem("reports", "Citizen Reports Ingest", [
+      Heading("Citizen Reports", "h3"),
+      TextContent("Live feed of citizen-reported issues: flooding, potholes,trash. Latest: pothole on Pine Ave submitted 2m ago.", "default")
+    ]),
+    SectionItem("backlog", "Service Request Backlog", [
+      Heading("Backlog Overview", "h3"),
+      BarChart(["Low","Medium","High"], [
+        Series("Backlog", [12, 34, 18])
+      ], "grouped", "Priority", "Requests")
+    ])
+  ], false),
+  SectionBlock([
+    SectionItem("weather", "Current Weather", [
+      Heading("Current Weather", "h3"),
+      Image("Weather icon", "https://openweathermap.org/img/wn/01d.png"),
+      TextContent("Temp: 72°F, Humidity: 58%, Wind: 9mph N", "default")
+    ]),
+    SectionItem("focusDistrict", "Focus on District", [
+      Heading("Focus District", "h3"),
+      SectionBlock([
+        SectionItem("districtList", "District Selector", [
+          Select("district", [SelectItem("central", "Central"), SelectItem("north", "North"), SelectItem("south", "South"), SelectItem("east", "East"), SelectItem("west", "West")], "Choose district")
+        ])
+      ], true)
+    ]),
+    SectionItem("dispatch", "Dispatch Crew", [
+      Heading("Dispatch Crew", "h3"),
+      Form("dispatch-form", Buttons([Button("Dispatch", null, "primary")]), [
+        FormControl("Crew", Input("crew", "Enter crew ID"), null),
+        FormControl("Assignment", Input("assignment", "Target area"), null)
+      ])
+    ]),
+    SectionItem("alert", "Public Alert", [
+      Heading("Public Alert", "h3"),
+      TextArea("alertMsg", "Enter alert message for citizens", 4, [], ""),
+      Buttons([Button("Send Alert", null, "primary")], "row")
+    ]),
+    SectionItem("works", "Roadworks This Month", [
+      Heading("Roadworks Planned This Month", "h3"),
+      Table([
+        Col("Road", ["3rd & Olive","Pine Ave - 7th","Harbor Dr - Beachfront"], "string"),
+        Col("Status", ["Planned","In Progress","Planned"], "string"),
+        Col("Duration", ["2 weeks","1 week","3 weeks"], "string")
+      ])
+    ]),
+    SectionItem("infra", "Infrastructure Maintenance", [
+      Heading("Maintenance Schedule", "h3"),
+      LineChart(["Week 1","Week 2","Week 3","Week 4"], [
+        Series("Pipelines", [4,7,5,6]),
+        Series("Cables", [8,6,7,9])
+      ], "linear", "Week", "Tasks")
+    ])
+  ], false)
+])
+
+congestion = TextContent("Real-time congestion index and hotspot map. Use district focus to drill down.", "default")
+transit = TextContent("Punctuality metrics for buses and trams. Delays visible by route.", "default")
+airQuality = TextContent("AQI by district with color-coded risk levels.", "default")
+energyWater = TextContent("Week-over-week energy use with daily water use snapshot.", "default")
+incidents = TextContent("Open incidents list with location and severity.", "default")
+evac = TextContent("EMS and other emergency vehicle deployments visualized on map.", "default")
+parking = TextContent("Downtown parking availability by lot and garage.", "default")
+events = TextContent("Public events scheduled this weekend.", "default")
+reports = TextContent("Citizen reports streaming in real time.", "default")
+backlog = TextContent("Current service request backlog and aging.", "default")
+weather = TextContent("Current weather conditions and forecast.", "default")
+focusDistrict = TextContent("Select a district to filter all panels.", "default")
+dispatchPanel = TextContent("Dispatch crew workflow and controls.", "default")
+alertPanel = TextContent("Public alert composer and sender.", "default")
+worksPanel = TextContent("Roadworks and maintenance schedule.", "default")
+infraPanel = TextContent("Maintenance and infrastructure jobs overview.", "default")

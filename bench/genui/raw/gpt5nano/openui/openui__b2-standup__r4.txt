@@ -1,0 +1,40 @@
+root = Card([header, dateBar, teammatesList, missingBar, updateForm])
+
+header = CardHeader("Async Standup", "Today’s updates from the team")
+
+dateBar = Card([dateHeading, dateValue], "card")
+dateHeading = Heading("Date", "h4")
+dateValue = TextContent("2026-10-04")
+
+teammatesList = Card([teammate1, teammate2, teammate3], "card")
+teammatesListHeader = Heading("Today's updates", "h4")
+teammatesList = Card([teammatesListHeader, teammate1, teammate2, teammate3], "card")
+
+teammate1 = Card([name1, update1, status1], "card")
+name1 = TextContent("Alex Kim", "default")
+update1 = TextContent("Completed integration with API X; pushed to staging.", "default")
+status1 = Tag("Update done", "check", "md", "neutral")
+
+teammate2 = Card([name2, update2, status2], "card")
+name2 = TextContent("Priya Singh", "default")
+update2 = TextContent("WIP: dashboard filters; awaiting data source sync", "default")
+status2 = Tag("In progress", "hourglass", "md", "info")
+
+teammate3 = Card([name3, update3, status3], "card")
+name3 = TextContent("Jon Morales", "default")
+update3 = TextContent("Blocked by VPN access; vendor ticket opened", "default")
+status3 = Tag("Blocked", "ban", "md", "warning")
+
+missingBar = Card([missingHeading, missingCount], "card")
+missingHeading = Heading("Updates still missing", "h4")
+missingCount = TextContent("2 of 5 teammates have posted today", "default")
+
+updateForm = Card([formHeader, formRow, submitRow], "card")
+formHeader = Heading("Post your update", "h4")
+formRow = Card([formLabel, formInput], "card")
+formLabel = TextContent("Status update", "default")
+formInput = Input("update", "What did you work on today?", "text")
+submitRow = Card([postButton], "card")
+postButton = Button("Post update", null, "primary")
+
+```

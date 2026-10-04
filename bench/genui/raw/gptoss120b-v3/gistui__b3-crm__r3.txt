@@ -1,24 +1,67 @@
-root = Card(accountInfo, dealInfo, activitySection, contactsSection, followupsSection, noteSection, renewalSection, callLogSection)
-accountInfo = Card(CardHeader("Acme Corp", "Owner: Jane Doe"))
-dealInfo = Card(TextContent("Total Deal Value: $1.2M", size:large), Tag("Stage: Negotiation", variant:info))
-activitySection = Card(Heading("Recent Activity", h3), ListBlock(activity1, activity2, activity3, variant:number))
-activity1 = ListItem("Called client", "2024-09-20")
-activity2 = ListItem("Sent email", "2024-09-18")
-activity3 = ListItem("Meeting scheduled", "2024-09-22")
-contactsSection = Card(Heading("Contacts", h3), Table(nameCol, roleCol, emailCol))
-followupsSection = Card(Heading("Open Follow-ups", h3), Table(fupCol, dueCol))
-noteSection = Card(Heading("Add Note", h3), noteForm)
-noteForm = Form("note", buttons:noteButtons, noteField)
-noteField = FormControl("Note", input:TextArea("note", placeholder:"Write a note...", rows:4))
-noteButtons = Buttons(Button("Save"))
-callLogSection = Card(Heading("Log Call", h3), callForm)
-callForm = Form("call", buttons:callButtons, callNotesField, callDurationField)
-callNotesField = FormControl("Call notes", input:TextArea("call_notes", placeholder:"Summary of call...", rows:3))
-callDurationField = FormControl("Duration (min)", input:Input("duration", placeholder:"Minutes", type:number))
-callButtons = Buttons(Button("Log Call", variant:primary))
-renewalSection = Card(Heading("Renewal", h3), Callout(variant:warning, "Renewal Date", "2024-10-15 is approaching"))
-nameCol = Col("Name", data:["Alice Smith","Bob Jones"], type:string)
-roleCol = Col("Role", data:["Decision Maker","Technical Lead"], type:string)
-emailCol = Col("Email", data:["alice@example.com","bob@example.com"], type:string)
-fupCol = Col("Follow-up", data:["Send proposal","Schedule demo"], type:string)
-dueCol = Col("Due Date", data:["2024-10-05","2024-10-07"], type:string)
+root = Card(accountHeader, dealInfo, activityCard, contactsCard, followupsCard, noteForm, actionsCard)
+
+accountHeader = CardHeader("Acme Corp – Sales Account", "Owner: Jane Doe")
+
+dealInfo = Card(
+    TextContent("**Total Deal Value:** $1,250,000", size:large),
+    Tag("Negotiation", variant:info)
+)
+
+activityCard = Card(
+    Heading("Recent Activity", h3),
+    Table(activityTable)
+)
+
+contactsCard = Card(
+    Heading("Contacts", h3),
+    Table(contactsTable)
+)
+
+followupsCard = Card(
+    Heading("Open Follow‑ups", h3),
+    Table(followupsTable)
+)
+
+noteForm = Form(
+    "note",
+    noteButtons,
+    noteField
+)
+
+noteField = FormControl(
+    "Add a note",
+    TextArea("note_body", placeholder:"Write your note here...", rows:4)
+)
+
+noteButtons = Buttons(
+    Button("Save note", primary)
+)
+
+actionsCard = Card(
+    Heading("Actions", h3),
+    Buttons(
+        Button("Log a call", primary),
+        Button("Renewal Details", secondary)
+    )
+)
+
+activityTable = |Date|Activity
+|2024-09-28|Sent proposal to client
+|2024-09-25|Follow‑up call scheduled
+|2024-09-20|Initial discovery meeting
+
+contactsTable = |Name|Role
+|John Smith|Decision Maker
+|Emily Davis|Procurement Lead
+|Carlos Ruiz|Technical Contact
+
+followupsTable = |Follow‑up|Due
+|Prepare contract|2024-10-05
+|Send renewal reminder|2024-10-10
+|Schedule demo|2024-10-12
+
+renewalCallout = Callout(
+    variant:warning,
+    "Renewal Date Approaching",
+    "Renewal is on 2024‑10‑08. Consider contacting the client soon."
+)

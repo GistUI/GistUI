@@ -1,19 +1,21 @@
-root = Card(dateHeader, updatesList, blockedCallout, missingCount, postForm)
+root = Card(dateText, updatesList, blockedCallout, missingCount, postForm)
 
-dateHeader = Heading("2026-09-30", h2)
+dateText = TextContent("**Date:** {{today}}", size:small)
 
-updatesList = ListBlock(aliceItem, bobItem, carolItem, variant:number)
+updatesList = ListBlock(updateItem1, updateItem2, updateItem3, updateItem4, updateItem5, variant:number)
 
-aliceItem = ListItem("Alice", "Working on API")
-bobItem = ListItem("Bob", "Reviewing PRs")
-carolItem = ListItem("Carol", "No update yet")
+updateItem1 = ListItem("Alice", "Completed API integration", "View", [])
+updateItem2 = ListItem("Bob", "Reviewing PR #42", "View", [])
+updateItem3 = ListItem("Carol", "Testing new feature", "View", [])
+updateItem4 = ListItem("Dave", "Design mockups ready", "View", [])
+updateItem5 = ListItem("Eve", "Pending feedback", "View", [])
 
-blockedCallout = Callout(variant:warning, "Blocked", "Bob is blocked on database migration")
+blockedCallout = Callout(variant:warning, "Blocked", "Bob is blocked on database access.")
 
-missingCount = TextContent("Updates missing: 1", size:small)
+missingCount = TextContent("**Updates missing:** 2", size:small)
 
-postForm = Form("standup-update", formButtons, updateControl)
+postForm = Form("standup-update", formButtons, updateField)
 
-updateControl = FormControl("Your update", Input("update", "Type your update..."))
+updateField = FormControl("Your update", Input("update", "Type your update here...", "", type:text))
 
-formButtons = Buttons(Button("Post", primary))
+formButtons = Buttons(Button("Post update", primary))

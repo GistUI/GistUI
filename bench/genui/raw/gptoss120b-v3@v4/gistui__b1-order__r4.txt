@@ -1,5 +1,0 @@
-root = Card(locationSection, estimateSection, reportSection)
-locationSection = Card(Heading("Current location", h3), TextContent("Your package is currently at the local distribution center in Springfield."), Image("Location map", "https://picsum.photos/seed/location/800/500"))
-estimateSection = Card(Heading("Estimated delivery", h3), TextContent("**June 5, 2026**"))
-reportSection = Card(Heading("Report a problem", h3), reportDialog)
-reportDialog = DialogBlock("Report issue", "Report Delivery Problem", TextContent("Please describe the issue you encountered with your delivery."), description:"", triggerVariant:default)

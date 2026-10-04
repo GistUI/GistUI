@@ -1,0 +1,18 @@
+root = Card([
+  CardHeader("Upcoming calendar", "Next event at a glance"),
+  SectionBlock([
+    SectionItem("next-meeting", "Next meeting", [
+      Heading("Next meeting: Project Sync", "h3"),
+      TextContent("Starts at 10:00 AM local time", "default"),
+      Separator("horizontal", false),
+      TextContent("Attendees:", "default"),
+      TagBlock(["Alex", "Priya", "Lee", "Sam"])
+    ]),
+  ]),
+  Card([Heading("Join the call", "h4"), TextContent("Click the join button to enter the meeting room.", "default"), Button("Join meeting", ["join-meeting-url"], "primary"),], "card"),
+  Button("Join call", ["join-meeting-url"], "primary")
+])
+nextMeetingTitle = "Project Sync"
+nextMeetingStart = "10:00 AM"
+attendeesList = ["Alex","Priya","Lee","Sam"]
+joinUrl = "https://example.com/join/PROJECT-SYNC"

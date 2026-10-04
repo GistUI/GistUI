@@ -1,29 +1,22 @@
-root = Card(header, monthSelect, totalInfo, largestCallout, splitChart, actions, variant:card)
-
-header = CardHeader("Personal Budget", "Overview for selected month")
-
-monthSelect = Select("month", 
-    SelectItem("2024-08", "August 2024"),
-    SelectItem("2024-07", "July 2024"),
-    SelectItem("2024-06", "June 2024"),
-    placeholder:"Select month", 
-    value:"2024-08")
-
-totalInfo = TextContent("**Total spent:** $2,340  \n**Budget:** $3,000", size:large)
-
-largestCallout = Callout(variant:warning, "Largest expense", "Rent – $1,200")
-
-splitChart = PieChart(splitData, values:splitValues, variant:donut, appearance:circular)
-
-splitData = |Category|Amount
-|Rent|1200
-|Groceries|400
-|Utilities|200
-|Entertainment|300
-|Transport|240
-
-actions = Buttons(addExpense, viewHistory, direction:row)
-
-addExpense = Button("Add expense", primary)
-
-viewHistory = Button("View history", secondary)
+root = Card(totalCard, splitCard, largestCard, controlsCard, addExpenseDialog)
+totalCard = Card(CardHeader("Total spent vs Budget"), BarChart(totals, variant:grouped, xLabel:"Metric", yLabel:"Amount"), sunk)
+totals = |Metric|Amount
+|Spent|1500
+|Budget|2000
+splitCard = Card(CardHeader("Spending by Category"), PieChart(categorySplit, variant:donut, appearance:circular))
+categorySplit = |Category|Amount
+|Rent|500
+|Food|300
+|Transport|200
+|Entertainment|150
+|Other|350
+largestCard = Card(Callout(variant:warning, "Largest expense", "$500 – Rent"))
+controlsCard = Card(Select(monthSelect, placeholder:"Select month", value:"2023-09"))
+monthSelect = SelectItem("2023-08", "August 2023"), SelectItem("2023-09", "September 2023"), SelectItem("2023-10", "October 2023")
+addExpenseDialog = DialogBlock("Add expense", "New expense", expenseForm, description:"Enter expense details", triggerVariant:primary)
+expenseForm = Form("new-expense", formButtons, amountField, categoryField, dateField, noteField)
+amountField = FormControl("Amount", Input("amount", "0.00", type:number))
+categoryField = FormControl("Category", Select("category", SelectItem("Rent","Rent"), SelectItem("Food","Food"), SelectItem("Transport","Transport"), SelectItem("Entertainment","Entertainment"), SelectItem("Other","Other"), placeholder:"Choose category"))
+dateField = FormControl("Date", DatePicker("date", mode:single))
+noteField = FormControl("Note", TextArea("note", "", rows:3))
+formButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))

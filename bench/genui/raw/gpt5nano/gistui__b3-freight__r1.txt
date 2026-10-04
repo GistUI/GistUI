@@ -1,0 +1,35 @@
+root = Card(CardHeader("Logistics Operations Board", "Live shipment overview"), shipmentsSection, searchSection, metricsSection, volumeSection, refreshSection, followUp)
+shipmentsSection = Card(Heading("Shipments in transit", h3), Table(shipmentsTable))
+shipmentsTable = |Route|Origin|Destination|ETA|Status|Cost
+|NYC-LAX|New York, NY|Los Angeles, CA|2026-10-10 14:00|In transit|$1,250
+|CHI-MIA|Chicago, IL|Miami, FL|2026-10-11 09:30|In transit|$980
+|SFO-SEA|San Francisco, CA|Seattle, WA|2026-10-10 16:45|Delayed|$740
+|DAL-JFK|Dallas, TX|New York, NY|2026-10-12 12:00|In transit|$1,100
+delayedSection = Card(Heading("Delayed shipments", h4), Table(delayedTable))
+delayedTable = |Route|Origin|Destination|ETA|Status
+|CHI-MIA|Chicago, IL|Miami, FL|2026-10-08 22:00|Delayed
+|DAL-JFK|Dallas, TX|New York, NY|2026-10-11 02:00|Delayed
+onTimeSection = Card(Heading("On-time performance (this month)", h4), TextContent("94.7%", size:default))
+metricsSection = Card(Heading("On-time percentage this month", h4), onTimeSection)
+volumeSection = Card(Heading("Volume split by carrier", h4), PieChart(volumeTable, variant:donut))
+volumeTable = |Carrier|Volume
+| CarrierA | 4200
+| CarrierB | 3600
+| CarrierC | 5400
+searchSection = Card(Heading("Search by route", h4), Form("route-search", routeFormButtons, routeInput))
+routeFormButtons = Buttons(Button("Search", primary))
+routeInput = FormControl("Route", Input("route", placeholder:"e.g., NYC-LAX"))
+flags = Card(Heading("Actions", h4), Buttons(Button("Flag shipment", primary)))
+refreshSection = Card(Heading("Last refreshed", h4), TextContent("2026-10-04 10:15 UTC"))
+avgCostSection = Card(Heading("Average cost per shipment", h4), TextContent("$1,020"))
+weekVolumeSection = Card(Heading("Weekly volume (past 8 weeks)", h4), LineChart(weekVolumeTable, natural, xLabel:"Week", yLabel:"Volume"))
+weekVolumeTable = |Week|Volume
+|W1|980
+|W2|1020
+|W3|1100
+|W4|980
+|W5|1200
+|W6|1150
+|W7|1080
+|W8|1220
+sections = [shipmentsSection, delayedSection, onTimeSection, volumeSection, searchSection, avgCostSection, weekVolumeSection, flags, refreshSection]

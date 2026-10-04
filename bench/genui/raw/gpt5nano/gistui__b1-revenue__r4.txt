@@ -1,0 +1,14 @@
+root = Card(CardHeader("Shop Dashboard", "Mid-morning snapshot"), revenuePanel, comparisonPanel)
+revenuePanel = Card(Heading("Revenue today", h3), Table(todayTable), sunk)
+todayTable = |Metric|Value
+|Revenue|$7,520
+|Orders|312
+revenueComparison = Card(Heading("Comparison to yesterday at this time", h3), LineChart(comparisonTable, natural, xLabel:"Time", yLabel:"USD"), sunk)
+comparisonPanel = Card(Heading("Mid-morning progress", h3), AreaChart(progressTable, linear, xLabel:"Time", yLabel:"USD"), Tag("Live", success), sunk)
+comparisonTable = |Time|Revenue
+|9:30|$7,520
+|Yesterday 9:30|$7,210
+progressTable = |Time|Revenue
+|9:00|$6,900
+|9:30|$7,520
+|10:00|$9,100

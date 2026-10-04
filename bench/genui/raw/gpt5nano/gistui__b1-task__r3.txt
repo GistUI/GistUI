@@ -1,0 +1,1 @@
+root = Card(CardHeader("Focus: Personal Task"), SectionBlock(SectionItem("task", "Task details", heading:Heading("Urgent Task", h2), TaskCard("Complete personal budget", "2026-10-15", status:"In progress")), FollowUpBlock(), sunk))

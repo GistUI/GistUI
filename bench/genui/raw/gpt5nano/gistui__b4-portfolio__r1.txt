@@ -1,0 +1,79 @@
+root = Card(CardHeader("PMO Portfolio Review", "Quarterly project portfolio overview"), SectionBlock(SectionItem("active-projects", "Active Projects", activeProjectsSection), SectionItem("overdue-milestones", "Overdue Milestones", overdueMilestonesSection), SectionItem("budget-allocation", "Budget vs Allocation", budgetSection), SectionItem("team-utilization", "Team Utilization", utilizationSection), SectionItem("risks-severity", "Risks by Severity", risksSection), SectionItem("upcoming-deadlines", "Next Two Weeks Deadlines", upcomingDeadlinesSection), SectionItem("delivery-pace", "Delivery Pace (Last 6 Sprints)", paceSection), SectionItem("blocked-items", "Blocked Work Items", blockedItemsSection), SectionItem("health-summary", "Portfolio Health Summary", healthSummarySection), SectionItem("quarter-selector", "Navigate Quarter", quarterSelectorSection), SectionItem("resource-request", "Request More People", resourceRequestSection), SectionItem("export-section", "Export Review", exportSection), SectionItem("archive-section", "Archive Finished Projects", archiveSection)), variant:card)
+
+activeProjectsSection = Card(Heading("Active Projects", h3), Table(activeProjectsTable) , Blockquote("Health indicators: green=good, yellow=watch, red=critical"), Button("View details", action:["view active projects"])) 
+
+overdueMilestonesSection = Table(overdueMilestonesTable)
+
+budgetSection = Table(budgetTable)
+
+utilizationSection = BarChart(utilizationTable, xLabel:"Project", yLabel:"Utilization %")
+
+risksSection = RadarChart(risksTable)
+
+upcomingDeadlinesSection = LineChart(deadlinesTable, natural, xLabel:"Date", yLabel:"Days remaining")
+
+paceSection = AreaChart(paceTable, linear, xLabel:"Sprint", yLabel:"Delivery pace")
+
+blockedItemsSection = Table(blockedItemsTable)
+
+healthSummarySection = TextContent("Portfolio health: overall stable with 2 red flags in critical projects.", size:default)
+
+quarterSelectorSection = Form("quarter-select", formButtons, currentQuarterControl)
+
+currentQuarterControl = FormControl("Quarter", Select("quarter", SelectItem("Q1 2024","Q1 2024"), SelectItem("Q2 2024","Q2 2024"), SelectItem("Q3 2024","Q3 2024")), value:"Q3 2024")
+
+resourceRequestSection = Form("resource-request", formButtons, projectField, teamSizeField)
+
+projectField = FormControl("Project", Select("project", SelectItem("Project Alpha","Alpha"), SelectItem("Project Beta","Beta"), SelectItem("Project Gamma","Gamma")))
+
+teamSizeField = FormControl("New headcount", Input("headcount", "3"))
+
+exportSection = Buttons(Button("Export CSV"), Button("Export Excel", secondary))
+
+archiveSection = Buttons(Button("Archive finished projects"), Button("Bulk archive", tertiary))
+
+activeProjectsTable = |Project|Owner|Deadline|Health
+|Project Alpha|Alice Chen|2026-10-20|green
+|Project Beta|Ravi Kapoor|2026-11-05|yellow
+|Project Gamma|Mei Lin|2026-11-12|green
+
+overdueMilestonesTable = |Milestone|Project|Due date|Status
+|Milestone 1|Project Alpha|2026-10-02|Overdue
+|Milestone 3|Project Beta|2026-10-10|Overdue
+
+budgetTable = |Project|Budget spent|Allocation
+|Project Alpha|$420k|$1.2M
+|Project Beta|$275k|$900k
+|Project Gamma|$190k|$600k
+
+utilizationTable = |Project|Utilization
+|Project Alpha|85
+|Project Beta|72
+|Project Gamma|65
+
+risksTable = |Project|Risk|Severity
+|Project Alpha|Data breach risk|High
+|Project Beta|Regulatory risk|Medium
+|Project Gamma|Supply risk|Low
+
+deadlinesTable = |Date|Count
+|2026-10-15|3
+|2026-10-16|2
+|2026-10-17|1
+|2026-10-18|4
+
+paceTable = |Sprint|Delivery pace
+|Sprint 24|+8
+|Sprint 25|+7
+|Sprint 26|+9
+|Sprint 27|+6
+|Sprint 28|+7
+|Sprint 29|+8
+
+blockedItemsTable = |Item|Project|Reason
+|Migrate API|Project Gamma|Dependency hold
+|UI freeze|Project Alpha|Awaiting design token
+
+Notes:
+- All sections defined and referenced in root to ensure visibility.
+- All data presented in pipe tables where required; charts use provided tables.

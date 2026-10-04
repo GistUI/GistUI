@@ -1,6 +1,6 @@
 {
   "name": "@gistui/svelte",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "GistUI for Svelte 5 (and SvelteKit): a <GistUI> component and a use:gistui action that render streamed GistUI programs, with the default components built in and your own Svelte components for any name.",
   "keywords": [
     "gistui",

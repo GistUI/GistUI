@@ -1,0 +1,103 @@
+root = Card([
+  CardHeader("Hospital Operations Command View"),
+  SectionBlock([
+    SectionItem("bed-occupancy", "Bed Occupancy", [
+      Heading("Bed occupancy", "h2"),
+      TextContent("Current bed occupancy: 86% of available beds across all wards.", "default"),
+      Separator("horizontal")
+    ]),
+    SectionItem("er-wait", "Current ER Wait", [
+      Heading("Emergency Department wait", "h2"),
+      TextContent("Average ER wait time: 42 minutes. 12 patients waiting for triage.", "default"),
+      Separator("horizontal")
+    ])
+  ]),
+  SectionBlock([
+    SectionItem("admissions-2w", "Admissions (Past 2 Weeks)", [
+      Heading("Admissions – last 14 days", "h2"),
+      LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10","Day 11","Day 12","Day 13","Day 14"],
+        [Series("Admissions", [12,15,9,14,18,20,16,17,19,22,21,25,23,20])], "linear", "Date", "Patients"),
+      Separator("horizontal")
+    ])
+  ]),
+  SectionBlock([
+    SectionItem("patients-dept", "Patients per Department", [
+      Heading("Patients by department", "h2"),
+      Table([
+        Col("Department", ["ER","ICU","Surgery","Pediatrics","Cardiology","General Medicine"]),
+        Col("Patients", [22, 8, 15, 12, 9, 30])
+      ])
+    ])
+  ]),
+  SectionBlock([
+    SectionItem("staff-shift", "Staff on Shift by Role", [
+      Heading("Current staff on shift", "h2"),
+      ListBlock([
+        ListItem("Nursing - Day shift", "ER: 5, Ward: 9, OR: 2", ["https://picsum.photos/seed/nurse/80/40"]),
+        ListItem("Physicians - Day shift", "ER: 3, Inpatient: 4, OR: 3", ["https://picsum.photos/seed/doctor/80/40"]),
+        ListItem("Support staff - Day shift", "Telemetry: 2, Admin: 1", ["https://picsum.photos/seed/staff/80/40"])
+      ], "default")
+    ])
+  ]),
+  SectionBlock([
+    SectionItem("critical-patients", "Critical Patients Called Out", [
+      Heading("Critical patients", "h2"),
+      ListBlock([
+        ListItem("Patient A", "Ventilation, ICU", ["https://picsum.photos/seed/critical1/80/40"]),
+        ListItem("Patient B", "Sepsis protocol, ICU", ["https://picsum.photos/seed/critical2/80/40"])
+      ], "image")
+      ])
+  ]),
+  SectionBlock([
+    SectionItem("ready-for-discharge", "Patients Ready for Discharge", [
+      Heading("Ready for discharge", "h2"),
+      Table([
+        Col("Patient", ["P1045","P1078","P1122"]),
+        Col("Ward", ["General", "Surgical", "Cardiology"]),
+        Col("Discharge By", ["Today 15:00","Today 12:30","Today 16:00"])
+      ])
+    ])
+  ]),
+  SectionBlock([
+    SectionItem("or-bookings", "Today's Operating Room Bookings", [
+      Heading("Operating room bookings", "h2"),
+      Table([
+        Col("Time", ["08:00","10:00","12:30","14:00","16:00"]),
+        Col("Case", ["Appendectomy","Orthopedic OR","C-section","Cardiac Cath","Laparoscopy"]),
+        Col("Surgeon", ["Dr. Lee","Dr. Patel","Dr. Gomez","Dr. Chen","Dr. Singh"])
+      ])
+    ])
+  ]),
+  SectionBlock([
+    SectionItem("supplies-low", "Supplies Running Low", [
+      Heading("Supply alerts", "h2"),
+      TagBlock(["Blood products","IV fluids","Sutures size 2/0","Antibiotics: Ampicillin"])
+    ])
+  ]),
+  SectionBlock([
+    SectionItem("incident-file", "File an Incident", [
+      Heading("Incident reporting", "h2"),
+      Form("incident-form", Buttons([Button("Submit Incident", null, "primary")]), [
+        FormControl("Incident Type", Select("incident_type", [SelectItem("Fall","Fall"), SelectItem("Needle-stick","Needle-stick"), SelectItem("Equipment","Equipment failure")], "Choose type")),
+        FormControl("Location", Input("location","Ward 3 East")),
+        FormControl("Description", TextArea("description","Provide a brief description of the incident"))
+      ])
+    ])
+  ]),
+  SectionBlock([
+    SectionItem("view-day", "View Another Day", [
+      Heading("Look at another day", "h2"),
+      CalendarBlock("single","2026-10-04",1,"dropdown")
+    ])
+  ]),
+  SectionBlock([
+    SectionItem("transfer-request", "Request Patient Transfer", [
+      Heading("Request transfer", "h2"),
+      Form("transfer-form", Buttons([Button("Request Transfer", null, "primary")]), [
+        FormControl("From Ward", Select("from_ward", [SelectItem("ER","ER"), SelectItem("ICU","ICU"), SelectItem("General","General")], "Select ward")),
+        FormControl("To Ward", Select("to_ward", [SelectItem("General","General"), SelectItem("Surgery","Surgery"), SelectItem("Pediatrics","Pediatrics")], "Select ward")),
+        FormControl("Patient ID", Input("patient_id","Enter patient ID"))
+      ])
+    ])
+  ])
+])

@@ -1,0 +1,85 @@
+root = Card(CardHeader("Power Network Operator Console"), sectionView, liveAlerts, focusPanel, actionsPanel)
+
+sectionView = SectionBlock(SectionItem("overview", "Overview", overviewContent), isFoldable)
+
+overviewContent = Card(Heading("Current status", h3), Table(loadTable), TextContent(""), emissionsTodayCard, capacityGauge, generationSplit, plantStatusList, outagesList, forecastCard, priceCard, maintenanceCard)
+
+loadTable = Table(|Metric|Value
+|Current load|8200 MW
+|Supply margin|+1200 MW)
+
+capacityGauge = CardHeader("Capacity utilization") 
+capacityGauge = Card("### Capacity", "**78% of peak**")
+
+generationSplit = Card(Heading("Generation by source", h4), BarChart(sourcesTable, xLabel:"Source", yLabel:"Share"))
+
+sourcesTable = |Source|Share
+|Solar|28
+|Wind|22
+|Hydro|15
+|Gas|18
+|Nuclear|12
+|Other|5
+
+plantStatusList = Card(Heading("Plants and status", h4), Table(plantsTable))
+
+plantsTable = |Plant|Region|Output(MW)|Status
+|Plant A|North|520|Online
+|Plant B|South|340|Maintenance
+|Plant C|East|410|Online
+|Plant D|West|250|Offline
+|Plant E|Central|600|Online
+
+outagesList = Card(Heading("Outages by region", h4), Table(outagesTable))
+
+outagesTable = |Region|Affects|Estimated outage MW
+|North|Grid segment A|120
+|South|Industrial zone|80
+|Central|Substation 3|60
+
+forecastCard = Card(Heading("24h Demand Forecast", h4), Table(forecastTable))
+
+forecastTable = |Hour|Forecast Demand(MW)
+|00|9100
+|01|8950
+|02|8800
+|03|8750
+|04|8600
+|05|8550
+|06|8700
+|07|9000
+|08|9800
+|09|11000
+|10|12000
+|11|12500
+|12|13000
+|13|12800
+|14|12600
+|15|12450
+|16|12200
+|17|11900
+|18|11700
+|19|11500
+|20|11000
+|21|10500
+|22|10000
+|23|9800
+
+priceCard = Card(Heading("Current price (MWh)", h4), TextContent("$72.15", size:"large"))
+
+maintenanceCard = Card(Heading("Maintenance this month", h4), ListBlock(ListItem("Maintenance window A", "Line 4 reroute", "Details", image:[]), ListItem("Transformer check B", "Substation 7", "Docs"), ListItem("Inverter replacement C", "Plant D", "Schedule")))
+
+liveAlerts = SectionBlock(SectionItem("alerts", "Live Alerts", alertsContent), isFoldable)
+
+alertsContent = Table(alertsTable)
+
+alertsTable = |Time|Region|Alert|Severity
+|12:04Z|North|Voltage spike detected|urgent
+|12:07Z|South|Oil leakage risk|warning
+|12:12Z|Central|Protection relay fault|critical
+
+focusPanel = Card(Heading("Focus region", h4), Select("region_focus", SelectItem("North","North"), SelectItem("South","South"), SelectItem("Central","Central"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Choose region"))
+
+actionsPanel = Card(Heading("Actions", h4), Buttons(Button("Request curtailment", primary), Button("Acknowledge alerts", secondary)))
+
+sectionViewFooter = SectionBlock(SectionItem("notes", "Notes", TextContent("Live data feed. Use focus region to isolate area for curtailment planning."), isFoldable))

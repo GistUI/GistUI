@@ -1,63 +1,56 @@
-root = Card(header, headcountSection, openRolesSection, pipelineSection, avgTimeSection, splitSection, interviewsSection, attritionSection, actions)
+root = Card(headcountCard, openRolesCard, pipelineCard, avgTimeCard, deptSplitCard, interviewsCard, attritionCard, newRoleCard)
 
-header = CardHeader("Hiring Overview", "Key metrics and actions for HR")
+headcountCard = Card(CardHeader("Current Headcount"), Table(headcountTable))
 
-headcountSection = Card(Heading("Current Headcount", h3), headcountTable)
+headcountTable = |Metric|Count
+|Total Employees|124
 
-headcountTable = Table(headcountCol)
+openRolesCard = Card(CardHeader("Open Roles"), Table(openRolesTable))
 
-headcountCol = Col("Metric", data:["Current Headcount"], type:string)
-# value column
-headcountValueCol = Col("Value", data:[124], type:number)
+openRolesTable = |Role|Department|Open Positions
+|Software Engineer|Engineering|3
+|Product Manager|Product|2
+|UX Designer|Design|1
+|Recruiter|HR|1
 
-openRolesSection = Card(Heading("Open Roles by Department", h3), openRolesTable)
+pipelineCard = Card(CardHeader("Candidates by Pipeline Stage"), Table(pipelineTable))
 
-openRolesTable = Table(openRolesRoleCol, openRolesDeptCol, openRolesOpenCol)
+pipelineTable = |Stage|Candidates
+|Applied|45
+|Phone Screen|28
+|Onsite|12
+|Offer|5
+|Hired|4
 
-openRolesRoleCol = Col("Role", data:["Engineer","Designer","Recruiter"], type:string)
-openRolesDeptCol = Col("Department", data:["Engineering","Design","HR"], type:string)
-openRolesOpenCol = Col("Open", data:[2,1,1], type:number)
+avgTimeCard = Card(CardHeader("Average Time to Hire"), Table(avgTimeTable))
 
-pipelineSection = Card(Heading("Candidates by Pipeline Stage", h3), pipelineChart)
+avgTimeTable = |Metric|Days
+|Average Time to Hire|42
 
-pipelineChart = BarChart(pipelineData, variant:grouped, xLabel:"Stage", yLabel:"Candidates")
+deptSplitCard = Card(CardHeader("Headcount by Department"), PieChart(deptSplitTable, variant:donut, appearance:circular))
 
-pipelineData = |Stage|Candidates
-|Applied|30
-|Screening|12
-|Interview|8
-|Offer|3
-|Hired|5
+deptSplitTable = |Department|Count
+|Engineering|68
+|Product|22
+|Design|10
+|HR|8
+|Sales|16
 
-avgTimeSection = Card(Heading("Average Time to Hire", h3), avgTimeText)
+interviewsCard = Card(CardHeader("Interviews Scheduled This Week"), Table(interviewsTable))
 
-avgTimeText = TextContent("Average time to fill a position: **45 days**", size:default)
+interviewsTable = |Candidate|Role|Date|Time
+|Alice Johnson|Software Engineer|2024-10-07|10:00 AM
+|Bob Lee|Product Manager|2024-10-08|02:00 PM
+|Carol Smith|UX Designer|2024-10-09|11:30 AM
 
-splitSection = Card(Heading("Headcount Split by Department", h3), headcountPie)
+attritionCard = Card(CardHeader("Attrition (Last 6 Months)"), LineChart(attritionTable, variant:linear, xLabel:"Month", yLabel:"Attrition %"))
 
-headcountPie = PieChart(headcountSplitLabels, headcountSplitValues, variant:pie, appearance:circular)
+attritionTable = |Month|Attrition
+|May|2.1
+|Jun|1.8
+|Jul|2.4
+|Aug|2.0
+|Sep|1.9
+|Oct|2.2
 
-headcountSplitLabels = ["Engineering","Design","HR","Sales"]
-headcountSplitValues = [60,20,15,29]
-
-interviewsSection = Card(Heading("Interviews Scheduled This Week", h3), interviewsTable)
-
-interviewsTable = Table(interviewsCandCol, interviewsRoleCol, interviewsDateCol)
-
-interviewsCandCol = Col("Candidate", data:["Alice","Bob","Carol"], type:string)
-interviewsRoleCol = Col("Role", data:["Engineer","Designer","Engineer"], type:string)
-interviewsDateCol = Col("Date", data:["2023-09-24","2023-09-25","2023-09-26"], type:string)
-
-attritionSection = Card(Heading("Attrition Over Past Six Months", h3), attritionChart)
-
-attritionChart = LineChart(attritionData, variant:linear, xLabel:"Month", yLabel:"% Attrition")
-
-attritionData = |Month|Attrition%
-|Apr|1.2
-|May|1.0
-|Jun|0.8
-|Jul|1.1
-|Aug|0.9
-|Sep|1.3
-
-actions = Buttons(Button("Open New Role", primary))
+newRoleCard = Card(CardHeader("Add New Role"), Buttons(Button("Open Role Form", primary)))

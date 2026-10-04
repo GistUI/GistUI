@@ -1,0 +1,43 @@
+root = Card([header, metricsRow, filtersRow, recentSection, chartSection, actionsRow])
+
+header = CardHeader("E-commerce Operations Dashboard", "Today’s snapshot")
+
+metricsRow = Card([todayOrdersCard, revenueCard, aovCard, refundRateCard], "card")
+
+todayOrdersCard = Card([Heading("Orders today", "h3"), TextContent("Total orders placed today: 0")], "card")
+revenueCard = Card([Heading("Revenue today", "h3"), TextContent("$0.00")], "card")
+aovCard = Card([Heading("Average order value", "h3"), TextContent("$0.00")], "card")
+refundRateCard = Card([Heading("Refund rate this month", "h3"), TextContent("0%")], "card")
+
+filtersRow = Card([statusFilter, searchBar], "clear")
+
+statusFilter = Card([Heading("Filter by status", "h4"), TagBlock(["Pending","Processing","Shipped","Delivered","Cancelled","Returned"])], "card")
+searchBar = Card([Heading("Search by customer", "h4"), customerSearch], "card")
+
+customerSearch = Card([TextContent("Enter a customer name to search")], "card")
+
+recentSection = Card([CardHeader("Recent orders", null), recentTable], "card")
+
+recentTable = Table([Col("Order ID", []), Col("Customer", []), Col("Total", []), Col("Status", [])], )
+
+webCol = Col("Order ID", ["OD1001","OD1002","OD1003"])
+custCol = Col("Customer", ["Alice Smith","Bob Chen","Carla Reyes"])
+totalCol = Col("Total", ["$120.00","$89.50","$210.75"])
+statusCol = Col("Status", ["Delivered","Processing","Shipped"])
+recentTable = Table([webCol, custCol, totalCol, statusCol])
+
+chartSection = Card([Heading("Order volume – past 4 weeks", "h3"), lineChart], "card")
+
+lineChart = LineChart([ "W1","W2","W3","W4" ], [Series("Orders", [45, 60, 55, 70])], "linear", "Week", "Orders")
+
+actionsRow = Card([fulfillPanel], "card")
+
+fulfillPanel = Card([Heading("Fulfill orders", "h4"), fulfillControls], "card")
+
+fulfillControls = Card([orderSelect, fulfillButton], "card")
+
+orderSelect = FormControl("Select order to fulfill", Select("fulfill_order", [SelectItem("OD1001","OD1001")], "Choose order"), null)
+
+fulfillButton = Button("Mark as fulfilled", null, "primary")
+
+OptionalNote = null

@@ -1,0 +1,25 @@
+root = Card(CardHeader("Daily Summary"), SectionBlock(hero, isFoldable), followUps)
+hero = Card(Heading("Today"), Table(todayTable), Progress(todaySteps, label:"steps of 10000"), Separator(horizontal))
+todayTable = Table(|Metric|Value
+|Steps|8200
+|Goal|10000
+)
+followUps = SectionBlock(SectionItem("log-workout", "Log New Workout", logWorkoutSection), SectionItem("weekly-workout", "Past Week Workouts", weeklyChart))
+logWorkoutSection = Form("log-workout-form", formButtons, workoutTypeField, durationField, caloriesField)
+workoutTypeField = FormControl("Workout type", Select("workout_type", SelectItem("Run","Run"), SelectItem("Cycle","Cycle"), SelectItem("Strength","Strength")), )
+durationField = FormControl("Duration (min)", Input("duration", "", type:"number"))
+caloriesField = FormControl("Calories burned", Input("calories", "", type:"number"))
+formButtons = Buttons(Button("Log Workout", primary), Button("Cancel", tertiary))
+weeklyChart = CardHeader("Past Week Performance"), LineChart(weekTrend, natural, xLabel:"Day", yLabel:"Calories") 
+weekTrend = Table(|Day|Calories
+|Mon|420
+|Tue|510
+|Wed|480
+|Thu|520
+|Fri|590
+|Sat|610
+|Sun|455
+)
+CaloriesBlock = Card(Heading("Calories burned today", h3), TextContent("","default"))
+TextContent = TextContent("","default")
+SectionBlock = SectionBlock(SectionItem("summary", "Overview", Card(Heading("Overview"), TextContent("Keep going!"))) )

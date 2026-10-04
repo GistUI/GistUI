@@ -1,0 +1,52 @@
+root = Stack(headerCard, kpiRow, chartsRow, featuresCard, revenueCard, gap:lg)
+headerCard = Card(Header("Product Analytics Dashboard", "Usage, acquisition, feature adoption, and revenue trends"))
+kpiRow = Grid(kpi1, kpi2, kpi3, kpi4, cols:4)
+kpi1 = Card("**Monthly Active Users (MAU)**", "## 128,400", Text("+6.2% vs last month", size:sm), v:sunk)
+kpi2 = Card("**New Users (30d)**", "## 24,950", Text("+3.1% vs last 30d", size:sm), v:sunk)
+kpi3 = Card("**MRR**", "## $412,000", Text("+4.4% MoM", size:sm), v:sunk)
+kpi4 = Card("**ARR**", "## $4.94M", Text("+18.7% YoY", size:sm), v:sunk)
+chartsRow = Grid(mauCard, acquisitionCard, cols:2)
+mauCard = Card(Header("Monthly Active Users", "Last 12 months", size:sm), Chart(mauData, type:bar, x:"Month", y:"Users"))
+acquisitionCard = Card(Header("User Acquisition", "Share of new users (last 30 days)", size:sm), Chart(acqData, type:donut), Text("Tip: Track CAC and conversion rate by channel to explain mix shifts.", size:sm))
+featuresCard = Card(Header("Top Features", "Adoption and engagement (last 30 days)", size:sm), Table(featureData))
+revenueCard = Card(Header("Revenue Trend", "MRR and ARR (last 12 months)", size:sm), Chart(revData, type:line, x:"Month", y:"USD"), Text("ARR shown as 12×MRR for directional tracking; replace with contracted ARR if you track annual commitments.", size:sm))
+mauData = |Month|MAU
+|Apr|84500
+|May|87200
+|Jun|90100
+|Jul|93800
+|Aug|96500
+|Sep|100200
+|Oct|104800
+|Nov|109600
+|Dec|114300
+|Jan|119900
+|Feb|123700
+|Mar|128400
+acqData = |Channel|Share
+|Organic Search|34
+|Paid Search|22
+|Referrals|16
+|Social|12
+|Direct / Other|16
+featureData = |Feature|Weekly Active Users:n|Adoption Rate (%):n|Avg. Uses / User:n
+|Dashboards|48200|62.5|5.8
+|Automations|31750|41.2|3.1
+|Integrations|28900|37.5|2.4
+|Team Collaboration|27100|35.2|4.6
+|Exports|19850|25.8|1.7
+|Alerts|17600|22.9|2.0
+|API Access|12150|15.8|6.3
+revData = |Month|MRR ($)|ARR ($)
+|Apr|332000|3984000
+|May|341000|4092000
+|Jun|349000|4188000
+|Jul|356000|4272000
+|Aug|364000|4368000
+|Sep|372000|4464000
+|Oct|381000|4572000
+|Nov|389000|4668000
+|Dec|397000|4764000
+|Jan|404000|4848000
+|Feb|408000|4896000
+|Mar|412000|4944000

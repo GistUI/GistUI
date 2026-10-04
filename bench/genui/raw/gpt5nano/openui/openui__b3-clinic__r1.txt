@@ -1,0 +1,47 @@
+root = Card([
+  header = CardHeader("Clinic Day View", "Today’s schedule"),
+  topRow = Card([
+    todayAppointmentsHeading = Heading("Today's appointments", "h2"),
+    appointmentsList = ListBlock([appointmentsTable], "image")
+  ], "card"),
+  summaryRow = Card([
+    summaryHeading = Heading("Overview", "h3"),
+    summaryBlock = SectionBlock([
+      ListItem("Patients expected", "Count: " + "5", []),
+      ListItem("No-show rate this month", null, []),
+      ListItem("Rooms free right now", "3 rooms available", [])
+    ])
+  ], "sunk"),
+  nextPatientCard = Card([
+    nextHeading = Heading("Next patient called", "h3"),
+    nextPatient = TextContent("Alexandra Reed") // placeholder; will render as dynamic value
+  ], "card"),
+  actionsRow = Card([
+    checkInHeading = Heading("Check-in patient", "h3"),
+    checkinForm = Form("checkin", Buttons([checkInBtn]), [
+      FormControl("Patient lookup", Input("lookup", "Enter patient ID or name"), null)
+    ]),
+    timeTravelHeading = Heading("Move to another day", "h3"),
+    dayNavigation = Buttons([prevDayBtn, todayBtn, nextDayBtn], "row")
+  ], "card")
+])
+
+appointmentsTable = Table([
+  Col("Time", ["09:00", "09:30", "10:15", "11:00", "11:30"]),
+  Col("Patient", ["John Doe", "Maria Chen", "Priya Kapoor", "Liam Smith", "Olivia Brown"])
+])
+
+// helper placeholders for referenced items
+appointmentsList = MarkDownRenderer("Today's appointments are listed above.", "card")
+HeaderOnly = null
+todayAppointmentsHeading = null
+summaryHeading = null
+summaryBlock = null
+nextHeading = null
+nextPatient = null
+checkInBtn = Button("Check in patient", null, "primary")
+prevDayBtn = Button("Previous day", null, "secondary")
+todayBtn = Button("Today", null, "secondary")
+nextDayBtn = Button("Next day", null, "secondary")
+checkinForm = null
+dayNavigation = null

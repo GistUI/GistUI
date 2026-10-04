@@ -1,113 +1,109 @@
-root = Card(viewersNow, mostWatched, watchTimeTrend, subsVsCancels, genrePerformance, bufferingRate, deliveryHealth, upcomingReleases, expiringLicenses, recClicksTrend, failedSearches, revenueByPlan, deviceSplit, regionFocusDialog, featureFlagsTable, promoteTitleDialog)
+root = Card(CardHeader("Operations Dashboard", "Streaming Service"), controlsSection, viewersSection, titlesSection, watchTimeSection, subsCancelSection, genrePerfSection, bufferingSection, deliveryHealthSection, releasesSection, licensesSection, recClickSection, searchFailSection, revenuePlanSection, deviceSplitSection, regionFocusSection, flagsSection, promoteSection)
 
-viewersNow = Card(CardHeader("Live Viewers"), TextContent("**1,234** viewers watching right now", size:large), clear)
+controlsSection = Card(Heading("Filters", h3), regionSelect)
 
-mostWatched = Card(CardHeader("Top Titles (Hours)"), Table(mostWatchedRows), clear)
+regionSelect = Select("region", SelectItem("global", "Global"), SelectItem("us-east", "US East"), SelectItem("eu-west", "EU West"), placeholder:"Select region")
 
-mostWatchedRows = |Title|Hours
-|Show A|542
-|Show B|489
-|Show C|376
-|Show D|312
-|Show E|298
+viewersSection = Card(Heading("Current Viewers", h3), TextContent("**1,234** watching now", size:large-heavy))
 
-watchTimeTrend = Card(CardHeader("Watch Time - Last 30 Days"), LineChart(watchTimeRows, linear, xLabel:"Date", yLabel:"Hours"), clear)
+titlesSection = Card(Heading("Most-Watched Titles", h3), Table(mostTitles))
 
-watchTimeRows = |Date|Hours
-|2024-08-01|1240
-|2024-08-08|1350
-|2024-08-15|1420
-|2024-08-22|1385
-|2024-08-29|1490
+mostTitles = |Title|Hours
+|"Space Odyssey"|452
+|"Mystic Falls"|389
+|"Comedy Nights"|321
 
-subsVsCancels = Card(CardHeader("Subscribers vs Cancellations"), BarChart(subCancelRows, grouped, xLabel:"Week", yLabel:"Count"), clear)
+watchTimeSection = Card(Heading("Watch Time - Past Month", h3), LineChart(monthWatch, linear, xLabel:"Date", yLabel:"Hours"))
 
-subCancelRows = |Week|New Subscribers|Cancellations
-|W1|842|123
-|W2|915|98
-|W3|887|110
-|W4|932|105
+monthWatch = |Date|Hours
+|2024-09-01|1200
+|2024-09-08|1350
+|2024-09-15|1420
+|2024-09-22|1505
+|2024-09-29|1580
 
-genrePerformance = Card(CardHeader("Performance by Genre"), HorizontalBarChart(genreLabels, Series("Hours", genreValues), stacked, xLabel:"Hours", yLabel:"Genre"), clear)
+subsCancelSection = Card(Heading("Subscribers vs Cancellations", h3), BarChart(subsCancel, grouped, xLabel:"Week", yLabel:"Count"))
 
-genreLabels = ["Drama","Comedy","Documentary","Action","Kids"]
-genreValues = [2540,1980,1120,1760,860]
+subsCancel = |Week|Subscriptions|Cancellations
+|W1|820|150
+|W2|845|130
+|W3|870|120
+|W4|900|110
 
-bufferingRate = Card(CardHeader("Buffering Rate"), PieChart(bufferRows, donut, circular), clear)
+genrePerfSection = Card(Heading("Performance by Genre", h3), HorizontalBarChart(genrePerf, grouped, xLabel:"Hours", yLabel:"Genre"))
 
-bufferRows = |Cause|Percent
-|Buffering|12
-|No Issue|88
+genrePerf = |Genre|Hours
+|Drama|8200
+|Comedy|7600
+|Action|6900
+|Documentary|4300
+|Kids|3800
 
-deliveryHealth = Card(CardHeader("Delivery Health by Region"), BarChart(regionHealthRows, grouped, xLabel:"Region", yLabel:"Health Score"), clear)
+bufferingSection = Card(Heading("Buffering Rate", h3), TextContent("**2.3%** of streams experienced buffering", size:large))
 
-regionHealthRows = |Region|Score
-|North America|92
-|Europe|88
-|Asia|85
-|South America|79
-|Africa|73
+deliveryHealthSection = Card(Heading("Delivery Health by Region", h3), RadarChart(regionHealth))
 
-upcomingReleases = Card(CardHeader("Releases This Month"), Table(upcomingRows), clear)
+regionHealth = |Region|Latency|ErrorRate
+|US|45|0.8
+|EU|52|1.1
+|APAC|60|1.4
+|LATAM|70|2.0
 
-upcomingRows = |Title|Release Date
-|Series X|2024-09-10
-|Movie Y|2024-09-15
-|Doc Z|2024-09-20
+releasesSection = Card(Heading("Releases This Month", h3), Table(upcomingReleases))
 
-expiringLicenses = Card(CardHeader("Licenses Expiring Soon"), Table(expiringRows), clear)
+upcomingReleases = |Title|Release Date
+|"Future Quest"|2024-10-05
+|"Hidden Worlds"|2024-10-12
+|"Nightfall"|2024-10-20
 
-expiringRows = |Title|Expiry Date
-|Show A|2024-10-01
-|Show B|2024-10-05
-|Show C|2024-10-12
+licensesSection = Card(Heading("Licenses Expiring Soon", h3), Table(expiringLicenses))
 
-recClicksTrend = Card(CardHeader("Recommendation Clicks Over Time"), LineChart(recClicksRows, linear, xLabel:"Date", yLabel:"Clicks"), clear)
+expiringLicenses = |Title|Expires On
+|"Classic Tales"|2024-10-15
+|"Adventure Saga"|2024-10-22
+|"Retro Hits"|2024-10-30
 
-recClicksRows = |Date|Clicks
-|2024-08-01|340
-|2024-08-08|415
-|2024-08-15|398
-|2024-08-22|452
-|2024-08-29|489
+recClickSection = Card(Heading("Recommendation Click-Through", h3), SingleStackedBarChart(recClicks))
 
-failedSearches = Card(CardHeader("Searches Without Playback"), Table(searchFailRows), clear)
+recClicks = |Metric|Rate
+|Click Rate|18
+|Impression Rate|100
 
-searchFailRows = |Search Term|Count
-|"Mystery Show"|57
-|"Comedy Night"|42
-|"Sci-Fi Epic"|31
+searchFailSection = Card(Heading("Searches Ending Without Playback", h3), Table(searchFailures))
 
-revenueByPlan = Card(CardHeader("Revenue Split by Plan"), PieChart(revenuePlanRows, pie, circular), clear)
+searchFailures = |Search Term|Count
+|"Sci-Fi Thriller"|45
+|"Romantic Comedy"|38
+|"Documentary XYZ"|27
 
-revenuePlanRows = |Plan|Revenue
-|Basic|48000
-|Standard|72000
-|Premium|96000
+revenuePlanSection = Card(Heading("Revenue Split by Plan", h3), PieChart(revenuePlan, donut, appearance:circular))
 
-deviceSplit = Card(CardHeader("Viewing Split by Device"), PieChart(deviceRows, donut, circular), clear)
+revenuePlan = |Plan|Revenue
+|Basic|42000
+|Standard|68000
+|Premium|91000
 
-deviceRows = |Device|Percent
-|Smart TV|45
-|Mobile|30
-|Web|15
-|Tablet|10
+deviceSplitSection = Card(Heading("Viewing Split by Device", h3), BarChart(deviceSplit, stacked, xLabel:"Device", yLabel:"Hours"))
 
-regionFocusDialog = DialogBlock("Select Region", "Focus on Region", Card(CardHeader("Region Filter"), Select(regionSelect, SelectItem("NA","North America"), SelectItem("EU","Europe"), SelectItem("AS","Asia"), placeholder:"Choose region"), clear), description:"Choose a region to filter the dashboard", triggerVariant:secondary)
+deviceSplit = |Device|Mobile|Web|TV
+|Mobile|3400|0|0
+|Web|0|2100|0
+|TV|0|0|1900
 
-regionSelect = Select("region", SelectItem("NA","North America"), SelectItem("EU","Europe"), SelectItem("AS","Asia"), placeholder:"Select region", value:"NA")
+regionFocusSection = Card(Heading("Focus on Region", h3), TextContent("Select a region above to filter all charts.", size:small))
 
-featureFlagsTable = Card(CardHeader("Feature Flags"), Table(flagsRows), clear)
+flagsSection = Card(Heading("Feature Flags", h3), Table(featureFlags))
 
-flagsRows = |Feature|Enabled
-|New UI|true
-|Beta Recommendations|false
-|HD Streaming|true
-|Live Chat|false
+featureFlags = |Flag|Enabled
+|"New UI"|true
+|"Beta Recommendations"|false
+|"Live Chat"|true
+|"Advanced Analytics"|false
 
-promoteTitleDialog = DialogBlock("Promote Title", "Promote to Home Screen", Card(CardHeader("Promote Title"), Form("promote-form", promoteButtons, titleField, regionField), clear), description:"Select a title and region for promotion", triggerVariant:primary)
+promoteSection = Card(Heading("Promote Title on Home Screen", h3), Form("promote-form", promoteButtons, titleField, durationField))
 
-titleField = FormControl("Title", Input("title", "Enter title name"))
-regionField = FormControl("Region", Input("region", "Enter region"))
+titleField = FormControl("Title to Promote", Input("title", "Enter title"))
 
-promoteButtons = Buttons(Button("Promote", primary), Button("Cancel", secondary))
+durationField = FormControl("Promotion Duration (days)", Input("days", "30", type:number))
+
+promoteButtons = Buttons(Button("Promote", primary), Button("Cancel", tertiary))

@@ -1,0 +1,85 @@
+root = Card([
+  header = CardHeader("On-Call Service Health", "Live status for current shift"),
+  controlsRow = Card([regionFilterLabel, regionSelect], "card"),
+  dashboard = Card([
+    uptimeCard, chartsRow, incidentsCard, slowestCard, thresholdCard, acknowledgeCard
+  ], "card"),
+  // definitions
+  regionFilterLabel = TextContent("Region filter:") ,
+  regionSelect = Select("region", [regionUS, regionEU, regionAPAC], "All regions", null, "all") ,
+  regionUS = SelectItem("us", "US") ,
+  regionEU = SelectItem("eu", "EU") ,
+  regionAPAC = SelectItem("apac", "APAC") ,
+
+  // 1. uptime this quarter
+  uptimeCard = Card([
+    Heading("Uptime this quarter", "h3"),
+    uptimeValue = TextContent("99.987%", "large")
+  ], "sunk"),
+
+  // 2. CPU and memory usage over the past 24 hours
+  usageCard = Card([
+    Heading("CPU & Memory usage (past 24h)", "h3"),
+    usageChart = LineChart(["00:00","04:00","08:00","12:00","16:00","20:00","24:00"], [cpuSeries, memSeries], "linear", "Time", "Usage %")
+  ], "card"),
+  cpuSeries = Series("CPU", [12, 23, 35, 28, 40, 38, 30]),
+  memSeries = Series("Memory", [45, 50, 47, 52, 58, 60, 55]),
+
+  // 3. error rate right now
+  errorCard = Card([
+    Heading("Error rate (now)", "h3"),
+    errorRate = TextContent("2.3% errors in last minute", "large")
+  ], "sunk"),
+
+  // 4. open incidents with severity for each
+  incidentsCard = Card([
+    Heading("Open Incidents", "h3"),
+    incidentsList = SectionBlock([
+      SectionItem("sev-critical", "Critical incidents", [incidentCritical]),
+      SectionItem("sev-high", "High severity", [incidentHigh]),
+      SectionItem("sev-medium", "Medium severity", [incidentMed])
+    ])
+  ], "card"),
+  incidentCritical = Card([TextContent("Database outage in EU region"), Tag("Critical", "danger")], "card"),
+  incidentHigh = Card([TextContent("API latency spike"), Tag("High", "warning")], "card"),
+  incidentMed = Card([TextContent("Memory pressure in APAC"), Tag("Medium", "info")], "card"),
+
+  // 5. narrow to one region (already region filter above)
+  // (Region filter implemented via regionSelect; no extra UI element needed here.)
+
+  // 6. the five slowest endpoints with latency for each
+  slowestCard = Card([
+    Heading("Five slowest endpoints", "h3"),
+    endpointsTable = Table([
+      Col("Endpoint", ["GET /auth/login", "POST /payments", "GET /reports", "GET /search", "PUT /users/{id}"]),
+      Col("Latency (ms)", [1200, 980, 860, 750, 690]),
+      Col("Calls", [540, 420, 390, 360, 320])
+    ])
+  ], "card"),
+
+  // 7. a way to set an alert threshold
+  thresholdCard = Card([
+    Heading("Alert threshold", "h3"),
+    thresholdPanel = Card([
+      TextContent("Set the error-rate alert threshold for proactive paging.", "default"),
+      thresholdSlider = Slider("alert_threshold", "continuous", 0, 5, 0.5, "Error rate (%)", null, "2.0")
+    ], "sunk")
+  ], "card"),
+
+  // 8. a way to acknowledge an incident
+  acknowledgeCard = Card([
+    Heading("Acknowledge incidents", "h3"),
+    ackRow = Card([ 
+      TextContent("Select incidents to acknowledge and press acknowledge.", "default"),
+      Buttons([ackBtn, refreshBtn], "row")
+    ], "card"),
+    ackBtn = Button("Acknowledge selected", null, "secondary"),
+    refreshBtn = Button("Refresh status", null, "secondary")
+  ], "card"),
+
+  // end of definitions
+  // Note: ensure all referenced items are included in the root children's list
+])
+
+// Extra named references used above to satisfy hoisting rules
+regionFilterRow = Card([regionFilterLabel, regionSelect], "card")

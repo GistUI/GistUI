@@ -1,0 +1,11 @@
+root = Card(CardHeader("Personal Focus", "Single task view"), taskSection, ActionsPanel)
+
+taskSection = Card(Heading("Most urgent task", h2), StatusRow, DoneButton)
+
+StatusRow = Card(TagBlock(tags:["Urgent", "Today"]), TextContent("This is the most urgent task and includes its deadline."), DeadlineLine)
+
+DeadlineLine = TextContent("Deadline: 2026-10-15")
+
+DoneButton = Buttons(Button("Mark as done", action:["markDone"]))
+
+ActionsPanel = Card(Separator(), Progress(0, "Completion"), Tag("Status: In progress", info))

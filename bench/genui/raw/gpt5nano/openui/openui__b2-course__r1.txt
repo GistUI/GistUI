@@ -1,0 +1,41 @@
+root = Card([
+  header = CardHeader("Learning Path: Introduction to Data Literacy", "Instructor: Dr. Ava Chen"),
+  progressCard = Card([
+    Heading("Overall progress", "h4"),
+    progressBar = Progress(68, "68% complete")
+  ], "card"),
+  modulesSection = SectionBlock([
+    SectionItem("modules", "Modules & Completion",
+      [
+        ListBlock([
+          ListItem("Module 1: Foundations", "5/6 completed", ["https://picsum.photos/seed/module1/40/40"], "Resume"),
+          ListItem("Module 2: Data Visualization", "3/5 completed", ["https://picsum.photos/seed/module2/40/40"], "Resume"),
+          ListItem("Module 3: Analysis Basics", "0/4 completed", ["https://picsum.photos/seed/module3/40/40"], "Resume")
+        ], "number")
+      ]
+    )
+  ]),
+  nextLessonCard = Card([
+    Heading("Next lesson: Visualizing with Bar Charts", "h3"),
+    TextContent("In this lesson you will build your first bar chart and compare categories across a timeline."),
+    Button("Start Next Lesson", [ "resume-next" ], "primary")
+  ], "card"),
+  ratingBlock = Card([
+    TextContent("Average learner rating"),
+    Badge("4.6 / 5", "default")
+  ], "sunk"),
+  continueSection = Card([
+    TextContent("Continue learning"),
+    Buttons([
+      Button("Resume Course", [ "resume-course" ], "primary"),
+      Button("View Modules", [ "open-modules" ], "secondary")
+    ])
+  ], "card"),
+  // Anchor outputs to satisfy hoisting rule: ensure all defined vars are used
+  header,
+  progressCard,
+  modulesSection,
+  nextLessonCard,
+  ratingBlock,
+  continueSection
+])

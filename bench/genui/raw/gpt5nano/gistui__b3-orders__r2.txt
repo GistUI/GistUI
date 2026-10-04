@@ -1,0 +1,34 @@
+root = Card(CardHeader("E-commerce Operations Desk"), searchSection, metricsSection, recentOrdersSection, statusFilter, fulfillmentPanel, refundsSection, volumeChart, notesSection)
+
+searchSection = Card(Heading("Search & Filter", h4), searchBar, statusFilter)
+
+searchBar = Blockquote("Use the controls below to filter by status and search by customer name.",)
+
+statusFilter = Form("status-filter", Buttons(Button("Apply filters", primary)),)
+
+metricsSection = Card(Heading("Today’s snapshot", h3), kpisTable)
+
+kpisTable = Table(|Metric|Value
+|Orders today|120
+|Revenue today|"$4,560"
+|Average order value|"$38.00")
+
+recentOrdersSection = Card(Heading("Recent orders", h3), Table(recentTable))
+
+recentTable = Table(|Order ID|Customer|Total|Status
+|#102349|Alice Johnson|"$72.00"|Fulfilled
+|#102350|Marco Liu|"$145.50"|Processing
+|#102351|Priya Singh|"$29.99"|Refunded
+|#102352|Jonah Kim|"$210.00"|Fulfilled)
+
+fulfillmentPanel = Card(Heading("Fulfill order", h4), Button("Mark selected as Fulfilled", primary))
+
+refundsSection = Card(Heading("Refund rate (this month)", h4), TextContent("Refunds: 2.4% of monthly orders.", size:"default"))
+
+volumeChart = Card(Heading("Order volume — past 4 weeks", h3), Table(|Week|Orders
+|Week 1|320
+|Week 2|410
+|Week 3|389
+|Week 4|455))
+
+notesSection = Card(CardHeader("Tips & actions"), Blockquote("Click a row in Recent orders to select; use the Fulfill button to mark as fulfilled."))

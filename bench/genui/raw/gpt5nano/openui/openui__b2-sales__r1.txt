@@ -1,0 +1,57 @@
+root = Card([
+  header,
+  metricsRow,
+  lastSixMonthsCard,
+  topProductsCard,
+  conversionCard,
+  downloadCard
+])
+
+header = CardHeader("Founder’s Monthly Sales Check", "Current month overview")
+
+metricsRow = Card([
+  revenueHeading,
+  revenueValue
+], "card")
+
+revenueHeading = Heading("Revenue this month", "h2")
+revenueValue = TextContent("$58,420", "large")
+
+lastSixMonthsCard = Card([
+  sixMonthsHeading,
+  sixMonthsChart
+], "card")
+
+sixMonthsHeading = Heading("Revenue movement (last 6 months)", "h3")
+sixMonthsChart = LineChart(["M1","M2","M3","M4","M5","M6"], [revenueline], "linear", "Month", "USD")
+revenueline = Series("Revenue", [52000, 47000, 51000, 59000, 62000, 58400])
+
+topProductsCard = Card([
+  topProductsHeading,
+  topProductsTable
+], "card")
+
+topProductsHeading = Heading("Top 3 best-selling products", "h3")
+topProductsTable = Table([colProduct, colUnits])
+
+colProduct = Col("Product", ["Widget A", "Gadget B", "Tool C"])
+colUnits = Col("Units Sold", [1200, 980, 860])
+
+conversionCard = Card([
+  conversionHeading,
+  conversionValue
+], "card")
+
+conversionHeading = Heading("Conversion rate", "h3")
+conversionValue = TextContent("Conversion: 2.6%", "default")
+
+downloadCard = Card([
+  downloadHeading,
+  downloadButtons
+], "card")
+
+downloadHeading = Heading("Download numbers", "h3")
+downloadButtons = Buttons([downloadBtn, csvBtn], "row")
+
+downloadBtn = Button("View as PDF", null, "secondary")
+csvBtn = Button("Download CSV", null, "primary")

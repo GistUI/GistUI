@@ -1,0 +1,66 @@
+root = Card(CardHeader("E-commerce Operations Desk"), 
+  SectionBlock(SectionItem("overview", "Today", 
+    Card(Heading("Today overview", h3), 
+      Table(overviewTable)
+    )
+  )),
+  SectionBlock(SectionItem("filters", "Filters",
+    Card(Heading("Filters", h3),
+      Form("filters-form", formButtons,
+        FormControl("Status", Select("status", 
+          SelectItem("All","All"), SelectItem("Pending","Pending"), SelectItem("Confirmed","Confirmed"), SelectItem("Fulfilled","Fulfilled"), SelectItem("Refunded","Refunded")
+        )),
+        FormControl("Customer", Input("customer_search", "Search customer", "")),
+        Buttons(Button("Apply filters", primary))
+      )
+    )
+  )),
+  SectionBlock(SectionItem("summary", "Key Metrics",
+    Card(Heading("Key Metrics", h3),
+      HorizontalBarChart(todayTable, variant:grouped, xLabel:"Metric", yLabel:"Value")
+    )
+  )),
+  SectionBlock(SectionItem("orders", "Recent Orders",
+    Card(Heading("Recent Orders", h3),
+      Table(recentOrders)
+    )
+  )),
+  SectionBlock(SectionItem("refunds", "Refund Rate",
+    Card(Heading("Refund rate this month", h3),
+      TextContent("Refund rate: 3.2% this month", size:"default")
+    )
+  )),
+  SectionBlock(SectionItem("volume", "Order Volume (4 weeks)",
+    Card(Heading("Orders past 4 weeks", h3),
+      LineChart(volumeTrend, linear, xLabel:"Week", yLabel:"Orders")
+    )
+  )),
+  SectionBlock(SectionItem("fulfill", "Fulfillment",
+    Card(Heading("Fulfill order", h3),
+      Form("fulfill-form", fulfillButtons,
+        FormControl("Order ID", Input("order_id", "Enter order id")),
+        Buttons(Button("Mark Fulfilled", primary))
+      )
+    )
+  ))
+)
+
+overviewTable = |Metric|Value
+|Orders Today|120
+|Revenue Today|$8,540
+|Avg Order Value|$71.17
+|Refunds Today|4
+
+recentOrders = |OrderID|Customer|Total|Status
+| #102938|Alice Johnson|$210.00|Pending
+| #102939|TechCo Ltd|$89.50|Fulfilled
+| #102940|Maria Chen|$155.75|Confirmed
+| #102941|Okan Foods|$320.00|Pending
+
+volumeTrend = |Week|Orders
+|W1|320
+|W2|410
+|W3|390
+|W4|450
+
+fulfillButtons = Buttons(Button("Fulfill", primary))

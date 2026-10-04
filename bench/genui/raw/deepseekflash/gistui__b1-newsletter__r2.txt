@@ -1,7 +1,0 @@
- root = Card(heading, description, subscribeForm)
-heading = CardHeader("The Product Weekly")
-description = TextContent("Get one actionable product tip every Tuesday.")
-subscribeForm = Form("subscribe", formButtons, emailField)
-emailField = FormControl("Email address", emailInput, "No spam, unsubscribe anytime.")
-emailInput = Input("email", "you@example.com", email)
-formButtons = Buttons(Button("Subscribe", primary))

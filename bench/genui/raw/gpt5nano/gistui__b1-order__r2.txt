@@ -1,0 +1,6 @@
+root = Card(CardHeader("Delivery status", "Track your package"), statusSection, etaSection, reportSection)
+statusSection = Card(Heading("Current location", h3), Location("On the way to distribution center", "https://picsum.photos/seed/parcel/800/500"), sunk)
+etaSection = Card(Heading("Estimated delivery", h3), CalendarBlock("Today", mode:single), ETA("Delivery date: 2026-10-07"), sunk)
+reportSection = Card(Heading("Report an issue", h3), Form("delivery-issue", formButtons, issueField), sunk)
+issueField = FormControl("Describe the problem", TextArea("description", placeholder:"Please include order number and issue details"))
+formButtons = Buttons(Button("Submit issue", primary), Button("Cancel", tertiary))

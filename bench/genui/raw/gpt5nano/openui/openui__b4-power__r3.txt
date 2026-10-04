@@ -1,0 +1,113 @@
+root = Card([
+  header = CardHeader("Power Network Operator Console", "Live operations dashboard"),
+  topRow = Card([
+    loadBlock,
+    capacityBlock,
+    priceBlock
+  ], "card"),
+  middleRow = Card([
+    generationSplitBlock,
+    plantStatusBlock,
+    outagesBlock
+  ], "card"),
+  bottomRow = Card([
+    forecastBlock,
+    alertsBlock,
+    regionFocusBlock
+  ], "card"),
+  maintenanceBlock
+], "card")
+
+header = CardHeader("Power Network Operator Console", "Live operations dashboard")
+
+loadBlock = Card([
+  Heading("Current network load", "h3"),
+  TextContent("Load: 7,540 MW (live)"), 
+  Badge("MW", "default")
+], "sunk")
+
+capacityBlock = Card([
+  Heading("Capacity margin", "h3"),
+  TextContent("Utilization: 86% of available capacity"),
+  LinearProgress = Progress(86, "Utilization")
+], "default")
+
+priceBlock = Card([
+  Heading("Current price per MWh", "h3"),
+  TextContent("$72.40/MWh")
+], "default")
+
+generationSplitBlock = Card([
+  Heading("Generation by source", "h3"),
+  PieChart(["Solar","Wind","Hydro","Gas","Coal","Nuclear"], [ "1200","1800","600","2600","900","400" ], "pie", "circular")
+], "default")
+
+plantStatusBlock = Card([
+  Heading("Plants and status", "h3"),
+  Table([
+    Col("Plant", ["Plant A","Plant B","Plant C","Plant D"], "string"),
+    Col("Source", ["Gas","Wind","Hydro","Nuclear"], "string"),
+    Col("Output (MW)", ["980","420","620","1500"], "number"),
+    Col("Status", ["Online","Online","Maintenance","Online"], "string")
+  ])
+], "default")
+
+outagesBlock = Card([
+  Heading("Outages and affected regions", "h3"),
+  ListBlock([
+    ListItem("Outage 1", "Region: North-East, cause: transmission fault", ["https://picsum.photos/seed/region1/80/50"]),
+    ListItem("Outage 2", "Region: Midlands, cause: equipment failure", ["https://picsum.photos/seed/region2/80/50"])
+  ], "default")
+], "default")
+
+forecastBlock = Card([
+  Heading("Demand forecast next 24 hours", "h3"),
+  Table([
+    Col("Hour", ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]),
+    Col("Forecast (MW)", ["7500","7450","7420","7400","7380","7350","7400","7550","7700","8000","8300","8600","8900","9100","9000","8800","8600","8450","8300","8200","8100","8000","7900","7800"], "number")
+  ])
+], "default")
+
+alertsBlock = Card([
+  Heading("Live alerts", "h3"),
+  ListBlock([
+    ListItem("Alert A", "Rollover: transient voltage spike", ["https://picsum.photos/seed/alertA/80/50"]),
+    ListItem("Alert B", "Frequency deviation detected", ["https://picsum.photos/seed/alertB/80/50"])
+  ], "default")
+], "default")
+
+regionFocusBlock = Card([
+  Heading("Region focus and curtailment", "h3"),
+  Form("region-focus", Buttons([Button("Focus on region", null, "secondary")], "row"), [
+    FormControl("Region", Input("region", "Enter region code"), null),
+    FormControl("Focus actions", RadioGroup("focus", [
+      RadioItem("Add region to monitor", "focus-region", "monitor"),
+      RadioItem("Isolate region", "isolate-region", "isolate")
+    ], "monitor"))
+  ])
+], "default")
+
+forecastBlockInline = null
+regionSelectorBlock = Card([
+  Heading("Focus region selector", "h3"),
+  ImageBlock("https://picsum.photos/seed/regionselector/400/200", "Region selector diagram")
+], "default")
+
+maintenanceBlock = Card([
+  Heading("Maintenance planned this month", "h3"),
+  ListBlock([
+    ListItem("Substation X cooling system", "Scheduled 12:00 15th, duration 4h", ["https://picsum.photos/seed/maint1/80/50"]),
+    ListItem("Turbine Y rotor inspection", "Scheduled 03:00 22nd, duration 2h", ["https://picsum.photos/seed/maint2/80/50"]),
+    ListItem("Transformer Z retrofit", "Scheduled 09:00 28th, duration 6h", ["https://picsum.photos/seed/maint3/80/50"])
+  ], "default")
+], "default")
+
+regionFocusBlock = Card([
+  Heading("One-region focus controls", "h3"),
+  TextContent("Select a region to isolate monitoring or initiate controlled curtailment."),
+
+  Form("region-controls", Buttons([Button("Initiate curtailment", null, "primary")], "row"), [
+    FormControl("Region", Input("region-select", "Region code"), null),
+    FormControl("Curtailment amount", Slider("curtail", "continuous", 0, 100, 1, "Percent", null, null), null)
+  ])
+], "default")

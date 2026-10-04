@@ -1,0 +1,125 @@
+root = Card([
+  header = CardHeader("PMO Project Portfolio Review", "Quarter: Q4 2024 • Upcoming window: next 2 weeks"),
+  // Health summary and quarter switch
+  healthRow = Card([
+    healthSummary = TextContent("Portfolio health: Stable overall with several critical paths highlighted below.", "default"),
+    quarterPicker = Form("quarter-switch", Buttons([switchBtn], "row"), [
+      // dummy form controls as inline references
+    ])
+  ], "card"),
+
+  // Active projects with owner, deadline and health
+  sectionActive = SectionBlock([
+    SectionItem("active-projects", "Active Projects", [
+      activeProjectsTable = Table([
+        Col("Project", ["Alpha", "Beta", "Gamma", "Delta"]),
+        Col("Owner", ["A. Kim", "L. Chen", "R. Singh", "M. O'Neil"]),
+        Col("Deadline", ["2024-11-20", "2024-12-05", "2024-11-28", "2024-12-15"]),
+        Col("Health", ["Healthy", "At Risk", "Healthy", "Critical"])
+      ])
+    ])
+  ], true),
+
+  // Overdue milestones
+  sectionOverdueMilestones = SectionBlock([
+    SectionItem("overdue-milestones", "Overdue Milestones", [
+      ListBlock([
+        ListItem("Milestone A - Project Alpha", "Due: 2024-10-28", ["https://picsum.photos/seed/1/40/40"]),
+        ListItem("Milestone B - Project Beta", "Due: 2024-10-22", ["https://picsum.photos/seed/2/40/40"]),
+        ListItem("Milestone C - Project Delta", "Due: 2024-10-25", ["https://picsum.photos/seed/3/40/40"])
+      ], "image")
+    ])
+  ], true),
+
+  // Budget spent against allocation per project
+  sectionBudget = SectionBlock([
+    SectionItem("budget-allocation", "Budget Spent vs Allocation", [
+      BarChart(["Alpha", "Beta", "Gamma", "Delta"],
+        [
+          Series("Spent", [750000, 420000, 360000, 520000]),
+          Series("Allocation", [1000000, 900000, 800000, 950000])
+        ],
+        "grouped", "Budget", "Amount")
+    ])
+  ], true),
+
+  // Team utilization
+  sectionUtilization = SectionBlock([
+    SectionItem("team-utilization", "Team Utilization", [
+      LineChart(["Sprint1","Sprint2","Sprint3","Sprint4","Sprint5","Sprint6"],
+        [
+          Series("Team A", [75, 82, 78, 85, 90, 88]),
+          Series("Team B", [60, 65, 70, 72, 68, 71])
+        ],
+        "linear", "Sprint", "Utilization %")
+    ])
+  ], true),
+
+  // Risks with severity for each
+  sectionRisks = SectionBlock([
+    SectionItem("risks-per-project", "Risks by Project", [
+      Table([
+        Col("Project", ["Alpha","Beta","Gamma","Delta"]),
+        Col("Risk", ["Data risk","Resource constraint","Timeline risk","Compliance risk"]),
+        Col("Severity", ["High","Medium","Low","Critical"])
+      ])
+    ])
+  ], true),
+
+  // Deadlines in the next two weeks
+  sectionNextTwoWeeks = SectionBlock([
+    SectionItem("deadlines-2weeks", "Deadlines Next 2 Weeks", [
+      ListBlock([
+        ListItem("Alpha - Milestone M1", "Due 2024-11-09", ["https://picsum.photos/seed/alpha/40/40"]),
+        ListItem("Beta - Milestone M2", "Due 2024-11-11", ["https://picsum.photos/seed/beta/40/40"]),
+        ListItem("Gamma - Review Milestone", "Due 2024-11-14", ["https://picsum.photos/seed/gamma/40/40"])
+      ], "image")
+    ])
+  ], true),
+
+  // Delivery pace over the past six sprints
+  sectionPace = SectionBlock([
+    SectionItem("pace-six-sprints", "Delivery Pace (Past 6 Sprints)", [
+      BarChart(["Sprint1","Sprint2","Sprint3","Sprint4","Sprint5","Sprint6"],
+        [
+          Series("Stories Delivered", [22, 25, 20, 28, 26, 31])
+        ],
+        "linear", "Sprint", "Stories")
+    ])
+  ], true),
+
+  // Blocked work items
+  sectionBlocked = SectionBlock([
+    SectionItem("blocked-items", "Blocked Work Items", [
+      ListBlock([
+        ListItem("Project Beta - Task 12", "Waiting on dependency X", ["https://picsum.photos/seed/b1/40/40"]),
+        ListItem("Project Delta - Task 7", "Awaiting access to resource Y", ["https://picsum.photos/seed/b2/40/40"])
+      ], "image")
+    ])
+  ], true),
+
+  // One-line health summary
+  summaryLine = TextContent("Portfolio health: 2 at risk items, 1 critical, 1 delayed milestone; overall stable with proactive mitigations.", "default"),
+
+  // Archiving and export controls
+  actionsBottom = SectionBlock([
+    SectionItem("archive-export", "Actions", [
+      Buttons([Button("Export Review", null, "secondary"), Button("Archive Finished Projects", null, "tertiary")], "row")
+    ])
+  ], false),
+
+  // Extra controls: look at a different quarter and request more people
+  controls = Card([
+    Heading("Quarter Navigator", "h4"),
+    TextContent("Choose a different quarter to view the portfolio data.", "default"),
+    // Quarter switch mock - represented as a simple value display
+    Form("quarter-selector", Buttons([Button("Q1 2025", null, "secondary"), Button("Q4 2023", null, "secondary")], "row"), []),
+    TextContent("Request more people for a project", "default"),
+    // Request form placeholder
+    Form("resourcing-request", Buttons([Button("Submit Request", null, "primary")], "row"), [
+      FormControl("Project", Input("project", "Select project"), null),
+      FormControl("Number of people", Slider("people", "continuous", 1, 20, 1, "Staff", null, null))
+    ])
+  ], "card")
+
+])

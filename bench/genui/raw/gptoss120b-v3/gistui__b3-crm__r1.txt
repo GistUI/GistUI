@@ -1,32 +1,50 @@
-root = Card(header, totalDeal, stageTag, activityList, contactsTable, followupsTable, noteForm, renewalCallout, logCallForm)
+root = Card(accountHeader, dealInfo, renewalWarning, activitySection, contactsSection, followupsSection, noteForm, logCallForm)
 
-activityList = ListBlock(activity1, activity2, activity3, variant:number)
+accountHeader = CardHeader("Acme Corp", "Owner: Jane Doe")
 
-noteForm = Form("note", noteButtons, noteField)
+dealInfo = Card(TextContent("Total Deal Value: $250,000", size:large), TextContent("Current Stage: Negotiation", size:large), wrap)
 
-logCallForm = Form("call", callButtons, callNoteField)
+renewalWarning = Callout(variant:warning, "Renewal Date Approaching", "Renewal on 2024-11-10")
 
-header = CardHeader("Acme Corp", "Owner: Jane Doe")
-totalDeal = TextContent("$2.5M", size:large)
-stageTag = Tag("Negotiation", variant:info)
+activitySection = Card(Heading("Recent Activity", h3), recentList)
 
-activity1 = ListItem("Called prospect", "2024-09-01")
-activity2 = ListItem("Sent email", "2024-09-03")
-activity3 = ListItem("Received reply", "2024-09-04")
+recentList = ListBlock(
+  ListItem("Call with client", "Discussed pricing", "View", []),
+  ListItem("Email sent", "Sent proposal PDF", "Open", []),
+  ListItem("Meeting scheduled", "Demo on 2024-10-05", "Details", [])
+)
 
-renewalCallout = Callout(variant:warning, "Renewal Date", "2024-10-05")
+contactsSection = Card(Heading("Contacts", h3), contactsList)
 
-noteField = FormControl("Note", TextArea("note_text", "Enter note...", "", rows:4))
+contactsList = ListBlock(
+  ListItem("Alice Smith", "Decision Maker", "Email", []),
+  ListItem("Bob Johnson", "Technical Lead", "Call", []),
+  ListItem("Carol Lee", "Procurement", "Email", [])
+)
+
+followupsSection = Card(Heading("Open Follow‑ups", h3), followupTable)
+
+followupTable = Table(followupRows)
+
+followupRows = |Follow‑up|Due Date
+|Send contract|2024-10-12
+|Prepare ROI analysis|2024-10-15
+
+noteForm = Form("note", noteButtons,
+  noteField
+)
+
+noteField = FormControl("Add a note", TextArea("note", "Type your note here...", "", rows:4))
+
 noteButtons = Buttons(Button("Save note", primary))
 
-callNoteField = FormControl("Call notes", TextArea("call_notes", "Enter call notes...", "", rows:4))
-callButtons = Buttons(Button("Log call", primary))
+logCallForm = Form("logCall", logCallButtons,
+  callDateField,
+  callSummaryField
+)
 
-contactsTable = Table(nameCol, roleCol)
-followupsTable = Table(followupCol, dueCol)
+callDateField = FormControl("Call date", Input("call_date", "2024-10-01", type:date))
 
-nameCol = Col("Name", data:["Alice Johnson","Bob Smith"], type:string)
-roleCol = Col("Role", data:["Decision Maker","Influencer"], type:string)
+callSummaryField = FormControl("Summary", TextArea("call_summary", "Brief summary...", "", rows:3))
 
-followupCol = Col("Follow-up", data:["Send proposal","Schedule demo"], type:string)
-dueCol = Col("Due Date", data:["2024-09-15","2024-09-20"], type:string)
+logCallButtons = Buttons(Button("Log call", primary))

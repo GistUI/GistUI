@@ -1,0 +1,99 @@
+root = Card([
+  header = CardHeader("Logistics Coordinator Dashboard", "Live operations board"),
+  PanelSection(
+    SectionBlock([
+      SectionItem("shipments", "In transit shipments", [
+        Heading("In Transit", "h3"),
+        shipmentsTable = Table([
+          shipmentsCols = Col("Shipment", ["SHP001", "SHP002", "SHP003"]),
+          originCol = Col("Origin", ["Shanghai", "Los Angeles", "Hamburg"]),
+          destinationCol = Col("Destination", ["New York", "Chicago", "London"]),
+          etaCol = Col("ETA", ["2026-10-06", "2026-10-07", "2026-10-05"]),
+          statusCol = Col("Status", ["In Transit", "In Transit", "In Transit"])
+        ])
+      ])
+    ]),
+    SectionBlock([
+      SectionItem("delayed", "Delayed shipments", [
+        Heading("Delayed Shipments", "h3"),
+        delayedList = ListBlock([
+          ListItem("SHP004", "Ocean delay", "https://picsum.photos/seed/delay/40/40"),
+          ListItem("SHP005", "Customs hold", "https://picsum.photos/seed/delay2/40/40")
+        ], "image")
+      ])
+    ]),
+    SectionBlock([
+      SectionItem("onTimePct", "On-time percentage this month", [
+        Heading("On-time % This Month", "h3"),
+        onTimeCard = Card([
+          TextContent("On-time deliveries", "default"),
+          progressPct = Progress(78, "Percent on-time")
+        ])
+      ])
+    ]),
+    SectionBlock([
+      SectionItem("volumeCarrier", "Volume split by carrier", [
+        Heading("Volume by Carrier", "h3"),
+        carrierChart = BarChart(
+          ["Maersk", "COSCO", "FedEx", "DHL"],
+          [Series("Volume", [320, 210, 150, 260])],
+          "grouped",
+          "Carrier",
+          "Volume"
+        )
+      ])
+    ]),
+    SectionBlock([
+      SectionItem("routeSearch", "Search by route", [
+        Heading("Search by Route", "h3"),
+        searchRow = Card([
+          Input("routeQuery", "Enter origin-destination e.g. Shanghai - New York"),
+          Buttons([Button("Search", null, "primary")], "row")
+        ])
+      ])
+    ]),
+    SectionBlock([
+      SectionItem("avgCost", "Average cost per shipment", [
+        Heading("Avg Cost/Shipment", "h3"),
+        costPanel = Card([
+          TextContent("Average cost per shipment across all routes", "default"),
+          Progress(62, "Cost efficiency gauge"),
+          TextContent("$1,245 average", "default")
+        ])
+      ])
+    ]),
+    SectionBlock([
+      SectionItem("weeklyVolume", "Weekly volume past 8 weeks", [
+        Heading("Weekly Volume (Past 8 Weeks)", "h3"),
+        LineChart([ "W6","W7","W8","W9","W10","W11","W12","W13" ],
+          [Series("Volume", [420, 510, 480, 530, 590, 610, 640, 700])],
+          "linear",
+          "Week",
+          "Volume"
+        )
+      ])
+    ]),
+    SectionBlock([
+      SectionItem("flagShipment", "Flag a shipment", [
+        Heading("Flag Shipment", "h3"),
+        flagCard = Card([
+          TextContent("Flag a shipment for follow-up", "default"),
+          Form("flag-form", Buttons([Button("Flag Shipment", null, "secondary")]),
+            [
+              FormControl("Shipment ID", Input("flagShipmentId", "SHP001"), null),
+              FormControl("Reason", TextArea("flagReason", "Reason for flagging"), null)
+            ]
+          )
+        ])
+      ])
+    ]),
+    SectionBlock([
+      SectionItem("refresh", "Last refreshed", [
+        Heading("Last Refreshed", "h3"),
+        TextContent("2026-10-04 14:22 UTC", "default")
+      ])
+    ])
+  )
+])
+
+PanelSection(...): undefined

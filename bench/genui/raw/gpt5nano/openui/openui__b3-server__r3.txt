@@ -1,0 +1,70 @@
+root = Card([
+  header,
+  regionRow,
+  contentCol
+])
+
+header = CardHeader("On-Call Service Health", "Live status dashboard")
+
+regionRow = Card([
+  TextContent("Region: All regions", "default")
+], "card")
+
+contentCol = Card([
+  uptimeCard,
+  chartsRow,
+  incidentsCard,
+  endpointsCard,
+  alertCard,
+  actionsRow
+], "card")
+
+uptimeCard = Card([
+  Heading("Uptime this quarter", "h3"),
+  TextContent("99.987% uptime so far this quarter, based on monitored services.", "default")
+], null)
+
+chartsRow = Card([
+  ChartBlockHours
+], "row")
+
+ChartBlockHours = Card([
+  Heading("CPU and Memory usage (past 24h)", "h3"),
+  LineChart(["00:00","04:00","08:00","12:00","16:00","20:00","24:00"],
+    [Series("CPU", [42, 38, 55, 60, 48, 52, 44]),
+     Series("Memory", [65, 70, 68, 72, 69, 71, 67])], "linear", "Hour", "Usage %")
+], null)
+
+incidentsCard = Card([
+  Heading("Open incidents by severity", "h3"),
+  IncidentList
+], null)
+
+IncidentList = ListBlock([
+  ListItem("P0: Database latency", "High priority outage due to auth DB", ["https://picsum.photos/seed/inc0/24/24"], "Acknowledge"),
+  ListItem("P1: Cache miss storm", "Transient spike in cache misses", ["https://picsum.photos/seed/inc1/24/24"], "Acknowledge"),
+  ListItem("P2: API timeout burst", "Intermittent timeouts on /search", ["https://picsum.photos/seed/inc2/24/24"], "Acknowledge")
+], "image")
+
+endpointsCard = Card([
+  Heading("Five slowest endpoints with latency", "h3"),
+  Table([
+    Col("Endpoint", ["GET /api/v1/search","GET /api/v1/users","POST /api/v1/order","GET /api/v1/products","GET /api/v1/metrics"]),
+    Col("Latency (ms)", [1340, 1200, 980, 930, 860]),
+    Col("Calls", [1200, 980, 860, 820, 780])
+  ])
+], null)
+
+alertCard = Card([
+  Heading("Set alert threshold", "h3"),
+  Slider("latencyThreshold", "continuous", 100, 2000, 50, "Latency threshold (ms)")
+], null)
+
+ackCard = Card([
+  Heading("Acknowledge selected incident", "h3"),
+  Button("Acknowledge selected", null, "primary")
+], null)
+
+actionsRow = Card([
+  Buttons([Button("Acknowledge All Incidents", null, "secondary"), Button("Resolve All", null, "tertiary")])
+], null)

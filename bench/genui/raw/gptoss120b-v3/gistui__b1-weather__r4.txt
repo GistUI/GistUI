@@ -1,9 +1,12 @@
-root = Card(header, current, outlook, sun)
+root = Card(header, current, outlook, sunSection)
 header = CardHeader("Bengaluru Weather", "Morning Brief")
-current = Card(Heading("Current", h3), TextContent("**Temperature:** 24°C\n**Condition:** Partly Cloudy", large))
-outlook = Card(Heading("3‑Day Outlook", h3), outlookTable)
+current = Card(MarkDownRenderer("**Temperature:** 27°C\n**Condition:** Partly Cloudy", variant:clear))
+outlook = Card(Heading("3‑Day Outlook", h3), Table(outlookTable))
+sunSection = Card(Heading("Sunrise & Sunset", h3), Table(sunTable))
 outlookTable = |Day|High|Low|Condition
-|Tue|28°C|22°C|Sunny
-|Wed|27°C|21°C|Cloudy
-|Thu|26°C|20°C|Rain
-sun = Card(Heading("Sunrise & Sunset", h3), TagBlock(tags:["Sunrise 6:12 AM","Sunset 6:45 PM"]))
+|Mon|30°C|22°C|Sunny
+|Tue|28°C|21°C|Cloudy
+|Wed|27°C|20°C|Showers
+sunTable = |Event|Time
+|Sunrise|06:12 AM
+|Sunset|06:45 PM

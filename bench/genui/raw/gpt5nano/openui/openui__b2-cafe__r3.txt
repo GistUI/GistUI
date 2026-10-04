@@ -1,0 +1,37 @@
+root = Card([header, categories, specialsBanner, vegetarianToggle, hoursBlock, footer])
+
+header = CardHeader("Cafe Menu", "Today’s offerings")
+
+categories = Card([drinksSection, foodSection], "card")
+
+drinksSection = SectionBlock([drinksItem1, drinksItem2, drinksItem3], true)
+
+drinksItem1 = SectionItem("Drinks", "",
+    [TextContent("Espresso — $3.00"), TextContent("Latte — $4.50"), TextContent("Cappuccino — $4.20"), TextContent("Cold Brew — $4.00")]
+)
+
+drinksItem2 = SectionItem("Tea & Extras", "",
+    [TextContent("Herbal Tea — $3.50"), TextContent("Soy Milk Add-on — $0.50"), TextContent("Almond Milk Add-on — $0.70")]
+)
+
+drinksItem3 = SectionItem("Juices & Others", "",
+    [TextContent("Fresh Orange Juice — $3.80"), TextContent("Sparkling Water — $2.50")]
+)
+
+foodSection = SectionBlock([foodItem1, foodItem2], true)
+
+foodItem1 = SectionItem("Food", "",
+    [TextContent("Avocado Toast — $6.50"), TextContent("Eggs Benedict — $9.00"), TextContent("Greek Yogurt Parfait — $5.50")]
+)
+
+foodItem2 = SectionItem("Picks & Sandwiches", "",
+    [TextContent("Turkey Club — $8.50"), TextContent("Veggie Halloumi Wrap — $7.50")]
+)
+
+specialsBanner = Card([TextContent("Today’s Special: Lemon Herb Salmon with roasted veggies — $12.50"), Separator("horizontal")], "sunk")
+
+vegetarianToggle = Card([TextCallout("neutral", "Vegetarian only", "Toggle to filter vegetarian items on the menu")], "clear")
+
+hoursBlock = Card([Heading("Opening Hours", "h3"), TextContent("Mon–Fri: 7:00–19:00"), TextContent("Sat–Sun: 8:00–18:00")])
+
+footer = Card([Separator("horizontal"), TextContent("Visit us: 123 Brew Lane, Coffee City"), MarkDownRenderer("Follow us on social media for daily specials.")], "card")

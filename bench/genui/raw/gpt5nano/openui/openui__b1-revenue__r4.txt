@@ -1,0 +1,18 @@
+root = Card([
+  CardHeader("Mid-morning Shop Check", "Today vs yesterday"),
+  SectionBlock([
+    SectionItem("revenue-section", "Revenue & comparison", [
+      Heading("Revenue so far today", "h3"),
+      TextContent("Live revenue to this point in the day: $12,345", "default"),
+      Separator("horizontal")
+    ]),
+    SectionItem("comparison-section", "YoY comparison", [
+      Heading("Compare to same time yesterday", "h3"),
+      TextContent("Yesterday at this time: $11,280", "default"),
+      TextContent("Difference: +$1,065 (+9.4%)", "default"),
+      TextBlockPlaceholder
+    ])
+  ], false),
+  Separator("horizontal"),
+  Card([Buttons([Button("Refresh", null, "primary")])], "card")
+])

@@ -1,0 +1,6 @@
+root = Card([question, voteButtons])
+question = Heading("Where should we go for lunch on Friday?", "h2")
+voteButtons = Buttons([opt1, opt2, opt3])
+opt1 = Button("Pizza Place")
+opt2 = Button("Sushi Bar")
+opt3 = Button("Taco Truck")

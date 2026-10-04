@@ -1,7 +1,0 @@
-root = Card(cardHeader, bioSection, messageSection, clear)
-cardHeader = CardHeader("Jane Doe", "Senior Product Manager")
-bioSection = Card(MarkDownRenderer("**About**\n\nJane has over 10 years of experience leading product teams across fintech and e‑commerce.", variant:clear))
-messageSection = Card(Heading("Send a message", h3), messageForm, sunk)
-messageForm = Form("contact-jane", formButtons, messageField)
-messageField = FormControl("Message", TextArea("msg", placeholder:"Your message...", rows:4))
-formButtons = Buttons(Button("Send", primary))

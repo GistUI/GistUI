@@ -1,6 +1,0 @@
-root = Card(CardHeader("Invoice #INV-2024-118", "Acme Studio"), statusTag, amountCard, dueRow, payActions, note)
-statusTag = Tag("Payment due", warning)
-amountCard = Card(TextContent("Amount due", small), TextContent("$1,250.00 USD", large-heavy), sunk)
-dueRow = Card(direction:row, justify:between, align:center, TextContent("Due date", small), TextContent("**June 30, 2025**"), clear)
-payActions = Buttons(Button("Pay now", primary), Button("Download PDF", secondary))
-note = Alert("Payment methods", "Credit card, bank transfer, or PayPal.", info)

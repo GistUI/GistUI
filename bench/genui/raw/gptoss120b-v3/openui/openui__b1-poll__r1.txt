@@ -1,0 +1,6 @@
+root = Card([question, voteButtons])
+question = TextContent("Where should we go for lunch on Friday?")
+voteButtons = Buttons([opt1, opt2, opt3])
+opt1 = Button("Sushi Place")
+opt2 = Button("Pizza Parlor")
+opt3 = Button("Salad Bar")

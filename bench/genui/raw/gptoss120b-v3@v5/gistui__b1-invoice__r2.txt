@@ -1,4 +1,0 @@
-root = Card(amount, due, pay, variant:card)
-amount = TextContent("$2,500 USD", size:large)
-due = TextContent("Due: September 15, 2026", size:default)
-pay = Buttons(Button("Pay now", primary))

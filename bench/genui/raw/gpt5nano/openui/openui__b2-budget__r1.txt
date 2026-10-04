@@ -1,0 +1,101 @@
+root = Card([
+  header,
+ ControlsRow
+])
+
+header = CardHeader("Personal Budget Check", "This month at a glance")
+
+ControlsRow = Card([
+  MonthSelectorLabel,
+  MonthSelector
+], "card")
+
+MonthSelectorLabel = TextContent("Month:", "default")
+
+MonthSelector = Select("month", [
+  SelectItem("2026-09", "September 2026"),
+  SelectItem("2026-08", "August 2026"),
+  SelectItem("2026-07", "July 2026")
+], "Choose month")
+
+SummaryCard = Card([
+  SummaryHeading,
+  TotalsCardBody,
+  LargestExpenseCard
+], "card")
+
+SummaryHeading = Heading("Overview", "h3")
+
+TotalsCardBody = Card([
+  TextContent("Total spent this month: ", "default"),
+  SpentThisMonth
+], "card")
+
+SpentThisMonth = TextContent("$2,850 / $3,200 budget", "large")
+
+LargestExpenseCard = Card([
+  LargestExpenseHeading,
+  LargestExpenseValue
+], "card")
+
+LargestExpenseHeading = TextContent("Largest expense this month", "default")
+
+LargestExpenseValue = TextContent("$970 on Rent", "large")
+
+CategoryBreakdown = Card([
+  CategoryBreakdownHeading,
+  CategoryChart,
+  CategoryList
+], "card")
+
+CategoryBreakdownHeading = Heading("Spending by category", "h3")
+
+CategoryChart = Image("Category chart placeholder", "https://picsum.photos/seed/category-chart/800/200")
+
+CategoryList = ListBlock([
+  ListItem("Rent", "Sep 2026", ["https://picsum.photos/seed/rent/40/40"]),
+  ListItem("Groceries", "Sep 2026", ["https://picsum.photos/seed/groceries/40/40"]),
+  ListItem("Transport", "Sep 2026", ["https://picsum.photos/seed/transport/40/40"])
+], "image")
+
+AddExpenseCard = Card([
+  AddExpenseHeading,
+  AddExpenseForm
+], "card")
+
+AddExpenseHeading = Heading("Add an expense", "h3")
+
+FormGroup = Card([
+  FormLabel,
+  ExpenseNameInput,
+  ExpenseAmountInput,
+  CategorySelectInput,
+  DateInput
+], "card")
+
+FormLabel = TextContent("Expense details:", "default")
+
+ExpenseNameInput = TextArea("expense_name", "e.g., Coffee", 1)
+
+ExpenseAmountInput = Input("expense_amount", "Amount in USD", "number")
+
+CategorySelectInput = Select("expense_category", [
+  SelectItem("groceries", "Groceries"),
+  SelectItem("rent", "Rent"),
+  SelectItem("transport", "Transport"),
+  SelectItem("utilities", "Utilities"),
+  SelectItem("other", "Other")
+])
+
+DateInput = DatePicker("expense_date")
+
+AddExpenseButton = Button("Add Expense", null, "primary")
+
+ActionsRow = Buttons([AddExpenseButton], "row")
+
+root = Card([
+  header,
+  SummaryCard,
+  CategoryBreakdown,
+  AddExpenseCard
+], "card")

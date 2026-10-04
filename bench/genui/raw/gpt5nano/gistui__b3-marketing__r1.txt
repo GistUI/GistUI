@@ -1,0 +1,99 @@
+root = Card(CardHeader("Marketing Manager Dashboard", "Weekly overview"), dateRange, visitorPanel, conversionsPanel, sourcesPanel, campaignsPanel, bestCampaignPanel, subscribersPanel, exportBar) 
+dateRange = CardHeader("Date range", "Last 30 days") 
+visitorPanel = Card(Heading("Site visitors (last 30 days)", h3), LineChart(visitorsTable, natural, xLabel:"Date", yLabel:"Visitors")) 
+visitorsTable = |Date|Visitors
+|Day-30|12000
+|Day-29|11500
+|Day-28|11850
+|Day-27|12210
+|Day-26|11980
+|Day-25|12120
+|Day-24|12500
+|Day-23|12340
+|Day-22|12650
+|Day-21|13000
+|Day-20|12850
+|Day-19|13120
+|Day-18|12900
+|Day-17|13240
+|Day-16|13400
+|Day-15|13320
+|Day-14|13550
+|Day-13|13720
+|Day-12|13600
+|Day-11|13810
+|Day-10|13950
+|Day-9|14100
+|Day-8|14250
+|Day-7|14420
+|Day-6|14500
+|Day-5|14680
+|Day-4|14750
+|Day-3|14900
+|Day-2|15050
+|Day-1|15120
+conversionsPanel = Card(Heading("Conversion rate", h3), LineChart(conversionsTable, linear, xLabel:"Date", yLabel:"Conversion %")) 
+conversionsTable = |Date|Conversion
+|Day-30|2.3%
+|Day-29|2.1%
+|Day-28|2.4%
+|Day-27|2.6%
+|Day-26|2.5%
+|Day-25|2.7%
+|Day-24|2.9%
+|Day-23|2.8%
+|Day-22|3.0%
+|Day-21|3.1%
+|Day-20|3.2%
+|Day-19|3.0%
+|Day-18|3.3%
+|Day-17|3.4%
+|Day-16|3.5%
+|Day-15|3.6%
+|Day-14|3.7%
+|Day-13|3.8%
+|Day-12|3.9%
+|Day-11|4.0%
+|Day-10|4.1%
+|Day-9|4.2%
+|Day-8|4.3%
+|Day-7|4.4%
+|Day-6|4.5%
+|Day-5|4.6%
+|Day-4|4.7%
+|Day-3|4.8%
+|Day-2|4.9%
+|Day-1|5.0% 
+sourcesPanel = Card(Heading("Top traffic sources (share)", h3), Table(sourcesTable)) 
+sourcesTable = |Source|Share|Visits
+|Organic|42%|51200
+|Paid Search|25%|30500
+|Direct|15%|18500
+|Social|10%|12200
+|Referral|8%|9800
+campaignsPanel = Card(Heading("Running campaigns", h3), Table(campaignsTable)) 
+campaignsTable = |Campaign|Spend
+|SummerSale|$12,000
+|WinterPromo|$8,500
+|BlackFriday|$15,200
+|EmailPush|$3,400
+|LoyaltyBoost|$2,150
+bestCampaignPanel = Card(Heading("Best performing campaign", h3), Tag("SummerSale", success)) 
+subscribersPanel = Card(Heading("Email subscribers growth this month", h3), AreaChart(subscribersTable, linear, xLabel:"Date", yLabel:"Subscribers")) 
+subscribersTable = |Date|Subscribers
+|Day-01|1200
+|Day-02|1400
+|Day-03|1700
+|Day-04|2100
+|Day-05|2600
+|Day-06|3200
+|Day-07|3700
+|Day-08|4300
+|Day-09|4900
+|Day-10|5500
+|Day-11|6200
+|Day-12|6900
+|Day-13|7600
+|Day-14|8300
+|Day-15|9100
+exportBar = Buttons(Button("Export CSV"), Button("Share report", secondary))

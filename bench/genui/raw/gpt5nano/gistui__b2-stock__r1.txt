@@ -1,0 +1,7 @@
+root = Card(CardHeader("Low Inventory Warning", "Items running low and actions"), SearchBox("Search items"), lowInventorySection, thresholdPanel)
+SearchBox(text) = Form("search-items", Buttons(Button("Search", primary)), FormControl("Query", Input("query", "", placeholder:"Search items")))
+lowInventorySection = SectionBlock("|Item|Remaining|Action", SectionItem("low1", "Items Low 1", lowTable), SectionItem("low2", "Items Low 2", lowTable2), isFoldable)
+lowTable = Table(|Item|Remaining|, |Widget A|5|, |Widget B|2|)
+lowTable2 = Table(|Item|Remaining|, |Widget C|0|)
+thresholdPanel = Card(CardHeader("Threshold", "Inventory low threshold"), ThresholdControl("threshold", 10))
+ThresholdControl(name, value:num) = Form("threshold-form", Buttons(Button("Set threshold", primary)), FormControl("Threshold", Input("threshold", value), hint:"Sets the warning threshold for remaining units"))

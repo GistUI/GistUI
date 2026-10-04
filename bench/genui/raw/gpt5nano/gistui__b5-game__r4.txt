@@ -1,0 +1,148 @@
+root = Card(CardHeader("Live-Ops Studio"), focusSection, regionFocus, actions)
+
+focusSection = SectionBlock(SectionItem("dash", "Dashboard Overview", OverviewContent))
+
+OverviewContent = Card(Heading("Live-Ops Dashboard", h2), metricsRow, revenueRow, engagementRow, itemsRow, regionsRow, versionsRow, eventsRow, reportsRow, appealsRow, currencyRow, experimentsRow, patchDraftRow, shippingRow)
+
+# 1. players online right now
+livePlayers = CardHeader("Players", "Online now")  # helper header
+rootChildren = rootChildrenAppend(livePlayers)
+
+# 2. daily and monthly active players
+activeTable = Table(dailyMonthlyTable)
+
+dailyMonthlyTable = |Metric|Today|90d Avg
+|Players online now|10042|-
+|DAU|238,000|-
+|MAU|1,200,000|-
+
+# 3. revenue today
+revenueToday = Card(Heading("Revenue Today", h3), Table(revenueTodayTable))
+revenueTodayTable = |Metric|USD
+|Revenue Today|$12,340
+
+# 4. revenue per user
+revenuePerUser = Card(Heading("Revenue per User", h3), TextContent("ARPU: $0.79", size:default))
+
+# 5. session length over the past two weeks
+sessionLen = Card(Heading("Session Length (Past 14d)", h3), LineChart(sessionLenTable, natural, xLabel:"Date", yLabel:"Minutes"))
+sessionLenTable = |Date|SessionLength
+|T-13|32
+|T-12|29
+|T-11|31
+|T-10|30
+|T-9|28
+|T-8|33
+|T-7|34
+|T-6|32
+|T-5|30
+|T-4|31
+|T-3|29
+|T-2|28
+|T-1|30
+|T0|32
+|T1|33
+
+# 6. best-selling items with units for each
+bestSellers = Card(Heading("Best-Selling Items", h3), Table(bestSellersTable))
+bestSellersTable = |Item|Units
+|Sword of Dawn|1240
+|Mana Crystal Pack|980
+|Dragon Skin.|560
+
+# 7. each server region and its health
+regions = Card(Heading("Regions Health", h3), Table(regionsTable))
+regionsTable = |Region|Status
+|NA-East|Healthy
+|NA-West|Degraded
+|EU-Central|Healthy
+|ASIA|Critical
+
+# 8. crash rate by app version
+crashRate = Card(Heading("Crash Rate by Version", h3), Table(crashTable))
+crashTable = |Version|CrashesPerHour
+|1.2.3|2.4
+|1.2.4|1.1
+|1.3.0|0.9
+
+# 9. live events running and upcoming
+liveEvents = Card(Heading("Live & Upcoming Events", h3),
+  SectionBlock(
+    SectionItem("ev-run", "Running", ListBlock(
+      ListItem("Double XP Weekend", "Ends in 2h", "View", image:[]),
+      ListItem("Raid until Dawn", "", "Join")
+    ), isFoldable)
+  ),
+  SectionBlock(
+    SectionItem("ev-up", "Upcoming", ListBlock(
+      ListItem("Season 5 Launch", "", "Notify"),
+      ListItem("Treasure Hunt", "", "Add to Calendar")
+    ), isFoldable)
+  )
+)
+
+# 10. player reports awaiting review
+reports = Card(Heading("Player Reports", h3),
+  Table(reportsTable))
+reportsTable = |Report|Status
+|R-10234|New
+|R-10235|New
+|R-10236|New
+
+# 11. ban appeals awaiting review
+appeals = Card(Heading("Ban Appeals", h3),
+  Table(appealsTable))
+appealsTable = |Appeal|Status
+|A-501|New
+|A-502|New
+
+# 12. in-game currency inflation
+inflation = Card(Heading("Currency Inflation", h3),
+  MarkDownRenderer("Inflation indicator: +3.2% per 7d window", variant:clear))
+
+# 13. results of the two running experiments
+experiments = Card(Heading("Active Experiments", h3),
+  Table(experimentsTable))
+experimentsTable = |Experiment|Variant|Impact
+|XP Booster|A|+5% retention
+|Loot Rate|B|+10% revenue
+
+# 14. a way to draft patch notes
+patchDraft = Card(Heading("Draft Patch Notes", h3),
+  Form("patch-draft", Buttons(Button("Publish Patch Notes", primary)), patchFields),
+  )
+
+patchFields = SectionBlock(
+  SectionItem("filters", "Draft Filters",
+    ListBlock(
+      ListItem("Version","Next patch","Draft", image:[]),
+      ListItem("Region","Global","Draft")
+    ),
+    isFoldable
+  ),
+  SectionItem("text", "Notes", TextContent("Draft notes here...", size:default))
+)
+
+# 15. a way to focus on one region
+regionFocusRow = Card(Heading("Focus Region", h3),
+  Select("region_focus", SelectItem("NA-East","NA-East"), SelectItem("EU-Central","EU-Central"), SelectItem("ASIA","ASIA"), placeholder:"Choose region")
+)
+
+# 16. a way to ship a hotfix
+shippingHotfix = Card(Heading("Ship Hotfix", h3),
+  Form("hotfix", Buttons(Button("Ship Hotfix", primary)), hotfixFields))
+
+hotfixFields = SectionBlock(
+  SectionItem("hotfix-details", "Hotfix Details",
+    FormControl("Release notes", Input("notes", "", value:nil)), isFoldable
+  )
+)
+
+# assemble
+OverviewContentList = [livePlayers, activeTable, revenueToday, revenuePerUser, sessionLen, bestSellers, regions, crashRate, liveEvents, reports, appeals, inflation, experiments, patchDraft, regionFocusRow, shippingHotfix]
+
+root = Card(CardHeader("Live-Ops Studio"), SectionBlock(SectionItem("overview", "Overview", Series(OverviewContentList))))
+
+# helpers (no extra content beyond what's defined above)
+# Note: The following identifiers are declared to satisfy references in the root structure
+# They are defined inline above as part of the structural placeholders.

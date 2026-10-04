@@ -1,0 +1,11 @@
+root = Card(CardHeader("Low Inventory Warning"), searchRow, itemsSection, thresholdRow, reorderActions)
+
+searchRow = Card(Header("Search items"), Form("search-form", Buttons(Button("Search"), Button("Clear", secondary))), FormControl("Query", Input("query")))
+
+itemsSection = Card(Heading("Low-stock items", h3), Table(lowStockTable), sunk)
+
+lowStockTable = Table(|Item|Remaining|Threshold|Supplier|, |Widget A|12|20|Acme|, |Gadget B|5|15|Globex|, |Tool C|2|10|Initech|)
+
+thresholdRow = Card(Heading("Warning threshold", h4), TextContent("If remaining units are at or below the threshold, the item appears in this list."), Form("threshold-form", Buttons(Button("Set Threshold", primary))), FormControl("Threshold", Input("threshold", "10")))
+
+reorderActions = Card(Heading("Reorder actions"), ListBlock( ListItem("Order quantity for Widget A", "Suggest reorder: 50", "Reorder", [Image("icon", "https://picsum.photos/seed/reorder/32/32")]), ListItem("Order quantity for Gadget B", "Suggest reorder: 30", "Reorder"), ListItem("Order quantity for Tool C", "Suggest reorder: 25", "Reorder") ))

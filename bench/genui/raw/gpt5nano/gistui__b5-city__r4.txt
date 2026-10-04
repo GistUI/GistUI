@@ -1,0 +1,110 @@
+root = Card(CardHeader("City Operations Center", "Live dashboard"), districtFilter, dispatchPanel, publicAlertPanel, incidentTable, weatherPanel, energyPanel, waterPanel, parkingPanel, eventsPanel, citizenReportsPanel, serviceBacklogPanel, roadworksPanel, infraMaintenancePanel, trafficPanel, transitPanel, airQualityPanel, energyTrendTable, weatherPanelCopy, openIncidentsTable)
+districtFilter = Card(Heading("Focus by district", h3), DistrictSelector("district", "Select District"))
+dispatchPanel = Card(Heading("Dispatch crew", h3), ButtonLine("Dispatch Menu", primary))
+publicAlertPanel = Card(Heading("Public alert", h3), AlertDialogBlock("alert", "Send public alert", description:"Choose district and message"))
+incidentTable = Card(Heading("Open incidents", h3), Table(openIncidents), sunk)
+openIncidents = |Incident|Location|Severity
+|Incident-101|Downtown Core|severe
+|Incident-102|Riverside Park|moderate
+|Incident-103|Old Town Station|critical
+weatherPanel = Card(Heading("Current weather", h3), Table(weatherNow), sunk)
+weatherNow = |Parameter|Value
+|Condition|Sunny
+|Temp|72°F
+|Wind|8 mph
+energyPanel = Card(Heading("Energy use over past week", h3), LineChart(energyTrend, natural, xLabel:"Day", yLabel:"MWh"))
+energyTrend = |Day|Usage
+|Mon|540
+|Tue|610
+|Wed|590
+|Thu|620
+|Fri|645
+|Sat|700
+|Sun|690
+waterPanel = Card(Heading("Water use today", h3), BarChart(waterToday, xLabel:"Hour", yLabel:"Gallons"))
+waterToday = |Hour|Usage
+|08:00|1200
+|09:00|1300
+|10:00|1250
+|11:00|1420
+|12:00|1780
+parkingPanel = Card(Heading("Parking availability downtown", h3), PieChart(parkingDonut, variant:donut, appearance:circular))
+parkingDonut = |Zone|Available
+|Downtown|38
+|North|22
+|South|15
+eventsPanel = Card(Heading("Public events this weekend", h3), Table(events, sunk))
+events = |Event|Date|Location
+|MarketFair|Sat 12|Downtown
+|MusicBench|Sun 13|Riverside
+citizenReportsPanel = Card(Heading("Citizen reports (live)", h3), Table(reports, plain))
+reports = |Report|From|Status
+|Pothole on 5th|Citizen App|New
+|Broken streetlight|Phone|In Progress
+|Noise complaint|Chat|New
+serviceBacklogPanel = Card(Heading("Service request backlog", h3), Table(backlog, plain))
+backlog = |Request|Target Date|Status
+|Street sweeping|Today|Backlog
+|Tree trimming|Mon|Pending
+roadworksPanel = Card(Heading("Roadworks planned this month", h3), Table(roadworks, plain))
+roadworks = |Road|District|When
+|Main St closure|Downtown|Sat-Sun
+|2nd Ave lane shift|Uptown|Wed
+infraMaintenancePanel = Card(Heading("Infrastructure jobs due for maintenance", h3), Table(maint, plain))
+maint = |Job|Area|Due
+|Bridge inspection|Riverside|This Fri
+|Rail crossing|Old Town|Next Tue
+trafficPanel = Card(Heading("Congestion right now", h3), Gauge(congestionNow, variant:standard))
+congestionNow = 78
+transitPanel = Card(Heading("Transit punctuality", h3), Table(transit, plain))
+transit = |Line|On-time%
+|Aqua|92
+|Red|85
+airQualityPanel = Card(Heading("Air quality by district", h3), Table(aq, plain))
+aq = |District|AQI
+|Downtown|72
+|Uptown|68
+|Riverside|75
+districtControl = Selection("district", Districts, placeholder:"Choose district")
+Districts = |Downtown|Uptown|Riverside|Old Town|Midtown
+DistrictSelector(label, value) = Card(Label(label), districtControl)
+Label(text) = TextContent(text)
+Table(table) = Card(TableWrapper(table), sunk)
+TableWrapper(t) = t
+TableWrapper(table) = Table(table)
+TableRows(table) = table
+TableRows(empty) = Table()
+TableRowsClosed = Table
+TableRowsOpen = Table
+LineChart(table, variant:natural, xLabel:str, yLabel:str)
+LineChart(table, xLabel:"Day", yLabel:"Usage", variant:natural)
+energyBar = BarChart(energyTable, xLabel:"Day", yLabel:"MWh")
+energyTable = |Day|Usage
+|Mon|540
+|Tue|610
+|Wed|590
+|Thu|620
+|Fri|645
+|Sat|700
+|Sun|690
+Slice(category, value:num)
+Table(table) = TableWrapper
+HorizontalBarChart(table, variant:grouped, xLabel:str, yLabel:str)
+RadarChart(table) = Card
+PieChart(table, variant:pie|donut, appearance:circular|semiCircular)
+RadialChart(table) = Card
+SingleStackedBarChart(table)
+Form(name, buttons:Buttons, ...FormControl)
+formButtons = Buttons(Button("Dispatch crew", primary), Button("Cancel", tertiary))
+nameField = FormControl("Your name", Input("caller", placeholder:"Enter name") )
+Notes = TextContent("Dashboard reflects real-time city operations data.")
+root = Card(CardHeader("City Operations Center", "Live dashboard"), districtFilter, dispatchPanel, publicAlertPanel, incidentTable, weatherPanel, energyPanel, waterPanel, parkingPanel, eventsPanel, citizenReportsPanel, serviceBacklogPanel, roadworksPanel, infraMaintenancePanel, trafficPanel, transitPanel, airQualityPanel, energyTrendTable)
+energyTrendTable = Table(energyTrendData)
+energyTrendData = |Day|Usage
+|Mon|540
+|Tue|610
+|Wed|590
+|Thu|620
+|Fri|645
+|Sat|700
+|Sun|690

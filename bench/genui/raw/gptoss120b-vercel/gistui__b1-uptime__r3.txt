@@ -1,3 +1,0 @@
-root = Card(uptimeSection, incidentSection)
-uptimeSection = Card(Heading("API Uptime - This Month", h2), TextContent("**99.97%**", size:large))
-incidentSection = Card(Heading("Recent Incident", h2), TextContent("**Incident:** Database latency spike\n**Resolved:** 2024-09-25 14:32 UTC", size:default), Callout(info, "Details", "The issue was caused by a temporary overload on the primary DB node and was resolved after scaling the read replicas."))

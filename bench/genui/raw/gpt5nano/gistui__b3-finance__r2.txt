@@ -1,0 +1,39 @@
+root = Card(CardHeader("Finance dashboard", "Month-end view"), SectionBlock(
+  SectionItem("overview", "Overview",
+    cashCard, burnCard, runwayCard
+  ),
+  SectionBlock("spend", SectionItem("spend-by-category","Expenses by category", expensesChart, expensesTable)),
+  SectionBlock("transactions", SectionItem("high-value","High-value transactions", highValueList)),
+  SectionBlock("navigation", SectionItem("month-nav","Month selector", monthPicker, downloadBar)
+  )
+), variant:card)
+
+cashCard = Card(Heading("Cash on hand", h3), TextContent("$2,350,000", size:"large"), Tag("Stable", success))
+
+burnCard = Card(Heading("Monthly burn", h3), TextContent("$410,000", size:"default"), Tag("Current month", info))
+
+runwayCard = Card(Heading("Months of runway", h3), TextContent("5.7 months", size:"default"), Tag("Based on current burn", neutral))
+
+expensesSection = Card(Heading("Expenses by category", h3), HorizontalBarChart(expensesTable, variant:grouped, xLabel:"Category", yLabel:"USD"), expensesTable)
+
+expensesChart = expensesSection
+
+expensesTable = Table(|Category|Amount
+|Salaries|$180,000
+|Operations|$72,000
+|Marketing|$95,000
+|R&D|$55,000
+|G&A|$38,000)
+
+highValueList = Card(ContentBlock, ListBlock(|Date|Description|Amount
+|2026-09-12|Vendor A — hardware|$12,500
+|2026-09-14|Vendor B — software|$15,250
+|2026-09-18|Vendor C — consulting|$36,700
+|2026-09-20|Vendor D — services|$42,200), variant:default)
+
+monthPicker = Form("month-selector", Buttons(Button("Apply", primary)), FormControl("Select month", Select("month", SelectItem("2026-08","Aug 2026"), SelectItem("2026-09","Sep 2026")), placeholder:"Choose a month"))
+
+downloadBar = Buttons(Button("Download statement", primary), Button("Export CSV", secondary))
+
+SectionBlock = SectionBlock
+SectionItem = SectionItem

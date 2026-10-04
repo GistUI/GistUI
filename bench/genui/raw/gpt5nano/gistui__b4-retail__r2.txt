@@ -1,0 +1,131 @@
+root = Card(CardHeader("Store Manager Console", "Today overview"), storeSwitcher, dashboards)
+
+storeSwitcher = Card(TabItem("storeA", "Store A", storeAContent), TabItem("storeB", "Store B", storeBContent))
+
+storeAContent = Card(SectionBlock(
+  SectionItem("sales", "Sales & Targets", salesPanelA),
+  SectionItem("foottraffic", "Foot Traffic", footTrafficPanelA),
+  SectionItem("bestSellers", "Best Sellers", bestSellersPanelA),
+  SectionItem("outOfStock", "Out of Stock", outOfStockPanelA),
+  SectionItem("shift", "On Shift", shiftPanelA),
+  SectionItem("basket", "Avg Basket Size", basketPanelA),
+  SectionItem("returns", "Returns This Week", returnsPanelA),
+  SectionItem("promos", "Promotions Performance", promosPanelA),
+  SectionItem("registers", "Registers Status", registersPanelA),
+  SectionItem("reorder", "Reorder Item", reorderPanelA),
+  SectionItem("viewStore", "View Another Store", viewStorePanelA),
+  SectionItem("weekCompare", "This Week vs Last Week", weekComparePanelA)
+), wrap)
+
+storeBContent = Card(SectionBlock(
+  SectionItem("sales", "Sales & Targets", salesPanelB),
+  SectionItem("foottraffic", "Foot Traffic", footTrafficPanelB),
+  SectionItem("bestSellers", "Best Sellers", bestSellersPanelB),
+  SectionItem("outOfStock", "Out of Stock", outOfStockPanelB),
+  SectionItem("shift", "On Shift", shiftPanelB),
+  SectionItem("basket", "Avg Basket Size", basketPanelB),
+  SectionItem("returns", "Returns This Week", returnsPanelB),
+  SectionItem("promos", "Promotions Performance", promosPanelB),
+  SectionItem("registers", "Registers Status", registersPanelB),
+  SectionItem("reorder", "Reorder Item", reorderPanelB),
+  SectionItem("viewStore", "View Another Store", viewStorePanelB),
+  SectionItem("weekCompare", "This Week vs Last Week", weekComparePanelB)
+), wrap)
+
+salesPanelA = Card(Heading("Sales Today vs Target", h3), Table(salesTodayTableA), LineChart(salesTrendA, natural, xLabel:"Hour", yLabel:"USD"), sunk)
+salesTodayTableA = |Metric|Today|Target
+|Sales|$4,320|$5,000
+|Difference|-$680| 
+salesTrendA = |Hour|Sales
+|9|520
+|10|480
+|11|730
+|12|860
+|13|900
+|14|780
+|15|720
+|16|640
+
+footTrafficPanelA = Card(Heading("Foot Traffic Through Day", h3), Table(footTrafficTableA), AreaChart(footTrafficChartA, linear, xLabel:"Hour", yLabel:"People"))
+footTrafficTableA = |Hour|Visitors
+|9|120
+|10|180
+|11|210
+|12|190
+|13|220
+|14|240
+|15|200
+|16|160
+footTrafficChartA = |Hour|Visitors
+|9|120
+|10|180
+|11|210
+|12|190
+|13|220
+|14|240
+|15|200
+|16|160
+
+bestSellersPanelA = Card(Heading("Best Sellers (Units)", h3), Table(bestSellersTableA))
+bestSellersTableA = |Item|Units
+|Widget A|120
+|Gadget B|95
+|Thingamajig|80
+
+outOfStockPanelA = Card(Heading("Out of Stock", h3), ListBlock(ListItem("Widget C"), ListItem("Gizmo X")))
+
+shiftPanelA = Card(Heading("On Shift Today", h3), TagBlock([ "Alice - Manager", "Bob - Cashier", "Carlos - Stock" ]))
+
+basketPanelA = Card(Heading("Average Basket Size", h3), Table(basketTableA))
+basketTableA = |Metric|Value
+|Today|$52.30
+|Avg|$48.75
+
+returnsPanelA = Card(Heading("Returns This Week", h3), Table(returnsTableA))
+returnsTableA = |Day|Returns
+|Mon|24
+|Tue|19
+|Wed|22
+|Thu|18
+|Fri|30
+|Sat|12
+|Sun|9
+
+promosPanelA = Card(Heading("Promotions Performance", h3), Table(promosTableA), BarChart(promosTableA, xLabel:"Promotion", yLabel:"Revenue"))
+promosTableA = |Promo|Revenue
+|Summer Sale|$3,420
+|Clearance|$1,210
+|New Arrivals Promo|$980
+
+registersPanelA = Card(Heading("Registers Status", h3), Table(registersTableA))
+registersTableA = |Register|Open
+|Register 1|Yes
+|Register 2|No
+|Register 3|Yes
+
+reorderPanelA = Card(Heading("Reorder Item", h3), Form("reorder-form", Buttons(Button("Submit", primary)), FormControl("Item", Input("item", "Widget A")), FormControl("Quantity", Input("qty", "20", type:"number"))))
+
+viewStorePanelA = Card(Heading("View Different Store", h3), Button("Switch to Store B"))
+
+weekComparePanelA = Card(Heading("This Week vs Last Week", h3), Table(weekTableA))
+weekTableA = |Metric|This Week|Last Week
+|Sales|$29,320|$27,410
+|Foot Traffic|1,320|1,210
+|Returns|$210|$180
+
+// B store mirrors A with example data
+salesPanelB = salesPanelA
+footTrafficPanelB = footTrafficPanelA
+bestSellersPanelB = bestSellersPanelA
+outOfStockPanelB = outOfStockPanelA
+shiftPanelB = shiftPanelA
+basketPanelB = basketPanelA
+returnsPanelB = returnsPanelA
+promosPanelB = promosPanelA
+registersPanelB = registersPanelA
+reorderPanelB = reorderPanelA
+viewStorePanelB = viewStorePanelA
+weekComparePanelB = weekComparePanelA
+
+// define any referenced pipes so the root can reference
+// (No additional standalone definitions beyond what is reachable from root)

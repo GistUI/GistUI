@@ -1,9 +1,34 @@
-root = Card(stats, filter, tickets, actions)
-stats = Card(CardHeader("Support Lead – Morning View"), TagBlock(["Open tickets: 27", "Avg first‑response: 2h 15m"]), sunk)
-filter = Card(CardHeader("Filters"), Buttons(Button("High priority only", primary), Button("Clear filter", secondary)), clear)
-tickets = Card(CardHeader("Recent tickets"), Table(colId, colSubject, colPriority, colCreated), clear)
-colId = Col("Ticket ID", data:["#1023","#1022","#1021","#1020","#1019"], type:string)
-colSubject = Col("Subject", data:["Login issue","Billing question","Feature request","Bug report","Account lock"], type:string)
-colPriority = Col("Priority", data:["High","Medium","High","Low","High"], type:string)
-colCreated = Col("Created", data:["09:15","08:50","08:30","08:10","07:55"], type:string)
-actions = Card(Buttons(Button("New ticket", primary)), clear)
+root = Card(header, stats, filter, tickets, actions)
+
+header = CardHeader("Support Lead – Morning View")
+
+stats = Card(Heading("Key Metrics", h3),
+    Card( // open tickets count
+        TextContent("Open tickets", size:large),
+        TextContent("23", size:large-heavy)
+    ),
+    Card( // avg first-response time
+        TextContent("Avg. first‑response", size:large),
+        TextContent("1h 27m", size:large-heavy)
+    )
+)
+
+filter = Card( // filter control
+    Button("Show high‑priority only", primary)
+)
+
+tickets = Card( // recent tickets table
+    Heading("Recent Tickets", h3),
+    Table(ticketsTable)
+)
+
+ticketsTable = |Ticket ID|Subject|Priority|Created|
+|#10234|Login issue|high|2024‑10‑04 08:12|
+|#10233|Payment failure|medium|2024‑10‑04 07:55|
+|#10232|UI glitch|high|2024‑10‑04 07:40|
+|#10231|Password reset|low|2024‑10‑04 07:22|
+|#10230|Feature request|high|2024‑10‑04 07:05|
+
+actions = Buttons(
+    Button("New Ticket", primary)
+)

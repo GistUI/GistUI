@@ -1,11 +1,19 @@
-root = Card(dateHeader, updatesList, blockedCallout, postForm, missingCallout, variant:card, direction:column, gap:m, align:start, justify:start)
-dateHeader = TextContent("**Date:** 2026-09-30", size:small)
+root = Card(dateHeader, updatesList, blockedCallout, missingCallout, postForm)
+
+dateHeader = TextContent("**Date:** 2026-10-04", size:small)
+
 updatesList = ListBlock(updateItem1, updateItem2, updateItem3, variant:number)
-updateItem1 = ListItem("Alice", "Working on API integration")
-updateItem2 = ListItem("Bob", "Reviewing PRs")
-updateItem3 = ListItem("Carol", "Designing new UI components")
-blockedCallout = Callout(variant:warning, "Blocked", "Bob is blocked on database access")
-postForm = Form("standup-update", formButtons, updateField)
-updateField = FormControl("Your update", TextArea("update", placeholder:"Enter your status...", rows:4))
-formButtons = Buttons(Button("Post update", primary))
-missingCallout = TextCallout("Missing updates", "2 teammates have not submitted their updates today", variant:info)
+
+updateItem1 = ListItem("Bob", "✅ Completed feature X")
+updateItem2 = ListItem("Carol", "🔧 Working on bug Y")
+updateItem3 = ListItem("Dave", "📝 Planning next sprint")
+
+blockedCallout = Callout(variant:warning, "Blocked", "Alice is blocked on API access")
+
+missingCallout = Callout(variant:info, "Missing updates", "2 teammates have not submitted")
+
+postForm = Form("post-update", formButtons, updateField)
+
+updateField = FormControl("Your update", TextArea("update", "Type your update...", rows:4))
+
+formButtons = Buttons(Button("Post", primary))

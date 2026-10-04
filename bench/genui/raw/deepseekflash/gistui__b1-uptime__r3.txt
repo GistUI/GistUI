@@ -1,4 +1,0 @@
-root = Card(header, uptimeSection, incidentSection)
-header = CardHeader("Platform API Status", "Live status page")
-uptimeSection = Card(Heading("API uptime this month", h2), TextContent("**99.95%**"), TextContent("Uptime percentage for the API from May 1 to today."), sunk)
-incidentSection = Card(Heading("Most recent incident", h2), TextContent("**API latency spike** — Resolved on **May 12 at 14:30 UTC**. No data loss."), sunk)

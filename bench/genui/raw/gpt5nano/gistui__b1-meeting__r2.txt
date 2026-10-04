@@ -1,0 +1,10 @@
+root = Card(CardHeader("Next on the calendar"), MeetingCard(nextMeeting))
+
+MeetingCard(meetingHeader, meetingBody) = Card(Heading("Upcoming meeting", h2), MeetingHeader(meetingHeader), MeetingAttendees(meetingBody), MeetingJoin(meetingBody))
+
+MeetingHeader("Team sync — 10:30 AM") 
+MeetingAttendees(attendees) = TagBlock(attendees)
+MeetingJoin(joinInfo) = Buttons(Button("Join call", action:join, primary))
+
+nextMeeting = Table(|Meet|Start|Attendees
+|Team sync|10:30 AM|Alice, Bob, Cara)

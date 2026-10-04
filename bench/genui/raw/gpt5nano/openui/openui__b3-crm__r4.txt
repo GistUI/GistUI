@@ -1,0 +1,59 @@
+root = Card([
+  header = CardHeader("Account: Acme Corp", "Account owner: Selena Diaz"),
+  summaryRow = Card([
+    kpi1 = TextContent("Total deal value: $1,240,000", "default"),
+    kpi2 = TextContent("Current deal stage: Negotiation", "default"),
+  ]),
+  Separator("horizontal"),
+  recentActivitySection = Card([
+    Heading("Recent Activity", "h3"),
+    activityList = ListBlock([
+      ListItem("Call with Ops lead", "2026-09-28 10:15", ["https://picsum.photos/seed/activity1/40/40"]),
+      ListItem("Email: Proposal sent", "2026-09-26", ["https://picsum.photos/seed/activity2/40/40"]),
+      ListItem("Meeting: Q4 planning", "2026-09-22", ["https://picsum.photos/seed/activity3/40/40"])
+    ], "image")
+  ]),
+  Separator("horizontal"),
+  contactsBlock = Card([
+    Heading("Contacts", "h3"),
+    contactList = ListBlock([
+      ListItem("Jane Smith", "Account Executive", ["https://picsum.photos/seed/jane/40/40"], "View"),
+      ListItem("Mike Chen", "Sales Engineer", ["https://picsum.photos/seed/mike/40/40"], "View")
+    ], "image")
+  ]),
+  Separator("horizontal"),
+  followUpsBlock = Card([
+    Heading("Open follow-ups", "h3"),
+    followUpList = ListBlock([
+      ListItem("Renewal quote follow-up", "Due: 2026-10-10", ["https://picsum.photos/seed/renew/40/40"]),
+      ListItem("Contract amendment", "Due: 2026-10-15", ["https://picsum.photos/seed/amend/40/40"])
+    ], "image")
+  ]),
+  Separator("horizontal"),
+  jotNoteBlock = Card([
+    Heading("Add a note", "h3"),
+    noteInputRow = Card([
+      TextArea("note", "Description", 4, [], ""),
+      Buttons([saveNoteBtn, clearNoteBtn], "row")
+    ])
+  ]),
+  saveNoteBtn = Button("Save note", null, "primary"),
+  clearNoteBtn = Button("Clear", null, "secondary"),
+  Separator("horizontal"),
+  renewalPanel = Card([
+    Heading("Renewal date", "h3"),
+    renewalDateLine = TextContent("2026-11-02", "default"),
+    renewalWarning = Callout("warning", " renewal upcoming", "This renewal is within 30 days.")
+  ]),
+  logCallBlock = Card([
+    Heading("Log a call", "h3"),
+    logCallRow = Card([
+      TextContent("Call with contact", "default"),
+      TextArea("callNotes", "Notes about call", 3, [], ""),
+      Button("Log call", null, "primary")
+    ])
+  ]),
+  totalDealValue = kpiValue
+])
+
+kpiValue = TextContent("Total deal value: $1,240,000", "default")

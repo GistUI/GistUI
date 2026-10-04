@@ -1,0 +1,72 @@
+root = Card([
+  header = CardHeader("Weekly Marketing Dashboard", "Last 30 days overview"),
+  // Date range control
+  dateRow = Card([rangeLabel = TextContent("Date range"), dateRange = DatePicker("date_range", "range", [], [])], "card"),
+  
+  // 1. site visitors over the last 30 days (LineChart)
+  visitorsSection = Card([
+    Heading("Site Visitors (30 days)", "h3"),
+    visitorsChart = LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10","Day 11","Day 12","Day 13","Day 14","Day 15","Day 16","Day 17","Day 18","Day 19","Day 20","Day 21","Day 22","Day 23","Day 24","Day 25","Day 26","Day 27","Day 28","Day 29","Day 30"], [visitorsSeries], "linear", "Day", "Visits")
+  ]),
+  visitorsSeries = Series("Visitors", [1200, 1350, 1420, 1500, 1600, 1700, 1650, 1720, 1800, 1900, 2100, 2300, 2250, 2400, 2600, 2550, 2700, 2900, 3100, 3300, 3500, 3600, 3700, 3800, 3900, 4000, 4100, 4200, 4300, 4450]),
+
+  // 2. conversion rate
+  conversionCard = Card([
+    Heading("Conversion Rate", "h3"),
+    conversionValue = TextContent("CR: 2.8%", "default"),
+    compactHint = TextContent("Overall rate based on last 30 days", "small")
+  ], "card"),
+
+  // 3. top five traffic sources with share
+  sourcesSection = Card([
+    Heading("Top Traffic Sources", "h3"),
+    sourcesTable = Table([
+      col1 = Col("Source", ["Direct","Organic Search","Paid Search","Social","Referral"]),
+      col2 = Col("Share (%)", [34, 28, 18, 12, 8])
+    ])
+  ]),
+
+  // 4. running campaigns with spend
+  campaignsSection = Card([
+    Heading("Running Campaigns", "h3"),
+    campaignsList = ListBlock([
+      ListItem("Summer Sale Push", " CPC: $1200 | Impressions: 320k", ["https://picsum.photos/seed/campaign1/100/60"]),
+      ListItem("Email Nurture Series", " CPC: $450 | Impressions: 210k", ["https://picsum.photos/seed/campaign2/100/60"]),
+      ListItem("Retargeting Warm users", " CPC: $900 | Impressions: 410k", ["https://picsum.photos/seed/campaign3/100/60"])
+    ], "image")
+  ]),
+
+  // 5. best performing campaign called out
+  bestCampaignCard = Card([
+    Heading("Best Performing Campaign", "h3"),
+    TagBlock(["Campaign: Summer Sale Push", "ROAS: 4.2x", "Lead CVR: 4.1%"])
+  ]),
+
+  // 6. change the date range (duplicate control already)
+  dateControls = Card([
+    TextContent("Adjust range below to update all charts"), 
+  ]),
+
+  // 7. email subscriber growth this month
+  emailGrowthCard = Card([
+    Heading("Email Subscribers Growth (This Month)", "h3"),
+    AreaChart(["Week 1","Week 2","Week 3","Week 4"], [emailSeries], "linear", "Week", "Subscribers")
+  ]),
+  emailSeries = Series("Subscribers", [120, 230, 410, 680]),
+
+  // 8. export the report
+  exportRow = Buttons([exportBtn, printBtn], "row"),
+  exportBtn = Button("Export CSV", null, "primary"),
+  printBtn = Button("Print", null, "secondary"),
+
+  // Footer note
+  footerNote = TextContent("Tip: Use the date picker to drill into specific weeks. Export delivers a CSV with the visible date range.")
+], "card")
+
+// Inline component wiring (ensure definitions are hoisted)
+VisitorsLine = LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10","Day 11","Day 12","Day 13","Day 14","Day 15","Day 16","Day 17","Day 18","Day 19","Day 20","Day 21","Day 22","Day 23","Day 24","Day 25","Day 26","Day 27","Day 28","Day 29","Day 30"], [Series("Visitors", [1200,1350,1420,1500,1600,1700,1650,1720,1800,1900,2100,2300,2250,2400,2600,2550,2700,2900,3100,3300,3500,3600,3700,3800,3900,4000,4100,4200,4300,4450])], "linear", "Day", "Visits")
+
+root = Card([
+  header,
+  dateRow
+])

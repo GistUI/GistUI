@@ -1,0 +1,29 @@
+root = Card([
+  headerRow,
+  bioSection,
+  messageSection
+])
+
+headerRow = CardHeader("Alexandra Reed", "Senior Product Designer")
+
+bioSection = Card([
+  Heading("About Alexandra", "h2"),
+  BioBlock
+])
+
+BioBlock = TextContent("Alexandra is a product designer focused on creating accessible, delightful interfaces. She collaborates with cross‑functional teams to craft thoughtful experiences and mentors junior designers.", "default")
+
+messageSection = Card([
+  SectionBlock([
+    SectionItem("contact", "Message Alexandra", [
+      TextContent("Send a direct message to Alexandra to start a conversation about design bets, feedback, or collaboration.", "default"),
+      MessageForm
+    ])
+  ])
+])
+
+MessageForm = Form("message Alexandra", Buttons([sendBtn]), [messageField, subjectField])
+messageField = FormControl("Message", TextArea("message", "Hi Alexandra, ..."), "Feel free to introduce yourself and share context")
+subjectField = FormControl("Subject", Input("subject", "Hello from Directory"), "Subject line")
+
+sendBtn = Button("Send Message", null, "primary")

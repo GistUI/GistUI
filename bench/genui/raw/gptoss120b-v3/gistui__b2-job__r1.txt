@@ -1,19 +1,26 @@
-root = Card(header, description, qualificationsCard, salaryCallout, applyForm, shareButtons, direction:column, gap:m)
-header = CardHeader("Senior Product Designer", "Product Design Team")
-description = MarkDownRenderer("**About the role**\n\nWe are looking for a creative designer to join our product team and shape user experiences across web and mobile platforms.")
-qualificationsList = ListBlock(
-  ListItem("Strong visual design skills"),
-  ListItem("Proficiency with Figma"),
-  ListItem("Experience designing for web and mobile"),
-  ListItem("Collaborative mindset"),
-  ListItem("Understanding of design systems"),
-  variant:number
-)
-qualificationsCard = Card(Heading("Main qualifications", h3), qualificationsList, clear)
-salaryCallout = TextCallout("Salary", "$80k–$120k", info)
-nameField = FormControl("Full name", Input("name", placeholder:"Your full name"))
-emailField = FormControl("Email", Input("email", placeholder:"you@example.com", type:email))
-resumeField = FormControl("Resume URL", Input("resume", placeholder:"Link to your resume", type:url))
-formButtons = Buttons(Button("Apply", primary), Button("Cancel", secondary))
-applyForm = Form("apply", formButtons, nameField, emailField, resumeField)
-shareButtons = Buttons(Button("Share", secondary))
+root = Card(header, description, qualifications, salaryInfo, applySection, shareButtons)
+
+header = CardHeader("Senior Product Designer", "Design Team")
+
+description = TextContent("We are looking for a creative Senior Product Designer to lead the design of our next generation SaaS platform. You will work closely with product managers, engineers, and researchers to craft intuitive and beautiful user experiences.", size:large)
+
+qualifications = Card(Heading("Key Qualifications", h3), ListBlock(qualItem1, qualItem2, qualItem3, qualItem4, variant:number))
+
+qualItem1 = ListItem("5+ years of product design experience")
+qualItem2 = ListItem("Strong portfolio showcasing UI/UX design for web applications")
+qualItem3 = ListItem("Proficiency with design tools such as Figma, Sketch, or Adobe XD")
+qualItem4 = ListItem("Excellent communication and collaboration skills")
+
+salaryInfo = Callout(variant:info, "Salary Range", "$120k – $150k per year")
+
+applySection = Card(Heading("Apply Now", h3), applyForm)
+
+applyForm = Form("apply-job", applyButtons, nameField, emailField, resumeField)
+
+nameField = FormControl("Full Name", Input("full_name", "Jane Doe"))
+emailField = FormControl("Email Address", Input("email", "jane@example.com", type:email))
+resumeField = FormControl("Resume Link", Input("resume_url", "https://example.com/resume.pdf", type:url))
+
+applyButtons = Buttons(Button("Submit Application", primary), Button("Cancel", tertiary))
+
+shareButtons = Buttons(Button("Share on LinkedIn", secondary), Button("Copy Link", secondary))

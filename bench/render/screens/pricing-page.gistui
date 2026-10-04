@@ -1,0 +1,21 @@
+root = Stack(hero, pricingRow, Header("Feature comparison", size:md), Table(featureData), faq, gap:xl)
+hero = Stack(Header("Pricing", "Choose the plan that fits your team today. Upgrade, downgrade, or cancel anytime.", size:lg), Tags(Tag("Monthly billing"), Tag("Annual discounts available"), Tag("No hidden fees")), gap:sm)
+pricingRow = Grid(basicCard, proCard, enterpriseCard, cols:3)
+basicCard = Card(Header("Basic", "For individuals and small projects", size:sm), "## $12 / month", "Core features to get started with reliable essentials.", "**Includes:**", "- 1 workspace\n- Up to 3 projects\n- 5 GB storage\n- Community support\n- Basic analytics", Buttons(Button("Start Basic", v:secondary), Button("Try free", v:ghost)))
+proCard = Card(Header("Pro", "For growing teams that need more power", size:sm), "## $29 / month", "Advanced collaboration, automation, and deeper insights.", "**Everything in Basic, plus:**", "- 5 workspaces\n- Unlimited projects\n- 100 GB storage\n- Team roles & permissions\n- Automations (1,000 runs/month)\n- Integrations (Slack, GitHub, Zapier)\n- Priority email support", Buttons(Button("Choose Pro"), Button("Try free", v:secondary)), Callout("Best value for teams that want to scale without switching tools later.", title:"Most popular", tone:success), v:sunk)
+enterpriseCard = Card(Header("Enterprise", "For organizations with advanced security and scale", size:sm), "## Custom pricing", "Security, compliance, and dedicated support tailored to your needs.", "**Everything in Pro, plus:**", "- Unlimited workspaces\n- Unlimited storage (fair use)\n- SSO/SAML & SCIM provisioning\n- Audit logs & data retention controls\n- Dedicated success manager\n- 99.9% uptime SLA\n- Custom legal & invoicing", Buttons(Button("Contact sales"), Button("Request demo", v:secondary)), Callout("We can provide security docs, vendor onboarding, and custom terms.", title:"Need procurement support?"))
+faq = Accordion(Item("Can I switch plans later?", "Yes. You can upgrade or downgrade at any time. Changes take effect immediately, and we prorate when applicable."), Item("Do you offer a free trial?", "Yes. Basic and Pro include a free trial. Enterprise trials are available upon request via Sales."), Item("Do you offer annual billing?", "Yes. Annual billing includes a discount. Contact Sales for Enterprise annual terms and invoicing."), Item("What about security and compliance?", "Enterprise includes SSO/SAML, SCIM, audit logs, and data retention controls. We can share security documentation during procurement."))
+featureData = |Feature|Basic|Pro|Enterprise
+|Price (monthly)|$12|$29|Custom
+|Workspaces|1|5|Unlimited
+|Projects|Up to 3|Unlimited|Unlimited
+|Storage|5 GB|100 GB|Unlimited (fair use)
+|Team members|1|Up to 25|Unlimited
+|Roles & permissions|—|Yes|Advanced (custom roles)
+|Automations|—|1,000 runs/mo|Unlimited (policy-based)
+|Integrations|Limited|Standard|Standard + custom
+|Analytics|Basic|Advanced|Advanced + exports
+|SSO (SAML)|—|—|Yes
+|SCIM provisioning|—|—|Yes
+|Audit logs|—|—|Yes
+|Support|Community|Priority email|Dedicated + SLA

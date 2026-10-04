@@ -1,0 +1,84 @@
+root = Card([
+    header = CardHeader("HR Hiring Overview", "Live snapshot of recruiting metrics"),
+    metricsRow = Card([
+        currentHeadcountCard = Card([Heading("Current Headcount", "h3"), TextContent("Total employees: 128")]),
+        openRolesCard = Card([Heading("Open Roles", "h3"), openRolesTable], "card")
+        ]),
+    // Headcount by department split
+    headcountSection = Card([
+        Heading("Headcount by Department", "h3"),
+        deptSplitChart = HorizontalBarChart(["Engineering","Sales","Marketing","Support","HR","Finance"], [Series("Headcount", [40, 25, 18, 12, 8, 15])])
+    ], "card"),
+
+    // Open roles with department for each
+    openRolesSection = SectionBlock([
+        SectionItem("dept-eng", "Engineering Roles", [
+            TextContent("Engineering: 4 roles open"),
+            Table([Col("Department", ["Engineering","Engineering","Engineering","Engineering"]), Col("Role", ["Frontend Dev","Backend Dev","QA Engineer","SRE"]), Col("Open", ["Yes","Yes","Yes","Yes"]])
+        ]),
+        SectionItem("dept-sales", "Sales Roles", [
+            TextContent("Sales: 2 roles open"),
+            Table([Col("Department", ["Sales","Sales"]), Col("Role", ["Account Executive","Sales Ops"]), Col("Open", ["Yes","Yes"])])
+        ])
+    ], false),
+
+    // Candidates at each pipeline stage
+    candidatesSection = Card([
+        Heading("Candidates by Pipeline Stage", "h3"),
+        Table([
+            Col("Stage", ["Applied","Screening","Phone Interview","Onsite","Offer","Hired"]),
+            Col("Count", [120, 60, 28, 12, 4, 2])
+        ])
+    ]),
+
+    // Candidates per stage per dept (optional detail)
+    pipelineDetail = SectionBlock([
+        SectionItem("stage-dept", "Stage breakdown by department", [
+            MarkDownRenderer("Engineering: 60 Screening, 25 Phone, 8 Onsite; Sales: 15 Screening, 3 Onsite"),
+        ])
+    ]),
+
+    // Average time to hire
+    avgTimeCard = Card([Heading("Average Time to Hire", "h3"), TextContent("Average days from opening to hire: 32 days")]),
+
+    // Interviews scheduled this week
+    interviewsSection = Card([
+        Heading("Interviews Scheduled This Week", "h3"),
+        Table([
+            Col("Date", ["Mon","Tue","Wed","Thu","Fri"]),
+            Col("Interviews", [5, 7, 6, 4, 3]),
+        ])
+    ], "card"),
+
+    // Attrition over past six months
+    attritionCard = Card([
+        Heading("Attrition (Past 6 Months)", "h3"),
+        AreaChart(["Month1","Month2","Month3","Month4","Month5","Month6"], [Series("Attrition", [1.2,1.5,1.3,1.4,1.6,1.7])], "linear", "Month", "Percent")
+    ], "card"),
+
+    // A way to open a new role
+    newRoleOverlay = DialogBlock("New Role", "Create Role", "Fill in role details", null, null, "default"),
+    newRoleButton = Button("Open New Role Form", [newRoleOverlay], "primary"),
+
+    // Placeholder components to ensure all items render in order
+    actionsRow = Buttons([newRoleButton], "row"),
+
+    // Assembly of all items in reading order
+    // 1. current headcount
+    // 3. candidates, 4. average time to hire, 5. headcount split, 6. interviews scheduled, 7. attrition, 8. open new role
+    // 2. open roles with department for each
+    // Ensure every defined variable is reachable from root by placing them in order with references
+    rootChildren = [
+        header,
+        metricsRow,
+        headcountSection,
+        openRolesSection,
+        candidatesSection,
+        pipelineDetail,
+        avgTimeCard,
+        interviewsSection,
+        attritionCard,
+        newRoleButton,
+        newRoleOverlay
+    ]
+])

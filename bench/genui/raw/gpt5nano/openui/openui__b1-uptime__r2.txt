@@ -1,0 +1,31 @@
+root = Card([
+  header = CardHeader("Platform Status", "Live health overview"),
+  statusRow = Card([
+    uptimeHeading = Heading("API Uptime (This Month)", "h2"),
+    uptimeValue = TextContent("Current uptime: 99.97%", "default"),
+    uptimeNote = TextContent("Note: SLA target 99.95%.", "small")
+  ], "card"),
+  incidentSection = Card([
+    incidentHeading = Heading("Most Recent Incident", "h3"),
+    incidentBlock = TextContent("Incident: Database latency spike affecting API responses.\nResolved: 2026-10-02 14:32 UTC", "default"),
+  ], "card"),
+  actionsRow = Card([
+    actionsHeading = Heading("Timeline & Details", "h3"),
+    timelineChart = Image("Timeline placeholder", "https://picsum.photos/seed/uptime/800/200")
+  ], "sunk"),
+  footerNote = TextContent("Status page auto-refreshes every 5 minutes.", "small")
+])
+
+header = CardHeader("Platform Status", "Live health overview")
+uptimeSection = Card([uptimeHeading, uptimeValue, uptimeNote])
+incidentSection = Card([incidentHeading, incidentBlock])
+timelineBlock = Card([timelineChart])
+coverSection = Card([footerNote])
+
+uptimeHeading = Heading("API Uptime (This Month)", "h2")
+uptimeValue = TextContent("Current uptime: 99.97%", "default")
+uptimeNote = TextContent("Note: SLA target 99.95%.", "small")
+incidentHeading = Heading("Most Recent Incident", "h3")
+incidentBlock = TextContent("Incident: Database latency spike affecting API responses.\nResolved: 2026-10-02 14:32 UTC", "default")
+timelineChart = Image("Timeline placeholder", "https://picsum.photos/seed/uptime/800/200")
+footerNote = TextContent("Status page auto-refreshes every 5 minutes.", "small")

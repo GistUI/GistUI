@@ -1,0 +1,38 @@
+root = Card([
+  headerRow,
+  dateRow,
+  teammatesSection,
+  postUpdateSection,
+  remainingSection
+])
+headerRow = CardHeader("Async Standup - Today", "Remote team status updates")
+dateRow = TextContent("Date: " + (Date().toDateString()), "default")
+teammatesSection = Card([
+  TeammateRow("Alex Kim", "Working on API integration", false),
+  TeammateRow("Priya Singh", "Reviewing PRs", true),
+  TeammateRow("Jordan Lee", "Blocked by database outage", true),
+  TeammateRow("Samira Chen", " drafting user stories", false)
+], "card")
+TeammateRow(name: string, update: string, blocked: boolean) = Card([
+  RowHeader(name, blocked),
+  TextContent(update, "default")
+], "plain")
+RowHeader(name: string, blocked: boolean) = CardHeader(name, blocked ? "BLOCKED" : null)
+postUpdateSection = Card([
+  SectionHeading("Post your update"),
+  PostForm(formName)
+], "clear")
+SectionHeading(t: string) = Heading(t, "h3")
+formName = Form("standup-post", formButtons, [TextAreaField])
+TextAreaField = FormControl("Update", TextArea("update", "What's your status today?", 6), "Share your progress or blockers")
+formButtons = Buttons([submitBtn, resetBtn])
+submitBtn = Button("Post update", null, "primary")
+resetBtn = Button("Clear", null, "secondary")
+TextArea(name: string, placeholder?: string, rows?: number, value?: string) = TextArea(name, placeholder, rows, null, value)
+TextBlock = TextContent("Note: Updates are visible to the whole team.", "small")
+remainingSection = Card([
+  RemainingCount("updatesRemaining", 0),
+  HelperNote
+], "sunk")
+RemainingCount(varName: string, total: number) = TextContent("Updates remaining today: " + total, "default")
+HelperNote = MarkDownRenderer("Tip: blockers should be highlighted in BLOCKED rows to help quick triage.", "card")

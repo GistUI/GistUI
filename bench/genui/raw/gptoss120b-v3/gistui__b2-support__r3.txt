@@ -1,22 +1,18 @@
-root = Card(statsHeader, statsSection, filterSection, ticketsSection, actionsSection)
+root = Card(CardHeader("Support Lead – Morning View"), openTickets, avgResponse, recentTickets, actions)
 
-statsHeader = CardHeader("Support Lead – Morning Dashboard")
-statsSection = Card(TextContent("Open tickets: **124**", size:large), TextContent("Avg. first‑response time: **2h 15m**", size:large), sunk)
+openTickets = TextContent("**Open tickets:** 27", size:large)
 
-filterSection = Card(Heading("Filter tickets", h3), Buttons(highPriorityBtn, allBtn, direction:row), clear)
+avgResponse = TextContent("**Average first‑response time:** 2h 15m", size:large)
 
-highPriorityBtn = Button("High priority only", primary)
-allBtn = Button("All tickets", secondary)
+recentTickets = Card(Heading("Five most recent tickets", h3), ticketsTable)
 
-ticketsSection = Card(Heading("Recent tickets", h3), ticketsTable, clear)
+ticketsTable = Table(ticketsData)
 
-ticketsTable = Table(
-  Col("Ticket ID", data:["#1023","#1022","#1021","#1020","#1019"], type:string),
-  Col("Subject", data:["Login issue","Payment failure","Bug report","Feature request","Account lock"], type:string),
-  Col("Priority", data:["High","Medium","Low","High","Medium"], type:string),
-  Col("Status", data:["Open","Open","Open","Open","Open"], type:string)
-)
+ticketsData = |Ticket ID|Subject|Priority|Created
+|#1024|Login issue|Tag("P1", variant:danger)|2024‑10‑04 08:12
+|#1023|Billing question|Tag("P2", variant:warning)|2024‑10‑04 07:58
+|#1022|Feature request|Tag("P3", variant:info)|2024‑10‑04 07:45
+|#1021|Password reset|Tag("P2", variant:warning)|2024‑10‑04 07:30
+|#1020|Account locked|Tag("P1", variant:danger)|2024‑10‑04 07:15
 
-actionsSection = Card(Buttons(newTicketBtn, direction:row), clear)
-
-newTicketBtn = Button("New ticket", primary)
+actions = Buttons(Button("Show high‑priority only", primary), Button("New ticket", secondary))

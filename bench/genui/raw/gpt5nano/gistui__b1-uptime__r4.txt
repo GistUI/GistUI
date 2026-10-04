@@ -1,0 +1,10 @@
+root = Card(CardHeader("Platform Status", "Current month uptime and latest incident"), Tabs()) 
+Tabs() = Tabs(TabItem("overview", "Overview", overview), TabItem("incident", "Incident", incident)) 
+overview = Card(Heading("Uptime", h3), TextContent("The API uptime this month is currently 99.98%, based on monitoring from all regions."), Table(uptimeTable), TextContent("Uptime is calculated as the percentage of time the API responded with a successful status over the month so far."), sunk) 
+uptimeTable = |Metric|Value
+|API uptime|99.98% 
+TextContent("The numbers are updated in real-time as health checks complete.", size:default) 
+incident = Card(Heading("Most recent incident", h3), TextContent("Incident: API latency spike observed on 2026-09-28; resolved at 14:45 UTC."), Tag("resolved", success), Separator()) 
+incidentDetails = Card(Heading("Resolution details", h4), TextContent("Root cause: transient database latency; Mitigation: traffic reroute and cache warmup; Resolution time: 14:45 UTC on 2026-09-28."), sunk) 
+incidentSection = SectionBlock(SectionItem("incident-summary", "Latest incident", incident, incidentDetails), isFoldable) 
+root = Card(CardHeader("Platform Status", "Current month uptime and latest incident"), incidentSection)

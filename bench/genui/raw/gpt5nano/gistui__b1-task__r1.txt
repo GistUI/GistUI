@@ -1,0 +1,15 @@
+root = Card(CardHeader("Personal Focus", "Single Task View"), urgentTaskSection, actions)
+
+urgentTaskSection = Card(Heading("Most urgent task", h3), TaskDisplay(deadlineDisplay, statusDisplay), sunk)
+
+deadlineDisplay = TextContent("Deadline: 2026-10-31", size:default)
+
+statusDisplay = TextContent("Status: In progress", size:default)
+
+TaskDisplay(deadlineDisplay, statusDisplay) = Card(DeadlineBlock(deadlineDisplay), StatusBlock(statusDisplay))
+
+DeadlineBlock(text) = TextContent(string(text), size:default)
+
+StatusBlock(text) = TextContent(string(text), size:default)
+
+actions = Buttons(Button("Mark as done", action: ["done"]), direction:row)

@@ -1,0 +1,107 @@
+root = Card([
+  header = CardHeader("Service Health — On-call View", "Live status dashboard"),
+  controlsRow,
+  contentColumn
+])
+
+header
+controlsRow = Card([
+  regionBlock,
+  thresholdBlock
+], "card")
+
+regionBlock = Card([
+  Heading("Region", "h3"),
+  regionSelect
+])
+
+regionSelect = Form("region-filter", regionButtons, [regionField])
+regionField = FormControl("Region", regionSelectInput)
+
+regionSelectInput = Select("region", [Region("us-east"), Region("eu-west"), Region("ap-south")], "All regions")
+
+Region(value: string, label: string) — helper type, placeholder for readability
+
+thresholdBlock = Card([
+  Heading("Alert threshold", "h3"),
+  thresholdInput
+])
+
+thresholdInput = FormControl("Latency threshold (ms)", latencySlider)
+latencySlider = Slider("latency", "continuous", 0, 1000, 10, "ms")
+
+uptimeCard
+uptimeCard = Card([
+  Heading("Uptime this quarter", "h3"),
+  uptimeValue
+])
+
+uptimeValue = TextContent("98.7%")
+
+cpuMemCard
+cpuMemCard = Card([
+  Heading("CPU and memory usage (past 24h)", "h3"),
+  cpuMemChart
+])
+
+cpuMemChart = ImageBlock("https://picsum.photos/seed/cpu-mem/800/200")
+
+errorRateCard
+errorRateCard = Card([
+  Heading("Error rate right now", "h3"),
+  errorRateValue
+])
+
+errorRateValue = TextContent("2.1% (last 5 min average)")
+
+openIncidentsCard
+openIncidentsCard = Card([
+  Heading("Open incidents by severity", "h3"),
+  incidentsTable
+])
+
+incidentsTable = Table([severityCol, countCol, latestCol])
+
+severityCol = Col("Severity", ["Critical", "High", "Medium", "Low"])
+countCol = Col("Open Incidents", [5, 12, 7, 20])
+latestCol = Col("Newest", ["INC-1001", "INC-1002", "INC-1003", "INC-1004"])
+
+slowEndpointsCard
+slowEndpointsCard = Card([
+  Heading("Five slowest endpoints (latency)", "h3"),
+  endpointsList
+])
+
+endpointsList = ListBlock([
+  ListItem("GET /auth/login", "1200 ms", ["https://picsum.photos/seed/endpoint1/24/24"]),
+  ListItem("GET /users/{id}", "980 ms", ["https://picsum.photos/seed/endpoint2/24/24"]),
+  ListItem("POST /payments", "860 ms", ["https://picsum.photos/seed/endpoint3/24/24"]),
+  ListItem("GET /reports/daily", "820 ms", ["https://picsum.photos/seed/endpoint4/24/24"]),
+  ListItem("GET /notifications", "790 ms", ["https://picsum.photos/seed/endpoint5/24/24"])
+], "number")
+
+ackButtonRow = Buttons([acknowledgeBtn], "row")
+
+acknowledgeBtn = Button("Acknowledge incident", null, "primary")
+
+openIncidentAcknowledgeCard = Card([
+  Heading("Acknowledge action", "h3"),
+  TextContent("Click to acknowledge a selected incident from the open incidents list below."),
+  ackButtonRow
+])
+
+acknowledgeIncidentSection = SectionBlock([
+  SectionItem("acknowledge", "Acknowledge", [openIncidentAcknowledgeCard])
+])
+
+openIncidentsSection = SectionBlock([
+  SectionItem("incidents", "Open incidents", [openIncidentsCard, acknowledgeIncidentSection])
+])
+
+contentColumn = Card([
+  uptimeCard,
+  cpuMemCard,
+  errorRateCard,
+  openIncidentsSection,
+  slowEndpointsCard
+], "card")

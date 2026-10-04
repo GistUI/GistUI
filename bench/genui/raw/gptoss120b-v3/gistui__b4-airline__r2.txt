@@ -1,82 +1,36 @@
-root = Card(perfSection, flightsSection, delayedSection, gateChangesSection, crewSection, weatherSection, loadSection, riskSection, rebookSection, hubSelectSection, cancellationsSection, turnaroundSection)
-
-perfSection = Card(CardHeader("On‑time Performance – Today"), TextContent("**95 %** of flights are on time.", size:large), clear)
-
-flightsSection = Card(Heading("All Flights", h3), flightsTable, sunk)
-
-flightsTable = Table(
-  Col("Flight", data:["AA101","DL202","UA303","SW404"], type:string),
-  Col("Route", data:["NYC‑LAX","ATL‑ORD","SFO‑SEA","MIA‑DFW"], type:string),
-  Col("Gate", data:["A12","B5","C3","D8"], type:string),
-  Col("Status", data:["On‑time","Delayed","On‑time","On‑time"], type:string)
-)
-
-delayedSection = Card(Callout(warning, "Delayed Flights", "AA101 – ATL‑ORD – Gate B5 – 45 min delay"), sunk)
-
-gateChangesSection = Card(Heading("Recent Gate Changes", h3), gateChangesTable, clear)
-
-gateChangesTable = Table(
-  Col("Flight", data:["DL202","SW404"], type:string),
-  Col("Old Gate", data:["B3","D5"], type:string),
-  Col("New Gate", data:["B5","D8"], type:string),
-  Col("Time", data:["08:15","09:40"], type:string)
-)
-
-crewSection = Card(Heading("Crews Available for Reassignment", h3), crewTable, clear)
-
-crewTable = Table(
-  Col("Crew ID", data:["C-101","C-202","C-303"], type:string),
-  Col("Position", data:["Captain","First Officer","Cabin"], type:string),
-  Col("Status", data:["Available","Available","Available"], type:string)
-)
-
-weatherSection = Card(Callout(info, "Weather Advisory", "Fog reducing visibility to 300 ft. Expect possible delays."), sunk)
-
-loadSection = Card(CardHeader("Average Passenger Load – Today"), TextContent("**78 %** of seats occupied.", size:large), clear)
-
-riskSection = Card(Heading("Connections at Risk of Being Missed", h3), riskTable, sunk)
-
-riskTable = Table(
-  Col("Connection", data:["AA101‑LAX → UA303‑SEA","DL202‑ORD → SW404‑DFW"], type:string),
-  Col("Missed By", data:["15 min","10 min"], type:string),
-  Col("Impact", data:["Yes","Yes"], type:string)
-)
-
-rebookSection = Card(Heading("Rebook Affected Passengers", h3), rebookForm, clear)
-
-rebookForm = Form("rebook", rebookButtons, passengerField, flightSelectField, newGateField)
-
-passengerField = FormControl("Passenger Name", Input("passenger_name", "John Doe", type:text))
-
-flightSelectField = FormControl("Select Flight", flightSelect)
-
-flightSelect = Select("flight", 
-  SelectItem("AA101", "AA101 – NYC‑LAX"),
-  SelectItem("DL202", "DL202 – ATL‑ORD"),
-  placeholder:"Choose flight",
-  value:"AA101"
-)
-
-newGateField = FormControl("New Gate", Input("new_gate", "E2", type:text))
-
-rebookButtons = Buttons(Button("Rebook", primary), Button("Cancel", tertiary))
-
+root = Card(performanceSection, flightsSection, delayedSection, gateChangesSection, crewsSection, weatherSection, loadSection, connectionsSection, rebookSection, hubSelectSection, cancellationsSection, turnaroundSection)
+performanceSection = Card(Callout("On-Time Performance", "96% of flights on time today", variant:info))
+flightsSection = Card(Heading("Today's Flights", h3), Table(flightsTable))
+delayedSection = Card(Callout("Delayed Flights", "AA102, DL205, UA310", variant:warning))
+gateChangesSection = Card(Heading("Recent Gate Changes", h3), Table(gateChangesTable))
+crewsSection = Card(Heading("Available Crews", h3), Table(crewsTable))
+weatherSection = Card(Callout("Weather Advisory", "Light rain, winds 15 kt, possible delays", variant:info))
+loadSection = Card(Heading("Avg Passenger Load", h3), TextContent("78% of capacity", size:large))
+connectionsSection = Card(Heading("Connections at Risk", h3), Table(connectionsTable))
+rebookSection = Card(Heading("Rebook Passengers", h3), rebookForm)
 hubSelectSection = Card(Heading("Switch Hub", h3), hubSelect)
-
-hubSelect = Select("hub", 
-  SelectItem("JFK", "JFK – New York"),
-  SelectItem("LAX", "LAX – Los Angeles"),
-  SelectItem("ORD", "ORD – Chicago"),
-  placeholder:"Select hub"
-)
-
-cancellationsSection = Card(Heading("Cancellations Today", h3), cancellationsTable, clear)
-
-cancellationsTable = Table(
-  Col("Flight", data:["UA303"], type:string),
-  Col("Route", data:["SFO‑SEA"], type:string),
-  Col("Time", data:["11:30"], type:string),
-  Col("Reason", data:["Maintenance"], type:string)
-)
-
-turnaroundSection = Card(CardHeader("Average Turnaround Time – Today"), TextContent("**38 minutes**", size:large), sunk)
+cancellationsSection = Card(Heading("Cancellations Today", h3), Table(cancellationsTable))
+turnaroundSection = Card(Heading("Avg Turnaround Time", h3), TextContent("42 minutes", size:large))
+rebookForm = Form("rebook-passengers", rebookButtons, nameField, flightField, newFlightField, reasonField)
+nameField = FormControl("Passenger name", Input("passenger_name", "John Doe"))
+flightField = FormControl("Current flight", Input("current_flight", "AA101"))
+newFlightField = FormControl("New flight", Input("new_flight"))
+reasonField = FormControl("Reason", Input("reason"))
+rebookButtons = Buttons(Button("Rebook", variant:primary), Button("Cancel", variant:secondary))
+hubSelect = Select("hub_select", SelectItem("JFK", "JFK"), SelectItem("LAX", "LAX"), SelectItem("ORD", "ORD"), placeholder:"Select hub")
+flightsTable = |Flight|Route|Gate|Status
+|AA101|NYC → LAX|A12|On Time
+|DL202|ATL → ORD|B5|Delayed
+|UA303|SFO → SEA|C3|Boarding
+gateChangesTable = |Flight|Old Gate|New Gate
+|AA101|A10|A12
+|DL202|B3|B5
+crewsTable = |Crew ID|Role|Location
+|C001|Pilot|Rest Area
+|C045|Flight Attendant|Lounge
+connectionsTable = |Connecting Flight|Arrival Gate|Connection Time|Risk
+|AA200|A14|45 min|High
+|DL210|B7|30 min|Medium
+cancellationsTable = |Flight|Route|Gate|Reason
+|AA150|NYC → MIA|A2|Crew shortage
+|DL220|ATL → DFW|B1|Weather

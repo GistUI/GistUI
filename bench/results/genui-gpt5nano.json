@@ -1,0 +1,8234 @@
+[
+ {
+  "fmt": "gistui",
+  "scenario": "b1-invoice",
+  "repeat": 1,
+  "tokens": 254,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "dueDateRow:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "amountRow:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "paymentControls2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "paymentControls3:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "paymentControls4:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 14
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-invoice",
+  "repeat": 2,
+  "tokens": 209,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "paySection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "PaymentForm:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "dueDate:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "PaymentForm:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cardField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "payButton:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph",
+   "hallucinated-component"
+  ],
+  "n": 4
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-invoice",
+  "repeat": 3,
+  "tokens": 164,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "dueDateBadge:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 15
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-invoice",
+  "repeat": 4,
+  "tokens": 230,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "paySection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "payNow:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "payNow:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "payNow:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "paymentMethodField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "amountField:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph",
+   "required-field"
+  ],
+  "n": 14
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-meeting",
+  "repeat": 1,
+  "tokens": 197,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 15
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-meeting",
+  "repeat": 2,
+  "tokens": 125,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 6
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-meeting",
+  "repeat": 3,
+  "tokens": 183,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 11
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-meeting",
+  "repeat": 4,
+  "tokens": 127,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "nextMeeting:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "nextMeeting:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "nextMeeting:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 13
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-newsletter",
+  "repeat": 1,
+  "tokens": 175,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "signup:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 11
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-newsletter",
+  "repeat": 2,
+  "tokens": 110,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 12
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-newsletter",
+  "repeat": 3,
+  "tokens": 164,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "EmailField:invalid-prop"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "Description:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Text:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Note:unreachable"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-newsletter",
+  "repeat": 4,
+  "tokens": 100,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 9
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-order",
+  "repeat": 1,
+  "tokens": 218,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "statusSection:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "dateSection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deliveryTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "table:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "DateValue:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 18
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-order",
+  "repeat": 2,
+  "tokens": 169,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "statusSection:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "etaSection:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 18
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-order",
+  "repeat": 3,
+  "tokens": 286,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "StatusSection:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "FormControls:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "FormControls:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "StatusSection_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "StatusSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "reportSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ReportForm:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "FormControls:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph",
+   "hallucinated-component",
+   "signature-mismatch"
+  ],
+  "n": 5
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-order",
+  "repeat": 4,
+  "tokens": 233,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "statusPanel:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "etaPanel:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "reportPanel:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "issueField:unknown-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "contactField:unknown-prop"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "signature-mismatch"
+  ],
+  "n": 20
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-poll",
+  "repeat": 1,
+  "tokens": 127,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 14
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-poll",
+  "repeat": 2,
+  "tokens": 205,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "pollSection:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "RestItem1:invalid-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "RestItem2:invalid-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "RestItem3:invalid-prop"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "signature-mismatch"
+  ],
+  "n": 9
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-poll",
+  "repeat": 3,
+  "tokens": 173,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 18
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-poll",
+  "repeat": 4,
+  "tokens": 158,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "restaurantItems2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "restaurantItems3:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 31
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-profile",
+  "repeat": 1,
+  "tokens": 315,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "bioArea:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 23
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-profile",
+  "repeat": 2,
+  "tokens": 159,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "bio:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "messageDialog:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 14
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-profile",
+  "repeat": 3,
+  "tokens": 163,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 17
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-profile",
+  "repeat": 4,
+  "tokens": 98,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 15
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-revenue",
+  "repeat": 1,
+  "tokens": 136,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 11
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-revenue",
+  "repeat": 2,
+  "tokens": 163,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "revenueTrend:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "trendTable:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 12
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-revenue",
+  "repeat": 3,
+  "tokens": 111,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 12
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-revenue",
+  "repeat": 4,
+  "tokens": 207,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "revenueComparison:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "comparisonTable:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 12
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-task",
+  "repeat": 1,
+  "tokens": 150,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "urgentTaskSection:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-task",
+  "repeat": 2,
+  "tokens": 124,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 13
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-task",
+  "repeat": 3,
+  "tokens": 60,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:unknown-prop"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 7
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-task",
+  "repeat": 4,
+  "tokens": 127,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 14
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-uptime",
+  "repeat": 1,
+  "tokens": 88,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "incidentCard:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-uptime",
+  "repeat": 2,
+  "tokens": 115,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 8
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-uptime",
+  "repeat": 3,
+  "tokens": 172,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 10
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-uptime",
+  "repeat": 4,
+  "tokens": 302,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "overview:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "uptimeTable:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 12
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-weather",
+  "repeat": 1,
+  "tokens": 199,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 18
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-weather",
+  "repeat": 2,
+  "tokens": 153,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 16
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-weather",
+  "repeat": 3,
+  "tokens": 241,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 21
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b1-weather",
+  "repeat": 4,
+  "tokens": 172,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 18
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-budget",
+  "repeat": 1,
+  "tokens": 365,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "categoryField:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 38
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-budget",
+  "repeat": 2,
+  "tokens": 426,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   }
+  ],
+  "classes": [
+   "malformed-syntax"
+  ],
+  "n": 27
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-budget",
+  "repeat": 3,
+  "tokens": 373,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "largestExpense:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "largestExpenseTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "largestCategoryRow:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "monthLabel:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 37
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-budget",
+  "repeat": 4,
+  "tokens": 480,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "Tabs:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootOverview:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "largestExpense:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "categoryChart:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "monthPicker:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "addExpenseSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "amountField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "categoryField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "dateField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "noteField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "categoryTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "monthTable:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 3
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-cafe",
+  "repeat": 1,
+  "tokens": 294,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 23
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-cafe",
+  "repeat": 2,
+  "tokens": 311,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 26
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-cafe",
+  "repeat": 3,
+  "tokens": 426,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 35
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-cafe",
+  "repeat": 4,
+  "tokens": 323,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "specialSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "MarkdownIntro:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "vegetarianSwitch:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 19
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-course",
+  "repeat": 1,
+  "tokens": 184,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 20
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-course",
+  "repeat": 2,
+  "tokens": 164,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 18
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-course",
+  "repeat": 3,
+  "tokens": 192,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 21
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-course",
+  "repeat": 4,
+  "tokens": 283,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "courseInfoCard:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "modulesCard:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "modulesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ratingCard:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ratingContent:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "remainder:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Button:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 9
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-event",
+  "repeat": 1,
+  "tokens": 597,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "daysLeft:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "eventName:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "eventDate:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "venue:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "agendaRows:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ticketsRows:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "nameField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "emailField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 3
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-event",
+  "repeat": 2,
+  "tokens": 431,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:excess-args"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "speakersSection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "speakersSection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "speakersSection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "speakersSection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "speakersSection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "speakersSection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "speakersSection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "speakersSection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "speakersSection:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "speakers:unreachable"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 28
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-event",
+  "repeat": 3,
+  "tokens": 409,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "speakersSection_t1:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 30
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-event",
+  "repeat": 4,
+  "tokens": 382,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 30
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-fitness",
+  "repeat": 1,
+  "tokens": 409,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "todayPanel:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "weekPanel:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 34
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-fitness",
+  "repeat": 2,
+  "tokens": 381,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "todaySteps:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "todaySteps:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "todaySteps:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "todaySteps:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "stepsProgress:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "stepsProgress:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "stepsProgress:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "weekChart:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "weekChart:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "stepsProgress:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "goalRow:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weekChart:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weekTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weekTable:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph",
+   "required-field",
+   "signature-mismatch"
+  ],
+  "n": 27
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-fitness",
+  "repeat": 3,
+  "tokens": 284,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 24
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-fitness",
+  "repeat": 4,
+  "tokens": 357,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "hero:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "hero:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "weeklyChart:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "weeklyChart:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "CaloriesBlock:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "TextContent:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SectionBlock:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "required-field",
+   "signature-mismatch"
+  ],
+  "n": 29
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-job",
+  "repeat": 1,
+  "tokens": 366,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "null:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "null:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sectionQualifications:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "qualificationSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Qualifications:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "qualTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sectionSalary:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "salarySection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Salary:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sectionApply:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "applySection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Apply:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "nameField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "emailField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "resumeField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "applyButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sectionShare:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shareSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Share:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 9
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-job",
+  "repeat": 2,
+  "tokens": 244,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 32
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-job",
+  "repeat": 3,
+  "tokens": 239,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "reference-graph"
+  ],
+  "n": 22
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-job",
+  "repeat": 4,
+  "tokens": 314,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 29
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-sales",
+  "repeat": 1,
+  "tokens": 298,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 21
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-sales",
+  "repeat": 2,
+  "tokens": 323,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "revenueThisMonthText:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 23
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-sales",
+  "repeat": 3,
+  "tokens": 261,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 22
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-sales",
+  "repeat": 4,
+  "tokens": 327,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 22
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-standup",
+  "repeat": 1,
+  "tokens": 378,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:invalid-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:excess-args"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "DateHeader:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "DateHeader:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "signature-mismatch",
+   "reference-graph"
+  ],
+  "n": 29
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-standup",
+  "repeat": 2,
+  "tokens": 313,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "teammateLine:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "teammateLine:excess-args"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "teammate2Line:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "teammate2Line:excess-args"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "teammate3Line:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "teammate3Line:excess-args"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "DateStamp:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 22
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-standup",
+  "repeat": 3,
+  "tokens": 303,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "blockedRow:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "blockedList:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "blockedItems:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "missingCount:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "missingCounter:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "postUpdateSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "postForm:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "updateField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "postButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "missingCountInline:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 3
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-standup",
+  "repeat": 4,
+  "tokens": 394,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "teammateList:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 30
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-stock",
+  "repeat": 1,
+  "tokens": 214,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowTable:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowTable2:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowTable2:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowTable2:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowTable2:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowTable2:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "thresholdPanel:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 20
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-stock",
+  "repeat": 2,
+  "tokens": 184,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 21
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-stock",
+  "repeat": 3,
+  "tokens": 267,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 21
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-stock",
+  "repeat": 4,
+  "tokens": 287,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "searchRow:unknown-component"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "lowStockTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowStockTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowStockTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowStockTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowStockTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowStockTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowStockTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowStockTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowStockTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lowStockTable:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 39
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-support",
+  "repeat": 1,
+  "tokens": 341,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "recentTicketsSection:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 25
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-support",
+  "repeat": 2,
+  "tokens": 407,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 37
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-support",
+  "repeat": 3,
+  "tokens": 445,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "NewTicketDialog:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "nameField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "issueField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "priorityField:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 27
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b2-support",
+  "repeat": 4,
+  "tokens": 335,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 29
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-clinic",
+  "repeat": 1,
+  "tokens": 471,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "todaySection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "appointmentsTable:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "SummaryGrid:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SummaryGrid:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "SummaryGrid:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "SummaryGrid:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SummaryGrid:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "roomsSection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "roomsSection:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "nextSection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "nextSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "appointmentsList:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "NoShowList:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "freeRoomsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "roomsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "NextPatient:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "nextPatName:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 35
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-clinic",
+  "repeat": 2,
+  "tokens": 316,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "roomsFree:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "patientsExpected:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "nextCalled:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 3
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-clinic",
+  "repeat": 3,
+  "tokens": 426,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 41
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-clinic",
+  "repeat": 4,
+  "tokens": 380,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 37
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-content",
+  "repeat": 1,
+  "tokens": 663,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "dateField:invalid-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 67
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-content",
+  "repeat": 2,
+  "tokens": 670,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "enum-mismatch",
+    "detail": "draftsSection:invalid-enum"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "publishDateField:invalid-prop"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "commentsSection:invalid-enum"
+   }
+  ],
+  "classes": [
+   "enum-mismatch",
+   "signature-mismatch"
+  ],
+  "n": 57
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-content",
+  "repeat": 3,
+  "tokens": 831,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 61
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-content",
+  "repeat": 4,
+  "tokens": 878,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "categoryControl:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "commentsSection:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "reference-graph"
+  ],
+  "n": 51
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-crm",
+  "repeat": 1,
+  "tokens": 500,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": "recentActivity:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "recentActivity:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "recentActivity:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "recentActivity:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "recentActivity:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 41
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-crm",
+  "repeat": 2,
+  "tokens": 535,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "AccountOverview:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "AccountOverview:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "AccountOverview:unknown-prop"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentActivitySection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentActivitySection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentActivitySection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentActivitySection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentActivitySection:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "RecentActivitySection:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentActivitySection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentActivitySection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentActivitySection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentActivitySection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentActivitySection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentActivitySection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecentActivitySection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "NoteSection:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "NoteSection:unknown-prop"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "RenewalSection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RenewalSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "LogCallSection:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "LogCallSection:unknown-prop"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "signature-mismatch",
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 58
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-crm",
+  "repeat": 3,
+  "tokens": 542,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 56
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-crm",
+  "repeat": 4,
+  "tokens": 373,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "recentActivity:unresolved-ref"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "recentActivity:invalid-enum"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "enum-mismatch"
+  ],
+  "n": 34
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-finance",
+  "repeat": 1,
+  "tokens": 514,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "summaryPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "downloadButton:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 46
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-finance",
+  "repeat": 2,
+  "tokens": 488,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "expensesSection:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "expensesSection:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "highValueList:unresolved-ref"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "highValueList:invalid-enum"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "monthPicker:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SectionBlock:cycle"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SectionItem:cycle"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SectionBlock:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SectionItem:unreachable"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "required-field",
+   "reference-graph",
+   "enum-mismatch"
+  ],
+  "n": 43
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-finance",
+  "repeat": 3,
+  "tokens": 414,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "expensesChart:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "expensesTable:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 33
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-finance",
+  "repeat": 4,
+  "tokens": 418,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "downloadButton:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "monthNav:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "expensesPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "expensesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "transactionsPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "transactionsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "monthSelector:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "MonthPicker:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "downloadButton:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sectionOverview:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "spends:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "transactions:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "monthNav:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootAdd:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 22
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-freight",
+  "repeat": 1,
+  "tokens": 656,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "delayedSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "delayedTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "flags:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "avgCostSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weekVolumeSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weekVolumeTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 29
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-freight",
+  "repeat": 2,
+  "tokens": 651,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "delayedItem1:invalid-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shipmentsPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shipmentsPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shipmentsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shipmentsTableData:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "flagShipmentPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "FlagsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "flagsTableData:unreachable"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "reference-graph"
+  ],
+  "n": 29
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-freight",
+  "repeat": 3,
+  "tokens": 603,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "inTransitSection:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "performanceSection:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "performanceSection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weeklyVolumeSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weeklyTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "flagSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "flagButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shipmentInput:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "flagReason:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "hallucinated-component"
+  ],
+  "n": 32
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-freight",
+  "repeat": 4,
+  "tokens": 579,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 49
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-hr",
+  "repeat": 1,
+  "tokens": 709,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "formControls:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "headcountPie:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "headcountSplitTable:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 52
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-hr",
+  "repeat": 2,
+  "tokens": 657,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "departmentField:unknown-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "roleTypeField:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "roleTypeField:missing-required"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "required-field"
+  ],
+  "n": 53
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-hr",
+  "repeat": 3,
+  "tokens": 698,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "rootDialogContent:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "roleNameField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deptField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "levelField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "locationField:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 35
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-hr",
+  "repeat": 4,
+  "tokens": 751,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "TabContainer:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "TabContainer:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "MetricsBoard:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OpenNewRoleModal:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OpenNewRoleModal:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OpenNewRoleModal:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "OpenNewRoleModal:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OpenRolesSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "openRolesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ButtonRow:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "StatsSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "MetricsBoard:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SectionBreak:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OpenNewRole:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OpenNewRoleButton:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "HeadcountByDeptSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "headcountDeptTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "InterviewsWeekSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "interviewsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "AttritionSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "attritionTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OpenNewRoleModal:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 23
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-learning",
+  "repeat": 1,
+  "tokens": 942,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "OverviewSection:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "OverviewSection:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "DataSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "DataSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "CompletionRateCard:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "RankedEnrollmentsCard:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "RankedEnrollmentsCard:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "EngagementChart:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "EngagementChart:missing-required"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "cohortTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "cohortTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "cohortTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "cohortTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "cohortTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "cohortTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "cohortTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "cohortTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortTable:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "enrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "enrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "enrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "enrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "enrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "enrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "enrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "enrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "enrollmentTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "quizScoreTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "quizScoreTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "quizScoreTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "quizScoreTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "quizScoreTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "quizScoreTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "quizScoreTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "quizScoreTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "quizScoreTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "quizScoreTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "quizScoreTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "quizScoreTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "quizScoreTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "quizScoreTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "quizScoreTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "quizScoreTable:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rankedEnrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rankedEnrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rankedEnrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rankedEnrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rankedEnrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rankedEnrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rankedEnrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rankedEnrollmentTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rankedEnrollmentTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankedEnrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankedEnrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankedEnrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankedEnrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankedEnrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankedEnrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankedEnrollmentTable:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "riskyLearnersTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "riskyLearnersTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "riskyLearnersTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "riskyLearnersTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "riskyLearnersTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "riskyLearnersTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "riskyLearnersTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "riskyLearnersTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "riskyLearnersTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskyLearnersTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskyLearnersTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskyLearnersTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskyLearnersTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskyLearnersTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskyLearnersTable:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "engagementTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "engagementTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "engagementTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "engagementTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "engagementTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "engagementTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "engagementTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "engagementTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "engagementTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "MessagesPreview:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentCompletionTable_t1:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "signature-mismatch",
+   "required-field",
+   "reference-graph"
+  ],
+  "n": 62
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-learning",
+  "repeat": 2,
+  "tokens": 593,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "overviewPanel:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "overviewPanel:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortEngagement:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "engagementRows:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "coursesRankTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "coursesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "activeLearnersTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "activeTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "completionRatePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "averageQuizPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "requestedSections:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootDoneCheck:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "required-field"
+  ],
+  "n": 26
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-learning",
+  "repeat": 3,
+  "tokens": 799,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "activeLearners:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "completionRate:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "avgQuiz:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "activeKPIs:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortBadge:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankingSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankedTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortEngagement:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "messageArea:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "cohortCommunication:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rankedByEnrollment:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "atRiskSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskAlert:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "activeLearnings:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "courseCompletion:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "averageQuiz:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "growth:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 26
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-learning",
+  "repeat": 4,
+  "tokens": 722,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "recruit:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 64
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-marketing",
+  "repeat": 1,
+  "tokens": 1015,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 32
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-marketing",
+  "repeat": 2,
+  "tokens": 574,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "convLine_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "convLine:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 41
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-marketing",
+  "repeat": 3,
+  "tokens": 757,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "conversionPanel:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "conversionPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "conversionRate:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 36
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-marketing",
+  "repeat": 4,
+  "tokens": 500,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 31
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-orders",
+  "repeat": 1,
+  "tokens": 579,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "root:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "root:missing-required"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "required-field"
+  ],
+  "n": 61
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-orders",
+  "repeat": 2,
+  "tokens": 392,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "recentTable:unknown-prop"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 32
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-orders",
+  "repeat": 3,
+  "tokens": 572,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "rootItems:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 52
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-orders",
+  "repeat": 4,
+  "tokens": 580,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "filterBar:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "revenueRow:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "aovRow:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "kpi:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "kpiRows:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 53
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-server",
+  "repeat": 1,
+  "tokens": 774,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 51
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-server",
+  "repeat": 2,
+  "tokens": 646,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "overviewBody:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "thresholdSlider:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 47
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-server",
+  "repeat": 3,
+  "tokens": 599,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": "acknowledgePanel:parse-failed"
+   }
+  ],
+  "classes": [
+   "malformed-syntax"
+  ],
+  "n": 46
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b3-server",
+  "repeat": 4,
+  "tokens": 645,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "uptimeSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "uptimeTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "chartsSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "usageTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "errorsSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "incidentsSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "incidentsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "latencySection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "latencyTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "alertsSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "thresholdControl:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ackSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ackTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ActionsButton:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 17
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-airline",
+  "repeat": 1,
+  "tokens": 791,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "rebook:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "rebook:missing-required"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "required-field"
+  ],
+  "n": 76
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-airline",
+  "repeat": 2,
+  "tokens": 781,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "onsiteCard:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 79
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-airline",
+  "repeat": 3,
+  "tokens": 783,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootSection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "todaySection:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "delayedFlightsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "delayedFlightsTableBody:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootChildren:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "todaySection:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 52
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-airline",
+  "repeat": 4,
+  "tokens": 634,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "hubSelector:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 63
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-bank",
+  "repeat": 1,
+  "tokens": 833,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "transferSection:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "transferControls:invalid-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "transferControls:invalid-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "transferControls:unknown-prop"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 67
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-bank",
+  "repeat": 2,
+  "tokens": 925,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "OverviewSection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewSection:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "OverviewSection:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "OverviewSection:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "OverviewSection:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "checkings:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "savings:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "credit:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "TransferSection:invalid-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "TransferSection:excess-args"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "checkings:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "hallucinated-component",
+   "signature-mismatch"
+  ],
+  "n": 83
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-bank",
+  "repeat": 3,
+  "tokens": 776,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "creditFreezeSection:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 66
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-bank",
+  "repeat": 4,
+  "tokens": 833,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "vacationTitle:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "vacationProgress:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "vacationSection:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 64
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-creator",
+  "repeat": 1,
+  "tokens": 823,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "audiencePie:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "audiencePie:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "audiencePie:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "timeField:invalid-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "platformSwitchRedundant:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "bestPosts:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "platformSwitchRedundant:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "CommentsWaitingBlock:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "commentsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "bestHour:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "platformNarrowing:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "overviewNarrow:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch",
+   "required-field"
+  ],
+  "n": 48
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-creator",
+  "repeat": 2,
+  "tokens": 734,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "audienceSection:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "audienceSection:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "audienceSection:missing-required"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch",
+   "required-field"
+  ],
+  "n": 68
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-creator",
+  "repeat": 3,
+  "tokens": 971,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "sectionTabs:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 74
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-creator",
+  "repeat": 4,
+  "tokens": 749,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "timeField:invalid-enum"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "platformSelect:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "platformFilter:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "enum-mismatch",
+   "signature-mismatch",
+   "reference-graph"
+  ],
+  "n": 63
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-hospital",
+  "repeat": 1,
+  "tokens": 722,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 67
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-hospital",
+  "repeat": 2,
+  "tokens": 1007,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "lookAheadDaySection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "transferControls2:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 79
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-hospital",
+  "repeat": 3,
+  "tokens": 1045,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "content:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "dayPicker:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "dayPicker:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "dayChooser:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "actions:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 76
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-hospital",
+  "repeat": 4,
+  "tokens": 1098,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "required-field",
+    "detail": "incidentFields:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "incidentFields:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "incidentFields:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "dayDateField:invalid-prop"
+   }
+  ],
+  "classes": [
+   "required-field",
+   "signature-mismatch"
+  ],
+  "n": 85
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-portfolio",
+  "repeat": 1,
+  "tokens": 1014,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "quarterSelectorSection:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "quarterSelectorSection:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "currentQuarterControl:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "resourceRequestSection:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "resourceRequestSection:missing-required"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "required-field",
+   "signature-mismatch"
+  ],
+  "n": 68
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-portfolio",
+  "repeat": 2,
+  "tokens": 961,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "TextContent:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 81
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-portfolio",
+  "repeat": 3,
+  "tokens": 750,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 56
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-portfolio",
+  "repeat": 4,
+  "tokens": 940,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "projectsPanel:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 79
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-power",
+  "repeat": 1,
+  "tokens": 842,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "overviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sectionViewFooter:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sectionViewFooter:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 65
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-power",
+  "repeat": 2,
+  "tokens": 1086,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:invalid-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:excess-args"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "regionSections:unresolved-ref"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "maintenanceSection:invalid-enum"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "alertsSection:invalid-enum"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "regionFocus:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "regionFocus:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "focusButton:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "regionFocus:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "focusButton:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "orderCurtailmentSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "AlertsPaneltel:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "signature-mismatch",
+   "reference-graph",
+   "enum-mismatch"
+  ],
+  "n": 65
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-power",
+  "repeat": 3,
+  "tokens": 1260,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "loadTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "capacityUtilTable:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 54
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-power",
+  "repeat": 4,
+  "tokens": 825,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "regionFocus:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "regionInput:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "MaintenancePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "maintenanceTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "maintenanceTableData:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "TablePlaceHolder:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "forecastTable:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "hallucinated-component"
+  ],
+  "n": 55
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-retail",
+  "repeat": 1,
+  "tokens": 1038,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "salesToday:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "reorderFormButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "trafficSeries:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 76
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-retail",
+  "repeat": 2,
+  "tokens": 1398,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 101
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-retail",
+  "repeat": 3,
+  "tokens": 801,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "basketSizeNote:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 67
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-retail",
+  "repeat": 4,
+  "tokens": 818,
+  "renderable": true,
+  "complete": true,
+  "errs": [],
+  "classes": [],
+  "n": 82
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-saas",
+  "repeat": 1,
+  "tokens": 820,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "tenLargestSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "largestCustomersTable:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 56
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-saas",
+  "repeat": 2,
+  "tokens": 566,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":unterminated-string"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "periodControl:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "periodControl:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 56
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-saas",
+  "repeat": 3,
+  "tokens": 961,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "growthSection:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "growthSection:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "customersPanel:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "customersPanel:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "customersPanel:missing-required"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "riskAccountsPanel:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "utilizationPanel:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "utilizationPanel:missing-required"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "utilTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "retryActionsPanel:unreachable"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "required-field",
+   "hallucinated-component",
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 129
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b4-saas",
+  "repeat": 4,
+  "tokens": 789,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":unterminated-string"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "metricsRow:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "metricsRow:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "metricsRow:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "metricsRow:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "metricsRow:parse-failed"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "metricsRow:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "metricsRow:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "metricsRow:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "metricsRow:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "metricsRow:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "metricsRow:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "metricsRow:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "metricsRow:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "churnAndSignupRow:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "churnAndSignupRow:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "churnAndSignupRow:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "seatUtilization:invalid-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ChurnSeparator:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "signature-mismatch",
+   "reference-graph",
+   "required-field"
+  ],
+  "n": 109
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-city",
+  "repeat": 1,
+  "tokens": 1138,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "section2:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "section2:missing-required"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "section7:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "section7:parse-failed"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "section7:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section7:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "section13:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deploymentsViewPlaceholder:unreachable"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "required-field",
+   "malformed-syntax",
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 95
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-city",
+  "repeat": 2,
+  "tokens": 1020,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "sectionSelector:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "districtFocus:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weatherPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "districtTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "energyChart:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "energyTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "waterChart:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "waterTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "openIncidentsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "incidentTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "emergencyVehiclesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "vehicleTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "parkingTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "parkingPipe:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "hallucinated-component"
+  ],
+  "n": 71
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-city",
+  "repeat": 3,
+  "tokens": 1686,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "emergencyDeployCard:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "incidentSelect:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "content:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "infoSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "overviewCard:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "schedule:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "districtFocus:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "districtSelect:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "infoRow:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "liveCharts:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "metricsCard:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "congestionTable:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 142
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-city",
+  "repeat": 4,
+  "tokens": 1345,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "districtFilter:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "dispatchPanel:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "dispatchPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "eventsPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "citizenReportsPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "serviceBacklogPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "roadworksPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "infraMaintenancePanel:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "trafficPanel:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "trafficPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "transitPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "airQualityPanel:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "districtControl:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "TableRowsClosed:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "TableRowsOpen:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "districtControl:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Districts:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "TableRowsClosed:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "TableRowsOpen:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "energyBar:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "energyTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "nameField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Notes:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 80
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-disaster",
+  "repeat": 1,
+  "tokens": 1667,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "resourcesList:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "resourcesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weatherTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weatherTablePipe:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 148
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-disaster",
+  "repeat": 2,
+  "tokens": 1460,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "zoneOverviewCard:unknown-component"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "hallucinated-component"
+  ],
+  "n": 130
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-disaster",
+  "repeat": 3,
+  "tokens": 1463,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "zoneSummary:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "zoneSummary:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "zones:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "zoneRows:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "zoneTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "inventoryHeader:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "inventoryRows:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "inventoryTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "severityGauge:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "summaryPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Area:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ZonePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "activeTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "zoneSummary:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "vehiclesTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "vehiclesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sheltersTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sheltersTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "routesTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "routesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weatherTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weatherTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "outcomesTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "outcomesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "volunteersTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "volunteersTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "donationsTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "donationsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "aidRequestsTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "aidRequestsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "channelsTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "channelsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "roadsTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "roadsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "hospitalsTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "hospitalsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "tasksTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "tasksTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "requestResourcesForm:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "requestResourcesFormBody:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "broadcastForm:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "broadcastFormBody:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "zoneFocus:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "zoneFocusBody:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sitRepForm:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sitRepBody:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch",
+   "required-field"
+  ],
+  "n": 59
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-disaster",
+  "repeat": 4,
+  "tokens": 1451,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "incidentsCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "overviewCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "resourcesCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "sheltersCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "routesCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "weatherCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "outcomesCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "volunteersCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "donationsCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "aidCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "commCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "roadsCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "hospitalsCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "tasksCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "requestsCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "broadcastCard:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "focusControl:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "reportsCard:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "table:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "summaryTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shelters_data:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weather_table:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "outcomes_table:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "aid_table:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "roads_table:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "hospitals_table:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "tasks_table:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "isFoldable:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 75
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-exec",
+  "repeat": 1,
+  "tokens": 1028,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 77
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-exec",
+  "repeat": 2,
+  "tokens": 799,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "metricsPanel:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "metricsPanel:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "metricsPanel:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 151
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-exec",
+  "repeat": 3,
+  "tokens": 926,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "exportBar:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 81
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-exec",
+  "repeat": 4,
+  "tokens": 66,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 2
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-fund",
+  "repeat": 1,
+  "tokens": 1175,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "orderEntryPanel:invalid-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "workingOrdersPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ordersTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "marginPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "changeTimeframePanel:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 87
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-fund",
+  "repeat": 2,
+  "tokens": 1010,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "root:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "portfolioPanel:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "portfolioPanel:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "gainersPanel:unknown-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "timeframePanel:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootIncludes:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootIncludes:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "positionsPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "positionsTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "positionsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "exposurePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "exposureTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "varPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "gainersPanel_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "gainersPanel_t2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "gainersPanel_t3:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "gainersPanel_t4:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "gainersPanel_t5:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "gainersPanel_t6:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "gainersPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ordersPanel_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ordersPanel_t2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ordersPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "marginPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "headlinesPanel_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "headlinesPanel_t2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "headlinesPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "econPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "strategiesPanel_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "strategiesPanel_t2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "strategiesPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "drawdownPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "drawdownTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rebalancePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "orderPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "timeframePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootIncludes:unreachable"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "required-field",
+   "reference-graph"
+  ],
+  "n": 12
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-fund",
+  "repeat": 3,
+  "tokens": 963,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "marketPanel:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "marketPanel:unresolved-ref"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 87
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-fund",
+  "repeat": 4,
+  "tokens": 1044,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "overviewTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "marginSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "marketHeadlinesSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "headlinesTable:unreachable"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "reference-graph"
+  ],
+  "n": 83
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-game",
+  "repeat": 1,
+  "tokens": 1208,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "eventsRunning:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section_players_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "trendTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "draftPatch:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 68
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-game",
+  "repeat": 2,
+  "tokens": 1446,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "homeSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "serverControls:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "playersOnline:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "activePlayers:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "daTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "revenueToday:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "revenuePerUser:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sectionTwoWeeks:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "playerReports:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "banAppeals:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "experiments:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "exp1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "exp2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "patchDraftSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "focusRegionSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "hotfixSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "notesArea:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sectionsDefined:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 87
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-game",
+  "repeat": 3,
+  "tokens": 957,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "revenuePanel:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "revenueTable:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "eventsPanel:unresolved-ref"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "reviewsPanel:invalid-enum"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "appealsPanel:invalid-enum"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "experimentsPanel:invalid-enum"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RegionFocusNote:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Notes:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rest:unreachable"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "reference-graph",
+   "enum-mismatch"
+  ],
+  "n": 88
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-game",
+  "repeat": 4,
+  "tokens": 1397,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "root:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "root:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "root:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "rootChildren:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootChildren:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "liveEvents:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "liveEvents:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "patchFields:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "hotfixFields:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "focusSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "OverviewContent:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "rootChildren:unreachable"
+   }
+  ],
+  "classes": [
+   "signature-mismatch",
+   "required-field",
+   "reference-graph",
+   "malformed-syntax"
+  ],
+  "n": 5
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-plant",
+  "repeat": 1,
+  "tokens": 1048,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "linesPanel:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "linesPanel:unknown-component"
+   }
+  ],
+  "classes": [
+   "hallucinated-component"
+  ],
+  "n": 107
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-plant",
+  "repeat": 2,
+  "tokens": 1098,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "exportSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "exportButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "weeklyDeliveries:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deliveryTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "maintenanceScheduler:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "MachineField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "DateField:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 83
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-plant",
+  "repeat": 3,
+  "tokens": 1050,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "lineFocusSection:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lineFocusSection:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "allLinesFocus:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "allLinesFocus:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "linesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "maintenanceDue:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "maintTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "stockSection:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "StockTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "stockPipeTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "supplierDeliveries:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "supTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shiftOutput:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "shiftTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "safetyIncidents:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "qualityHold:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "holdTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "energyToday:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "openWorkOrders:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "woTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "scheduleMaintenance:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "ScheduleForm:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "machineField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "dateField:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "allLinesFocus:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "LineSelector:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "lineInput:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formButtons2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "liveAndon:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "hallucinated-component",
+   "malformed-syntax"
+  ],
+  "n": 21
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-plant",
+  "repeat": 4,
+  "tokens": 1359,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "overviewPanel:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "overviewPanel:unknown-component"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "overviewPanel:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "maintenancePanel:unknown-prop"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "deliveriesPanel:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deliveriesPanel:unresolved-ref"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "safetyPanel:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "safetyPanel:unresolved-ref"
+   },
+   {
+    "cls": "enum-mismatch",
+    "detail": "safetyPanel:invalid-enum"
+   },
+   {
+    "cls": "required-field",
+    "detail": "safetyPanel:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "qualityPanel:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "qualityPanel:missing-required"
+   },
+   {
+    "cls": "hallucinated-component",
+    "detail": "energyPanel:unknown-component"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "defectRatePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "defectTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "defectTrend:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "exportPanelButtons:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "allUndefined:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "hallucinated-component",
+   "signature-mismatch",
+   "enum-mismatch",
+   "required-field"
+  ],
+  "n": 108
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-streaming",
+  "repeat": 1,
+  "tokens": 954,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "titlesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "titlesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "titlesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "titlesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "titlesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "titlesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "titlesTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "titlesTable:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "watchTime:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "watchTime:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "subCanc:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "subCanc:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "genreTable:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "genreTable:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "bufferPanel:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "bufferPanel:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "deliveryTable:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "deliveryTable:missing-required"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "releasesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "releasesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "releasesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "releasesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "releasesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "releasesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "releasesTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "releasesTable:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "licensesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "licensesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "licensesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "licensesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "licensesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "licensesTable:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "licensesTable:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "licensesTable:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "recoClicks:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "recoClicks:missing-required"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "noPlayback:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "noPlayback:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "noPlayback:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "noPlayback:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "noPlayback:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "noPlayback:parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "noPlayback:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "noPlayback:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "revenueTable:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "revenueTable:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "revenueTable:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "deviceTable:invalid-prop"
+   },
+   {
+    "cls": "required-field",
+    "detail": "deviceTable:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "deviceTable:missing-required"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "subCanc_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "subCanc:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "genreTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "genreTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "bufferPanel_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "bufferPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deliveryTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deliveryTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "releasesTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "releasesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "licensesTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "licensesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "recoClicks_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "recoClicks:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "noPlayback_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "noPlayback:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "revenueTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "revenueTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deviceTable_t1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deviceTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "regionFocus:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "malformed-syntax",
+   "signature-mismatch",
+   "required-field"
+  ],
+  "n": 45
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-streaming",
+  "repeat": 2,
+  "tokens": 1487,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "root:cycle"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section1:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Overview:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "liveRow:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "viewersTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "uvChart:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "monthlyWatchTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "buffering:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "bufferTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deliveryHealth:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deliveryTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "focusRegion:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "promotions:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Titles:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "titlesTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section3:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "WatchTime:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "watchTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section4:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SubCanc:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "subTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section5:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Genre:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "genreTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section6:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Buffer:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "bufferTable2:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section7:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RegionHealth:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "regionTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section8:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Releases:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "releaseTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section9:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Licenses:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "licenseTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section10:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RecClicks:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "recTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section11:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "SearchNoPlay:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "searchTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section12:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Revenue:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "revenueTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section13:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Device:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deviceTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section14:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "RegionFocus:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section15:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Flags:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "section16:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Promote:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph"
+  ],
+  "n": 1
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-streaming",
+  "repeat": 3,
+  "tokens": 1138,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "bufferingSection:unresolved-ref"
+   },
+   {
+    "cls": "required-field",
+    "detail": "bufferingSection:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "regionFocusSection:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "regionFocusSection:missing-required"
+   },
+   {
+    "cls": "required-field",
+    "detail": "regionFocusSection:missing-required"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "regionFocusSection:unknown-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "bufferingTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "promoteTitleTable:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "required-field",
+   "signature-mismatch"
+  ],
+  "n": 84
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-streaming",
+  "repeat": 4,
+  "tokens": 1280,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "hallucinated-component",
+    "detail": "root:unknown-component"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "regionSelector:unknown-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "regionSection:unknown-prop"
+   }
+  ],
+  "classes": [
+   "hallucinated-component",
+   "signature-mismatch"
+  ],
+  "n": 115
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-university",
+  "repeat": 1,
+  "tokens": 1384,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "tabPrograms:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "tabStudents:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "tabFinance:unresolved-ref"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": "actionsRow:parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "actionsRow:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "actionsLeft:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "actionsRight:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "malformed-syntax"
+  ],
+  "n": 90
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-university",
+  "repeat": 2,
+  "tokens": 1477,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "sections:unresolved-ref"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "departmentFocusPanel:unknown-prop"
+   },
+   {
+    "cls": "signature-mismatch",
+    "detail": "messageGroupPanel:invalid-prop"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTrend:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "enrollmentTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "applicationsPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "applicationsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "acceptancePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "tuitionPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "tuitionTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "capacityPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "capacityTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "teachingPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "teachingTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "scholarshipPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "scholarshipTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "housingPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "housingTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "eventsPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "eventsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "alumniPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "alumniTrend:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "departmentFocusPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "comparePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "compareTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "waitlistPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "waitlistTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "newCoursePanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "messageGroupPanel:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "formsReferences:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "tags:unreachable"
+   }
+  ],
+  "classes": [
+   "reference-graph",
+   "signature-mismatch"
+  ],
+  "n": 22
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-university",
+  "repeat": 3,
+  "tokens": 1467,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "signature-mismatch",
+    "detail": "groupSelect:unknown-prop"
+   }
+  ],
+  "classes": [
+   "signature-mismatch"
+  ],
+  "n": 109
+ },
+ {
+  "fmt": "gistui",
+  "scenario": "b5-university",
+  "repeat": 4,
+  "tokens": 1303,
+  "renderable": true,
+  "complete": false,
+  "errs": [
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "malformed-syntax",
+    "detail": ":parse-failed"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Overview:unresolved-ref"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Overview:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Admissions:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Academics:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Alumni:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Departments:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Calendar:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Waitlists:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Approvals:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "Communications:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "applicationsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "courseFillTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "teachingLoadTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "riskTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "scholarshipTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "eventsTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "alumniTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "waitlistTable:unreachable"
+   },
+   {
+    "cls": "reference-graph",
+    "detail": "deptFocusSelect:unreachable"
+   }
+  ],
+  "classes": [
+   "malformed-syntax",
+   "reference-graph"
+  ],
+  "n": 15
+ }
+]

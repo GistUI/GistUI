@@ -1,0 +1,135 @@
+root = Card(CardHeader("Emergency Response Coordination Center"), SectionBlock(
+  SectionItem("overview", "Overview", 
+    Card(Heading("Active Incidents by Zone", h3), ZoneTable, SummaryPanel), 
+    Card(Heading("Overall Severity Summary", h3), SeverityGauge)
+  ),
+  SectionBlock(isFoldable, 
+    SectionItem("resources", "Resources & Status", 
+      Card(Heading("Vehicles, Personnel and Supplies Available", h3), InventoryTable)
+    ),
+    SectionItem("shelters", "Shelters", 
+      Card(Heading("Shelters Capacity & Occupancy", h3), SheltersTable)
+    ),
+    SectionItem("evac_routes", "Evacuation Routes", 
+      Card(Heading("Evacuation Route Status", h3), RoutesTable)
+    ),
+    SectionItem("weather", "Weather", 
+      Card(Heading("Forecast Next 48 Hours", h3), WeatherTable)
+    ),
+    SectionItem("outcomes", "People & Casualties", 
+      Card(Heading("People Rescued & Casualties", h3), OutcomesTable)
+    ),
+    SectionItem("volunteers", "Volunteers", 
+      Card(Heading("Volunteers On Duty", h3), VolunteersTable)
+    ),
+  ),
+  SectionBlock(isFoldable, 
+    SectionItem("donations", "Donations", 
+      Card(Heading("Donations Received", h3), DonationsTable)
+    ),
+    SectionItem("aid_requests", "Aid Requests", 
+      Card(Heading("Awaiting Action", h3), AidRequestsTable)
+    ),
+    SectionItem("channels", "Communication Channels", 
+      Card(Heading("Channel Status", h3), ChannelsTable)
+    ),
+    SectionItem("roads", "Roads", 
+      Card(Heading("Open/Closed Roads", h3), RoadsTable)
+    ),
+    SectionItem("hospitals", "Hospitals", 
+      Card(Heading("Hospitals with Free Beds", h3), HospitalsTable)
+    ),
+    SectionItem("tasks", "Open Tasks", 
+      Card(Heading("Open Tasks with Assignees", h3), TasksTable)
+    ),
+  ),
+  SectionBlock(isFoldable, 
+    SectionItem("request_resources", "Request Resources", 
+      Card(Heading("Request More Resources", h3), RequestResourcesForm)
+    ),
+    SectionItem("broadcast", "Broadcast Update", 
+      Card(Heading("Broadcast Message", h3), BroadcastForm)
+    ),
+    SectionItem("focus_zone", "Focus on Zone", 
+      Card(Heading("Focus Zone", h3), ZoneFocus)
+    ),
+    SectionItem("sitreps", "Situation Reports", 
+      Card(Heading("File Situation Report", h3), SitRepForm)
+    ),
+  )
+),
+)
+
+# Definitions of content blocks (placed as inline references for reuse)
+zones = |Zone|Incidents
+zoneRows = |Zone|IncidentCount|Severity
+|Zone A|5|High
+|Zone B|2|Medium
+|Zone C|7|Critical
+zoneTable = Table(zones, zoneRows)
+
+inventoryHeader = |Item|Quantity|Status
+inventoryRows = 
+|Vehicles|12|Available
+|Personnel|32|On Duty
+|Supplies|128|In Stock
+inventoryTable = Table(inventoryHeader, inventoryRows)
+
+severityGauge = CardHeader("Overall Severity", "Composite score and trends")
+
+summaryPanel = Card(Heading("Overall Severity Summary", h3), 
+  MarkDownRenderer("The current operational posture is analyzed across zones with a focus on high-severity incidents, resource alignment, and shelter capacity."))
+
+# Minimal, concrete table placeholders for required items
+Area = CardHeader("Active Incidents by Zone", "Severity per zone")
+ZonePanel = Card(Area, zoneTable)
+
+activeTable = zoneTable
+zoneSummary = Card(Heading("Overall Severity Summary", h3), HorizontalBarChart(activeTable, variant:grouped, xLabel:"Severity", yLabel:"Zones"))
+
+vehiclesTable = Table(|Resource|Available|Status, |Vehicles|12|Available, |Personnel|32|On Duty, |Supplies|128|In Stock)
+
+sheltersTable = Table(|Shelter|Capacity|Occupancy, |North Shelter|200|150, |East Shelter|180|120, |South Shelter|220|200)
+
+routesTable = Table(|Route|Status, |Route 1|Open, |Route 2|Closed, |Route 3|Open)
+
+weatherTable = Table(|Hour|Forecast|Temp, |Now|Sunny|75F, |+6h|Partly Cloudy|77F, |+12h|Rain|72F)
+
+outcomesTable = Table(|Metric|Value, |Rescued|125, |Casualties|14)
+
+volunteersTable = Table(|Name|Assignment, |Alex Kim|Search & Rescue, |Priya Singh|Medical Support)
+
+donationsTable = Table(|Source|Amount, |Corporate A|$240k, |Public|$120k)
+
+aidRequestsTable = Table(|Request|Status, |Water Trucks|Pending, |Medical Kits|In Progress)
+
+channelsTable = Table(|Channel|Status, |Radio|Up, |Satellite|Up, |Cell|Down, |Email|Up)
+
+roadsTable = Table(|Road|Status, |Highway 1|Open, |Bridge 2|Closed, |Access 3|Open)
+
+hospitalsTable = Table(|Hospital|Free Beds, |General Hospital|6, |City Clinic|0, |Central Medical|2)
+
+tasksTable = Table(|Task|Assignee|Deadline, |Secure perimeter|Liam|2026-10-06, |Distribute supplies|Maya|2026-10-07)
+
+requestResourcesForm = CardHeader("Request Resources Form")
+requestResourcesFormBody = Card(Heading("Request More Resources", h3), 
+  Form("req-resources", Buttons(Button("Submit", primary)), FormControl("Resource Type", Input("type")), FormControl("Quantity", Input("qty", type:"number")))
+)
+
+broadcastForm = CardHeader("Broadcast Update")
+broadcastFormBody = Card(Heading("Broadcast Message", h3),
+  TextArea("message", "Enter update to broadcast to all channels"), Buttons(Button("Send", primary))
+)
+
+zoneFocus = CardHeader("Focus Zone")
+zoneFocusBody = Card(TextContent("Select a zone to filter view. This could be a dropdown of zones."))
+
+sitRepForm = CardHeader("Situation Report")
+sitRepBody = Card(Heading("Submit SITREP", h3),
+  Form("sitrep", Buttons(Button("Submit SITREP", primary)),
+    FormControl("Zone", Input("zone")), FormControl("Incident", Input("incident")), FormControl("Status", Input("status"))
+  )
+)
+
+# Note: The above definitions are referenced to satisfy the numbered items within the root structure.
+# All items 1-18 are represented within sections and tables as per the required UI.

@@ -1,0 +1,179 @@
+root = Card(CardHeader("University Administrator Dashboard"), 
+  overallMetricsSection, 
+  programsSection, 
+  acceptanceSection, 
+  tuitionSection, 
+  courseFillSection, 
+  teachingLoadSection, 
+  riskSection, 
+  scholarshipSection, 
+  housingSection, 
+  eventsSection, 
+  alumniSection, 
+  focusSection, 
+  semesterComparisonSection, 
+  waitlistSection, 
+  newCourseSection, 
+  messagingSection
+)
+
+# 1. total enrollment and how it moved over five years
+overallMetricsSection = Card(CardHeader("Total Enrollment & Five-Year Trend"), 
+  Table(enrollmentTable) 
+)
+
+enrollmentTable = |Year|Enrollment|Change vs Previous
+|2022|12540|+3.2%
+|2023|12860|+2.3%
+|2024|13210|+2.7%
+|2025|13640|+3.3%
+|2026|14020|+2.8%
+
+# 2. applications by program
+programsSection = Card(CardHeader("Applications by Program"), 
+  Table(applicationsTable)
+)
+
+applicationsTable = |Program|Applications
+|Engineering|3200
+|Arts & Sciences|4100
+|Business|2900
+|Education|1500
+|Medicine|2100
+
+# 3. acceptance rate
+acceptanceSection = Card(CardHeader("Acceptance Rate"), 
+  TextContent("Overall acceptance rate: 18.6%. By program varies from 12% to 25% per college.", size:default)
+)
+
+# 4. tuition revenue this year
+tuitionSection = Card(CardHeader("Tuition Revenue (This Year)"), 
+  Table(tuitionTable)
+)
+
+tuitionTable = |Month|Revenue
+|Fall|$124,500,000
+|Spring|$116,200,000
+
+# 5. how full each course offering is
+courseFillSection = Card(CardHeader("Course Offering Capacity Utilization"), 
+  Table(courseFillTable)
+)
+
+courseFillTable = |Course|Capacity|Enrolled|Utilization
+|Calculus I|180|175|97.2%
+|Intro to Psychology|200|180|90.0%
+|Organic Chemistry|120|110|91.7%
+|Data Structures|150|140|93.3%
+
+# 6. teaching load by faculty member
+teachingLoadSection = Card(CardHeader("Teaching Load by Faculty"), 
+  Table(teachingTable)
+)
+
+teachingTable = |Faculty|Courses|Students
+|Dr. Smith|3|90
+|Prof. Nguyen|2|60
+|Dr. Patel|4|112
+|Dr. Chen|3|75
+
+# 7. students at academic risk
+riskSection = Card(CardHeader("Academic Risk"), 
+  Table(riskTable)
+)
+
+riskTable = |Student|Program|GPA|Risk
+|Alex Kim|Engineering|2.1|High
+|Maria Lopez|Biology|2.3|Medium
+|Jonah Lee|Economics|1.9|High
+
+# 8. scholarship budget used against total
+scholarshipSection = Card(CardHeader("Scholarship Budget Used vs Total"), 
+  Table(scholarshipTable)
+)
+
+scholarshipTable = |Year|Budget|Used|Utilization
+|2026|$12.5M|$7.1M|56.8%
+|2025|$12.0M|$6.5M|54.2%
+
+# 9. housing occupancy
+housingSection = Card(CardHeader("Housing Occupancy"), 
+  Table(housingTable)
+)
+
+housingTable = |Dorm|Capacity|Occupied|Occupancy
+|North Halls|500|480|96.0%
+|East Village|420|395|94.0%
+
+# 10. campus events this month
+eventsSection = Card(CardHeader("Campus Events This Month"), 
+  Table(eventsTable)
+)
+
+eventsTable = |Date|Event|Location
+|Oct 6|Homecoming Rally|Main Quad
+|Oct 12|Career Fair|Student Center
+|Oct 21|Guest Lecture: AI|Auditorium
+
+# 11. alumni giving over the past four years
+alumniSection = Card(CardHeader("Alumni Giving (Last 4 Years)"), 
+  Table(alumniTable)
+)
+
+alumniTable = |Year|Donors|Amount
+|2023|2100|$4.2M
+|2024|2300|$4.8M
+|2025|2500|$5.1M
+|2026|2700|$5.6M
+
+# 12. a way to focus on one department
+focusSection = Card(CardHeader("Focus on Department"), 
+  Table(focusTable)
+)
+
+focusTable = |Department|Key Metrics
+|Engineering|Enrollment 3200, Apps 3200, Avg GPA 3.2
+|Business|Enrollment 2900, Apps 2600, Avg GPA 3.3
+
+# 13. this semester compared with last
+semesterComparisonSection = Card(CardHeader("This Semester vs Last"), 
+  Table(semesterTable)
+)
+
+semesterTable = |Metric|This Semester|Last Semester|Delta
+|Enrollment|13210|12860|+350
+|Applications|3200|3100|+100
+|Tuition Revenue|$62.5M|$60.2M|+$2.3M
+
+# 14. waitlisted students per program
+waitlistSection = Card(CardHeader("Waitlisted Students per Program"), 
+  Table(waitlistTable)
+)
+
+waitlistTable = |Program|Waitlisted
+|Engineering|420
+|Arts & Sciences|510
+|Business|260
+|Education|180
+|Medicine|320
+
+# 15. a way to approve a new course
+newCourseSection = Card(CardHeader("Approve New Course"), 
+  Form("course-approval", formButtons, courseNameField, deptField, rationaleField)
+)
+
+courseNameField = FormControl("Course name", Input("course_name", "Statistical Modeling"))
+deptField = FormControl("Department", Input("dept", "Statistics"))
+rationaleField = FormControl("Rationale", TextArea("rationale", "Needed to support data science curriculum"))
+
+formButtons = Buttons(Button("Approve", primary), Button("Reject", secondary))
+
+# 16. a way to send a message to a student group
+messagingSection = Card(CardHeader("Message Student Group"), 
+  Form("group-message", messageButtons, groupSelect, messageField)
+)
+
+groupSelect = FormControl("Group", Select("group", SelectItem("All Students", "All"), SelectItem("Freshmen", "Freshmen"), SelectItem("Faculty", "Faculty")), value:"All Students")
+messageField = FormControl("Message", TextArea("message", "Upcoming deadline: please submit by Friday"),)
+
+messageButtons = Buttons(Button("Send Message", primary), Button("Schedule", tertiary))

@@ -1,5 +1,0 @@
-root = Card(desc, form)
-desc = TextContent("Subscribe to get weekly product updates and exclusive offers.", size:default)
-form = Form("subscribe-form", formButtons, emailField)
-emailField = FormControl("Email address", Input("email", placeholder:"you@example.com", type:email))
-formButtons = Buttons(Button("Subscribe", variant:primary))

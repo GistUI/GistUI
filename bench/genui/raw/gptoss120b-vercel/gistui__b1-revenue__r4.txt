@@ -1,6 +1,0 @@
-root = Card(header, revenueTable, clear)
-header = CardHeader("Today's Revenue", "Mid‑morning check")
-revenueTable = Table(metricCol, todayCol, yesterdayCol)
-metricCol = Col("Metric", data:["Revenue"], type:string)
-todayCol = Col("Today", data:["$4,320"], type:string)
-yesterdayCol = Col("Yesterday", data:["$3,950"], type:string)

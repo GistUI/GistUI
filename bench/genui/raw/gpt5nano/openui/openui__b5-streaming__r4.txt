@@ -1,0 +1,130 @@
+root = Card([
+  headerRow,
+  metricsGrid
+])
+
+headerRow = CardHeader("Streaming Operations Dashboard", "Live operational cockpit")
+
+metricsGrid = Card([sectionLeft, sectionRight], "card")
+
+sectionLeft = Card([overviewPanel, breakingSections], "sunk")
+sectionRight = Card([panelBottom], "card")
+
+overviewPanel = Card([
+  Heading("Overview", "h2"),
+  TextContent("Viewing activity and operational health across the platform. This screen aggregates live metrics, historical trends, and planned promotions to keep the streaming service running smoothly." ),
+  Separator("horizontal")
+], "card")
+
+breakingSections = Card([section1, section2, section3, section4, section5, section6, section7, section8, section9, section10, section11, section12, section13, section14, section15, section16], "card")
+
+section1 = Card([
+  Heading("1. Viewers watching right now", "h3"),
+  TextContent("Live concurrent viewers and peak load, with per-region breakdown." ),
+  ImageBlock("https://picsum.photos/seed/viewers/800/200")
+])
+
+section2 = Card([
+  Heading("2. Most-watched titles with hours", "h3"),
+  Table([titleCol, hoursCol])
+])
+
+titleCol = Col("Title", ["The Last Horizon", "Pulse Night", "Aurora Isles"])
+hoursCol = Col("Hours Viewed", [1240, 980, 860])
+
+section3 = Card([
+  Heading("3. Watch time over the past month", "h3"),
+  LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7"], [Series("Watch Time", [120,150,170,160,200,180,210])], "linear", "Day", "Hours")
+])
+
+section4 = Card([
+  Heading("4. New subscribers vs cancellations", "h3"),
+  BarChart(["Week 1","Week 2","Week 3","Week 4"], [Series("New Subs", [320,340,360,400]), Series("Cancellations", [50,60,55,70])], "grouped", "Week", "Count")
+])
+
+section5 = Card([
+  Heading("5. Performance by genre", "h3"),
+  RadarChart(["Drama","Comedy","Action","Sci-Fi","Documentary"], [Series("Performance", [85,78,92,70,60])])
+])
+
+section6 = Card([
+  Heading("6. Buffering rate", "h3"),
+  BarChart(["Low","Medium","High"], [Series("Buffer %", [1.2, 3.5, 8.0])], "grouped", "Buffer Tier", "Percent")
+])
+
+section7 = Card([
+  Heading("7. Delivery health by region", "h3"),
+  HorizontalBarChart(["US","EU","APAC","LATAM"], [Series("Health", [99.8, 99.5, 98.9, 97.2])], "grouped", "Region", "Uptime %")
+])
+
+section8 = Card([
+  Heading("8. Releases coming this month", "h3"),
+  ListBlock([
+    ListItem("The Vanishing Echo", "Premieres Oct 14"),
+    ListItem("Midnight Courier", "Premieres Oct 21"),
+    ListItem("Stellar Orchard", "Premieres Oct 28")
+  ])
+])
+
+section9 = Card([
+  Heading("9. Licenses expiring soon", "h3"),
+  Table([licenseTitleCol, licenseEndCol])
+])
+
+licenseTitleCol = Col("Title", ["The Vanishing Echo","Pulse Night","Aurora Isles"])
+licenseEndCol = Col("Expires", ["2026-10-25","2026-11-02","2026-11-15"])
+
+section10 = Card([
+  Heading("10. How often recommendations get clicked", "h3"),
+  BarChart(["Rec 1","Rec 2","Rec 3","Rec 4"], [Series("Clicks", [420, 310, 260, 190])], "grouped", "Recommendation", "Clicks")
+])
+
+section11 = Card([
+  Heading("11. Searches that ended without playback", "h3"),
+  Table([searchCol, countCol])
+])
+
+searchCol = Col("Search Term", ["Sci-Fi", "Romantic Comedy", "Documentary"])
+countCol = Col("No Playback", [42, 27, 13])
+])
+
+section12 = Card([
+  Heading("12. Revenue split by plan", "h3"),
+  PieChart(["Basic","Standard","Premium"], [40, 30, 30], "pie", "circular")
+])
+
+section13 = Card([
+  Heading("13. Viewing split by device", "h3"),
+  DonutChart(["Desktop","Mobile","TV","Other"], [45, 35, 15, 5], "donut", "circular")
+])
+
+section14 = Card([
+  Heading("14. Focus on one region", "h3"),
+  Card([TextContent("Select a region to filter all metrics below."), RegionPicker(regionSelected)],
+       "card")
+])
+
+regionSelected = TextContent("Region: All Regions")
+
+section15 = Card([
+  Heading("15. Feature flags with state for each", "h3"),
+  Table([flagCol, stateCol])
+])
+
+flagCol = Col("Feature Flag", ["New UI", "Auto-Translate", "HFR Streaming", "Offline Caching"])
+stateCol = Col("State", ["Enabled", "Disabled", "Enabled (Beta)", "Enabled"])
+])
+
+section16 = Card([
+  Heading("16. Promote a title on the home screen", "h3"),
+  Card([TextContent("Choose a title to pin to the home screen with a spotlight banner and priority position."), PromoPanel(title="The Vanishing Echo")])
+])
+
+PromoPanel = Card([TextContent("Promote:"), TitlePill("The Vanishing Echo")])
+
+TitlePill = Tag("The Vanishing Echo", "star", "md", "info")
+
+regionPickerNote = TextContent("Tip: click a region to filter all charts, tables, and promos to that region.")
+
+
+Note = TextContent("Note: All data is illustrative for layout purposes." )

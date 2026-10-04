@@ -1,0 +1,151 @@
+root = Card([
+  header = CardHeader("Morning Desk Workspace", "Trading desk overview")
+  ,
+  // 1. portfolio value
+  portfolioCard = Card([
+    Heading("Portfolio Value", "h2"),
+    TextContent("LIVE: $12,345,678.90", "large")
+  ], "card")
+  ,
+  // 2. P/L today
+  plCard = Card([
+    Heading("Profit & Loss Today", "h3"),
+    TextContent("+$12,340.12 today", "default")
+  ], "card")
+  ,
+  // 3. positions
+  positionsSection = Card([
+    Heading("Positions", "h3"),
+    positionsTable = Table([
+      Col("Ticker", ["AAPL", "MSFT", "TSLA"]),
+      Col("Size", [100, 50, 20]),
+      Col("Entry", ["$150.00", "$280.00", "$700.00"]),
+      Col("Current", ["$158.20", "$305.10", "$710.50"])
+    ])
+  ], "card")
+  ,
+  // 4. exposure by sector
+  exposureSection = Card([
+    Heading("Exposure by Sector", "h3"),
+    HorizontalBarChart(["Tech", "Energy", "Finance", "Healthcare"], [
+      Series("Exposure", [40, 20, 25, 15])
+    ], "grouped", "Sector", "Percent")
+  ], "card")
+  ,
+  // 5. value at risk
+  varCard = Card([
+    Heading("Value at Risk (VaR)", "h3"),
+    TextContent("VaR 1d (95%): $1,200k", "default")
+  ], "card")
+  ,
+  // 6. biggest gainers/losers
+  moversSection = Card([
+    Heading("Today’s Biggest Gainers & Losers", "h3"),
+    SplitBlock = Card([
+      Heading("Gainers", "h4"),
+      ListBlock([
+        ListItem("AAPL +2.1%", "Apple led gains", ["https://picsum.photos/seed/g1/24/24"])
+        , ListItem("NVDA +1.8%", "", ["https://picsum.photos/seed/g2/24/24"])
+      ])
+      ,
+      Heading("Losers", "h4"),
+      ListBlock([
+        ListItem("XOM -1.5%", "Energy pullback", ["https://picsum.photos/seed/g3/24/24"])
+        , ListItem("META -1.2%", "", ["https://picsum.photos/seed/g4/24/24"])
+      ])
+    ])
+  ], "card")
+  ,
+  // 7. watched instruments with price
+  watchSection = Card([
+    Heading("Watchlist", "h3"),
+    Table([
+      Col("Instrument", ["EUR/USD", "BTC-USD", "NG1!", "AAPL"]),
+      Col("Price", ["1.0865", "$26,400", "$3.60", "$158.50"]),
+      Col("Change", ["+0.15%", "+2.2%", "-0.8%", "+0.5%"])
+    ])
+  ], "card")
+  ,
+  // 8. working orders
+  ordersSection = Card([
+    Heading("Working Orders", "h3"),
+    Table([
+      Col("Order", ["Buy AAPL 100", "Sell TSLA 20"]),
+      Col("Status", ["Working", "Working"]),
+      Col("Limit", ["Market", "Limit at $695"])
+    ])
+  ], "card")
+  ,
+  // 9. margin in use
+  marginCard = Card([
+    Heading("Margin in Use", "h3"),
+    TextContent("Used: 68% of available margin", "default")
+  ], "card")
+  ,
+  // 10. market headlines with sentiment
+  headlinesCard = Card([
+    Heading("Market Headlines by Sentiment", "h3"),
+    HorizontalBarChart(["Macro", "Tech", "Inflation"], [
+      Series("Sentiment", [5, 3, -2])
+    ], "grouped", "Topic", "Sentiment")
+  ], "card")
+  ,
+  // 11. economic releases this week
+  econCard = Card([
+    Heading("Economic Releases This Week", "h3"),
+    ListBlock([
+      ListItem("CPI YoY", "Friday", ["https://picsum.photos/seed/econ1/24/24"]),
+      ListItem("PPI MoM", "Thursday", ["https://picsum.photos/seed/econ2/24/24"])
+    ])
+  ], "card")
+  ,
+  // 12. each strategy's return this year
+  strategiesCard = Card([
+    Heading("Strategy Returns This Year", "h3"),
+    Table([
+      Col("Strategy", ["Momentum", "Mean Reversion", "Carry"]),
+      Col("YTD Return", ["12.4%", "6.8%", "3.2%"])
+    ])
+  ], "card")
+  ,
+  // 13. drawdown over past year
+  drawdownCard = Card([
+    Heading("Drawdown (Past Year)", "h3"),
+    LineChart(["M1","M2","M3","M4","M5","M6","M7","M8","M9","M10","M11","M12"], [
+      Series("Drawdown", [-2.1, -3.5, -1.8, -4.0, -2.7, -1.2, -0.9, -2.5, -3.1, -1.4, -0.6, -0.2])
+    ], "natural", "Month", "Percent")
+  ], "card")
+  ,
+  // 14. risk limits close to breach
+  riskCard = Card([
+    Heading("Risk Limits Proximity", "h3"),
+    TagBlock(["VaR limit 5%", "Liquidity ratio 1.2x", "Max drawdown limit 6%"])
+    ,
+    TextContent("Warning thresholds near breach on VaR and drawdown.", "default")
+  ], "card")
+  ,
+  // 15. a way to rebalance
+  rebalanceCard = Card([
+    Heading("Rebalance", "h3"),
+    TextContent("Rebalance portfolio to target allocations. Adjust allocations across sectors and factors.", "default"),
+    Buttons([Button("Run Rebalance", null, "primary")])
+  ], "card")
+  ,
+  // 16. place an order with ticker, side and quantity
+  orderEntryCard = Card([
+    Heading("Place Order", "h3"),
+    Form("order-entry", Buttons([Button("Submit Order", null, "primary")]), [
+      FormControl("Ticker", Input("ticker", "AAPL")),
+      FormControl("Side", RadioGroup("side", [RadioItem("Buy","", "buy"), RadioItem("Sell","", "sell")] , "buy")),
+      FormControl("Quantity", Input("qty", "100", "number"))
+    ])
+  ], "card")
+  ,
+  // 17. change timeframe
+  timeframeCard = Card([
+    Heading("Timeframe", "h3"),
+    HorizontalBarChart(["1D","1W","1M","3M","6M","1Y"], [
+      Series("Range", [1,2,3,4,5,6])
+    ], "grouped", "Timeframe", "Scale")
+  ], "card")
+])

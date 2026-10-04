@@ -1,0 +1,8 @@
+root = Card(CardHeader("Lunch poll", "Friday lunch location"), QuestionSection, RestaurantsSection, FollowUp)
+QuestionSection = Card(Heading("Where should we go for lunch on Friday?", h3), Separator(), MarkDownRenderer("**Vote by selecting a restaurant below.**"), sunk)
+RestaurantsSection = Card(TagBlock(["Pizza Place","Sushi Bar","Taco Stand"]), Table(restPollTable), Buttons(Button("Submit vote", primary)))
+restPollTable = |Restaurant|Votes
+|Pizza Place|0
+|Sushi Bar|0
+|Taco Stand|0
+FollowUp = FollowUpBlock()

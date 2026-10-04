@@ -1,0 +1,79 @@
+root = Card(CardHeader("Hospital Operations Command View"), bedOccupancySection, erWaitSection, admissionsSection, deptPatientsSection, staffOnShiftSection, criticalPatientsSection, dischargeReadySection, ORBookingsSection, suppliesLowSection, incidentReporter, lookAheadDaySection, transferRequestSection)
+
+bedOccupancySection = Card(Heading("Bed Occupancy", h3), Table(bedOccupancyTable))
+bedOccupancyTable = |Ward|Occupied|Available|Avai%|
+|ICU|12|4|75|
+|General|48|12|80|
+|Pediatrics|9|6|60|
+
+erWaitSection = Card(Heading("Current ER Wait", h3), TextContent("ER wait time: 38 minutes", size:default))
+
+admissionsSection = Card(Heading("Admissions — last 14 days", h3), LineChart(admissionsTrendTable, natural, xLabel:"Day", yLabel:"Admissions"))
+
+admissionsTrendTable = |Day|Admissions
+|Day-14|24
+|Day-13|30
+|Day-12|28
+|Day-11|35
+|Day-10|40
+|Day-9|32
+|Day-8|29
+|Day-7|33
+|Day-6|27
+|Day-5|31
+|Day-4|45
+|Day-3|38
+|Day-2|29
+|Day-1|34
+|Today|41
+
+deptPatientsSection = Card(Heading("Patients per Department", h3), Table(deptTable))
+deptTable = |Department|Patients
+|Emergency|22
+|Cardiology|15
+|Oncology|11
+|Neurology|9
+|Pediatrics|13
+|Orthopedics|8
+
+staffOnShiftSection = Card(Heading("Staff on Shift by Role", h3), Table(staffTable))
+staffTable = |Role|Staff|Shift
+|Nurse|Grace|Day
+|Nurse|Liam|Night
+|Physician|Dr. Chen|Day
+|Surgeon|Dr. Patel|Evening
+|Technician|Amara|Day
+|Respiratory|Jon|Night
+
+criticalPatientsSection = Card(Heading("Critical Patients Called Out", h3), Table(criticalTable))
+criticalTable = |Patient|Room|Issue
+|John Doe|ICU-3|Ventilator alert
+|Sarah Kim|ICU-1|Distress call
+
+dischargeReadySection = Card(Heading("Patients Ready for Discharge", h3), Table(dischargeTable))
+dischargeTable = |Patient|Ward|Ready Since
+|Alex Rivera|General-4|Today
+|Priya Singh|Pediatrics-2|Yesterday
+
+ORBookingsSection = Card(Heading("Today's Operating Room Bookings", h3), Table(orBookingsTable))
+orBookingsTable = |Operating Room|Time|Procedure|Surgeon
+|OR-1|08:00|CABG|Dr. Ahmed
+|OR-2|10:30|Knee Replacement|Dr. Singh
+|OR-3|13:00|Cholecystectomy|Dr. Patel
+|OR-4|15:00|Hernia Repair|Dr. Garcia
+
+suppliesLowSection = Card(Heading("Supplies Running Low", h3), ListBlock(ListItem("O negative blood", "Stock below threshold", "order-oo"), ListItem("Suture kits", "Single-use packs remaining", "order-sut"), ListItem("Gauze pads", "Low stock", "order-gauze")))
+
+incidentReporter = Card(Heading("File an Incident", h3), Form("incident-form", Buttons(Button("Submit", primary)), incidentControl1, incidentControl2))
+
+incidentControl1 = FormControl("Incident Type", Select("incident_type", SelectItem("Falls", "Falls"), SelectItem("Medication", "Medication"), SelectItem("Equipment", "Equipment")),)
+incidentControl2 = FormControl("Description", TextArea("description", "Describe what happened"))
+
+lookAheadDaySection = Card(Heading("Look at Another Day", h3), Form("day-chooser", Buttons(Button("Load Day", primary)), DayPicker("day", mode:single)))
+
+DayPicker(name, mode:single) = DatePicker(name, mode)
+
+transferRequestSection = Card(Heading("Request Patient Transfer", h3), Form("transfer-form", Buttons(Button("Submit Transfer", primary)), transferControls))
+
+transferControls = FormControl("From Ward", Select("from_ward", SelectItem("General", "General"), SelectItem("ICU", "ICU")),)
+transferControls2 = FormControl("To Ward", Select("to_ward", SelectItem("General", "General"), SelectItem("ICU", "ICU")))

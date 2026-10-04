@@ -1,17 +1,31 @@
-root = Card(cashSection, burnSection, runwaySection, expensesChart, transactionsTable, controls, gap:m)
+root = Card(cashCard, burnCard, runwayCard, expensesSection, transactionsSection, controlsSection, gap:m)
 
-cashSection = Card(Heading("Cash on Hand", h3), TextContent("$1.2M", size:large))
-burnSection = Card(Heading("Monthly Burn", h3), TextContent("$200k", size:large))
-runwaySection = Card(Heading("Months of Runway", h3), TextContent("6 months", size:large))
+cashCard = Card(CardHeader("Cash on Hand"), TextContent("$2.4M", size:large), clear)
 
-expensesChart = Card(Heading("Expenses by Category", h3), PieChart(labels:["Salaries","Marketing","R&D","Ops"], values:["500000","150000","120000","80000"], variant:donut))
+burnCard = Card(CardHeader("Monthly Burn"), TextContent("$180k", size:large), clear)
 
-transactionsTable = Card(Heading("Transactions > $10,000", h3), Table(colDate, colAmt))
+runwayCard = Card(CardHeader("Months of Runway"), TextContent("13.3", size:large), clear)
 
-colDate = Col("Date", data:["2023-08-05","2023-08-12"], type:string)
-colAmt = Col("Amount", data:["$12,000","$15,500"], type:string)
+expensesSection = Card(CardHeader("Expenses by Category"), expensesChart, clear)
 
-controls = Card(Heading("Controls", h3), monthSelect, downloadBtn, gap:s)
+expensesChart = PieChart(expensesTable, donut, appearance:circular)
 
-monthSelect = Select("month", SelectItem("2023-08","August 2023"), SelectItem("2023-07","July 2023"), placeholder:"Select month")
-downloadBtn = Button("Download statement", primary)
+expensesTable = |Category|Amount
+|Salaries|$95,000
+|Marketing|$30,000
+|R&D|$25,000
+|Operations|$20,000
+|Other|$10,000
+
+transactionsSection = Card(CardHeader("Transactions > $10,000"), Table(transactionsTable), clear)
+
+transactionsTable = |Date|Description|Amount
+|2024-09-05|Equipment purchase|$12,500
+|2024-09-12|Office lease|$15,000
+|2024-09-20|Consulting services|$11,200
+
+controlsSection = Card(CardHeader("Controls"), monthPicker, downloadButton, clear)
+
+monthPicker = DatePicker("report_month", mode:single, placeholder:"Select month")
+
+downloadButton = Buttons(Button("Download Statement", primary))

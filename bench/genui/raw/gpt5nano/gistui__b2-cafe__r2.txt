@@ -1,0 +1,26 @@
+root = Card(CardHeader("Cafe Menu", "Today’s offerings"), drinkSection, foodSection, specialSection, vegToggle, hoursSection)
+
+drinkSection = Card(Heading("Drinks", h3), Table(drinkTable))
+drinkTable = |Item|Price
+|Espresso|$3.00
+|Latte|$4.50
+|Cappuccino|$4.00
+|Iced Tea|$2.50
+
+foodSection = Card(Heading("Food", h3), Table(foodTable))
+foodTable = |Item|Price
+|Avocado Toast|$6.50
+|Chicken Sandwich|$8.25
+|Quiche Lorraine|$7.75
+|Garden Salad|$6.00
+
+specialSection = Card(Heading("Today’s Special", h3), MarkDownRenderer("### Today: Chef’s Special\n**Truffle mushroom risotto** with parmesan and herbs."))
+
+vegToggle = DialogBlock("vegetarian", "Vegetarian items only", Card(Heading("Vegetarian filter", h3), TextContent("Turn this on to view only vegetarian items.", default), Buttons(Button("Show vegetarian", primary))))
+
+hoursSection = Card(Heading("Opening hours", h3), Table(hoursTable))
+hoursTable = |Day|Hours
+|Mon–Thu|08:00–20:00
+|Fri|08:00–22:00
+|Sat|09:00–22:00
+|Sun|09:00–18:00

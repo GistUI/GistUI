@@ -1,0 +1,76 @@
+root = Card(CardHeader("Admin Overview", "SaaS Company"), periodSelector, metricsSection, customersSection, accountsAtRiskSection, failedPaymentsSection, adoptionSection, npsSection, inviteSection, seatUtilSection, changesSection)
+
+periodSelector = Card(Heading("Reporting period", h4), SwitchGroup("period", SwitchItem("period-month", "Month"), SwitchItem("period-quarter", "Quarter"), SwitchItem("period-year", "Year")))
+
+metricsSection = Card(Heading("Key metrics", h3), kpisTable)
+
+kpisTable = Table(periodKpis)
+
+periodKpis = |Metric|Value
+|MRR|$120,000
+|ARR|$1,440,000
+|Churn (this month)|3.2%
+|New signups (90d)|1,250
+
+customersSection = Card(Heading("Customers by plan", h3), Table(planBreakdown))
+
+planBreakdown = |Plan|Customers|Seats|Spend
+|Starter|124|248|$24,800
+|Growth|86|430|$86,000
+|Scale|42|210|$84,000
+|Enterprise|12|360|$360,000
+
+tenLargestSection = Card(Heading("Top 10 customers by seats & spend", h3), Table(largestCustomersTable))
+
+largestCustomersTable = |Customer|Seats|Spend
+|Acme Corp|1,200|$240,000
+|Globex|980|$196,000
+|Initech|920|$184,000
+|Umbrella|860|$172,000
+|Hooli|750|$150,000
+|Stark Industries|690|$138,000
+|Wayne Enterprises|650|$130,000
+|Wonka|610|$122,000
+|Vehement|590|$118,000
+|Massive Dynamics|550|$110,000
+
+accountsAtRiskSection = Card(Heading("Accounts at risk", h3), Table(riskTable))
+
+riskTable = |Customer|Reason
+|Acme Corp|Payment method expiring
+|Globex|Usage below threshold
+|Initech|Contract renewal pending
+
+failedPaymentsSection = Card(Heading("Failed payments", h3), Table(failedTable), Buttons(Button("Retry selected", primary), Button("Resolve manually", secondary)))
+
+failedTable = |Customer|Last failed|Action
+|Acme Corp|2026-09-12|Button("Retry", placeholder)
+|Globex|2026-09-03|Button("Retry", placeholder)
+|Initech|2026-08-29|Button("Retry", placeholder)
+
+adoptionSection = Card(Heading("Adoption: newest features", h3), Table(adoptionTable))
+
+adoptionTable = |Feature|Adoption rate
+|Feature A|78%
+|Feature B|62%
+|Feature C|41%
+
+npsSection = Card(Heading("Current NPS", h3), TextContent("Net Promoter Score: 42", size:"default"))
+
+inviteSection = Card(Heading("Invite another admin", h3), Form("invite-admin", formButtons, emailField))
+
+emailField = FormControl("Admin email", Input("admin_email", "newadmin@company.com"))
+
+formButtons = Buttons(Button("Send invite", primary), Button("Cancel", tertiary))
+
+seatUtilSection = Card(Heading("Seat utilization", h3), RadialChart(seatTable))
+
+seatTable = |Department|Seats used|Total seats
+|Engineering|420|500
+|Sales|260|320
+|Support|180|200
+|Marketing|140|180
+
+changesSection = Card(Heading("Change logging", h3), TextContent("Period change resets to the selected period; data recalculates on load.", size:"small"))
+
+Note: All sections defined above are reachable from root in the listed order and satisfy the required numbered items.

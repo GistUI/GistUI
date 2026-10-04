@@ -1,72 +1,44 @@
-root = Card(cardHeader, cohortFilter, metricsSection, coursesChart, riskChart, engagementChart, messageCohort, followUps, gap:l)
+root = Card(header, filterSection, statsSection, enrollmentSection, riskSection, engagementSection, messageSection)
 
-cardHeader = CardHeader("Training Platform Analytics", "Overview of learner activity")
+header = CardHeader("Training Platform Analytics")
 
-cohortFilter = Form("cohort-filter", filterButtons, cohortSelect)
+filterSection = Card(Select("cohort", SelectItem("Cohort A", "Cohort A"), SelectItem("Cohort B", "Cohort B"), placeholder:"Select cohort"))
 
-filterButtons = Buttons(Button("Apply", primary))
-
-cohortSelect = Select("cohort", SelectItem("All", "All cohorts"), SelectItem("Cohort A", "Cohort A"), SelectItem("Cohort B", "Cohort B"), placeholder:"Select cohort")
-
-metricsSection = Card(Heading("Key Metrics", h3),
-    Card(
-        TextContent("**Active learners this week**\n\n1,254", large),
-        TextContent("**Course completion rate**\n\n78%", large),
-        TextContent("**Average quiz score**\n\n84%", large),
-        direction:row, gap:s, wrap
-    )
+statsSection = Card(
+    TextCallout("Active learners this week", "124", variant:info),
+    TextCallout("Course completion rate", "78%", variant:success),
+    TextCallout("Average quiz score", "85%", variant:info)
 )
 
-coursesChart = Card(Heading("Courses Ranked by Enrollment", h3),
-    BarChart(
-        |Course|Enrollments
-        |Intro to AI|542
-        |Data Science 101|489
-        |Python Basics|376
-        |Advanced ML|312
-        |UX Design|254
-        , grouped, xLabel:"Course", yLabel:"Enrollments"
-    )
-)
+enrollmentSection = Card(Heading("Courses ranked by enrollment", h3), HorizontalBarChart(enrollmentTable, variant:grouped, xLabel:"Enrollments", yLabel:"Course"))
 
-riskChart = Card(Heading("Learners at Risk of Dropping Out", h3),
-    HorizontalBarChart(
-        |Learner|Risk Score
-        |Alice|92
-        |Bob|88
-        |Charlie|85
-        |Diana|80
-        |Evan|78
-        , stacked, xLabel:"Risk Score", yLabel:"Learner"
-    )
-)
+riskSection = Card(Heading("Learners at risk of dropping out", h3), Table(riskTableData))
 
-engagementChart = Card(Heading("Engagement Over Past 8 Weeks", h3),
-    LineChart(
-        |Week|Engagement Index
-        |W1|68
-        |W2|71
-        |W3|73
-        |W4|75
-        |W5|77
-        |W6|78
-        |W7|80
-        |W8|82
-        , linear, xLabel:"Week", yLabel:"Engagement"
-    )
-)
+engagementSection = Card(Heading("Engagement across the past eight weeks", h3), LineChart(engagementTable, variant:linear, xLabel:"Week", yLabel:"Interactions"))
 
-messageCohort = DialogBlock("Message Cohort", "Send Message to Cohort",
-    Form("message-form", messageButtons,
-        FormControl("Message", TextArea("msg", "Enter your message...", "", rows:4))
-    ),
-    description:"Compose a message to the selected cohort.",
-    triggerVariant:primary
-)
+messageSection = Card(Heading("Message cohort", h3), Form("cohort-message", messageButtons, messageField))
 
-messageButtons = Buttons(Button("Send", primary), Button("Cancel", tertiary))
+messageField = FormControl("Message", TextArea("msg", rows:4))
+messageButtons = Buttons(Button("Send", primary))
 
-followUps = FollowUpBlock(
-    FollowUpItem("View detailed learner profiles"),
-    FollowUpItem("Download full analytics report")
-)
+enrollmentTable = |Course|Enrollments
+|Intro to AI|340
+|Data Science 101|275
+|Python Basics|210
+|Advanced ML|180
+|UI/UX Design|150
+
+riskTableData = |Learner|Risk Score
+|Alice Johnson|0.9
+|Bob Smith|0.85
+|Carol Lee|0.8
+
+engagementTable = |Week|Interactions
+|Week 1|1200
+|Week 2|1350
+|Week 3|1500
+|Week 4|1600
+|Week 5|1580
+|Week 6|1650
+|Week 7|1700
+|Week 8|1750

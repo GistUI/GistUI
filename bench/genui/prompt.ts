@@ -26,6 +26,9 @@ const RULES = [
   "Required arguments are positional, in the order shown in each signature (or named, `key:value`); every optional argument is named (`key:value`), in any order. Never pass optional arguments positionally and never pad with null. Enum-typed arguments accept ONLY the listed values, exactly as written; never invent variants that are not in the signature.",
   // Same as OpenUI's third rule.
   "Enum lists are closed: a value that is not printed in the signature does not exist, even if other UI libraries use it. Before writing an enum value, check it appears in the signature; if the value you want is missing, use the closest listed value or omit the optional argument.",
+  "Each component has its own enum values: Button has variant:primary, but DialogBlock and the other dialogs have no triggerVariant:primary (use default).",
+  "Charts and Table take one pipe table as their first argument, `BarChart(sales, xLabel:\"Month\")` with `sales = |Month|Revenue` and its rows. Do not write labels:, values:, Series(…) or Col(…): the table supplies them.",
+  "Text arguments are quoted strings, `SectionItem(\"usage\", \"Usage\", …)`; a bare word is a reference to a statement.",
 ];
 
 /**

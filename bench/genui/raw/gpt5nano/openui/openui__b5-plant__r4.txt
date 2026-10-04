@@ -1,0 +1,188 @@
+root = Card([
+  header = CardHeader("Factory Floor Supervisor Console", "Live plant overview"),
+  Row1
+  ,
+  dashboard = Card([
+    overallSection
+  ], "card"),
+  actionsBar
+])
+
+# Define layout helper: a simple vertical stack with sections
+Row1 = Card([
+  Heading("Overall KPIs", "h2"),
+  kpisRow
+])
+
+kpisRow = Card([
+  oeeCard,
+  todayTargetCard
+], "card")
+
+oeeCard = Card([
+  TextContent("Overall Equipment Effectiveness (OEE)"),
+  TextContent("OEE: 82.4%", "large")
+], "sunk")
+
+todayTargetCard = Card([
+  TextContent("Units produced today vs target"),
+  TextContent("Produced: 1,420 / Target: 1,500", "default")
+], "sunk")
+
+# 3. production lines
+linesSection = Card([
+  Heading("Production Lines", "h3"),
+  linesTable
+], "card")
+
+linesTable = Table([
+  Col("Line", ["Line A", "Line B", "Line C"]),
+  Col("Rate (units/hr)", ["120", "95", "110"]),
+  Col("Status", ["Running", "Paused", "Running"])
+])
+
+# 4. defect rate over past month
+defectSection = Card([
+  Heading("Defect Rate (Past Month)", "h3"),
+  LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7"], [Series("Defects", [2,3,1,4,2,3,5])], "linear", "Day", "Defects")
+])
+
+# 5. downtime split by cause
+downtimeSection = Card([
+  Heading("Downtime by Cause", "h3"),
+  BarChart(["Maintenance","Breakdown","Changeover","Other"], [Series("Downtime (min)", [180, 120, 60, 30])], "grouped", "Cause", "Minutes")
+])
+
+# 6. machines due for maintenance
+maintenanceSection = Card([
+  Heading("Maintenance Due", "h3"),
+  Table([
+    Col("Machine", ["M-01","M-02","M-03"]),
+    Col("Due Date", ["2026-10-08","2026-10-12","2026-10-15"]),
+    Col("Status", ["Overdue","Upcoming","Upcoming"])
+  ])
+])
+
+# 7. stock levels
+stockSection = Card([
+  Heading("Inventory: Materials", "h3"),
+  Table([
+    Col("Material", ["Steel", "Resin", "Packaging"]),
+    Col("Stock", ["12,000 kg","3,400 kg","9,200 units"]),
+    Col("Unit", ["kg","kg","units"])
+  ])
+])
+
+# 8. supplier deliveries due this week
+supplierSection = Card([
+  Heading("Deliveries Due This Week", "h3"),
+  Table([
+    Col("Supplier", ["SteelCo","ResinWorks","PackMakers"]),
+    Col("Item", ["Steel", "Resin", "Packaging"]),
+    Col("Due", ["Fri","Wed","Sat"]),
+    Col("Priority", ["High","Medium","Low"])
+  ])
+])
+
+# 9. each shift's output
+shiftsSection = Card([
+  Heading("Shifts Output Comparison", "h3"),
+  LineChart(["Shift 1","Shift 2","Shift 3"], [
+    Series("Output", [320, 280, 310])
+  ], "linear", "Shift", "Units")
+])
+
+# 10. safety incidents year and days since last
+safetySection = Card([
+  Heading("Safety Overview", "h3"),
+  Table([
+    Col("Metric", ["Incidents (This Year)","Days Since Last Incident"]),
+    Col("Value", ["7", "12"])
+  ])
+])
+
+# 11. batches on quality hold
+qualityHoldSection = Card([
+  Heading("Quality Hold Batches", "h3"),
+  ListBlock([
+    ListItem("Batch B-2049", "Awaiting QA release", ["img1.png"]),
+    ListItem("Batch B-2051", "Root cause: color variance")
+  ])
+])
+
+# 12. energy use today
+energySection = Card([
+  Heading("Energy Use Today", "h3"),
+  TextContent("Total: 12.4 MWh"),
+  BarChart(["Electricity","Compressed Air","Steam"], [Series("Today", [8.2, 2.4, 1.8])], "grouped", "System", "MWh")
+])
+
+# 13. open work orders with priority per line
+workOrdersSection = Card([
+  Heading("Open Work Orders by Line", "h3"),
+  Table([
+    Col("Line", ["Line A","Line B","Line C"]),
+    Col("Open WO", ["WO-120","WO-115","WO-118"]),
+    Col("Priority", ["High","Medium","High"])
+  ])
+])
+
+# 14. schedule maintenance form
+scheduleCard = Card([
+  Heading("Schedule Maintenance", "h3"),
+  Form("schedule-maint", Buttons([Button("Schedule", null, "primary")]), [
+    FormControl("Machine", Select("machine", [
+      SelectItem("M-01","M-01"),
+      SelectItem("M-02","M-02"),
+      SelectItem("M-03","M-03")
+    ])),
+    FormControl("Date", DatePicker("maint_date"))
+  ])
+])
+
+# 15 focus on one line
+focusLineCard = Card([
+  Heading("Focus on Line", "h3"),
+  TextContent("Select a line to view detailed live metrics"),
+  Select("focus_line", [SelectItem("Line A","Line A"), SelectItem("Line B","Line B"), SelectItem("Line C","Line C")])
+])
+
+# 16 live andon alerts
+andonSection = Card([
+  Heading("Live Andon Alerts", "h3"),
+  ListBlock([
+    ListItem("Line B: jam detected","Warning", ["alarm.png"]),
+    ListItem("Line C: temperature high","Critical", ["alarm2.png"])
+  ])
+])
+
+# 17 export shift report
+exportSection = Card([
+  Buttons([Button("Export Shift Report", null, "secondary")])
+])
+
+# Assemble main content: include every numbered item
+contentArray = [
+  Row1,
+  linesSection,
+  defectSection,
+  downtimeSection,
+  maintenanceSection,
+  stockSection,
+  supplierSection,
+  shiftsSection,
+  safetySection,
+  qualityHoldSection,
+  energySection,
+  workOrdersSection,
+  scheduleCard,
+  focusLineCard,
+  andonSection,
+  exportSection
+]
+
+# Root composition
+root = Card([
+  header,
+  Card(contentArray, "card")
+])

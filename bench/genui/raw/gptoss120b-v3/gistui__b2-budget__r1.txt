@@ -1,10 +1,13 @@
-root = Card(header, budgetInfo, splitChart, largestCallout, actions, variant:card, gap:m, wrap)
-header = CardHeader("Personal Budget", "Overview for selected month")
-budgetInfo = TextContent("**Spent:** $2,340 / **Budget:** $3,000", size:large)
-splitChart = HorizontalBarChart(labels:["Housing","Food","Transport","Entertainment","Utilities"], Series("Spent", values:[1200,600,300,140,100]), variant:grouped, xLabel:"Amount ($)", yLabel:"Category")
-largestCallout = Callout(variant:warning, "Largest expense", "Transport – $300")
-monthForm = Form("month-select", formButtons, monthSelect)
-monthSelect = Select("month", SelectItem("2024-09", "September 2024"), SelectItem("2024-08", "August 2024"), placeholder:"Select month")
-formButtons = Buttons(Button("Change month", primary))
+root = Card(header, monthSelect, totalCard, splitChart, largestCallout, addButton)
+header = CardHeader("Personal Budget", "Overview")
+monthSelect = Select("month", SelectItem("2023-09","Sep 2023"), SelectItem("2023-08","Aug 2023"), placeholder:"Select month")
+totalCard = Card(TextContent("**Spent:** $1500 / $2000", size:large))
+splitChart = HorizontalBarChart(splitTable, variant:grouped, xLabel:"Amount", yLabel:"Category")
+largestCallout = Callout(warning, "Largest expense", "Rent: $800")
 addButton = Button("Add expense", primary)
-actions = Buttons(addButton, direction:row)
+splitTable = |Category|Amount
+|Rent|800
+|Food|300
+|Transport|200
+|Entertainment|150
+|Other|50

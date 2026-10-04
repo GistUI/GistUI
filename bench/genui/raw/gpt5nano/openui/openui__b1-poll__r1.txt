@@ -1,0 +1,25 @@
+root = Card([header, pollCard])
+
+header = CardHeader("Team lunch poll", null)
+
+pollCard = Card([question, options, actions], "card")
+
+question = TextContent("Where should we go for lunch on Friday?", "default")
+
+options = SectionBlock([restaurantAItem, restaurantBItem, restaurantCItem], false)
+
+restaurantAItem = SectionItem("a", "Restaurant A", [restaurantAButton, restaurantADescription])
+restaurantBItem = SectionItem("b", "Restaurant B", [restaurantBButton, restaurantBDescription])
+restaurantCItem = SectionItem("c", "Restaurant C", [restaurantCButton, restaurantCDescription])
+
+restaurantAButton = Button("Vote for A")
+restaurantBButton = Button("Vote for B")
+restaurantCButton = Button("Vote for C")
+
+restaurantADescription = TextContent("Sushi bar near campus", "default")
+restaurantBDescription = TextContent("Pizza and salads with a casual vibe", "default")
+restaurantCDescription = TextContent("Healthy bowls and wraps", "default")
+
+actions = Buttons([submitBtn])
+
+submitBtn = Button("Submit votes")

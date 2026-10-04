@@ -1,0 +1,13 @@
+root = Card(CardHeader("Invoice", "Freelancer view"), dueSection, paySection)
+dueSection = Card(Heading("Invoice details", h3), Table(invoiceTable), sunk)
+invoiceTable = Table(invoiceRows)
+invoiceRows = |Item|Amount|DueDate|Status
+|Subtotal|$1,200|2026-10-15|pending
+|Tax|$120|2026-10-15|pending
+|Total|$1,320|2026-10-15|pending
+paySection = Card(Heading("Pay now", h3), PayButton("Pay invoice"), Tag("Due", warning), sunk)
+PayButton(label) = Button(label, action:payNow, primary)
+payNow = 
+  Form("pay-now", payButtons, paymentMethodField, amountField)
+paymentMethodField = FormControl("Payment method", Select("method", SelectItem("Card", "Card"), SelectItem("Bank transfer", "Bank transfer"), placeholder:"Choose method"))
+amountField = FormControl("Amount", Input("amount", "$1,320", value:"1320"),)

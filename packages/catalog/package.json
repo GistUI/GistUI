@@ -1,6 +1,6 @@
 {
   "name": "@gistui/catalog",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "GistUI default component catalog: framework-neutral schemas and prompt metadata.",
   "keywords": [
     "gistui",

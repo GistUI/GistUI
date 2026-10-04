@@ -1,0 +1,34 @@
+root = Card(CardHeader("Hub Operations Desk", "Airline: GlobalCon)"), Tag("Live", success), SectionBlock(section1, isFoldable)
+section1 = SectionBlock(onsiteCard, isFoldable)
+onsiteCard = Card(Heading("Today at a glance", h3), GridLayout(grid))
+grid = SectionBlock(gridRows, isFoldable)
+gridRows = ListBlock(SectionItem("today-performance", "On-time performance today", onTimePanel), SectionItem("flights-table", "Flights", flightsPanel), SectionItem("delayed-outlook", "Delayed flights", delayedPanel), SectionItem("gate-changes", "Recent gate changes", gatePanel), SectionItem("crews-availability", "Crews available", crewsPanel), SectionItem("weather-advisories", "Weather advisories", weatherPanel), SectionItem("load-average", "Average passenger load today", loadPanel), SectionItem("connections-at-risk", "Connections at risk of being missed", connectionsPanel), SectionItem("rebooking", "Rebooking for affected passengers", rebookingPanel), SectionItem("hub-switch", "Look at a different hub", hubSwitchPanel), SectionItem("cancellations", "Cancellations today", cancellationsPanel), SectionItem("turnaround", "Average turnaround time", turnaroundPanel))
+onTimePanel = CardHeader("On-time performance", nil)
+flightsPanel = Card(Heading("Today's flights", h4), Table(flightsTable))
+delayedPanel = Card(Heading("Delayed flights", h4), ListBlock(ListItem("Delayed flights highlighted")), Tag("Delay alerts", warning))
+gatePanel = Card(Heading("Recent gate changes", h4), Table(gateTable))
+crewsPanel = Card(Heading("Crews available for reassignment", h4), Table(crewsTable))
+weatherPanel = Card(Heading("Weather advisories at hub", h4), MarkDownRenderer("Current conditions and advisories for the hub area", card))
+loadPanel = Card(Heading("Average passenger load today", h4), TextContent("0", "default"))
+connectionsPanel = Card(Heading("Connections at risk", h4), Table(connectionsTable))
+rebookingPanel = Card(Heading("Rebook affected passengers", h4), Buttons(Button("Open rebooking form", primary)))
+hubSwitchPanel = Card(Heading("Change hub", h4), Form("hub-switch", Buttons(Button("Go", primary))))
+cancellationsPanel = Card(Heading("Cancellations today", h4), Table(cancellationsTable))
+turnaroundPanel = Card(Heading("Average turnaround time", h4), TextContent("PT1H10M", "default"))
+flightsTable = |Flight|Route|Gate|Status
+|BA123|LAX-ATL|A12|On Time
+|DL204|ATL-CDG|B7|Delayed
+|UA511|SFO-JFK|C3|On Time
+gateTable = |Flight|Gate|Change|Time
+|BA201|G3|Gate moved to G5|10:15
+|DL305|A9|Gate moved to A11|09:45
+crewsTable = |Crew|Aircraft|Status
+|Olsen, J.|A320|Available
+|Kim, S.|B737|Standby
+connectionsTable = |Connection|From|To|Risk
+|CX100|LHR|JFK|Medium
+|QR77|DOH|LAX|High
+cancellationsTable = |Flight|From|To|Reason
+|UA909|ORD|LHR|Crew unscheduled
+|AA452|DFW|NRT|Weather
+flightsPanel = Card(Heading("Today's flights", h4), Table(flightsTable))

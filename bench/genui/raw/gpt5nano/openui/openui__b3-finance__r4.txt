@@ -1,0 +1,36 @@
+root = Card([header, metricsGrid, chartsAndDetails, footer], "card")
+
+header = CardHeader("Month-end Finance Overview", "Current month: 2026-09")
+
+metricsGrid = Card([cashOnHandCard, burnCard, runwayCard], "card")
+
+cashOnHandCard = Card([Heading("Cash on hand", "h3"), cashValue], "card")
+cashValue = TextContent("$1,254,000", "default")
+
+burnCard = Card([Heading("Monthly burn", "h3"), burnValue], "card")
+burnValue = TextContent("$92,000", "default")
+
+runwayCard = Card([Heading("Months of runway", "h3"), runwayValue], "card")
+runwayValue = TextContent("13.6 months", "default")
+
+chartsAndDetails = Card([sectionMoneyMonth, expensesByCategory, largeTransactions], "card")
+
+sectionMoneyMonth = Card([Heading("Month controls", "h3"), controlRow], "card")
+controlRow = Card([prevMonthButton, nextMonthButton, downloadButton], "sunk")
+
+prevMonthButton = Button("Previous month", null, "secondary")
+nextMonthButton = Button("Next month", null, "secondary")
+downloadButton = Button("Download statement", null, "primary")
+
+expensesByCategory = Card([Heading("Expenses by category", "h3"), byCategoryTable], "card")
+byCategoryTable = Table([colCat, colAmount], "card")
+colCat = Col("Category", ["Salaries", "Office", "Marketing", "R&D", "Other"])
+colAmount = Col("Amount", ["$42,000", "$12,500", "$10,300", "$8,900", "$7,300"])
+
+largeTransactions = Card([Heading("Transactions above 10,000 this month", "h3"), transactionsList], "card")
+transactionsList = ListBlock([ListItem("Vendor A", "$15,200", ["https://picsum.photos/seed/vendorA/40/40"]), ListItem("Vendor B", "$12,400", ["https://picsum.photos/seed/vendorB/40/40"])], "number")
+
+footer = Card([separator, downloadSection], "clear")
+separator = Separator("horizontal", false)
+downloadSection = Card([TextContent("Need the full formal statement? Use the download button beside the month controls."), InstructionalNote], "card")
+InstructionalNote = TextContent("Tip: You can also export as PDF from the header.", "default")

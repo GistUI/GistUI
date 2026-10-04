@@ -1,0 +1,14 @@
+root = Card(CardHeader("Course Home", "Instructor: Dr. Ada Lovelace"), Progress(72, "Overall progress"), modulesSection, nextLessonCard, ratingCard, continueSection)
+
+modulesSection = Card(Heading("Modules", h3), Table(modulesTable))
+
+modulesTable = |Module|Status
+|Introduction|Completed
+|Basics|In progress
+|Advanced Concepts|Locked
+
+nextLessonCard = Card(Heading("Next Lesson", h3), TextContent("Complete the current module to unlock the next lesson."), Tag("Next up", info))
+
+ratingCard = Card(Heading("Average Learner Rating", h3), TextContent("4.8/5 from 1,234 learners", size:"default"))
+
+continueSection = Card(Buttons(Button("Continue Learning", primary)))

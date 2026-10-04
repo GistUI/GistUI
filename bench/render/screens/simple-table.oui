@@ -1,0 +1,3 @@
+root = Stack([title, tbl])
+title = TextContent("Employees (Sample)", "large-heavy")
+tbl = Table([Col("Name", ["Ava Patel", "Marcus Lee", "Sofia Ramirez", "Ethan Brooks", "Nina Chen"], "string"), Col("Department", ["Engineering", "Sales", "Marketing", "Finance", "HR"], "string"), Col("Salary", [132000, 98000, 105000, 118500, 89000], "number"), Col("YoY change (%)", [6.5, 4.2, 3.1, 5.0, 2.4], "number")])

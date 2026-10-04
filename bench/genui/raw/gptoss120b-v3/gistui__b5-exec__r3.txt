@@ -1,89 +1,78 @@
-root = Card(header, controls, summarySection, quarterChartsSection, budgetSection, headcountSection, risksSection, initiativesSection, runwaySection, salesPipelineSection, winRateSection, customerSection, npsSection, itemsSection, actionsSection)
+root = Card(CardHeader("Quarterly Command View", "CEO Dashboard"), quarterSelect, regionSelect, revenueCard, costsCard, profitCard, revTrendChart, costTrendChart, budgetCard, headcountCard, risksCard, initiativesCard, runwayCard, pipelineCard, winRateCard, customersCard, npsCard, itemsCard, actions)
 
-header = CardHeader("Quarterly Command View", "CEO Dashboard")
+quarterSelect = FormControl("Quarter", Select("quarter", SelectItem("Q1", "Q1"), SelectItem("Q2", "Q2"), SelectItem("Q3", "Q3"), SelectItem("Q4", "Q4"), placeholder:"Select quarter"))
 
-controls = Card(quarterSelect, regionSelect, direction:row, gap:s)
+regionSelect = FormControl("Region", Select("region", SelectItem("North America", "North America"), SelectItem("EMEA", "EMEA"), SelectItem("APAC", "APAC"), placeholder:"Select region"))
 
-summarySection = Card(Heading("Key Metrics", h2), revenueCard, costsCard, profitCard, direction:column, gap:m)
+revenueCard = Card(Heading("Revenue", h3), Table(revenueTable))
+revenueTable = |Metric|Amount
+|Revenue|$12.4M
 
-revenueCard = Card(Heading("Revenue", h3), revenueText, sunk)
+costsCard = Card(Heading("Costs", h3), Table(costsTable))
+costsTable = |Metric|Amount
+|Costs|$7.8M
 
-costsCard = Card(Heading("Costs", h3), costsText, sunk)
+profitCard = Card(Heading("Profit", h3), Table(profitTable))
+profitTable = |Metric|Amount
+|Profit|$4.6M
 
-profitCard = Card(Heading("Profit", h3), profitText, sunk)
+revTrendChart = Card(Heading("Revenue Over Quarters", h3), LineChart(revTrend, linear, xLabel:"Quarter", yLabel:"Revenue"))
+revTrend = |Quarter|Revenue
+|Q1|3.1M
+|Q2|3.0M
+|Q3|3.2M
+|Q4|3.1M
 
-quarterChartsSection = Card(Heading("Quarterly Trends", h2), revenueChart, costsChart, direction:column, gap:m)
+costTrendChart = Card(Heading("Costs Over Quarters", h3), LineChart(costTrend, linear, xLabel:"Quarter", yLabel:"Costs"))
+costTrend = |Quarter|Costs
+|Q1|2.0M
+|Q2|1.9M
+|Q3|2.1M
+|Q4|1.8M
 
-budgetSection = Card(Heading("Budget vs Plan", h2), budgetTable)
+budgetCard = Card(Heading("Budget vs Plan by Department", h3), BarChart(budgetTable, grouped, xLabel:"Department", yLabel:"Amount"))
+budgetTable = |Department|Budget|Plan
+|Engineering|5.0M|5.5M
+|Marketing|2.0M|2.2M
+|Sales|3.5M|3.3M
+|HR|0.9M|1.0M
 
-headcountSection = Card(Heading("Headcount by Department", h2), headcountTable)
+headcountCard = Card(Heading("Headcount by Department", h3), BarChart(headcountTable, grouped, xLabel:"Department", yLabel:"People"))
+headcountTable = |Department|Headcount
+|Engineering|120
+|Marketing|45
+|Sales|80
+|HR|25
 
-risksSection = Card(Heading("Top Risks", h2), risksTable)
+risksCard = Card(Heading("Top Risks", h3), Table(risksTable))
+risksTable = |Risk|Owner|Status
+|Supply chain delay|Logistics VP|Open
+|Regulatory change|Legal Counsel|Monitoring
+|Talent shortage|HR Director|Mitigating
 
-initiativesSection = Card(Heading("Strategic Initiatives", h2), initiativesTable)
+initiativesCard = Card(Heading("Strategic Initiatives", h3), Table(initiativesTable))
+initiativesTable = |Initiative|Owner|Status
+|Expand to APAC|VP Growth|In Progress
+|AI Product Launch|CTO|Planned
+|Cost Optimization|CFO|Ongoing
 
-runwaySection = Card(Heading("Months of Runway", h2), runwayText)
+runwayCard = Card(Heading("Months of Runway", h3), TextContent("**18 months**", size:large-heavy))
 
-salesPipelineSection = Card(Heading("Sales Pipeline Value", h2), salesPipelineText)
+pipelineCard = Card(Heading("Sales Pipeline Value", h3), TextContent("$9.2M", size:large-heavy))
 
-winRateSection = Card(Heading("Win Rate", h2), winRateText)
+winRateCard = Card(Heading("Win Rate", h3), TextContent("27%", size:large-heavy))
 
-customerSection = Card(Heading("Customers", h2), customerTable)
+customersCard = Card(Heading("Customers", h3), Table(customersTable))
+customersTable = |Metric|Count
+|Total Customers|1,240
+|Churn (monthly)|2.1%
 
-npsSection = Card(Heading("NPS", h2), npsText)
+npsCard = Card(Heading("Net Promoter Score", h3), TextContent("71", size:large-heavy))
 
-itemsSection = Card(Heading("Next Board Meeting Items", h2), itemsListBlock)
+itemsCard = Card(Heading("Items for Next Board Meeting", h3), ListBlock(
+    ListItem("Approve FY budget", "Review financial allocations"),
+    ListItem("Review risk mitigation plans", "Assess top 3 risks"),
+    ListItem("Strategic initiative updates", "Progress on APAC expansion")
+, variant:number))
 
-actionsSection = Card(actionButtons)
-
-actionButtons = Buttons(exportButton, shareButton, direction:row)
-
-exportButton = Button("Export Pack", primary)
-
-shareButton = Button("Share", secondary)
-
-quarterSelect = Select("quarter", SelectItem("Q1","Q1"), SelectItem("Q2","Q2"), SelectItem("Q3","Q3"), SelectItem("Q4","Q4"), placeholder:"Select quarter", value:"Q2")
-
-regionSelect = Select("region", SelectItem("North America","NA"), SelectItem("EMEA","EMEA"), SelectItem("APAC","APAC"), placeholder:"Select region", value:"North America")
-
-revenueChart = BarChart(revenueQuarterRows, grouped, xLabel:"Quarter", yLabel:"USD")
-
-costsChart = BarChart(costsQuarterRows, grouped, xLabel:"Quarter", yLabel:"USD")
-
-budgetTable = Table(Col("Department", data:["Engineering","Marketing","Sales","Support"], type:string), Col("Budget", data:[5000000,2000000,3000000,1000000], type:number), Col("Plan", data:[4500000,2500000,2800000,1200000], type:number))
-
-headcountTable = Table(Col("Department", data:["Engineering","Marketing","Sales","Support"], type:string), Col("Headcount", data:[120,30,45,20], type:number))
-
-risksTable = Table(Col("Risk", data:["Supply chain delay","Regulatory change","Talent turnover"], type:string), Col("Owner", data:["CFO","Legal","HR"], type:string))
-
-initiativesTable = Table(Col("Initiative", data:["Expand to APAC","Launch new product","Improve NPS"], type:string), Col("Status", data:["On Track","Delayed","On Track"], type:string))
-
-customerTable = Table(Col("Metric", data:["Total Customers","Churn Rate"], type:string), Col("Value", data:["15,200","5%"], type:string))
-
-itemsListBlock = ListBlock(ListItem("Review Q2 financials"), ListItem("Approve budget for Q3"), ListItem("Discuss strategic initiatives"), variant:number)
-
-revenueText = TextContent("$12.4M", size:large)
-
-costsText = TextContent("$7.3M", size:large)
-
-profitText = TextContent("$5.1M", size:large)
-
-runwayText = TextContent("14 months", size:large)
-
-salesPipelineText = TextContent("$8.2M", size:large)
-
-winRateText = TextContent("27%", size:large)
-
-npsText = TextContent("68", size:large)
-
-revenueQuarterRows = |Quarter|Revenue
-|Q1|3100000
-|Q2|3300000
-|Q3|3400000
-|Q4|3500000
-
-costsQuarterRows = |Quarter|Cost
-|Q1|2100000
-|Q2|2200000
-|Q3|2250000
-|Q4|2300000
+actions = Buttons(Button("Export Pack", primary), Button("Refresh Data", secondary))

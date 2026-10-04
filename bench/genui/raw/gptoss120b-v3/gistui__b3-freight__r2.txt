@@ -1,44 +1,43 @@
-root = Card(boardHeader, shipmentsTable, delayedCallout, onTimePct, volumeSplit, searchForm, avgCost, weeklyVolume, flagBtn, lastRefresh)
+root = Card(boardHeader, searchForm, shipmentsTable, delayedCallout, onTimeText, carrierPie, weeklyLine, lastRefresh)
 
-boardHeader = CardHeader("Logistics Coordinator Board")
+boardHeader = CardHeader("Logistics Coordinator Board", "Overview of shipments")
 
-shipmentsTable = Table(originCol, destCol, etaCol, statusCol)
+searchForm = Form("search", searchButtons, routeField)
 
-originCol = Col("Origin", data:["NYC","LAX","CHI","MIA","DAL"], type:string)
+routeField = FormControl("Search by route", Input("route", "e.g. NY → LA"))
 
-destCol = Col("Destination", data:["LA","NYC","HOU","SEA","DEN"], type:string)
+searchButtons = Buttons(Button("Search"))
 
-etaCol = Col("ETA", data:["2024-10-05","2024-10-03","2024-10-07","2024-10-04","2024-10-06"], type:string)
+shipmentsTable = Table(shipmentsData)
 
-statusCol = Col("Status", data:["In Transit","In Transit","In Transit","In Transit","In Transit"], type:string)
+delayedCallout = Callout(warning, "Delayed Shipments", "5 shipments are delayed. Please investigate.")
 
-delayedCallout = Callout(variant:warning, "Delayed Shipments", "5 shipments are delayed this week")
+onTimeText = TextContent("On‑time delivery this month: **92%**", size:large)
 
-onTimePct = TextContent("On-time delivery this month: **92%**", size:large)
+carrierPie = PieChart(carrierData, variant:donut, appearance:circular)
 
-volumeSplit = PieChart(labels:["Carrier A","Carrier B","Carrier C"], values:[120,80,50], variant:donut, appearance:circular)
+weeklyLine = LineChart(volumeData, variant:linear, xLabel:"Week", yLabel:"Shipments")
 
-searchForm = Form("search-form", formButtons, routeField)
+lastRefresh = TextContent("Last refreshed: 2024‑09‑30 14:22 UTC", size:small)
 
-routeField = FormControl("Search route", Input("route", placeholder:"Enter origin‑destination"))
+shipmentsData = |Origin|Destination|ETA|Status|Action
+|New York|Los Angeles|2024‑10‑05|In Transit|Button("Flag", primary) 
+|Chicago|Houston|2024‑10‑04|In Transit|Button("Flag", primary) 
+|Seattle|Miami|2024‑10‑06|In Transit|Button("Flag", primary)
 
-formButtons = Buttons(Button("Search", primary))
+carrierData = |Carrier|Shipments
+|Carrier A|120
+|Carrier B|80
+|Carrier C|50
 
-avgCost = TextContent("Average cost per shipment: **$45.30**", size:default)
-
-weeklyVolume = LineChart(weeklyRows, variant:linear, xLabel:"Week", yLabel:"Shipments")
-
-weeklyRows = |Week|Shipments
-|2024‑08‑01|150
-|2024‑08‑08|165
-|2024‑08‑15|140
-|2024‑08‑22|170
-|2024‑08‑29|155
-|2024‑09‑05|160
-|2024‑09‑12|175
-|2024‑09‑19|180
-|2024‑09‑26|165
-
-flagBtn = Button("Flag shipment", primary)
-
-lastRefresh = TextContent("Data last refreshed: 2024‑09‑30 14:05 UTC", size:small)
+volumeData = |Week|Shipments
+|2024‑08‑01|40
+|2024‑08‑08|55
+|2024‑08‑15|60
+|2024‑08‑22|70
+|2024‑08‑29|65
+|2024‑09‑05|75
+|2024‑09‑12|80
+|2024‑09‑19|85
+|2024‑09‑26|90
+|2024‑10‑03|95

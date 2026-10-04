@@ -1,0 +1,28 @@
+root = Card(CardHeader("Founder’s Monthly Sales Check"), revenueCard, trendPanel, topProducts, conversionPanel, actions)
+
+revenueCard = Card(Heading("Revenue this month", h3),Table(salesTable))
+salesTable = |Metric|Value
+|Revenue this month|$52,340
+|Conversion|4.8%  // this line is a placeholder to show the value; actual conversion will be in conversionPanel as well
+
+trendPanel = Card(Heading("Revenue movement - last 6 months", h3), LineChart(trendTable, natural, xLabel:"Month", yLabel:"USD"))
+
+trendTable = |Month|Revenue
+| Apr|42000
+| May|45500
+| Jun|48000
+| Jul|51000
+| Aug|54000
+| Sep|52340
+
+topProducts = Card(Heading("Top selling products - units sold", h3), Table(productTable))
+productTable = |Product|Units
+|Widget A|1200
+|Widget B|980
+|Widget C|860
+
+conversionPanel = Card(Heading("Conversion percentage", h3), TextContent("Conversion rate is calculated as orders divided by visits. Current period: 4.8%."))
+
+actions = Buttons(Button("Download CSV", primary))
+
+Note: The screen includes revenue this month, a 6-month trend line, top 3 products with units, conversion rate, and a download button.

@@ -1,0 +1,63 @@
+root = Card([
+  header = CardHeader("Training Platform Analytics", "Overview of key metrics and cohort targeting"),
+  topRow = Card([
+    kpiActiveLearners = Card([
+      Heading("Active learners this week", "h4"),
+      kpiActiveValue = TextContent("1,742 learners", "large"),
+    ], "card"),
+    kpiCompletion = Card([
+      Heading("Course completion rate", "h4"),
+      kpiCompletionValue = TextContent("68.4%", "large"),
+    ], "card"),
+    kpiQuizAvg = Card([
+      Heading("Average quiz score", "h4"),
+      kpiQuizValue = TextContent("82.1%", "large"),
+    ], "card"),
+  ], "row"),
+  sectionCohort = SectionBlock([
+    SectionItem("cohortSelector", "Cohort", [
+      TextContent("Filter analytics by cohort to compare groups." ),
+      cohortControls = Card([
+        CohortLabel = TextContent("Target cohort:", "default"),
+        cohortSelect = Select("cohort", [
+          SelectItem("all", "All learners"),
+          SelectItem("2024_w1", "2024 Cohort - Week 1"),
+          SelectItem("2024_w2", "2024 Cohort - Week 2"),
+          SelectItem("spring2025", "Spring 2025")
+        ], "Choose cohort"),
+      ], "card")
+    ])
+  ], false),
+  rankedCourses = Card([
+    Heading("Courses ranked by enrollment", "h3"),
+    rankedTable = Table([
+      Col("Course", ["Intro to AI", "Data Visualization", "Python Basics", "Machine Learning"], "string"),
+      Col("Enrollments", [3200, 2750, 2600, 2400], "number"),
+    ]),
+  ], "card"),
+  atRiskLearners = Card([
+    Heading("Learners at risk of dropping out", "h3"),
+    atRiskList = ListBlock([
+      ListItem("Alexandra Kim", "Inactive 7 days, 2 courses missing progress", ["https://picsum.photos/seed/ALEX/40/40"]),
+      ListItem("Luis García", "Low quiz scores this week", ["https://picsum.photos/seed/LUIS/40/40"]),
+      ListItem("Priya Sharma", "Low activity; nearing 3 weeks inactivity", ["https://picsum.photos/seed/PRIYA/40/40"])
+    ], "number"),
+  ], "card"),
+  eightWeeksEngagement = Card([
+    Heading("Engagement across the past eight weeks", "h3"),
+    engStack = LineChart([1,2,3,4,5,6,7,8], [Series("Engagement", [65, 70, 72, 68, 75, 78, 80, 83])], "linear", "Week", "Engagement %")
+  ], "card"),
+  messagingCohort = Card([
+    Heading("Message a cohort", "h3"),
+    msgBlock = Card([
+      TextContent("Send announcements or reminders to the selected cohort." ),
+      msgForm = Form("cohort-message", Buttons([sendBtn, cancelBtn]), [
+        FormControl("Subject", Input("subject", "Upcoming deadline"), "Subject line for the message"),
+        FormControl("Message", TextArea("message", "Hi cohort, please complete the next module..."), "Message body")
+      ])
+    ])
+  ], "card"),
+  Buttons([sep = Button("Export analytics"), mailBtn = Button("Email report to cohort", null, "secondary")], "row")
+])
+
+header = CardHeader("Training Platform Analytics", "Overview of key metrics and cohort targeting")

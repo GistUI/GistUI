@@ -1,0 +1,72 @@
+root = Card(CardHeader("City Operations Center Dashboard"), sectionSelector, statusOverview, incidentsTable, vehiclesMap, parkingStatus, eventsPanel, citizenFeed, backlogPanel, weatherPanel, districtFocus, dispatchCrew, alertSender, roadworksPanel, infraMaintenancePanel, followUp)
+sectionSelector = Tabs(TabItem("overview", "Overview", Card(Heading("Overview", h2), SectionBlock("metrics", true)))), TabItem("district", "District Focus", Card(Heading("District Focus", h3), DistrictSelector("district"))))
+statusOverview = Card(Heading("Status at a glance", h3), congestionCard, transitCard, airQualityCard, energyCard, waterCard, openIncidentsCard, emergencyVehiclesCard, parkingCard, eventsCard, citizenReportsCard, backlogCard, weatherCard)
+congestionCard = CardHeader("Congestion right now") 
+transitCard = CardHeader("Transit punctuality") 
+airQualityCard = CardHeader("Air quality by district") 
+energyCard = CardHeader("Energy use - past week") 
+waterCard = CardHeader("Water use today") 
+openIncidentsCard = CardHeader("Open incidents by location") 
+emergencyVehiclesCard = CardHeader("Emergency vehicle deployments") 
+parkingCard = CardHeader("Parking availability - downtown") 
+eventsCard = CardHeader("Public events this weekend") 
+citizenReportsCard = CardHeader("Citizen reports (live)") 
+backlogCard = CardHeader("Service request backlog") 
+weatherCard = CardHeader("Current weather") 
+districtFocus = Card(Divider, DistrictPanel("district"))
+Divider = Separator("horizontal", decorative) 
+DistrictPanel(district) = Card(Heading("District focus: "+district, h3), Table(districtTable), Button("Clear focus", normal)) 
+districtTable = |District|Metric
+|Downtown|85%
+|Uptown|72% 
+energyChart = LineChart(energyTable, linear, xLabel:"Day", yLabel:"Energy kWh") 
+energyTable = |Day|Energy
+|Mon|4300
+|Tue|5100
+|Wed|4900
+|Thu|5200
+|Fri|6000
+|Sat|5700
+|Sun|5500
+waterChart = LineChart(waterTable, natural, xLabel:"Hour", yLabel:"Liters") 
+waterTable = |Hour|Water
+|08:00|1200
+|12:00|1800
+|16:00|2100
+|20:00|1500
+openIncidentsTable = Table(incidentTable)
+incidentTable = |Incident|Location|Severity
+|Pothole|5th Ave & Main|high
+|Gas leak|Broadway & 3rd|critical
+|Fallen tree|Oak & 7th|medium
+emergencyVehiclesTable = Table(vehicleTable)
+vehicleTable = |Vehicle|Status|Location
+|Unit 12|En route|Downtown
+|Unit 7|On scene|Riverside
+|Unit 3|Available|HQ
+parkingTable = Table(parkingPipe)
+parkingPipe = |Lot|Status|Spaces
+|Downtown Lot A|Available|22
+|Garage 1|Limited|6
+|Street meters|0| 
+eventsPanel = Card(Heading("Upcoming events"), MarkDownRenderer("### Weekend events\\n- Farmers market\\n- City jog\\n- Concert in the park", card)) 
+citizenFeed = Card(Heading("Citizen reports"), Table(citizenTable)) 
+citizenTable = |Time|Report|Location|Status
+|12:01|Noise complaint|Downtown|New
+|12:03|Streetlight out|Midtown|In progress
+backlogPanel = Card(Heading("Backlog"), Table(backlogTable)) 
+backlogTable = |Service|Count
+|Electrical outage|12
+|Water main|7
+weatherPanel = Card(Heading("Current weather"), MarkDownRenderer("Forecast: sunny 24C, light breeze", default)) 
+dispatchCrew = Buttons(Button("Dispatch crew", primary)) 
+alertSender = Form("public-alert", Buttons(Button("Send alert", primary)), AlertFormControls) 
+AlertFormControls = Card(Heading("Alert details"), FormControl("Message", TextArea("message", ""))) 
+roadworksPanel = Card(Heading("Roadworks planned this month"), Table(roadworksTable)) 
+roadworksTable = |Road|Start|End|Status
+|Main St rework|2026-10-12|2026-10-20|Planned
+infraMaintenancePanel = Card(Heading("Infrastructure maintenance due"), Table(infraTable)) 
+infraTable = |Asset|Date|Priority
+|Bridge A|2026-11-01|High
+|Tunnel B|2026-11-15|Medium
+followUp = FollowUpBlock()

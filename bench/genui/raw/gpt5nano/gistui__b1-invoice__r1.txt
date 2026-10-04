@@ -1,0 +1,27 @@
+root = Card(CardHeader("Invoice", "Client: Acme Corp"), dueBadge, paySection, invoiceTable)
+
+dueBadge = Tag("Due", danger)
+
+paySection = Card(Heading("Pay now", h3), PaymentBox, TagBlock(["Credit Card","PayPal","Bank Transfer"]))
+
+invoiceTable = Table(invoiceRows)
+
+dueDateRow = |Label|Value
+|Due date|2026-10-15
+
+amountRow = |Label|Value
+|Amount due|$1,250.00
+
+invoiceRows = |Item|Value
+|Client|Acme Corp
+|Due date|2026-10-15
+|Amount due|$1,250.00
+
+PaymentBox = Form("pay-now", payButtons, paymentControls)
+
+payButtons = Buttons(Button("Pay now", primary))
+
+paymentControls = FormControl("Card number", Input("card_number", "4242 4242 4242 4242")) 
+paymentControls2 = FormControl("Expiry", Input("expiry", "12/28")) 
+paymentControls3 = FormControl("CVC", Input("cvc", "123")) 
+paymentControls4 = FormControl("Billing ZIP", Input("zip", "90210"))

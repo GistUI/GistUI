@@ -1,0 +1,21 @@
+root = Card(CardHeader("Personal budget", "Month overview"), monthPicker, spentSummary, categorySplit, largestExpense, addExpensePanel)
+monthPicker = Form("month-selector", Buttons(Button("Prev", action:["setMonthPrev"]), Button("Next", action:["setMonthNext"])))
+spentSummary = Card(Heading("Total spent this month", h3), TextContent(""), Tag("Budget", neutral))
+categorySplit = Card(Heading("Spend by category", h3), Table(categoryTable))
+largestExpense = Card(Heading("Largest expense", h3), TextContent(""), HighlightLabel("Largest item highlighted below"))
+largestExpenseTable = Table(largestCategoryRow)
+categoryTable = |Category|Amount
+|Housing|1200
+|Groceries|420
+|Transport|180
+|Entertainment|150
+|Other|90
+largestCategoryRow = |Category|Expense
+|Housing|1200
+addExpensePanel = DialogBlock("Add expense", "New expense", addExpenseForm, description:"Enter a new expense to update your budget")
+addExpenseForm = Card("New expense form", formContent)
+formContent = Form("expense-form", Buttons(Button("Add expense", primary), Button("Cancel", tertiary)), expenseNameField, expenseAmountField, expenseCategoryField)
+expenseNameField = FormControl("Name", Input("expense_name", "Rent"))
+expenseAmountField = FormControl("Amount", Input("expense_amount", "1200", type:"number"))
+expenseCategoryField = FormControl("Category", Select("expense_category", SelectItem("Housing","Housing"), SelectItem("Groceries","Groceries"), SelectItem("Transport","Transport"), SelectItem("Entertainment","Entertainment"), SelectItem("Other","Other"), placeholder:"Choose a category"))
+monthLabel = TextContent("Month: current", size:"default")

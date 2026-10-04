@@ -1,0 +1,88 @@
+root = Card(CardHeader("Emergence Response Coordination Center", "Operational Dashboard"), section_focus)
+section_focus = SectionBlock(section_incidents, section_overview, section_resources, section_shelters, section_routes, section_weather, section_outcomes, section_volunteers, section_donations, section_aid, section_communication, section_roads, section_hospitals, section_tasks, section_requests, section_broadcast, section_focus_control, section_reports, isFoldable)
+section_incidents = SectionItem("incidents", "Active Incidents by Zone", incidentsCard)
+incidentsCard = Card(Heading("Active Incidents by Zone", h3), ZoneTable("incidents_by_zone"), sunk)
+ZoneTable(table) = Table(table)
+table = |Zone|Severity|Count
+|North|Severe|4
+|South|High|6
+|East|Moderate|3
+|West|Critical|2
+section_overview = SectionItem("overview", "Overall Severity Summary", overviewCard)
+overviewCard = Card(Heading("Overall Severity Summary", h3), Summary("overall"), sunk)
+Summary("overall") = Table(summaryTable)
+summaryTable = |Metric|Value
+|Total Incidents|15
+|High/Severe|10
+|Vehicles|42
+section_resources = SectionItem("resources", "Resources Available", resourcesCard)
+resourcesCard = Card(Heading("Resources Available", h3), ResourceList("resources"), sunk)
+ResourceList("resources") = ListBlock(Resources("vehicles","personnel","supplies"))
+Resources(labelA, labelB, labelC) = ListBlock(ListItem(labelA), ListItem(labelB), ListItem(labelC))
+section_shelters = SectionItem("shelters", "Shelters with Capacity and Occupancy", sheltersCard)
+sheltersCard = Card(Heading("Shelters", h3), ShelterTable("shelters_data"), sunk)
+ShelterTable(table) = Table(table)
+shelters_data = |Shelter|Capacity|Occupancy
+|Central Shelter|500|320
+|East Dome|250|210
+section_routes = SectionItem("routes", "Evacuation Routes Status", routesCard)
+routesCard = Card(Heading("Evacuation Routes", h3), RouteList("routes"), sunk)
+RouteList("routes") = ListBlock(ListItem("Route A","Open", "60 min ETA"), ListItem("Route B","Delayed","120 min ETA"))
+section_weather = SectionItem("weather", "Weather Forecast next 48 hours", weatherCard)
+weatherCard = Card(Heading("Weather Forecast (next 48h)", h3), WeatherTable("forecast"), sunk)
+WeatherTable(table) = Table(table)
+weather_table = |Hour|Condition|Temp|Wind
+|08:00|Rain|54|12km/h
+|09:00|Clear|56|9km/h
+section_outcomes = SectionItem("outcomes", "People Rescued and Casualties", outcomesCard)
+outcomesCard = Card(Heading("Rescued and Casualties", h3), OutcomeTable("outcomes_table"), sunk)
+OutcomeTable(table) = Table(table)
+outcomes_table = |Metric|Value
+|People Rescued|128
+|Casualties|24
+section_volunteers = SectionItem("volunteers", "Volunteers on Duty and Assignment", volunteersCard)
+volunteersCard = Card(Heading("Volunteers on Duty", h3), VolunteerList("volunteers"), sunk)
+VolunteerList(list) = ListBlock(ListItem("Volunteer A","Medic on Route 3"), ListItem("Volunteer B","Logistics Lead"))
+section_donations = SectionItem("donations", "Donations Received", donationsCard)
+donationsCard = Card(Heading("Donations", h3), Donations("donations"), sunk)
+Donations(list) = ListBlock(ListItem("Total Donated","$1,230,000"), ListItem("Donors","Global Partners"))
+section_aid = SectionItem("aid", "Aid Requests Awaiting Action", aidCard)
+aidCard = Card(Heading("Aid Requests", h3), AidTable("aid_table"), sunk)
+AidTable(table) = Table(table)
+aid_table = |Request|Quantity|Status
+|Water Purification|200|Awaiting
+|Medical Kits|150|Awaiting
+section_communication = SectionItem("communication", "Communication Channels Status", commCard)
+commCard = Card(Heading("Communication Channels", h3), ChannelList("channels"), sunk)
+ChannelList(list) = ListBlock(ListItem("Radio Network","Up"), ListItem("Satellite","Down"), ListItem("Cell Network","Up"))
+section_roads = SectionItem("roads", "Roads Closed", roadsCard)
+roadsCard = Card(Heading("Closed Roads", h3), RoadsTable("roads"), sunk)
+RoadsTable(table) = Table(table)
+roads_table = |Road|Status
+|RD-1|Closed
+|RD-2|Closed
+section_hospitals = SectionItem("hospitals", "Nearby Hospitals with Free Beds", hospitalsCard)
+hospitalsCard = Card(Heading("Hospitals with Free Beds", h3), HospitalsTable("hospitals"), sunk)
+HospitalsTable(table) = Table(table)
+hospitals_table = |Hospital|Free Beds
+|General Hospital|12
+|City Medical|7
+section_tasks = SectionItem("tasks", "Open Tasks with Assignee", tasksCard)
+tasksCard = Card(Heading("Open Tasks", h3), TasksTable("tasks"), sunk)
+TasksTable(table) = Table(table)
+tasks_table = |Task|Assignee
+|Inspect Route A|Dispatcher 1
+|Fuel Truck Refill|Logistics Lead
+section_requests = SectionItem("requests", "Request More Resources", requestsCard)
+requestsCard = Card(Heading("Request Resources", h3), ResourceRequest("requests"), sunk)
+ResourceRequest(list) = ListBlock(ListItem("Type","Water"), ListItem("Quantity","500")))
+section_broadcast = SectionItem("broadcast", "Broadcast Update", broadcastCard)
+broadcastCard = Card(Heading("Broadcast Update", h3), BroadcastInput("broadcast"), sunk)
+BroadcastInput(name) = TextContent("To all teams: ensure safety protocols and report status every 15 minutes.", size:default)
+section_focus_control = SectionItem("focus_control", "Focus on Zone", focusControl)
+focusControl = Card(Heading("Focus on Zone", h3), ZonePicker("zone"), sunk)
+ZonePicker(name) = Form("zone-focus", Buttons(Button("Focus Zone", primary)), FormControl("Zone", Input("zone", "North")), placeholder:"Choose zone")
+section_reports = SectionItem("reports", "Situational Reports", reportsCard)
+reportsCard = Card(Heading("Situation Reports", h3), ReportInput("report"), sunk)
+ReportInput(name) = TextContent("Situation report template: incident count, resources deployed, needs, and ETA.", size:"default")
+isFoldable = true

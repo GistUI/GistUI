@@ -1,0 +1,33 @@
+root = Card(CardHeader("Training Platform Analytics"), Tabs(TabItem("overview","Overview", overviewPanel), TabItem("cohorts","Cohorts", cohortsPanel))) 
+overviewPanel = Card(Heading("Overview dashboard", h2), ListBlock( ListItem("Active learners this week", "Top learners active in current week"), ListItem("Course completion rate", "Overall completion across all courses"), ListItem("Average quiz score", "Average score across quizzes") ), HorizontalBarChart(enrollmentTable, variant:grouped, xLabel:"Course", yLabel:"Enrollments"), sunk) 
+cohortsPanel = Card(Heading("Cohort controls", h3), Form("cohort-filter", cohortButtons, cohortSelect), Button("Message cohort", action:[openMessageDialog]), TagBlock(tags:["New learners","High engagement","At risk"]), sunk) 
+cohortButtons = Buttons(Button("Apply"), Button("Reset", tertiary)) 
+cohortSelect = Select("cohort", SelectItem("All cohorts","All cohorts"), SelectItem("Cohort A","Cohort A"), SelectItem("Cohort B","Cohort B"), placeholder:"Choose cohort") 
+openMessageDialog = DialogBlock("message", "Message cohort", MarkDownRenderer("Send a message to the selected cohort to encourage progress."), description:"Choose a template or compose a message", triggerVariant:default) 
+cohortEngagement = LineChart(engagementRows, natural, xLabel:"Week", yLabel:"Engagement") 
+engagementRows = |Week|Engagement
+|W1|72
+|W2|74
+|W3|77
+|W4|75
+|W5|79
+|W6|81
+|W7|78
+|W8|83
+coursesRankTable = Table(coursesTable) 
+coursesTable = |Course|Enrollments
+|Python Basics|1280
+|Data Science 101|1120
+|React for Beginners|960
+|SQL Essentials|780
+activeLearnersTable = Table(activeTable) 
+activeTable = |Course|Active Learners
+|Python Basics|320
+|Data Science 101|290
+|React for Beginners|260
+|SQL Essentials|180
+completionRatePanel = Card(Heading("Course completion rate", h3), TextContent("Average completion rate across all courses: 72%"), Progress(72, "Overall"), sunk) 
+averageQuizPanel = Card(Heading("Average quiz score", h3), Progress(86, "Average"), sunk) 
+riskPanel = Card(Heading("Learners at risk of dropping out", h3), ListBlock(ListItem("At risk learners", "120 learners flagged for at-risk status"), ListItem("Interventions dispatched", "30 messages sent")), sunk) 
+requestedSections = [] 
+rootDoneCheck = true

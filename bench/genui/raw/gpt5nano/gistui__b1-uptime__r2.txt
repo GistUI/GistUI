@@ -1,0 +1,5 @@
+root = Card(CardHeader("Platform Status", "Current month uptime and incidents"), uptimeSection, incidentSection)
+
+uptimeSection = Card(Heading("API uptime this month", h3), TextContent("The API has been operating at 99.98% uptime this month.", size:default))
+
+incidentSection = Card(Heading("Most recent incident", h3), TextContent("Incident ID #4574 resolved on 2026-09-28 14:32 UTC. Root cause: dependency outage, mitigated by failover and patch.", size:default))

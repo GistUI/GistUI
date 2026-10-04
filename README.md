@@ -16,12 +16,12 @@ interactive UI (dashboards, forms, reports, slide decks, galleries) while it str
 <p>
   <a href="https://gistui.com"><img src="https://img.shields.io/badge/Website-gistui.com-ff5e1e?style=for-the-badge" alt="Website: gistui.com" /></a>
   <a href="#quick-start"><img src="https://img.shields.io/badge/Quick_start-3_steps-17122b?style=for-the-badge" alt="Quick start in three steps" /></a>
-  <a href="benchmark.md"><img src="https://img.shields.io/badge/Benchmarks-130%C3%97_faster_parse-17122b?style=for-the-badge" alt="Benchmarks: 130 times faster streaming parse" /></a>
+  <a href="https://gistui.com/benchmarks"><img src="https://img.shields.io/badge/Benchmarks-2%E2%80%936%C3%97_less_work-17122b?style=for-the-badge" alt="Benchmarks: 2 to 6 times less work to render a streaming answer" /></a>
 </p>
 
 <p>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/GistUI/GistUI?style=flat-square&color=ff5e1e" alt="MIT licence" /></a>
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.0-ff5e1e?style=flat-square" alt="Version 0.1.0" /></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.2.0-ff5e1e?style=flat-square" alt="Version 0.2.0" /></a>
   <a href="https://github.com/GistUI/GistUI/stargazers"><img src="https://img.shields.io/github/stars/GistUI/GistUI?style=flat-square&color=ff5e1e" alt="GitHub stars" /></a>
   <img src="https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="Written in strict TypeScript" />
   <img src="https://img.shields.io/badge/first_load-74_KB_gzip-ff5e1e?style=flat-square" alt="First load: 74 KB gzip" />
@@ -140,16 +140,19 @@ Examples are in [`examples/`](examples) (Vue, Svelte, Solid, React with shadcn/u
 
 ## Benchmarks
 
-Measured with OpenUI's own benchmark (46 screens × 4 runs), against OpenUI, A2UI and json-render. The full tables and how to reproduce them are in [`benchmark.md`](benchmark.md).
+Measured against OpenUI. The full results, the method and how to run them yourself are on
+[gistui.com/benchmarks](https://gistui.com/benchmarks) and in [`benchmark.md`](benchmark.md).
 
-| Model | GistUI, as written | GistUI, after autofix | OpenUI | Output tokens, GistUI vs OpenUI |
-|---|---:|---:|---:|---:|
-| gpt-oss-120b (current prompt) | 87.0% valid | **100%** | 84.2% | 526 vs 597 (−12%) |
-| Gemini 3.7 Flash (earlier prompt) | 87.5% valid | **100%** | 98.9% | 1,443 vs 1,637 (−12%) |
+| | OpenUI | GistUI |
+|---|---:|---:|
+| Main-thread time to render a streaming dashboard in Chrome | 2,204 ms | **492 ms** |
+| Valid answers as the model wrote them (gpt-oss-120b, 182 answers) | 84.6% | **87.9%** |
+| Valid after repair | a second model call in OpenUI Cloud, not measured | **100%**, in code, no model call |
+| Tokens per screen, system prompt + answer | 5,618 | **4,461** |
+| First-load JavaScript, default components, gzip | 699 KB | **74 KB** |
 
-- **System prompt:** 3,838 tokens, against 5,017 for OpenUI.
-- **Cost** of a 46-screen pass on Gemini 3.7 Flash: $0.36, against $0.46 for OpenUI.
-- **Streaming parse:** 130–150× faster than OpenUI's parser on the same screens.
+- **Rendering:** 2–6× less main-thread work across OpenUI's own sample screens, in the same page, at the same streaming pace.
+- **Model test:** OpenUI's benchmark (46 screens × 4 runs), same catalog, examples and settings for both. With the small gpt-5-nano, both are 22–23% valid as written; GistUI's repair takes it to 98.4%.
 
 ## Develop
 

@@ -1,0 +1,12 @@
+root = Stack(header, layout, gap:lg)
+header = Header("Revenue Dashboard", size:lg)
+layout = Grid(metricCard, chartCard, cols:2)
+metricCard = Card(Header("Total Revenue", "Last 6 months", size:sm), "## $1,284,000", Callout("Compared to the previous 6 months", title:"Up 8.4%", tone:success))
+chartCard = Card(Header("Monthly Revenue", "Last 6 months", size:sm), Chart(revenue, type:bar, x:"Month", y:"Revenue (USD)"))
+revenue = |Month|Revenue
+|Oct|198000
+|Nov|205000
+|Dec|214000
+|Jan|210000
+|Feb|223000
+|Mar|234000

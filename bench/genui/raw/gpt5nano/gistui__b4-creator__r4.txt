@@ -1,0 +1,67 @@
+root = Card(CardHeader("Creator Studio", "Cross-platform dashboard"), platformFilter)
+
+platformFilter = TagBlock(["platform filter will apply to all sections"])?no
+
+platformFilter = Form("platform-filter", Buttons(Button("All platforms", primary)),)
+
+root = Card(CardHeader("Creator Studio", "Cross-platform dashboard"), followerSection, engagementSection, bestPostsSection, audienceSection, scheduledPostsSection, bestHourSection, commentsSection, earningsSection, collaborationsSection, schedulePostSection, platformSection)
+
+followerSection = Card(Heading("Followers", h3), Table(followerTable))
+
+followerTable = |Metric|Value
+|Total followers|124,000
+|Growth (30d)|+8,400
+
+engagementSection = Card(Heading("Engagement", h3), TextContent("Engagement rate: 5.6% across platforms over the last 30 days."))
+
+bestPostsSection = Card(Heading("Best posts this month", h3), Table(bestPostsTable))
+
+bestPostsTable = |Post|Reach
+|Post A|12,500
+|Post B|9,800
+|Post C|7,420
+
+audienceSection = Card(Heading("Audience by platform", h3), HorizontalBarChart(audienceTable, variant:grouped, xLabel:"Platform", yLabel:"Audience"))
+
+audienceTable = |Platform|Audience
+|Instagram|42000
+|TikTok|32000
+|YouTube|18000
+|Facebook|10000
+
+scheduledPostsSection = Card(Heading("Posts scheduled this week", h3), Table(scheduledTable))
+
+scheduledTable = |Post|Scheduled Time
+|Launch teaser|Mon 10:00
+|Behind the scenes|Tue 14:00
+|Q&A reminder|Wed 16:30
+
+bestHourSection = Card(Heading("Best hour to post", h3), TextContent("Based on history, optimal posting hour is 18:00 local time on weekdays."))
+
+commentsSection = Card(Heading("Comments waiting for a reply", h3), Table(commentsTable))
+
+commentsTable = |Comment|From|Posted
+|“Love this!”|User123|2h ago
+|“Nice work!”|Fan456|5h ago
+
+earningsSection = Card(Heading("Earnings this month", h3), TextContent("$4,320.50 earned this month (across platforms)."))
+
+collaborationsSection = Card(Heading("Pending collaboration requests", h3), Table(collabsTable))
+
+collabsTable = |Brand|Requested|Value
+|BrandX|Awaiting response|$2,000
+|BrandY|Under review|$1,500
+
+schedulePostSection = Card(Heading("Schedule a post", h3), Form("schedule-post", scheduleButtons, captionField, timeField))
+
+scheduleButtons = Buttons(Button("Schedule Post", primary), Button("Clear", tertiary))
+
+captionField = FormControl("Caption", TextArea("caption", "What's on your mind?"), "Caption for the post")
+
+timeField = FormControl("Scheduled time", Input("time", "2026-10-11T18:00", type:"datetime-local"))
+
+platformSection = Card(Heading("Platform filter", h3), Form("platform-filter-2", platformButtons, platformSelect))
+
+platformButtons = Buttons(Button("Apply", primary))
+
+platformSelect = FormControl("Platform", Select("platform", SelectItem("All", "All platforms"), SelectItem("Instagram", "Instagram"), SelectItem("TikTok", "TikTok"), SelectItem("YouTube", "YouTube")), placeholder:"Choose a platform")

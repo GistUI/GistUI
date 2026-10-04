@@ -1,92 +1,76 @@
-root = Card(salesSection, footTrafficSection, bestSellersSection, outOfStockSection, shiftSection, avgBasketSection, returnsSection, promotionsSection, registersSection, reorderSection, storeSection, comparisonSection, direction:column, gap:m)
+root = Card(sectionBlock, storeSelect, reorderForm)
 
-salesSection = Card(salesHeading, salesTable)
-salesHeading = Heading("Sales vs Target", h3)
+sectionBlock = SectionBlock(salesSec, trafficSec, bestSec, outSec, shiftSec, basketSec, returnsSec, promoSec, registersSec, compareSec, isFoldable)
 
-footTrafficSection = Card(footTrafficHeading, footTrafficChart)
-footTrafficHeading = Heading("Foot Traffic Today", h3)
+storeSelect = Select("store", SelectItem("store1","Store 1"), SelectItem("store2","Store 2"), placeholder:"Select store")
 
-bestSellersSection = Card(bestSellersHeading, bestSellers)
-bestSellersHeading = Heading("Best Sellers", h3)
+reorderForm = Form("reorder", reorderButtons, reorderField)
 
-outOfStockSection = Card(outOfStockHeading, outOfStock)
-outOfStockHeading = Heading("Out of Stock Items", h3)
+reorderButtons = Buttons(Button("Reorder", primary))
 
-shiftSection = Card(shiftHeading, shiftList)
-shiftHeading = Heading("Today's Shift", h3)
+reorderField = FormControl("Item to reorder", Input("item", placeholder:"SKU or name"))
 
-avgBasketSection = Card(avgBasketHeading, avgBasket)
-avgBasketHeading = Heading("Average Basket Size", h3)
+salesSec = SectionItem("sales", "Sales vs Target", TextContent("Today's sales compared to target."), Table(salesComp))
 
-returnsSection = Card(returnsHeading, returnsTable)
-returnsHeading = Heading("Returns This Week", h3)
+trafficSec = SectionItem("traffic", "Foot Traffic", LineChart(traffic, linear, xLabel:"Hour", yLabel:"Visitors"))
 
-promotionsSection = Card(promotionsHeading, promotions)
-promotionsHeading = Heading("Promotion Performance", h3)
+bestSec = SectionItem("bestsellers", "Best Sellers", Table(bestSellers))
 
-registersSection = Card(registersHeading, registers)
-registersHeading = Heading("Register Status", h3)
+outSec = SectionItem("outofstock", "Out of Stock Items", Table(outOfStock))
 
-reorderSection = Card(reorderHeading, reorderButton)
-reorderHeading = Heading("Reorder Item", h3)
+shiftSec = SectionItem("shift", "Today's Shift", Table(shift))
 
-storeSection = Card(storeHeading, storeSelect)
-storeHeading = Heading("Switch Store", h3)
+basketSec = SectionItem("basket", "Average Basket Size", TextContent("Average basket size is $32."))
 
-comparisonSection = Card(comparisonHeading, comparisonChart)
-comparisonHeading = Heading("This Week vs Last Week", h3)
+returnsSec = SectionItem("returns", "Returns This Week", TextContent("Returns total $1,200."))
 
-salesTable = Table(metricCol, valueCol)
-metricCol = Col("Metric", data:["Sales Today","Target"], type:string)
-valueCol = Col("Value", data:["$12,300","$15,000"], type:string)
+promoSec = SectionItem("promotions", "Promotion Performance", Table(promotions))
 
-footTrafficChart = LineChart(footRows, linear, xLabel:"Hour", yLabel:"Visitors")
-footRows = |Hour|Visitors
-|9am|45
-|10am|78
-|11am|120
-|12pm|200
-|1pm|180
-|2pm|150
-|3pm|130
-|4pm|110
-|5pm|95
+registersSec = SectionItem("registers", "Register Status", Table(registers))
 
-bestSellers = Table(productCol, unitsCol)
-productCol = Col("Product", data:["T-Shirt","Jeans","Sneakers"], type:string)
-unitsCol = Col("Units Sold", data:[120,85,60], type:number)
+compareSec = SectionItem("compare", "This Week vs Last Week", BarChart(compare, grouped, xLabel:"Metric", yLabel:"Value"))
 
-outOfStock = Table(itemCol, statusCol)
-itemCol = Col("Item", data:["Hat","Belt"], type:string)
-statusCol = Col("Status", data:["Out of stock","Out of stock"], type:string)
+salesComp = |Metric|Today|Target
+|Sales|$5,200|$6,000
 
-shiftList = ListBlock(shift1, shift2, shift3, variant:number)
-shift1 = ListItem("Alice", "Cashier")
-shift2 = ListItem("Bob", "Floor")
-shift3 = ListItem("Cara", "Manager")
+traffic = |Hour|Visitors
+|08|120
+|09|200
+|10|350
+|11|420
+|12|500
+|13|480
+|14|460
+|15|530
+|16|600
+|17|720
+|18|800
+|19|650
 
-avgBasket = TextContent("Average basket size: $45.20", size:small)
+bestSellers = |Item|Units
+|Shirt|45
+|Jeans|30
+|Sneakers|25
+|Jacket|20
 
-returnsTable = Table(weekCol, returnsCol)
-weekCol = Col("Week", data:["This week","Last week"], type:string)
-returnsCol = Col("Returns", data:["$1,200","$900"], type:string)
+outOfStock = |Item|Reason
+|Socks|Low stock
+|Hat|Discontinued
 
-promotions = Table(promoCol, performanceCol)
-promoCol = Col("Promotion", data:["10% Off Shoes","Buy 1 Get 1 Coffee"], type:string)
-performanceCol = Col("Units Sold", data:[200,150], type:number)
+shift = |Employee|Role
+|Alice|Cashier
+|Bob|Manager
+|Carol|Stock associate
 
-registers = Table(regCol, openCol)
-regCol = Col("Register", data:["Reg 1","Reg 2","Reg 3"], type:string)
-openCol = Col("Open", data:["Yes","No","Yes"], type:string)
+promotions = |Promotion|Sales
+|10% off|$2,300
+|Buy1Get1|$1,800
 
-reorderButton = Buttons(Button("Reorder selected", primary))
+registers = |Register|Status
+|Reg1|Open
+|Reg2|Closed
+|Reg3|Open
 
-storeSelect = Form("store-switch", storeButtons, storeSelectControl)
-storeSelectControl = FormControl("Store", Select("store", SelectItem("001","Main St"), SelectItem("002","Second St"), placeholder:"Select store", value:"001"))
-storeButtons = Buttons(Button("Switch", primary))
-
-comparisonChart = BarChart(compRows, grouped, xLabel:"Metric", yLabel:"Amount")
-compRows = |Metric|This Week|Last Week
-|Sales|12300|11500
-|Foot Traffic|1200|1100
-|Returns|1200|900
+compare = |Metric|ThisWeek|LastWeek
+|Sales|$5,200|$4,800
+|Foot Traffic|1,200|1,150

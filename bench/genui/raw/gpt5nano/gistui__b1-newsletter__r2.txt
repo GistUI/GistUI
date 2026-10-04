@@ -1,0 +1,13 @@
+root = Card(CardHeader("Weekly Product Newsletter", "Get bite-sized product updates every week"), content)
+
+content = SectionBlock(sectionIntro, sectionForm)
+
+sectionIntro = Heading("What you get", h2)
+
+sectionForm = SectionBlock(formBlock, isFoldable)
+
+formBlock = Card(Heading("Subscribe", h3), Form("newsletter-signup", formButtons, emailField))
+
+formButtons = Buttons(Button("Subscribe", primary))
+
+emailField = FormControl("Email address", Input("email", "", "Please enter a valid email"))

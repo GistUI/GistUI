@@ -1,0 +1,28 @@
+root = Card(CardHeader("Async Standup", DateHeader("Today: "+DateStr()), TagsSummary("Updates remaining: 0")), SectionBlock(SectionItem("teammates", "Teammates", teammatesSection), SectionItem("post", "Post your update", postFormSection), SectionItem("summary", "Today’s summary", summarySection)))
+DateHeader(date) = Heading("2026-10-04", h3)
+TagsSummary(text) = TextContent(text, size:default)
+
+teammatesSection = SectionBlock(
+  SectionItem("teammatesList", "Teammates", teammatesList)
+)
+
+teammatesList = Table(teammatesTable)
+teammatesTable = |Name|Status|Blocked?
+|Alex|Working through tasks|No
+|Priya|Code review pending|Yes
+|Jon|Done with blockers|No
+
+postFormSection = Card(CardHeader("Post your update"), postForm)
+
+postForm = Form("standup-post", formButtons, postNameField, postStatusField, postBlockerField, postNotesField)
+formButtons = Buttons(Button("Submit update", primary))
+postNameField = FormControl("Your update", TextArea("update", placeholder:"What did you accomplish today?", value:""),)
+postStatusField = FormControl("Status", Input("status", "", value:""),)
+postBlockerField = FormControl("Blocked?", SwitchGroup("blocked", SwitchItem("blocked"), value:[]))
+postNotesField = FormControl("Notes", TextArea("notes", placeholder:"Optional notes", rows:3))
+
+summarySection = Card(Heading("Today’s status", h4), SummaryContent)
+
+SummaryContent = TextContent("All teammates’ updates shown above. Blockers are highlighted. Use the form to post your update.", size:default)
+
+DateHeader = none

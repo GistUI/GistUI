@@ -1,0 +1,7 @@
+root = Card(CardHeader("Lunch poll", "Friday lunch destination"), SectionBlock(pollSection, isFoldable))
+pollSection = SectionItem("poll", "Question", Question("Where should we go for lunch on Friday?"), Restaurants)
+Question(text) = TextContent("Where should we go for lunch on Friday?", size:default)
+Restaurants = ListBlock(RestItem1, RestItem2, RestItem3)
+RestItem1 = ListItem("Sushi Place", "Fresh sushi and bowls", "Vote", Image("Sushi image", "https://picsum.photos/seed/sushi/200/120"))
+RestItem2 = ListItem("Pasta House", "Comfort Italian", "Vote", Image("Pasta image", "https://picsum.photos/seed/pasta/200/120"))
+RestItem3 = ListItem("Taco Stand", "Casual Mexican", "Vote", Image("Taco image", "https://picsum.photos/seed/tacos/200/120"))

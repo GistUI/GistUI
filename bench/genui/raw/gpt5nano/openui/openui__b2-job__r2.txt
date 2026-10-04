@@ -1,0 +1,42 @@
+root = Card([
+  header = CardHeader("Design Engineer (Product Design)","Design Team"),
+  intro = TextContent("We are seeking a creative Product Designer to join our design team. You will collaborate with product, engineering, and research to craft elegant and impactful solutions for our platform.", "default"),
+  section1 = Heading("Role Overview", "h3"),
+  roleDesc = TextContent("Short role description: lead design initiatives, translate user needs into elegant interfaces, and help shape the product’s visual language across web and mobile."),
+
+  qualificationsHeading = Heading("Main Qualifications", "h3"),
+  qualifications = ListBlock([
+    ListItem("5+ years in product design or UX design", "Experience designing complex, data-driven interfaces", ["https://picsum.photos/seed/qualifications1/1000/600"]),
+    ListItem("Portfolio demonstrating end-to-end product design", "Showcase process from discovery to delivery", ["https://picsum.photos/seed/qualifications2/1000/600"]),
+    ListItem("Prototyping and tool proficiency", "Figma/Sketch, InVision, or similar", ["https://picsum.photos/seed/qualifications3/1000/600"]),
+    ListItem("Cross-functional collaboration", "Partner with PM, eng, and research", ["https://picsum.photos/seed/qualifications4/1000/600"]),
+    ListItem("Strong communication and storytelling", "Present designs to stakeholders clearly", ["https://picsum.photos/seed/qualifications5/1000/600"])
+  ], "number"),
+
+  salaryHeading = Heading("Salary Range", "h3"),
+  salary = TextContent("$100,000 – $140,000 USD/year, plus performance bonus", "default"),
+
+  applyHeading = Heading("Apply", "h3"),
+  applyIntro = TextContent("Submit your details and resume using the form below. We look forward to reviewing your work.", "default"),
+
+  applyForm = Form("design-posting-apply", applyButtons, [nameField, emailField, resumeField]),
+  nameField = FormControl("Full name", nameInput),
+  nameInput = Input("name", "Jane Doe"),
+  emailField = FormControl("Email address", emailInput, "We will only use this to contact you"),
+  emailInput = Input("email", "jane@example.com", "email"),
+  resumeField = FormControl("Resume link", resumeInput, "Provide a link to your latest resume or portfolio"),
+  resumeInput = Input("resume", "https://example.com/resume.pdf", "url"),
+
+  applyButtons = Buttons([submitBtn, resetBtn]),
+  submitBtn = Button("Submit Application", null, "primary"),
+  resetBtn = Button("Reset", null, "secondary"),
+
+  shareHeading = Heading("Share this posting", "h3"),
+  shareBlock = Card([shareText, shareButtons], "clear"),
+  shareText = TextContent("Share this job posting with colleagues or on social platforms.", "default"),
+  shareButtons = Buttons([
+    Button("Copy link", null, "secondary"),
+    Button("Share on LinkedIn", null, "secondary"),
+    Button("Share on Twitter", null, "secondary")
+  ], "row")
+])

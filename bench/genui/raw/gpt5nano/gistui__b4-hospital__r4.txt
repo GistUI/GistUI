@@ -1,0 +1,93 @@
+root = Card(CardHeader("Hospital Operations Command View"), SectionBlock(SectionItem("overview", "Overview", bedOccupancy, erWait, admissionsTable, deptPatients, staffShifts, criticalPatients, dischargeQueue, ORBookings, suppliesLow, incidentForm, dayNavigator, transferRequest)), FollowUpBlock())
+
+bedOccupancy = Card(Heading("Bed occupancy", h3), Table(bedTable))
+bedTable = |Ward|Occupied|Capacity
+|ICU|12|16
+|Ward A|28|32
+|Ward B|14|20
+
+erWait = Card(Heading("Current ER wait", h3), TextContent("Average wait time: 42 minutes", size:default))
+
+admissionsTable = Card(Heading("Admissions - last 14 days", h3), LineChart(admissionsTrend, natural, xLabel:"Date", yLabel:"Admissions"), SectionBlock())
+
+admissionsTrend = |Date|Admissions
+|2026-09-20|34
+|2026-09-21|29
+|2026-09-22|41
+|2026-09-23|38
+|2026-09-24|45
+|2026-09-25|37
+|2026-09-26|50
+|2026-09-27|46
+|2026-09-28|39
+|2026-09-29|42
+|2026-09-30|44
+|2026-10-01|47
+|2026-10-02|51
+|2026-10-03|49
+
+deptPatients = Card(Heading("Patients per department", h3), BarChart(deptTable, xLabel:"Department", yLabel:"Patients"))
+
+deptTable = |Department|Count
+|ER|76
+|Surgery|54
+|ICU|18
+|Pediatrics|32
+|Oncology|27
+|General|60
+
+staffShifts = Card(Heading("Staff on shift with role", h3), Table(staffTable))
+
+staffTable = |Staff|Role|Shift
+|Dr. Smith|ER Lead|Day
+|Nurse Alvarez|ER Nurse|Day
+|Dr. Chen|Surgeon|Evening
+|Nurse Patel|ICU Nurse|Night
+|Dr. Ramirez|Oncology|Day
+|Nurse Kim|Surgery Nurse|Evening
+
+criticalPatients = Card(Heading("Critical patients called out", h3), ListBlock(ListItem("Patient A - ICU unstable"), ListItem("Patient B - MI critical"), ListItem("Patient C - sepsis")))
+
+dischargeQueue = Card(Heading("Patients ready for discharge", h3), Table(dischargeTable))
+
+dischargeTable = |Patient|Ward|ReadyTime
+|John Doe|Ward A|Today 10:15
+|Jane Roe|Ward B|Today 09:50
+|Alice Smith|ICU|Today 08:40
+
+ORBookings = Card(Heading("Today's operating room bookings", h3), Table(orTable))
+
+orTable = |Operating Room|Time|Surgeon|Procedure
+|OR 1|08:00|Dr. Lee|Knee replacement
+|OR 2|10:30|Dr. Patel|Appendectomy
+|OR 3|13:00|Dr. Kim|Cataract
+
+suppliesLow = Card(Heading("Supplies running low", h3), TagBlock(["Oxygen cylinders low","Syringes in short supply","IV bags low"]))
+
+incidentForm = DialogBlock("Report Incident", "Incident Logging", incidentContent, description:"Use to file safety events", triggerVariant:default)
+
+incidentContent = Card(Heading("Incident Details", h4), Form("incident-form", formButtons, incidentFields))
+
+formButtons = Buttons(Button("Submit incident", primary), Button("Cancel", tertiary))
+
+incidentFields = FormControl("Incident Type", Select("incident_type", SelectItem("Fall"), SelectItem("Medication error"), SelectItem("Equipment failure"), placeholder:"Choose type"))
+|Date|Time|Location
+|Timestamp|Time|Ward/Room
+=TextArea("Incident Description","Describe what happened")
+
+dayNavigator = Card(Heading("View another day", h3), Form("day-chooser", dayButtons, dayDateField, dayButtonsList))
+
+dayButtons = Buttons(Button("Today"), Button("Yesterday"), Button("Custom", secondary))
+
+dayDateField = FormControl("Date", DatePicker("date", mode:single, value:"2026-10-03"))
+
+dayButtonsList = ListBlock(ListItem("Next: view tomorrow"), ListItem("Previous: view yesterday"))
+
+transferRequest = Card(Heading("Request patient transfer", h3), Form("transfer-form", transferButtons, transferFields))
+
+transferButtons = Buttons(Button("Submit transfer", primary), Button("Cancel", tertiary))
+
+transferFields = FormControl("From Ward", Select("fromWard", SelectItem("Ward A","Ward A"), SelectItem("Ward B","Ward B"), placeholder:"Choose ward"))
+|To Ward|Patient
+|toWard|Patient X
+=FormControl("To Ward", Select("toWard", SelectItem("ICU","ICU"), SelectItem("General","General"), placeholder:"Choose ward"))

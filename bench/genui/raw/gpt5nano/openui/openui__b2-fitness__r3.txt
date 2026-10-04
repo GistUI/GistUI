@@ -1,0 +1,67 @@
+root = Card([
+  header,
+  summaryRow,
+  caloriesBlock,
+  weekLogSection,
+  newWorkoutCard
+])
+
+header = CardHeader("Daily Summary", "Your fitness snapshot for today")
+
+summaryRow = Card([
+  stepsCard,
+  caloriesCard
+], "card")
+
+stepsCard = Card([
+  Heading("Steps today", "h3"),
+  stepsValue
+], "card")
+
+stepsValue = TextContent("7,842 / 10,000", "large")
+
+caloriesCard = Card([
+  Heading("Calories burned", "h3"),
+  caloriesValue
+], "card")
+
+caloriesValue = TextContent("480 kcal", "large")
+
+weekLogSection = Card([
+  CardHeader("Past week workouts", "Intensity and duration"),
+  weekChart
+])
+
+weekChart = ChartBlock("LineChart", weekLabels, weekSeries)
+
+weekLabels = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+
+weekSeries = [
+  Series("Duration (min)", [30, 25, 40, 0, 50, 45, 20]),
+  Series("Intensity", [3, 4, 5, 0, 4, 5, 3])
+]
+
+newWorkoutCard = Card([
+  CardHeader("Log a new workout"),
+  logCard
+])
+
+logCard = Form("log-workout", logButtons, [workoutTypeField, durationField, notesField])
+
+workoutTypeField = FormControl("Workout type", workoutTypeInput)
+workoutTypeInput = Select("workout_type", [typeRun, typeCycle, typeStrength], "Choose type")
+
+typeRun = SelectItem("run", "Run")
+typeCycle = SelectItem("cycle", "Cycle")
+typeStrength = SelectItem("strength", "Strength")
+
+durationField = FormControl("Duration (min)", durationInput, "Enter minutes spent")
+durationInput = Input("duration", "30", "number")
+
+notesField = FormControl("Notes (optional)", notesInput)
+notesInput = TextArea("notes", "Felt strong, cadence steady")
+
+logButtons = Buttons([logBtn, cancelBtn])
+
+logBtn = Button("Log workout", null, "primary")
+cancelBtn = Button("Clear", null, "secondary")

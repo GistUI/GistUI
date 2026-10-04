@@ -1,0 +1,41 @@
+root = Card([
+  header = CardHeader("Design Role - Product Design Lead", "Team: User Experience, New York Office"),
+  description = TextContent("We’re seeking a hands-on Product Design Lead to craft intuitive experiences across web and mobile. You’ll collaborate with product, research, and engineering to shape our design system and help define our product roadmap.", "default"),
+  qualificationsSection = Card([
+    Heading("Main Qualifications", "h3"),
+    ListBlock([
+      ListItem("5+ years as a product designer, with a strong portfolio", "Demonstrated impact on product success", ["https://picsum.photos/seed/portfolio/600/400"]),
+      ListItem("Experience leading design for cross-functional teams", "Mentor junior designers and collaborate with PMs/Eng/ Research"),
+      ListItem("Proficiency in design tools (Figma, FigJam, After Effects)", "Prototyping and motion design for high-fidelity specs"),
+      ListItem("Strong user research, usability testing, and data-informed design decisions", "Experience translating insights into strategy"),
+      ListItem("Excellent communication and collaboration skills", "Presenting concepts to stakeholders")
+    ])
+  ]),
+  salarySection = Card([
+    Heading("Salary Range", "h3"),
+    TextContent("Competitive, commensurate with experience. Salary range: $120,000 – $170,000 USD annually.", "default")
+  ]),
+  applySection = Card([
+    Heading("Apply Now", "h3"),
+    TextContent("Please provide your details and a resume link to apply.", "default"),
+    form = Form("design-application", buttonsRow, [nameField, emailField, resumeField]),
+    nameField = FormControl("Full name", nameInput, "Enter your full name"),
+    nameInput = Input("name", "Jane Doe"),
+    emailField = FormControl("Work email", emailInput, "We’ll contact you at this address"),
+    emailInput = Input("email", "jane@example.com", "email"),
+    resumeField = FormControl("Resume URL", resumeInput, "Link to your resume or portfolio"),
+    resumeInput = Input("resume", "https://", "url")
+  ]),
+  buttonsRow = Buttons([
+    Button("Submit Application", null, "primary"),
+    Button("Clear", null, "secondary")
+  ]),
+  shareSection = Card([
+    Heading("Share this posting", "h3"),
+    TextContent("Spread the word to potential candidates within your network.", "default"),
+    shareButtons = Buttons([
+      Button("Copy Link", null, "secondary"),
+      Button("Share via Email", null, "secondary")
+    ], "row")
+  ])
+])

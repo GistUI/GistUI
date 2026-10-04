@@ -1,0 +1,124 @@
+root = Card([
+    header,
+    metricsRow,
+    filtersRow,
+    ordersSection,
+    chartsSection,
+    actionsRow
+])
+
+header = CardHeader("E-commerce Operations Dashboard", "Live snapshot for today")
+
+metricsRow = Card([
+    CardHeader("Today at a glance", null),
+    Card([kpiGrid], "card")
+])
+
+kpiGrid = Card([
+    kpiTodayOrders,
+    kpiTodayRevenue,
+    kpiAOV
+], "card")
+
+kpiTodayOrders = SectionBlock([
+    SectionItem("today-orders", "Orders today", [
+        Heading("Orders placed today", "h3"),
+        TextContent("123") // placeholder
+    ])
+])
+
+kpiTodayRevenue = SectionBlock([
+    SectionItem("today-revenue", "Revenue today", [
+        Heading("Revenue today", "h3"),
+        TextContent("$4,560.00")
+    ])
+])
+
+kpiAOV = SectionBlock([
+    SectionItem("aov", "Average order value", [
+        Heading("Average order value", "h3"),
+        TextContent("$37.60")
+    ])
+])
+
+filtersRow = Card([
+    CardHeader("Filters", null),
+    filterBar
+])
+
+filterBar = Card([
+    statusFilter,
+    searchBar
+], "card")
+
+statusFilter = SectionBlock([
+    SectionItem("status-filter", "Filter by status", [
+        TextContent("Status")
+    ])
+])
+
+searchBar = Card([
+    Label("Customer search"),
+    Input("customer_search", "Enter customer name", "text")
+], "card")
+
+ordersSection = Card([
+    CardHeader("Recent orders", null),
+    ordersTable
+])
+
+ordersTable = Table([Col("Order ID", ["#10234", "#10235", "#10236"]), Col("Customer", ["Alice Smith", "Bob Lee", "Carmen Diaz"]), Col("Total", ["$120.00", "$85.50", "$240.00"]), Col("Status", ["Unfulfilled", "Fulfilled", "Unfulfilled"])])
+ // Note: statuses will be filtered by statusFilter; keep as initial data
+
+// Row to fulfill order
+fulfillButton = Button("Mark fulfilled", null, "secondary")
+
+// Simple per-row fulfill control would be represented by including a Button per row in a real system;
+// here we present a conceptual Button reference that would appear within the table in a real renderer.
+
+rowsWithFulfill = SectionBlock([
+    SectionItem("row-actions", "Row actions", [
+        fulfillButton
+    ])
+])
+
+// The actual order rows are part of the ordersTable; we keep the fulfill button available via the per-row action in rendering.
+
+// refundRateSection
+refundRateSection = Card([
+    CardHeader("Refund rate (this month)", null),
+    refundRateValue
+])
+
+refundRateValue = TextContent("3.4%")
+
+// volume chart over past four weeks
+volumeChart = Card([
+    CardHeader("Order volume (last 4 weeks)", null),
+    LineChart(["Week 1", "Week 2", "Week 3", "Week 4"], [Series("Orders", [320, 280, 360, 400])], "linear", "Week", "Orders")
+])
+
+// final layout
+chartsSection = Card([
+    CardHeader("Overview charts", null),
+    volumeChart
+])
+
+ordersSection = Card([
+    CardHeader("Recent orders", null),
+    ordersTable
+])
+
+actionsRow = Card([
+    CardHeader("Quick actions", null),
+    actionsBar
+])
+
+actionsBar = Buttons([
+    Button("Export CSV", null, "secondary"),
+    Button("Print", null, "secondary")
+])
+
+// Ensure all defined items are reachable from root
+// Wire up references so nothing is unreferenced
+root = Card([header, metricsRow, filtersRow, ordersSection, chartsSection, actionsRow])

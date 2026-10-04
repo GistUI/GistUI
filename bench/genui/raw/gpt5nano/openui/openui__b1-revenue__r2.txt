@@ -1,0 +1,47 @@
+root = Card([
+  header = CardHeader("Morning Dashboard", "Mid-morning snapshot"),
+  metricsRow,
+  comparisonBlock,
+  actionsRow
+], "card")
+
+header
+
+metricsRow = Card([
+  kpiTitle = Heading("Revenue for today", "h3"),
+  revenueBlock = Card([
+    revenueValue = TextContent("$", "default"),
+    revenueAmount = TextContent("12,350", "large"),
+    revenueCurrency = TextContent(" USD", "default")
+  ])
+], null, "column")
+
+kpiTitle
+revenueBlock
+revenueValue
+revenueAmount
+revenueCurrency
+
+comparisonBlock = Card([
+  compareHeading = Heading("Comparison to yesterday at this time", "h4"),
+  comparisonCard = Card([
+    todayLabel = TextContent("Today (mid-morning)", "default"),
+    yesterdayLabel = TextContent("Yesterday at same time", "default"),
+    chartBlock = Image("Revenue trend placeholder", "https://picsum.photos/seed/revenue-mid/800/200"),
+    deltaBlock = TagBlock(["+8.2% vs yesterday"])
+  ])
+], null, "column")
+
+compareHeading
+comparisonCard
+todayLabel
+yesterdayLabel
+chartBlock
+deltaBlock
+
+actionsRow = Buttons([
+  Button("Details", null, "secondary"),
+  Button("Export CSV", null, "primary")
+], "row")
+
+header = CardHeader("Morning Dashboard", "Mid-morning snapshot")

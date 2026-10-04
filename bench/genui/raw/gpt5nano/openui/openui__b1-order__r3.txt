@@ -1,0 +1,59 @@
+root = Card([
+    CardHeader("Delivery Tracker", "Your package status at a glance"),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("current-status", "Package location", [
+            Heading("Current location", "h3"),
+            TextContent("Your package is currently in transit. We are tracking its latest update from the carrier to you.", "default"),
+            Image("Map preview", "https://picsum.photos/seed/delivery-map/800/400")
+        ]),
+        SectionItem("eta", "Estimated delivery", [
+            Heading("Estimated delivery date", "h3"),
+            TextContent("Your package is expected to arrive on the following date. You will be notified of any changes.", "default"),
+            TextContent("Estimated date: 2026-10-08", "large")
+        ]),
+        SectionItem("report-issue", "Report a problem", [
+            Heading("Report a problem with delivery", "h3"),
+            TextContent("If you have an issue with your delivery, please select an issue below or provide details.", "default"),
+            Form("delivery-issue", Buttons([submitIssueBtn, cancelIssueBtn]), [
+                FormControl("Issue type", issueTypeSelect),
+                FormControl("Order number", orderNumberInput, "We’ll verify your order"),
+                FormControl("Description", issueDescription, "Describe the problem in detail")
+            ])
+        ])
+    ], false)
+    ,
+    Card([Heading("Need help?", "h4"), TextContent("If you cannot report an issue here, contact support at support@example.com.", "default")], "sunk")
+])
+
+header = CardHeader("Delivery Tracker", "Status and actions")
+currentLocationHeading = Heading("Current location", "h3")
+currentLocationText = TextContent("Package is in transit and moving toward your delivery address.", "default")
+etaHeading = Heading("Estimated delivery", "h3")
+etaText = TextContent("Delivery is estimated for 2026-10-08.", "default")
+reportHeading = Heading("Report a problem with delivery", "h3")
+reportIntro = TextContent("Choose a reason and provide details to help resolve the issue quickly.", "default")
+
+currentStatusCard = Card([currentLocationHeading, currentLocationText])
+etaCard = Card([etaHeading, etaText])
+reportCard = Card([reportHeading, reportIntro, Form("delivery-issue", Buttons([submitIssueBtn, cancelIssueBtn]), [
+    FormControl("Issue type", issueTypeSelect),
+    FormControl("Order number", orderNumberInput, "We’ll verify your order"),
+    FormControl("Description", issueDescription, "Describe the problem in detail")
+])], "card")
+
+currentLocation = currentStatusCard
+estimatedDelivery = etaCard
+reportSection = reportCard
+
+submitIssueBtn = Button("Submit issue", null, "primary")
+cancelIssueBtn = Button("Cancel", null, "tertiary")
+issueTypeSelect = Select("issue_type", [issueBug, issueDelay, issueMissing], "Choose a reason")
+orderNumberInput = Input("order_number", "Enter order #")
+issueDescription = TextArea("description", "Provide more details", 4, [], "")
+
+issueBug = SelectItem("delivery_broken", "Delivery won’t arrive")
+issueDelay = SelectItem("delayed", "Delivery delayed")
+issueMissing = SelectItem("missing", "Package missing")
+
+root = Card([header, currentLocation, estimatedDelivery, reportSection])

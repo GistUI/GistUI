@@ -1,0 +1,29 @@
+root = Card([header, progressBar, modulesSection, nextLessonCallout, ratingBlock, continueSection])
+
+header = CardHeader("Learning Course: Fundamentals of Open Systems", "Instructor: Dr. A. Learner")
+
+progressBar = SectionBlock([progressCard], false)
+progressCard = Card([progressText, progressValue], "card")
+progressText = TextContent("Overall progress", "default")
+progressValue = TextContent("78%", "large")
+
+modulesSection = Card([modulesHeading, modulesList])
+
+modulesHeading = Heading("Modules", "h3")
+
+modulesList = ListBlock([moduleItem1, moduleItem2, moduleItem3], "image")
+moduleItem1 = ListItem("Module 1: Introduction to Concepts", "Completed", ["https://picsum.photos/seed/mod1/40/40"])
+moduleItem2 = ListItem("Module 2: Core Principles", "In progress", ["https://picsum.photos/seed/mod2/40/40"])
+moduleItem3 = ListItem("Module 3: Applied Practice", "Locked", ["https://picsum.photos/seed/mod3/40/40"])
+
+nextLessonCallout = Callout("info", "Next lesson", "Module 2: Core Principles - Lesson 2: Systems Thinking")
+
+ratingBlock = Card([ratingHeading, ratingStars], "card")
+ratingHeading = Heading("Average learner rating", "h4")
+ratingStars = TextContent("4.7 / 5.0", "large")
+
+continueSection = Card([continueHeading, continueButtons], "card")
+continueHeading = Heading("Continue learning", "h4")
+
+continueButtons = Buttons([continueBtn], "row")
+continueBtn = Button("Resume last watched", null, "primary")

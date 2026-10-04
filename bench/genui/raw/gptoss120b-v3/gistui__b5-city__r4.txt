@@ -1,105 +1,86 @@
-root = Card(districtTabs, focusSection, dispatchSection, alertSection, weatherSection, roadworksSection, infraJobsSection, followUp)
+root = Card(districtSelect, congestionSection, transitSection, airQualitySection, energySection, waterSection, incidentsSection, vehiclesSection, parkingSection, eventsSection, citizenReportsSection, backlogSection, weatherSection, dispatchButton, alertDialog, roadworksSection, infraJobsSection)
 
-districtTabs = Tabs(districtTab1, districtTab2, districtTab3)
+districtSelect = Select("district", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Select district")
 
-districtTab1 = TabItem("downtown", "Downtown", congestionCard, transitCard, airQualityCard, energyCard, waterCard, incidentsCard, vehiclesCard, parkingCard, eventsCard, reportsCard, backlogCard, weatherCard)
-districtTab2 = TabItem("midtown", "Midtown", congestionCard, transitCard, airQualityCard, energyCard, waterCard, incidentsCard, vehiclesCard, parkingCard, eventsCard, reportsCard, backlogCard, weatherCard)
-districtTab3 = TabItem("uptown", "Uptown", congestionCard, transitCard, airQualityCard, energyCard, waterCard, incidentsCard, vehiclesCard, parkingCard, eventsCard, reportsCard, backlogCard, weatherCard)
+congestionSection = Card(Heading("Current Congestion", h3), HorizontalBarChart(congestionTable, grouped, xLabel:"Road", yLabel:"% Congestion"))
+congestionTable = |Road|% Congestion
+|Main St|78
+|Broadway|65
+|Elm St|45
 
-congestionCard = Card(CardHeader("Current Congestion"), congestionChart, clear)
-congestionChart = HorizontalBarChart(labels:["Main St","2nd Ave","Broadway"], Series("Congestion", values:[78,65,54]), variant:grouped, xLabel:"Road", yLabel:"Congestion %")
+transitSection = Card(Heading("Transit Punctuality", h3), BarChart(transitTable, grouped, xLabel:"Line", yLabel:"On Time %"))
+transitTable = |Line|On Time %
+|Red|92
+|Blue|88
+|Green|95
 
-transitCard = Card(CardHeader("Transit Punctuality"), transitChart, clear)
-transitChart = BarChart(labels:["Bus","Metro","Tram"], Series("On‑time %", values:[92,88,85]), variant:grouped, xLabel:"Mode", yLabel:"On‑time %")
+airQualitySection = Card(Heading("Air Quality by District", h3), HorizontalBarChart(airQualityTable, grouped, xLabel:"District", yLabel:"AQI"))
+airQualityTable = |District|AQI
+|North|42
+|South|55
+|East|60
+|West|38
 
-airQualityCard = Card(CardHeader("Air Quality by District"), airQualityChart, clear)
-airQualityChart = RadarChart(labels:["Downtown","Midtown","Uptown"], Series("PM2.5", values:[35,28,22]), Series("NO₂", values:[40,30,25]))
+energySection = Card(Heading("Energy Use (Past Week)", h3), LineChart(energyTable, linear, xLabel:"Day", yLabel:"MWh"))
+energyTable = |Day|MWh
+|Mon|1200
+|Tue|1150
+|Wed|1180
+|Thu|1220
+|Fri|1190
+|Sat|1100
+|Sun|1080
 
-energyCard = Card(CardHeader("Energy Use (Past Week)"), energyChart, clear)
-energyChart = LineChart(labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], Series("Energy (MWh)", values:[1200,1150,1180,1220,1190,1100,1050]), variant:natural, xLabel:"Day", yLabel:"MWh")
+waterSection = Card(Heading("Water Use Today", h3), SingleStackedBarChart(waterTable))
+waterTable = |Sector|Liters
+|Residential|850000
+|Commercial|450000
+|Industrial|300000
 
-waterCard = Card(CardHeader("Water Use Today"), waterChart, clear)
-waterChart = SingleStackedBarChart(labels:["Residential","Commercial","Industrial"], values:[4500,2300,1800])
+incidentsSection = Card(Heading("Open Incidents", h3), ListBlock(incident1, incident2, incident3))
+incident1 = ListItem("Power outage", "North - High severity", "Details")
+incident2 = ListItem("Water leak", "East - Medium severity", "Details")
+incident3 = ListItem("Road accident", "South - Low severity", "Details")
 
-incidentsCard = Card(CardHeader("Open Incidents"), incidentsTable, clear)
-incidentsTable = Table(
-  Col("Location", data:["5th & Main","Central Park","River Rd"], type:string),
-  Col("Severity", data:["High","Medium","Low"], type:string),
-  Col("Type", data:["Accident","Flood","Power Outage"], type:string)
-)
+vehiclesSection = Card(Heading("Emergency Vehicles Deployment", h3), Table(vehiclesTable))
+vehiclesTable = |Vehicle|Location|Status
+|Engine 1|North District|On Call
+|Engine 2|East District|Available
+|Ambulance 1|South District|Busy
 
-vehiclesCard = Card(CardHeader("Emergency Vehicles Deployed"), vehiclesTable, clear)
-vehiclesTable = Table(
-  Col("Unit", data:["Engine 1","Ambulance 3","Rescue 2"], type:string),
-  Col("Location", data:["5th & Main","East Side","North Hill"], type:string),
-  Col("Status", data:["En route","On scene","Available"], type:string)
-)
+parkingSection = Card(Heading("Parking Availability Downtown", h3), Table(parkingTable))
+parkingTable = |Lot|Spots Available|Total
+|Lot A|45|100
+|Lot B|30|80
+|Lot C|10|50
 
-parkingCard = Card(CardHeader("Parking Availability Downtown"), parkingTable, clear)
-parkingTable = Table(
-  Col("Lot", data:["Lot A","Lot B","Lot C"], type:string),
-  Col("Spaces Free", data:[12,5,0], type:number),
-  Col("Total Spaces", data:[100,80,60], type:number)
-)
+eventsSection = Card(Heading("Public Events This Weekend", h3), Table(eventsTable))
+eventsTable = |Event|Date|Location
+|Music Festival|Sat|Central Park
+|Farmers Market|Sun|Town Square
 
-eventsCard = Card(CardHeader("Public Events This Weekend"), eventsTable, clear)
-eventsTable = Table(
-  Col("Event", data:["Farmers Market","Concert in the Park","Art Walk"], type:string),
-  Col("Date", data:["Sat","Sat","Sun"], type:string),
-  Col("Location", data:["Market Square","Central Park","Downtown"], type:string)
-)
+citizenReportsSection = Card(Heading("Citizen Reports", h3), Table(citizenReportsTable))
+citizenReportsTable = |Report|Time|District|Issue
+|Pothole|08:12|North|Road damage
+|Noise|09:30|East|Loud construction
 
-reportsCard = Card(CardHeader("Live Citizen Reports"), reportsTable, clear)
-reportsTable = Table(
-  Col("Report", data:["Pothole on 3rd","Streetlight out","Graffiti"], type:string),
-  Col("Location", data:["3rd & Oak","7th & Pine","2nd & Elm"], type:string),
-  Col("Time", data:["10:12","09:45","11:30"], type:string)
-)
+backlogSection = Card(Heading("Service Request Backlog", h3), BarChart(backlogTable, grouped, xLabel:"Service", yLabel:"Count"))
+backlogTable = |Service|Pending|Completed
+|Streetlight|45|120
+|Graffiti|30|80
 
-backlogCard = Card(CardHeader("Service Request Backlog"), backlogTable, clear)
-backlogTable = Table(
-  Col("Request", data:["Tree trimming","Sidewalk repair","Signal upgrade"], type:string),
-  Col("Pending Days", data:[5,12,3], type:number)
-)
+weatherSection = Card(Heading("Current Weather", h3), MarkDownRenderer("**Sunny**, 75°F, Light breeze", clear))
 
-weatherSection = Card(CardHeader("Current Weather"), weatherInfo, clear)
-weatherInfo = MarkDownRenderer("**Sunny**, 78°F, Light breeze from the NW.\n\n*Humidity*: 45%\n*Wind*: 5 mph", variant:clear)
+dispatchButton = Button("Dispatch Crew", primary)
 
-roadworksSection = Card(CardHeader("Planned Roadworks This Month"), roadworksTable, clear)
-roadworksTable = Table(
-  Col("Project", data:["5th St Resurfacing","Bridge Reinforcement"], type:string),
-  Col("Start", data:["2024-10-05","2024-10-12"], type:string),
-  Col("End", data:["2024-10-20","2024-11-01"], type:string)
-)
+alertDialog = DialogBlock("Send Alert", "Public Alert", MarkDownRenderer("**Compose your alert message**", clear), description:"Send an urgent alert to all citizens", triggerVariant:default)
 
-infraJobsSection = Card(CardHeader("Infrastructure Maintenance Jobs Due"), infraJobsTable, clear)
-infraJobsTable = Table(
-  Col("Asset", data:["Water Pump A","Electrical Substation 3"], type:string),
-  Col("Due Date", data:["2024-11-15","2024-12-01"], type:string)
-)
+roadworksSection = Card(Heading("Planned Roadworks (This Month)", h3), Table(roadworksTable))
+roadworksTable = |Project|Start|End|District
+|Road resurfacing|2023-10-01|2023-10-20|South
+|Bridge repair|2023-10-05|2023-11-15|North
 
-focusSection = Card(CardHeader("Focus on District"), districtSelect, clear)
-districtSelect = Select("focus_district", 
-  SelectItem("downtown", "Downtown"),
-  SelectItem("midtown", "Midtown"),
-  SelectItem("uptown", "Uptown"),
-  placeholder:"Select district"
-)
-
-dispatchSection = Card(CardHeader("Dispatch Crew"), dispatchForm)
-dispatchForm = Form("dispatch", dispatchButtons, crewField, locationField, taskField)
-crewField = FormControl("Crew", Select("crew_id", 
-  SelectItem("c1","Crew 1"),
-  SelectItem("c2","Crew 2"),
-  placeholder:"Choose crew"
-))
-locationField = FormControl("Location", Input("dispatch_loc", "Enter location"))
-taskField = FormControl("Task", Input("dispatch_task", "Enter task description"))
-dispatchButtons = Buttons(Button("Dispatch", primary), Button("Cancel", tertiary))
-
-alertSection = Card(CardHeader("Send Public Alert"), alertForm)
-alertForm = Form("public_alert", alertButtons, messageField)
-messageField = FormControl("Message", TextArea("alert_msg", "Enter alert text...", "", rows:4))
-alertButtons = Buttons(Button("Send Alert", primary), Button("Cancel", tertiary))
-
-followUp = FollowUpBlock(FollowUpItem("Show detailed incident map"), FollowUpItem("Export data"), FollowUpItem("Refresh view"))
+infraJobsSection = Card(Heading("Infrastructure Jobs Due for Maintenance", h3), Table(infraJobsTable))
+infraJobsTable = |Job|Due Date|District
+|Water pipe inspection|2023-10-12|East
+|Electrical grid check|2023-10-20|West

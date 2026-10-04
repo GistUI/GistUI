@@ -1,0 +1,37 @@
+root = Card([
+  CardHeader("Founder’s Monthly Sales Check", "Current month overview"),
+  SectionBlock([
+    SectionItem("revenue", "Revenue This Month", [
+      Heading("Revenue This Month", "h3"),
+      TextContent("Total revenue for the current month.", "default"),
+      Card([
+        TextContent("Total Revenue:", "default"),
+        Badge("$92,340", "default")
+      ], "card")
+     
+    ]),
+    SectionItem("sixmonths", "Revenue Trend (6 months)", [
+      Heading("Revenue Trend (Last 6 Months)", "h4"),
+      LineChart(["M1","M2","M3","M4","M5","M6"], [
+        Series("Revenue", [15000, 21000, 18000, 23000, 26000, 9290])
+      ], "linear", "Month", "USD"),
+    ]),
+    SectionItem("topproducts", "Top-Selling Products (Units)", [
+      Heading("Top-Selling Products (Units)", "h4"),
+      Table([
+        Col("Product", ["Widget A", "Gadget B", "Tool C"]),
+        Col("Units Sold", [1200, 980, 740])
+      ])
+    ]),
+    SectionItem("conversion", "Conversion Percentage", [
+      Heading("Conversion", "h4"),
+      TextContent("This month conversion rate from visitors to buyers.", "default"),
+      Progress(72, "Conversion 72%")
+    ]),
+    SectionItem("download", "Download Data", [
+      Heading("Download", "h4"),
+      TextContent("Export the numbers as CSV or Excel for offline use.", "default"),
+      Buttons([Button("Download CSV"), Button("Download Excel")])
+    ])
+  ], true)
+])

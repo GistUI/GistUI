@@ -1,0 +1,28 @@
+root = Card(CardHeader("Daily Summary"), summaryPanel, logPanel)
+
+summaryPanel = Card(Heading("Today", h3), stepChart, caloriesPanel)
+
+stepChart = HorizontalBarChart(stepsTable, variant:grouped, xLabel:"Steps", yLabel:"Day")
+
+stepsTable = |Day|Steps
+|Mon|7521
+|Tue|10432
+|Wed|9830
+|Thu|11210
+|Fri|8450
+|Sat|12950
+|Sun|10120
+
+caloriesPanel = Card(Heading("Calories burned", h3), caloriesValue)
+
+caloriesValue = TextContent("Calories burned today: 612", size:default)
+
+logPanel = Card(Heading("Log a workout", h3), logForm)
+
+logForm = Form("log-workout", formButtons, workoutNameField, durationField, intensityField)
+
+workoutNameField = FormControl("Workout", Input("workout_name", "Running", placeholder:"Enter workout name"))
+durationField = FormControl("Duration (min)", Input("duration", "30", type:number))
+intensityField = FormControl("Intensity", Select("intensity", SelectItem("Low","Low"), SelectItem("Medium","Medium"), SelectItem("High","High"), placeholder:"Choose intensity"))
+
+formButtons = Buttons(Button("Save workout", primary), Button("Cancel", tertiary))

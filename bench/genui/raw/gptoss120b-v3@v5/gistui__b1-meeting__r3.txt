@@ -1,4 +1,0 @@
-root = Card(meetingHeader, attendees, joinButtons)
-meetingHeader = CardHeader("Team Sync", "Starts at 10:00 AM")
-attendees = TagBlock(["Alice","Bob","Carol"])
-joinButtons = Buttons(Button("Join Call"))

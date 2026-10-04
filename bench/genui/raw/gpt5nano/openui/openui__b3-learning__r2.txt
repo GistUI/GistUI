@@ -1,0 +1,83 @@
+root = Card([
+  header,
+  metricsRow,
+  cohortFilter,
+  eightWeekEngagement,
+  cohortMessaging,
+  allCoursesRanked,
+  itemsSectionFooter
+])
+
+header = CardHeader("Analytics Dashboard", "Training platform analytics overview")
+
+metricsRow = Card([
+  Card([
+    Heading("Active learners this week", "h3"),
+    TextContent("1,024 active learners this week", "default")
+  ]),
+  Card([
+    Heading("Course completion rate", "h3"),
+    TextContent("82.4% completion across all courses", "default")
+  ]),
+  Card([
+    Heading("Average quiz score", "h3"),
+    TextContent("78% average score across quizzes", "default")
+  ])
+], "card")
+
+cohortFilter = Card([
+  CardHeader("Narrow to a cohort"),
+  Form("cohort-filter", Buttons([searchCohortBtn], "row"),
+    [cohortSelectField]
+  ),
+  cohortSelectField = FormControl("Cohort", cohortSelect, "Choose a cohort")
+, "card"]
+)
+
+cohortSelect = Select("cohort_id", [cohortA, cohortB, cohortC], "All cohorts")
+
+cohortA = SelectItem("a1", "Cohort A: Jan intake")
+cohortB = SelectItem("b1", "Cohort B: Feb intake")
+cohortC = SelectItem("c1", "Cohort C: Mar intake")
+
+searchCohortBtn = Button("Filter", null, "primary")
+
+eightWeekEngagement = Card([
+  CardHeader("Engagement across the past eight weeks"),
+  LineChart([ "W-7","W-6","W-5","W-4","W-3","W-2","W-1","W0" ],
+    [ Series("Engagement", [72, 78, 80, 83, 79, 85, 88, 92]) ],
+    "linear", "Week", "Engagement hours")
+], "card"]
+
+cohortMessaging = Card([
+  CardHeader("Message a cohort"),
+  TextContent("Send a targeted message to a selected cohort to drive engagement and completion rates.", "default"),
+  Form("message-form", Buttons([sendBtn], "row"),
+    [MessageCohortField, MessageBodyField]
+  ),
+  MessageCohortField = FormControl("Cohort", cohortSelect, "Choose cohort to message"),
+  MessageBodyField = FormControl("Message", TextArea("message", "Your message here", 6), "Optional attachments can be added in a real system"),
+  sendBtn = Button("Send message", null, "secondary")
+], "card"]
+
+allCoursesRanked = Card([
+  CardHeader("Courses ranked by enrollment"),
+  Table([
+    Col("Course", ["Intro to AI", "Data Science 101", "Cloud Fundamentals", "Python Basics"]),
+    Col("Enrollment", [3200, 2750, 2100, 1980], "number"),
+    Col("Completion", ["78%", "72%", "65%", "70%"], "string")
+  ])
+], "card")
+
+learnersAtRisk = Card([
+  CardHeader("Learners at risk of dropping out"),
+  ListBlock([
+    ListItem("Alexandra P.", "Active last 3 days, low quiz scores", ["https://picsum.photos/seed/alex/40/40"], "Message"),
+    ListItem("Rahul K.", "Missed last 2 weeks, incomplete assignments", ["https://picsum.photos/seed/rahul/40/40"], "Message"),
+    ListItem("Mei L.", "Low engagement this week", ["https://picsum.photos/seed/mei/40/40"], "Message")
+  ], "image")
+], "card")
+
+itemsSectionFooter = Card([
+  TextContent("Tip: Use cohort messaging to nudge at-risk learners and boost engagement.", "default")
+], "card")

@@ -71,7 +71,7 @@ export function typeLabel(p: PropType, enumNames?: ReadonlyMap<string, string>):
     case "data":
       return "data";
     case "array":
-      return p.items ? `[${typeLabel(p.items, enumNames)}]` : "list";
+      return p.items ? `[${typeLabel(p.items, enumNames)}]` : "[…]";
     case "object":
       return "{…}";
     case "action":

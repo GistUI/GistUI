@@ -1,0 +1,52 @@
+root = Card([
+  header,
+  metricsRow,
+  sixMonthTrend,
+  topProducts,
+  conversionCard,
+  downloadRow
+])
+
+header = CardHeader("Founder’s Monthly Sales Check", "Current month snapshot")
+
+metricsRow = Card([
+  revenueCard,
+  conversionCard
+], "card")
+
+revenueCard = Card([
+  Heading("Revenue this month", "h3"),
+  TextContent("$128,760", "large")
+], "sunk")
+
+conversionCard = Card([
+  Heading("Conversion percentage", "h3"),
+  TextContent("5.6%", "large")
+], "sunk")
+
+sixMonthTrend = Card([
+  Heading("Revenue movement – last six months", "h3"),
+  LineChart(["M1","M2","M3","M4","M5","M6"], [LineSeries("Revenue", [12000, 15000, 18000, 21000, 19000, 25000])], "linear", "Month", "USD")
+])
+
+LineSeries(category: string, values: (string | number)[]) = Series(category, values)
+
+topProducts = Card([
+  Heading("Top 3 best-selling products", "h3"),
+  productsTable
+])
+
+productsTable = Table([
+  Col("Product", ["Widget A","Widget B","Widget C"]),
+  Col("Units Sold", [320, 280, 210])
+])
+
+downloadRow = Card([
+  Heading("Download numbers", "h4"),
+  downloadButtons
+])
+
+downloadButtons = Buttons([downloadCSV, downloadExcel], "row")
+
+downloadCSV = Button("Download CSV")
+downloadExcel = Button("Download Excel")

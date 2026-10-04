@@ -1,0 +1,231 @@
+root = Card([
+  header = CardHeader("Emergency Response Command Center", "Live Incident Management"),
+  // Overall layout with sections for each data category
+  overviewRow = Card([overviewLeft, overviewRight], "card"),
+
+  // 1. Active incidents by zone with severity for each
+  incidentsSection = SectionBlock([
+    SectionItem("incidents", "Active Incidents by Zone", [
+      Card([incidentsByZoneTable], "card")
+    ])
+  ]),
+
+  // 2. Overall severity summary
+  overallSeverity = Card([overallSeverityHeading, overallSeverityChart], "card"),
+
+  // 3. Vehicles, personnel and supplies available
+  resourcesSection = Card([resourcesHeader, resourcesOverview], "card"),
+
+  // 4. Shelters with capacity and occupancy for each
+  sheltersSection = Card([sheltersHeader, sheltersTable], "card"),
+
+  // 5. Status of each evacuation route
+  routesSection = Card([routesHeader, routesStatus], "card"),
+
+  // 6. Weather forecast next 48 hours
+  weatherSection = Card([weatherHeader, weatherForecast], "card"),
+
+  // 7. People rescued and casualties so far
+  casualtiesSection = Card([rescuedHeader, casualtiesChart], "card"),
+
+  // 8. Volunteers on duty with assignment for each
+  volunteersSection = Card([volHeader, volunteersTable], "card"),
+
+  // 9. Donations received
+  donationsSection = Card([donationsHeader, donationsList], "card"),
+
+  // 10. Aid requests awaiting action
+  aidRequestsSection = Card([aidRequestsHeader, aidRequestsList], "card"),
+
+  // 11. Communication channels and status
+  commsSection = Card([commsHeader, commsGrid], "card"),
+
+  // 12. Roads closed
+  roadsSection = Card([roadsHeader, roadsList], "card"),
+
+  // 13. Nearby hospitals with free beds
+  hospitalsSection = Card([hospitalsHeader, hospitalsList], "card"),
+
+  // 14. Open tasks with assignee
+  tasksSection = Card([tasksHeader, tasksList], "card"),
+
+  // 15. Request more resources form
+  requestResourcesSection = Card([requestResourcesHeader, requestResourcesForm], "card"),
+
+  // 16. Broadcast update form
+  broadcastSection = Card([broadcastHeader, broadcastForm], "card"),
+
+  // 17. Focus on one zone
+  focusSection = Card([focusHeader, focusZoneSelector], "card"),
+
+  // 18. File a situation report
+  situReportSection = Card([situReportHeader, situReportForm], "card"),
+
+  // Layout helpers and data placeholders (defined after use to satisfy hoisting rules)
+  incidentsByZoneTable = Table([zoneCol, incidentsCol], [zoneData, incidentData], "string", "string"),
+  zoneCol = Col("Zone", ["North", "East", "South", "West"]),
+  incidentsCol = Col("Active Incidents", ["3 (High)", "5 (Medium)", "2 (High)", "1 (Low)"]),
+
+  overallSeverityHeading = Heading("Overall Severity Summary", "h3"),
+  overallSeverityChart = PieChart(["Critical", "Severe", "Moderate", "Minor"], ["40", "70", "30", "20"], "donut", "circular"),
+
+  resourcesHeader = Heading("Available Resources", "h3"),
+  resourcesOverview = Card([TextContent("Vehicles: 12 ambulances, 5 firetrucks, 3 helicopters\nPersonnel: 120 responders\nSupplies: 200 resupply kits")], "card"),
+
+  sheltersHeader = Heading("Shelters", "h3"),
+  sheltersTable = Table([nameCol, capacityCol, occupancyCol], [
+    nameColData, capacityColData, occupancyColData
+  ], "string", "string", "number"),
+  nameCol = Col("Shelter", ["North HS", "East Gym", "South Community Center"]),
+  capacityCol = Col("Capacity", [200, 150, 180], "number"),
+  occupancyCol = Col("Occupancy", [180, 90, 120], "number"),
+
+  routesHeader = Heading("Evacuation Routes", "h3"),
+  routesStatus = Table([routeCol, statusCol], [
+    routeColData, statusColData
+  ], "string", "string"),
+  routeCol = Col("Route", ["I-12 North", "Riverside Ave", "Old 4th St"]),
+  statusCol = Col("Status", ["Open - moderate traffic", "Closed - flood", "Open - clear"], "string"),
+  routeColData = ["I-12 North", "Riverside Ave", "Old 4th St"],
+  statusColData = ["Open", "Closed", "Open"],
+
+  weatherHeader = Heading("Weather Forecast (Next 48h)", "h3"),
+  weatherForecast = MarkDownRenderer("Forecast: scattered showers, wind 10-20 mph. Hourly temps 58-72F. Flood alerts for low-lying areas in low tide windows.", "card"),
+
+  rescuedHeader = Heading("People Rescued and Casualties", "h3"),
+  casualtiesChart = BarChart(["Hour 0", "Hour 6", "Hour 12", "Hour 18", "Hour 24", "Hour 30", "Hour 36", "Hour 42", "Hour 48"], [Series("Rescued", [2, 5, 9, 12, 15, 16, 20, 22, 25])], "linear", "Time (hrs)", "People"),
+
+  volHeader = Heading("Volunteers on Duty", "h3"),
+  volunteersTable = Table([volCol, assignCol], [
+    volColData, assignColData
+  ], "string", "string"),
+  volCol = Col("Volunteer", ["A. Chen", "M. Singh", "L. Rodriguez"]),
+  assignCol = Col("Assignment", ["Evacuation Team A", "Medical Support", "Logistics"]),
+
+  donationsHeader = Heading("Donations Received", "h3"),
+  donationsList = ListBlock([
+    ListItem("Cash: $125,000", "Total received today", ["https://picsum.photos/seed/donation1/40/40"]),
+    ListItem("In-kind: 3 pallets of blankets", null, ["https://picsum.photos/seed/donation2/40/40"])
+  ]),
+
+  aidRequestsHeader = Heading("Aid Requests Awaiting Action", "h3"),
+  aidRequestsList = ListBlock([
+    ListItem("Medical supplies: 500 units", "Urgent", ["https://picsum.photos/seed/aid1/40/40"]),
+    ListItem("Water purification tablets: 2000 packs", "High priority", ["https://picsum.photos/seed/aid2/40/40"])
+  ]),
+
+  commsHeader = Heading("Communication Channels", "h3"),
+  commsGrid = Table([channelCol, statusCol2], [
+    channelColData, statusCol2Data
+  ], "string", "string"),
+  channelCol = Col("Channel", ["Radio Network", "SAT Phone", "OPS Chat"]),
+  statusCol2 = Col("Status", ["UP", "UP", "DOWN"]),
+  channelColData = ["Radio Network", "SAT Phone", "OPS Chat"],
+  statusCol2Data = ["UP", "UP", "DOWN"],
+
+  roadsHeader = Heading("Road Closures", "h3"),
+  roadsList = ListBlock([
+    ListItem("Bridge on River Rd", "Closed due to debris"),
+    ListItem("Main St near Market", "Open with delay"),
+  ]),
+
+  hospitalsHeader = Heading("Nearby Hospitals with Free Beds", "h3"),
+  hospitalsList = Table([hospitalCol, bedsCol], [
+    hospitalColData, bedsColData
+  ], "string", "number"),
+  hospitalCol = Col("Hospital", ["City General", "St. Mary", "Northside Clinic"]),
+  bedsCol = Col("Free Beds", [12, 4, 0], "number"),
+  hospitalColData = ["City General", "St. Mary", "Northside Clinic"],
+  bedsColData = [12, 4, 0],
+
+  tasksHeader = Heading("Open Tasks", "h3"),
+  tasksList = Table([taskCol, assigneeCol], [
+    taskColData, assigneeColData
+  ], "string", "string"),
+  taskCol = Col("Task", ["Evacuate zone North", "Deliver medical supplies", "Set up shelter"]),
+  assigneeCol = Col("Assignee", ["Team A", "Team B", "Team C"]),
+  taskColData = ["Evacuate zone North", "Deliver medical supplies", "Set up shelter"],
+  assigneeColData = ["Team A", "Team B", "Team C"],
+
+  requestResourcesHeader = Heading("Request More Resources", "h3"),
+  requestResourcesForm = Form("resource-request", resourceButtons, [resourceTypeField, resourceQtyField]),
+  resourceTypeField = FormControl("Resource Type", ResourceTypeSelect, "Choose type"),
+  ResourceTypeSelect = Select("resource_type", [rtWater, rtFood, rtMedical], "Select"),
+  rtWater = SelectItem("water", "Water"),
+  rtFood = SelectItem("food", "Food"),
+  rtMedical = SelectItem("medical", "Medical supplies"),
+  resourceQtyField = FormControl("Quantity", QuantityInput, "Enter amount"),
+  QuantityInput = Input("quantity", "e.g., 500", "number"),
+
+  resourceButtons = Buttons([requestBtn, cancelReqBtn]),
+  requestBtn = Button("Submit Request", null, "primary"),
+  cancelReqBtn = Button("Cancel", null, "secondary"),
+
+  resourceTypeData = ["water", "food", "medical"],
+  resourceQtyData = [500],
+
+  requestResourcesHeader2 = Heading("Resource Request Summary", "h4"),
+
+  // reusing the same data as placeholders
+  resourceRequestsSummary = TextContent("Pending requests: 2\nEstimated ETA: 2-4 hours"),
+
+  broadcastHeader = Heading("Broadcast Update", "h3"),
+  broadcastForm = Form("broadcast", broadcastButtons, [broadcastMessageField]),
+  broadcastMessageField = FormControl("Message", BroadcastInput, "Describe the update"),
+  BroadcastInput = TextArea("message", "Enter update for all teams", 6),
+  broadcastButtons = Buttons([sendBroadcastBtn], "row"),
+  sendBroadcastBtn = Button("Broadcast", null, "primary"),
+
+  focusHeader = Heading("Focus on Zone", "h3"),
+  focusZoneSelector = FormControl("Zone", ZoneSelect, "Choose zone"),
+  ZoneSelect = Select("zone_focus", [zoneNorth, zoneEast, zoneSouth, zoneWest], "Select zone"),
+  zoneNorth = SelectItem("North", "North Zone"),
+  zoneEast = SelectItem("East", "East Zone"),
+  zoneSouth = SelectItem("South", "South Zone"),
+  zoneWest = SelectItem("West", "West Zone"),
+
+  situReportHeader = Heading("File Situation Report", "h3"),
+  situReportForm = Form("situation-report", situButtons, [situationSummaryField, situationDetailsField]),
+  situationSummaryField = FormControl("Summary", SituationSummaryInput, "Brief summary"),
+  SituationSummaryInput = TextArea("summary", "What happened", 4),
+  situationDetailsField = FormControl("Details", SituationDetailsInput, "Additional details"),
+  SituationDetailsInput = TextArea("details", "Who, what, where, when", 6),
+  situButtons = Buttons([submitSituBtn, clearSituBtn]),
+  submitSituBtn = Button("Submit Report", null, "primary"),
+  clearSituBtn = Button("Clear", null, "secondary")
+]) ,
+  // Data definitions for repeated tables (placeholders)
+  zoneCol = Col("Zone", ["North", "East", "South", "West"]),
+  incidentsCol = Col("Incidents", ["3 High", "5 Medium", "2 High", "1 Low"]),
+  zoneData = ["North", "East", "South", "West"],
+  incidentData = ["3 High", "5 Medium", "2 High", "1 Low"],
+
+  // Shelters data placeholders
+  nameColData = ["North HS", "East Gym", "South Community Center"],
+  capacityColData = [200, 150, 180],
+  occupancyColData = [180, 90, 120],
+
+  // Routes data placeholders
+  routeColData = ["I-12 North", "Riverside Ave", "Old 4th St"],
+  statusColData = ["Open - moderate traffic", "Closed - flood", "Open - clear"],
+
+  // Weather and rescued placeholders
+  // Volunteers placeholders
+  volColData = ["A. Chen", "M. Singh", "L. Rodriguez"],
+  assignColData = ["Evacuation Team A", "Medical Support", "Logistics"],
+
+  // Donations placeholders
+  // Aid requests placeholders
+  // Communications placeholders
+  channelColData = ["Radio Network", "SAT Phone", "OPS Chat"],
+  statusCol2Data = ["UP", "UP", "DOWN"],
+  // Hospitals placeholders
+  hospitalColData = ["City General", "St. Mary", "Northside Clinic"],
+  bedsColData = [12, 4, 0],
+  // Tasks placeholders
+  // Open tasks
+  // Form references and buttons placeholders
+  // Additional: ensure all defined references are reachable from root
+  // The actual render graph will be resolved by the runtime
+  
+)

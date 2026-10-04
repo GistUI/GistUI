@@ -1,0 +1,169 @@
+root = Card([
+  header = CardHeader("Emergency Response Coordination Center", "Live status dashboard"),
+  topBar = Card([
+    Button("Focus on Zone", null, "secondary")
+  ], null, "row"),
+  grid = Card([
+    // 1. active incidents by zone with severity for each
+    sectionIncidents = Card([
+      Heading("Active Incidents by Zone", "h2"),
+      incidentsTable = Table([
+        Col("Zone", ["North", "East", "South", "West"]),
+        Col("Incidents", [3, 5, 2, 4]),
+        Col("Severity", ["High", "Critical", "Medium", "High"])
+      ])
+    ]),
+    // 2. overall severity summary
+    summaryCard = Card([
+      Heading("Overall Severity Summary", "h3"),
+      summary = TagBlock(["Critical", "High", "Medium", "Low"])
+    ]),
+    // 3. vehicles, personnel and supplies available
+    resourcesCard = Card([
+      Heading("Resources Available", "h3"),
+      resourcesList = ListBlock([
+        ListItem("Vehicles", "Ambulances, Fire Engines, Support Vans", ["https://picsum.photos/seed/vehicles/48/48"]),
+        ListItem("Personnel", "Fire, EMS, Police", ["https://picsum.photos/seed/personnel/48/48"]),
+        ListItem("Supplies", "Medical kits, Water, Food rations", ["https://picsum.photos/seed/supplies/48/48"])
+      ], "image")
+    ]),
+    // 4. shelters with capacity and occupancy for each
+    sheltersCard = Card([
+      Heading("Shelters", "h3"),
+      sheltersTable = Table([
+        Col("Shelter", ["Shelter A", "Shelter B", "Shelter C"]),
+        Col("Capacity", [250, 180, 320]),
+        Col("Occupancy", [210, 150, 275])
+      ])
+    ]),
+    // 5. status of each evacuation route
+    routesCard = Card([
+      Heading("Evacuation Routes Status", "h3"),
+      routesList = ListBlock([
+        ListItem("Route A", "I-1 parallel", ["https://picsum.photos/seed/routeA/48/48"]),
+        ListItem("Route B", "Coast Rd", ["https://picsum.photos/seed/routeB/48/48"]),
+        ListItem("Route C", "Highland Ave", ["https://picsum.photos/seed/routeC/48/48"])
+      ], "image")
+    ]),
+    // 6. weather forecast next 48 hours
+    weatherCard = Card([
+      Heading("Weather Forecast (next 48h)", "h3"),
+      MarkDownRenderer("Forecast: Thunderstorms with intermittent rain. Wind 15-25 mph. Temperature 18-26 C.", "card")
+    ]),
+    // 7. people rescued and casualties so far
+    outcomesCard = Card([
+      Heading("Outcomes", "h3"),
+      outcomeTable = Table([
+        Col("Metric", ["People Rescued", "Casualties"]),
+        Col("Value", [124, 7])
+      ])
+    ]),
+    // 8. volunteers on duty with assignment for each
+    volunteersCard = Card([
+      Heading("Volunteers on Duty", "h3"),
+      volunteersList = ListBlock([
+        ListItem("Alice Chen", "Evacuation Leader", ["https://picsum.photos/seed/vol1/48/48"]),
+        ListItem("Miguel Rivera", "Medical Liaison", ["https://picsum.photos/seed/vol2/48/48"]),
+        ListItem("Priya Desai", "Logistics", ["https://picsum.photos/seed/vol3/48/48"])
+      ], "image")
+    ]),
+    // 9. donations received
+    donationsCard = Card([
+      Heading("Donations Received", "h3"),
+      donationsBlock = TextContent("Total: $54,000 in cash, in-kind: supplies worth $12,000", "default")
+    ]),
+    // 10. aid requests awaiting action
+    requestsCard = Card([
+      Heading("Aid Requests Awaiting Action", "h3"),
+      requestsList = ListBlock([
+        ListItem("Medical supplies for Shelter B", "Urgent", ["https://picsum.photos/seed/req1/48/48"]),
+        ListItem("Water purification tablets for Zone East", "High", ["https://picsum.photos/seed/req2/48/48"])
+      ], "image")
+    ]),
+    // 11. each communication channel and whether it is up
+    commsCard = Card([
+      Heading("Communication Channels", "h3"),
+      commsList = Table([
+        Col("Channel", ["HF Radio", "SAT Phone", "UHF", "Cell Network (4G)"]),
+        Col("Status", ["Up", "Down", "Up", "Partial"])
+      ])
+    ]),
+    // 12. roads closed
+    roadsCard = Card([
+      Heading("Road Closures", "h3"),
+      roadsList = ListBlock([
+        ListItem("Route A", "Closed due to debris"),
+        ListItem("Coast Rd", "Checkpoints active"),
+        ListItem("Highland Ave", "Repairs in progress")
+      ], "image")
+    ]),
+    // 13. nearby hospitals with free beds
+    hospitalsCard = Card([
+      Heading("Nearby Hospitals with Free Beds", "h3"),
+      hospitalsTable = Table([
+        Col("Hospital", ["General Mercy", "St. Luke's", "Riverside Center"]),
+        Col("Free Beds", [12, 0, 5]),
+        Col("Distance", ["2.1 km", "4.5 km", "3.2 km"])
+      ])
+    ]),
+    // 14. open tasks with assignee
+    tasksCard = Card([
+      Heading("Open Tasks", "h3"),
+      tasksList = Table([
+        Col("Task", ["Triage at Zone North", "Route clearance"],),
+        Col("Assignee", ["Alice Chen", "Miguel Rivera"]),
+        Col("Status", ["In Progress", "Pending"])
+      ])
+    ]),
+    // 15. request more resources form
+    requestResourcesCard = Card([
+      Heading("Request More Resources", "h3"),
+      requestForm = Form("resource-request", requestButtons, [resTypeField, resQtyField, resNotesField]),
+      resTypeField = FormControl("Resource Type", resourceTypeSelect)
+    ]),
+    resourceTypeSelect = Select("resource_type", [resMedical, resWater, resShelter], "Choose type"),
+    resMedical = SelectItem("Medical Supplies", "Medical"),
+    resWater = SelectItem("Water", "Water"),
+    resShelter = SelectItem("Tents & Blankets", "Shelter"),
+    resQtyField = FormControl("Quantity", qtyInput, "Enter amount"),
+    qtyInput = Input("qty", "100", "number"),
+    resNotesField = FormControl("Notes", notesInput),
+    notesInput = TextArea("notes", "Details or constraints"),
+    requestButtons = Buttons([submitReqBtn, cancelReqBtn]),
+    submitReqBtn = Button("Submit Request", null, "primary"),
+    cancelReqBtn = Button("Cancel", null, "tertiary")
+    ),
+    // 16. broadcast an update
+    broadcastCard = Card([
+      Heading("Broadcast Update", "h3"),
+      broadcastField = FormControl("Message", broadcastInput, "Post to all channels"),
+      broadcastInput = TextArea("message", "Enter update to broadcast"),
+      broadcastButtons = Buttons([sendBroadcastBtn]),
+      sendBroadcastBtn = Button("Broadcast", null, "primary")
+    ]),
+    // 17. focus on one zone
+    focusZoneCard = Card([
+      Heading("Focus on Zone", "h3"),
+      zoneSelector = FormControl("Zone", zoneSelect, "Choose zone"),
+      zoneSelect = Select("zone", [zoneNorth, zoneEast, zoneSouth, zoneWest], "Select zone"),
+      zoneNorth = SelectItem("North", "North zone"),
+      zoneEast = SelectItem("East", "East zone"),
+      zoneSouth = SelectItem("South", "South zone"),
+      zoneWest = SelectItem("West", "West zone")
+    ]),
+    // 18. file a situation report
+    sitRepCard = Card([
+      Heading("File Situation Report", "h3"),
+      sitForm = Form("sitrep", sitButtons, [sitTextField, sitImpactField]),
+      sitTextField = FormControl("Summary", sitTextArea, "Describe situation"),
+      sitTextArea = TextArea("summary", "Provide concise overview"),
+      sitImpactField = FormControl("Impact", sitSelect, "Impact assessment"),
+      sitSelect = Select("impact", [imMinor, imModerate, imSevere], "Choose impact"),
+      imMinor = SelectItem("Minor", "Minor"),
+      imModerate = SelectItem("Moderate", "Moderate"),
+      imSevere = SelectItem("Severe", "Severe"),
+      sitButtons = Buttons([sitSubmit]),
+      sitSubmit = Button("Submit SR", null, "primary")
+    ])
+  ], "sunk", "row", "m")
+])

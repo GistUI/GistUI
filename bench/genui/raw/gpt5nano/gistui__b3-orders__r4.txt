@@ -1,0 +1,51 @@
+root = Card(CardHeader("E-commerce Operations Desk"), filterBar, statsSection, recentOrdersSection, ordersVolumeChart, fulfillSection, FollowUpBlock("Need more actions?"), sunk)
+
+filterBar = Card(SectionBlock(CardHeader("Filters & Search"), StatusFilters(statusList))), searchBar)
+
+statusList = TagBlock(["All","Pending","Processed","Shipped","Delivered","Cancelled","Refunded"])
+
+searchBar = Card(Tag("Search by customer:",), Input("customer_search", ""))
+
+statsSection = Card(Heading("Today’s snapshot", h3), kpiRow, revenueRow, aovRow)
+
+kpiRow = TabItem("kpi", "KPIs",)
+kpi = Table(kpiRows)
+kpiRows = |Metric|Value
+|Orders today|120
+|Revenue today|"$9,540"
+
+revenueRow = CardHeader("Revenue today"), TextContent("Today's revenue and order metrics."), Value("Revenue", "$9,540")
+
+aovRow = CardHeader("Average Order Value"), TextContent("Average order value for today."), Value("AOV", "$79.50")
+
+recentOrdersSection = Card(CardHeader("Recent Orders"), recentOrdersTable, OrderStatusFilter)
+
+recentOrdersTable = Table(ordersTable)
+
+ordersTable = |Order ID|Customer|Total|Status
+|#10234|Alice Smith|$89.99|Delivered
+|#10235|Bob Johnson|$145.50|Shipped
+|#10236|Carmen Lee|$32.00|Pending
+|#10237|Daniel Kim|$210.00|Processed
+|#10238|Eva Chen|$58.75|Delivered
+
+OrderStatusFilter = Form("status-filter", formButtons, statusField)
+statusField = FormControl("Status", Select("order_status", SelectItem("All","All"), SelectItem("Pending","Pending"), SelectItem("Processed","Processed"), SelectItem("Shipped","Shipped"), SelectItem("Delivered","Delivered"), SelectItem("Cancelled","Cancelled"), SelectItem("Refunded","Refunded")))
+
+formButtons = Buttons(Button("Apply", primary))
+
+ordersVolumeChart = Card(Heading("Order volume — last 4 weeks", h4), Table(volumeTable))
+
+volumeTable = |Week|Orders
+|W1|320
+|W2|410
+|W3|390
+|W4|450
+
+fulfillSection = Card(Heading("Fulfill order", h4), fulfillForm)
+
+fulfillForm = Form("fulfill-order", fulfillButtons, fulfillControls)
+fulfillButtons = Buttons(Button("Mark as Fulfilled", primary))
+fulfillControls = FormControl("Order to fulfill", Input("order_id", ""))
+
+Chart and table data are provided as tables; charts referenced by their table data.

@@ -1,6 +1,0 @@
-root = Card(taskHeader, taskDesc, statusTag, deadlineTag, actions, clear)
-taskHeader = CardHeader("Finish Quarterly Report", "Urgent")
-taskDesc = TextContent("Complete the quarterly financial report and send to stakeholders.", size:large)
-statusTag = Tag("In Progress", variant:info)
-deadlineTag = Tag("Due Sep 30", variant:warning)
-actions = Buttons(Button("Mark done", primary))

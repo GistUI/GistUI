@@ -1,0 +1,186 @@
+root = Card(CardHeader("Emergency Response Coordination Center"), section_focus)
+
+section_focus = SectionBlock(rootSummary, incidentsSection, resourcesSection, sheltersSection, routesSection, weatherSection, outcomesSection, volunteersSection, donationsSection, requestsSection, channelsSection, roadsSection, hospitalsSection, tasksSection, requestResourcesSection, broadcastSection, focusSection, reportSection)
+
+rootSummary = Card(Heading("Overview", h2), Tag("Active", success), Tag("Critical", danger), TextContent("This screen tracks incidents, resources, and status across zones with live updates for decision support."))
+
+incidentsSection = SectionBlock(incidentsSectionHeader, incidentsContent, isFoldable)
+
+incidentsSectionHeader = SectionItem("incidents", "Active Incidents by Zone")
+
+incidentsContent = Card(Heading("Active Incidents by Zone", h3), Table(incidentsTable))
+
+incidentsTable = |Zone|Severity|Count
+|North|Severe|4
+|South|Moderate|3
+|East|Critical|2
+|West|Low|5
+
+resourcesSection = SectionBlock(resourcesHeader, resourcesContent)
+
+resourcesHeader = SectionItem("resources", "Resources Available")
+
+resourcesContent = Card(Heading("Resources Available", h3), TextContent("Vehicles, personnel and supplies on hand:"))
+
+resourcesList = Table(resourcesTable)
+
+resourcesTable = |Category|Quantity|Status
+|Vehicles|12|Operational
+|Personnel|58|Deployed
+|Supplies|1200|Stocked
+
+sheltersSection = SectionBlock(sheltersHeader, sheltersContent)
+
+sheltersHeader = SectionItem("shelters", "Shelters")
+
+sheltersContent = Card(Heading("Shelters", h3), Table(sheltersTable))
+
+sheltersTable = |Shelter|Capacity|Occupancy|Status
+|Central High|500|320|Open
+|Riverside|300|290|Limited
+|North Hub|450|410|Full
+
+routesSection = SectionBlock(routesHeader, routesContent)
+
+routesHeader = SectionItem("routes", "Evacuation Routes")
+
+routesContent = Card(Heading("Evacuation Routes Status", h3), Table(routesTable))
+
+routesTable = |Route|Status|LastUpdated
+|I-7 North|Open|2m
+|Route 42|Restricted|5m
+|Coastal Exit|Open|1m
+
+weatherSection = SectionBlock(weatherHeader, weatherContent)
+
+weatherHeader = SectionItem("weather", "Weather Forecast 48h")
+
+weatherContent = Card(Heading("Weather Forecast (next 48h)", h3), TextContent("Forecasts update every hour with wind, precipitation and visibility."))
+
+weatherTable = Table(weatherTablePipe)
+weatherTablePipe = |Hour|Temp|Wind|Precip|Visibility
+|00:00|72°F|NW 12mph|0.0"|"Good"
+|01:00|70°F|NW 10mph|0.1"|"Fair"
+|02:00|69°F|N 8mph|0.0"|"Good"
+
+outcomesSection = SectionBlock(outcomesHeader, outcomesContent)
+
+outcomesHeader = SectionItem("outcomes", "People Rescued and Casualties")
+
+outcomesContent = Card(Heading("Rescues and Casualties", h3), Table(outcomesTable))
+
+outcomesTable = |Metric|Value
+|People Rescued|124
+|Casualties|9
+
+volunteersSection = SectionBlock(volunteersHeader, volunteersContent)
+
+volunteersHeader = SectionItem("volunteers", "Volunteers on Duty")
+
+volunteersContent = Card(Heading("Volunteers on Duty", h3), Table(volunteersTable))
+
+volunteersTable = |Volunteer|Assignment|Status
+|Alex Kim|Zone North - Medical|On duty
+|Priya Singh|Zone East - Logistics|Partial
+|Luis Chen|Zone West - Communications|On duty
+
+donationsSection = SectionBlock(donationsHeader, donationsContent)
+
+donationsHeader = SectionItem("donations", "Donations Received")
+
+donationsContent = Card(Heading("Donations", h3), TextContent("$2,450,000 received to date", small))
+
+requestsSection = SectionBlock(requestsHeader, requestsContent)
+
+requestsHeader = SectionItem("requests", "Aid Requests Awaiting Action")
+
+requestsContent = Card(Heading("Pending Aid Requests", h3), Table(requestsTable))
+
+requestsTable = |Request|Zone|Needed|Status
+|Medical Kits|North|50 packs|Awaiting
+|Food Packets|South|200 boxes|In Review
+
+channelsSection = SectionBlock(channelsHeader, channelsContent)
+
+channelsHeader = SectionItem("channels", "Communication Channels Status")
+
+channelsContent = Card(Heading("Channels", h3), Table(channelsTable))
+
+channelsTable = |Channel|Status
+|VHF Radio|Up
+|Satellite Phone|Down
+|Encrypted Chat|Up
+
+roadsSection = SectionBlock(roadsHeader, roadsContent)
+
+roadsHeader = SectionItem("roads", "Roads Closed")
+
+roadsContent = Card(Heading("Closed Roads", h3), Table(roadsTable))
+
+roadsTable = |Road|Reason|EstimatedClear
+|Bridge 5|Flood|Unknown
+|Glen Ave|Landslide|In 4h
+
+hospitalsSection = SectionBlock(hospitalsHeader, hospitalsContent)
+
+hospitalsHeader = SectionItem("hospitals", "Nearby Hospitals with Free Beds")
+
+hospitalsContent = Card(Heading("Hospitals with Availability", h3), Table(hospitalsTable))
+
+hospitalsTable = |Hospital|Free Beds|EstimatedWait
+|City General|9|15m
+|Riverbank CN|2|30m
+
+tasksSection = SectionBlock(tasksHeader, tasksContent)
+
+tasksHeader = SectionItem("tasks", "Open Tasks with Assignee")
+
+tasksContent = Card(Heading("Open Tasks", h3), Table(tasksTable))
+
+tasksTable = |Task|Assignee|Priority|Status
+|Restock Medical Supplies|Priya|High|Open
+|Coordinate Evac Route|Alex|Medium|In Progress
+
+requestResourcesSection = SectionBlock(requestResourcesHeader, requestResourcesContent)
+
+requestResourcesHeader = SectionItem("request-resources", "Request More Resources")
+
+requestResourcesContent = Card(Heading("New Resource Request", h3), Form("resource-request", requestButtons, resourceTypeField, quantityField))
+
+resourceTypeField = FormControl("Resource Type", Select("resource_type", SelectItem("Medical Kits","Medical Kits"), SelectItem("Water","Water"), SelectItem("Fuel","Fuel"), placeholder:"Choose type"))
+
+quantityField = FormControl("Quantity", Input("quantity", "", number))
+
+requestButtons = Buttons(Button("Submit Request", primary))
+
+broadcastSection = SectionBlock(broadcastHeader, broadcastContent)
+
+broadcastHeader = SectionItem("broadcast", "Broadcast Update")
+
+broadcastContent = Card(Heading("Broadcast Update", h3), Form("broadcast-form", broadcastButtons, messageField))
+
+messageField = FormControl("Message", TextArea("message", "", rows:4))
+
+broadcastButtons = Buttons(Button("Send Broadcast", primary))
+
+focusSection = SectionBlock(focusHeader, focusContent)
+
+focusHeader = SectionItem("focus", "Focus on One Zone")
+
+focusContent = Card(Heading("Focus Zone", h3), Form("focus-form", focusButtons, zoneSelect))
+
+zoneSelect = Select("zone", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Choose zone")
+
+focusButtons = Buttons(Button("Set Focus", primary))
+
+reportSection = SectionBlock(reportHeader, reportContent)
+
+reportHeader = SectionItem("report", "File a Situation Report")
+
+reportContent = Card(Heading("Situation Report", h3), Form("situation-report", reportButtons, reportText))
+
+reportText = FormControl("Report Details", TextArea("report", "", rows:6))
+
+reportButtons = Buttons(Button("Submit Report", primary))
+
+rootModal ? = null

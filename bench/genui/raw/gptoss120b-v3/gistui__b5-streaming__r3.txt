@@ -1,72 +1,111 @@
-root = Card(CardHeader("Operations Dashboard", "Streaming Service"), viewersSection, mostWatchedSection, watchTimeSection, subscriberBalanceSection, genrePerformanceSection, bufferingSection, deliveryHealthSection, releasesSection, licensesSection, recommendationClicksSection, searchFailuresSection, revenueSplitSection, deviceSplitSection, regionFocusSection, featureFlagsSection, promotionSection, gap:m, wrap)
+root = Card(header, viewers, mostWatched, watchTime, subscriberBalance, genrePerf, buffering, deliveryHealth, upcomingReleases, expiringLicenses, recClickRate, failedSearches, revenuePlan, deviceSplit, regionFocus, featureFlags, promoteTitle)
 
-viewersSection = Card(Heading("Live Viewers", h3), TextContent("Current viewers: **1,342**", size:large), clear)
+header = CardHeader("Streaming Service Operations", "Live dashboard")
 
-mostWatchedSection = Card(Heading("Most‑Watched Titles (hrs)", h3), Table(titleCol, hoursCol), clear)
-titleCol = Col("Title", data:["Show A","Show B","Show C","Show D","Show E"], type:string)
-hoursCol = Col("Hours", data:[1240,1120,980,870,760], type:number)
+viewers = Card(Heading("Current Viewers", h3), TextContent("Live viewers: 12,345", size:large))
 
-watchTimeSection = Card(Heading("Watch Time – Past Month", h3), LineChart(watchTimeRows, linear, xLabel:"Date", yLabel:"Hours"), clear)
-watchTimeRows = |Date|Hours
-|2023‑08‑01|1020
-|2023‑08‑08|1150
-|2023‑08‑15|1230
-|2023‑08‑22|1190
-|2023‑08‑29|1280
+mostWatched = Card(Heading("Top Titles (Hours)", h3), Table(mostWatchedTable))
 
-subscriberBalanceSection = Card(Heading("Subscribers vs Cancellations", h3), BarChart(subCancelRows, grouped, xLabel:"Week", yLabel:"Count"), clear)
-subCancelRows = |Week|New Subscribers|Cancellations
-|W1|540|120
-|W2|610|150
-|W3|580|130
-|W4|620|110
+mostWatchedTable = |Title|Hours
+|Show A|1240
+|Show B|1120
+|Show C|980
 
-genrePerformanceSection = Card(Heading("Performance by Genre", h3), HorizontalBarChart(genreLabels, Series("Hours", genreValues), variant:grouped, xLabel:"Hours", yLabel:"Genre"), clear)
-genreLabels = ["Drama","Comedy","Action","Documentary","Kids"]
-genreValues = [3420,2980,2750,2100,1850]
+watchTime = Card(Heading("Watch Time (Last 30 Days)", h3), LineChart(watchTimeTable, linear, xLabel:"Date", yLabel:"Hours"))
 
-bufferingSection = Card(Heading("Buffering Rate", h3), TextContent("Current buffering: **2.3 %**", size:default), clear)
+watchTimeTable = |Date|Hours
+|2023-09-01|3400
+|2023-09-08|3570
+|2023-09-15|3890
+|2023-09-22|4120
+|2023-09-29|3980
 
-deliveryHealthSection = Card(Heading("Delivery Health by Region", h3), RadarChart(regionLabels, Series("Latency", latencyValues), Series("Error Rate", errorValues)), clear)
-regionLabels = ["NA","EU","APAC","LATAM","ME"]
-latencyValues = [45,38,52,47,41]
-errorValues = [1.2,0.9,1.5,1.1,0.8]
+subscriberBalance = Card(Heading("Subscribers vs Cancellations", h3), BarChart(subBalanceTable, grouped, xLabel:"Week", yLabel:"Count"))
 
-releasesSection = Card(Heading("Releases This Month", h3), ListBlock(releaseItem1, releaseItem2, releaseItem3, variant:number), clear)
-releaseItem1 = ListItem("Title: New Thriller", "Release: 2023‑09‑10")
-releaseItem2 = ListItem("Title: Comedy Special", "Release: 2023‑09‑15")
-releaseItem3 = ListItem("Title: Documentary Series", "Release: 2023‑09‑22")
+subBalanceTable = |Week|New Subscribers|Cancellations
+|W1|3400|210
+|W2|3650|190
+|W3|3800|250
+|W4|3950|230
 
-licensesSection = Card(Heading("Licenses Expiring Soon", h3), Table(licenseTitleCol, expiryCol), clear)
-licenseTitleCol = Col("Title", data:["Show X","Show Y","Show Z"], type:string)
-expiryCol = Col("Expires", data:["2023‑10‑05","2023‑10‑12","2023‑10‑20"], type:string)
+genrePerf = Card(Heading("Performance by Genre", h3), HorizontalBarChart(genreTable, grouped, xLabel:"Hours", yLabel:"Genre"))
 
-recommendationClicksSection = Card(Heading("Recommendation Click‑Through", h3), TextContent("Clicks: **8.4 %** of recommendations", size:default), clear)
+genreTable = |Genre|Hours
+|Drama|15400
+|Comedy|13200
+|Action|11900
+|Documentary|8700
+|Kids|6200
 
-searchFailuresSection = Card(Heading("Searches Without Playback", h3), Table(searchTermCol, attemptsCol, failuresCol), clear)
-searchTermCol = Col("Search Term", data:["Mystery","Action","Comedy"], type:string)
-attemptsCol = Col("Attempts", data:[340,290,310], type:number)
-failuresCol = Col("No Playback", data:[45,30,38], type:number)
+buffering = Card(Heading("Buffering Rate", h3), TextContent("Current buffering: 2.3 % of streams", size:default))
 
-revenueSplitSection = Card(Heading("Revenue Split by Plan", h3), PieChart(planLabels, planValues, donut, appearance:circular), clear)
-planLabels = ["Basic","Standard","Premium"]
-planValues = [42000,68000,25000]
+deliveryHealth = Card(Heading("Delivery Health by Region", h3), BarChart(regionHealthTable, stacked, xLabel:"Region", yLabel:"Score"))
 
-deviceSplitSection = Card(Heading("Viewing Split by Device", h3), BarChart(deviceRows, stacked, xLabel:"Device", yLabel:"Hours"), clear)
-deviceRows = |Device|Hours
-|Mobile|6200
-|Web|4800
-|TV|5500
-|Console|3100
+regionHealthTable = |Region|Latency|Errors|Throughput
+|North America|85|3|92
+|Europe|78|4|88
+|Asia|81|5|90
+|South America|74|6|85
+|Africa|70|8|80
 
-regionFocusSection = Card(Heading("Focus on Region", h3), Form("region-focus", focusButtons, regionSelect), clear)
-regionSelect = Select("region", SelectItem("NA","North America"), SelectItem("EU","Europe"), SelectItem("APAC","Asia‑Pacific"), placeholder:"Select region", size:medium)
-focusButtons = Buttons(Button("Apply", primary))
+upcomingReleases = Card(Heading("Releases This Month", h3), Table(releasesTable))
 
-featureFlagsSection = Card(Heading("Feature Flags", h3), TagBlock([Tag("New UI", success), Tag("Beta Recommendations", warning), Tag("Live Chat", neutral)]), clear)
+releasesTable = |Date|Title|Type
+|2023-10-05|Series X|Series
+|2023-10-12|Movie Y|Movie
+|2023-10-20|Documentary Z|Doc
 
-promotionSection = Card(Heading("Promote Title on Home", h3), Form("promo-form", promoButtons, promoTitleField, promoImageField, promoDurationField), clear)
-promoTitleField = FormControl("Title to Promote", Input("promo_title", "Enter title"))
-promoImageField = FormControl("Banner Image URL", Input("promo_image", "https://picsum.photos/seed/promo/800/500", type:url))
-promoDurationField = FormControl("Duration (days)", Input("promo_days", "7", type:number))
-promoButtons = Buttons(Button("Promote", primary), Button("Cancel", tertiary))
+expiringLicenses = Card(Heading("Licenses Expiring Soon", h3), Table(licensesTable))
+
+licensesTable = |Title|Expiry Date
+|Show A|2023-11-01
+|Movie B|2023-11-15
+|Series C|2023-12-05
+
+recClickRate = Card(Heading("Recommendation Click‑Through Rate", h3), TextContent("Clicks: 8.7 % of recommendations shown", size:default))
+
+failedSearches = Card(Heading("Searches Without Playback", h3), Table(searchesTable))
+
+searchesTable = |Search Term|Count
+|“Mystery Show”|240
+|“Sci‑Fi Movie”|190
+|“Comedy Series”|150
+
+revenuePlan = Card(Heading("Revenue Split by Plan", h3), PieChart(revenueTable, donut, appearance:circular))
+
+revenueTable = |Plan|Revenue
+|Basic|$1,240,000
+|Standard|$2,560,000
+|Premium|$3,120,000
+
+deviceSplit = Card(Heading("Viewing Split by Device", h3), RadarChart(deviceTable))
+
+deviceTable = |Device|Percent
+|Mobile|45
+|Web|30
+|TV|20
+|Tablet|5
+
+regionFocus = Card(Heading("Focus on a Region", h3), Form(regionForm, regionFormButtons, regionSelect))
+
+regionSelect = Select("region", SelectItem("na", "North America"), SelectItem("eu", "Europe"), SelectItem("asia", "Asia"), placeholder:"Select region", value:"na")
+
+regionForm = FormControl("Region", regionSelect)
+
+regionFormButtons = Buttons(Button("Apply", primary))
+
+featureFlags = Card(Heading("Feature Flags", h3), TagBlock(featureTags))
+
+featureTags = ["NewUI", "BetaSearch", "LiveChat", "HDStreaming"]
+
+promoteTitle = Card(Heading("Promote a Title", h3), Form(promoForm, promoButtons, promoTitleField, promoImageField, promoStartDate))
+
+promoTitleField = FormControl("Title", Input("promo_title", "Enter title"))
+
+promoImageField = FormControl("Image URL", Input("promo_image", "https://picsum.photos/seed/promo/800/500"))
+
+promoStartDate = FormControl("Start Date", Input("promo_date", placeholder:"YYYY-MM-DD", type:date))
+
+promoForm = FormControl("Promotion Details", promoTitleField)  # placeholder to satisfy FormControl requirement
+
+promoButtons = Buttons(Button("Launch Promotion", primary))

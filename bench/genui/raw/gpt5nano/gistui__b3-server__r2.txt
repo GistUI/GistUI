@@ -1,0 +1,55 @@
+root = Card(CardHeader("Service Health Dashboard"), Tabs(TabItem("overview","Overview", overviewBody), TabItem("incidents","Incidents", incidentsBody)))
+
+overviewBody = SectionBlock(SectionItem("uptime","Uptime", uptimeCard), SectionItem("usage","Usage", usageChart, regionFilter), SectionItem("errors","Current errors", errorBadge), SectionItem("endpoints","Top slow endpoints", slowEndpointsTable), SectionItem("threshold","Alert threshold", thresholdControl), SectionItem("ack","Acknowledge", acknowledgeButton))
+
+uptimeCard = Card(Heading("Uptime this quarter", h3), Table(uptimeTable))
+
+uptimeTable = |Metric|Value
+|Q1|99.98%
+|Q2|99.99%
+|Q3|99.97%
+|Q4|99.95%
+
+usageChart = LineChart(usageTable, linear, xLabel:"Hour", yLabel:"Usage")
+
+usageTable = |Hour|CPU%|Memory%
+|00:00|72|61
+|04:00|68|59
+|08:00|85|72
+|12:00|78|65
+|16:00|90|78
+|20:00|72|60
+|24:00|70|58
+
+regionFilter = Form("region-filter", regionButtons)
+
+regionButtons = Buttons(Button("Region: US-East", secondary), Button("Region: US-West", secondary), Button("Region: EU-Central", secondary))
+
+errorBadge = Card(Tag("Error rate now", danger), Tag("0.8%", neutral))
+
+SectionItem("threshold","Set alert threshold", thresholdSlider)
+
+thresholdSlider = FormControl("Alert threshold", Slider("alert_threshold", variant:continuous, min:0, max:100, step:1, value:[25]))
+
+incidentsBody = SectionBlock(SectionItem("incidents-list","Open incidents by region", incidentsTable), SectionItem("acknowledge","Acknowledge incident", acknowledgeIncident))
+
+incidentsTable = Table(incidentsTableData)
+
+incidentsTableData = |Region|Incident|Severity|Opened|Actions
+|us-east|DB outage|critical|2026-09-28 14:12|Button("Acknowledge", destructive)
+
+Top slow endpoints data table for the five endpoints
+slowEndpointsTable = SectionBlock(SectionItem("slow-table","Five slowest endpoints", Table(slowTable)))
+
+slowTable = |Endpoint|Latency(ms)
+|GET /api/v1/users|412
+|GET /api/v1/orders|389
+|POST /api/v1/auth|372
+|GET /api/v1/products|360
+|GET /healthz|320
+
+acknowledgeButton = Button("Acknowledge all", action:[ackAll], variant:primary, size:medium)
+
+ackAll = "acknowledge_all"
+
+acknowledgeIncident = DialogBlock("acknowledge", "Acknowledge Incident", Card(TextContent("Enter incident ID to acknowledge"), Input("incident_id", placeholder:"Enter ID")), description:"Acknowledge the selected incident", triggerVariant:default)

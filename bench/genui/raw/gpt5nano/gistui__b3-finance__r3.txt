@@ -1,0 +1,21 @@
+root = Card(CardHeader("Finance Overview", "Month-end statement"), TabItem("overview", "Overview", cashCard, burnCard, runwayCard, expensesChart), TabItem("transactions", "Transactions", highValueTable), Button("Download statement", action:["download"]), Card(Heading("Select month", h4), Form("month-filter", formButtons, monthPicker), sunk)) 
+cashCard = Card(Heading("Cash on hand", h3), TextContent("As of end of month: $2,350,000"), BarChart(cashTable, xLabel:"Month")) 
+burnCard = Card(Heading("Monthly burn", h3), TextContent("Burn this month: $420,000"), TextContent("Burn rate indicates monthly cash consumption"), Separator()) 
+runwayCard = Card(Heading("Months of runway", h3), TextContent("Estimated runway: 5.6 months"), TextContent("Based on current burn and cash on hand")) 
+expensesChart = Card(Heading("Expenses by category", h3), Table(expenseTable)) 
+highValueTable = Table(transactionsTable) 
+formButtons = Buttons(Button("Apply", primary), Button("Reset", tertiary)) 
+monthPicker = DatePicker("month", mode:single, value:["2026-10-01"]) 
+cashTable = |Month|Cash
+|End of Month|$2,350,000 
+expensesTable = |Category|Amount
+|Salaries|$320,000
+|Rent|$48,000
+|Cloud Services|$56,000
+|Marketing|$110,000
+|Travel|$14,000
+transactionsTable = |Date|Description|Amount
+|2026-10-04|Payment from client|$12,500
+|2026-10-11|Vendor services|$16,200
+|2026-10-20|Consultant payout|$11,450
+|2026-10-22|Equipment purchase|$22,750

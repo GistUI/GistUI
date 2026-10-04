@@ -1,0 +1,12 @@
+root = Card([calendarHeader, meetingCard]) 
+calendarHeader = CardHeader("Next on the calendar", null)
+
+meetingCard = Card([meetingTitle, meetingTime, attendeesHeader, attendeesList, joinCall], "card")
+meetingTitle = Heading("Team Sync: Q2 Planning", "h3")
+meetingTime = TextContent("Starts at 10:30 AM, Wed • 15 Oct 2026", "default")
+attendeesHeader = TextContent("Attendees:", "default")
+attendeesList = ListBlock([ListItem("Alex Kim", "Product, PM", ["https://picsum.photos/seed/alex/40/40"]), ListItem("Jordan Lee", "Engineering", ["https://picsum.photos/seed/jordan/40/40"]), ListItem("Priya Nair", "Design", ["https://picsum.photos/seed/priya/40/40"])], "image")
+joinCall = Separator("horizontal", false)
+joinCallBlock = Card([JoinButtonLabel, joinLink], "card")
+JoinButtonLabel = TextContent("Join link:", "default")
+joinLink = Button("Join meeting", ["join_meeting_link"], "primary")

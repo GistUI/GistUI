@@ -1,0 +1,70 @@
+root = Card([
+    header = CardHeader("E-commerce Operations Desk", "Live today overview"),
+    topRow = Card([
+        todayOrdersHeading = Heading("Today’s Overview", "h3"),
+        metricsBar = Card([
+            ordersTodayCard = Card([
+                TextContent("Orders placed today: 58", "default")
+            ]),
+            revenueTodayCard = Card([
+                TextContent("Revenue today: $4,320.50", "default")
+            ]),
+            aovCard = Card([
+                TextContent("Average order value: $74.50", "default")
+            ])
+        ], "card")
+    ], "column"),
+
+    filterBar = Card([
+        statusFilterLabel = TextContent("Filter by status:", "default"),
+        statusFilter = FormControl("Status", Select("status", [
+            SelectItem("all", "All"),
+            SelectItem("pending", "Pending"),
+            SelectItem("processing", "Processing"),
+            SelectItem("fulfilled", "Fulfilled"),
+            SelectItem("refunded", "Refunded")
+        ], "All statuses"), null),
+        searchLabel = TextContent("Search by customer name:", "default"),
+        searchField = FormControl("Customer", Input("customer_search", "Enter name"), null),
+        clearFiltersBtn = Button("Clear filters", null, "secondary")
+    ], "row"),
+
+    metricsRow = Card([
+        refundRateCard = Card([
+            TextContent("Refund rate this month: 2.3%", "default")
+        ]),
+        volumeCard = Card([
+            TextContent("Order volume (4 weeks): 240, 210, 260, 290", "default")
+        ])
+    ], "row"),
+
+    contentArea = Card([
+        sectionsHeading = Heading("Recent Orders", "h3"),
+        statusRow = Card([
+            statusLegend = TextContent("Status: Pending | Processing | Fulfilled | Refunded", "default")
+        ], "sunk"),
+        ordersTable = Table([
+            Col("Order ID", ["1001","1002","1003","1004","1005"]),
+            Col("Customer", ["Alex Kim","Priya Shah","Jon Lee","Maria Gomez","Chris Chen"]),
+            Col("Total", ["$120.00","$85.50","$240.75","$59.99","$130.20"]),
+            Col("Status", ["Pending","Processing","Fulfilled","Pending","Refunded"])
+        ]),
+        fulfillControls = Card([
+            Heading("Fulfill an order", "h4"),
+            fulfillRow = Card([
+                TextContent("Select an order to mark as fulfilled:", "default"),
+                Select("fulfill_order", [
+                    SelectItem("1001","1001"),
+                    SelectItem("1002","1002"),
+                    SelectItem("1004","1004"),
+                ], "Choose order"),
+                fulfillBtn = Button("Mark as Fulfilled", null, "primary")
+            ], "row")
+        ], "sunk"),
+        ordersSearchBar = Card([
+            TextContent("Search results can be filtered by customer or order ID above.", "default")
+        ])
+    ], "column"),
+
+    footerNote = TextContent("Tip: Use the status filter to focus on a subset of orders, and search to quickly locate a customer’s orders.", "small")
+])

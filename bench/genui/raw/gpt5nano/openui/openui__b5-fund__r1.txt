@@ -1,0 +1,96 @@
+root = Card([header, dashboard])
+
+header = CardHeader("Morning Trading Desk", "Live portfolio and insights")
+
+dashboard = Card([portfolioSection, pnlSection, positionsSection, exposureSection, vorSection, dailyMoversSection, watchlistSection, ordersSection, marginSection, headlinesSection, econSection, strategySection, drawdownSection, riskSection, rebalanceSection, orderEntrySection, timeframeSection], "card")
+
+portfolioSection = Card([portfolioLabel, portfolioValue], null)
+portfolioLabel = Heading("Portfolio value", "h3")
+portfolioValue = TextContent("$12,345,678.90")
+
+pnlSection = Card([pnlLabel, pnlValue], null)
+pnlLabel = Heading("Profit & Loss Today", "h3")
+pnlValue = TextContent("+$123,450.12", "default")
+
+positionsSection = Card([positionsHeader, positionsTable], "card")
+positionsHeader = Heading("Positions", "h3")
+positionsTable = Table([
+  Col("Ticker", ["AAPL", "GOOGL", "TSLA"]),
+  Col("Size", ["100", "50", "20"]),
+  Col("Entry", ["$150.00", "$2,000.00", "$600.00"]),
+  Col("Current", ["$152.30", "$2,050.00", "$620.00"])
+])
+
+exposureSection = Card([exposureHeader, exposureChart], "card")
+exposureHeader = Heading("Exposure by Sector", "h3")
+exposureChart = Image("Exposure chart", "https://picsum.photos/seed/exposure/800/320")
+
+vorSection = Card([vorHeader, vorValue], null)
+vorHeader = Heading("Value at Risk (VaR)", "h3")
+vorValue = TextContent("VaR 1d: $210,000")
+
+dailyMoversSection = Card([gainersHeader, gainersList, losersHeader, losersList], "card")
+gainersHeader = Heading("Today's Biggest Gainers", "h3")
+gainersList = ListBlock([ListItem("AAPL +3.4%", "Apparel sector buoyant", ["https://picsum.photos/seed/aapl/40"]), ListItem("NVDA +2.8%", "Tech rally", ["https://picsum.photos/seed/nvda/40"])])
+
+losersHeader = Heading("Today's Biggest Losers", "h3")
+losersList = ListBlock([ListItem("TSLA -1.9%", "Auto demand wobble", ["https://picsum.photos/seed/tsla/40"])], "number")
+
+watchlistSection = Card([watchHeader, watchList], "card")
+watchHeader = Heading("Instruments Being Watched", "h3")
+watchList = Table([
+  Col("Instrument", ["EURUSD", "XAUUSD", "BTCUSD"]),
+  Col("Price", ["1.087", "1945.20", "30250"]),
+  Col("Change", ["-0.12%", "+0.25%", "+1.2%"])
+])
+
+ordersSection = Card([ordersHeader, ordersTable], "card")
+ordersHeader = Heading("Working Orders", "h3")
+ordersTable = Table([
+  Col("Order", ["Buy AAPL", "Sell GOOGL"]),
+  Col("Size", ["100", "50"]),
+  Col("Price", ["$152.00", "$2,060.00"]),
+  Col("Status", ["Open", "Open"])
+])
+
+marginSection = Card([marginHeader, marginValue], "card")
+marginHeader = Heading("Margin in Use", "h3")
+marginValue = TextContent("65.4%")
+ 
+headlinesSection = Card([headlinesHeader, headlinesList], "card")
+headlinesHeader = Heading("Market Headlines & Sentiment", "h3")
+headlinesList = ListBlock([ListItem("Fed cues maintain hawkish tilt", "Markets steady", ["https://picsum.photos/seed/head1/40"]) , ListItem("UK inflation cools", "Sterling support", ["https://picsum.photos/seed/head2/40"])])
+ 
+econSection = Card([econHeader, econList], "card")
+econHeader = Heading("Economic Releases This Week", "h3")
+econList = ListBlock([ListItem("CPI (Wed)", "Forecast +0.2%"), ListItem("PMI (Fri)", "Manufacturing expansion")])
+
+strategySection = Card([strategyHeader, strategyTable], "card")
+strategyHeader = Heading("Strategy Returns This Year", "h3")
+strategyTable = Table([
+  Col("Strategy", ["Momentum", "Pairs", "Mean Reversion"]),
+  Col("Return", ["+12.4%", "+4.1%", "+6.7%"])
+])
+
+drawdownSection = Card([drawHeader, drawChart], "card")
+drawHeader = Heading("Drawdown (Past Year)", "h3")
+drawChart = Image("Drawdown chart", "https://picsum.photos/seed/drawdown/800/320")
+
+riskSection = Card([riskHeader, riskList], "card")
+riskHeader = Heading("Risk Limits Proximity", "h3")
+riskList = ListBlock([ListItem("Position limit: 92% of cap", "Monitor", []), ListItem("VaR limit: 88% used", "Caution", [])])
+
+rebalanceSection = Card([rebalanceHeader, rebalanceButton], "card")
+rebalanceHeader = Heading("Rebalance", "h3")
+rebalanceButton = Button("Run Rebalance", ["rebalance"], "primary")
+
+orderEntrySection = Card([orderEntryHeader, tickerInput, sideInput, qtyInput, placeOrderBtn], "card")
+orderEntryHeader = Heading("Place Order", "h3")
+tickerInput = FormControl("Ticker", Input("ticker", "MSFT"), "Ticker symbol to trade")
+sideInput = FormControl("Side", RadioGroup("side", [RadioItem("Buy", "Go long", "buy"), RadioItem("Sell", "Go short", "sell")], "buy"), "Choose side")
+qtyInput = FormControl("Quantity", Input("qty", "100", "number"), "Order size")
+placeOrderBtn = Buttons([Button("Submit Order", ["submit"], "primary")])
+
+timeframeSection = Card([timeframeHeader, timeframeSelector], "card")
+timeframeHeader = Heading("Timeframe", "h3")
+timeframeSelector = Image("Timeframe picker", "https://picsum.photos/seed/timeframe/800/60")

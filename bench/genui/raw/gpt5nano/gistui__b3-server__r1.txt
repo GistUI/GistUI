@@ -1,0 +1,54 @@
+root = Card(CardHeader("Service Health", "On-call dashboard"), regionFilter, uptimeSection, usageSection, errorSection, incidentsSection, endpointsSection, alertSection, acknowledgeSection)
+regionFilter = Form("region-filter", formButtons, regionSelect)
+formButtons = Buttons(Button("Apply", primary))
+regionSelect = Select("region", SelectItem("us-east", "US East"), SelectItem("eu-west", "EU West"), SelectItem("ap-south", "AP South"), placeholder:"Choose region")
+uptimeSection = Card(Heading("Uptime this quarter", h3), Table(uptimeTable))
+uptimeTable = |Metric|Value
+|Uptime|99.97%
+|Downtime|2h
+|SLAs met|98.5%
+usageSection = Card(Heading("CPU and memory usage (past 24h)", h3), LineChart(usageTable, natural, xLabel:"Hour", yLabel:"Usage %"))
+usageTable = |Hour|CPU|Memory
+|t-23|72|65
+|t-22|68|63
+|t-21|75|70
+|t-20|80|72
+|t-19|77|69
+|t-18|73|66
+|t-17|69|64
+|t-16|71|67
+|t-15|74|68
+|t-14|78|70
+|t-13|81|73
+|t-12|79|71
+|t-11|76|69
+|t-10|74|66
+|t-9|70|65
+|t-8|68|64
+|t-7|71|67
+|t-6|72|66
+|t-5|73|68
+|t-4|75|69
+|t-3|77|70
+|t-2|79|72
+|t-1|82|74
+errorSection = Card(Heading("Error rate right now", h3), TextContent("0.6% errors in last minute", size:small))
+incidentsSection = Card(Heading("Open incidents by severity", h3), Table(incidentsTable))
+incidentsTable = |Severity|Count|Description
+|Critical|2|Database outage, payment gateway
+|High|5|Latency spikes in API gateway
+|Medium|7|Slow batch jobs
+endpointsSection = Card(Heading("Five slowest endpoints (latency)", h3), Table(endpointsTable))
+endpointsTable = |Endpoint|Latency(ms)
+|/auth/login|154
+|/payments/charge|142
+|/inventory/search|138
+|/orders/create|132
+|/reports/generate|128
+alertSection = Card(Heading("Set alert threshold", h3), Form("alert-form", formButtons2, thresholdField))
+thresholdField = FormControl("Latency threshold (ms)", Input("latency", "200"), "Alert when latency exceeds threshold")
+formButtons2 = Buttons(Button("Set alert", primary))
+acknowledgeSection = Card(Heading("Acknowledge an incident", h3), Form("ack-form", formButtons3, ackIncidentSelect, ackNotes))
+ackIncidentSelect = FormControl("Incident to acknowledge", Select("incident_id", SelectItem("INC-1001", "INC-1001 - Database outage"), SelectItem("INC-1005", "INC-1005 - API latency"), placeholder:"Choose incident")
+ackNotes = FormControl("Acknowledge notes", TextArea("notes", "", rows:3), "Optional notes for context")
+formButtons3 = Buttons(Button("Acknowledge", tertiary))

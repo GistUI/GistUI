@@ -1,8 +1,0 @@
-root = Card(current, outlook, sun)
-current = Card(CardHeader("Bengaluru Weather", "Current conditions"), MarkDownRenderer("**Temp:** 28°C\n**Condition:** Sunny", variant:clear))
-outlook = Card(Heading("3‑Day Outlook", h3), outlookTable)
-outlookTable = |Day|High|Low|Condition
-|Mon|30°C|22°C|Partly Cloudy
-|Tue|31°C|23°C|Sunny
-|Wed|29°C|21°C|Rain
-sun = Card(Heading("Sunrise & Sunset", h3), MarkDownRenderer("- **Sunrise:** 6:12 AM\n- **Sunset:** 6:45 PM", variant:clear))

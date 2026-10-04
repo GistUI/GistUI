@@ -1,4 +1,0 @@
-root = Card(CardHeader("Invoice", "Freelancer Services"), amountSection, dueSection, paySection, clear)
-amountSection = Card(Heading("Amount Due", h3), TextContent("$2,500 USD", size:large), Tag("$2,500", success))
-dueSection = Card(Heading("Due Date", h3), TextContent("2024-10-15"))
-paySection = Buttons(Button("Pay Now", primary))

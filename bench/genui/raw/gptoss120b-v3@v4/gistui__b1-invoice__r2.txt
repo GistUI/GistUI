@@ -1,4 +1,0 @@
-root = Card(amountSection, dueSection, actions)
-amountSection = Card(CardHeader("Invoice", "Freelancer Services"), TextContent("$1,200 USD", size:large-heavy))
-dueSection = Card(Heading("Due date", h3), TextContent("September 15, 2026"))
-actions = Buttons(Button("Pay now", primary))

@@ -1,9 +1,0 @@
-root = Card(CardHeader("Morning check-in", "Live revenue vs same time yesterday"), kpiRow, chartCard, direction:column, gap:l)
-kpiRow = Card(todayCard, yesterdayCard, direction:row, gap:l, variant:clear)
-todayCard = Card(Heading("Revenue so far today", h3), TextContent("**$1,284.50**", size:large-heavy), Tag("+12.5% vs yesterday", success), variant:sunk)
-yesterdayCard = Card(Heading("Same time yesterday", h3), TextContent("**$1,142.00**", size:large-heavy), TextContent("+$142.50 ahead of yesterday", size:small), variant:sunk)
-chartCard = Card(Heading("Hourly revenue: today vs yesterday", h3), LineChart(hourlyRows, natural, xLabel:"Time", yLabel:"Revenue"), variant:sunk)
-hourlyRows = |Time|Today|Yesterday
-|9 AM|210|180
-|10 AM|540|460
-|11 AM|1284|1142

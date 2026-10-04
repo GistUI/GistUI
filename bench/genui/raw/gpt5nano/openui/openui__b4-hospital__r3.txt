@@ -1,0 +1,110 @@
+root = Card([
+  CardHeader("Hospital Operations Command View", "Live dashboard for bed, ER, admissions, staff, and operations"),
+
+  // 1. bed occupancy
+  Card([
+    Heading("Bed Occupancy", "h2"),
+    Separator("horizontal", false),
+    LineChart(["Total beds", "Occupied", "Available"], [
+      Series("Beds", [140, 128, 12])
+    ], "linear", "Metric", "Count")
+  ], "card"),
+
+  // 2. current ER wait
+  Card([
+    Heading("ER Wait Time", "h2"),
+    TagBlock(["ER", "Today"]),
+    Separator("horizontal", false),
+    TextContent("Current average ER wait: 48 minutes. Triage initiated for high-priority cases.")
+  ], "card"),
+
+  // 3. admissions over the past two weeks
+  Card([
+    Heading("Admissions (Past 14 days)", "h2"),
+    LineChart([1,2,3,4,5,6,7,8,9,10,11,12,13,14], [
+      Series("Admissions", [22, 25, 19, 24, 30, 28, 27, 26, 29, 31, 34, 32, 28, 25])
+    ], "linear", "Day", "Admissions")
+  ], "card"),
+
+  // 4. patients per department
+  Card([
+    Heading("Patients per Department", "h2"),
+    HorizontalBarChart(["Emergency","ICU","Surgical","Pediatrics","Cardiology"], [
+      Series("Patients", [28, 12, 34, 18, 9])
+    ], "grouped", "Department", "Patients")
+  ], "card"),
+
+  // 5. staff on shift with role for each
+  Card([
+    Heading("Staff on Shift", "h2"),
+    Table([
+      Col("Role", ["Nurse", "Physician", "Tech", "Nurse Lead", "Anesthesiologist"]),
+      Col("On Duty", [8, 5, 4, 2, 3]),
+      Col("Currently Logged In", ["Yes","Yes","Yes","Yes","Yes"])
+    ])
+  ], "card"),
+
+  // 6. critical patients called out
+  Card([
+    Heading("Critical Patients (Code), Called Out", "h2"),
+    TagBlock(["ICU-01","ER-07","OR-12"]),
+    Image("Critical alert icon", "https://picsum.photos/seed/critical/64/64")
+  ], "card"),
+
+  // 7. patients ready for discharge
+  Card([
+    Heading("Ready for Discharge", "h2"),
+    ListBlock([
+      ListItem("Patient 2032 - Observation", "Pending bed release", ["https://picsum.photos/seed/p2032/40/40"]),
+      ListItem("Patient 1987 - Post-op recovery", "Discharge planning in progress", ["https://picsum.photos/seed/p1987/40/40"])
+    ], "image")
+  ], "card"),
+
+  // 8. today's operating room bookings
+  Card([
+    Heading("Operating Room Bookings - Today", "h2"),
+    Table([
+      Col("Time", ["07:00","09:30","11:00","13:00","15:30"]),
+      Col("OR", ["OR1","OR2","OR3","OR1","OR2"]),
+      Col("Procedure", ["Knee arthroplasty","C-Section","Hernia repair","Hip replacement","Appendectomy"])
+    ])
+  ], "card"),
+
+  // 9. supplies running low
+  Card([
+    Heading("Supplies Running Low", "h2"),
+    TagBlock(["Suture Kits","VAC Dressings","IV Fluids","Oxygen Cylinders"]),
+    Progress(72, "Overall stock sufficiency")
+  ], "card"),
+
+  // 10. a way to file an incident
+  DialogBlock("File Incident", "Incident Report",
+    [
+      TextContent("Submit details of incident for rapid review and corrective action.", "default"),
+      Form("incident-form", Buttons([Button("Submit Incident"), Button("Cancel", null, "secondary")]), [
+        FormControl("Incident Type", Input("type", "e.g., Fall, Medication Error")),
+        FormControl("Location", Input("location", "Ward / Room")),
+        FormControl("Description", TextArea("description", "Describe what happened, who was involved, and immediate actions taken")),
+        FormControl("Severity", Select("severity", [SelectItem("Low","Low"), SelectItem("Medium","Medium"), SelectItem("High","High")]))
+      ])
+    ]
+  ),
+
+  // 11. a way to look at another day
+  DrawerBlock("View Another Day", "Choose Day", "Select a date to view metrics for that day", [
+    DatePicker("targetDay", "single", null, [Date("2026-10-04")])
+  ]),
+
+  // 12. a way to request a patient transfer
+  DialogBlock("Request Transfer", "Request Patient Transfer",
+    [
+      TextContent("Initiate transfer to another unit or facility.", "default"),
+      Form("transfer-form", Buttons([Button("Submit Transfer"), Button("Cancel", null, "secondary")]), [
+        FormControl("Patient ID", Input("patient_id", "e.g., 2032")),
+        FormControl("From", Input("from_unit", "e.g., ICU")),
+        FormControl("To", Input("to_unit", "e.g., Step-down")),
+        FormControl("Reason", TextArea("reason", "Brief reason for transfer"))
+      ])
+    ]
+  )
+])

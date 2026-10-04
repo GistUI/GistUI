@@ -1,0 +1,3 @@
+root = Card(CardHeader("Alex Kim", "Product Manager"), SectionBlock(SectionItem("bio", "Bio", Card(TextContent("Alex Kim leads product development and focuses on user-centered design."))), SectionBlock(SectionItem("contact", "Message", DialogBlock("Message Alex", "Send a message", Card(TextContent("Compose your message below.")), description:"Reach out directly"), isFoldable)), Buttons(Button("Send Message", trigger:"message"), Button("Back", tertiary)))
+bio = Card(Heading("Bio", h3), TextContent("Alex Kim leads product development and focuses on user-centered design."), Separator()) 
+messageDialog = DialogBlock("Message Alex", "Send a message", Card(TextContent("Compose your message below.")), description:"Reach out directly")

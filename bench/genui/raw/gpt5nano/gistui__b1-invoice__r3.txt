@@ -1,0 +1,8 @@
+root = Card(CardHeader("Invoice Overview", "Freelancer to Client"), dueSection, paySection)
+dueSection = Card(Heading("Amount due", h2), TextContent("USD 1,250.00 due on 2026-11-15"), Tag("Due now", warning))
+paySection = Card(Heading("Pay now", h3), Form("pay-now", payButtons, paymentControls))  
+payButtons = Buttons(Button("Pay $1,250.00", primary))
+paymentControls = ListBlock(Select("currency", SelectItem("USD", "USD"), SelectItem("EUR", "EUR"), placeholder:"Choose currency"))  
+dueDateBadge = Tag("Due: 2026-11-15", danger)
+# Ensure id usage
+# (No further content)

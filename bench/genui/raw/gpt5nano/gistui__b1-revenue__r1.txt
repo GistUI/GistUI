@@ -1,0 +1,10 @@
+root = Card(CardHeader("Shop Health Dashboard", "Mid-morning snapshot"), revenueCard, comparisonCard) 
+revenueCard = Card(Heading("Revenue today", h3), Table(todayTable)) 
+todayTable = |Metric|Value
+|Revenue|$7,420
+|Orders|342
+comparisonCard = Card(Heading("Comparison to yesterday at this time", h3), ChartPanel) 
+ChartPanel = HorizontalBarChart(comparisonTable, variant:grouped, xLabel:"Revenue", yLabel:"Time of day") 
+comparisonTable = |Time|Revenue
+|Mid-morning|7420
+|Yesterday Mid-morning|6880

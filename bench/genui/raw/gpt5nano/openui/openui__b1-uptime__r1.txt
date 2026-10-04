@@ -1,0 +1,15 @@
+root = Card([header, uptimeCard, incidentCard, actions])
+header = CardHeader("Platform Status", "Current month overview")
+
+uptimeCard = Card([uptimeHeading, uptimeValue, uptimeChart], "card")
+uptimeHeading = Heading("API uptime this month", "h3")
+uptimeValue = TextContent("Current uptime: 99.97%", "default")
+uptimeChart = LineChart(["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"], [Series("API", [99.99,99.98,99.97,99.98,99.97,99.99,99.96,99.97,99.98,99.97,99.96,99.97,99.98,99.99,99.98,99.97,99.96,99.97,99.98,99.97,99.96,99.97,99.98,99.97,99.98,99.97,99.96,99.97,99.97,99.97])], "linear", "Day", "Percent")
+
+incidentCard = Card([incidentHeading, incidentNote], "card")
+incidentHeading = Heading("Most recent incident", "h3")
+incidentNote = TextContent("Resolved: 2026-09-18 14:22 UTC. Outage duration: 42 minutes. Root cause: degraded cache layer affecting API latency.", "default")
+
+actions = Buttons([refreshBtn])
+refreshBtn = Button("Refresh status", null, "secondary")
+

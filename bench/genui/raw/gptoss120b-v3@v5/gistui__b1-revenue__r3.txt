@@ -1,7 +1,0 @@
-root = Card(header, today_rev, comparison_chart)
-
-header = CardHeader("Mid‑morning Check‑in", "Revenue overview")
-
-today_rev = TextContent("$12,340", size:large)
-
-comparison_chart = BarChart(labels:["Today","Yesterday"], Series("Revenue", values:[12340,11500]), variant:grouped, xLabel:"Period", yLabel:"Revenue")

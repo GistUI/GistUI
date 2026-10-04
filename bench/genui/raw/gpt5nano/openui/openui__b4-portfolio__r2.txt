@@ -1,0 +1,138 @@
+root = Card([
+  headerRow,
+  summaryHealth = TextContent("Portfolio health: Overall good with some red flags in overdue milestones and high-risk items.", "default"),
+  controlsRow,
+  mainGrid
+])
+
+headerRow = CardHeader("PMO Project Portfolio Review", "Quarter: Q3 2026 • Next two weeks focus")
+summaryHealth
+
+controlsRow = Card([
+  quarterPickerCard,
+  exportArchiveRow
+], "card")
+
+quarterPickerCard = Card([
+  Heading("Select Quarter", "h3"),
+  QuarterTabs([q1, q2, q3, q4])
+])
+
+q1 = "Q1 2026"
+q2 = "Q2 2026"
+q3 = "Q3 2026"
+q4 = "Q4 2026"
+
+QuarterTabs(items) = Tabs([
+  TabItem("Q1", "Q1", [TextContent("Q1 2026 data"), TextContent("Preview: click to view")]),
+  TabItem("Q2", "Q2", [TextContent("Q2 2026 data"), TextContent("Preview: click to view")]),
+  TabItem("Q3", "Q3", [TextContent("Q3 2026 data"), TextContent("Preview: click to view")]),
+  TabItem("Q4", "Q4", [TextContent("Q4 2026 data"), TextContent("Preview: click to view")])
+])
+
+exportArchiveRow = Card([
+  Buttons([
+    Button("Export Review", null, "primary"),
+    Button("Archive Finished Projects", null, "secondary")
+  ], "row")
+])
+
+mainGrid = Card([
+  projectOverviewCard,
+  overdueMilestonesCard,
+  budgetAllocationCard,
+  teamUtilCard,
+  risksCard,
+  upcomingDeadlinesCard,
+  paceCard,
+  blockedWorkCard,
+  oneLineHealthCard
+], "card")
+
+projectOverviewCard = Card([
+  Heading("Active Projects", "h2"),
+  OwnerTable(ownerTableData),
+  healthLegend
+])
+
+OwnerTable(rows) = Table([
+  Col("Project", ["Apollo", "Zephyr", "Aegis", "Nova"]),
+  Col("Owner", ["Alice", "Chen", "Rahim", "Mina"]),
+  Col("Deadline", ["2026-10-20", "2026-11-05", "2026-10-28", "2026-11-12"]),
+  Col("Health", ["Healthy", "At Risk", "Healthy", "Caution"])
+])
+
+healthLegend = TagBlock(["Healthy", "At Risk", "Caution", "Critical"])
+
+overdueMilestonesCard = Card([
+  Heading("Overdue Milestones", "h3"),
+  OverdueList(milestones)
+])
+
+milestones = [
+  Slice("Apollo - Milestone 5",  "2026-09-30"),
+  Slice("Zephyr - Milestone 3",  "2026-09-28"),
+  Slice("Aegis - Milestone 4",   "2026-09-25")
+]
+
+OverdueList(items) = ListBlock([
+  ListItem("Apollo - Milestone 5", "Due: 2026-09-30", [], "View"),
+  ListItem("Zephyr - Milestone 3", "Due: 2026-09-28", [], "View"),
+  ListItem("Aegis - Milestone 4",  "Due: 2026-09-25", [], "View")
+], "number")
+
+budgetAllocationCard = Card([
+  Heading("Budget Spent vs Allocation", "h3"),
+  BarChart(["Apollo", "Zephyr", "Aegis", "Nova"], [
+    Series("Spent", [420000, 275000, 390000, 150000]),
+    Series("Allocation", [600000, 500000, 700000, 350000])
+  ], "grouped", "Spent / Allocation", "USD"),
+  TextContent("Note: allocations reflect approved budgets for current quarter.", "default")
+])
+
+teamUtilCard = Card([
+  Heading("Team Utilization", "h3"),
+  HorizontalBarChart(["Apollo", "Zephyr", "Aegis", "Nova"], [
+    Series("Utilization", [72, 88, 65, 54])
+  ], "grouped", "Teams", "Utilization %"),
+  TextContent("Low utilization indicates potential reallocation opportunities.", "default")
+])
+
+risksCard = Card([
+  Heading("Risks by Project", "h3"),
+  RadarChart(["Apollo", "Zephyr", "Aegis", "Nova"], [
+    Series("Severity", [3, 4, 2, 5])
+  ])
+])
+
+upcomingDeadlinesCard = Card([
+  Heading("Deadlines in Next Two Weeks", "h3"),
+  Table([
+    Col("Project", ["Apollo", "Zephyr", "Aegis"]),
+    Col("Milestone", ["Milestone 6", "Milestone 4", "Milestone 5"]),
+    Col("Due Date", ["2026-10-15", "2026-10-18", "2026-10-20"])
+  ])
+])
+
+paceCard = Card([
+  Heading("Delivery Pace (Past 6 Sprints)", "h3"),
+  LineChart([1,2,3,4,5,6], [
+    Series("Velocity", [26, 22, 28, 30, 25, 27])
+  ], "linear", "Sprint", "Items")
+])
+
+blockedWorkCard = Card([
+  Heading("Blocked Work Items", "h3"),
+  ListBlock([
+    ListItem("Apollo - Task 12", "Blocked by dependency on Zephyr", [], "Investigate"),
+    ListItem("Nova - Task 7", "Waiting for design approval", [], "Review")
+  ], "image")
+])
+
+oneLineHealthCard = Card([
+  Heading("Portfolio Health Summary", "h3"),
+  TextContent("Overall health: 2 red flags (overdue milestones, high-severity risks) and 3 yellow flags (blocked items, capacity gaps).", "default")
+])
+
+# simple reference connections to satisfy "every defined name must be reachable" constraint
+ownerTableData = null

@@ -1,0 +1,102 @@
+root = Card(CardHeader("City Operations Center"), section1, section2, section3, section4, section5, section6, section7, section8, section9, section10, section11, section12, section13, section14, section15, section16, section17)
+
+section1 = Card(Heading("1) Congestion now", h2), HorizontalBarChart(congestionTable, xLabel:"District", yLabel:"Vehicles"), sunk)
+
+section2 = Card(Heading("2) Transit punctuality", h2), RadarChart(transitRadar), sunk)
+
+section3 = Card(Heading("3) Air quality by district", h2), Table(aqiTable), sunk)
+
+section4 = Card(Heading("4) Energy use over past week", h2), LineChart(energyTrend, natural, xLabel:"Day", yLabel:"MWh"), sunk)
+
+section5 = Card(Heading("5) Water use today", h2), PieChart(waterTable, variant:donut, appearance:circular), sunk)
+
+section6 = Card(Heading("6) Open incidents by location and severity", h2), Table(incidentsTable), sunk)
+
+section7 = Card(Heading("7) Emergency vehicles deployment", h2), MapView(“deployments”), sunk)
+
+section8 = Card(Heading("8) Parking availability downtown", h2), BarChart(parkingTable, xLabel:"Lot", yLabel:"Spaces"), sunk)
+
+section9 = Card(Heading("9) Public events this weekend", h2), Table(eventsTable), sunk)
+
+section10 = Card(Heading("10) Citizen reports incoming", h2), Table(reportsTable), sunk)
+
+section11 = Card(Heading("11) Service request backlog", h2), Table(backlogTable), sunk)
+
+section12 = Card(Heading("12) Current weather", h2), CardHeader("Weather"), TextContent("Live weather feed with temperature, wind and precipitation"), sunk)
+
+section13 = Card(Heading("13) Focus on one district", h2), Form("district-focus", Buttons(Button("Apply", primary)), FormControl("District", Select("district", SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("East","East"), SelectItem("West","West")), placeholder:"Choose district")), sunk)
+
+section14 = Card(Heading("14) Dispatch a crew", h2), Form("dispatch-crew", Buttons(Button("Send crew", primary), Button("Cancel", tertiary)), FormControl("Crew type", Select("crew_type", SelectItem("Electrical","Electrical"), SelectItem("Road","Road"), SelectItem("Water","Water"))), FormControl("District", Input("district", "Downtown"))), sunk)
+
+section15 = Card(Heading("15) Public alert with message", h2), DialogBlock("alert", "Public Alert", TextContent("Emergency alert creator"), description:"Broadcast to citizens"), sunk)
+
+section16 = Card(Heading("16) Roadworks planned this month", h2), Table(roadworksTable), sunk)
+
+section17 = Card(Heading("17) Infrastructure maintenance jobs", h2), Table(maintenanceTable), sunk)
+
+congestionTable = |District|Vehicles
+|Downtown|1280
+|Uptown|740
+|Midtown|1020
+|Suburbs|610
+
+transitRadar = RadarChart(|District|On-time
+|Downtown|88
+|Uptown|92
+|Midtown|85
+|Suburbs|90)
+
+aqiTable = |District|AQI
+|Downtown|52
+|Uptown|67
+|Midtown|58
+|Suburbs|75
+
+energyTrend = |Day|MWh
+|Mon|420
+|Tue|395
+|Wed|410
+|Thu|430
+|Fri|415
+|Sat|390
+|Sun|400
+
+waterTable = |Metric|Today
+|Usage|124.5kL
+
+incidentsTable = |Incident|Location|Severity
+|I-341|Downtown Ave & 3rd|Critical
+|I-342|Riverside Park|High
+|I-343|Public Library|Moderate
+
+deploymentsViewPlaceholder = "deployments"
+
+parkingTable = |Lot|Available
+|Garage A|120
+|Garage B|60
+|Surface Lot C|25
+
+eventsTable = |Event|Time|Location
+|City Parade|Sat 10:00|Downtown
+|Farmers Market|Sun 09:00|Riverside
+
+reportsTable = |Report ID|From|Summary
+|R-1001|Citizen|Pothole on Main St
+|R-1002|Citizen|Street light out on 5th
+
+backlogTable = |Request|Count
+|Electrical|12
+|Roadwork|7
+|Water|5
+
+roadworksTable = |Location|Start|End|Status
+|Downtown Ave|2026-10-07|2026-10-28|Planned
+|Main St.|2026-10-15|2026-11-02|Planned
+
+maintenanceTable = |Asset|Due maintenance|Area
+|Bridge A|2026-11-01|Downtown
+|Valve B|2026-11-15|Westside
+
+# Ensure all defined ids are used
+# All sections are referenced in root's children
+# No extra prose per requirements

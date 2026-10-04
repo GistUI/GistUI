@@ -1,0 +1,24 @@
+root = Card([
+  header = CardHeader("Shop Dashboard", "Mid-morning snapshot"),
+  statusRow = Card([
+    revenueHeading = Heading("Revenue today", "h2"),
+    revenueValue = TextContent("$1,245.00", "default"),
+    comparisonHeading = Heading("Compared to yesterday at this time", "h3"),
+    comparisonValue = TextContent("+$112.50 (9.9% higher)", "default")
+  ], "card"),
+  chartAndTrend = Card([
+    trendHeading = Heading("Today vs Yesterday (mid-morning)", "h3"),
+    trendChart = LineChart(["9:00", "9:30", "10:00", "10:30", "11:00"], [
+      Series("Today", [125, 260, 350, 500, 1245]),
+      Series("Yesterday", [110, 230, 315, 420, 1133])
+    ], "linear", "Time", "USD")
+  ], "card"),
+  actions = Buttons([
+    Button("View detailed report", null, "primary")
+  ])
+  
+  // Ensure all defined references are used in the root
+  , 
+  // Small inline tags for visual context
+  separator = Separator("horizontal", false)
+])

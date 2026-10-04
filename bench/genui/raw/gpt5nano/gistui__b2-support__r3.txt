@@ -1,0 +1,25 @@
+root = Card(CardHeader("Support Lead Morning View"), statsRow, ticketsSection, actions)
+
+statsRow = Card(Heading("Overview", h3), kpiPanel)
+
+kpiPanel = SectionBlock(kpiOpen, kpiAvgFirstResponse)
+
+kpiOpen = Card(Heading("Open Tickets", h4), TextContent("Number of tickets currently open: 42"), sunk)
+
+kpiAvgFirstResponse = Card(Heading("Avg First Response", h4), TextContent("Averages: 2h 15m"), sunk)
+
+ticketsSection = Card(Heading("Recent Tickets", h3), RecentTable, PriorityFilters)
+
+RecentTable = Table(|Ticket|Subject|Customer|Priority|Opened|, |T123|Login issue|Acme|High|2026-10-03|, |T122|Billing question|BetaCo|Medium|2026-10-03|, |T121|Password reset|Gamma Ltd|Low|2026-10-02|, |T120|Feature request|Delta LLC|Medium|2026-10-01|, |T119|Refund helps|Zeta|High|2026-09-30|)
+
+PriorityFilters = Card(Buttons(Button("High priority only", action:["setFilter","priority","high"]), Button("Show all", action:["clearFilter","priority"])), wrap)
+
+actions = Card(Buttons(Button("New Ticket", action:["openDialog","newTicket"])), CardHeader("Quick Actions"))
+
+NewTicketDialog = DialogBlock("new-ticket", "New Ticket", Form("new-ticket-form", Buttons(Button("Create", primary)), nameField, issueField, priorityField), "Create a ticket from the morning view")
+
+nameField = FormControl("Customer", Input("customer", "Acme Corp"))
+issueField = FormControl("Issue", TextArea("issue", "Describe the issue..."))
+priorityField = FormControl("Priority", Select("priority", SelectItem("Low","Low"), SelectItem("Medium","Medium"), SelectItem("High","High"), placeholder:"Choose priority"))
+
+root = Card(CardHeader("Support Lead Morning View"), statsRow, ticketsSection, actions)

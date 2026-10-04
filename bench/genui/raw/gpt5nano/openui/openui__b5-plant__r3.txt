@@ -1,0 +1,179 @@
+root = Card([
+  header = CardHeader("Factory Floor Supervisor Console", "Live production overview"),
+  sections = Card([
+    overallMetricsSection,
+    todaysProductionSection,
+    linesSection,
+    defectTrendSection,
+    downtimeSection,
+    maintenanceDueSection,
+    stockSection,
+    supplierDeliveriesSection,
+    shiftsSection,
+    safetySection,
+    qualityHoldSection,
+    energySection,
+    openWorkOrdersSection,
+    scheduleMaintenanceSection,
+    focusLineSection,
+    liveAndonSection,
+    exportSection
+  ], "card"),
+  footer = TextContent("For quick actions, use the schedule and export controls at the bottom.", "default")
+])
+
+# 1. overall equipment effectiveness
+overallMetricsSection = Card([
+  Heading("Overall Equipment Effectiveness (OEE)", "h2"),
+  OEEChart([ "Overall" ], [ Series("OEE", [72]) ])
+], "sunk")
+
+OEEChart(labels, series) = BarChart(labels, series, "grouped", "Metric", "Percent")
+
+# 2. units produced against today's target
+todaysProductionSection = Card([
+  Heading("Today's Production vs Target", "h3"),
+  productionStatusCard
+], "card")
+
+productionStatusCard = Card([
+  TextContent("Today: 6,420 units produced vs target 6,500", "default"),
+  LinearProgress(6420, 6500)
+])
+
+LinearProgress(value, max) = Progress(value / max * 100, "Progress toward target")
+
+# 3. each production line with rate and status
+linesSection = Card([
+  Heading("Production Lines", "h3"),
+  linesTable
+], "card")
+
+linesTable = Table([
+  Col("Line", ["Line A", "Line B", "Line C", "Line D"]),
+  Col("Rate (u/h)", [120, 110, 95, 130]),
+  Col("Status", ["Running", "Running", "Idle", "Running"])
+])
+
+# 4. defect rate over the past month
+defectTrendSection = Card([
+  Heading("Defect Rate - Past Month", "h3"),
+  LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7"], [Series("Defects", [12,9,14,7,11,6,8])], "linear", "Day", "Defects")
+], "card")
+
+# 5. downtime split by cause
+downtimeSection = Card([
+  Heading("Downtime by Cause (Past 30d)", "h3"),
+  HorizontalBarChart(["Maintenance","Breakdown","Power","Material"], [Series("Downtime (min)", [320,210,140,90])], "grouped", "Cause", "Minutes")
+], "card")
+
+# 6. machines due for maintenance
+maintenanceDueSection = Card([
+  Heading("Maintenance Due This Week", "h3"),
+  ListBlock([
+    ListItem("Press 3", "Due in 2 days", ["https://picsum.photos/seed/press3/80/40"]),
+    ListItem("Cutter 1", "Overdue by 1 day", ["https://picsum.photos/seed/cutter1/80/40"]),
+    ListItem("Furnace 2", "Due in 4 days", ["https://picsum.photos/seed/furnace2/80/40"])
+  ], "image")
+], "card")
+
+# 7. stock of steel, resin and packaging
+stockSection = Card([
+  Heading("Inventory: Materials", "h3"),
+  Table([
+    Col("Material", ["Steel", "Resin", "Packaging"]),
+    Col("Stock", ["35,000 kg", "12,500 L", "8,200 m2"]),
+    Col("Unit", ["kg", "L", "m2"])
+  ])
+], "sunk")
+
+# 8. supplier deliveries due this week
+supplierDeliveriesSection = Card([
+  Heading("Deliveries Due This Week", "h3"),
+  Table([
+    Col("Supplier", ["Acme Steel", "PolyResins", "PackCo"]),
+    Col("Due Date", ["Thu", "Fri", "Sat"]),
+    Col("Quantity", ["20 t", "3,000 L", "9,000 units"]),
+  ])
+], "card")
+
+# 9. each shift's output compared
+shiftsSection = Card([
+  Heading("Shift Outputs Compared", "h3"),
+  BarChart(["Shift 1","Shift 2","Shift 3"], [
+    Series("Output", [4200, 3900, 4100])
+  ], "grouped", "Shift", "Units")
+], "card")
+
+# 10. safety incidents this year and days since last
+safetySection = Card([
+  Heading("Safety Incidents & Days Since Last", "h3"),
+  Table([
+    Col("Metric", ["Incidents This Year", "Days Since Last Incident"]),
+    Col("Value", [3, 17])
+  ])
+], "card")
+
+# 11. batches on quality hold
+qualityHoldSection = Card([
+  Heading("Batches on Quality Hold", "h3"),
+  ListBlock([
+    ListItem("Batch 2048", "Awaiting QC release", ["https://picsum.photos/seed/b2048/80/40"]),
+    ListItem("Batch 2057", "Awaiting certification", ["https://picsum.photos/seed/b2057/80/40"])
+  ])
+], "card")
+
+# 12. energy use today
+energySection = Card([
+  Heading("Energy Use Today", "h3"),
+  Card([
+    TextContent("Electricity: 1250 kWh", "default"),
+    TextContent("Steam: 5400 kJ", "default")
+  ])
+], "card")
+
+# 13. open work orders with priority for each
+openWorkOrdersSection = Card([
+  Heading("Open Work Orders by Priority", "h3"),
+  Table([
+    Col("WO#", ["WO-1023","WO-1024","WO-1025"]),
+    Col("Priority", ["High","Medium","Critical"]),
+    Col("Line", ["Line A","Line B","Line C"]),
+    Col("Status", ["Open","In Progress","Open"])
+  ])
+], "card")
+
+# 14. a way to schedule maintenance with machine and date
+scheduleMaintenanceSection = Card([
+  Heading("Schedule Maintenance", "h3"),
+  Form("schedule-maint", Buttons([Button("Schedule", null, "primary")]), [
+    FormControl("Machine", Select("machine", [SelectItem("Line A - Press 1","Line A - Press 1"), SelectItem("Line B - Cutter 2","Line B - Cutter 2")], "Choose machine"), "Select"),
+    FormControl("Date", DatePicker("maintenance_date"), "Pick date"),
+    FormControl("Reason", TextArea("reason"), "Maintenance reason")
+  ])
+], "card")
+
+# 15. a way to focus on one line
+focusLineSection = Card([
+  Heading("Focus on a Single Line", "h3"),
+  Card([
+    TextContent("Select a line to view all live metrics in detail.", "default"),
+    Select("focus_line", [SelectItem("Line A","Line A"), SelectItem("Line B","Line B"), SelectItem("Line C","Line C")], "Choose line", null, "Line A")
+  ])
+], "card")
+
+# 16. live andon alerts
+liveAndonSection = Card([
+  Heading("Live Andon Alerts", "h3"),
+  Table([
+    Col("Alert", ["Line B - Jam", "Line D - Stoppage", "Line A - Material shortage"]),
+    Col("Status", ["Active", "Resolved", "Active"]),
+    Col("Time", ["00:12","01:03","00:45"])
+  ])
+], "card")
+
+# 17. export the shift report
+exportSection = Card([
+  Heading("Export Shift Report", "h3"),
+  Buttons([ Button("Export CSV", null, "primary"), Button("Export PDF") ], "row")
+], "card")

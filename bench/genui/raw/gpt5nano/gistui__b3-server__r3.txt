@@ -1,0 +1,35 @@
+root = Card(CardHeader("On-call Health Dashboard"), regionFilter, uptimeSection, usageChart, errorPanel, incidentsTable, latencySection, alertControls, acknowledgePanel)
+regionFilter = Form("region-filter-form", Buttons(Button("Apply", primary)), regionSelect)
+regionSelect = Select("region", SelectItem("us-east", "US East"), SelectItem("us-west", "US West"), SelectItem("eu-central", "EU Central"), placeholder:"Choose region")
+uptimeSection = Card(Heading("Uptime", h3), Table(uptimeTable), sunk)
+uptimeTable = |Metric|Value
+|Uptime this quarter|99.98%
+|Downtime|2m
+usageChart = Card(Heading("CPU & Memory usage (past 24h)", h3), LineChart(usageTable, natural, xLabel:"Hour", yLabel:"Usage %"))
+usageTable = |Hour|CPU|Memory
+|00:00|62|70
+|01:00|58|68
+|02:00|65|72
+|03:00|60|69
+|04:00|63|71
+|05:00|61|67
+|06:00|64|73
+|07:00|66|75
+|08:00|68|78
+|09:00|70|80
+errorPanel = Card(Heading("Current error rate", h3), TagBlock([Tag("Rate 1m: 1.2%", info), Tag("Rate 5m: 0.9%", warning)]), sunk)
+incidentsTable = Card(Heading("Open incidents by severity", h3), Table(incidentsTableBody))
+incidentsTableBody = |Incident|Region|Severity|Opened|Actions
+|INC-421|us-east|critical|2026-10-04 12:34|Acknowledge
+|INC-422|eu-central|major|2026-10-04 12:50|Acknowledge
+|INC-423|us-west|minor|2026-10-04 13:05|Acknowledge
+latencySection = Card(Heading("Five slowest endpoints by latency", h3), Table(latencyTable), sunk)
+latencyTable = |Endpoint|Latency
+|GET /auth/login|1240ms
+|GET /data/metrics|1020ms
+|POST /orders|980ms
+|GET /inventory|930ms
+|GET /search|900ms
+alertControls = Card(Heading("Alert threshold", h3), Form("alert-form", Buttons(Button("Set threshold", primary)), thresholdField), sunk)
+thresholdField = FormControl("Threshold (ms)", Input("threshold", "1500"), "Alert when latency exceeds this value")
+acknowledgePanel = Card(Heading("Acknowledge incidents", h3),状)

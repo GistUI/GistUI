@@ -1,44 +1,45 @@
-root = Card(header, currentHeadcount, openRoles, candidatesPipeline, averageTime, headcountSplit, interviews, attrition, actions)
+root = Card(headcountCard, openRolesCard, pipelineCard, avgHireCard, deptSplitChart, interviewsCard, attritionChart, newRoleButton)
 
-header = CardHeader("Hiring Overview", "HR Lead Dashboard")
-currentHeadcount = Card(TextContent("**Current Headcount:** 125", size:large))
-openRoles = Card(Heading("Open Roles", h3), Table(openRolesTable))
-openRolesTable = |Role|Department|Open Positions
+headcountCard = Card(CardHeader("Current Headcount"), Table(headcountTable))
+headcountTable = |Metric|Value
+|Headcount|124
+
+openRolesCard = Card(CardHeader("Open Roles"), Table(openRolesTable))
+openRolesTable = |Role|Department|Openings
 |Software Engineer|Engineering|3
 |Product Manager|Product|2
-|Designer|Design|1
+|Data Analyst|Data|1
 
-candidatesPipeline = Card(Heading("Candidates by Pipeline Stage", h3), Table(pipelineTable))
+pipelineCard = Card(CardHeader("Candidates by Pipeline Stage"), Table(pipelineTable))
 pipelineTable = |Stage|Candidates
-|Applied|45
-|Phone Screen|30
-|Onsite|12
-|Offer|5
-|Hired|4
+|Applied|27
+|Phone Screen|14
+|Onsite|6
+|Offer|3
+|Hired|2
 
-averageTime = Card(TextContent("**Average Time to Hire:** 42 days", size:large))
+avgHireCard = Card(CardHeader("Average Time to Hire"), TextContent("**28 days**", size:large))
+deptSplitChart = Card(CardHeader("Headcount by Department"), BarChart(deptSplitTable, variant:grouped, xLabel:"Department", yLabel:"Employees"))
+deptSplitTable = |Department|Employees
+|Engineering|58
+|Product|22
+|Data|12
+|HR|8
+|Marketing|24
 
-headcountSplit = Card(Heading("Headcount by Department", h3), BarChart(splitTable, variant:grouped, xLabel:"Department", yLabel:"Headcount"))
-splitTable = |Department|Headcount
-|Engineering|60
-|Product|25
-|Design|15
-|HR|10
-|Sales|15
+interviewsCard = Card(CardHeader("Interviews Scheduled This Week"), Table(interviewsTable))
+interviewsTable = |Candidate|Role|Date|Time
+|Alice Johnson|Software Engineer|2026-10-08|10:00 AM
+|Bob Lee|Product Manager|2026-10-09|02:00 PM
+|Carol Smith|Data Analyst|2026-10-10|11:30 AM
 
-interviews = Card(Heading("Interviews Scheduled This Week", h3), Table(interviewsTable))
-interviewsTable = |Candidate|Role|Date
-|Alice Smith|Software Engineer|2023-10-02
-|Bob Jones|Product Manager|2023-10-03
-|Carol Lee|Designer|2023-10-04
-
-attrition = Card(Heading("Attrition (Last 6 months)", h3), LineChart(attritionTable, variant:linear, xLabel:"Month", yLabel:"% Attrition"))
+attritionChart = Card(CardHeader("Attrition Over Past Six Months"), LineChart(attritionTable, variant:linear, xLabel:"Month", yLabel:"Attrition Rate (%)"))
 attritionTable = |Month|Attrition%
-|May|2.1
-|Jun|1.8
-|Jul|2.3
-|Aug|2.0
-|Sep|1.9
-|Oct|2.2
+|May|1.2
+|Jun|0.9
+|Jul|1.5
+|Aug|1.1
+|Sep|0.8
+|Oct|1.0
 
-actions = Buttons(Button("Open New Role", primary))
+newRoleButton = Buttons(Button("Open New Role", primary))

@@ -1,0 +1,34 @@
+root = Card(CardHeader("Marketing Manager Dashboard", "Weekly view"), ToolbarExport(), dateRange, visitorsSection, conversionSection, sourcesSection, campaignsSection, bestCampaignSection, subscribersSection)
+CardHeader("Marketing Manager Dashboard", "Weekly view")
+dateRange = DialogBlock("date-range", "Change date range", DatePicker("date_range", mode:range), description:"Select start and end dates", triggerVariant:default)
+ToolbarExport() = Button("Export CSV", action:["export_csv"])
+visitorsSection = Card(Heading("Site visitors (last 30 days)", h3), Table(trafficTable))
+trafficTable = |Date|Visitors
+|2026-09-01|1200
+|2026-09-02|1350
+|2026-09-03|1420
+conversionSection = Card(Heading("Conversion rate", h3), LineChart(conversionTable, natural, xLabel:"Date", yLabel:"Conversion %"))
+conversionTable = |Date|Rate
+|2026-09-01|2.3
+|2026-09-02|2.6
+|2026-09-03|2.8
+sourcesSection = Card(Heading("Top traffic sources", h3), RadarChart(sourcesTable))
+sourcesTable = |Source|Share|Notes
+|Organic|42%
+|Paid|28%
+|Direct|15%
+|Social|10%
+|Referral|5%
+campaignsSection = Card(Heading("Active campaigns", h3), BarChart(campaignsTable, xLabel:"Campaign", yLabel:"Spend USD"))
+campaignsTable = |Campaign|Spend
+|Fall Promo|12500
+|Summer Splash|9800
+|Holiday Push|6300
+|Brand Awareness|4100
+|Retargeting|3600
+bestCampaignSection = Card(Heading("Best performing campaign", h4), Tag("Best", success), Callout(info, "Top performer", "Highest ROI this week"), TextContent("The Fall Promo leads in conversions and ROI this week.", size:"default"))
+subscribersSection = Card(Heading("Email subscribers growth this month", h3), AreaChart(subscribersTable, linear, xLabel:"Date", yLabel:"Subscribers"))
+subscribersTable = |Date|Subscribers
+|2026-09-01|520
+|2026-09-02|780
+|2026-09-03|860

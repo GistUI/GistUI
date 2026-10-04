@@ -1,0 +1,5 @@
+root = Card(CardHeader("Weekly Product Newsletter", "Get curated product updates every week"), intro, signupForm)
+intro = TextContent("Subscribers receive a concise weekly digest with feature highlights, release notes, and product tips.", size:default)
+signupForm = Form("newsletter-signup", formButtons, emailField)
+emailField = FormControl("Email address", Input("email", placeholder:"you@example.com"))
+formButtons = Buttons(Button("Subscribe", primary), Button("Learn more", secondary))

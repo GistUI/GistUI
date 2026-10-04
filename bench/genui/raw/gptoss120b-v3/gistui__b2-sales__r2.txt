@@ -1,24 +1,32 @@
-root = Card(revenueSection, chartSection, bestProductsSection, conversionSection, actionsSection)
+root = Card(revenueHeader, revenueSection, trendSection, topProductsSection, conversionSection, actionsSection, clear)
 
-revenueSection = Card(CardHeader("Revenue This Month"), revenueValue)
-chartSection = Card(CardHeader("Revenue (Last 6 months)"), lineChart)
-bestProductsSection = Card(CardHeader("Top 3 Products"), bestProductsTable)
-conversionSection = Card(CardHeader("Conversion Rate"), conversionProgress)
-actionsSection = Buttons(downloadButton)
+revenueHeader = CardHeader("Revenue This Month")
 
-revenueValue = TextContent("$123,456", size:large-heavy)
-lineChart = LineChart(revenueTrendRows, linear, xLabel:"Month", yLabel:"Revenue")
-bestProductsTable = Table(productCol, unitsCol)
-conversionProgress = Progress(45, "Conversion Rate")
-downloadButton = Button("Download CSV", primary)
+revenueSection = Card(MarkDownRenderer("**$125,300**", variant:clear))
 
-revenueTrendRows = |Month|Revenue
-|Jan|100000
-|Feb|110000
-|Mar|115000
-|Apr|120000
-|May|130000
-|Jun|123456
+trendSection = Card(Heading("Revenue – Last 6 Months", h3), revenueTrendChart)
 
-productCol = Col("Product", data:["Product A","Product B","Product C"], type:string)
-unitsCol = Col("Units Sold", data:[1200,950,870], type:number)
+revenueTrendChart = LineChart(sixMonthRev, natural, xLabel:"Month", yLabel:"Revenue")
+
+sixMonthRev = |Month|Revenue
+|Jan|102400
+|Feb|108500
+|Mar|112300
+|Apr|119800
+|May|124700
+|Jun|125300
+
+topProductsSection = Card(Heading("Top 3 Products (Units Sold)", h3), topProductsTable)
+
+topProductsTable = Table(topProductsData)
+
+topProductsData = |Product|Units Sold
+|Product A|1,240
+|Product B|1,110
+|Product C|985
+
+conversionSection = Card(Heading("Conversion Rate", h3), MarkDownRenderer("**4.7%**", variant:clear))
+
+actionsSection = Card(Buttons(downloadBtn), align:center)
+
+downloadBtn = Button("Download CSV", primary)

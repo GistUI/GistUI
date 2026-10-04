@@ -1,42 +1,42 @@
-root = Card(regionSelect, uptimeCard, usageChart, errorCallout, incidentsList, endpointsTable, alertForm)
+root = Card(CardHeader("Service Health Dashboard"), uptimeSection, usageSection, errorSection, incidentsSection, endpointsSection, controlsSection)
 
-regionSelect = Select("region", SelectItem("us-east-1","US East 1"), SelectItem("us-west-2","US West 2"), placeholder:"Select region")
+uptimeSection = Card(Heading("Uptime (this quarter)", h3), TextContent("99.97% uptime", size:large))
 
-uptimeCard = Card(CardHeader("Uptime this quarter", "99.9%"))
+usageSection = Card(Heading("CPU & Memory (last 24h)", h3), LineChart(cpuMemChart, variant:linear, xLabel:"Time", yLabel:"%"))
 
-usageChart = Card(Heading("CPU & Memory (24h)", h3), LineChart(usageRows, variant:linear, xLabel:"Hour", yLabel:"%"))
+cpuMemChart = |Time|CPU|Memory
+|00:00|45|68
+|04:00|50|70
+|08:00|55|72
+|12:00|60|75
+|16:00|58|73
+|20:00|52|69
+|24:00|48|66
 
-errorCallout = Callout(variant:warning, "Error Rate", "0.42% right now")
+errorSection = Card(Heading("Current Error Rate", h3), TextContent("0.3% errors", size:large))
 
-incidentsList = ListBlock(incident1, incident2, incident3, incident4, incident5)
+incidentsSection = Card(Heading("Open Incidents", h3), Table(incidentsTable), Buttons(ackButton, direction:row))
 
-incident1 = ListItem("INC-101", "Severity: Critical – DB timeout", "Acknowledge")
-incident2 = ListItem("INC-102", "Severity: High – Service lag", "Acknowledge")
-incident3 = ListItem("INC-103", "Severity: Medium – Cache miss", "Acknowledge")
-incident4 = ListItem("INC-104", "Severity: Low – Minor glitch", "Acknowledge")
-incident5 = ListItem("INC-105", "Severity: High – API error", "Acknowledge")
+incidentsTable = |Severity|Incident|Region
+|high|Database connectivity loss|us-east-1
+|medium|Cache miss spikes|eu-west-2
+|low|Log aggregation delay|ap-southeast-1
 
-endpointsTable = Table(endpointsRows)
+ackButton = Button("Acknowledge selected", primary)
 
-alertForm = Form("alert-settings", formButtons, thresholdField)
+endpointsSection = Card(Heading("Top 5 Slowest Endpoints", h3), Table(endpointsTable))
 
-thresholdField = FormControl("Alert threshold (%)", inputThreshold)
+endpointsTable = |Endpoint|Avg Latency (ms)
+|/api/v1/orders|420
+|/api/v1/payments|395
+|/api/v1/users|380
+|/api/v1/inventory|350
+|/api/v1/reports|340
 
-inputThreshold = Input("threshold", "Enter %", , number)
+controlsSection = Card(Heading("Controls", h3), Form("health-controls", controlButtons, regionControl, thresholdControl))
 
-formButtons = Buttons(Button("Save", primary))
+regionControl = FormControl("Region", Select("region", SelectItem("us-east-1","US East 1"), SelectItem("eu-west-2","EU West 2"), SelectItem("ap-southeast-1","AP Southeast 1"), placeholder:"All regions"))
 
-usageRows = |Hour|CPU %|Memory %|
-|00:00|65|70|
-|04:00|58|62|
-|08:00|72|68|
-|12:00|80|75|
-|16:00|77|73|
-|20:00|69|71|
+thresholdControl = FormControl("Alert Threshold (%)", Input("threshold", "5", type:number))
 
-endpointsRows = |Endpoint|Latency (ms)|
-|/api/v1/users|420|
-|/api/v1/orders|385|
-|/api/v1/payments|370|
-|/api/v1/search|355|
-|/api/v1/reports|340|
+controlButtons = Buttons(Button("Set Alert", primary), Button("Refresh", secondary))

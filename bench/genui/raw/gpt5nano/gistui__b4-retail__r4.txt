@@ -1,0 +1,51 @@
+root = Card(CardHeader("Store Manager Dashboard", "Daily Console"), SectionBlock(sectionSales, isFoldable), SectionBlock(sectionTraffic, isFoldable), SectionBlock(sectionBestSellers, isFoldable), SectionBlock(sectionOutOfStock, isFoldable), SectionBlock(sectionShifts, isFoldable), SectionBlock(sectionBasket, isFoldable), SectionBlock(sectionReturns, isFoldable), SectionBlock(sectionPromotions, isFoldable), SectionBlock(sectionRegisters, isFoldable), SectionBlock(sectionReorder, isFoldable), SectionBlock(sectionStoreSwitch, isFoldable), SectionBlock(sectionCompareWeek, isFoldable), FollowUpBlock( ) )
+sectionSales = Card(Heading("Sales today vs target", h3), Table(salesTable) )
+salesTable = |Metric|Value|Target
+|Sales Today|$5,420|$6,000
+sectionTraffic = Card(Heading("Foot traffic through the day", h3), LineChart(trafficTable, natural, xLabel:"Time", yLabel:"People") )
+trafficTable = |Time|Count
+|09:00|32
+|10:00|58
+|11:00|74
+|12:00|90
+|13:00|85
+sectionBestSellers = Card(Heading("Best sellers (units)", h3), Table(bestTable) )
+bestTable = |Item|Units
+|Widget A|120
+|Gadget B|97
+|Thingamajig C|63
+sectionOutOfStock = Card(Heading("Out of stock", h3), Table(outStockTable) )
+outStockTable = |Item|Stock
+|Widget Z|0
+|Gizmo Y|0
+sectionShifts = Card(Heading("Shift today", h3), Table(shiftsTable) )
+shiftsTable = |Staff|Shift|Status
+|Alex|Morning|Open
+|Sam|Evening|Open
+sectionBasket = Card(Heading("Average basket size", h3), TextContent("Average basket size: $58.20", size:default) )
+sectionReturns = Card(Heading("Returns this week", h3), Table(returnsTable) )
+returnsTable = |Day|Returns
+|Mon|$210
+|Tue|$180
+|Wed|$240
+|Thu|$195
+|Fri|$260
+sectionPromotions = Card(Heading("Promotions performance", h3), Table(promosTable) )
+promosTable = |Promotion|Performance
+|Spring Sale|+12.5%
+|Loyalty Bonus|+8.3%
+sectionRegisters = Card(Heading("Registers status", h3), Table(registersTable) )
+registersTable = |Register|Open
+|Reg 1|Yes
+|Reg 2|No
+|Reg 3|Yes
+sectionReorder = Card(Heading("Reorder an item", h3), Form("reorder-form", reorderButtons, reorderControls) )
+reorderButtons = Buttons(Button("Submit reorder", primary))
+reorderControls = ListBlock(FormControl("Item", Input("reorder_item", "Widget A")), FormControl("Quantity", Input("reorder_qty", "20", type:number)))
+sectionStoreSwitch = Card(DialogBlock("Change store", "Switch Store", sectionStorePanel, description:"Select a different store to view", triggerVariant:default))
+sectionStorePanel = Card(Heading("Store selector", h4), Select("store_id", SelectItem("Store 1", "Store 1"), SelectItem("Store 2", "Store 2"), placeholder:"Choose a store"))
+sectionCompareWeek = Card(Heading("This week vs last week", h3), Table(compareTable) )
+compareTable = |Metric|ThisWeek|LastWeek
+|Sales|$38,000|$34,500
+|FootTraffic|1,420|1,360
+|Returns|$980|$740

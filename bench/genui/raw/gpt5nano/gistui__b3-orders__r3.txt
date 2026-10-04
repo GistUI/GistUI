@@ -1,0 +1,76 @@
+root = Card(CardHeader("E-commerce Operations Desk"), dashboard)
+
+dashboard = SectionBlock(sectionStats, sectionFilters, sectionRecent, sectionVolume, sectionActions, sectionFooter)
+
+sectionStats = SectionItem("stats", "Overview",
+  Card(Heading("Today", h3),
+    Table(todayRows)
+  ),
+)
+
+todayRows = |Metric|Value
+|Orders placed|42
+|Revenue|"$1,230.00"
+|Average order value|"$29.29"
+)
+
+sectionFilters = SectionBlock(SectionItem("filters-status", "Filter by status", TagBlock(["All","Pending","Processed","Fulfilled","Refunded"])),
+  Card(Heading("Status filter and search", h4),
+    Form("filters", Buttons(Button("Apply", primary)),
+      FormControl("Customer search", Input("customer", "")),
+      FormControl("Status", Select("status", SelectItem("All","All"), SelectItem("Pending","Pending"), SelectItem("Processed","Processed"), SelectItem("Fulfilled","Fulfilled"), SelectItem("Refunded","Refunded")))
+    )
+  )
+)
+
+sectionRecent = SectionItem("recent-orders", "Recent Orders",
+  Card("recentTable" ),
+  Table(recentTable)
+)
+
+recentTable = |Order ID|Customer|Total|Status
+|#10234|Alice Smith|$58.00|Pending
+|#10235|Bob Lee|$120.00|Processed
+|#10236|Coco Chen|$75.50|Fulfilled
+|#10237|David Kim|$210.00|Refunded
+)
+
+sectionVolume = SectionItem("volume", "Order Volume (Past 4 weeks)",
+  Card(AreaChart(volumeTable, variant:linear, xLabel:"Week", yLabel:"Orders"))
+)
+
+volumeTable = |Week|Orders
+|W1|120
+|W2|135
+|W3|98
+|W4|150
+)
+
+sectionActions = SectionItem("actions", "Fulfillment and refunds",
+  Card(Heading("Fulfill order", h3),
+    Form("fulfill-form", Buttons(Button("Mark Fulfilled", primary), Button("Cancel", tertiary)),
+      FormControl("Order ID", Input("order_id"))
+    )
+  ),
+  Card(Heading("Refunds", h3),
+    TextContent("Total refunds this month: 7.8%", size:"default")
+  )
+)
+
+sectionFooter = SectionItem("footer", "Footer",
+  Tag("Live data", info)
+)
+
+rootItems = root
+# Ensure all ids are defined and used
+root = Card(CardHeader("E-commerce Operations Desk"), dashboard)
+dashboard
+todayRows
+recentTable
+volumeTable
+sectionStats
+sectionFilters
+sectionRecent
+sectionVolume
+sectionActions
+sectionFooter

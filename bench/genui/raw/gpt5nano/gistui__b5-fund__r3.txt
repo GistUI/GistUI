@@ -1,0 +1,62 @@
+root = Card(CardHeader("Morning Desk", "Trading desk workspace"), timeframePicker, marketPanel, positionsPanel, exposurePanel, riskPanel, headlinesPanel, economyPanel, strategiesPanel, drawdownPanel, riskLimitsPanel, rebalancePanel, orderPanel, watchPanel, workingOrdersPanel, marginPanel, pvPanel, pnlPanel, vwapPanel)
+timeframePicker = Tabs()
+TabItem("timeframe", "Timeframe", Card(Heading("Timeframe", h3), TextContent("Choose the data window to display.")))
+marketPanel = Card(Heading("Market snapshot", h3), pvPanel, pnlPanel, priceWatchPanel, marketNewsPanel)
+pvPanel = CardHeader("Portfolio value"), Card(TextContent("Total portfolio value: $12,430,000"), ChartPanel=None)
+pnlPanel = Card(TextContent("Today P&L: $-120,000"), Progress(60, "P&L alert"))
+positionsPanel = Card(CardHeader("Positions"), Table(positionsTable))
+positionsTable = |Ticker|Size|Entry|Current Price
+|AAPL|100|$150.00|$162.40
+|MSFT|50|$280.00|$310.25
+|TSLA|20|$720.00|$890.10
+priceWatchPanel = Card(Heading("Instruments watched", h4), Table(watchTable))
+watchTable = |Ticker|Price
+|EURUSD|1.090
+|BTCUSD|26750
+|AAPL|162.40
+exposurePanel = Card(Heading("Exposure by sector", h3), HorizontalBarChart(exposureTable, variant:grouped, xLabel:"%", yLabel:"Sector"))
+exposureTable = |Sector|Exposure
+|Tech|38
+|Healthcare|12
+|Energy|15
+|Finance|25
+riskPanel = Card(Heading("Value at Risk", h3), TextContent("VaR: $1,200,000 (99% 1d)"))
+headlinesPanel = Card(Heading("Market headlines", h3), Table(headlinesTable))
+headlinesTable = |Headline|Sentiment
+|Fed signals hold|positive
+|Oil supply shock|negative
+|Earnings beat|positive
+economyPanel = Card(Heading("Economic releases this week", h3), Table(econTable))
+econTable = |Release|When|Impact
+|CPI|Thu AM|Moderate
+|PPI|Fri AM|Low
+strategiesPanel = Card(Heading("Strategies return this year", h3), Table(stratTable))
+stratTable = |Strategy|Return
+|MeanReversion|+8.2%
+|Momentum|+12.5%
+|Pairs|+5.4%
+drawdownPanel = Card(Heading("Drawdown past year", h3), LineChart(drawdownTable, linear, xLabel:"Month", yLabel:"Drawdown"))
+drawdownTable = |Month|Drawdown
+|Jan|-2.1%
+|Feb|-3.4%
+|Mar|-1.8%
+|Apr|-4.0%
+|May|-2.9%
+riskLimitsPanel = Card(Heading("Risk limits close to breach", h3), Table(riskLimitTable))
+riskLimitTable = |Limit|Status
+|Max VaR|Near breach
+|Exposure%|Near breach
+rebalancePanel = Card(Heading("Rebalance", h3), Buttons(Button("Run rebalance", primary), Button("Cancel", tertiary)))
+orderPanel = Card(Heading("Place order", h3), Form("order-entry", formButtons, tickerField, sideField, qtyField))
+tickerField = FormControl("Ticker", Input("ticker", "AAPL"))
+sideField = FormControl("Side", RadioGroup("side", RadioItem("Buy","", "buy"), RadioItem("Sell","", "sell")))
+qtyField = FormControl("Quantity", Input("qty", "100", type:"number"))
+formButtons = Buttons(Button("Submit order", primary), Button("Clear", tertiary))
+marginPanel = Card(Heading("Margin in use", h3), TextContent("Used: $4,200,000 of $8,000,000 available"))
+workingOrdersPanel = Card(Heading("Working orders", h3), Table(woTable))
+woTable = |Order|Ticker|Side|Qty|Status
+|1|AAPL|Buy|100|Working
+|2|TSLA|Sell|50|Working
+watchPanel = Card(Heading("Instruments watched", h3), Table(watchTable))
+watchPanelRepeat = null
+Group = null

@@ -1,0 +1,99 @@
+root = Card(CardHeader("Factory Floor Supervisor Console"), focusLineLine, andonAlerts, overviewPanel, linesPanel, todayTargetsPanel, defectsPanel, downtimePanel, maintenancePanel, stockPanel, deliveriesPanel, shiftsPanel, safetyPanel, qualityPanel, energyPanel, workOrdersPanel, schedulePanel, exportPanel, focusPanel)
+focusLineLine = SectionBlock(SectionItem("focus", "Focus on a Line", focusLineContent), isFoldable)
+focusLineContent = Card(Heading("Focus mode"), Table(focusTable), sunk)
+focusTable = |Line|Status|Rate|
+|Line A|Active|92| 
+linesPanel = Card(CardHeader("Production Lines"), Table(linesTable), LineChart(linesTrendTable, natural, xLabel:"Hour", yLabel:"Rate"), sunk)
+linesTable = |Line|Rate|Status|
+|Line A|125|Running|
+|Line B|110|Paused|
+|Line C|98|Running|
+linesTrendTable = |Hour|Line A|Line B|Line C|
+|08|120|100|95|
+|09|125|105|98|
+todayTargetsPanel = Card(Heading("Today vs Target"), Table(targetsTable), BarChart(targetsChart, xLabel:"Line"), sunk)
+targetsTable = |Line|Produced|Target|
+|Line A|540|600|
+|Line B|520|600|
+|Line C|480|600|
+targetsChart = |Line|Produced|Target
+|Line A|540|600
+|Line B|520|600
+|Line C|480|600
+overviewPanel = Card(CardHeader("Overall Performance"), KPIBlock("OEE", value:"78%"), KPIBlock("Today Produced", value:"1,540"), KPIBlock("Target Today", value:"1,600"), sunk)
+KPIBlock(label, value) = CardHeader(label, nil)
+defectRatePanel = Card(CardHeader("Defect Rate (Past Month)"), Table(defectTable), LineChart(defectTrend, linear, xLabel:"Day", yLabel:"Defects"), sunk)
+defectTable = |Day|Defects|
+|1|12|
+|2|9|
+defectTrend = |Day|Defects|
+|1|12|
+|2|9|
+downtimePanel = Card(CardHeader("Downtime by Cause"), Table(downtimeTable), HorizontalBarChart(downtimeTable, variant:grouped, xLabel:"Cause", yLabel:"Minutes"), sunk)
+downtimeTable = |Cause|Minutes|
+|Maintenance|120|
+|Power|60|
+|Set-up|40|
+|Unplanned|30|
+maintenancePanel = Card(CardHeader("Maintenance Schedule"), Table(maintenanceTable, variant:default), ImageBlock("https://picsum.photos/seed/maintenance/600/200"), sunk)
+maintenanceTable = |Machine|Next Due|Type|
+|Line A|2026-10-08|Preventive|
+|Line B|2026-10-10|Preventive|
+stockPanel = Card(CardHeader("Stock Levels"), Table(stockTable), BarChart(stockChart, xLabel:"Item"), sunk)
+stockTable = |Item|Quantity|
+|Steel|3200 kg|
+|Resin|850 L|
+|Packaging|12000 units|
+stockChart = |Item|Quantity|
+|Steel|3200|
+|Resin|850|
+|Packaging|12000|
+deliveriesPanel = Card(CardHeader("Supplier Deliveries This Week"), Table(deliveriesTable), DonutChart(deliveriesChart, variant:donut), sunk)
+deliveriesTable = |Supplier|Deliveries|
+|Acme Metals|24|
+|ChemCore|12|
+|PolyResin|30|
+deliveriesChart = |Supplier|Deliveries|
+|Acme|24|
+|ChemCore|12|
+|PolyResin|30|
+shiftsPanel = Card(CardHeader("Shifts Output Comparison"), Table(shiftsTable), AreaChart(shiftsChart, linear, xLabel:"Shift", yLabel:"Output"), sunk)
+shiftsTable = |Shift|Output|
+|Morning|420|
+|Evening|390|
+|Night|360|
+shiftsChart = |Shift|Output|
+|Morning|420|
+|Evening|390|
+|Night|360|
+safetyPanel = Card(CardHeader("Safety Incidents & Days"), Table(safetyTable), KPIBlock("Days Since Last Incident", value:"14"), BarChart(safetyChart, variant:linear, xLabel:"Month", yLabel:"Incidents"), sunk)
+safetyTable = |Metric|Value|
+|Incidents YTD|5|
+|Closed this year|2|
+qualityPanel = Card(CardHeader("Batches on Quality Hold"), Table(qualityTable), BarChart(qualityChart, variant:grouped, xLabel:"Batch", yLabel:"Count"), sunk)
+qualityTable = |Batch|HoldReason|
+|B-340|QC Retry|
+|B-341|Label mismatch|
+energyPanel = Card(CardHeader("Energy Use Today"), KPIBlock("Total kWh", value:"12,450"), LineChart(energyChart, natural, xLabel:"Hour", yLabel:"kWh"), sunk)
+energyChart = |Hour|kWh|
+|08|3200|
+|09|2800|
+|10|4100|
+workOrdersPanel = Card(CardHeader("Open Work Orders by Priority"), Table(workOrdersTable), BarChart(workOrdersChart, variant:grouped, xLabel:"Priority", yLabel:"Count"), sunk)
+workOrdersTable = |WO|Priority|Status|
+|WO-1123|High|Open|
+|WO-1124|Critical|Open|
+workOrdersChart = |Priority|Count|
+|High|3|
+|Critical|5|
+schedulePanel = Card(CardHeader("Schedule Maintenance"), Form("sched-maint", formButtons, machineField, dateField), sunk)
+machineField = FormControl("Machine", Input("machine", "Line A", value:"Line A"))
+dateField = FormControl("Date", Input("date", "2026-10-12", value:"2026-10-12"))
+formButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+exportPanel = Card(CardHeader("Export Shift Report"), Buttons(Button("Export CSV"), Button("Export PDF")), sunk)
+exportPanelButtons = Buttons()
+allUndefined = 0
+def bottleneck = 0
+Button(label, action) = Button(label, action:[])
+Tag("New") = Tag("New")
+Callout = null

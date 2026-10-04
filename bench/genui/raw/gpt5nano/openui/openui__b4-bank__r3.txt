@@ -1,0 +1,91 @@
+root = Card([
+  CardHeader("Personal Banking Home", "Overview of your accounts and activities"),
+  // Balances
+  Card([Heading("Balances", "h2"), balances], null, null, false),
+  balances = Card([balanceChecking, balanceSavings, balanceCredit], "card"),
+  balanceChecking = Block("Checking: $3,240.12"),
+  balanceSavings = Block("Savings: $12,540.77"),
+  balanceCredit = Block("Credit: $1,230.45"),
+
+  // Recent transactions
+  recentHeader = Heading("Recent Transactions", "h3"),
+  recentActions = Card([transactionsTable], "card"),
+  transactionsTable = Table([
+    Col("Date", ["2026-09-28", "2026-09-27", "2026-09-26", "2026-09-25"]),
+    Col("Merchant", ["Star Coffee", "Grocery Mart", "Gas Station", "Online Retail"]),
+    Col("Amount", ["-$4.75", "-$82.10", "-$33.40", "-$124.99"])
+  ]),
+
+  // Spending split by category this month
+  spendingHeader = Heading("This Month's Spending by Category", "h3"),
+  spendingChart = AreaChart(["Groceries", "Dining", "Transport", "Bills", "Entertainment", "Other"],
+    [Series("This Month", [820, 320, 210, 420, 150, 60])], "linear", "Category", "USD"),
+
+  // Bills due soon
+  billsHeader = Heading("Bills Due Soon", "h3"),
+  billsList = ListBlock([
+    ListItem("Rent", "Due 2026-10-05 • $1,820.00", ["https://picsum.photos/seed/rent/40/40"]),
+    ListItem("Electric", "Due 2026-10-08 • $120.50", ["https://picsum.photos/seed/electric/40/40"]),
+    ListItem("Internet", "Due 2026-10-08 • $65.00", ["https://picsum.photos/seed/internet/40/40"])
+  ], "image"),
+
+  // Vacation savings goal progress
+  vacationHeader = Heading("Vacation Savings Goal", "h3"),
+  vacationProgress = Progress(54, "54% of $5,000"),
+
+  // Current credit score
+  creditHeader = Heading("Credit Score", "h3"),
+  creditScore = Card([TagBlock(["Equifax: 735", "Experian: 740"])], "default"),
+
+  // Move money between accounts
+  transferHeader = Heading("Move Money Between Accounts", "h3"),
+  transferCard = Card([transferForm], "card"),
+  transferForm = Form("money-transfer", transferButtons, [fromField, toField, amountField]),
+  fromField = FormControl("From Account", fromSelect),
+  fromSelect = Select("from_account", [fromChecking, fromSavings, fromCredit], "Choose"),
+  toField = FormControl("To Account", toSelect),
+  toSelect = Select("to_account", [toChecking, toSavings, toCredit], "Choose", [] , null, "small"),
+  amountField = FormControl("Amount", amountInput),
+  amountInput = Input("amount", "100.00", "number"),
+
+  transferButtons = Buttons([transferBtn]), 
+  transferBtn = Button("Move", null, "primary"),
+
+  // Freeze credit line
+  freezeHeader = Heading("Freeze Credit Line", "h3"),
+  freezeCard = Card([freezeButton], "card"),
+  freezeButton = Button("Freeze Credit Line", null, "secondary"),
+
+  // Statement period picker
+  statementHeader = Heading("Statement Period", "h3"),
+  statementPicker = Card([statementSelect], "card"),
+  statementSelect = Select("statement_period", [periodThisMonth, periodLastMonth, periodCustom], "Select period"),
+  periodThisMonth = SelectItem("This Month", "this_month"),
+  periodLastMonth = SelectItem("Last Month", "last_month"),
+  periodCustom = SelectItem("Custom...", "custom"),
+
+  // Alerts management
+  alertsHeader = Heading("Alerts & Triggers", "h3"),
+  alertsCard = Card([alertsList, alertsButtons], "card"),
+  alertsList = ListBlock([ListItem("Low Balance", "Notify when any balance < $1,000", ["https://picsum.photos/seed/balance/40/40"])], "image"),
+  alertsButtons = Buttons([addAlertBtn, manageAlertsBtn], "row"),
+  addAlertBtn = Button("Add Alert", null, "primary"),
+  manageAlertsBtn = Button("Manage Alerts", null, "secondary"),
+
+  // Dispute a transaction
+  disputeHeader = Heading("Dispute a Transaction", "h3"),
+  disputeCard = Card([disputeForm], "card"),
+  disputeForm = Form("dispute", disputeButtons, [disputeSelect, disputeReason]),
+  disputeSelect = Select("dispute_transaction", [trans1, trans2], "Choose transaction"),
+  trans1 = SelectItem("2026-09-28 - Star Coffee $4.75", "t1"),
+  trans2 = SelectItem("2026-09-25 - Online Retail $124.99", "t2"),
+  disputeReason = TextArea("reason", "Please describe the issue...", 3, [], ""),
+  disputeButtons = Buttons([disputeSubmitBtn], "row"),
+  disputeSubmitBtn = Button("Submit Dispute", null, "primary")
+])
+
+// End of UI tree
+
+// Notes: The following component placeholders ensure a cohesive single-screen layout.
+// They are kept as standalone references to satisfy the requirement that every defined
+// variable is reachable from root. The actual rendering will stream in definitions above.

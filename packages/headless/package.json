@@ -1,6 +1,6 @@
 {
   "name": "@gistui/headless",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "GistUI's framework-free layer, shared by React, the DOM renderer and every framework binding: engine, theme, design mapping, form schema, table, chart and readiness models.",
   "keywords": [
     "gistui",

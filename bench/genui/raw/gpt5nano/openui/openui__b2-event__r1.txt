@@ -1,0 +1,57 @@
+root = Card([
+  header = CardHeader("Aurora Tech Conference 2026", "October 22–24, 2026 • San Francisco, CA"),
+  agendaSection,
+  speakersSection,
+  ticketsSection,
+  registrationSection,
+  countdownSection
+])
+
+header
+
+agendaSection = Card([
+  Heading("Agenda", "h2"),
+  CodeBlock("text", "09:00 Keynote - The Future of AI\n10:30 Coffee Break\n11:00 Breakout Sessions\n12:30 Lunch\n14:00 Panel: AI in Industry\n16:00 Networking"),
+  Separator("horizontal", false)
+], "card")
+
+speakersSection = Card([
+  Heading("Speakers", "h3"),
+  ListBlock([
+    ListItem("Dr. Maya Chen", "CTO, Aurora Labs", ["https://picsum.photos/seed/Maya/40/40"]),
+    ListItem("Luis Romero", "Head of AI Research, NovaTech", ["https://picsum.photos/seed/Luis/40/40"]),
+    ListItem("Amina Farouk", "Director of Product, Titan Systems", ["https://picsum.photos/seed/Amina/40/40"])
+  ])
+], "card")
+
+ticketsSection = Card([
+  Heading("Tickets", "h3"),
+  Table([
+    Col("Tier", ["Early Bird", "Standard", "VIP"]),
+    Col("Price", ["$199", "$299", "$499"]),
+    Col("Includes", ["All sessions, Expo hall", "All sessions, Expo hall, Workshops", "All sessions, Expo hall, VIP lounge"])
+  ]),
+  Separator("horizontal", false)
+], "card")
+
+registrationSection = Card([
+  Heading("Register", "h3"),
+  Form("registration", registerButtons, [nameField, emailField]),
+  nameField,
+  emailField
+], "card")
+
+nameField = FormControl("Full name", nameInput)
+nameInput = Input("name", "Jane Doe")
+emailField = FormControl("Email", emailInput, "We'll send the confirmation to this address")
+emailInput = Input("email", "jane@example.com", "email")
+registerButtons = Buttons([registerBtn, backBtn])
+registerBtn = Button("Register", null, "primary")
+backBtn = Button("Back", null, "secondary")
+
+countdownSection = Card([
+  Heading("Days remaining", "h3"),
+  TextContent(daysRemainingText, "large")
+], "card")
+
+daysRemainingText = "Days until event: 14"

@@ -1,0 +1,141 @@
+root = Card(CardHeader("Live-Ops Studio Dashboard"), SectionBlock(homeSection, isFoldable)) 
+homeSection = SectionBlock(serverControls, isFoldable)
+
+serverControls = SectionItem("overview", "Overview", Card(Heading("Overview", h3), playersOnline, activePlayers, revenueToday, revenuePerUser))
+
+playersOnline = Card(TextContent("Players online right now: 12,340", size:default)) 
+activePlayers = Card(Heading("DAU / MAU", h4), Table(daTable))
+
+daTable = |Metric|Value
+|DAU|12,340
+|MAU|367,210
+
+revenueToday = Card(TextContent("Revenue today: $84,520", size:default))
+revenuePerUser = Card(TextContent("Revenue per user: $6.82", size:default))
+
+sectionTwoWeeks = Card(Heading("Session length (past 14 days)", h4), LineChart(sessionTable, natural, xLabel:"Date", yLabel:"Minutes"))
+
+sessionTable = |Day|AvgSessionMin
+|Day-1|14.2
+|Day-2|13.9
+|Day-3|15.1
+|Day-4|14.8
+|Day-5|14.3
+|Day-6|14.7
+|Day-7|15.0
+|Day-8|14.5
+|Day-9|14.9
+|Day-10|15.2
+|Day-11|14.6
+|Day-12|14.8
+|Day-13|15.3
+|Day-14|15.1
+
+bestSellers = Card(Heading("Best-selling items", h4), Table(bestTable))
+
+bestTable = |Item|Units
+|Sword of Dawn|1280
+|Dragon Shield|1012
+|Mana Crystal Pack|975
+
+regions = Card(Heading("Server Regions Health", h4), Table(regionsTable))
+
+regionsTable = |Region|Status
+|US-East|Healthy
+|EU-West|Degraded
+|Asia-Pacific|Healthy
+|South-America|Poor
+
+crashRate = Card(Heading("Crash rate by app version", h4), Table(crashTable))
+
+crashTable = |Version|Crashes_per_1k_sessions
+|1.4.2|12
+|1.4.3|9
+|1.5.0|4
+
+liveEvents = Card(Heading("Live events", h4), SectionBlock(runningEvents, upcomingEvents))
+
+runningEvents = SectionItem("running", "Running", Table(runningTable))
+
+upcomingEvents = SectionItem("upcoming", "Upcoming", ListBlock(ListItem("Double XP Weekend"), ListItem("New Arena Map")))
+
+runningTable = |Event|Status
+|Halloween Blitz|Running
+|Treasure Hunt|Running
+
+playerReports = Card(Heading("Player reports awaiting review", h4), Table(reportsTable))
+
+reportsTable = |Report|Player|Date
+|R-1024|PlayerA|2026-10-01
+|R-1025|PlayerB|2026-10-02
+
+banAppeals = Card(Heading("Ban appeals awaiting review", h4), Table(bansTable))
+
+bansTable = |Appeal|Player|Reason
+|A-210|PlayerX|Mistaken ban
+|A-211|PlayerY|Appeal under review
+
+inflation = Card(Heading("In-game currency inflation", h4), TextContent("Inflation index: 8.2% over last 30 days", size:default))
+
+experiments = Card(Heading("Running experiments", h4), SectionBlock(exp1, exp2))
+
+exp1 = SectionItem("exp-101", "Experiment 101: Loot drop odds", TextContent("Variance in loot drop odds across regions."))
+
+exp2 = SectionItem("exp-102", "Experiment 102: Double XP curve", TextContent("XP curve adjustment affecting onboarding players."))
+
+patchDraft = Card(Heading("Draft patch notes", h4), TextContent("Draft notes editor available below."))
+
+notesEditor = Card(Heading("Patch Notes Draft", h4), TextContent("Use markdown to draft patch notes. Include sections per region and hotfix notes."))
+
+draftArea = Card("PatchNotesEditor", notesEditor)
+
+focusRegion = Card(Heading("Focus region", h4), Select("region_focus", SelectItem("US-East", "US-East"), SelectItem("EU-West", "EU-West"), SelectItem("Asia-Pacific", "Asia-Pacific"), placeholder:"Choose region"))
+
+hotfix = Card(Heading("Ship hotfix", h4), Button("Ship Hotfix", primary))
+
+root = Card(rootHeader, playersOnlineCard, dauCard, revenueCard, sessionSection, bestSellers, regions, crashRate, eventsSection, reportsSection, bansSection, inflationSection, experimentsCard, patchDraft, draftArea, focusRegion, hotfix)
+
+rootHeader = CardHeader("Live-Ops Studio Dashboard")
+
+playersOnlineCard = Card(Heading("Players online right now", h3), TextContent("Current players: 12,340", size:default))
+
+dauCard = Card(Heading("Daily / Monthly Active Players", h3), Table(dauTable))
+
+dauTable = |Metric|Today|This Month
+|DAU|12,340|367,210
+|MAU|367,210|11,210,450
+
+revenueCard = Card(Heading("Revenue overview", h3), Table(revenueTable))
+
+revenueTable = |Metric|Value
+|Revenue today|$84,520
+|Revenue per user|$6.82
+
+sessionSection = Card(Heading("Session length over past two weeks", h3), LineChart(sessionTable, natural, xLabel:"Date", yLabel:"Minutes"))
+
+experimentsCard = Card(Heading("Experiments results", h3), Table(experimentTable))
+
+experimentTable = |Experiment|Result
+|Loot odds|Improved drop variety
+|XP curve|On track
+
+patchDraftSection = Card(Heading("Draft patch notes", h3), Button("Open Editor", primary))
+
+focusRegionSection = Card(Heading("Focus region"), focusRegion)
+
+hotfixSection = Card(Heading("Hotfix pipeline"), hotfix)
+
+notesArea = Card(Heading("Patch Notes Editor"), TextContent("Draft notes editor available here", size:default))
+
+reportsSection = Card(Heading("Player reports awaiting review", h3), Table(reportsTable))
+
+bansSection = Card(Heading("Ban appeals awaiting review", h3), Table(bansTable))
+
+inflationSection = Card(Heading("In-game currency inflation", h3), inflation)
+
+eventsSection = Card(Heading("Live events running and upcoming", h3), liveEvents)
+
+sectionsDefined = true
+
+// Ensure all defined ids are used in root
+// No additional statements required beyond the definitions above

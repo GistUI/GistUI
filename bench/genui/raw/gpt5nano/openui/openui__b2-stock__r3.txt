@@ -1,0 +1,33 @@
+root = Card([header, searchBar, itemsSection, thresholdCard, reorderActions])
+
+header = CardHeader("Low Inventory Warning", "Items running short of stock")
+
+searchBar = Card([SearchInput("search", "Search items...")], "card")
+
+itemsSection = Card([itemsHeading, itemsList])
+
+itemsHeading = Heading("Low inventory items", "h2")
+
+itemsList = ListBlock([itemRow, itemRow2, itemRow3], "image")
+
+itemRow = ListItem("Widget Pro", "Remaining: 4 units", ["https://picsum.photos/seed/widgetpro/40/40"], "Reorder")
+
+itemRow2 = ListItem("Gadget Max", "Remaining: 2 units", ["https://picsum.photos/seed/gadgetmax/40/40"], "Reorder")
+
+itemRow3 = ListItem("Component X", "Remaining: 1 unit", ["https://picsum.photos/seed/componentx/40/40"], "Reorder")
+
+thresholdCard = Card([thresholdHeading, thresholdValue], "card")
+
+thresholdHeading = Heading("Threshold for warning", "h3")
+
+thresholdValue = TextContent("Warning triggers when stock falls to or below 5 units")
+
+reorderActions = Card([reorderHeader, reorderList])
+
+reorderHeader = Heading("Reorder actions", "h3")
+
+reorderList = ListBlock([reorderItem1, reorderItem2], "image")
+
+reorderItem1 = ListItem("Widget Pro", "Order quantity: 50", ["https://picsum.photos/seed/widgetpro/40/40"])
+
+reorderItem2 = ListItem("Gadget Max", "Order quantity: 100", ["https://picsum.photos/seed/gadgetmax/40/40"])

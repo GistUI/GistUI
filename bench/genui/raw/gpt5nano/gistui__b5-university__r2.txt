@@ -1,0 +1,142 @@
+root = Card(CardHeader("University Administrator Overview"), TabContainer) 
+CardHeader("University Administrator Overview") is not a statement; will define via root composition
+
+root = Card(CardHeader("University Administrator Overview"), SectionsSection, ActionsRow)
+
+sections = SectionBlock(
+  SectionItem("enrollment", "Total Enrollment & Trend", EnrollmentPanel, isFoldable),
+  SectionItem("applications", "Applications by Program", ApplicationsPanel, isFoldable),
+  SectionItem("acceptance", "Acceptance Rate", AcceptancePanel, isFoldable),
+  SectionItem("tuition", "Tuition Revenue This Year", TuitionPanel, isFoldable),
+  SectionItem("capacity", "Course Capacity Utilization", CapacityPanel, isFoldable),
+  SectionItem("teaching", "Teaching Load by Faculty", TeachingPanel, isFoldable),
+  SectionItem("risk", "Academic Risk", RiskPanel, isFoldable),
+  SectionItem("scholarship", "Scholarship Budget Used vs Total", ScholarshipPanel, isFoldable),
+  SectionItem("housing", "Housing Occupancy", HousingPanel, isFoldable),
+  SectionItem("events", "Campus Events This Month", EventsPanel, isFoldable),
+  SectionItem("alumni", "Alumni Giving - Past Four Years", AlumniPanel, isFoldable),
+  SectionItem("departmentFocus", "Focus on One Department", DepartmentFocusPanel, isFoldable),
+  SectionItem("compare", "This Semester vs Last", ComparePanel, isFoldable),
+  SectionItem("waitlist", "Waitlisted Students per Program", WaitlistPanel, isFoldable),
+  SectionItem("newCourse", "Approve a New Course", NewCoursePanel, isFoldable),
+  SectionItem("messageGroup", "Message to Student Group", MessageGroupPanel, isFoldable)
+)
+
+enrollmentPanel = Card(Heading("Total Enrollment & Five-Year Trend", h3), LineChart(enrollmentTrend, natural, xLabel:"Year", yLabel:"Students"), Table(enrollmentTable))
+
+enrollmentTrend = |Year|Enrollment
+|2021|12500
+|2022|13050
+|2023|12840
+|2024|13520
+|2025|14210
+
+enrollmentTable = |Year|EnrollmentDiff
+|2021|+|0
+|2022|+|550
+|2023|−|210
+|2024|+|680
+|2025|+|690
+
+applicationsPanel = Card(Heading("Applications by Program", h3), Table(applicationsTable))
+
+applicationsTable = |Program|Applications
+|Engineering|4200
+|Arts|3600
+|Science|3100
+|Business|2700
+|Education|1500
+
+acceptancePanel = Card(Heading("Acceptance Rate", h3), TextContent("Acceptance remains steady around 18% with minor year-over-year variation."))
+
+tuitionPanel = Card(Heading("Tuition Revenue This Year", h3), Table(tuitionTable))
+
+tuitionTable = |Month|Revenue
+|Fall|$96,500,000
+|Spring|$88,200,000
+
+capacityPanel = Card(Heading("Course Capacity Utilization", h3), HorizontalBarChart(capacityTable, variant:grouped, xLabel:"Utilization", yLabel:"Course")) 
+
+capacityTable = |Course|Utilization
+|Calculus|92%
+|Literature|78%
+|Physics|85%
+|Chemistry|88%
+
+teachingPanel = Card(Heading("Teaching Load by Faculty", h3), Table(teachingTable))
+
+teachingTable = |Faculty|Courses|ContactHours
+|Dr. Smith|4|12
+|Dr. Chen|3|9
+|Dr. Patel|5|15
+|Dr. Garcia|2|6
+
+riskPanel = Card(Heading("Students at Academic Risk", h3), Table(riskTable))
+
+riskTable = |StudentGroup|AtRiskCount
+|Freshmen|128
+|Undergraduates|312
+|Graduate|45
+
+scholarshipPanel = Card(Heading("Scholarship Budget Used vs Total", h3), BarChart(scholarshipTable, xLabel:"Scholarship Type", yLabel:"Amount"))
+
+scholarshipTable = |Source|Used
+|Merit|$4,200,000
+|Need-based|$3,100,000
+|Athletic|$1,200,000
+Total|$8,500,000
+
+housingPanel = Card(Heading("Housing Occupancy", h3), PieChart(housingTable, variant:donut))
+
+housingTable = |Residence|Occupancy
+|Dorm A|76%
+|Dorm B|62%
+|Dorm C|90%
+
+eventsPanel = Card(Heading("Campus Events This Month", h3), Table(eventsTable))
+
+eventsTable = |Event|Date
+|Homecoming Friday Night|2026-10-10
+|Career Fair|2026-10-18
+|Research Symposium|2026-10-25
+
+alumniPanel = Card(Heading("Alumni Giving - Past Four Years", h3), LineChart(alumniTrend, linear, xLabel:"Year", yLabel:"Donor Count"))
+
+alumniTrend = |Year|Donors
+|2022|1200
+|2023|1350
+|2024|1500
+|2025|1680
+
+departmentFocusPanel = Card(Heading("Department Focus", h3), Form("focus-dept", Buttons(Button("Apply Filter", primary)), FormControl("Department", Select("department", SelectItem("Engineering","Engineering"), SelectItem("Arts","Arts"), SelectItem("Science","Science")), placeholder:"Choose Department")))
+
+comparePanel = Card(Heading("This Semester vs Last", h3), Table(compareTable))
+
+compareTable = |Metric|This Semester|Last Semester
+|Enrollment|14210|13840
+|Graduates|320|310
+
+waitlistPanel = Card(Heading("Waitlisted Students per Program", h3), Table(waitlistTable))
+
+waitlistTable = |Program|Waitlisted
+|Engineering|120
+|Arts|95
+|Science|60
+|Business|40
+|Education|25
+
+newCoursePanel = Card(Heading("Approve a New Course", h3), Form("new-course-form", Buttons(Button("Approve", primary), Button("Reject", secondary)), FormControl("Course Code", Input("course_code", "CS499"))))
+
+messageGroupPanel = Card(Heading("Message to Student Group", h3), Form("message-group", Buttons(Button("Send", primary)), FormControl("Group", Select("group", SelectItem("Freshmen","Freshmen"), SelectItem("Athletes","Athletes")), FormControl("Message", TextArea("message", "Enter message to group"))))
+
+formsReferences = [
+  departmentFocusPanel,
+  newCoursePanel,
+  messageGroupPanel,
+]
+
+root = Card(CardHeader("University Administrator Overview"), sections, actions)
+
+actions = Buttons(Button("Export PDF"), Button("Send Newsletter", secondary))
+
+tags = TagBlock(["Enrollment", "Applications", "Tuition", "Housing"])

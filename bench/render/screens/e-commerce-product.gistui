@@ -1,0 +1,16 @@
+root = Stack(header, topRow, detailsRow, gap:lg)
+header = Header("Product Details", size:lg)
+topRow = Grid(galleryCard, buyCard, cols:2)
+galleryCard = Card(Header("AeroStride Runner Sneakers", "Lightweight daily trainers with responsive cushioning", size:sm), Gallery(["https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80", "https://images.unsplash.com/photo-1528701800489-20be3c1ea3b1?auto=format&fit=crop&w=1200&q=80", "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?auto=format&fit=crop&w=1200&q=80", "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80"], captions:["Side profile showing breathable mesh and cushioned midsole", "Top view highlighting laces and padded tongue", "Rubber outsole pattern for traction", "Everyday styling in an urban setting"]))
+buyCard = Card(Header("AeroStride Runner", "Men's / Women's • Road & casual", size:sm), priceRow, Separator(), Select("size", "Size", ["US 7", "US 7.5", "US 8", "US 8.5", "US 9", "US 9.5", "US 10", "US 10.5", "US 11", "US 12"], placeholder:"Select your size...", required), Separator(), RadioGroup("color", "Color", ["Black / White", "Sand / Gum", "Slate / Neon"], hints:["Classic contrast with white midsole", "Neutral upper with gum outsole", "Cool tones with neon accents"], value:"Black / White", required), Separator(), Buttons(Button("Add to Cart"), Button("Save", v:secondary)), Text("Free returns within 30 days. Ships in 1–2 business days.", size:sm))
+priceRow = Row("## $129.00", Tag("In stock", tone:success, icon:check-circle), justify:between, align:center, wrap)
+detailsRow = Grid(detailsCard, specsCard, cols:2)
+detailsCard = Card(Header("About this item", "Built for comfort from morning commutes to weekend miles", size:sm), "The **AeroStride Runner** blends breathable mesh with a supportive heel counter for a secure fit. A responsive foam midsole delivers soft landings and quick transitions, while the durable rubber outsole adds traction on city streets.\n\n**Fit note:** True to size. If you’re between sizes, consider going up 0.5.", Tags(Tag("Breathable mesh upper"), Tag("Responsive foam cushioning"), Tag("Rubber traction outsole"), Tag("Padded collar & tongue"), Tag("Everyday training")), v:sunk)
+specsCard = Card(Header("Specs", "Materials, weight, and care", size:sm), Table(specData), v:sunk)
+specData = |Detail|Value
+|Weight|9.8 oz (US 9)
+|Drop|8 mm
+|Upper|Engineered mesh
+|Midsole|EVA-based foam
+|Outsole|High-abrasion rubber
+|Care|Spot clean; air dry

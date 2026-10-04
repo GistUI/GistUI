@@ -16,6 +16,13 @@
  * reports one) is written to raw/<label>/usage.json. Probe first: BENCH_ONLY=b1-invoice BENCH_REPEATS=1.
  * Env: BENCH_PROVIDER openrouter|vercel|openai|anthropic|google|local, BENCH_REPEATS, BENCH_MAX_TOKENS,
  * BENCH_CONCURRENCY, BENCH_TIMEOUT_MS, BENCH_TEMP, BENCH_ONLY, BENCH_REASONING_EFFORT,
+ * BENCH_FORMAT gistui (default) | openui: openui writes the bench's own OpenUI answers, with its own prompt,
+ * to the bench's raw/<label>, for models the bench has no answers for (score them with its score.ts).
+ * BENCH_RPM: requests per minute, when the provider limits it: requests start at most that often, and a
+ * rate-limited request waits the time the provider asks for and is sent again. The limit is per team, so
+ * run one process at a time under it. BENCH_GATEWAY_PROVIDERS=azure,openai (Vercel only): the gateway's
+ * free tier limits each provider of a model separately (5 a minute each), so each request is pinned to
+ * one of these providers and BENCH_RPM applies to each of them.
  * BENCH_PROVIDER_ORDER, BENCH_BUDGET_USD (hard stop on billed cost, OpenRouter/gateways that report it). Keys: OPENROUTER_API_KEY / AI_GATEWAY_API_KEY / OPENAI_API_KEY / ANTHROPIC_API_KEY / GEMINI_KEY.
  */
 
@@ -34,6 +41,11 @@ if (!MODEL || !LABEL) {
   process.exit(1);
 }
 
+const FORMAT = process.env.BENCH_FORMAT || "gistui";
+if (FORMAT !== "gistui" && FORMAT !== "openui") {
+  console.error("BENCH_FORMAT must be gistui or openui");
+  process.exit(1);
+}
 const PROVIDER = process.env.BENCH_PROVIDER || "openrouter";
 const API_URL =
   PROVIDER === "openai"
@@ -68,10 +80,25 @@ const PROVIDER_ORDER = process.env.BENCH_PROVIDER_ORDER?.split(",").map((s) => s
 const MAX_TOKENS = Number(process.env.BENCH_MAX_TOKENS) || 16384;
 const REPEATS = Number(process.env.BENCH_REPEATS) || 4;
 const CONCURRENCY = Number(process.env.BENCH_CONCURRENCY) || 6;
+const RPM = Number(process.env.BENCH_RPM) || 0;
+// Requests start at least 60/RPM seconds apart (retries included), so the provider's per-minute limit holds.
+const GATEWAY_PROVIDERS = PROVIDER === "vercel" ? (process.env.BENCH_GATEWAY_PROVIDERS?.split(",").map((s) => s.trim()).filter(Boolean) ?? []) : [];
+// Next allowed start per provider ("" when requests are not pinned to a provider).
+const nextStart = new Map<string, number>((GATEWAY_PROVIDERS.length ? GATEWAY_PROVIDERS : [""]).map((p) => [p, 0]));
+/** Picks the provider with the earliest free slot, reserves the slot and waits for it. */
+async function paced(): Promise<string> {
+  const [p, at] = [...nextStart].reduce((a, b) => (b[1] < a[1] ? b : a));
+  if (!RPM) return p;
+  nextStart.set(p, Math.max(Date.now(), at) + 60000 / RPM);
+  const wait = at - Date.now();
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  return p;
+}
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const ONLY = process.env.BENCH_ONLY?.split(",").map((s) => s.trim());
 const BRIEFS = ONLY ? SCENARIOS.filter((s) => ONLY.includes(s.name)) : SCENARIOS;
 
-type Usage = { input?: number; output?: number; reasoning?: number; cost?: number };
+type Usage = { input?: number; output?: number; reasoning?: number; cost?: number; provider?: string };
 
 // When the gateway reports no cost (Vercel AI Gateway), it is computed from the tokens used and the
 // model's list price from the gateway's model list, so BENCH_BUDGET_USD still holds. Cached input is
@@ -116,8 +143,10 @@ async function generate(systemText: string, userText: string): Promise<{ text: s
     PROVIDER === "anthropic"
       ? { "x-api-key": API_KEY, "anthropic-version": "2023-06-01", "Content-Type": "application/json" }
       : { Authorization: `Bearer ${API_KEY}`, "Content-Type": "application/json" };
-  for (let attempt = 0; ; attempt++) {
+  for (let attempt = 0, limited = 0; ; attempt++) {
     let res: Response;
+    const pinned = await paced();
+    if (pinned) (body as Record<string, unknown>).providerOptions = { gateway: { only: [pinned] } };
     try {
       res = await fetch(API_URL, { method: "POST", headers, body: JSON.stringify(body), signal: AbortSignal.timeout(Number(process.env.BENCH_TIMEOUT_MS) || 240000) });
     } catch (e) {
@@ -125,7 +154,20 @@ async function generate(systemText: string, userText: string): Promise<{ text: s
       await new Promise((r) => setTimeout(r, 5000 * (attempt + 1)));
       continue;
     }
-    const json = (await res.json()) as any;
+    const json = (await res.json().catch(() => ({}))) as any;
+    const message: string = json?.error?.message ?? "";
+    if ((res.status === 429 || /rate limit/i.test(message)) && limited < 20) {
+      // Rate limited: wait as long as the provider asks (Retry-After, or "Retry after 60s"), then resend.
+      // This does not count as a failed attempt.
+      const after = Number(res.headers.get("retry-after")) || Number(/retry after (\d+)\s*s/i.exec(message)?.[1]) || 60;
+      limited++;
+      attempt--;
+      console.log(`  rate limited; waiting ${after}s`);
+      // Hold every other request to this provider back too, so they do not hit the same limit.
+      nextStart.set(pinned, Math.max(nextStart.get(pinned) ?? 0, Date.now() + after * 1000));
+      await sleep(after * 1000);
+      continue;
+    }
     if (!res.ok || json?.error) {
       if (attempt < 3) {
         await new Promise((r) => setTimeout(r, 8000 * (attempt + 1)));
@@ -141,6 +183,8 @@ async function generate(systemText: string, userText: string): Promise<{ text: s
       };
     }
     const u = json.usage ?? {};
+    // The provider that actually served it, as the Vercel gateway reports it.
+    const served: string | undefined = json.choices[0]?.message?.provider_metadata?.gateway?.routing?.finalProvider ?? (pinned || undefined);
     return {
       text: json.choices[0]?.message?.content ?? "",
       truncated: json.choices[0]?.finish_reason === "length",
@@ -149,12 +193,13 @@ async function generate(systemText: string, userText: string): Promise<{ text: s
         output: u.completion_tokens,
         reasoning: u.completion_tokens_details?.reasoning_tokens ?? u.reasoning_tokens,
         cost: typeof u.cost === "number" ? u.cost : priced(u),
+        ...(served ? { provider: served } : {}),
       },
     };
   }
 }
 
-const dir = join(HERE, "raw", LABEL);
+const dir = FORMAT === "openui" ? join(GUB, "raw", LABEL) : join(HERE, "raw", LABEL);
 mkdirSync(dir, { recursive: true });
 function markTruncated(id: string) {
   const path = join(dir, "truncated.json");
@@ -178,17 +223,18 @@ let inFlight = 0;
 let stopped: string | null = null;
 const fits = () => !BUDGET || (!pricedSeen ? inFlight === 0 && spent < BUDGET : spent + (inFlight + 1) * dearest * 1.5 <= BUDGET);
 
-const system = systemPrompt();
+const system =
+  FORMAT === "openui" ? ((await import(join(GUB, "protocols/openui/prompt.ts"))) as { systemPrompt: () => string }).systemPrompt() : systemPrompt();
 // One label = one prompt. The prompt is saved with the raws; a label whose raws came from another
 // prompt (or an unrecorded one) is refused, so two prompts never mix in one result.
-const promptPath = join(dir, "prompt.txt");
-const hasRaws = readdirSync(dir).some((f) => f.startsWith("gistui__"));
+const promptPath = join(dir, FORMAT === "openui" ? "openui-prompt.txt" : "prompt.txt");
+const hasRaws = readdirSync(dir).some((f) => f.startsWith(`${FORMAT}__`));
 if (existsSync(promptPath) ? readFileSync(promptPath, "utf8") !== system : hasRaws) {
   console.error(`raw/${LABEL} was generated with a different prompt; run under a new tag, e.g. BENCH_LABEL=${LABEL.split("@")[0]}@v2`);
   process.exit(1);
 }
 writeFileSync(promptPath, system);
-console.log(`gistui: system prompt ${system.length} chars, model ${MODEL} via ${PROVIDER}${BUDGET ? `, budget $${BUDGET.toFixed(2)} ($${spent.toFixed(4)} spent)` : ""}`);
+console.log(`${FORMAT}: system prompt ${system.length} chars, model ${MODEL} via ${PROVIDER}${BUDGET ? `, budget $${BUDGET.toFixed(2)} ($${spent.toFixed(4)} spent)` : ""}`);
 const tasks = BRIEFS.flatMap((brief) => Array.from({ length: REPEATS }, (_, i) => ({ brief, r: i + 1 })));
 const total = tasks.length;
 let done = 0;
@@ -197,7 +243,7 @@ async function worker() {
     if (stopped) return;
     const t = tasks.shift();
     if (!t) return;
-    const id = `gistui__${t.brief.name}__r${t.r}`;
+    const id = `${FORMAT}__${t.brief.name}__r${t.r}`;
     const file = join(dir, `${id}.txt`);
     const n = ++done;
     if (existsSync(file) && readFileSync(file, "utf8").trim().length > 0) continue;
@@ -218,7 +264,7 @@ async function worker() {
         dearest = Math.max(dearest, gen.usage.cost);
         pricedSeen = true;
       } else if (BUDGET) stopped ??= "the gateway reported no cost, so the budget cannot be enforced";
-      const r = gen.usage.reasoning ? `, ${gen.usage.reasoning} reasoning tokens` : "";
+      const r = (gen.usage.reasoning ? `, ${gen.usage.reasoning} reasoning tokens` : "") + (gen.usage.provider ? `, ${gen.usage.provider}` : "");
       console.log(`[${n}/${total}] ${id} ${gen.text.length} chars${gen.truncated ? " (truncated)" : ""}${r}${gen.usage.cost !== undefined ? `, $${gen.usage.cost.toFixed(4)}` : ""}`);
     } catch (e) {
       console.log(`[${n}/${total}] ${id} ERROR ${(e as Error).message}`);
@@ -232,4 +278,4 @@ const u = Object.values(usage);
 const sum = (k: keyof Usage) => u.reduce((s, x) => s + (x[k] ?? 0), 0);
 console.log(`usage: ${sum("input")} input, ${sum("output")} output (${sum("reasoning")} reasoning) tokens${u.some((x) => x.cost !== undefined) ? `, $${sum("cost").toFixed(2)} billed` : ""}`);
 if (stopped) console.log(`stopped early (${stopped}); re-run the same command with a higher BENCH_BUDGET_USD to continue.`);
-console.log(`done. score with: bun bench/genui/score.ts ${LABEL}`);
+console.log(FORMAT === "openui" ? `done. score with: (cd ${GUB} && node score.ts ${LABEL})` : `done. score with: bun bench/genui/score.ts ${LABEL}`);

@@ -1,0 +1,7 @@
+root = Card([header, todayText, yesterdayText, chart])
+header = CardHeader("Mid-morning Check-in", "Shop Owner Dashboard")
+todayText = TextContent("Revenue today: $5,430", "large")
+yesterdayText = TextContent("Revenue same time yesterday: $4,980", "large")
+chart = BarChart(["Today","Yesterday"], [todaySeries, yesterdaySeries], "grouped", "Day", "Revenue")
+todaySeries = Series("Today", [5430])
+yesterdaySeries = Series("Yesterday", [4980])

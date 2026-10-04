@@ -1,0 +1,116 @@
+root = Card([
+    CardHeader("City Operations Center Dashboard", "Live status across city services"),
+    
+    // Top row quick stats
+    Card([
+        TextContent("Congestion right now: High in downtown corridors."), 
+        TextContent("Transit punctuality: 82% on-time overall."),
+        TextContent("Air quality by district: Updated; see district panel below."),
+    ], "card"),
+    
+    // Main layout with sections per item
+    Card([
+        // 1 Congestion right now
+        Heading("Congestion right now", "h2"),
+        TextContent("Real-time traffic congestion index across major corridors."),
+        // 2 Transit punctuality
+        Heading("Transit punctuality", "h2"),
+        TextContent("On-time performance by bus and rail networks."),
+        
+        // 3 Air quality by district
+        Heading("Air quality by district", "h2"),
+        ImageBlock("https://picsum.photos/seed/air-quality/800/400", "Air quality map"),
+        
+        // 4 Energy use over the past week
+        Heading("Energy use — past week", "h2"),
+        LineChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], [Series("Energy (kWh)", [3200, 3400, 3100, 3550, 3900, 4200, 4100])], "linear", "Day", "kWh"),
+        
+        // 5 Water use today
+        Heading("Water use today", "h2"),
+        BarChart(["Today"], [Series("Water (kL)", [860])], "grouped", "Metrics", "kL"),
+        
+        // 6 Open incidents with location and severity for each
+        Heading("Open incidents", "h2"),
+        SectionBlock([
+            SectionItem("inc1", "Incidents A", [
+                TextContent("Incident A - Downtown, 3/5 severity"),
+                Tag("Downtown", null, "md", "info"),
+            ]),
+            SectionItem("inc2", "Incidents B", [
+                TextContent("Incident B - Eastside, 4/5 severity"),
+                Tag("Eastside", null, "md", "warning"),
+            ]),
+        ]),
+        
+        // 7 Where emergency vehicles are deployed
+        Heading("Emergency vehicle deployments", "h2"),
+        Image("Map snapshot", "https://picsum.photos/seed/ems/800/400"),
+        
+        // 8 Parking availability downtown
+        Heading("Parking availability — downtown", "h2"),
+        PieChart(["Available","Occupied","Reserved"], [Series("Parking", [120, 260, 60]).values], "donut", "circular"),
+        
+        // 9 Public events this weekend
+        Heading("Public events this weekend", "h2"),
+        ImageBlock("https://picsum.photos/seed/events/800/400", "Weekend events"),
+        
+        // 10 Citizen reports as they come in
+        Heading("Citizen reports (live)", "h2"),
+        ListBlock([
+            ListItem("Noise complaint - 7th Ave", "Reported 2m ago", ["https://picsum.photos/seed/voice/40/40"]),
+            ListItem("Pothole on Main St", "Reported 5m ago", ["https://picsum.photos/seed/pothole/40/40"]),
+        ], "image"),
+        
+        // 11 Service request backlog
+        Heading("Service request backlog", "h2"),
+        Table([
+            Col("Type", ["Sanitation", "Roadwork", "Tree maintenance"]),
+            Col("Backlog", [12, 7, 4]),
+            Col("Avg. close (d)", [2, 3, 1]),
+        ]),
+        
+        // 12 Current weather
+        Heading("Current weather", "h2"),
+        Blockquote("Mostly clear, light breeze. 22°C (72°F). Humidity 60%.", "Met Office"),
+        
+        // 13 Focus on one district
+        Heading("Focus on district", "h2"),
+        Card([
+            TextContent("District selector and highlight panel"),
+            Select("district_focus", [SelectItem("Downtown","Downtown"), SelectItem("Uptown","Uptown"), SelectItem("Riverside","Riverside")], "Choose district"),
+        ], "card"),
+        
+        // 14 Dispatch a crew
+        Card([
+            Heading("Dispatch crew", "h3"),
+            Form("dispatch", Buttons([Button("Dispatch", null, "primary")]), [
+                FormControl("Crew", Input("crew_id", "Crew-23"), null),
+                FormControl("Target work order", Input("order", "ORD-0009"), null),
+                FormControl("Priority", Select("priority", [SelectItem("Normal","Normal"), SelectItem("High","High")], "Select priority"), null),
+            ])
+        ], "sunk"),
+        
+        // 15 Send a public alert with a message
+        Card([
+            Heading("Public alert", "h3"),
+            Form("alert_form", Buttons([Button("Send alert", null, "secondary")]), [
+                FormControl("Message", TextArea("message", "Enter alert message"), null),
+                FormControl("Audience", Select("aud", [SelectItem("All residents","All"), SelectItem("Downtown residents","Downtown")], "Select audience"), null),
+            ])
+        ], "card"),
+        
+        // 16 Roadworks planned this month
+        Heading("Roadworks planned — this month", "h2"),
+        ImageBlock("https://picsum.photos/seed/roadworks/800/400", "Roadworks map"),
+        
+        // 17 Infrastructure jobs due for maintenance
+        Heading("Infrastructure maintenance backlog", "h2"),
+        Table([
+            Col("Project", ["Bridge inspection", "Water main upgrade", "Substation maintenance"]),
+            Col("Due date", ["2026-10-12","2026-10-28","2026-11-05"]),
+            Col("Status", ["Scheduled","Planned","In progress"], "string"),
+        ])
+        
+    ], "card")
+    
+]);

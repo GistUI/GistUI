@@ -1,4 +1,0 @@
-root = Card(header, uptimeCard, incidentCard, clear)
-header = CardHeader("Platform Status", "Overview")
-uptimeCard = Card(TextContent("**Uptime this month:** 99.97%", size:large))
-incidentCard = Card(Callout(info, "Recent incident", "Database outage on Sep 12, resolved at 14:30 UTC."))

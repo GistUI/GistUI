@@ -1,0 +1,61 @@
+root = Card(CardHeader("Personal Banking Dashboard"), accountBalancesSection, recentTransactionsSection, spendingSplitSection, billsSection, vacationProgressSection, creditScoreSection, moveMoneySection, freezeCreditSection, statementPeriodSection, alertsSection, disputeSection)
+
+balancesHeader = CardHeader("Accounts")
+checkingBalance = Tag("Checking: $2,450.00", info)
+savingsBalance = Tag("Savings: $11,320.50", success)
+creditBalance = Tag("Credit: $-1,200.75", warning)
+balancesBlock = Card(Heading("Balances", h3), TextContent(""), checkingBalance, savingsBalance, creditBalance)
+
+accountBalancesSection = Card(balancesHeader, balancesBlock)
+
+recentTitle = Heading("Recent transactions", h3)
+recentTable = Table(|Date|Merchant|Amount
+|2026-09-28|Starbucks|-$5.75
+|2026-09-27|Grocery Mart|-$82.40
+|2026-09-26|Paycheck|+$2,500.00)
+recentTransactionsSection = Card(recentTitle, recentTable)
+
+spendingTitle = Heading("This month's spending by category", h3)
+spendTable = Table(|Category|Amount
+|Groceries|-$520.40
+|Dining|-$210.00
+|Transport|-$120.75
+|Entertainment|-$90.00)
+spendingSplitSection = Card(spendingTitle, spendTable)
+
+billsTitle = Heading("Bills due soon", h3)
+billsList = ListBlock(SectionItem("b1", "Utilities", CardTableOrListRowPlaceholder), SectionItem("b2", "Rent", CardTableOrListRowPlaceholder))
+CardTableOrListRowPlaceholder = ListBlock(ListItem("Utilities - electricity", "Due in 3 days", "Pay now"))
+billsSection = Card(billsTitle, billsList)
+
+vacationTitle = Heading("Vacation savings progress", h3)
+vacationProgress = Progress(62, "Target 12,000 by year end")
+vacationSection = Card(vacationTitle, vacationProgress)
+
+creditScoreTitle = Heading("Current credit score", h3)
+creditScoreBadge = Tag("Score: 728", info)
+creditScoreSection = Card(creditScoreTitle, creditScoreBadge)
+
+moveMoneyTitle = Heading("Move money between accounts", h3)
+moveAmountInput = Input("amount", "100", value:"")
+moveFromSelect = Select("from_account", SelectItem("Checking", "Checking"), SelectItem("Savings", "Savings"), placeholder:"From")
+moveToSelect = Select("to_account", SelectItem("Checking", "Checking"), SelectItem("Savings", "Savings"), placeholder:"To")
+moveButtons = Buttons(Button("Move money", primary))
+moveMoneySection = Card(moveMoneyTitle, moveFromSelect, moveToSelect, moveAmountInput, moveButtons)
+
+freezeTitle = Heading("Freeze credit line", h3)
+freezeButton = Button("Freeze credit line", primary)
+freezeCreditSection = Card(freezeTitle, freezeButton)
+
+statementTitle = Heading("Statement period", h3)
+statementPeriodSelect = Select("statement_period", SelectItem("Last 30 days", "Last 30 days"), SelectItem("Last quarter", "Last quarter"), SelectItem("YTD", "YTD"), placeholder:"Choose period")
+statementPeriodSection = Card(statementTitle, statementPeriodSelect)
+
+alertsTitle = Heading("Alerts: manage triggers", h3)
+alertsList = ListBlock(SectionItem("a1", "Low balance", Card("Notifications active")), SectionItem("a2", "Large withdrawal", Card("Notifications muted")))
+alertsSection = Card(alertsTitle, alertsList)
+
+disputeTitle = Heading("Dispute a transaction", h3)
+disputeInfo = TextContent("To dispute a transaction, select it in the recent transactions above and click Dispute.", default)
+disputeButton = Button("Dispute selected transaction", tertiary)
+disputeSection = Card(disputeTitle, disputeInfo, disputeButton)

@@ -1,0 +1,40 @@
+root = Card([
+  header = CardHeader("Personal Budget Check", "This month vs. budget"),
+  summary = Card([
+    totalRow = Heading("Total spent this month", "h4"),
+    spentValue = TextContent("$2,450 / $3,000 budget", "default")
+  ], "card"),
+  sectionDivider = Separator("horizontal", false),
+  byCategory = Card([
+    sectionTitle = Heading("Spending by category", "h3"),
+    chartPlaceholder = TextContent("Pie chart placeholder — categories below", "default"),
+    byCatList = ListBlock([
+      ListItem("Housing", "$1,100", ["https://picsum.photos/seed/housing/40/40"]),
+      ListItem("Food", "$520"),
+      ListItem("Transport", "$180"),
+      ListItem("Entertainment", "$210"),
+      ListItem("Other", "$440")
+    ], "number")
+  ], "card"),
+  largestExpenseCard = Card([
+    largestTitle = Heading("Largest expense this month", "h3"),
+    largestValue = TextContent("Rent - $1,100", "default")
+  ], "card"),
+  monthNavigator = Card([
+    monthHeading = Heading("View month", "h3"),
+    monthControls = Form("month-view", Buttons([prevBtn, nextBtn], "row"), [monthSelect]),
+    prevBtn = Button("Previous Month", null, "secondary"),
+    nextBtn = Button("Next Month", null, "secondary"),
+    monthSelect = Select("month", [monthJan, monthFeb, monthMar], "Choose month")
+  ], "card"),
+  actionsRow = Buttons([addExpenseBtn], "row"),
+  addExpenseBtn = Button("Add Expense", null, "primary"),
+  // hidden: define the actual content for "Add Expense" as a modal/dialog block reference
+  addExpenseDialog = DialogBlock("Add Expense", "New Expense", "Enter details for a new expense", [nameField, amountField, catField, dateField, submitExpense], "primary"),
+  // form controls for dialog
+  nameField = TextContent("use placeholder controls in real app; inline here for structure", "default"),
+  amountField = TextContent("amount: $ value", "default"),
+  catField = TextContent("category: select from list", "default"),
+  dateField = TextContent("date: select month/day", "default"),
+  submitExpense = Button("Submit Expense", null, "primary")
+], "card")

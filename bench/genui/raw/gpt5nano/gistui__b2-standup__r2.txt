@@ -1,0 +1,16 @@
+root = Card(CardHeader("Async Standup", "Today: 2026-10-04"), StatusBlock, postSection, missingSection)
+StatusBlock = Card(Heading("Status per teammate", h3), TeammateList)
+TeammateList = ListBlock(teammateLine, teammate2Line, teammate3Line, variant:number)
+teammateLine = ListItem("Alex: On track with API mocks", "No blockers", "View details", image:picsum("seedAlex"))
+teammate2Line = ListItem("Priya: Implementing auth flow", "Blocked by backend team", "View details", image:picsum("seedPriya"))
+teammate3Line = ListItem("Lee: UI polish in progress", "No blockers", "View details", image:picsum("seedLee"))
+missingSection = Card(Heading("Updates remaining", h4), Table(missingRows), BarHint)
+missingRows = |Teammate|Remaining
+|Sam|2
+|Jordan|0
+|Kai|1
+BarHint = Tag("updates remaining: see table", info)
+postSection = Card(Heading("Post your update", h4), Form("standup-post", formButtons, postControl), sunk)
+postControl = FormControl("My update", TextArea("update", "", rows:4),)
+formButtons = Buttons(Button("Submit update", primary), Button("Cancel", tertiary))
+DateStamp = TextContent("2026-10-04", size:default)

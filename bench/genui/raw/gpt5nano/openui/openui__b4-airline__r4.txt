@@ -1,0 +1,175 @@
+root = Card([
+  CardHeader("Hub Operations Desk", "Airline: Downtown International – Today's Snapshot"),
+  // Top row metrics
+  Card([
+    Heading("Today at a glance", "h2"),
+    Card([
+      // on-time performance today
+      TextContent("On-time performance today: 92%", "default"),
+      Separator("horizontal", false),
+      // average passenger load today
+      TextContent("Average passenger load today: 84%", "default"),
+      Separator("horizontal", false),
+      // cancellations today
+      TextContent("Cancellations today: 6", "default"),
+      Separator("horizontal", false),
+      // average turnaround time
+      TextContent("Average turnaround time: 42m", "default"),
+    ], "card")
+  ], "sunk"),
+
+  // Section: flights table
+  SectionBlock([
+    SectionItem("flights_table", "Flights Today", [
+      Heading("Flights today", "h3"),
+      // Flights Table: number, route, gate, status
+      Table([
+        Col("Flight", ["AA101", "DL204", "UA310", "SW77"]),
+        Col("Route", ["JFK-LAX", "ORD-DFW", "LAX-SFO", "MIA-ATL"]),
+        Col("Gate", ["G12", "C3", "A9", "D4"]),
+        Col("Status", ["On Time", "Delayed", "Boarding", "Cancelled"])
+      ])
+    ])
+  ]),
+
+  // 3. delayed flights called out
+  SectionBlock([
+    SectionItem("delayed_flights", "Delayed Flights", [
+      Heading("Delayed flights", "h3"),
+      ListBlock([
+        ListItem("DL204", "Expected departure 21:45", ["https://picsum.photos/seed/dl204/80/50"]),
+        ListItem("UA310", "Gate change to A12", ["https://picsum.photos/seed/ua310/80/50"]),
+        ListItem("DL512", "Crew delay reported", ["https://picsum.photos/seed/dl512/80/50"])
+      ], "image")
+    ])
+  ]),
+
+  // 4. recent gate changes
+  SectionBlock([
+    SectionItem("gate_changes", "Recent Gate Changes", [
+      Heading("Recent gate changes", "h3"),
+      ListBlock([
+        ListItem("AA101", "Gate moved to G5", ["https://picsum.photos/seed/aa101/80/50"]),
+        ListItem("UA212", "Gate moved to A7", ["https://picsum.photos/seed/ua212/80/50"])
+      ])
+    ])
+  ]),
+
+  // 5. crews available for reassignment
+  SectionBlock([
+    SectionItem("crews_reassign", "Crews Available for Reassignment", [
+      Heading("Crews available", "h3"),
+      Table([
+        Col("Crew", ["C-12", "C-27", "C-41"]),
+        Col("Base", ["DTW", "DTW", "DTW"]),
+        Col("Availability", ["After 2h", "Flexible", "Today"])
+      ])
+    ])
+  ]),
+
+  // 6. weather advisories at the hub
+  SectionBlock([
+    SectionItem("weather_advisories", "Weather Advisories", [
+      Heading("Weather advisories", "h3"),
+      Callout("warning", "Severe thunderstorms expected", "Expect localized delays and potential gate/holding patterns.")
+    ])
+  ]),
+
+  // 7. average passenger load today (rendered above but include again in a dedicated block)
+  SectionBlock([
+    SectionItem("passenger_load", "Passenger Load Today", [
+      Heading("Load today", "h3"),
+      TextContent("Average passenger load: 84%", "default")
+    ])
+  ]),
+
+  // 8. connections at risk of being missed
+  SectionBlock([
+    SectionItem("missed_connections", "Connections At Risk", [
+      Heading("At risk connections", "h3"),
+      ListBlock([
+        ListItem("AA101 -> BA400", "25m connection risk", ["https://picsum.photos/seed/aa101ba400/80/50"]),
+        ListItem("DL204 -> CX100", "35m connection risk", ["https://picsum.photos/seed/dl204cx100/80/50"])
+      ])
+    ])
+  ]),
+
+  // 9. a way to rebook affected passengers
+  SectionBlock([
+    SectionItem("rebook_passengers", "Rebooking Affected Passengers", [
+      Heading("Rebooking", "h3"),
+      CodeBlock("json", "{ \"action\": \"rebook\", \"method\": \"automatic\" }"),
+      TextContent("Use the rebooking tool to reissue itineraries and notify passengers automatically.", "default")
+    ])
+  ]),
+
+  // 10. look at a different hub
+  SectionBlock([
+    SectionItem("other_hub", "Switch Hub", [
+      Heading("View another hub", "h3"),
+      Form("hub-switch", Buttons([Button("Open hub selector")], "row"), [
+        Select("hub_id", [SelectItem("DTW", "Detroit"), SelectItem("LAX", "Los Angeles"), SelectItem("JFK", "New York")])
+      ])
+    ])
+  ]),
+
+  // 11. cancellations today (distinct table)
+  SectionBlock([
+    SectionItem("cancellations", "Cancellations Today", [
+      Heading("Cancellations", "h3"),
+      Table([
+        Col("Flight", ["SW77", "AA234"]),
+        Col("Reason", ["Crew unavailable", "Technical"]),
+        Col("Time", ["16:40", "18:12"])
+      ])
+    ])
+  ]),
+
+  // 12. average turnaround time (rendered above but include final metric)
+  SectionBlock([
+    SectionItem("turnaround", "Turnaround Time", [
+      Heading("Average turnaround", "h3"),
+      TextContent("42 minutes", "default")
+    ])
+  ]),
+
+  // footer actions
+  Card([
+    Heading("Actions", "h3"),
+    Buttons([
+      Button("Acknowledge Delays", null, "secondary"),
+      Button("Open Rebooking Console", null, "primary")
+    ])
+  ])
+]) ;
+
+// Supporting component definitions (hoisted for clarity)
+flightList = Table([
+  Col("Flight", ["AA101", "DL204", "UA310", "SW77"]),
+  Col("Route", ["JFK-LAX", "ORD-DFW", "LAX-SFO", "MIA-ATL"]),
+  Col("Gate", ["G12", "C3", "A9", "D4"]),
+  Col("Status", ["On Time", "Delayed", "Boarding", "Cancelled"])
+])
+delayedList = ListBlock([
+  ListItem("DL204", "Expected departure 21:45", ["https://picsum.photos/seed/dl204/80/50"]),
+  ListItem("UA310", "Gate change to A12", ["https://picsum.photos/seed/ua310/80/50"]),
+  ListItem("DL512", "Crew delay reported", ["https://picsum.photos/seed/dl512/80/50"])
+])
+gateChangesList = ListBlock([
+  ListItem("AA101", "Gate moved to G5", ["https://picsum.photos/seed/aa101/80/50"]),
+  ListItem("UA212", "Gate moved to A7", ["https://picsum.photos/seed/ua212/80/50"])
+])
+crewsTable = Table([
+  Col("Crew", ["C-12", "C-27", "C-41"]),
+  Col("Base", ["DTW", "DTW", "DTW"]),
+  Col("Availability", ["After 2h", "Flexible", "Today"])
+])
+weatherCallout = Callout("warning", "Severe thunderstorms expected", "Expect localized delays and potential gate/holding patterns.")
+loadText = TextContent("Average passenger load today: 84%", "default")
+cancellationsTable = Table([
+  Col("Flight", ["SW77", "AA234"]),
+  Col("Reason", ["Crew unavailable", "Technical"]),
+  Col("Time", ["16:40", "18:12"])
+])
+turnaroundText = TextContent("Average turnaround time: 42m", "default")
+root // end of file

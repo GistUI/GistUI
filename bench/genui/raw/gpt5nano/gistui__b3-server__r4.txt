@@ -1,0 +1,35 @@
+root = Card(CardHeader("Service Health – On-call", "Current status and quick actions"), regionFilter, healthGrid)
+regionFilter = Form("region-filter", Buttons(Button("Apply", primary)), regionSelect)
+regionSelect = Select("region", SelectItem("us-east", "us-east"), SelectItem("eu-west", "eu-west"), SelectItem("ap-southeast", "ap-southeast"), placeholder:"Choose region")
+healthGrid = SectionBlock(SectionItem("uptime", "Uptime"), SectionItem("charts", "Usage charts"), SectionItem("errors", "Current errors"), SectionItem("incidents", "Open incidents"), SectionItem("latency", "Slow endpoints"), SectionItem("alerts", "Alerts"), SectionItem("ack", "Acknowledge"), isFoldable)
+uptimeSection = Card(Heading("Uptime this quarter", h3), Table(uptimeTable))
+uptimeTable = |Metric|Value
+|Uptime|99.97%
+|Downtime|0.03%
+chartsSection = Card(Heading("CPU and Memory usage (past 24h)", h3), LineChart(usageTable, natural, xLabel:"Hour", yLabel:"Usage %"), Tag("24h window"))
+usageTable = |Hour|CPU|Memory
+|00:00|72|68
+|06:00|65|60
+|12:00|80|74
+|18:00|77|70
+errorsSection = Card(Heading("Error rate right now", h3), TextContent("The current error rate is 2.1% across routes.")) 
+incidentsSection = Card(Heading("Open incidents by severity", h3), Table(incidentsTable))
+incidentsTable = |Incident|Severity|Opened|Region
+|INC-1202|critical|2026-10-04 12:45|us-east
+|INC-1203|high|2026-10-04 12:30|eu-west
+|INC-1204|medium|2026-10-04 12:20|ap-southeast
+latencySection = Card(Heading("Five slowest endpoints by latency", h3), Table(latencyTable))
+latencyTable = |Endpoint|Latency(ms)
+|/auth/login|1284
+|/payments/process|1120
+|/inventory/list|1095
+|/search|1030
+|/orders/create|980
+alertsSection = Card(Heading("Set alert threshold", h3), Form("alert-threshold", formButtons, thresholdControl))
+thresholdControl = FormControl("Latency threshold (ms)", Input("threshold", "350"), "Only consider latency above threshold")
+formButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))
+ackSection = Card(Heading("Acknowledge an incident", h3), Table(ackTable))
+ackTable = |Inc|Action
+|INC-1202|Button("Acknowledge", destructive)
+|INC-1203|Button("Acknowledge", destructive)
+ActionsButton = Button("Acknowledge Selected", destructive)

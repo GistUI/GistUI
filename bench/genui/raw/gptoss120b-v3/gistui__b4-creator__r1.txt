@@ -1,38 +1,81 @@
-root = Card(followerSection, engagementSection, bestPostsSection, audienceChart, scheduleSection, platformFilter, followup)
+root = Card(CardHeader("Creator Studio Dashboard"), platformFilter, followerCard, engagementCard, bestPostsCard, audienceCard, scheduleCard, scheduleForm, bestHourCard, commentsCard, earningsCard, collabCard, actions)
 
-followerSection = Card(CardHeader("Followers", "Growth last month"), TextContent("**12.5K** total, **+8%** this month"), LineChart(followerTrend, linear, xLabel:"Date", yLabel:"Followers"))
+platformFilter = TagBlock(tags:["All","YouTube","Instagram","TikTok","Twitter"])
 
-followerTrend = |Date|Followers
-|2023-08-01|11,500
-|2023-08-08|11,800
-|2023-08-15|12,000
-|2023-08-22|12,300
-|2023-08-29|12,500
+followerCard = Card(Heading("Followers", h3), TextContent("Total: **12.4k**", size:large), BarChart(followerGrowth, variant:grouped, xLabel:"Day", yLabel:"Followers"))
+followerGrowth = |Day|Followers
+|01|120
+|02|135
+|03|150
+|04|165
+|05|180
+|06|200
+|07|220
+|08|240
+|09|260
+|10|285
+|11|310
+|12|340
+|13|370
+|14|400
+|15|430
+|16|460
+|17|490
+|18|520
+|19|550
+|20|580
+|21|610
+|22|640
+|23|670
+|24|700
+|25|730
+|26|760
+|27|790
+|28|820
+|29|850
+|30|880
 
-engagementSection = Card(CardHeader("Engagement Rate"), TextContent("**4.2%** average engagement this month"))
+engagementCard = Card(Heading("Engagement Rate", h3), TextContent("**4.7%**", size:large))
 
-bestPostsSection = Card(CardHeader("Top Posts (Reach)"), Table(postTitle, postReach))
+bestPostsCard = Card(Heading("Best Posts (Reach)", h3), Table(bestPosts))
+bestPosts = |Post|Reach
+|Post A|45,200
+|Post B|38,500
+|Post C|33,100
 
-postTitle = Col("Post", data:["Sunset Reel","DIY Tutorial","Live Q&A"], type:string)
-postReach = Col("Reach", data:[15000,12000,9500], type:number)
+audienceCard = Card(Heading("Audience Split by Platform", h3), PieChart(audienceSplit, variant:donut, appearance:circular))
+audienceSplit = |Platform|Users
+|YouTube|5,200
+|Instagram|3,800
+|TikTok|2,400
+|Twitter|1,000
 
-audienceChart = Card(CardHeader("Audience Split by Platform"), PieChart(audienceLabels, audienceValues, donut, circular))
+scheduleCard = Card(Heading("Posts Scheduled This Week", h3), Table(scheduledPosts))
+scheduledPosts = |Date|Time|Caption
+|Mon|10:00 AM|"Morning update"
+|Tue|2:00 PM|"Product demo"
+|Wed|6:00 PM|"Evening teaser"
+|Thu|9:00 AM|"Behind the scenes"
+|Fri|3:00 PM|"Live announcement"
 
-audienceLabels = ["Instagram","TikTok","YouTube","Twitter"]
-audienceValues = [5400,3200,2100,1300]
+scheduleForm = Form("schedule-post", formButtons, captionField, timeField)
+captionField = FormControl("Caption", Input("caption", "Enter caption here"))
+timeField = FormControl("Schedule time", Input("time", "YYYY-MM-DD HH:MM"))
+formButtons = Buttons(Button("Schedule", primary))
 
-scheduleSection = Card(CardHeader("Schedule a Post"), scheduleForm)
+bestHourCard = Card(Heading("Best Hour to Post", h3), TextContent("**6 PM**", size:large))
 
-scheduleForm = Form("schedule-post", scheduleButtons, captionField, datetimeField, platformSelect)
+commentsCard = Card(Heading("Comments Waiting for Reply", h3), Table(pendingComments))
+pendingComments = |User|Comment|Posted
+|alice|Great video!|2h ago
+|bob|Loved the tutorial.|5h ago
+|carol|Can you share the source?|1d ago
 
-captionField = FormControl("Caption", TextArea("caption", "Write your caption...", "", rows:4))
-datetimeField = FormControl("Publish Time", Input("publish_time", "2023-09-15 14:00", type:datetime))
-platformSelect = FormControl("Platform", Select("platform", SelectItem("instagram","Instagram"), SelectItem("tiktok","TikTok"), SelectItem("youtube","YouTube"), placeholder:"Select platform", size:medium))
+earningsCard = Card(Heading("Earnings This Month", h3), TextContent("**$3,250**", size:large))
 
-scheduleButtons = Buttons(Button("Schedule", primary))
+collabCard = Card(Heading("Pending Collaboration Requests", h3), Table(pendingCollabs))
+pendingCollabs = |Brand|Offer|Received
+|BrandX|Sponsored post|3d ago
+|BrandY|Affiliate deal|5d ago
 
-platformFilter = Card(CardHeader("Filter by Platform"), TagBlock(filterTags))
-
-filterTags = ["All","Instagram","TikTok","YouTube","Twitter"]
-
-followup = FollowUpBlock(FollowUpItem("View detailed analytics"), FollowUpItem("Create new post"), FollowUpItem("Manage collaborations"))
+actions = Buttons(Button("Refresh"), Button("Export Data", secondary))

@@ -1,5 +1,0 @@
-root = Card(CardHeader("Next on your calendar", "Today"), meetingInfo, attendeesLabel, attendeeTags, joinActions)
-meetingInfo = TextContent("## Design Sync\n**2:00 PM – 2:30 PM** · Today")
-attendeesLabel = TextContent("**Attendees**")
-attendeeTags = TagBlock(tags:["Ava Chen", "Marcus Lee", "Priya Patel", "You"])
-joinActions = Buttons(Button("Join call", primary), Button("Copy invite link", secondary))

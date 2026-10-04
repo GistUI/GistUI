@@ -1,0 +1,16 @@
+root = Card(CardHeader("Course Home", "Instructor: Dr. Ada Lovelace"), progressCard, modulesSection, nextLessonCard, ratingCard, continueSection)
+
+progressCard = Card(Heading("Course Progress", h3), TextContent("75% complete", size:default))
+
+modulesSection = Card(Heading("Modules", h3), Table(modulesTable))
+
+modulesTable = |Module|Status|Progress
+|Introduction|Completed|100%
+|Basics|In progress|60%
+|Advanced Topics|Not started|0%
+
+nextLessonCard = Card(Heading("Next Lesson", h3), TextContent("Lesson 4: Deep Dive into Algorithms", size:default))
+
+ratingCard = Card(Heading("Average Learner Rating", h3), TextContent("4.6 / 5.0", size:default))
+
+continueSection = Card(Buttons(Button("Continue Learning", primary)))

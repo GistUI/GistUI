@@ -1,0 +1,23 @@
+root = Card(CardHeader("Account: Acme Corp", "Owned by Jane Doe"), SectionBlock(accountOverview, SectionItem("overview", "Overview", accountOverview)), SectionBlock(activitiesBlock, SectionItem("activities", "Recent Activity", activitiesBlock)), SectionBlock(contactsBlock, SectionItem("contacts", "Contacts", contactsBlock)), SectionBlock(followUpsBlock, SectionItem("followups", "Open Follow-Ups", followUpsBlock)), SectionBlock(notesBlock, SectionItem("notes", "Notes", notesBlock)), SectionBlock(renewalBlock, SectionItem("renewal", "Renewal", renewalBlock)), SectionBlock(callBlock, SectionItem("logcall", "Log a Call", callBlock)))
+accountOverview = Card(Heading("Account Summary", h3), Table(accountTable), Button("Add Note", action:["openNotes"]), sunk)
+accountTable = |Field|Value
+|Account|Acme Corp
+|Owner|Jane Doe
+|Total Deal Value|$1,250,000
+|Current Stage|Negotiation
+activitiesBlock = Card(Heading("Recent Activity", h4), Table(activitiesTable))
+activitiesTable = |Date|Activity|Owner
+|2026-09-28|Email sent to prospect|Jane Doe
+|2026-09-27|Phone call with buyer|Jane Doe
+|2026-09-25|Website demo completed|Jane Doe
+contactsBlock = Card(Heading("Contacts", h4), Table(contactsTable))
+contactsTable = |Name|Role|Email
+|Alice Smith|Decision Maker|alice@example.com
+|Bob Lee|Technical Liaison|bob@example.com
+followUpsBlock = Card(Heading("Open Follow-Ups", h4), Table(followUpsTable))
+followUpsTable = |Follow-Up|Due Date|Status
+|Proposal sent|2026-10-05|Open
+|Contract review|2026-10-12|Open
+notesBlock = Card(Heading("Notes", h4), TextContent(" jot a quick note about the account here. ", size:default))
+renewalBlock = Card(Heading("Renewal", h4), TextContent("Renewal date: 2027-02-15", size:default), Alert("Renewal soon", "The renewal date is approaching. Review terms.", variant:warning))
+callBlock = Card(Heading("Log a Call", h4), Form("log-call", Buttons(Button("Save", primary)), FormControl("Call notes", TextArea("notes", placeholder:"Enter call details")), FormControl("Date", DatePicker("call_date", mode:single))))

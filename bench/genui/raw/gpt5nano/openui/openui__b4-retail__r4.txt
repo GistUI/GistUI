@@ -1,0 +1,110 @@
+root = Card([
+    header = CardHeader("Store Manager Console", "Today’s snapshot"),
+    topRow = Card([
+        salesCard = Card([
+            Heading("Sales today", "h3"),
+            TextContent("Today: $12,340 of $15,000 target", "default"),
+            Separator("horizontal")
+        ], "card"),
+        trafficCard = Card([
+            Heading("Foot traffic (throughout the day)", "h3"),
+            LineChart(["9AM","10AM","11AM","12PM","1PM","2PM","3PM","4PM","5PM"], [Series("Foot Traffic",[120,180,260,340,320,410,390,360,280])], "linear", "Hour", "People"),
+        ], "card")
+    ], "row"),
+    middleRow = Card([
+        bestSellersCard = Card([
+            Heading("Best sellers", "h3"),
+            Table([
+                Col("Item", ["Widget A","Gizmo Pro","Thingamajig","Doodad Mini"]),
+                Col("Units", [120, 95, 78, 65])
+            ])
+        ], "card"),
+        stockCard = Card([
+            Heading("Out of stock", "h3"),
+            ListBlock([
+                ListItem("Widget X", "Low stock alert", ["https://picsum.photos/seed/widgetx/40/40"]),
+                ListItem("Gadget Ultra", "Reorder soon", ["https://picsum.photos/seed/gadget/40/40"])
+            ])
+        ], "card")
+    ], "row"),
+    lowerRow = Card([
+        shiftCard = Card([
+            Heading("Shift today", "h3"),
+            TagBlock(["Alice","Bob","Carlos","Dina"])
+        ], "card"),
+        basketCard = Card([
+            Heading("Average basket size", "h3"),
+            TextContent("$54.20 average basket", "default")
+        ], "card")
+    ], "row"),
+    bottomRow = Card([
+        returnsCard = Card([
+            Heading("Returns this week", "h3"),
+            LineChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], [Series("Returns",[2,1,3,0,1,2,4])], "linear", "Day", "Units")
+        ], "card"),
+        promoCard = Card([
+            Heading("Promotions performance", "h3"),
+            HorizontalBarChart(["Promo A","Promo B","Promo C"], [Series("Sales", [320, 210, 150]), Series("Units", [60, 40, 20])], "grouped", "Promotion", "Units / Sales")
+        ], "card")
+    ], "row"),
+    bottom2 = Card([
+        registersCard = Card([
+            Heading("Registers status", "h3"),
+            Table([
+                Col("Register", ["Reg 1","Reg 2","Reg 3","Reg 4"]),
+                Col("Open", [true,false,true,true], "number")
+            ])
+        ], "card"),
+        reorderCard = Card([
+            Heading("Reorder an item", "h3"),
+            Form("reorder-form", Buttons([Button("Submit Reorder")]), [
+                FormControl("Item", Input("item_name", "Enter item name"), "Reorder item form"),
+                FormControl("Quantity", Input("quantity", "0", "number"), "Quantity to reorder"),
+                FormControl("Vendor", Select("vendor", [SelectItem("vdn1","Vendor 1"), SelectItem("vdn2","Vendor 2")], "Choose vendor"), null)
+            ])
+        ], "card"),
+        viewStoreCard = Card([
+            Heading("View a different store", "h3"),
+            Button("Change store", null, "secondary")
+        ], "card")
+    ], "row"),
+    weeklyCompareCard = Card([
+        Heading("This week vs last week", "h3"),
+        LineChart(["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], [Series("This Week", [210, 240, 260, 300, 320, 280, 350]), Series("Last Week", [190, 220, 240, 270, 290, 260, 320])], "linear", "Day", "Units / Revenue")
+    ], "card")
+])
+
+header = null
+LineChart(labels: (string | number)[], series: (Series)[], variant?: "linear" | "natural" | "step", xLabel?: string, yLabel?: string) = LineChart
+HorizontalBarChart(labels: (string | number)[], series: (Series)[], variant?: "grouped" | "stacked", xLabel?: string, yLabel?: string) = HorizontalBarChart
+Table(columns: (Col)[]) = Table
+Col(label: string, data: (string | number)[], type?: "string" | "number" | "action") = Col
+ListBlock(items: (ListItem)[], variant?: "number" | "image") = ListBlock
+ListItem(title: string, subtitle?: string, image?: (string | number)[], actionLabel?: string) = ListItem
+Form(name: string, buttons: Buttons, fields: (FormControl)[]) = Form
+FormControl(label: string, input: Input | TextArea | Select | DatePicker | Slider | CheckBoxGroup | RadioGroup, hint?: string) = FormControl
+Input(name: string, placeholder?: string, type?: "text" | "email" | "password" | "number" | "url", rules?: (string | number)[], value?: string) = Input
+Select(name: string, items: (SelectItem)[], placeholder?: string, rules?: (string | number)[], value?: string, size?: "small" | "medium" | "large") = Select
+SelectItem(value: string, label: string) = SelectItem
+Button(label: string, action?: (string | number)[], variant?: "primary" | "secondary" | "tertiary", type?: "normal" | "destructive", size?: "extra-small" | "small" | "medium" | "large") = Button
+Buttons(buttons: (Button)[], direction?: "row" | "column") = Buttons
+CardHeader(title?: string, subtitle?: string) = CardHeader
+Heading(text: string, level?: "h1" | "h2" | "h3" | "h4") = Heading
+TextContent(text: string, size?: "small" | "default" | "large" | "small-heavy" | "large-heavy") = TextContent
+MarkDownRenderer(textMarkdown: string, variant?: "clear" | "card" | "sunk") = MarkDownRenderer
+Separator(orientation?: "horizontal" | "vertical", decorative?: boolean) = Separator
+TagBlock(tags: (string | number)[]) = TagBlock
+Tag(text: string, icon?: string, size?: "sm" | "md" | "lg", variant?: "neutral" | "info" | "success" | "warning" | "danger") = Tag
+Progress(value: number, label?: string) = Progress
+ImageGallery(images: (string | number)[]) = ImageGallery
+Image(alt: string, src?: string) = Image
+ImageBlock(src: string, alt?: string) = ImageBlock
+RadarChart(labels: (string | number)[], series: (Series)[]) = RadarChart
+PieChart(labels: (string | number)[], values: (string | number)[], variant?: "pie" | "donut", appearance?: "circular" | "semiCircular") = PieChart
+RadialChart(labels: (string | number)[], values: (string | number)[]) = RadialChart
+SingleStackedBarChart(labels: (string | number)[], values: (string | number)[]) = SingleStackedBarChart
+AreaChart(labels: (string | number)[], series: (Series)[], variant?: "linear" | "natural" | "step", xLabel?: string, yLabel?: string) = AreaChart
+BarChart(labels: (string | number)[], series: (Series)[], variant?: "grouped" | "stacked", xLabel?: string, yLabel?: string) = BarChart
+DialogBlock(triggerLabel: string, title: string, description?: string, content?: (TextContent | MarkDownRenderer | CardHeader | Callout | TextCallout | CodeBlock | Image | ImageBlock | ImageGallery | Separator | HorizontalBarChart | RadarChart | PieChart | RadialChart | SingleStackedBarChart | ScatterChart | AreaChart | BarChart | LineChart | Table | TagBlock | Form | Buttons | Steps | Heading | Blockquote | InlineCode | Alert | Badge | Avatar | Progress | PaginationBlock | CalendarBlock | ListBlock | FollowUpBlock)[], triggerVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link") = DialogBlock
+DrawerBlock(triggerLabel: string, title: string, description?: string, content?: (TextContent | MarkDownRenderer | CardHeader | Callout | TextCallout | CodeBlock | Image | ImageBlock | ImageGallery | Separator | HorizontalBarChart | RadarChart | PieChart | RadialChart | SingleStackedBarChart | ScatterChart | AreaChart | BarChart | LineChart | Table | TagBlock | Form | Buttons | Steps | Heading | Blockquote | InlineCode | Alert | Badge | Avatar | Progress | PaginationBlock | CalendarBlock | ListBlock | FollowUpBlock)[]) = DrawerBlock
+AlertDialogBlock(triggerLabel: string, title: string, description: string, confirmLabel?: string, cancelLabel?: string, triggerVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link") = AlertDialogBlock

@@ -1,7 +1,11 @@
-root = Card(header, todayRev, compareChart, clear)
-header = CardHeader("Today's Revenue", "Mid-morning check")
-todayRev = TextContent("$1,240", size:large)
-compareChart = BarChart(revTable, variant:grouped, xLabel:"Time", yLabel:"Revenue")
-revTable = |Time|Today|Yesterday
-|09:00|1240|1150
-|10:00|2500|2400
+root = Card(CardHeader("Today's Revenue", "Mid‑morning overview"), revenueChart, revenueInfo, actions)
+
+revenueChart = HorizontalBarChart(revenueTable, variant:grouped, xLabel:"Revenue", yLabel:"Period")
+
+revenueTable = |Period|Revenue
+|Today|$12,340
+|Yesterday|$11,210
+
+revenueInfo = Card(TextContent("**$12,340** collected so far today.", size:large), TextContent("Yesterday at this time: **$11,210**.", size:default), clear)
+
+actions = Buttons(Button("Refresh", primary), Button("View details", secondary))

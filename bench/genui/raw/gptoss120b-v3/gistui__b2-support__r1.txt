@@ -1,19 +1,16 @@
-root = Card(statsSection, filterSection, ticketsSection, actions)
-
-statsSection = Card(CardHeader("Support Dashboard"), openTickets, avgResponse)
-
-openTickets = TextContent("Open tickets: **42**", size:large)
-
-avgResponse = TextContent("Average first‑response time: **3h 12m**", size:large)
-
-filterSection = Card(Button("Show high‑priority only", primary), wrap)
-
-ticketsSection = Card(Heading("Recent tickets", h3), ticketsTable)
-
-ticketsTable = Table(
-  Col("Ticket", data:["#1024","#1023","#1022","#1021","#1020"], type:string),
-  Col("Priority", data:["High","Medium","Low","High","Medium"], type:string),
-  Col("Opened", data:["2024‑09‑30 08:15","2024‑09‑30 07:42","2024‑09‑30 07:05","2024‑09‑30 06:50","2024‑09‑30 06:30"], type:string)
-)
-
-actions = Card(Button("New ticket", primary))
+root = Card(cardHeader, statsTable, recentTable, actions, wrap)
+cardHeader = CardHeader("Support Lead - Morning View")
+statsTable = Table(openStats)
+openStats = |Metric|Value
+|Open tickets|42
+|Avg first‑response|3h 12m
+recentTable = Table(recentTickets)
+recentTickets = |Ticket ID|Subject|Priority|Created
+|#1023|Login issue|high|2024‑10‑04 08:15
+|#1022|Billing question|medium|2024‑10‑04 07:50
+|#1021|Feature request|low|2024‑10‑04 07:30
+|#1020|Password reset|high|2024‑10‑04 07:10
+|#1019|Account locked|medium|2024‑10‑04 06:55
+actions = Buttons(filterBtn, newBtn, direction:row)
+filterBtn = Button("Show high‑priority", primary)
+newBtn = Button("New ticket", secondary)

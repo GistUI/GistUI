@@ -1,0 +1,24 @@
+root = Card([header, pollCard])
+
+header = CardHeader("Team lunch poll", null)
+
+pollCard = Card([question, options, voteRow], "card")
+
+question = Heading("Where should we go for lunch on Friday?", "h2")
+
+// Options as a simple ListBlock with three items and vote buttons
+options = ListBlock([optionA, optionB, optionC], "image")
+
+optionA = ListItem("Sushi Place", "Fresh fish and bowls", ["https://picsum.photos/seed/sushi/40"], "Vote")
+
+optionB = ListItem("Burger Joint", "Classic burgers and fries", ["https://picsum.photos/seed/burger/40"], "Vote")
+
+optionC = ListItem("Salad Bar", "Healthy bowls and salads", ["https://picsum.photos/seed/salad/40"], "Vote")
+
+voteRow = Buttons([voteA, voteB, voteC], "row")
+
+voteA = Button("Vote Sushi", null, "primary")
+
+voteB = Button("Vote Burger", null, "primary")
+
+voteC = Button("Vote Salad", null, "primary")

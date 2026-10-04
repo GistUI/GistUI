@@ -1,0 +1,33 @@
+root = Card(CardHeader("Personal Banking", "Overview"), balancesSection, transactionsSection, spendingSection, billsSection, vacationSection, creditScoreSection, transferSection, creditFreezeSection, periodSection, alertsSection, disputeSection) 
+balancesSection = Card(Heading("Balances", h3), Table(balancesTable))
+balancesTable = |Account|Balance|Type
+|Checking|$4,512.30|checking
+|Savings|$12,340.10|savings
+|Credit|-$1,230.50|credit
+transactionsSection = Card(Heading("Recent transactions", h3), Table(transactionsTable))
+transactionsTable = |Merchant|Amount
+|Starbucks|-$5.75
+|Whole Foods|-$42.10
+|Amazon - DropShip|-$89.99
+spendingSection = Card(Heading("This month's spending by category", h3), PieChart(spendingTable, variant:pie))
+spendingTable = |Category|Value
+|Groceries|$412.20
+|Dining|$198.40
+|Gas|$125.00
+|Entertainment|$88.00
+|Online|$210.00
+billsSection = Card(Heading("Bills due soon", h3), ListBlock(ListItem("Water bill - due 2 days"), ListItem("Internet - due in 5 days"), ListItem("Credit card minimum due - due today")))
+vacationSection = Card(Heading("Vacation savings progress", h3), LineChart(vacationTrend, natural, xLabel:"Date", yLabel:"USD"), Progress(4000, "Goal: $8,000"))
+vacationTrend = |Date|Amount
+|2026-09-01|$1,200
+|2026-09-15|$800
+|2026-10-01|$1,100
+creditScoreSection = Card(Heading("Current credit score", h3), TextContent("Predicted score: 722", size:default))
+transferSection = Card(Heading("Move money between accounts", h3), Form("transfer-form", Buttons(Button("Submit", primary)), transferControls), sink)
+transferControls = FormControl("From account", Select("from_account", SelectItem("Checking", "Checking"), SelectItem("Savings", "Savings"), placeholder:"Choose a source"), FormControl("To account", Select("to_account", SelectItem("Checking", "Checking"), SelectItem("Savings", "Savings"), SelectItem("Credit", "Credit"), placeholder:"Choose a destination"), FormControl("Amount", Input("amount", "0.00", value))), sink = null
+creditFreezeSection = Card(Heading("Freeze credit line", h3), Button("Freeze now", primary))
+periodSection = Card(Heading("Statement period", h3), Form("statement-period", Buttons(Button("Apply", primary)), FormControl("Period", Select("period", SelectItem("Last 30 days","30d"), SelectItem("Last 90 days","90d"), SelectItem("This month","this-month"), placeholder:"Choose period")))
+alertsSection = Card(Heading("Alert preferences", h3), Form("alerts-form", Buttons(Button("Save alerts", primary)), TagBlock(tags:["Low balance","Large transfer","New login"])) )
+disputeSection = Card(Heading("Dispute a transaction", h3), Form("dispute-form", Buttons(Button("Submit dispute", primary)), FormControl("Transaction ID", Input("txn_id")), FormControl("Reason", TextArea("reason", "", rows:4))))
+FormControl(label, input, hint?) — defined inline for transfer controls
+Form("transfer-form", Buttons(Button("Submit", primary)), FormControl("From account", Select("from_account", SelectItem("Checking","Checking"), SelectItem("Savings","Savings")), FormControl("To account", Select("to_account", SelectItem("Checking","Checking"), SelectItem("Savings","Savings"), SelectItem("Credit","Credit")), FormControl("Amount", Input("amount","", value:"") )))

@@ -1,7 +1,0 @@
-root = Card(header, bio, messageForm)
-header = CardHeader("John Doe", "Senior Engineer")
-bio = MarkDownRenderer("John has been with the company for 5 years, focusing on backend systems and API development.")
-messageForm = Form("contact-john", buttons:formButtons, messageField)
-formButtons = Buttons(Button("Send", [], variant:primary))
-messageField = FormControl("Message", input:messageArea)
-messageArea = TextArea("message", "Write your message here...", "", 5)

@@ -1,0 +1,31 @@
+root = Stack([title, tabs], "column", "l")
+title = TextContent("User Settings", "large-heavy")
+tabs = Tabs([tabProfile, tabSecurity, tabNotifications])
+
+tabProfile = TabItem("profile", "Profile", profileContent)
+profileContent = [profileCard]
+profileCard = Card([profileHeader, profileForm], "card")
+profileHeader = CardHeader("Profile", "Update your personal information and avatar.")
+profileForm = Form("profile_update", profileButtons, [nameField, avatarField])
+nameField = FormControl("Display name", Input("display_name", "e.g., Alex Johnson", "text", {required: true, minLength: 2, maxLength: 60}))
+avatarField = FormControl("Avatar URL", Input("avatar_url", "https://example.com/avatar.png", "url", {url: true}))
+profileButtons = Buttons([saveProfileBtn, resetProfileBtn])
+saveProfileBtn = Button("Save changes", Action([@ToAssistant("Save changes")]), "primary")
+resetProfileBtn = Button("Reset", Action([@ToAssistant("Reset")]), "secondary")
+
+tabSecurity = TabItem("security", "Security", securityContent)
+securityContent = [securityCard]
+securityCard = Card([securityHeader, securityToggles, securityHint], "card")
+securityHeader = CardHeader("Security", "Manage sign-in protection and account security.")
+securityToggles = SwitchGroup("security", [twoFaSwitch], "sunk")
+twoFaSwitch = SwitchItem("Two-factor authentication (2FA)", "Require a verification code when signing in.", "two_fa", false)
+securityHint = TextCallout("info", "Tip", "After enabling 2FA, you may be asked to set up an authenticator app or backup codes.")
+
+tabNotifications = TabItem("notifications", "Notifications", notificationsContent)
+notificationsContent = [notificationsCard]
+notificationsCard = Card([notificationsHeader, notificationsToggles], "card")
+notificationsHeader = CardHeader("Notifications", "Choose what you want to be notified about.")
+notificationsToggles = SwitchGroup("notifications", [emailSwitch, productSwitch, securityAlertsSwitch], "sunk")
+emailSwitch = SwitchItem("Email notifications", "Receive updates and account messages by email.", "notif_email", true)
+productSwitch = SwitchItem("Product updates", "Get notified about new features and improvements.", "notif_product", false)
+securityAlertsSwitch = SwitchItem("Security alerts", "Important alerts about sign-ins and security changes.", "notif_security", true)

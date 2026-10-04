@@ -1,41 +1,44 @@
-root = Card(header, headcountSection, openRolesSection, pipelineSection, avgHireSection, deptSplitSection, interviewsSection, attritionSection, newRoleSection)
-header = CardHeader("Hiring Overview", "HR Lead Dashboard")
-headcountSection = Card(Heading("Current Headcount", h3), Table(headcount))
-openRolesSection = Card(Heading("Open Roles by Department", h3), Table(openRoles))
-pipelineSection = Card(Heading("Candidates by Pipeline Stage", h3), Table(pipeline))
-avgHireSection = Card(Heading("Average Time to Hire", h3), Table(avgHire))
-deptSplitSection = Card(Heading("Headcount Split by Department", h3), PieChart(labels:["Engineering","Marketing","Sales","HR"], values:[60,20,30,14], variant:donut))
-interviewsSection = Card(Heading("Interviews Scheduled This Week", h3), Table(interviews))
-attritionSection = Card(Heading("Attrition Over Past Six Months", h3), LineChart(attrition, linear, xLabel:"Month", yLabel:"%"))
-newRoleSection = Card(Heading("Actions", h3), Buttons(Button("Open New Role", primary)))
-headcount = |Metric|Count
-|Current Headcount|124
-openRoles = |Department|Open Roles
+root = Card(header, currentHeadcount, avgTime, headcountChart, openRolesChart, pipelineChart, interviewsTable, attritionChart, newRoleButton)
+
+header = CardHeader("Hiring Overview")
+currentHeadcount = TextContent("**Current headcount:** 90", size:large)
+avgTime = TextContent("**Average time to hire:** 32 days", size:default)
+headcountChart = BarChart(headcount_split, variant:grouped, xLabel:"Department", yLabel:"Employees")
+openRolesChart = HorizontalBarChart(open_roles, variant:grouped, xLabel:"Open Roles", yLabel:"Department")
+pipelineChart = PieChart(pipeline, variant:donut, appearance:circular)
+interviewsTable = Table(interviews)
+attritionChart = LineChart(attrition, variant:linear, xLabel:"Month", yLabel:"% Attrition")
+newRoleButton = Buttons(Button("Open new role", primary))
+
+headcount_split = |Department|Count
+|Engineering|45
+|Marketing|20
+|Sales|15
+|HR|10
+
+open_roles = |Department|Open Roles
 |Engineering|3
 |Marketing|2
 |Sales|1
+
 pipeline = |Stage|Candidates
-|Applied|45
-|Phone Screen|30
-|Onsite|12
-|Offer|5
-avgHire = |Metric|Days
-|Average Time to Hire|42
+|Applied|25
+|Phone Screen|12
+|Onsite|5
+|Offer|3
+|Hired|2
+
 interviews = |Date|Interviews
-|Mon 2023-09-30|5
-|Tue 2023-10-01|4
-|Wed 2023-10-02|6
-|Thu 2023-10-03|3
-|Fri 2023-10-04|2
+|Mon|4
+|Tue|3
+|Wed|5
+|Thu|2
+|Fri|1
+
 attrition = |Month|Attrition%
-|Apr|1.2
-|May|1.5
-|Jun|1.0
-|Jul|0.8
-|Aug|1.3
-|Sep|1.1
-headcountDept = |Department|Count
-|Engineering|60
-|Marketing|20
-|Sales|30
-|HR|14
+|Jan|1.2
+|Feb|1.0
+|Mar|0.8
+|Apr|1.1
+|May|0.9
+|Jun|1.3

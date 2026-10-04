@@ -1,4 +1,4 @@
-root = Card(pageHeader, uptimeSection, incidentSection)
-pageHeader = CardHeader("Platform Status", "Status as of Sep 30, 2026")
-uptimeSection = Card(Heading("API Uptime (this month)", h3), TextContent("99.97%", size:large-heavy))
-incidentSection = Card(Heading("Most Recent Incident", h3), Callout(warning, "Database outage", "Resolved at 2024-09-28 14:32 UTC"))
+root = Card(header, uptime, incident)
+header = CardHeader("Platform Status", "Overview")
+uptime = TextContent("**Uptime this month:** 99.97%", size:large)
+incident = Callout(info, "Recent Incident", "Database outage on Sep 12, resolved at 14:30 UTC.")

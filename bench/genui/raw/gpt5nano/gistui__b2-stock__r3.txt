@@ -1,0 +1,14 @@
+root = Card(CardHeader("Low Inventory Warning"), searchBar, itemsTable, thresholdPanel, reorderPanel)
+
+searchBar = Form("search-form", Buttons(Button("Search", primary)), FormControl("Search items", Input("query", placeholder:"Search by name or SKU")))
+
+itemsTable = Table(tableLowInventory)
+
+tableLowInventory = |Item|Remaining
+|Widget A|12
+|Gadget B|4
+|Thingamajig C|2
+
+thresholdPanel = Card(Heading("Threshold", h4), TextContent("Only items with remaining units at or below the threshold are shown."), FormControl("Threshold value", Input("threshold", value:"5")))
+
+reorderPanel = Card(Heading("Reorder", h4), ListBlock( ListItem("Reorder Widget A", "Stock level: 12", "Reorder", ["https://picsum.photos/seed/widgetA/40/40"]), ListItem("Reorder Gadget B", "Stock level: 4", "Reorder", ["https://picsum.photos/seed/gadgetB/40/40"]), ListItem("Reorder Thingamajig C", "Stock level: 2", "Reorder", ["https://picsum.photos/seed/thingamajigC/40/40"]) ))

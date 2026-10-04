@@ -1,0 +1,51 @@
+root = Card([
+  header = CardHeader("Clinic Day View", "Today overview"),
+  topRow = Card([
+    todayLabel = Heading("Today’s schedule", "h2"),
+    appointmentsCard = Card([
+      appointmentsList = TextContent("Appointments for today:", "default"),
+      apptTable = Table([
+        Col("Time", ["09:00", "09:30", "10:15", "11:00", "13:20"]),
+        Col("Patient", ["Alex Kim", "Priya Singh", "Daniel Chen", "Maria Lopez", "Jonah Lee"])
+      ]),
+      totalCount = TextContent("Total patients today: 5", "default")
+    ]),
+  ]),
+  statsRow = Card([
+    sectionHeader = Heading("Summary", "h3"),
+    summaryBlock = Card([
+      totalExpected = TextContent("Patients expected today: 5", "default"),
+      noShowRate = TextContent("No-show rate this month: 4%", "default"),
+      freeRooms = TextContent("Rooms free now: 2 (Room 2, Room 4)", "default")
+    ])
+  ]),
+  actionsRow = Card([
+    nextCalled = Card([
+      CardHeader("Next patient called", null),
+      nextPatient = TextContent("Priya Singh", "large")
+    ]),
+    checkInSection = Card([
+      CardHeader("Check-in patient", null),
+      checkInForm = Form("checkin", Buttons([submitCheckin], "row"), [
+        patientSelect = FormControl("Choose patient", Select("patient_select", [
+          SelectItem("p1", "Alex Kim"),
+          SelectItem("p2", "Priya Singh"),
+          SelectItem("p3", "Daniel Chen")
+        ]))
+      ])
+      ]),
+    moveDayBlock = Card([
+      CardHeader("Move to another day", null),
+      dayPicker = CalendarBlock("single", null, 1, "dropdown")
+    ])
+  ]),
+  footerRow = Card([
+    roomStatus = CardHeader("Rooms & Availability", null),
+    roomsBlock = Card([
+      TextContent("Current room status:", "default"),
+      roomsList = TextContent("Room 1: In use\nRoom 2: Free\nRoom 3: In use\nRoom 4: Free", "default")
+    ])
+  ])
+])
+
+submitCheckin = Button("Check-in patient", null, "primary")

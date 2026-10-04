@@ -1,0 +1,43 @@
+root = Card([
+  header,
+  menuTabs,
+  specialsSection,
+  hoursSection,
+  footer
+])
+header = CardHeader("Café Aurora Menu", "Today’s offerings")
+menuTabs = Tabs([
+  drinksTab, foodTab, allTab
+])
+drinksTab = TabItem("drinks", "Drinks", drinksContent)
+foodTab = TabItem("food", "Food", foodContent)
+allTab = TabItem("all", "All", drinksContent + foodContent)
+drinksContent = Card([
+  Heading("Drinks", "h2"),
+  drinksList
+])
+foodContent = Card([
+  Heading("Food", "h2"),
+  foodList
+])
+drinksList = Table([Col("Item", ["Espresso", "Latte", "Americano", "Cappuccino", "Cold Brew"]), Col("Price", ["$3.50", "$4.75", "$3.75", "$4.25", "$4.50"])])
+foodList = Table([Col("Item", ["BLT Sandwich", "Avocado Toast", "Quiche", "Sourdough Toast", "Muffin"]), Col("Price", ["$6.50", "$5.75", "$7.25", "$4.50", "$3.75"])])
+specialsSection = Card([Heading("Today's Special", "h2"), specialBlock], null)
+specialBlock = Card([Callout("info", "Today’s Special: Honey-Glazed Salmon", "Served with lemon zest potatoes and seasonal greens"), Tag("Chef's pick", null, "md", "neutral")])
+ vegetarianToggle = Button("Vegetarian only", null, "secondary")
+ VegetarianOnlySection = Card([
+  vegetarianToggle,
+  Card([
+    Heading("Vegetarian dishes", "h3"),
+    vegetarianList
+  ])
+], "sunk")
+vegetarianList = Table([Col("Item", ["Avocado Toast", "Mushroom Quiche", "Garden Salad", "Tomato Basil Soup"]), Col("Price", ["$5.75", "$7.25", "$6.00", "$4.25"])])
+hoursHeader = CardHeader("Opening Hours")
+hoursContent = Card([
+  TextContent("Mon–Fri: 7:00 AM – 8:00 PM"),
+  TextContent("Sat: 8:00 AM – 6:00 PM"),
+  TextContent("Sun: 8:00 AM – 4:00 PM")
+])
+hoursSection = Card([hoursHeader, hoursContent], "card")
+footer = Card([TextContent("Visit us daily for fresh coffee, baked goods, and light bites."), Tag("Wi‑Fi", null, "md", "info")], "clear")

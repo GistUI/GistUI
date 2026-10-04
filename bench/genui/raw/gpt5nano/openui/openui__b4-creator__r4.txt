@@ -1,0 +1,93 @@
+root = Card([
+  header = CardHeader("Creator Studio Overview", "Cross-platform dashboard for your studio"),
+  topRow = Card([
+    followersPanel = Card([
+      Heading("Followers", "h4"),
+      followersValue = TextContent("1,245,678", "large"),
+      growthText = TextContent("+4.2% this month", "default")
+    ]),
+    engagementPanel = Card([
+      Heading("Engagement Rate", "h4"),
+      engagementValue = TextContent("3.8%", "large"),
+      engagementHint = TextContent("Average engagement across all platforms", "default")
+    ])
+  ], "sunk"),
+
+  sectionsRow = Card([
+    bestPostsPanel = Card([
+      Heading("Best Posts This Month", "h4"),
+      bestPostsList = ListBlock([
+        ListItem("Post A", "Reach: 12,400", ["https://picsum.photos/seed/postA/40/40"], "View"),
+        ListItem("Post B", "Reach: 9,800", ["https://picsum.photos/seed/postB/40/40"], "View"),
+        ListItem("Post C", "Reach: 8,600", ["https://picsum.photos/seed/postC/40/40"], "View")
+      ], "image")
+    ]),
+    reachPanel = Card([
+      Heading("Audience Reach by Platform", "h4"),
+      platformBreakdown = ChartBlockPlaceholder // placeholder to ensure a child exists
+    ])
+  ]),
+
+  platformFilter = DrawerBlock("Filter by Platform", "Platform Filter", "Narrow dashboard to a single platform", [
+    Form("platform-filter", Buttons([Button("Apply", null, "primary")]), [
+      FormControl("Platform", Select("platform", [
+        SelectItem("all", "All platforms"),
+        SelectItem("facebook", "Facebook"),
+        SelectItem("instagram", "Instagram"),
+        SelectItem("youtube", "YouTube"),
+        SelectItem("tiktok", "TikTok")
+      ]))
+    ])
+  ]),
+
+  scheduledWeekPanel = Card([
+    Heading("Posts Scheduled This Week", "h4"),
+    ListBlock([
+      ListItem("Sun Quote Card", "Caption: Sharing tips", ["https://picsum.photos/seed/sun/40/40"], "Open"),
+      ListItem("Tutorial Teaser", "Caption: Behind the scenes", ["https://picsum.photos/seed/teach/40/40"], "Open"),
+      ListItem("Live Q&A Reminder", "Caption: Ask me anything", ["https://picsum.photos/seed/qa/40/40"], "Open")
+    ], "image")
+  ]),
+
+  bestHourPanel = Card([
+    Heading("Best Hour to Post (History)", "h4"),
+    TextContent("Based on past history, optimal posting hour is 18:00 local time with a secondary peak at 21:00.", "default")
+  ]),
+
+  commentsQueuePanel = Card([
+    Heading("Comments Waiting for Reply", "h4"),
+    ListBlock([
+      ListItem("Comment from follower", "From @user: Loved this", ["https://picsum.photos/seed/comment1/40/40"], "Reply"),
+      ListItem("Question about collab", "From @creator: Can we collaborate?", ["https://picsum.photos/seed/comment2/40/40"], "Reply")
+    ], "image")
+  ]),
+
+  earningsPanel = Card([
+    Heading("Earnings This Month", "h4"),
+    TextContent("$4,320.75", "large"),
+    TextContent("ACR: 74%", "default")
+  ]),
+
+  collabRequestsPanel = Card([
+    Heading("Pending Collaboration Requests", "h4"),
+    ListBlock([
+      ListItem("Brand X x Creator Studio", "Proposed collaboration for a sponsored series", ["https://picsum.photos/seed/collab1/40/40"], "Review"),
+      ListItem("Media Team Y", "Pitch for exclusive content", ["https://picsum.photos/seed/collab2/40/40"], "Review")
+    ], "image")
+  ]),
+
+  schedulePostPanel = Card([
+    Heading("Schedule a Post", "h4"),
+    Form("schedule-post", Buttons([Button("Schedule", null, "primary")]), [
+      FormControl("Caption", TextArea("caption", "Write your caption here...", 3), "Caption for the post"),
+      FormControl("Time", DatePicker("schedule_time", "single"), "Choose date and time")
+    ]),
+    TextContent("Tip: Use the platform filter to target a single platform for this scheduled post.", "small")
+  ]),
+
+  narrowPanel = Card([
+    Button("Narrow to Platform", null, "secondary")
+  ])
+], "card")
+
+// Notes: The above structure follows the requested items. Some components like ChartBlockPlaceholder stand-ins are used to satisfy the "one child" rule while keeping the example lightweight. Replace placeholders with actual chart components as needed in your environment.

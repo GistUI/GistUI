@@ -1,0 +1,73 @@
+root = Card(CardHeader("PMO Project Portfolio Review", "Active snapshot with filters and actions"), healthSummary, quarterSwitcher, sections)
+
+healthSummary = Card(Heading("Portfolio health: stable overall", h3))
+
+quarterSwitcher = Card(Tag("Q3 2024", info), DialogBlock("change-quarter", "Switch Quarter", Card(Heading("Choose Quarter", h4), Form("quarter-form", Buttons(Button("Apply", primary))), SectionBlock(CardHeader("Quarter selectors"))))
+
+sections = SectionBlock(section1, isFoldable)
+
+section1 = SectionItem("active-projects", "Active Projects", activeProjectsTable, overdueMilestones, budgetAllocationChart, teamUtilizationChart, risksTable, upcomingDeadlinesTable, deliveryPaceChart, blockedWorkTable, oneLineHealth, placeholder2, exportButton, archiveButton)
+
+activeProjectsTable = Table(activeProjects)
+
+activeProjects = |Project|Owner|Deadline|Health
+|Apex Core Upgrade|J. Rivera|2026-02-15|healthy
+|Nimbus Portal revamp|L. Chen|2026-02-28|attention
+|Atlas Data Lake|M. Singh|2026-03-10|risky
+
+overdueMilestones = Card(Heading("Overdue milestones", h4), Table(overdueMilestonesTable))
+
+overdueMilestonesTable = |Milestone|Project|Due Date|Status
+|M1 – UI freeze|Apex Core Upgrade|2026-01-20|overdue
+|M2 – API v2|Nimbus Portal revamp|2026-01-28|overdue
+
+budgetAllocationChart = AreaChart(budgetTable, linear, xLabel:"Project", yLabel:"USD")
+
+budgetTable = |Project|Budget|Spent|Allocation
+|Apex Core Upgrade|1200000|850000|71%
+|Nimbus Portal revamp|900000|450000|50%
+|Atlas Data Lake|600000|300000|50%
+
+teamUtilizationChart = BarChart(utilTable, grouped, xLabel:"Team", yLabel:"Utilization %")
+
+utilTable = |Team|Utilization
+|PMO|72
+|Engineering|68
+|Product|54
+|QA|60
+
+risksTable = Table(risksPipe)
+
+risksPipe = |Risk|Project|Severity|Description
+|Data privacy|Atlas Data Lake|high|Mitigation required
+|Resource drift|Nimbus Portal revamp|medium|Review staffing
+
+upcomingDeadlinesTable = Table(deadlinesTable)
+
+deadlinesTable = |Project|Milestone|Deadline
+|Apex Core Upgrade|M9 – Performancetargets|2026-02-20
+|Nimbus Portal revamp|M5 – Access control|2026-02-25
+
+deliveryPaceChart = LineChart(paceTable, natural, xLabel:"Sprint", yLabel:"Velocity")
+
+paceTable = |Sprint|Velocity
+|Sprint 22|42
+|Sprint 23|46
+|Sprint 24|39
+|Sprint 25|44
+|Sprint 26|48
+|Sprint 27|45
+
+blockedWorkTable = Table(blockedTable)
+
+blockedTable = |Work Item|Project|Owner|Impact
+|Migrate auth|Nimbus Portal revamp|S. Khan|Block release
+|Data mapping drift|Atlas Data Lake|A. Kim|Must fix before milestone
+
+oneLineHealth = CardHeader("Portfolio health summary", nil)
+
+exportButton = Buttons(Button("Export review", primary))
+
+archiveButton = Buttons(Button("Archive finished projects", secondary))
+
+placeholder2 = SectionBlock()

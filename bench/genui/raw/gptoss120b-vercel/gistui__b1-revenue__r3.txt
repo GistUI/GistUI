@@ -1,5 +1,0 @@
-root = Card(todaySection, yesterdaySection)
-
-todaySection = Card(CardHeader("Today's Revenue", "Mid‑morning update"), TextContent("$5,240", size:large), Tag("Today", neutral))
-
-yesterdaySection = Card(CardHeader("Yesterday's Revenue", "Same time yesterday"), TextContent("$4,870", size:large), Tag("Yesterday", neutral))

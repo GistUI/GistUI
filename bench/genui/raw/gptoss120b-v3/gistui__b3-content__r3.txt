@@ -1,41 +1,30 @@
-root = Card(CardHeader("Editor Content Studio"), draftsSection, publishedSection, mostReadSection, readershipSection, filterSection, scheduleSection, commentsSection, newDraftSection)
-
-draftsSection = Card(Heading("Drafts", h2), draftsTable)
-publishedSection = Card(Heading("Published This Week", h2), publishedTable)
-mostReadSection = Card(Heading("Most-Read Article This Month", h2), mostReadCard)
-readershipSection = Card(Heading("Readership (Last 30 Days)", h2), readershipChart)
-filterSection = Card(Heading("Filter by Category", h2), filterForm)
-scheduleSection = Card(Heading("Schedule a Piece", h2), scheduleForm)
-commentsSection = Card(Heading("Comments Awaiting Reply", h2), commentsTable)
-newDraftSection = Card(Heading("Create New Draft", h2), newDraftButton)
-
-mostReadCard = Card(Heading("AI Revolution", h3), TextContent("12,345 reads", size:large))
-readershipChart = LineChart(readershipRows, linear, xLabel:"Date", yLabel:"Readers")
-filterForm = Form("filter", filterButtons, categoryField)
-categoryField = FormControl("Category", categorySelect)
-categorySelect = Select("category", SelectItem("Tech", "Tech"), SelectItem("Lifestyle", "Lifestyle"), SelectItem("News", "News"), placeholder:"All categories")
-filterButtons = Buttons(Button("Apply", primary))
-scheduleForm = Form("schedule", scheduleButtons, titleField, dateField)
-titleField = FormControl("Title", Input("title", "Enter title"))
-dateField = FormControl("Publish date", DatePicker("publish_date", mode:single))
-scheduleButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
-newDraftButton = Button("New Draft", primary)
-
-draftsTable = |Draft|Status
-|Intro to AI|Draft
-|Weekly Digest|In Review
-
+root = Card(categorySelect, draftsSection, publishedSection, mostReadSection, readershipSection, scheduleSection, commentsSection, newDraftSection)
+categorySelect = Select("category", SelectItem("all","All"), SelectItem("news","News"), SelectItem("opinion","Opinion"), SelectItem("features","Features"), placeholder:"Filter by category")
+draftsSection = Card(CardHeader("Drafts","Current draft status"), Table(draftsTable))
+publishedSection = Card(CardHeader("Published This Week","Articles released this week"), Table(publishedTable))
+mostReadSection = Card(Callout(variant:info, "Most Read Article", "The Deep Dive – 12,345 reads"), Table(mostReadTable))
+readershipSection = Card(CardHeader("Readership (Last 30 Days)"), LineChart(readershipTable, variant:linear, xLabel:"Date", yLabel:"Views"))
+scheduleSection = Card(CardHeader("Schedule a Piece"), scheduleForm)
+commentsSection = Card(CardHeader("Comments Awaiting Reply"), Table(commentsTable))
+newDraftSection = Card(Button("New Draft", primary))
+scheduleForm = Form("schedule-piece", scheduleButtons, titleControl, dateControl)
+titleControl = FormControl("Title", Input("title", "Enter title"))
+dateControl = FormControl("Publish Date", DatePicker("publish_date", mode:single))
+scheduleButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))
+draftsTable = |Title|Status
+|Article 1|Draft
+|Article 2|In Review
 publishedTable = |Title|Date
-|AI Trends|2023-09-20
-|Design Tips|2023-09-22
-
-commentsTable = |Comment|Author|Date
-|Great article!|Alice|2023-09-28
-|Need clarification|Bob|2023-09-29
-
-readershipRows = |Date|Readers
-|2023-09-01|1200
-|2023-09-08|1500
-|2023-09-15|1800
-|2023-09-22|2100
-|2023-09-30|2500
+|Launch Update|2023-09-04
+|Weekly Roundup|2023-09-06
+mostReadTable = |Title|Reads
+|The Deep Dive|12345
+readershipTable = |Date|Views
+|2023-08-05|800
+|2023-08-12|950
+|2023-08-19|1100
+|2023-08-26|1200
+|2023-09-02|1300
+commentsTable = |Author|Excerpt|Date
+|Jane Doe|"Great article!"|2023-09-03
+|John Smith|"I have a question about..."|2023-09-04

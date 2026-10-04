@@ -1,0 +1,53 @@
+root = Card(CardHeader("PMO Portfolio Review", "Quarter: Q3 2024"), healthSummary, quarterSwitcher, actionsRow, activeProjectsSection, overdueMilestonesSection, budgetSection, utilizationSection, risksSection, upcomingDeadlinesSection, paceSection, blockedSection, exportAndArchiveRow)
+healthSummary = TextContent("Portfolio health: steady with several at-risk initiatives; overall trajectory improving as milestones align with budgets.", default)
+quarterSwitcher = Form("quarter-filter", Buttons(Button("Previous", normal), Button("Next", normal)),)
+actionsRow = SectionBlock(SectionItem("request-people", "Request more people", requestPeoplePanel), SectionItem("archive-projects", "Archive finished projects", archivePanel), SectionItem("export-review", "Export review", exportPanel))
+requestPeoplePanel = Card(Heading("Request more resources", h3), Form("resource-request", Buttons(Button("Submit", primary)), FormControl("Project", Input("project", "Project Alpha")), FormControl("Team size", Input("requested_size", "3")), FormControl("Reason", TextArea("reason", "Reason for expansion"))))
+archivePanel = Card(Heading("Archive finished projects", h3), ListBlock( ListItem("Project Beta", "Completed on 2024-06-30"), ListItem("Project Delta", "Completed on 2024-07-15"), variant:number))
+exportPanel = Card(Heading("Export review", h3), Button("Export CSV", primary))
+activeProjectsSection = Card(CardHeader("Active Projects", "Owner, Deadline, Health"), Table(activeProjects),)
+activeProjects = |Project|Owner|Deadline|Health
+|Project A|Alice|2024-11-10|Healthy
+|Project B|Bob|2025-01-22|At risk
+|Project C|Carol|2024-12-05|Healthy
+overdueMilestonesSection = Card(Heading("Overdue Milestones", h2), Table(overdueMilestones))
+overdueMilestones = |Milestone|Project|Due|Status
+|M1|Project A|2024-10-02|Overdue
+|M2|Project C|2024-10-01|Delayed
+budgetSection = Card(Heading("Budget vs Allocation", h3), BarChart(budgetTable, xLabel:"Project", yLabel:"USD"), Table(budgetRows))
+budgetTable = |Project|Budget|Allocation
+|Project A|120000|90000
+|Project B|150000|120000
+|Project C|90000|85000
+budgetRows = |Project|Spent|Remaining
+|Project A|45000|45000
+|Project B|90000|30000
+|Project C|50000|35000
+utilizationSection = Card(Heading("Team Utilization", h3), RadarChart(utilizationTable))
+utilizationTable = |Team|Utilization%
+|Team 1|75
+|Team 2|60
+|Team 3|85
+risksSection = Card(Heading("Risks by Severity", h3), Table(risksTable))
+risksTable = |Project|Risk|Severity
+|Project A|Scope creep|High
+|Project B|Resource constraint|Medium
+|Project C|Vendor delay|High
+upcomingDeadlinesSection = Card(Heading("Deadlines Next 2 Weeks", h3), Table(deadlinesTable))
+deadlinesTable = |Date|Project|Milestone
+|2024-10-08|Project A|Milestone 3
+|2024-10-09|Project B|Milestone 2
+paceSection = Card(Heading("Delivery Pace: Last 6 Sprints", h3), LineChart(paceTable, linear, xLabel:"Sprint", yLabel:"Velocity"))
+paceTable = |Sprint|Velocity
+|S1|22
+|S2|25
+|S3|20
+|S4|27
+|S5|23
+|S6|26
+blockedSection = Card(Heading("Blocked Work Items", h3), Table(blockedTable))
+blockedTable = |Item|Project|Reason
+|API integration|Project B|Waiting on external API
+|UI refresh|Project C|Dependency not ready
+projectsPanel = Card(Heading("Projects Dashboard", h3), SectionBlock(SectionItem("Overview", "Overview"), SectionItem("Details", "Details")))
+Table(table) inlined data is used for charts and tables; further sections reference the data above.

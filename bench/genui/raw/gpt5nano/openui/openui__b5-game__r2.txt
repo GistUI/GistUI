@@ -1,0 +1,159 @@
+root = Card([
+  header = CardHeader("Live-Ops Studio Dashboard", "Real-time studio operations"),
+  topRow = Card([
+    kpisRow = Card([
+      playersOnlineHeading = Heading("Players Online Right Now", "h3"),
+      playersOnlineValue = TextContent("1,246", "default"),
+      dauHeading = Heading("Daily Active Players", "h4"),
+      dauValue = TextContent("28,400", "default"),
+      mauHeading = Heading("Monthly Active Players", "h4"),
+      mauValue = TextContent("1,210,000", "default"),
+      revenueTodayHeading = Heading("Revenue Today", "h3"),
+      revenueTodayValue = TextContent("$8,420", "default"),
+      revenuePerUserHeading = Heading("Revenue per User", "h3"),
+      revenuePerUserValue = TextContent("$0.34", "default"),
+    ]),
+    regionalFocusPanel = Card([
+      focusHeading = Heading("Focus by Region", "h3"),
+      regionSelector = ImageBlock("https://picsum.photos/seed/region/16/9", "Region filter placeholder"),
+    ])
+  ], "card"),
+  twoWeekTrend = Card([
+    trendHeading = Heading("Session Length - Past 14 days", "h3"),
+    sessionLineChart = LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10","Day 11","Day 12","Day 13","Day 14"],
+      [Series("Session Length (min)", [12,14,11,13,15,14,13,12,16,15,14,13,12,11])],
+      "natural",
+      "Day",
+      "Minutes"),
+  ]),
+  salesPanel = Card([
+    bestSellingHeading = Heading("Best-Selling Items", "h3"),
+    bestSellingTable = Table([
+      Col("Item", ["Sword of Dawn","Armor Might","Health Potion","Mana Crystal"]),
+      Col("Units Sold", [1280, 970, 540, 430]),
+    ]),
+  ], "sunk"),
+  serverStatusPanel = Card([
+    serverHeading = Heading("Server Regions Health", "h3"),
+    regionTable = Table([
+      Col("Region", ["NA-East","NA-West","EU","ASIA"]),
+      Col("Health", ["Healthy","Stable","Degraded","Healthy"]),
+      Col("Players Online", [312, 421, 210, 303]),
+    ]),
+  ]),
+  crashRatePanel = Card([
+    crashHeading = Heading("Crash Rate by App Version", "h3"),
+    crashChart = BarChart(["v1.2","v1.3","v1.4","v1.5"], [
+      Series("Crash Rate", [0.4, 0.7, 0.9, 0.3])
+    ], "linear", "Version", "Crashes per 1k sessions")
+  ]),
+  eventsPanel = Card([
+    eventsHeading = Heading("Live Events & Upcoming", "h3"),
+    liveEvents = ListBlock([
+      ListItem("Halloween Bash", "Ongoing: Double XP weekend", ["https://picsum.photos/seed/event1/40/40"]),
+      ListItem("Winter Royale", "Starts in 3 days", ["https://picsum.photos/seed/event2/40/40"])
+    ], "image"),
+  ]),
+  reportsPanel = Card([
+    reportsHeading = Heading("Player Reports Awaiting Review", "h3"),
+    reportsList = ListBlock([
+      ListItem("Report #45231", "Rogue mod suspected", ["https://picsum.photos/seed/report1/40/40"]),
+      ListItem("Report #45242", "Cheating suspected", ["https://picsum.photos/seed/report2/40/40"])
+    ], "image"),
+  ]),
+  banAppealsPanel = Card([
+    appealsHeading = Heading("Ban Appeals Awaiting Review", "h3"),
+    appealsList = ListBlock([
+      ListItem("Appeal #7891", "Permanent ban review", ["https://picsum.photos/seed/appeal1/40/40"]),
+      ListItem("Appeal #7892", "Temporary ban review", ["https://picsum.photos/seed/appeal2/40/40"])
+    ], "image"),
+  ]),
+  currencyInflationPanel = Card([
+    inflationHeading = Heading("In-Game Currency Inflation", "h3"),
+    inflationChart = LineChart(["Week 1","Week 2","Week 3","Week 4"],
+      [Series("Currency in Circulation", [1000000, 1050000, 1080000, 1105000])],
+      "linear",
+      "Week",
+      "Units")
+  ]),
+  experimentsPanel = Card([
+    experimentsHeading = Heading("Running Experiments", "h3"),
+    experimentsTable = Table([
+      Col("Experiment", ["Zerotext Pro UI","Loot Drop Tuning"]),
+      Col("Status", ["Running","Running"]),
+      Col("Metric A", ["+4.2%","-1.1%"]),
+    ]),
+  ]),
+  patchNotesPanel = Card([
+    patchHeading = Heading("Draft Patch Notes", "h3"),
+    draftArea = TextContent("Draft notes area. Use this to prepare patch notes for the region or global rollouts.", "default"),
+  ]),
+  regionFocusPanel2 = Card([
+    regionFocusHeading = Heading("Regional Focus View", "h3"),
+    regionFocusInfo = TextContent("Toggle to isolate a region's metrics for focused review.", "default")
+  ]),
+  hotfixPanel = Card([
+    hotfixHeading = Heading("Ship a Hotfix", "h3"),
+    hotfixActions = Buttons([Button("Open Hotfix Ticket"), Button("Mark Ready for Release")])
+  ]),
+  // Layout assembly: ensure every defined variable is referenced
+  CardHeader("Overview Widgets", null),
+  // Main layout columns
+  sectionA = Card([
+    playersOnlineHeading, playersOnlineValue,
+    dauHeading, dauValue,
+    mauHeading, mauValue
+  ], "card"),
+  sectionB = Card([
+    revenueTodayHeading, revenueTodayValue,
+    revenuePerUserHeading, revenuePerUserValue
+  ], "card"),
+  sectionC = Card([
+    trendHeading, sessionLineChart
+  ], "card"),
+  sectionD = Card([
+    bestSellingHeading, bestSellingTable
+  ], "card"),
+  sectionE = Card([
+    regionTable
+  ], "card"),
+  sectionF = Card([
+    crashHeading, crashChart
+  ], "card"),
+  sectionG = Card([
+    eventsHeading, liveEvents
+  ], "card"),
+  sectionH = Card([
+    reportsHeading, reportsList
+  ], "card"),
+  sectionI = Card([
+    appealsHeading, appealsList
+  ], "card"),
+  sectionJ = Card([
+    inflationChart
+  ], "card"),
+  sectionK = Card([
+    experimentsHeading, experimentsTable
+  ], "card"),
+  sectionL = Card([
+    patchHeading, draftArea
+  ], "card"),
+  sectionM = Card([
+    regionFocusHeading, regionFocusInfo
+  ], "card"),
+  sectionN = Card([
+    hotfixHeading, hotfixActions
+  ], "card"),
+
+  // Final page composition
+  Card([
+    header,
+    sectionA,
+    SectionBlock([
+      SectionItem("a1", "Overview", [dauHeading, dauValue]),
+    [
+      // placeholder to satisfy structure
+    ]],
+    sectionB, sectionC, sectionD, sectionE, sectionF, sectionG, sectionH, sectionI, sectionJ, sectionK, sectionL, sectionM, sectionN
+  ], "card")
+])

@@ -1,0 +1,145 @@
+root = Card([header, dashboard], "card")
+
+header = CardHeader("Morning Trading Desk", "Live workspace for traders")
+
+dashboard = Card([sectionTop, sectionsGrid, controlsRow, marketsNewsSection], "card")
+
+sectionTop = Heading("Overview", "h2")
+
+sectionsGrid = Card([portfolioPanel, pnlPanel, positionsPanel, exposurePanel, varPanel], "card")
+
+portfolioPanel = Card([portfolioValue], "card")
+
+portfolioValue = TextContent("Portfolio Value: $1,250,000", "default")
+
+pnlPanel = Card([pnlToday], "card")
+
+pnlToday = TextContent("P/L Today: +$6,400 (0.51%)", "default")
+
+positionsPanel = Card([positionsHeader, positionsTable], "card")
+
+positionsHeader = Heading("Positions", "h3")
+
+positionsTable = Table([Col("Ticker", ["AAPL", "MSFT", "TSLA"]), Col("Size", ["100", "50", "20"]), Col("Entry", ["$150.00", "$250.00", "$1200.00"]), Col("Current", ["$152.30", "$255.10", "$1235.40"])],)
+
+Col
+
+exposurePanel = Card([exposureHeader, exposureChart], "card")
+
+exposureHeader = Heading("Exposure by Sector", "h3")
+
+exposureChart = TextContent("Sector exposure chart placeholder", "default")
+
+varPanel = Card([varHeader, varValue], "card")
+
+varHeader = Heading("Value at Risk (VaR)", "h3")
+
+varValue = TextContent("VaR: $35,000 (95% conf, 1d)", "default")
+
+marketsNewsSection = Card([headlineHeader, headlinesList], "card")
+
+headlineHeader = Heading("Market Headlines & Sentiment", "h3")
+
+headlinesList = ListBlock([headlineItem, headlineItem2], "number")
+
+headlineItem = ListItem("Equities rally on earnings optimism", "Positive sentiment across tech", ["https://picsum.photos/seed/market1/40/40"])
+
+headlineItem2 = ListItem("Oil prices stabilize", "Neutral sentiment", ["https://picsum.photos/seed/market2/40/40"])
+
+controlsRow = Card([timeframeControl, rebalanceButton, orderEntry], "card")
+
+timeframeControl = Form("timeframe-controls", timeframeButtons, [timeframeSelect])
+
+timeframeButtons = Buttons([ptlButton], "row")
+
+ptlButton = Button("1D")
+
+timeframeSelect = Select("timeframe", [tf1, tf5, tf30], "Select timeframe")
+
+tf1 = SelectItem("1d", "1 Day")
+
+tf5 = SelectItem("5d", "5 Days")
+
+tf30 = SelectItem("30d", "30 Days")
+
+rebalanceButton = Button("Rebalance", null, "secondary")
+
+orderEntry = DrawerBlock("Place Order", "New Order", "Enter ticker, side and quantity", [tickerField, sideField, qtyField, submitOrder], "default")
+
+tickerField = FormControl("Ticker", Input("ticker", "AAPL"), "")
+
+sideField = FormControl("Side", RadioGroup("side", [buy, sell]), "")
+
+buy = RadioItem("Buy", "Open new long position", "buy")
+
+sell = RadioItem("Sell", "Close or short", "sell")
+
+qtyField = FormControl("Quantity", Input("qty", "100", "number"), "")
+
+submitOrder = Buttons([sendOrder], "row")
+
+sendOrder = Button("Submit Order", null, "primary")
+
+timelinePanel = Card([drawdownHeader, drawdownChart], "card")
+
+drawdownHeader = Heading("Drawdown (12m)", "h3")
+
+drawdownChart = TextContent("Drawdown chart placeholder", "default")
+
+riskLimitsPanel = Card([riskHeader, breachStatus], "card")
+
+riskHeader = Heading("Risk Limits & Breach Proximity", "h3")
+
+breachStatus = TextContent("No limits breached. Some nearing breach in margin usage.", "default")
+
+marginPanel = Card([marginHeader, marginValue], "card")
+
+marginHeader = Heading("Margin in Use", "h3")
+
+marginValue = TextContent("Margin in use: $220,000", "default")
+
+dashboardExtras = Card([economicReleasesPanel, weekEconomicsPanel], "card")
+
+economicReleasesPanel = Card([economicHeader, economicList], "card")
+
+economicHeader = Heading("Economic Releases This Week", "h3")
+
+economicList = ListBlock([event1, event2, event3], "image")
+
+event1 = ListItem("CPI (US)", "Forecast: 0.3% WoW", ["https://picsum.photos/seed/econ1/40/40"])
+
+event2 = ListItem("PPI (US)", "Forecast: 0.2% WoW", ["https://picsum.photos/seed/econ2/40/40"])
+
+event3 = ListItem("Unemployment Rate", "Forecast: 4.0%", ["https://picsum.photos/seed/econ3/40/40"])
+
+weekEconomicsPanel = Card([economicHeader2, economicsList2], "card")
+
+economicHeader2 = Heading("This Week", "h4")
+
+economicsList2 = TextContent("Mon: PMI, Tue: Jobs, Wed: CPI, Thu: Retail Sales, Fri: Consumer Confidence", "default")
+
+strategiesPanel = Card([strategiesHeader, strategiesList], "card")
+
+strategiesHeader = Heading("Strategy Returns This Year", "h3")
+
+strategiesList = Table([Col("Strategy", ["Mean Reversion", "Momentum", "Event-Driven"]), Col("YTD Return", ["+8.4%", "+12.1%", "+4.2%"])],)
+
+drawdownPanel = Card([drawdownHeader2, drawdownChart2], "card")
+
+drawdownHeader2 = Heading("Yearly Drawdown", "h3")
+
+drawdownChart2 = TextContent("Drawdown over the past year chart placeholder", "default")
+
+riskSignalsPanel = Card([riskHeader2, riskList], "card")
+
+riskHeader2 = Heading("Risks Nearing Limits", "h3")
+
+riskList = ListBlock([riskItem1, riskItem2], "number")
+
+riskItem1 = ListItem("Max drawdown breach risk", "Within 5% of limit", [])
+
+riskItem2 = ListItem("Margin breach risk", "Close to limit in 2 hours", [])
+
+containers = Card([portfolioPanel, pnlPanel, positionsPanel, exposurePanel, varPanel, marketsNewsSection, controlsRow, timelinePanel, riskLimitsPanel, marginPanel, dashboardExtras, strategiesPanel, drawdownPanel, riskSignalsPanel], "card")
+
+root = Card([header, dashboard])

@@ -1,0 +1,19 @@
+root = Card([header, urgentCard, statusLine, actions])
+header = CardHeader("Personal Focus", "One task at a time")
+
+urgentCard = Card([
+  Heading("Most urgent task", "h2"),
+  TextContent("Deadline: 2026-10-31"), 
+  TextContent("Task: Complete quarterly forecast preparation"), 
+  Separator("horizontal", false)
+], "card")
+
+statusLine = Card([ 
+  Heading("Current status", "h3"),
+  TextContent("Status: In progress"), 
+  TextContent("Priority: High")
+], "card")
+
+actions = Buttons([markDoneBtn])
+
+markDoneBtn = Button("Mark as done", null, "primary")

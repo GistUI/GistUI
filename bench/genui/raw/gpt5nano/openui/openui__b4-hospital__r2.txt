@@ -1,0 +1,107 @@
+root = Card([
+    CardHeader("Hospital Operations Command View"),
+    SectionBlock([
+        SectionItem("occupancy", "Bed Occupancy", [
+            Heading("Bed occupancy", "h3"),
+            Callout("info", "Current occupancy", "Total beds occupied vs. total capacity at a glance."),
+            BarChart(["Occupied","Available"], [Series("Beds", [120, 30])], "grouped")
+        ]),
+        SectionItem("er_wait", "Current ER Wait", [
+            Heading("ER wait time", "h3"),
+            TextContent("Estimated wait: 28 minutes for triage, 45 minutes for general admission."),
+            Progress(0.47, "Queue progress toward target")
+        ])
+    ]),
+    SectionBlock([
+        SectionItem("admissions", "Admissions - Last 14 days", [
+            Heading("Admissions (last 14 days)", "h3"),
+            LineChart(["Day-14","Day-13","Day-12","Day-11","Day-10","Day-9","Day-8","Day-7","Day-6","Day-5","Day-4","Day-3","Day-2","Day-1"], [Series("Admissions", [18,22,19,24,20,26,23,21,25,27,22,20,24,28])], "linear", "Date", "Admissions")
+        ])
+    ]),
+    SectionBlock([
+        SectionItem("departments", "Patients per Department", [
+            Heading("Patients per Department", "h3"),
+            Table([
+                Col("Department", ["Emergency","Cardiology","Oncology","Pediatrics","Surgery"]),
+                Col("Patients", [42, 38, 22, 15, 27])
+            ])
+        ])
+    ]),
+    SectionBlock([
+        SectionItem("staff", "Staff on Shift by Role", [
+            Heading("Staff on Shift", "h3"),
+            Table([
+                Col("Role", ["Nurse","Physician","Technician","Support"]),
+                Col("On Shift", [18, 12, 6, 4])
+            ])
+        ])
+    ]),
+    SectionBlock([
+        SectionItem("critical", "Critical Patients Called Out", [
+            Heading("Critical Patients", "h3"),
+            TagBlock(["Code Blue: 2 today","Code Red: 1 today","Asleep in ED: 0"])
+        ])
+    ]),
+    SectionBlock([
+        SectionItem("ready_discharge", "Patients Ready for Discharge", [
+            Heading("Ready for discharge", "h3"),
+            ListBlock([
+                ListItem("Patient A - Room 210", "Awaiting final sign-off", ["https://picsum.photos/seed/a/64/64"]),
+                ListItem("Patient B - Room 118", "Discharge paperwork complete"),
+                ListItem("Patient C - Room 305", "Bed hold released")
+            ], "image")
+        ])
+    ]),
+    SectionBlock([
+        SectionItem("or_bookings", "Today's Operating Room Bookings", [
+            Heading("OR Bookings - today", "h3"),
+            Table([
+                Col("Time", ["07:00","09:00","11:30","13:00","15:30"]),
+                Col("Procedure", ["Knee arthroplasty","C-section","Hernia repair","Orthopedic pinning","Appendectomy"]),
+                Col("Surgeon", ["Dr. Lee","Dr. Patel","Dr. Gomez","Dr. Chen","Dr. Smith"])
+            ])
+        ])
+    ]),
+    SectionBlock([
+        SectionItem("supplies", "Supplies Running Low", [
+            Heading("Low Supplies", "h3"),
+            PieChart(["Needle sets","Syringes","IV bags","Gloves"], ["/-40","-60","-25","-80"], "donut", "circular"),
+            TextContent("Action: trigger replenishment orders for items below threshold.")
+        ])
+    ]),
+    SectionBlock([
+        SectionItem("incident", "File an Incident", [
+            DialogBlock("File Incident", "Incident Report", "Submit details of the incident for ICU review", [
+                Form("incident-form", Buttons([Button("Submit Incident", null, "primary")]), [
+                    FormControl("Incident Type", Select("incident_type", [SelectItem("Fall","Fall"), SelectItem("Medication Error","Medication Error"), SelectItem("Equipment Failure","Equipment Failure")])),
+                    FormControl("Location", Input("location","Ward / Room")),
+                    FormControl("Description", TextArea("description","Describe the incident...")),
+                    FormControl("Reported By", Input("reporter","Enter name"))
+                ])
+            ])
+        ], "default")
+    ]),
+    SectionBlock([
+        SectionItem("lookday", "Look at Another Day", [
+            Heading("Change date view", "h3"),
+            CalendarBlock("single","2026-10-04",1,"label")
+        ])
+    ]),
+    SectionBlock([
+        SectionItem("transfer", "Request Patient Transfer", [
+            DialogBlock("Transfer", "Request Transfer", "Submit transfer request to destination department", [
+                Form("transfer-form", Buttons([Button("Send Transfer Request", null, "primary")]), [
+                    FormControl("From Patient", Input("patient","Patient name or ID")),
+                    FormControl("From Location", Input("from","Ward/Room")),
+                    FormControl("To Department", Select("to_dept", [SelectItem("ICU","ICU"), SelectItem("General Ward","General"), SelectItem("Rehab","Rehab")], "Choose department")),
+                    FormControl("Reason", TextArea("reason","Reason for transfer"))
+                ])
+            ])
+        ], "default")
+    ]),
+    FollowUpBlock([
+        FollowUpItem("Review bed occupancy trend"),
+        FollowUpItem("Audit ER wait times"),
+        FollowUpItem("Prepare OR schedule for next day")
+    ])
+])

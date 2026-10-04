@@ -1,85 +1,78 @@
-root = Card(header, loadSection, generationSection, plantsSection, outagesSection, forecastSection, priceSection, maintenanceSection, alertsSection, regionFocusSection, curtailmentSection, emissionsSection, direction:column, gap:m, align:start)
+root = Card(header, loadInfo, capacityInfo, generationChart, plantsTable, outagesTable, forecastChart, priceInfo, maintenanceTable, alertsTable, actions, emissionsInfo)
 
-header = CardHeader("Network Operations Console")
+header = CardHeader("Power Network Operator Console")
 
-loadSection = Card(Heading("Current Load", h2), TextContent("Load: 4,200 MW", size:large), TextContent("Capacity: 5,000 MW (84 %)", size:default), variant:clear)
+loadInfo = TextContent("**Current Load:** 8,450 MW", size:large)
 
-generationSection = Card(Heading("Generation Mix", h2), generationPie, variant:clear)
+capacityInfo = TextContent("**Capacity Utilization:** 92 % of 9,200 MW", size:default)
 
-generationPie = PieChart(labels:["Coal","Wind","Solar","Hydro","Nuclear"], values:[1200,800,500,700,800], variant:donut, appearance:circular)
+generationChart = HorizontalBarChart(genTable, variant:grouped, xLabel:"Generation (MW)", yLabel:"Source")
 
-plantsSection = Card(Heading("Plants Output & Status", h2), plantsTable, variant:clear)
+genTable = |Source|MW
+|Coal|2500
+|Gas|2000
+|Wind|1500
+|Solar|1200
+|Hydro|1300
 
-colPlant = Col("Plant", data:["Plant A","Plant B","Plant C"], type:string)
-colOutput = Col("Output (MW)", data:[1500,800,1200], type:number)
-colStatus = Col("Status", data:["Online","Offline","Online"], type:string)
-plantsTable = Table(colPlant, colOutput, colStatus)
+plantsTable = Table(plantsData)
 
-outagesSection = Card(Heading("Outages", h2), outagesTable, variant:clear)
+plantsData = |Plant|Output (MW)|Status
+|Plant A|1200|Online
+|Plant B|800|Online
+|Plant C|500|Maintenance
+|Plant D|600|Offline
+|Plant E|400|Online
 
-colOutRegion = Col("Region", data:["North","East"], type:string)
-colOutAffected = Col("Affected (MW)", data:[300,150], type:number)
-colOutReason = Col("Reason", data:["Fault","Maintenance"], type:string)
-outagesTable = Table(colOutRegion, colOutAffected, colOutReason)
+outagesTable = Table(outagesData)
 
-forecastSection = Card(Heading("Demand Forecast (24 h)", h2), forecastChart, variant:clear)
+outagesData = |Region|Affected Capacity (MW)|Reason
+|North|300|Line fault
+|East|150|Transformer failure
 
-forecastData = |Hour|MW
-|00:00|4000
-|01:00|4100
-|02:00|4150
-|03:00|4200
-|04:00|4250
-|05:00|4300
-|06:00|4400
-|07:00|4500
-|08:00|4600
-|09:00|4700
-|10:00|4800
-|11:00|4900
-|12:00|5000
-|13:00|4950
-|14:00|4900
-|15:00|4850
-|16:00|4800
-|17:00|4750
-|18:00|4700
-|19:00|4600
-|20:00|4500
-|21:00|4400
-|22:00|4300
-|23:00|4200
+forecastChart = LineChart(forecastData, variant:natural, xLabel:"Hour", yLabel:"Demand (MW)")
 
-forecastChart = LineChart(forecastData, linear, xLabel:"Hour", yLabel:"MW")
+forecastData = |Hour|Demand
+|01:00|8200
+|02:00|8150
+|03:00|8100
+|04:00|8050
+|05:00|8000
+|06:00|7950
+|07:00|7900
+|08:00|7850
+|09:00|7800
+|10:00|7750
+|11:00|7700
+|12:00|7650
+|13:00|7600
+|14:00|7550
+|15:00|7500
+|16:00|7550
+|17:00|7600
+|18:00|7700
+|19:00|7850
+|20:00|8000
+|21:00|8150
+|22:00|8300
+|23:00|8450
+|24:00|8600
 
-priceSection = Card(Heading("Current Price per MWh", h2), TextContent("$45 /MWh", size:large), variant:clear)
+priceInfo = TextContent("**Current Price:** $45 /MWh", size:default)
 
-maintenanceSection = Card(Heading("Planned Maintenance", h2), maintenanceTable, variant:clear)
+maintenanceTable = Table(maintenanceData)
 
-colMaintPlant = Col("Plant", data:["Plant B","Plant C"], type:string)
-colMaintDate = Col("Date", data:["2023-10-15","2023-10-20"], type:string)
-colMaintDetails = Col("Details", data:["Inspection","Upgrade"], type:string)
-maintenanceTable = Table(colMaintPlant, colMaintDate, colMaintDetails)
+maintenanceData = |Plant|Planned Date|Description
+|Plant C|2024-10-15|Turbine inspection
+|Plant D|2024-10-20|Control system upgrade
 
-alertsSection = Card(Heading("Live Alerts", h2), alertsList, variant:clear)
+alertsTable = Table(alertsData)
 
-alertItem1 = ListItem("Overload in North", "High severity")
-alertItem2 = ListItem("Generator B offline", "Maintenance")
-alertItem3 = ListItem("Price spike", "Medium")
-alertsList = ListBlock(alertItem1, alertItem2, alertItem3, variant:number)
+alertsData = |Time|Alert|Severity
+|08:12|Frequency deviation detected|warning
+|09:45|Voltage drop in East zone|error
+|10:30|Scheduled maintenance reminder|info
 
-regionFocusSection = Card(Heading("Focus Region", h2), regionForm, variant:clear)
+actions = Buttons(Button("Focus Region", primary), Button("Order Curtailment", secondary), direction:row)
 
-regionForm = Form("region-focus", regionFormButtons, regionSelectControl)
-regionSelectControl = FormControl("Region", regionSelect)
-regionSelect = Select("region_focus", SelectItem("North","North"), SelectItem("South","South"), SelectItem("East","East"), SelectItem("West","West"), placeholder:"Select region")
-regionFormButtons = Buttons(Button("Apply", primary))
-
-curtailmentSection = Card(Heading("Order Curtailment", h2), curtailForm, variant:clear)
-
-curtailForm = Form("curtail-order", curtailButtons, regionControl, amountControl)
-regionControl = FormControl("Region", Input("curtail_region", placeholder:"Region name"))
-amountControl = FormControl("Amount (MW)", Input("curtail_amount", placeholder:"MW amount", type:number))
-curtailButtons = Buttons(Button("Submit", primary), Button("Cancel", secondary))
-
-emissionsSection = Card(Heading("Emissions Today", h2), TextContent("CO₂: 1,200 tons", size:large), variant:clear)
+emissionsInfo = TextContent("**Emissions Today:** 1,200 t CO₂", size:default)

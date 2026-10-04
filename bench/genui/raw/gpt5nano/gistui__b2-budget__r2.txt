@@ -1,0 +1,28 @@
+root = Card(CardHeader("Budget Overview", "Personal monthly budget"), monthPicker, spendSummary, categoriesChart, largestExpense, addExpenseSection)
+
+monthPicker = Card(Heading("Month", h3), Form("month-change", Buttons(Button("Load", primary)), FormControl("Month", Input("month", "2026-10"))))
+
+spendSummary = Card(Heading("Total spent this month", h3), TextContent("$2,430.00", size:"large"), Tag("Budget", informationVariant?)) 
+# The enum for Tag variants is limited; use a simple Tag to label
+spendSummary = Card(Heading("Total spent this month", h3), TextContent("$2,430.00", size:"large"), Tag("Budget: 2,430", default))
+
+categoriesChart = Card(Heading("Spending by category", h3), BarChart(categoriesTable, xLabel:"Month", yLabel:"Amount"))
+
+categoriesTable = |Category|Amount
+|Groceries|980
+|Rent|1200
+|Transport|150
+|Entertainment|100
+|Utilities|0
+
+largestExpense = Card(Heading("Largest single expense", h3), Callout(warning, "Rent payment", "Rent for October 2026 is the largest expense this month"))
+
+addExpenseSection = Card(Heading("Add an expense", h3), Form("expense-entry", Buttons(Button("Add expense", primary)), expenseControls))
+
+expenseControls = FormControl("Date", Input("date", "2026-10-04"))
+expenseControls = FormControl("Category", Select("category", SelectItem("Groceries","Groceries"), SelectItem("Rent","Rent"), SelectItem("Transport","Transport"), SelectItem("Entertainment","Entertainment"), SelectItem("Utilities","Utilities"), placeholder:"Choose category"))
+expenseControls = FormControl("Amount", Input("amount", "0", type:"number"))
+expenseControls = FormControl("Description", Input("description", "", type:"text"))
+
+# Ensure each defined id is used
+# The defined ids are used in root's children.

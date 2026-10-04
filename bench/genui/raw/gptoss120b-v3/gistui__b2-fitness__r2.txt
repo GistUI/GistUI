@@ -1,32 +1,18 @@
-root = Card(stepsSection, caloriesSection, workoutsSection, logSection)
-
-stepsSection = Card(CardHeader("Steps", "Today's count"), Progress(value:7500, label:"7,500 / 10,000"))
-
-caloriesSection = Card(CardHeader("Calories Burned", "Today"), TextContent("**1,200 kcal**", size:large))
-
-workoutsSection = Card(CardHeader("Workouts This Week", "Last 7 days"), workoutsChart)
-
-workoutsChart = BarChart(workoutsRows, variant:grouped, xLabel:"Day", yLabel:"Duration (min)")
-
-workoutsRows = |Day|Duration
-|Mon|45
-|Tue|30
-|Wed|0
-|Thu|60
-|Fri|40
-|Sat|50
-|Sun|35
-
-logSection = Card(CardHeader("Log New Workout", ""), logForm)
-
-logForm = Form("log-workout", formButtons, typeField, durationField, notesField)
-
+root = Card(stepProgress, caloriesText, weeklyWorkoutsChart, logWorkoutForm)
+weeklyWorkoutsChart = Card(Heading("Workouts last 7 days", h3), BarChart(workoutsTable, variant:grouped, xLabel:"Day", yLabel:"Workouts"))
+logWorkoutForm = Form("log-workout", formButtons, typeField, durationField, notesField)
+stepProgress = Progress(75, "7,500 / 10,000 steps")
+caloriesText = TextContent("**Calories burned:** 560 kcal", size:default)
 typeField = FormControl("Workout type", typeSelect)
-
-typeSelect = Select("type", SelectItem("run", "Run"), SelectItem("bike", "Bike"), SelectItem("swim", "Swim"), placeholder:"Select type", value:"run")
-
 durationField = FormControl("Duration (min)", Input("duration", "30", type:number))
-
-notesField = FormControl("Notes", TextArea("notes", "Optional details", "", rows:3))
-
-formButtons = Buttons(Button("Save", primary))
+notesField = FormControl("Notes", TextArea("notes", "Optional notes", rows:3))
+typeSelect = Select("workout_type", SelectItem("run", "Run"), SelectItem("bike", "Bike"), SelectItem("yoga", "Yoga"), placeholder:"Select type")
+formButtons = Buttons(Button("Log Workout", primary))
+workoutsTable = |Day|Workouts
+|Mon|2
+|Tue|1
+|Wed|0
+|Thu|3
+|Fri|2
+|Sat|1
+|Sun|0

@@ -1,0 +1,63 @@
+root = Card(CardHeader("HR Hiring Overview"), currentHeadcount, departmentHeadcount, openRolesTable, candidatesPipeline, avgTimeToHire, interviewsThisWeek, attritionChart, openRoleButton)
+
+currentHeadcount = Card(Heading("Current headcount", h3), TextContent("Total employees: 128"), sunk)
+
+departmentHeadcount = Card(Heading("Headcount by department", h3), Table(deptTable))
+
+deptTable = |Department|Count
+|Engineering|52
+|Sales|25
+|Marketing|18
+|HR|8
+|Finance|7
+|Operations|18
+
+openRolesTable = Card(Heading("Open roles by department", h3), Table(openRoles)
+
+openRoles = |Role|Department|Applicants
+|Senior Engineer|Engineering|34
+|Product Manager|Engineering|22
+|Sales Lead|Sales|15
+|HR Generalist|HR|9
+|Marketing Coordinator|Marketing|11
+|Finance Analyst|Finance|6)
+
+candidatesPipeline = Card(Heading("Candidates in pipeline by stage", h3), Table(pipelineTable))
+
+pipelineTable = |Stage|Count
+|Applied|120
+|Phone Screen|68
+|On-site|32
+|Offer|12
+|Hired|4
+
+avgTimeToHire = Card(Heading("Average time to hire", h3), TextContent("Average days from opening to hire: 26 days"))
+
+interviewsThisWeek = Card(Heading("Interviews scheduled this week", h3), Table(interviewsTable))
+
+interviewsTable = |Day|Role|Candidate
+|Mon|Senior Engineer|Alex Kim
+|Mon|Product Manager|Priya Singh
+|Tue|Sales Lead|Daniel Chen
+|Wed|HR Generalist|Maria Lopez
+|Thu|Marketing Coordinator|Liam Patel
+
+attritionChart = Card(Heading("Attrition (past 6 months)", h3), BarChart(attritionTable, grouped, xLabel:"Month", yLabel:"Attritions"))
+
+attritionTable = |Month|Attritions
+|Apr-2026|4
+|May-2026|3
+|Jun-2026|5
+|Jul-2026|2
+|Aug-2026|4
+|Sep-2026|3
+
+openRoleButton = DialogBlock("New role", "Create Open Role") // button that opens modal; content defined inline for screen
+rootDialogContent = Card(CardHeader("New Role"), Form("new-role", formButtons, roleNameField, deptField, levelField, locationField)) // referenced inside dialog
+
+formButtons = Buttons(Button("Create Role", primary), Button("Cancel", tertiary))
+
+roleNameField = FormControl("Role name", Input("role_name", "Senior Data Analyst"))
+deptField = FormControl("Department", Select("department", SelectItem("Engineering", "Engineering"), SelectItem("Sales", "Sales"), SelectItem("Marketing", "Marketing"), SelectItem("HR", "HR"), SelectItem("Finance", "Finance"), SelectItem("Operations", "Operations"), placeholder:"Choose department"))
+levelField = FormControl("Level", Select("level", SelectItem("Junior", "Junior"), SelectItem("Mid", "Mid"), SelectItem("Senior", "Senior"), placeholder:"Select level"))
+locationField = FormControl("Location", Input("location", "New York, NY"))

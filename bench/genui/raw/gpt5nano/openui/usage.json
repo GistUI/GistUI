@@ -1,0 +1,1281 @@
+{
+ "openui__b1-invoice__r1": {
+  "input": 5074,
+  "output": 257,
+  "reasoning": 0,
+  "cost": 0.0003565
+ },
+ "openui__b1-uptime__r1": {
+  "input": 5077,
+  "output": 389,
+  "reasoning": 0,
+  "cost": 0.00019057
+ },
+ "openui__b1-uptime__r3": {
+  "input": 5077,
+  "output": 252,
+  "reasoning": 0,
+  "cost": 0.00035465
+ },
+ "openui__b1-uptime__r2": {
+  "input": 5077,
+  "output": 435,
+  "reasoning": 0,
+  "cost": 0.00042785
+ },
+ "openui__b1-profile__r1": {
+  "input": 5075,
+  "output": 408,
+  "reasoning": 0,
+  "cost": 0.00041695
+ },
+ "openui__b1-profile__r2": {
+  "input": 5075,
+  "output": 251,
+  "reasoning": 0,
+  "cost": 0.00035415
+ },
+ "openui__b1-uptime__r4": {
+  "input": 5077,
+  "output": 213,
+  "reasoning": 0,
+  "cost": 0.00013937
+ },
+ "openui__b1-invoice__r4": {
+  "input": 5074,
+  "output": 184,
+  "reasoning": 0,
+  "cost": 0.00010266
+ },
+ "openui__b1-profile__r4": {
+  "input": 5075,
+  "output": 329,
+  "reasoning": 0,
+  "cost": 0.00019079
+ },
+ "openui__b1-invoice__r2": {
+  "input": 5074,
+  "output": 388,
+  "reasoning": 0,
+  "cost": 0.0004089,
+  "provider": "openai"
+ },
+ "openui__b1-profile__r3": {
+  "input": 5075,
+  "output": 248,
+  "reasoning": 0,
+  "cost": 0.00035295,
+  "provider": "azure"
+ },
+ "openui__b1-newsletter__r1": {
+  "input": 5072,
+  "output": 244,
+  "reasoning": 0,
+  "cost": 0.0003512,
+  "provider": "openai"
+ },
+ "openui__b1-invoice__r3": {
+  "input": 5074,
+  "output": 178,
+  "reasoning": 0,
+  "cost": 0.00013034,
+  "provider": "azure"
+ },
+ "openui__b1-newsletter__r3": {
+  "input": 5072,
+  "output": 176,
+  "reasoning": 0,
+  "cost": 0.00009936,
+  "provider": "openai"
+ },
+ "openui__b1-newsletter__r2": {
+  "input": 5072,
+  "output": 257,
+  "reasoning": 0,
+  "cost": 0.00016184,
+  "provider": "azure"
+ },
+ "openui__b1-meeting__r1": {
+  "input": 5080,
+  "output": 262,
+  "reasoning": 0,
+  "cost": 0.00013992,
+  "provider": "openai"
+ },
+ "openui__b1-newsletter__r4": {
+  "input": 5072,
+  "output": 182,
+  "reasoning": 0,
+  "cost": 0.00012672,
+  "provider": "azure"
+ },
+ "openui__b1-meeting__r3": {
+  "input": 5080,
+  "output": 241,
+  "reasoning": 0,
+  "cost": 0.00012576,
+  "provider": "openai"
+ },
+ "openui__b1-meeting__r2": {
+  "input": 5080,
+  "output": 230,
+  "reasoning": 0,
+  "cost": 0.00015144,
+  "provider": "azure"
+ },
+ "openui__b1-revenue__r1": {
+  "input": 5070,
+  "output": 234,
+  "reasoning": 0,
+  "cost": 0.00012822,
+  "provider": "openai"
+ },
+ "openui__b1-meeting__r4": {
+  "input": 5080,
+  "output": 267,
+  "reasoning": 0,
+  "cost": 0.00016112,
+  "provider": "azure"
+ },
+ "openui__b1-revenue__r2": {
+  "input": 5070,
+  "output": 317,
+  "reasoning": 0,
+  "cost": 0.00018574,
+  "provider": "azure"
+ },
+ "openui__b1-revenue__r3": {
+  "input": 5070,
+  "output": 284,
+  "reasoning": 0,
+  "cost": 0.00014822,
+  "provider": "openai"
+ },
+ "openui__b1-task__r1": {
+  "input": 5077,
+  "output": 246,
+  "reasoning": 0,
+  "cost": 0.00013337,
+  "provider": "openai"
+ },
+ "openui__b1-revenue__r4": {
+  "input": 5070,
+  "output": 194,
+  "reasoning": 0,
+  "cost": 0.00013142,
+  "provider": "azure"
+ },
+ "openui__b1-task__r3": {
+  "input": 5077,
+  "output": 162,
+  "reasoning": 0,
+  "cost": 0.00009401,
+  "provider": "openai"
+ },
+ "openui__b1-task__r2": {
+  "input": 5077,
+  "output": 124,
+  "reasoning": 0,
+  "cost": 0.00010889,
+  "provider": "azure"
+ },
+ "openui__b1-weather__r1": {
+  "input": 5074,
+  "output": 290,
+  "reasoning": 0,
+  "cost": 0.00015082,
+  "provider": "openai"
+ },
+ "openui__b1-task__r4": {
+  "input": 5077,
+  "output": 196,
+  "reasoning": 0,
+  "cost": 0.00013257,
+  "provider": "azure"
+ },
+ "openui__b1-weather__r2": {
+  "input": 5074,
+  "output": 264,
+  "reasoning": 0,
+  "cost": 0.00016474,
+  "provider": "azure"
+ },
+ "openui__b1-weather__r3": {
+  "input": 5074,
+  "output": 491,
+  "reasoning": 0,
+  "cost": 0.00023122,
+  "provider": "openai"
+ },
+ "openui__b1-order__r1": {
+  "input": 5077,
+  "output": 380,
+  "reasoning": 0,
+  "cost": 0.00018697,
+  "provider": "openai"
+ },
+ "openui__b1-weather__r4": {
+  "input": 5074,
+  "output": 270,
+  "reasoning": 0,
+  "cost": 0.00016202,
+  "provider": "azure"
+ },
+ "openui__b1-order__r2": {
+  "input": 5077,
+  "output": 199,
+  "reasoning": 0,
+  "cost": 0.00013889,
+  "provider": "azure"
+ },
+ "openui__b1-order__r3": {
+  "input": 5077,
+  "output": 731,
+  "reasoning": 0,
+  "cost": 0.00032161,
+  "provider": "openai"
+ },
+ "openui__b1-poll__r1": {
+  "input": 5072,
+  "output": 248,
+  "reasoning": 0,
+  "cost": 0.00013392,
+  "provider": "openai"
+ },
+ "openui__b1-order__r4": {
+  "input": 5077,
+  "output": 477,
+  "reasoning": 0,
+  "cost": 0.00024497,
+  "provider": "azure"
+ },
+ "openui__b1-poll__r2": {
+  "input": 5072,
+  "output": 252,
+  "reasoning": 0,
+  "cost": 0.00015984,
+  "provider": "azure"
+ },
+ "openui__b1-poll__r3": {
+  "input": 5072,
+  "output": 297,
+  "reasoning": 0,
+  "cost": 0.00014776,
+  "provider": "openai"
+ },
+ "openui__b2-sales__r1": {
+  "input": 5094,
+  "output": 422,
+  "reasoning": 0,
+  "cost": 0.00020462,
+  "provider": "openai"
+ },
+ "openui__b1-poll__r4": {
+  "input": 5072,
+  "output": 306,
+  "reasoning": 0,
+  "cost": 0.00017632,
+  "provider": "azure"
+ },
+ "openui__b2-sales__r2": {
+  "input": 5094,
+  "output": 357,
+  "reasoning": 0,
+  "cost": 0.00020294,
+  "provider": "azure"
+ },
+ "openui__b2-sales__r3": {
+  "input": 5094,
+  "output": 399,
+  "reasoning": 0,
+  "cost": 0.00019542,
+  "provider": "openai"
+ },
+ "openui__b2-support__r1": {
+  "input": 5099,
+  "output": 542,
+  "reasoning": 0,
+  "cost": 0.00025287,
+  "provider": "openai"
+ },
+ "openui__b2-sales__r4": {
+  "input": 5094,
+  "output": 385,
+  "reasoning": 0,
+  "cost": 0.00020902,
+  "provider": "azure"
+ },
+ "openui__b2-support__r2": {
+  "input": 5099,
+  "output": 576,
+  "reasoning": 0,
+  "cost": 0.00029079,
+  "provider": "azure"
+ },
+ "openui__b2-support__r3": {
+  "input": 5099,
+  "output": 690,
+  "reasoning": 0,
+  "cost": 0.00030631,
+  "provider": "openai"
+ },
+ "openui__b2-fitness__r1": {
+  "input": 5085,
+  "output": 404,
+  "reasoning": 0,
+  "cost": 0.00019697,
+  "provider": "openai"
+ },
+ "openui__b2-support__r4": {
+  "input": 5099,
+  "output": 633,
+  "reasoning": 0,
+  "cost": 0.00030847,
+  "provider": "azure"
+ },
+ "openui__b2-fitness__r3": {
+  "input": 5085,
+  "output": 483,
+  "reasoning": 0,
+  "cost": 0.00022281,
+  "provider": "openai"
+ },
+ "openui__b2-fitness__r2": {
+  "input": 5085,
+  "output": 467,
+  "reasoning": 0,
+  "cost": 0.00024649,
+  "provider": "azure"
+ },
+ "openui__b2-job__r1": {
+  "input": 5104,
+  "output": 604,
+  "reasoning": 0,
+  "cost": 0.00027792,
+  "provider": "openai"
+ },
+ "openui__b2-fitness__r4": {
+  "input": 5085,
+  "output": 577,
+  "reasoning": 0,
+  "cost": 0.00028537,
+  "provider": "azure"
+ },
+ "openui__b2-job__r3": {
+  "input": 5104,
+  "output": 572,
+  "reasoning": 0,
+  "cost": 0.00025936,
+  "provider": "openai"
+ },
+ "openui__b2-job__r2": {
+  "input": 5104,
+  "output": 693,
+  "reasoning": 0,
+  "cost": 0.00033784,
+  "provider": "azure"
+ },
+ "openui__b2-job__r4": {
+  "input": 5104,
+  "output": 634,
+  "reasoning": 0,
+  "cost": 0.00030912,
+  "provider": "azure"
+ },
+ "openui__b2-cafe__r1": {
+  "input": 5083,
+  "output": 718,
+  "reasoning": 0,
+  "cost": 0.00032247,
+  "provider": "openai"
+ },
+ "openui__b2-cafe__r3": {
+  "input": 5083,
+  "output": 503,
+  "reasoning": 0,
+  "cost": 0.00023071,
+  "provider": "openai"
+ },
+ "openui__b2-cafe__r2": {
+  "input": 5083,
+  "output": 615,
+  "reasoning": 0,
+  "cost": 0.00030559,
+  "provider": "azure"
+ },
+ "openui__b2-cafe__r4": {
+  "input": 5083,
+  "output": 586,
+  "reasoning": 0,
+  "cost": 0.00028887,
+  "provider": "azure"
+ },
+ "openui__b2-budget__r1": {
+  "input": 5093,
+  "output": 656,
+  "reasoning": 0,
+  "cost": 0.00029817,
+  "provider": "openai"
+ },
+ "openui__b2-budget__r2": {
+  "input": 5093,
+  "output": 538,
+  "reasoning": 0,
+  "cost": 0.00027529,
+  "provider": "azure"
+ },
+ "openui__b2-budget__r3": {
+  "input": 5093,
+  "output": 607,
+  "reasoning": 0,
+  "cost": 0.00027281,
+  "provider": "openai"
+ },
+ "openui__b2-course__r1": {
+  "input": 5094,
+  "output": 411,
+  "reasoning": 0,
+  "cost": 0.00020022,
+  "provider": "openai"
+ },
+ "openui__b2-budget__r4": {
+  "input": 5093,
+  "output": 613,
+  "reasoning": 0,
+  "cost": 0.00030017,
+  "provider": "azure"
+ },
+ "openui__b2-course__r2": {
+  "input": 5094,
+  "output": 378,
+  "reasoning": 0,
+  "cost": 0.00021134,
+  "provider": "azure"
+ },
+ "openui__b2-course__r3": {
+  "input": 5094,
+  "output": 431,
+  "reasoning": 0,
+  "cost": 0.00020246,
+  "provider": "openai"
+ },
+ "openui__b2-course__r4": {
+  "input": 5094,
+  "output": 365,
+  "reasoning": 0,
+  "cost": 0.00020102,
+  "provider": "azure"
+ },
+ "openui__b2-stock__r1": {
+  "input": 5089,
+  "output": 764,
+  "reasoning": 0,
+  "cost": 0.00034117,
+  "provider": "openai"
+ },
+ "openui__b2-stock__r3": {
+  "input": 5089,
+  "output": 383,
+  "reasoning": 0,
+  "cost": 0.00018301,
+  "provider": "openai"
+ },
+ "openui__b2-stock__r2": {
+  "input": 5089,
+  "output": 891,
+  "reasoning": 0,
+  "cost": 0.00041629,
+  "provider": "azure"
+ },
+ "openui__b2-standup__r1": {
+  "input": 5090,
+  "output": 370,
+  "reasoning": 0,
+  "cost": 0.00018362,
+  "provider": "openai"
+ },
+ "openui__b2-stock__r4": {
+  "input": 5089,
+  "output": 470,
+  "reasoning": 0,
+  "cost": 0.00024277,
+  "provider": "azure"
+ },
+ "openui__b2-standup__r2": {
+  "input": 5090,
+  "output": 471,
+  "reasoning": 0,
+  "cost": 0.00024834,
+  "provider": "azure"
+ },
+ "openui__b2-standup__r3": {
+  "input": 5090,
+  "output": 731,
+  "reasoning": 0,
+  "cost": 0.00032802,
+  "provider": "openai"
+ },
+ "openui__b2-standup__r4": {
+  "input": 5090,
+  "output": 498,
+  "reasoning": 0,
+  "cost": 0.00025402,
+  "provider": "azure"
+ },
+ "openui__b2-event__r1": {
+  "input": 5100,
+  "output": 538,
+  "reasoning": 0,
+  "cost": 0.00025132,
+  "provider": "openai"
+ },
+ "openui__b2-event__r2": {
+  "input": 5100,
+  "output": 1192,
+  "reasoning": 0,
+  "cost": 0.00053724,
+  "provider": "azure"
+ },
+ "openui__b2-event__r3": {
+  "input": 5100,
+  "output": 571,
+  "reasoning": 0,
+  "cost": 0.00026452,
+  "provider": "openai"
+ },
+ "openui__b2-event__r4": {
+  "input": 5100,
+  "output": 757,
+  "reasoning": 0,
+  "cost": 0.00035812,
+  "provider": "azure"
+ },
+ "openui__b3-marketing__r1": {
+  "input": 5123,
+  "output": 1226,
+  "reasoning": 0,
+  "cost": 0.00052767,
+  "provider": "openai"
+ },
+ "openui__b3-marketing__r2": {
+  "input": 5123,
+  "output": 897,
+  "reasoning": 0,
+  "cost": 0.00042039,
+  "provider": "azure"
+ },
+ "openui__b3-marketing__r3": {
+  "input": 5123,
+  "output": 729,
+  "reasoning": 0,
+  "cost": 0.00032311,
+  "provider": "openai"
+ },
+ "openui__b3-marketing__r4": {
+  "input": 5123,
+  "output": 738,
+  "reasoning": 0,
+  "cost": 0.00035167,
+  "provider": "azure"
+ },
+ "openui__b3-orders__r1": {
+  "input": 5127,
+  "output": 810,
+  "reasoning": 0,
+  "cost": 0.00036147,
+  "provider": "openai"
+ },
+ "openui__b3-orders__r2": {
+  "input": 5127,
+  "output": 697,
+  "reasoning": 0,
+  "cost": 0.00034059,
+  "provider": "azure"
+ },
+ "openui__b3-orders__r3": {
+  "input": 5127,
+  "output": 710,
+  "reasoning": 0,
+  "cost": 0.00031571,
+  "provider": "openai"
+ },
+ "openui__b3-orders__r4": {
+  "input": 5127,
+  "output": 596,
+  "reasoning": 0,
+  "cost": 0.00029507,
+  "provider": "azure"
+ },
+ "openui__b3-hr__r1": {
+  "input": 5115,
+  "output": 878,
+  "reasoning": 0,
+  "cost": 0.00038807,
+  "provider": "openai"
+ },
+ "openui__b3-hr__r2": {
+  "input": 5115,
+  "output": 918,
+  "reasoning": 0,
+  "cost": 0.00042839,
+  "provider": "azure"
+ },
+ "openui__b3-hr__r3": {
+  "input": 5115,
+  "output": 1244,
+  "reasoning": 0,
+  "cost": 0.00052871,
+  "provider": "openai"
+ },
+ "openui__b3-hr__r4": {
+  "input": 5115,
+  "output": 979,
+  "reasoning": 0,
+  "cost": 0.00044767,
+  "provider": "azure"
+ },
+ "openui__b3-server__r1": {
+  "input": 5128,
+  "output": 834,
+  "reasoning": 0,
+  "cost": 0.00037112,
+  "provider": "openai"
+ },
+ "openui__b3-server__r2": {
+  "input": 5128,
+  "output": 1003,
+  "reasoning": 0,
+  "cost": 0.0006576,
+  "provider": "azure"
+ },
+ "openui__b3-server__r3": {
+  "input": 5128,
+  "output": 668,
+  "reasoning": 0,
+  "cost": 0.00029896,
+  "provider": "openai"
+ },
+ "openui__b3-server__r4": {
+  "input": 5128,
+  "output": 829,
+  "reasoning": 0,
+  "cost": 0.00039344,
+  "provider": "azure"
+ },
+ "openui__b3-crm__r1": {
+  "input": 5124,
+  "output": 854,
+  "reasoning": 0,
+  "cost": 0.00037892,
+  "provider": "openai"
+ },
+ "openui__b3-crm__r2": {
+  "input": 5124,
+  "output": 736,
+  "reasoning": 0,
+  "cost": 0.00035604,
+  "provider": "azure"
+ },
+ "openui__b3-crm__r3": {
+  "input": 5124,
+  "output": 1215,
+  "reasoning": 0,
+  "cost": 0.00052332,
+  "provider": "openai"
+ },
+ "openui__b3-clinic__r1": {
+  "input": 5113,
+  "output": 485,
+  "reasoning": 0,
+  "cost": 0.00023077,
+  "provider": "openai"
+ },
+ "openui__b3-crm__r4": {
+  "input": 5124,
+  "output": 679,
+  "reasoning": 0,
+  "cost": 0.00033324,
+  "provider": "azure"
+ },
+ "openui__b3-clinic__r2": {
+  "input": 5113,
+  "output": 510,
+  "reasoning": 0,
+  "cost": 0.00026509,
+  "provider": "azure"
+ },
+ "openui__b3-clinic__r3": {
+  "input": 5113,
+  "output": 833,
+  "reasoning": 0,
+  "cost": 0.00036421,
+  "provider": "openai"
+ },
+ "openui__b3-clinic__r4": {
+  "input": 5113,
+  "output": 516,
+  "reasoning": 0,
+  "cost": 0.00026749,
+  "provider": "azure"
+ },
+ "openui__b3-content__r1": {
+  "input": 5122,
+  "output": 1337,
+  "reasoning": 0,
+  "cost": 0.00057202,
+  "provider": "openai"
+ },
+ "openui__b3-content__r2": {
+  "input": 5122,
+  "output": 1022,
+  "reasoning": 0,
+  "cost": 0.00047034,
+  "provider": "azure"
+ },
+ "openui__b3-content__r3": {
+  "input": 5122,
+  "output": 783,
+  "reasoning": 0,
+  "cost": 0.00035042,
+  "provider": "openai"
+ },
+ "openui__b3-freight__r1": {
+  "input": 5131,
+  "output": 593,
+  "reasoning": 0,
+  "cost": 0.00027487,
+  "provider": "openai"
+ },
+ "openui__b3-content__r4": {
+  "input": 5122,
+  "output": 1091,
+  "reasoning": 0,
+  "cost": 0.00049282,
+  "provider": "azure"
+ },
+ "openui__b3-freight__r2": {
+  "input": 5131,
+  "output": 1005,
+  "reasoning": 0,
+  "cost": 0.00046399,
+  "provider": "azure"
+ },
+ "openui__b3-freight__r3": {
+  "input": 5131,
+  "output": 996,
+  "reasoning": 0,
+  "cost": 0.00043031,
+  "provider": "openai"
+ },
+ "openui__b3-freight__r4": {
+  "input": 5131,
+  "output": 898,
+  "reasoning": 0,
+  "cost": 0.00042119,
+  "provider": "azure"
+ },
+ "openui__b3-finance__r1": {
+  "input": 5107,
+  "output": 850,
+  "reasoning": 0,
+  "cost": 0.00037647,
+  "provider": "openai"
+ },
+ "openui__b3-finance__r3": {
+  "input": 5107,
+  "output": 556,
+  "reasoning": 0,
+  "cost": 0.00025311,
+  "provider": "openai"
+ },
+ "openui__b3-finance__r2": {
+  "input": 5107,
+  "output": 699,
+  "reasoning": 0,
+  "cost": 0.00034039,
+  "provider": "azure"
+ },
+ "openui__b3-finance__r4": {
+  "input": 5107,
+  "output": 542,
+  "reasoning": 0,
+  "cost": 0.00027759,
+  "provider": "azure"
+ },
+ "openui__b3-learning__r1": {
+  "input": 5112,
+  "output": 718,
+  "reasoning": 0,
+  "cost": 0.00032392,
+  "provider": "openai"
+ },
+ "openui__b3-learning__r2": {
+  "input": 5112,
+  "output": 845,
+  "reasoning": 0,
+  "cost": 0.00039904,
+  "provider": "azure"
+ },
+ "openui__b3-learning__r3": {
+  "input": 5112,
+  "output": 794,
+  "reasoning": 0,
+  "cost": 0.00034856,
+  "provider": "openai"
+ },
+ "openui__b3-learning__r4": {
+  "input": 5112,
+  "output": 615,
+  "reasoning": 0,
+  "cost": 0.00030192,
+  "provider": "azure"
+ },
+ "openui__b4-saas__r1": {
+  "input": 5164,
+  "output": 1235,
+  "reasoning": 0,
+  "cost": 0.00053332,
+  "provider": "openai"
+ },
+ "openui__b4-saas__r2": {
+  "input": 5164,
+  "output": 972,
+  "reasoning": 0,
+  "cost": 0.00045244,
+  "provider": "azure"
+ },
+ "openui__b4-saas__r3": {
+  "input": 5164,
+  "output": 739,
+  "reasoning": 0,
+  "cost": 0.00033492,
+  "provider": "openai"
+ },
+ "openui__b4-saas__r4": {
+  "input": 5164,
+  "output": 1539,
+  "reasoning": 0,
+  "cost": 0.00067924,
+  "provider": "azure"
+ },
+ "openui__b4-hospital__r1": {
+  "input": 5141,
+  "output": 1264,
+  "reasoning": 0,
+  "cost": 0.00054377,
+  "provider": "openai"
+ },
+ "openui__b4-hospital__r2": {
+  "input": 5141,
+  "output": 1241,
+  "reasoning": 0,
+  "cost": 0.00055889,
+  "provider": "azure"
+ },
+ "openui__b4-hospital__r3": {
+  "input": 5141,
+  "output": 1222,
+  "reasoning": 0,
+  "cost": 0.00052121,
+  "provider": "openai"
+ },
+ "openui__b4-hospital__r4": {
+  "input": 5141,
+  "output": 1097,
+  "reasoning": 0,
+  "cost": 0.00049617,
+  "provider": "azure"
+ },
+ "openui__b4-retail__r1": {
+  "input": 5148,
+  "output": 1513,
+  "reasoning": 0,
+  "cost": 0.00064372,
+  "provider": "openai"
+ },
+ "openui__b4-retail__r3": {
+  "input": 5148,
+  "output": 939,
+  "reasoning": 0,
+  "cost": 0.00040836,
+  "provider": "openai"
+ },
+ "openui__b4-retail__r2": {
+  "input": 5148,
+  "output": 1461,
+  "reasoning": 0,
+  "cost": 0.00064724,
+  "provider": "azure"
+ },
+ "openui__b4-portfolio__r1": {
+  "input": 5170,
+  "output": 1256,
+  "reasoning": 0,
+  "cost": 0.00054202,
+  "provider": "openai"
+ },
+ "openui__b4-retail__r4": {
+  "input": 5148,
+  "output": 2106,
+  "reasoning": 0,
+  "cost": 0.00090012,
+  "provider": "azure"
+ },
+ "openui__b4-portfolio__r2": {
+  "input": 5170,
+  "output": 1324,
+  "reasoning": 0,
+  "cost": 0.00059354,
+  "provider": "azure"
+ },
+ "openui__b4-portfolio__r3": {
+  "input": 5170,
+  "output": 1420,
+  "reasoning": 0,
+  "cost": 0.00060762,
+  "provider": "openai"
+ },
+ "openui__b4-bank__r1": {
+  "input": 5151,
+  "output": 1098,
+  "reasoning": 0,
+  "cost": 0.00047787,
+  "provider": "openai"
+ },
+ "openui__b4-portfolio__r4": {
+  "input": 5170,
+  "output": 1554,
+  "reasoning": 0,
+  "cost": 0.0006753,
+  "provider": "azure"
+ },
+ "openui__b4-bank__r2": {
+  "input": 5151,
+  "output": 1209,
+  "reasoning": 0,
+  "cost": 0.00054659,
+  "provider": "azure"
+ },
+ "openui__b4-bank__r3": {
+  "input": 5151,
+  "output": 1243,
+  "reasoning": 0,
+  "cost": 0.00053587,
+  "provider": "openai"
+ },
+ "openui__b4-bank__r4": {
+  "input": 5151,
+  "output": 971,
+  "reasoning": 0,
+  "cost": 0.00044627,
+  "provider": "azure"
+ },
+ "openui__b4-power__r1": {
+  "input": 5155,
+  "output": 1187,
+  "reasoning": 0,
+  "cost": 0.00051367,
+  "provider": "openai"
+ },
+ "openui__b4-power__r2": {
+  "input": 5155,
+  "output": 1404,
+  "reasoning": 0,
+  "cost": 0.00062479,
+  "provider": "azure"
+ },
+ "openui__b4-power__r3": {
+  "input": 5155,
+  "output": 1219,
+  "reasoning": 0,
+  "cost": 0.00052071,
+  "provider": "openai"
+ },
+ "openui__b4-airline__r1": {
+  "input": 5148,
+  "output": 780,
+  "reasoning": 0,
+  "cost": 0.00035052,
+  "provider": "openai"
+ },
+ "openui__b4-power__r4": {
+  "input": 5155,
+  "output": 1476,
+  "reasoning": 0,
+  "cost": 0.00065359,
+  "provider": "azure"
+ },
+ "openui__b4-airline__r2": {
+  "input": 5148,
+  "output": 1355,
+  "reasoning": 0,
+  "cost": 0.00060484,
+  "provider": "azure"
+ },
+ "openui__b4-airline__r3": {
+  "input": 5148,
+  "output": 1202,
+  "reasoning": 0,
+  "cost": 0.00051932,
+  "provider": "openai"
+ },
+ "openui__b4-airline__r4": {
+  "input": 5148,
+  "output": 1789,
+  "reasoning": 0,
+  "cost": 0.00077332,
+  "provider": "azure"
+ },
+ "openui__b4-creator__r1": {
+  "input": 5146,
+  "output": 1367,
+  "reasoning": 0,
+  "cost": 0.00058522,
+  "provider": "openai"
+ },
+ "openui__b4-creator__r2": {
+  "input": 5146,
+  "output": 1245,
+  "reasoning": 0,
+  "cost": 0.00056074,
+  "provider": "azure"
+ },
+ "openui__b4-creator__r3": {
+  "input": 5146,
+  "output": 1285,
+  "reasoning": 0,
+  "cost": 0.00054666,
+  "provider": "openai"
+ },
+ "openui__b4-creator__r4": {
+  "input": 5146,
+  "output": 1063,
+  "reasoning": 0,
+  "cost": 0.00048282,
+  "provider": "azure"
+ },
+ "openui__b5-exec__r1": {
+  "input": 5175,
+  "output": 1305,
+  "reasoning": 0,
+  "cost": 0.00056187,
+  "provider": "openai"
+ },
+ "openui__b5-exec__r3": {
+  "input": 5175,
+  "output": 1248,
+  "reasoning": 0,
+  "cost": 0.00052755,
+  "provider": "openai"
+ },
+ "openui__b5-exec__r2": {
+  "input": 5175,
+  "output": 1602,
+  "reasoning": 0,
+  "cost": 0.00070499,
+  "provider": "azure"
+ },
+ "openui__b5-city__r1": {
+  "input": 5182,
+  "output": 1755,
+  "reasoning": 0,
+  "cost": 0.00074222,
+  "provider": "openai"
+ },
+ "openui__b5-exec__r4": {
+  "input": 5175,
+  "output": 1223,
+  "reasoning": 0,
+  "cost": 0.00054315,
+  "provider": "azure"
+ },
+ "openui__b5-city__r2": {
+  "input": 5182,
+  "output": 1301,
+  "reasoning": 0,
+  "cost": 0.00058494,
+  "provider": "azure"
+ },
+ "openui__b5-city__r3": {
+  "input": 5182,
+  "output": 1685,
+  "reasoning": 0,
+  "cost": 0.0007027,
+  "provider": "openai"
+ },
+ "openui__b5-game__r1": {
+  "input": 5182,
+  "output": 1379,
+  "reasoning": 0,
+  "cost": 0.00059182,
+  "provider": "openai"
+ },
+ "openui__b5-city__r4": {
+  "input": 5182,
+  "output": 1269,
+  "reasoning": 0,
+  "cost": 0.0005619,
+  "provider": "azure"
+ },
+ "openui__b5-game__r3": {
+  "input": 5182,
+  "output": 1127,
+  "reasoning": 0,
+  "cost": 0.0004795,
+  "provider": "openai"
+ },
+ "openui__b5-game__r2": {
+  "input": 5182,
+  "output": 1664,
+  "reasoning": 0,
+  "cost": 0.00073014,
+  "provider": "azure"
+ },
+ "openui__b5-game__r4": {
+  "input": 5182,
+  "output": 1500,
+  "reasoning": 0,
+  "cost": 0.00066454,
+  "provider": "azure"
+ },
+ "openui__b5-fund__r1": {
+  "input": 5194,
+  "output": 1387,
+  "reasoning": 0,
+  "cost": 0.00059562,
+  "provider": "openai"
+ },
+ "openui__b5-fund__r2": {
+  "input": 5194,
+  "output": 1604,
+  "reasoning": 0,
+  "cost": 0.00070674,
+  "provider": "azure"
+ },
+ "openui__b5-fund__r3": {
+  "input": 5194,
+  "output": 1441,
+  "reasoning": 0,
+  "cost": 0.0006057,
+  "provider": "openai"
+ },
+ "openui__b5-fund__r4": {
+  "input": 5194,
+  "output": 1774,
+  "reasoning": 0,
+  "cost": 0.0007645,
+  "provider": "azure"
+ },
+ "openui__b5-university__r1": {
+  "input": 5182,
+  "output": 1769,
+  "reasoning": 0,
+  "cost": 0.00074782,
+  "provider": "openai"
+ },
+ "openui__b5-university__r2": {
+  "input": 5182,
+  "output": 1438,
+  "reasoning": 0,
+  "cost": 0.00063974,
+  "provider": "azure"
+ },
+ "openui__b5-university__r3": {
+  "input": 5182,
+  "output": 1590,
+  "reasoning": 0,
+  "cost": 0.00067622,
+  "provider": "openai"
+ },
+ "openui__b5-university__r4": {
+  "input": 5182,
+  "output": 1685,
+  "reasoning": 0,
+  "cost": 0.0007283,
+  "provider": "azure"
+ },
+ "openui__b5-plant__r1": {
+  "input": 5197,
+  "output": 1950,
+  "reasoning": 0,
+  "cost": 0.00082097,
+  "provider": "openai"
+ },
+ "openui__b5-plant__r3": {
+  "input": 5197,
+  "output": 1730,
+  "reasoning": 0,
+  "cost": 0.00073297,
+  "provider": "openai"
+ },
+ "openui__b5-plant__r2": {
+  "input": 5197,
+  "output": 2049,
+  "reasoning": 0,
+  "cost": 0.00088489,
+  "provider": "azure"
+ },
+ "openui__b5-plant__r4": {
+  "input": 5197,
+  "output": 1453,
+  "reasoning": 0,
+  "cost": 0.00063625,
+  "provider": "azure"
+ },
+ "openui__b5-streaming__r1": {
+  "input": 5178,
+  "output": 1757,
+  "reasoning": 0,
+  "cost": 0.00074282,
+  "provider": "openai"
+ },
+ "openui__b5-streaming__r2": {
+  "input": 5178,
+  "output": 1406,
+  "reasoning": 0,
+  "cost": 0.00062674,
+  "provider": "azure"
+ },
+ "openui__b5-streaming__r3": {
+  "input": 5178,
+  "output": 1698,
+  "reasoning": 0,
+  "cost": 0.00071922,
+  "provider": "openai"
+ },
+ "openui__b5-streaming__r4": {
+  "input": 5178,
+  "output": 1347,
+  "reasoning": 0,
+  "cost": 0.0005929,
+  "provider": "azure"
+ },
+ "openui__b5-disaster__r1": {
+  "input": 5218,
+  "output": 1969,
+  "reasoning": 0,
+  "cost": 0.00082962,
+  "provider": "openai"
+ },
+ "openui__b5-disaster__r2": {
+  "input": 5218,
+  "output": 1979,
+  "reasoning": 0,
+  "cost": 0.00085794,
+  "provider": "azure"
+ },
+ "openui__b5-disaster__r3": {
+  "input": 5218,
+  "output": 2919,
+  "reasoning": 0,
+  "cost": 0.0011981,
+  "provider": "openai"
+ },
+ "openui__b5-disaster__r4": {
+  "input": 5218,
+  "output": 2273,
+  "reasoning": 0,
+  "cost": 0.00097554,
+  "provider": "azure"
+ }
+}

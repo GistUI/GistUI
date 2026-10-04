@@ -1,0 +1,1264 @@
+{
+ "gistui__b1-invoice__r1": {
+  "input": 3931,
+  "output": 272,
+  "reasoning": 0,
+  "cost": 0.00030535
+ },
+ "gistui__b1-uptime__r1": {
+  "input": 3934,
+  "output": 106,
+  "reasoning": 0,
+  "cost": 0.0000663
+ },
+ "gistui__b1-uptime__r3": {
+  "input": 3934,
+  "output": 190,
+  "reasoning": 0,
+  "cost": 0.0002727
+ },
+ "gistui__b1-profile__r2": {
+  "input": 3932,
+  "output": 177,
+  "reasoning": 0,
+  "cost": 0.0002674
+ },
+ "gistui__b1-uptime__r4": {
+  "input": 3934,
+  "output": 320,
+  "reasoning": 0,
+  "cost": 0.0001519
+ },
+ "gistui__b1-uptime__r2": {
+  "input": 3934,
+  "output": 133,
+  "reasoning": 0,
+  "cost": 0.0000771
+ },
+ "gistui__b1-profile__r1": {
+  "input": 3932,
+  "output": 333,
+  "reasoning": 0,
+  "cost": 0.000157
+ },
+ "gistui__b1-invoice__r4": {
+  "input": 3931,
+  "output": 248,
+  "reasoning": 0,
+  "cost": 0.00012295
+ },
+ "gistui__b1-profile__r4": {
+  "input": 3932,
+  "output": 116,
+  "reasoning": 0,
+  "cost": 0.0000702
+ },
+ "gistui__b1-invoice__r2": {
+  "input": 3931,
+  "output": 227,
+  "reasoning": 0,
+  "cost": 0.00011455
+ },
+ "gistui__b1-invoice__r3": {
+  "input": 3931,
+  "output": 182,
+  "reasoning": 0,
+  "cost": 0.00009655
+ },
+ "gistui__b1-newsletter__r1": {
+  "input": 3929,
+  "output": 193,
+  "reasoning": 0,
+  "cost": 0.00010085
+ },
+ "gistui__b1-newsletter__r2": {
+  "input": 3929,
+  "output": 128,
+  "reasoning": 0,
+  "cost": 0.00007485
+ },
+ "gistui__b1-newsletter__r3": {
+  "input": 3929,
+  "output": 182,
+  "reasoning": 0,
+  "cost": 0.00009645
+ },
+ "gistui__b1-newsletter__r4": {
+  "input": 3929,
+  "output": 118,
+  "reasoning": 0,
+  "cost": 0.00024365
+ },
+ "gistui__b1-meeting__r1": {
+  "input": 3937,
+  "output": 215,
+  "reasoning": 0,
+  "cost": 0.00011005
+ },
+ "gistui__b1-meeting__r2": {
+  "input": 3937,
+  "output": 143,
+  "reasoning": 0,
+  "cost": 0.00008125
+ },
+ "gistui__b1-profile__r3": {
+  "input": 3932,
+  "output": 181,
+  "reasoning": 0,
+  "cost": 0.0000962
+ },
+ "gistui__b1-meeting__r3": {
+  "input": 3937,
+  "output": 201,
+  "reasoning": 0,
+  "cost": 0.00012365
+ },
+ "gistui__b1-meeting__r4": {
+  "input": 3937,
+  "output": 145,
+  "reasoning": 0,
+  "cost": 0.00010125
+ },
+ "gistui__b1-revenue__r1": {
+  "input": 3927,
+  "output": 154,
+  "reasoning": 0,
+  "cost": 0.00025795
+ },
+ "gistui__b1-revenue__r2": {
+  "input": 3927,
+  "output": 181,
+  "reasoning": 0,
+  "cost": 0.00009595
+ },
+ "gistui__b1-revenue__r3": {
+  "input": 3927,
+  "output": 129,
+  "reasoning": 0,
+  "cost": 0.00007515
+ },
+ "gistui__b1-revenue__r4": {
+  "input": 3927,
+  "output": 225,
+  "reasoning": 0,
+  "cost": 0.00011355
+ },
+ "gistui__b1-task__r1": {
+  "input": 3934,
+  "output": 168,
+  "reasoning": 0,
+  "cost": 0.0000911
+ },
+ "gistui__b1-task__r2": {
+  "input": 3934,
+  "output": 142,
+  "reasoning": 0,
+  "cost": 0.0000807
+ },
+ "gistui__b1-task__r4": {
+  "input": 3934,
+  "output": 145,
+  "reasoning": 0,
+  "cost": 0.0000819,
+  "provider": "openai"
+ },
+ "gistui__b1-task__r3": {
+  "input": 3934,
+  "output": 78,
+  "reasoning": 0,
+  "cost": 0.0000743,
+  "provider": "azure"
+ },
+ "gistui__b1-weather__r2": {
+  "input": 3931,
+  "output": 171,
+  "reasoning": 0,
+  "cost": 0.00009215,
+  "provider": "openai"
+ },
+ "gistui__b1-weather__r1": {
+  "input": 3931,
+  "output": 217,
+  "reasoning": 0,
+  "cost": 0.00012975,
+  "provider": "azure"
+ },
+ "gistui__b1-weather__r4": {
+  "input": 3931,
+  "output": 190,
+  "reasoning": 0,
+  "cost": 0.00009975,
+  "provider": "openai"
+ },
+ "gistui__b1-weather__r3": {
+  "input": 3931,
+  "output": 259,
+  "reasoning": 0,
+  "cost": 0.00014655,
+  "provider": "azure"
+ },
+ "gistui__b1-order__r2": {
+  "input": 3934,
+  "output": 187,
+  "reasoning": 0,
+  "cost": 0.0000987,
+  "provider": "openai"
+ },
+ "gistui__b1-order__r1": {
+  "input": 3934,
+  "output": 236,
+  "reasoning": 0,
+  "cost": 0.0001375,
+  "provider": "azure"
+ },
+ "gistui__b1-order__r4": {
+  "input": 3934,
+  "output": 251,
+  "reasoning": 0,
+  "cost": 0.0001243,
+  "provider": "openai"
+ },
+ "gistui__b1-order__r3": {
+  "input": 3934,
+  "output": 304,
+  "reasoning": 0,
+  "cost": 0.0001647,
+  "provider": "azure"
+ },
+ "gistui__b1-poll__r1": {
+  "input": 3929,
+  "output": 145,
+  "reasoning": 0,
+  "cost": 0.00010085,
+  "provider": "azure"
+ },
+ "gistui__b1-poll__r2": {
+  "input": 3929,
+  "output": 223,
+  "reasoning": 0,
+  "cost": 0.00011285,
+  "provider": "openai"
+ },
+ "gistui__b1-poll__r4": {
+  "input": 3929,
+  "output": 179,
+  "reasoning": 0,
+  "cost": 0.00009525,
+  "provider": "openai"
+ },
+ "gistui__b1-poll__r3": {
+  "input": 3929,
+  "output": 191,
+  "reasoning": 0,
+  "cost": 0.00011925,
+  "provider": "azure"
+ },
+ "gistui__b2-sales__r1": {
+  "input": 3951,
+  "output": 316,
+  "reasoning": 0,
+  "cost": 0.00017035,
+  "provider": "azure"
+ },
+ "gistui__b2-sales__r2": {
+  "input": 3951,
+  "output": 341,
+  "reasoning": 0,
+  "cost": 0.00016115,
+  "provider": "openai"
+ },
+ "gistui__b2-sales__r3": {
+  "input": 3951,
+  "output": 279,
+  "reasoning": 0,
+  "cost": 0.00015555,
+  "provider": "azure"
+ },
+ "gistui__b2-sales__r4": {
+  "input": 3951,
+  "output": 345,
+  "reasoning": 0,
+  "cost": 0.00016275,
+  "provider": "openai"
+ },
+ "gistui__b2-support__r2": {
+  "input": 3956,
+  "output": 425,
+  "reasoning": 0,
+  "cost": 0.000195,
+  "provider": "openai"
+ },
+ "gistui__b2-support__r1": {
+  "input": 3956,
+  "output": 360,
+  "reasoning": 0,
+  "cost": 0.0001882,
+  "provider": "azure"
+ },
+ "gistui__b2-support__r4": {
+  "input": 3956,
+  "output": 353,
+  "reasoning": 0,
+  "cost": 0.0001662,
+  "provider": "openai"
+ },
+ "gistui__b2-support__r3": {
+  "input": 3956,
+  "output": 463,
+  "reasoning": 0,
+  "cost": 0.0002294,
+  "provider": "azure"
+ },
+ "gistui__b2-fitness__r2": {
+  "input": 3942,
+  "output": 399,
+  "reasoning": 0,
+  "cost": 0.0001839,
+  "provider": "openai"
+ },
+ "gistui__b2-fitness__r1": {
+  "input": 3942,
+  "output": 427,
+  "reasoning": 0,
+  "cost": 0.0002143,
+  "provider": "azure"
+ },
+ "gistui__b2-fitness__r4": {
+  "input": 3942,
+  "output": 375,
+  "reasoning": 0,
+  "cost": 0.0001743,
+  "provider": "openai"
+ },
+ "gistui__b2-fitness__r3": {
+  "input": 3942,
+  "output": 302,
+  "reasoning": 0,
+  "cost": 0.0001643,
+  "provider": "azure"
+ },
+ "gistui__b2-job__r2": {
+  "input": 3961,
+  "output": 262,
+  "reasoning": 0,
+  "cost": 0.00013005,
+  "provider": "openai"
+ },
+ "gistui__b2-job__r1": {
+  "input": 3961,
+  "output": 384,
+  "reasoning": 0,
+  "cost": 0.00019805,
+  "provider": "azure"
+ },
+ "gistui__b2-job__r3": {
+  "input": 3961,
+  "output": 257,
+  "reasoning": 0,
+  "cost": 0.00030085,
+  "provider": "azure"
+ },
+ "gistui__b2-cafe__r1": {
+  "input": 3940,
+  "output": 312,
+  "reasoning": 0,
+  "cost": 0.0001682,
+  "provider": "azure"
+ },
+ "gistui__b2-cafe__r2": {
+  "input": 3940,
+  "output": 329,
+  "reasoning": 0,
+  "cost": 0.0001558,
+  "provider": "openai"
+ },
+ "gistui__b2-cafe__r4": {
+  "input": 3940,
+  "output": 341,
+  "reasoning": 0,
+  "cost": 0.0001606,
+  "provider": "openai"
+ },
+ "gistui__b2-budget__r2": {
+  "input": 3950,
+  "output": 444,
+  "reasoning": 0,
+  "cost": 0.0002215,
+  "provider": "azure"
+ },
+ "gistui__b2-budget__r3": {
+  "input": 3950,
+  "output": 391,
+  "reasoning": 0,
+  "cost": 0.0002003,
+  "provider": "azure"
+ },
+ "gistui__b2-course__r1": {
+  "input": 3951,
+  "output": 202,
+  "reasoning": 0,
+  "cost": 0.00010555,
+  "provider": "openai"
+ },
+ "gistui__b2-job__r4": {
+  "input": 3961,
+  "output": 332,
+  "reasoning": 0,
+  "cost": 0.00017725,
+  "provider": "azure"
+ },
+ "gistui__b2-cafe__r3": {
+  "input": 3940,
+  "output": 444,
+  "reasoning": 0,
+  "cost": 0.0002018,
+  "provider": "openai"
+ },
+ "gistui__b2-budget__r1": {
+  "input": 3950,
+  "output": 383,
+  "reasoning": 0,
+  "cost": 0.0001971,
+  "provider": "azure"
+ },
+ "gistui__b2-budget__r4": {
+  "input": 3950,
+  "output": 498,
+  "reasoning": 0,
+  "cost": 0.0002239,
+  "provider": "openai"
+ },
+ "gistui__b2-course__r3": {
+  "input": 3951,
+  "output": 210,
+  "reasoning": 0,
+  "cost": 0.00010875,
+  "provider": "openai"
+ },
+ "gistui__b2-course__r2": {
+  "input": 3951,
+  "output": 182,
+  "reasoning": 0,
+  "cost": 0.00011675,
+  "provider": "azure"
+ },
+ "gistui__b2-stock__r1": {
+  "input": 3946,
+  "output": 234,
+  "reasoning": 0,
+  "cost": 0.0001181,
+  "provider": "openai"
+ },
+ "gistui__b2-course__r4": {
+  "input": 3951,
+  "output": 301,
+  "reasoning": 0,
+  "cost": 0.00016435,
+  "provider": "azure"
+ },
+ "gistui__b2-stock__r2": {
+  "input": 3946,
+  "output": 202,
+  "reasoning": 0,
+  "cost": 0.0001245,
+  "provider": "azure"
+ },
+ "gistui__b2-stock__r3": {
+  "input": 3946,
+  "output": 285,
+  "reasoning": 0,
+  "cost": 0.0001385,
+  "provider": "openai"
+ },
+ "gistui__b2-standup__r1": {
+  "input": 3947,
+  "output": 396,
+  "reasoning": 0,
+  "cost": 0.00018295,
+  "provider": "openai"
+ },
+ "gistui__b2-stock__r4": {
+  "input": 3946,
+  "output": 305,
+  "reasoning": 0,
+  "cost": 0.0001657,
+  "provider": "azure"
+ },
+ "gistui__b2-standup__r2": {
+  "input": 3947,
+  "output": 331,
+  "reasoning": 0,
+  "cost": 0.00017615,
+  "provider": "azure"
+ },
+ "gistui__b2-standup__r3": {
+  "input": 3947,
+  "output": 321,
+  "reasoning": 0,
+  "cost": 0.00015295,
+  "provider": "openai"
+ },
+ "gistui__b2-standup__r4": {
+  "input": 3947,
+  "output": 412,
+  "reasoning": 0,
+  "cost": 0.00020855,
+  "provider": "azure"
+ },
+ "gistui__b2-event__r1": {
+  "input": 3957,
+  "output": 615,
+  "reasoning": 0,
+  "cost": 0.00027105,
+  "provider": "openai"
+ },
+ "gistui__b2-event__r3": {
+  "input": 3957,
+  "output": 427,
+  "reasoning": 0,
+  "cost": 0.00019585,
+  "provider": "openai"
+ },
+ "gistui__b2-event__r2": {
+  "input": 3957,
+  "output": 449,
+  "reasoning": 0,
+  "cost": 0.00022385,
+  "provider": "azure"
+ },
+ "gistui__b2-event__r4": {
+  "input": 3957,
+  "output": 400,
+  "reasoning": 0,
+  "cost": 0.00020425,
+  "provider": "azure"
+ },
+ "gistui__b3-marketing__r1": {
+  "input": 3980,
+  "output": 1033,
+  "reasoning": 0,
+  "cost": 0.0004394,
+  "provider": "openai"
+ },
+ "gistui__b3-marketing__r2": {
+  "input": 3980,
+  "output": 592,
+  "reasoning": 0,
+  "cost": 0.0002822,
+  "provider": "azure"
+ },
+ "gistui__b3-marketing__r3": {
+  "input": 3980,
+  "output": 775,
+  "reasoning": 0,
+  "cost": 0.0003362,
+  "provider": "openai"
+ },
+ "gistui__b3-marketing__r4": {
+  "input": 3980,
+  "output": 518,
+  "reasoning": 0,
+  "cost": 0.0002526,
+  "provider": "azure"
+ },
+ "gistui__b3-orders__r1": {
+  "input": 3984,
+  "output": 597,
+  "reasoning": 0,
+  "cost": 0.0002652,
+  "provider": "openai"
+ },
+ "gistui__b3-orders__r2": {
+  "input": 3984,
+  "output": 410,
+  "reasoning": 0,
+  "cost": 0.0002096,
+  "provider": "azure"
+ },
+ "gistui__b3-orders__r3": {
+  "input": 3984,
+  "output": 590,
+  "reasoning": 0,
+  "cost": 0.0002624,
+  "provider": "openai"
+ },
+ "gistui__b3-orders__r4": {
+  "input": 3984,
+  "output": 598,
+  "reasoning": 0,
+  "cost": 0.0002848,
+  "provider": "azure"
+ },
+ "gistui__b3-hr__r1": {
+  "input": 3972,
+  "output": 728,
+  "reasoning": 0,
+  "cost": 0.000317,
+  "provider": "openai"
+ },
+ "gistui__b3-hr__r3": {
+  "input": 3972,
+  "output": 716,
+  "reasoning": 0,
+  "cost": 0.0003122,
+  "provider": "openai"
+ },
+ "gistui__b3-hr__r2": {
+  "input": 3972,
+  "output": 676,
+  "reasoning": 0,
+  "cost": 0.0003154,
+  "provider": "azure"
+ },
+ "gistui__b3-server__r1": {
+  "input": 3985,
+  "output": 793,
+  "reasoning": 0,
+  "cost": 0.00034365,
+  "provider": "openai"
+ },
+ "gistui__b3-hr__r4": {
+  "input": 3972,
+  "output": 769,
+  "reasoning": 0,
+  "cost": 0.0003526,
+  "provider": "azure"
+ },
+ "gistui__b3-server__r3": {
+  "input": 3985,
+  "output": 617,
+  "reasoning": 0,
+  "cost": 0.00027325,
+  "provider": "openai"
+ },
+ "gistui__b3-server__r2": {
+  "input": 3985,
+  "output": 664,
+  "reasoning": 0,
+  "cost": 0.00031125,
+  "provider": "azure"
+ },
+ "gistui__b3-crm__r1": {
+  "input": 3981,
+  "output": 518,
+  "reasoning": 0,
+  "cost": 0.00040625,
+  "provider": "openai"
+ },
+ "gistui__b3-server__r4": {
+  "input": 3985,
+  "output": 663,
+  "reasoning": 0,
+  "cost": 0.00031085,
+  "provider": "azure"
+ },
+ "gistui__b3-crm__r2": {
+  "input": 3981,
+  "output": 554,
+  "reasoning": 0,
+  "cost": 0.00026705,
+  "provider": "azure"
+ },
+ "gistui__b3-crm__r3": {
+  "input": 3981,
+  "output": 560,
+  "reasoning": 0,
+  "cost": 0.00025025,
+  "provider": "openai"
+ },
+ "gistui__b3-crm__r4": {
+  "input": 3981,
+  "output": 391,
+  "reasoning": 0,
+  "cost": 0.00020185,
+  "provider": "azure"
+ },
+ "gistui__b3-clinic__r1": {
+  "input": 3970,
+  "output": 489,
+  "reasoning": 0,
+  "cost": 0.0002213,
+  "provider": "openai"
+ },
+ "gistui__b3-clinic__r2": {
+  "input": 3970,
+  "output": 334,
+  "reasoning": 0,
+  "cost": 0.0001785,
+  "provider": "azure"
+ },
+ "gistui__b3-clinic__r3": {
+  "input": 3970,
+  "output": 444,
+  "reasoning": 0,
+  "cost": 0.0002033,
+  "provider": "openai"
+ },
+ "gistui__b3-clinic__r4": {
+  "input": 3970,
+  "output": 398,
+  "reasoning": 0,
+  "cost": 0.0002041,
+  "provider": "azure"
+ },
+ "gistui__b3-content__r1": {
+  "input": 3979,
+  "output": 682,
+  "reasoning": 0,
+  "cost": 0.00029895,
+  "provider": "openai"
+ },
+ "gistui__b3-content__r2": {
+  "input": 3979,
+  "output": 691,
+  "reasoning": 0,
+  "cost": 0.00032175,
+  "provider": "azure"
+ },
+ "gistui__b3-content__r3": {
+  "input": 3979,
+  "output": 853,
+  "reasoning": 0,
+  "cost": 0.00036735,
+  "provider": "openai"
+ },
+ "gistui__b3-freight__r1": {
+  "input": 3988,
+  "output": 674,
+  "reasoning": 0,
+  "cost": 0.0002962,
+  "provider": "openai"
+ },
+ "gistui__b3-content__r4": {
+  "input": 3979,
+  "output": 897,
+  "reasoning": 0,
+  "cost": 0.00040415,
+  "provider": "azure"
+ },
+ "gistui__b3-freight__r3": {
+  "input": 3988,
+  "output": 621,
+  "reasoning": 0,
+  "cost": 0.000275,
+  "provider": "openai"
+ },
+ "gistui__b3-freight__r2": {
+  "input": 3988,
+  "output": 669,
+  "reasoning": 0,
+  "cost": 0.0003134,
+  "provider": "azure"
+ },
+ "gistui__b3-finance__r1": {
+  "input": 3964,
+  "output": 532,
+  "reasoning": 0,
+  "cost": 0.0002382,
+  "provider": "openai"
+ },
+ "gistui__b3-freight__r4": {
+  "input": 3988,
+  "output": 597,
+  "reasoning": 0,
+  "cost": 0.0002846,
+  "provider": "azure"
+ },
+ "gistui__b3-finance__r3": {
+  "input": 3964,
+  "output": 432,
+  "reasoning": 0,
+  "cost": 0.0001982,
+  "provider": "openai"
+ },
+ "gistui__b3-finance__r2": {
+  "input": 3964,
+  "output": 506,
+  "reasoning": 0,
+  "cost": 0.000247,
+  "provider": "azure"
+ },
+ "gistui__b3-finance__r4": {
+  "input": 3964,
+  "output": 436,
+  "reasoning": 0,
+  "cost": 0.000219,
+  "provider": "azure"
+ },
+ "gistui__b3-learning__r1": {
+  "input": 3969,
+  "output": 960,
+  "reasoning": 0,
+  "cost": 0.00040965,
+  "provider": "openai"
+ },
+ "gistui__b3-learning__r3": {
+  "input": 3969,
+  "output": 817,
+  "reasoning": 0,
+  "cost": 0.00035245,
+  "provider": "openai"
+ },
+ "gistui__b3-learning__r2": {
+  "input": 3969,
+  "output": 611,
+  "reasoning": 0,
+  "cost": 0.00028925,
+  "provider": "azure"
+ },
+ "gistui__b3-learning__r4": {
+  "input": 3969,
+  "output": 740,
+  "reasoning": 0,
+  "cost": 0.00034085,
+  "provider": "azure"
+ },
+ "gistui__b4-saas__r1": {
+  "input": 4021,
+  "output": 838,
+  "reasoning": 0,
+  "cost": 0.00036345,
+  "provider": "openai"
+ },
+ "gistui__b4-saas__r2": {
+  "input": 4021,
+  "output": 584,
+  "reasoning": 0,
+  "cost": 0.00028105,
+  "provider": "azure"
+ },
+ "gistui__b4-saas__r3": {
+  "input": 4021,
+  "output": 979,
+  "reasoning": 0,
+  "cost": 0.00041985,
+  "provider": "openai"
+ },
+ "gistui__b4-saas__r4": {
+  "input": 4021,
+  "output": 808,
+  "reasoning": 0,
+  "cost": 0.00037065,
+  "provider": "azure"
+ },
+ "gistui__b4-hospital__r1": {
+  "input": 3998,
+  "output": 741,
+  "reasoning": 0,
+  "cost": 0.0003235,
+  "provider": "openai"
+ },
+ "gistui__b4-hospital__r2": {
+  "input": 3998,
+  "output": 1025,
+  "reasoning": 0,
+  "cost": 0.0004563,
+  "provider": "azure"
+ },
+ "gistui__b4-hospital__r3": {
+  "input": 3998,
+  "output": 1063,
+  "reasoning": 0,
+  "cost": 0.0004523,
+  "provider": "openai"
+ },
+ "gistui__b4-hospital__r4": {
+  "input": 3998,
+  "output": 1117,
+  "reasoning": 0,
+  "cost": 0.0004931,
+  "provider": "azure"
+ },
+ "gistui__b4-retail__r1": {
+  "input": 4005,
+  "output": 1057,
+  "reasoning": 0,
+  "cost": 0.00045025,
+  "provider": "openai"
+ },
+ "gistui__b4-retail__r2": {
+  "input": 4005,
+  "output": 1417,
+  "reasoning": 0,
+  "cost": 0.00061345,
+  "provider": "azure"
+ },
+ "gistui__b4-retail__r3": {
+  "input": 4005,
+  "output": 819,
+  "reasoning": 0,
+  "cost": 0.00035505,
+  "provider": "openai"
+ },
+ "gistui__b4-retail__r4": {
+  "input": 4005,
+  "output": 836,
+  "reasoning": 0,
+  "cost": 0.00038105,
+  "provider": "azure"
+ },
+ "gistui__b4-portfolio__r1": {
+  "input": 4027,
+  "output": 1032,
+  "reasoning": 0,
+  "cost": 0.00044135,
+  "provider": "openai"
+ },
+ "gistui__b4-portfolio__r2": {
+  "input": 4027,
+  "output": 980,
+  "reasoning": 0,
+  "cost": 0.00043975,
+  "provider": "azure"
+ },
+ "gistui__b4-portfolio__r3": {
+  "input": 4027,
+  "output": 765,
+  "reasoning": 0,
+  "cost": 0.00032879,
+  "provider": "openai"
+ },
+ "gistui__b4-bank__r1": {
+  "input": 4008,
+  "output": 851,
+  "reasoning": 0,
+  "cost": 0.000368,
+  "provider": "openai"
+ },
+ "gistui__b4-portfolio__r4": {
+  "input": 4027,
+  "output": 958,
+  "reasoning": 0,
+  "cost": 0.00042583,
+  "provider": "azure"
+ },
+ "gistui__b4-bank__r2": {
+  "input": 4008,
+  "output": 943,
+  "reasoning": 0,
+  "cost": 0.000424,
+  "provider": "azure"
+ },
+ "gistui__b4-bank__r3": {
+  "input": 4008,
+  "output": 795,
+  "reasoning": 0,
+  "cost": 0.0003456,
+  "provider": "openai"
+ },
+ "gistui__b4-bank__r4": {
+  "input": 4008,
+  "output": 851,
+  "reasoning": 0,
+  "cost": 0.0003872,
+  "provider": "azure"
+ },
+ "gistui__b4-power__r1": {
+  "input": 4012,
+  "output": 860,
+  "reasoning": 0,
+  "cost": 0.0003718,
+  "provider": "openai"
+ },
+ "gistui__b4-power__r2": {
+  "input": 4012,
+  "output": 1105,
+  "reasoning": 0,
+  "cost": 0.000489,
+  "provider": "azure"
+ },
+ "gistui__b4-power__r3": {
+  "input": 4012,
+  "output": 1278,
+  "reasoning": 0,
+  "cost": 0.00053324,
+  "provider": "openai"
+ },
+ "gistui__b4-power__r4": {
+  "input": 4012,
+  "output": 843,
+  "reasoning": 0,
+  "cost": 0.00037908,
+  "provider": "azure"
+ },
+ "gistui__b4-airline__r1": {
+  "input": 4005,
+  "output": 809,
+  "reasoning": 0,
+  "cost": 0.00035105,
+  "provider": "openai"
+ },
+ "gistui__b4-airline__r2": {
+  "input": 4005,
+  "output": 799,
+  "reasoning": 0,
+  "cost": 0.00051985,
+  "provider": "azure"
+ },
+ "gistui__b4-airline__r3": {
+  "input": 4005,
+  "output": 801,
+  "reasoning": 0,
+  "cost": 0.00034785,
+  "provider": "openai"
+ },
+ "gistui__b4-airline__r4": {
+  "input": 4005,
+  "output": 652,
+  "reasoning": 0,
+  "cost": 0.00030745,
+  "provider": "azure"
+ },
+ "gistui__b4-creator__r1": {
+  "input": 4003,
+  "output": 841,
+  "reasoning": 0,
+  "cost": 0.00036375,
+  "provider": "openai"
+ },
+ "gistui__b4-creator__r2": {
+  "input": 4003,
+  "output": 752,
+  "reasoning": 0,
+  "cost": 0.00034735,
+  "provider": "azure"
+ },
+ "gistui__b4-creator__r3": {
+  "input": 4003,
+  "output": 989,
+  "reasoning": 0,
+  "cost": 0.00042295,
+  "provider": "openai"
+ },
+ "gistui__b4-creator__r4": {
+  "input": 4003,
+  "output": 767,
+  "reasoning": 0,
+  "cost": 0.00035335,
+  "provider": "azure"
+ },
+ "gistui__b5-exec__r1": {
+  "input": 4032,
+  "output": 1049,
+  "reasoning": 0,
+  "cost": 0.0004484,
+  "provider": "openai"
+ },
+ "gistui__b5-exec__r2": {
+  "input": 4032,
+  "output": 818,
+  "reasoning": 0,
+  "cost": 0.0003752,
+  "provider": "azure"
+ },
+ "gistui__b5-exec__r3": {
+  "input": 4032,
+  "output": 944,
+  "reasoning": 0,
+  "cost": 0.00040064,
+  "provider": "openai"
+ },
+ "gistui__b5-exec__r4": {
+  "input": 4032,
+  "output": 84,
+  "reasoning": 0,
+  "cost": 0.0000816,
+  "provider": "azure"
+ },
+ "gistui__b5-city__r1": {
+  "input": 4039,
+  "output": 1156,
+  "reasoning": 0,
+  "cost": 0.00049155,
+  "provider": "openai"
+ },
+ "gistui__b5-city__r2": {
+  "input": 4039,
+  "output": 1039,
+  "reasoning": 0,
+  "cost": 0.00046395,
+  "provider": "azure"
+ },
+ "gistui__b5-city__r3": {
+  "input": 4039,
+  "output": 1704,
+  "reasoning": 0,
+  "cost": 0.00070499,
+  "provider": "openai"
+ },
+ "gistui__b5-city__r4": {
+  "input": 4039,
+  "output": 1363,
+  "reasoning": 0,
+  "cost": 0.00058843,
+  "provider": "azure"
+ },
+ "gistui__b5-game__r1": {
+  "input": 4039,
+  "output": 1226,
+  "reasoning": 0,
+  "cost": 0.00051955,
+  "provider": "openai"
+ },
+ "gistui__b5-game__r3": {
+  "input": 4039,
+  "output": 975,
+  "reasoning": 0,
+  "cost": 0.00041915,
+  "provider": "openai"
+ },
+ "gistui__b5-game__r2": {
+  "input": 4039,
+  "output": 1464,
+  "reasoning": 0,
+  "cost": 0.00063395,
+  "provider": "azure"
+ },
+ "gistui__b5-game__r4": {
+  "input": 4039,
+  "output": 1415,
+  "reasoning": 0,
+  "cost": 0.00060923,
+  "provider": "azure"
+ },
+ "gistui__b5-fund__r1": {
+  "input": 4051,
+  "output": 1195,
+  "reasoning": 0,
+  "cost": 0.00050775,
+  "provider": "openai"
+ },
+ "gistui__b5-fund__r2": {
+  "input": 4051,
+  "output": 1034,
+  "reasoning": 0,
+  "cost": 0.00046255,
+  "provider": "azure"
+ },
+ "gistui__b5-fund__r3": {
+  "input": 4051,
+  "output": 982,
+  "reasoning": 0,
+  "cost": 0.00041679,
+  "provider": "openai"
+ },
+ "gistui__b5-fund__r4": {
+  "input": 4051,
+  "output": 1063,
+  "reasoning": 0,
+  "cost": 0.00046903,
+  "provider": "azure"
+ },
+ "gistui__b5-university__r1": {
+  "input": 4039,
+  "output": 1402,
+  "reasoning": 0,
+  "cost": 0.00058995,
+  "provider": "openai"
+ },
+ "gistui__b5-university__r2": {
+  "input": 4039,
+  "output": 1495,
+  "reasoning": 0,
+  "cost": 0.00064635,
+  "provider": "azure"
+ },
+ "gistui__b5-university__r3": {
+  "input": 4039,
+  "output": 1486,
+  "reasoning": 0,
+  "cost": 0.00061779,
+  "provider": "openai"
+ },
+ "gistui__b5-university__r4": {
+  "input": 4039,
+  "output": 1321,
+  "reasoning": 0,
+  "cost": 0.00057163,
+  "provider": "azure"
+ },
+ "gistui__b5-plant__r1": {
+  "input": 4054,
+  "output": 1066,
+  "reasoning": 0,
+  "cost": 0.0004563,
+  "provider": "openai"
+ },
+ "gistui__b5-plant__r2": {
+  "input": 4054,
+  "output": 1116,
+  "reasoning": 0,
+  "cost": 0.0004955,
+  "provider": "azure"
+ },
+ "gistui__b5-plant__r3": {
+  "input": 4054,
+  "output": 1068,
+  "reasoning": 0,
+  "cost": 0.0004571,
+  "provider": "openai"
+ },
+ "gistui__b5-streaming__r1": {
+  "input": 4035,
+  "output": 973,
+  "reasoning": 0,
+  "cost": 0.00041815,
+  "provider": "openai"
+ },
+ "gistui__b5-plant__r4": {
+  "input": 4054,
+  "output": 1377,
+  "reasoning": 0,
+  "cost": 0.00059478,
+  "provider": "azure"
+ },
+ "gistui__b5-streaming__r3": {
+  "input": 4035,
+  "output": 1165,
+  "reasoning": 0,
+  "cost": 0.00049495,
+  "provider": "openai"
+ },
+ "gistui__b5-streaming__r2": {
+  "input": 4035,
+  "output": 1517,
+  "reasoning": 0,
+  "cost": 0.00065495,
+  "provider": "azure"
+ },
+ "gistui__b5-streaming__r4": {
+  "input": 4035,
+  "output": 1301,
+  "reasoning": 0,
+  "cost": 0.00056855,
+  "provider": "azure"
+ },
+ "gistui__b5-disaster__r1": {
+  "input": 4075,
+  "output": 1685,
+  "reasoning": 0,
+  "cost": 0.00070495,
+  "provider": "openai"
+ },
+ "gistui__b5-disaster__r2": {
+  "input": 4075,
+  "output": 1478,
+  "reasoning": 0,
+  "cost": 0.00064135,
+  "provider": "azure"
+ },
+ "gistui__b5-disaster__r3": {
+  "input": 4075,
+  "output": 1481,
+  "reasoning": 0,
+  "cost": 0.00061759,
+  "provider": "openai"
+ },
+ "gistui__b5-disaster__r4": {
+  "input": 4075,
+  "output": 1469,
+  "reasoning": 0,
+  "cost": 0.00063263,
+  "provider": "azure"
+ }
+}

@@ -1,29 +1,15 @@
-root = Card(cardHeader, description, qualifications, salaryTag, applyForm, shareButtons)
-
-cardHeader = CardHeader("Senior Product Designer", "Design Team")
-
-description = TextContent("We are looking for a creative senior product designer to lead the visual and interaction design of our next generation of web applications. You will work closely with product managers and engineers to craft intuitive user experiences.", size:default)
-
-qualifications = ListBlock(
-  ListItem("5+ years of product design experience"),
-  ListItem("Strong portfolio showcasing UI/UX work"),
-  ListItem("Proficiency with Figma, Sketch, or Adobe XD"),
-  ListItem("Experience conducting user research and testing"),
-  ListItem("Excellent communication and collaboration skills")
-, variant:number)
-
-salaryTag = Tag("Salary: $90k‑$110k", variant:info)
-
-applyForm = Form("apply", formButtons,
-  nameField,
-  emailField,
-  resumeField
-)
-
-nameField = FormControl("Full name", Input("name", "Your name"))
-emailField = FormControl("Email address", Input("email", "you@example.com", type:email))
-resumeField = FormControl("Resume URL", Input("resume", "https://", type:url))
-
-formButtons = Buttons(Button("Apply now", primary), Button("Cancel", tertiary))
-
-shareButtons = Buttons(Button("Share on LinkedIn"), Button("Copy link"))
+root = Card(header, description, qualSection, salarySection, applyForm, shareButtons)
+header = CardHeader("Senior Product Designer", "Design Team")
+description = TextContent("We are looking for a creative product designer to lead UI/UX efforts across our platform, collaborating closely with product, engineering, and research teams to craft intuitive, user‑centered experiences.", size:default)
+qualSection = Card(Heading("Qualifications", h3), qualList)
+qualList = ListBlock(qualItem1, qualItem2, qualItem3, variant:number)
+qualItem1 = ListItem("5+ years of product design experience")
+qualItem2 = ListItem("Proficiency in Figma and Sketch")
+qualItem3 = ListItem("Strong portfolio demonstrating end‑to‑end design")
+salarySection = Card(Heading("Salary", h3), TextContent("$90,000 – $120,000 per year", size:default))
+applyForm = Form("apply", formButtons, nameField, emailField, resumeField)
+nameField = FormControl("Full name", Input("name", placeholder:"Your full name"))
+emailField = FormControl("Email address", Input("email", placeholder:"you@example.com", type:email))
+resumeField = FormControl("Resume link", Input("resume", placeholder:"Link to PDF or Google Doc"))
+formButtons = Buttons(Button("Apply now", primary))
+shareButtons = Card(Heading("Share this job", h3), Buttons(Button("Copy link"), Button("Tweet", secondary)))

@@ -1,0 +1,53 @@
+root = Card([header, statsRow, recentSection, controlsSection, newTicketButton])
+
+header = CardHeader("Support Lead Morning View", "Overview of active tickets and recent activity")
+
+statsRow = Card([openCountCard, avgResponseCard], "card")
+
+openCountCard = Card([openCountHeading, openCountValue], "card")
+openCountHeading = Heading("Open tickets", "h3")
+openCountValue = TextContent("42 open")
+
+avgResponseCard = Card([avgResponseHeading, avgResponseValue], "card")
+avgResponseHeading = Heading("Avg. first-response time", "h3")
+avgResponseValue = TextContent("15m 22s")
+
+recentSection = Card([recentHeading, recentTicketsTable], "card")
+recentHeading = Heading("Five most recent tickets", "h3")
+recentTicketsTable = Table([colPriority, colTicket, colStatus, colTime], "string")
+
+colPriority = Col("Priority", ["High", "Medium", "Low", "High", "Medium"])
+colTicket = Col("Ticket", ["#1043: Login issue", "#1042: Payment failure", "#1041: UI glitch", "#1040: Password reset", "#1039: Billing inquiry"])
+colStatus = Col("Status", ["Open", "Open", "Open", "Open", "Open"])
+colTime = Col("Since", ["2m ago", "12m ago", "1h ago", "3h ago", "5h ago"])
+
+controlsSection = Card([filterRow, priOnlyToggle], "card")
+filterRow = Heading("Filters", "h4")
+filterRow = Card([filterRow, filterHelp], "card")  // nested to display controls in sequence
+filterHelp = TextContent("Toggle to show only high-priority tickets in the list above.")
+
+priOnlyToggle = Form("priority-filter", Buttons([toggleBtn]), [
+  prioritySwitchControl
+])
+
+toggleBtn = Button("Apply", null, "primary")
+
+prioritySwitchControl = SwitchGroup("priority", [SwitchItem("High only", "Show only high-priority tickets", "highOnly", false)], "clear", [])
+
+newTicketButton = DrawerBlock("New Ticket", "Create Ticket", "Open form to create a new ticket", [newTicketForm], "default")
+
+newTicketForm = Card([formHeader, formBody, formActions], "card")
+formHeader = CardHeader("New Ticket", null)
+formBody = Form("new-ticket", Buttons([createBtn, cancelBtn]), [titleField, descField, priorityField])
+titleField = FormControl("Title", Input("title", "Issue title"))
+descField = FormControl("Description", TextArea("description", "Describe the issue..."))
+priorityField = FormControl("Priority", Select("priority", [pHigh, pMedium, pLow], "Choose priority"))
+pHigh = SelectItem("high", "High")
+pMedium = SelectItem("medium", "Medium")
+pLow = SelectItem("low", "Low")
+formActions = Card([submitBtn], "card")
+
+createBtn = Button("Create Ticket", null, "primary")
+cancelBtn = Button("Cancel", null, "secondary")
+
+submitBtn = Button("Submit", null, "primary")

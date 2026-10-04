@@ -1,4 +1,0 @@
-root = Card(taskheader, statuscallout, donebuttons)
-taskheader = CardHeader("Finish quarterly report", "Due: Sep 15, 2026")
-statuscallout = Callout(info, "Status", "In progress")
-donebuttons = Buttons(Button("Mark Done", variant:primary))

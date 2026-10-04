@@ -1,52 +1,42 @@
-root = Card(header, regionSelect, uptimeSection, cpuMemChart, errorRate, incidentsSection, slowEndpointsSection, alertThresholdSection, sunk)
+root = Card(uptime, usageChart, errorCallout, incidentsTable, regionSelect, endpointsTable, alertForm, ackButtons, direction:column, gap:m)
 
-header = CardHeader("Service Health Dashboard", "On‑call view")
+regionSelect = Select("region", SelectItem("us-east","US East"), SelectItem("eu-west","EU West"), placeholder:"Select region")
 
-regionSelect = Select("region", SelectItem("us-east-1", "US East 1"), SelectItem("us-west-2", "US West 2"), SelectItem("eu-central-1", "EU Central 1"), placeholder:"Select region")
+alertForm = Form("alert-form", formButtons, thresholdField)
 
-uptimeSection = Card(Heading("Uptime – This Quarter", h3), TextContent("99.97%"), clear)
+thresholdField = FormControl("Alert threshold (ms)", thresholdInput)
 
-cpuMemChart = Card(Heading("CPU & Memory – Last 24h", h3), LineChart(cpuMemRows, linear, xLabel:"Time", yLabel:"%"), clear)
+thresholdInput = Input("threshold", placeholder:"200", type:number)
 
-cpuMemRows = |Time|CPU|Memory
-|00:00|45|62
-|04:00|38|58
-|08:00|52|70
-|12:00|61|75
-|16:00|55|68
-|20:00|48|64
-|24:00|42|60
+formButtons = Buttons(Button("Set alert", primary))
 
-errorRate = Card(Heading("Current Error Rate", h3), TextContent("0.23%"), clear)
+ackButtons = Buttons(Button("Acknowledge", primary), Button("Dismiss", secondary))
 
-incidentsSection = Card(Heading("Open Incidents", h3), incidentsTable, clear)
+uptime = TextContent("Uptime this quarter: 99.92%")
 
-incidentsTable = Table(idCol, severityCol, descCol, actionCol)
+usageChart = LineChart(usageData, variant:linear, xLabel:"Time", yLabel:"%")
 
-idCol = Col("ID", data:["INC-101","INC-102","INC-103"], type:string)
+errorCallout = Callout(variant:warning, "Error Rate", "2.3% (last 5 min)")
 
-severityCol = Col("Severity", data:["critical","high","medium"], type:string)
+incidentsTable = Table(incidentsData)
 
-descCol = Col("Description", data:["Database timeout","Service X latency spike","Cache miss surge"], type:string)
+endpointsTable = Table(endpointsData)
 
-actionCol = Col("Action", data:[ackBtn1, ackBtn2, ackBtn3], type:string)
+usageData = |Time|CPU|Memory
+|00:00|30|45
+|04:00|40|50
+|08:00|35|55
+|12:00|45|60
+|16:00|50|65
+|20:00|55|70
 
-ackBtn1 = Button("Acknowledge", action:[], variant:primary, type:normal, size:small)
+incidentsData = |ID|Severity|Description
+|INC001|high|Database connection timeout
+|INC002|medium|Cache miss spikes
 
-ackBtn2 = Button("Acknowledge", action:[], variant:primary, type:normal, size:small)
-
-ackBtn3 = Button("Acknowledge", action:[], variant:primary, type:normal, size:small)
-
-slowEndpointsSection = Card(Heading("5 Slowest Endpoints", h3), slowEndpointsTable, clear)
-
-slowEndpointsTable = Table(endpointCol, latencyCol)
-
-endpointCol = Col("Endpoint", data:["/api/v1/report","/api/v2/search","/api/v1/export","/api/v3/metrics","/api/v1/login"], type:string)
-
-latencyCol = Col("Latency (ms)", data:[420,389,375,360,355], type:number)
-
-alertThresholdSection = Card(Heading("Set Alert Threshold", h3), Form("alert-form", alertButtons, thresholdField))
-
-thresholdField = FormControl("Latency threshold (ms)", Input("latency_threshold", "Enter ms", "", number))
-
-alertButtons = Buttons(Button("Save", primary), Button("Cancel", tertiary))
+endpointsData = |Endpoint|Latency
+|/api/users|350
+|/api/orders|420
+|/api/payments|500
+|/api/search|480
+|/api/reports|460

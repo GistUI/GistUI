@@ -1,0 +1,51 @@
+root = Card(CardHeader("Logistics Coordinator Board", "Live Shipping Dashboard"), searchSection, inTransitSection, delayedSection, onTimeSection, volumeSection, costSection, weeklySection, flagSection, refreshSection)
+
+searchSection = Card(Heading("Search by route", h3), Form("route-search", Buttons(Button("Search", primary)), FormControl("Route", Input("route", placeholder:"e.g. NY-LA"))) )
+
+inTransitSection = Card(Heading("Shipments in transit", h3), Table(inTransitTable))
+
+inTransitTable = |Route|Origin|Destination|ETA|Status
+|NYC-LAX|New York|Los Angeles|2026-10-07|In Transit
+|CHI-MIA|Chicago|Miami|2026-10-08|In Transit
+
+delayedSection = Card(Heading("Delayed shipments", h3), ListBlock(ListItem("Delayed: NY-LA route", "ETA slipping", image:[])))
+
+onTimeSection = Card(Heading("On-time percentage this month", h3), BarChart(onTimeTable, xLabel:"Day", yLabel:"On-time %")) 
+onTimeTable = |Day|On-time %
+|1|92
+|2|95
+|3|89
+|4|97
+|5|93
+
+volumeSection = Card(Heading("Volume split by carrier", h3), PieChart(volumeTable, variant:donut))
+
+volumeTable = |Carrier|Volume
+|FedEx|4200
+|UPS|3800
+|DHL|3200
+|USPS|2100
+
+costSection = Card(Heading("Average cost per shipment", h3), Table(costTable))
+
+costTable = |Metric|Value
+|Avg cost|$128.50
+|Total|$1,025,000
+
+weeklySection = Card(Heading("Weekly volume (past 2 months)", h3), LineChart(weeklyTable, natural, xLabel:"Week", yLabel:"Shipments"))
+
+weeklyTable = |Week|Volume
+|W1|210
+|W2|230
+|W3|245
+|W4|260
+|W5|275
+|W6|290
+|W7|305
+|W8|320
+|W9|340
+|W10|360
+
+flagSection = Card(Heading("Flag a shipment", h3), Form("flag-shipment", Buttons(Button("Flag Shipment", primary)), FormControl("Shipment ID", Input("shipment_id", placeholder:"Enter ID")), FormControl("Reason", Input("reason", placeholder:"Reason for flag"))) )
+
+refreshSection = Card(Heading("Last refreshed", h3), TextContent("Numbers updated: 2026-10-04 10:15 UTC", size:default))

@@ -1,0 +1,65 @@
+root = Card([header, searchBar, itemsList, thresholdCard])
+
+header = CardHeader("Low Inventory Warning", "Items running low and reorder options")
+
+searchBar = Card([SearchInput])
+
+SearchInput = Form("search", searchButtons, [searchField])
+searchField = Input("query", "Search items...", "text")
+
+searchButtons = Buttons([clearBtn])
+
+clearBtn = Button("Clear", null, "secondary")
+
+thresholdCard = Card([thresholdHeading, thresholdValue], "card")
+thresholdHeading = Heading("Threshold for warning", "h3")
+thresholdValue = TextContent("Warning triggers when on-hand quantity is at or below the set threshold.", "default")
+
+itemsList = ListBlock([lowItem1, lowItem2, lowItem3], "image")
+
+lowItem1 = ListItem("Widget A", "SKU 001 | Category: Widgets", ["https://picsum.photos/seed/widgetA/40/40"], "Reorder")
+lowItem2 = ListItem("Gadget B", "SKU 002 | Category: Gadgets", ["https://picsum.photos/seed/gadgetB/40/40"], "Reorder")
+lowItem3 = ListItem("Part C", "SKU 003 | Category: Parts", ["https://picsum.photos/seed/partC/40/40"], "Reorder")
+
+// Reorder actions for each item
+lowItemActions = Buttons([reorderA, reorderB, reorderC], "row")
+
+reorderA = Button("Reorder Widget A", null, "primary")
+reorderB = Button("Reorder Gadget B", null, "primary")
+reorderC = Button("Reorder Part C", null, "primary")
+
+// Attach per-item reorder buttons to their items via content sections
+lowItem1_content = Card([lowItemTitle1, lowItemSubtitle1, lowItemActionsLine1])
+lowItem2_content = Card([lowItemTitle2, lowItemSubtitle2, lowItemActionsLine2])
+lowItem3_content = Card([lowItemTitle3, lowItemSubtitle3, lowItemActionsLine3])
+
+lowItemTitle1 = Heading("Widget A", "h4")
+lowItemSubtitle1 = TextContent("Remaining units: 12", "default")
+lowItemActionsLine1 = Buttons([reorderA], "row")
+
+lowItemTitle2 = Heading("Gadget B", "h4")
+lowItemSubtitle2 = TextContent("Remaining units: 5", "default")
+lowItemActionsLine2 = Buttons([reorderB], "row")
+
+lowItemTitle3 = Heading("Part C", "h4")
+lowItemSubtitle3 = TextContent("Remaining units: 2", "default")
+lowItemActionsLine3 = Buttons([reorderC], "row")
+
+// Note: To ensure all defined variables are rendered, reference them in the parent list.
+root = Card([header, searchBar, thresholdCard, itemsList])
+
+// Define the per-item content wiring within the list by composing each ListItem with its details
+lowItem1 = ListItem("Widget A", "Remaining: 12 units", ["https://picsum.photos/seed/widgetA/40/40"], "Reorder")
+lowItem2 = ListItem("Gadget B", "Remaining: 5 units", ["https://picsum.photos/seed/gadgetB/40/40"], "Reorder")
+lowItem3 = ListItem("Part C", "Remaining: 2 units", ["https://picsum.photos/seed/partC/40/40"], "Reorder")
+
+// Reorder actions inline with items
+lowItem1_actions = Button("Reorder Widget A", null, "primary")
+lowItem2_actions = Button("Reorder Gadget B", null, "primary")
+lowItem3_actions = Button("Reorder Part C", null, "primary")
+
+lowItem1_withActions = Card([lowItem1, lowItem1_actions])
+lowItem2_withActions = Card([lowItem2, lowItem2_actions])
+lowItem3_withActions = Card([lowItem3, lowItem3_actions])
+
+itemsList = ListBlock([lowItem1_withActions, lowItem2_withActions, lowItem3_withActions], "image")

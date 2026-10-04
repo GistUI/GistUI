@@ -1,0 +1,98 @@
+root = Card([portfolioHeader, portfolioValue, pnlHeader, pnlValue, positionsHeader, positionsTable, exposureHeader, exposureChart, varHeader, varValue, gainersHeader, gainersTable, losersHeader, losersTable, watchlistHeader, watchlistTable, ordersHeader, ordersTable, marginHeader, marginValue, headlinesHeader, headlinesTable, econHeader, econTable, strategyHeader, strategyTable, drawdownHeader, drawdownValue, riskLimitsHeader, riskLimitsTable, rebalanceHeader, rebalanceForm, orderHeader, orderForm, timeframeHeader, timeframeSelect])
+
+portfolioHeader = Heading("Portfolio Value", "h2")
+portfolioValue = TextContent("$12.4M", "large-heavy")
+
+pnlHeader = Heading("Today's P&L", "h2")
+pnlValue = TextContent("+$45,300 (0.37%)", "large-heavy")
+
+positionsHeader = Heading("Positions", "h3")
+positionsTable = Table([posTickerCol, posSizeCol, posEntryCol, posCurrentCol])
+posTickerCol = Col("Ticker", ["AAPL", "MSFT", "TSLA"])
+posSizeCol = Col("Size", [150, 200, 80])
+posEntryCol = Col("Entry Price", [150.0, 250.5, 720.0])
+posCurrentCol = Col("Current Price", [152.3, 255.0, 710.0])
+
+exposureHeader = Heading("Exposure by Sector", "h3")
+exposureChart = BarChart(["Technology", "Healthcare", "Finance"], [exposureSeries], "grouped", "Sector", "Exposure ($M)")
+exposureSeries = Series("Exposure", [5.2, 3.1, 2.8])
+
+varHeader = Heading("Value at Risk (VaR)", "h3")
+varValue = TextContent("$1.2M (95% confidence)", "default")
+
+gainersHeader = Heading("Today's Biggest Gainers", "h3")
+gainersTable = Table([gainTickerCol, gainChangeCol])
+gainTickerCol = Col("Ticker", ["NVDA", "AMD"])
+gainChangeCol = Col("% Change", [5.2, 4.8])
+
+losersHeader = Heading("Today's Biggest Losers", "h3")
+losersTable = Table([loseTickerCol, loseChangeCol])
+loseTickerCol = Col("Ticker", ["NFLX", "BABA"])
+loseChangeCol = Col("% Change", [-3.4, -2.9])
+
+watchlistHeader = Heading("Watchlist", "h3")
+watchlistTable = Table([watchTickerCol, watchPriceCol])
+watchTickerCol = Col("Ticker", ["GOOGL", "AMZN", "FB"])
+watchPriceCol = Col("Price", [2800.5, 3400.2, 355.0])
+
+ordersHeader = Heading("Working Orders", "h3")
+ordersTable = Table([orderIdCol, orderTickerCol, orderSideCol, orderQtyCol, orderStatusCol])
+orderIdCol = Col("ID", ["001", "002"])
+orderTickerCol = Col("Ticker", ["AAPL", "TSLA"])
+orderSideCol = Col("Side", ["Buy", "Sell"])
+orderQtyCol = Col("Qty", [100, 50])
+orderStatusCol = Col("Status", ["Pending", "Pending"])
+
+marginHeader = Heading("Margin in Use", "h3")
+marginValue = TextContent("$2.5M (25% of portfolio)", "default")
+
+headlinesHeader = Heading("Market Headlines", "h3")
+headlinesTable = Table([headlineCol, sentimentCol])
+headlineCol = Col("Headline", ["Tech stocks rally", "Oil prices dip", "Fed hints rate cut"])
+sentimentCol = Col("Sentiment", ["Positive", "Neutral", "Positive"])
+
+econHeader = Heading("Economic Releases This Week", "h3")
+econTable = Table([econDateCol, econEventCol, econImpactCol])
+econDateCol = Col("Date", ["Mon", "Tue", "Thu"])
+econEventCol = Col("Event", ["Nonfarm Payrolls", "CPI", "GDP"])
+econImpactCol = Col("Impact", ["High", "Medium", "Low"])
+
+strategyHeader = Heading("Strategy Returns YTD", "h3")
+strategyTable = Table([strategyNameCol, strategyReturnCol])
+strategyNameCol = Col("Strategy", ["Momentum", "Mean Reversion", "Arbitrage"])
+strategyReturnCol = Col("Return %", [12.5, 8.3, 5.0])
+
+drawdownHeader = Heading("Drawdown (Past Year)", "h3")
+drawdownValue = TextContent("Max drawdown: 15% (Jan 2023)", "default")
+
+riskLimitsHeader = Heading("Risk Limits Near Breach", "h3")
+riskLimitsTable = Table([limitTypeCol, limitCurrentCol, limitThresholdCol])
+limitTypeCol = Col("Limit", ["Sector Exposure", "Position Size"])
+limitCurrentCol = Col("Current", ["9.5%", "$1.1M"])
+limitThresholdCol = Col("Threshold", ["10%", "$1.2M"])
+
+rebalanceHeader = Heading("Rebalance Portfolio", "h3")
+rebalanceForm = Form("rebalance", rebalanceButtons, [rebalanceField])
+rebalanceField = FormControl("Target Allocation %", rebalanceInput)
+rebalanceInput = Input("target_alloc", "50", "number")
+rebalanceButtons = Buttons([rebalanceSubmit])
+rebalanceSubmit = Button("Rebalance", null, "primary")
+
+orderHeader = Heading("Place Order", "h3")
+orderForm = Form("new_order", orderButtons, [orderTickerField, orderSideField, orderQtyField])
+orderTickerField = FormControl("Ticker", orderTickerInput)
+orderTickerInput = Input("order_ticker", "", "text")
+orderSideField = FormControl("Side", orderSideSelect)
+orderSideSelect = Select("order_side", [sideBuy, sideSell], "Select side")
+sideBuy = SelectItem("Buy", "Buy")
+sideSell = SelectItem("Sell", "Sell")
+orderQtyField = FormControl("Quantity", orderQtyInput)
+orderQtyInput = Input("order_qty", "", "number")
+orderButtons = Buttons([orderSubmit])
+orderSubmit = Button("Submit Order", null, "primary")
+
+timeframeHeader = Heading("Change Timeframe", "h3")
+timeframeSelect = Select("timeframe", [tf1d, tf1w, tf1m], "Select timeframe")
+tf1d = SelectItem("1d", "1d")
+tf1w = SelectItem("1w", "1w")
+tf1m = SelectItem("1m", "1m")

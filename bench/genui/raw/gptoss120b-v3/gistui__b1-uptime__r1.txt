@@ -1,4 +1,4 @@
-root = Card(header, uptime, incident)
-header = CardHeader("Platform Status", "Overview")
-uptime = Progress(value:95, label:"API uptime this month")
-incident = Callout(variant:warning, "Recent Incident", "Resolved on Sep 28, 2026")
+root = Card(CardHeader("Platform Status", "API uptime & incidents"), uptimeText, incidentCallout, actions)
+uptimeText = TextContent("**Current API uptime (this month):** 99.7%", size:large)
+incidentCallout = Callout(info, "Recent Incident", "Database outage on Sep 28, resolved at 14:35 UTC")
+actions = Buttons(Button("Refresh"), Button("View logs", secondary))

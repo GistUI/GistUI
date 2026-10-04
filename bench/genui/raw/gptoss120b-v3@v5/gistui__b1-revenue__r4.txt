@@ -1,4 +1,0 @@
-root = Card(header, today, yesterday, gap:m, direction:column)
-header = CardHeader("Mid‑Morning Check‑in", "Revenue overview")
-today = Card(Heading("Revenue Today", h3), TextContent("$1,240", size:large))
-yesterday = Card(Heading("Same time yesterday", h3), TextContent("$1,080", size:large))

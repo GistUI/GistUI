@@ -1,0 +1,36 @@
+root = Card(CardHeader("Clinic Day View"), SectionBlock(
+  SectionItem("today-appointments", "Today’s Appointments",
+    Card(Heading("Today's Schedule", h3), Table(todayTable), Spacer)
+  ),
+  SectionItem("counts", "Overview",
+    ListBlock(
+      ListItem("Patients expected", "count: 0"?),
+      ListItem("No-show rate this month", "percentage"),
+      ListItem("Free rooms right now", "rooms list"),
+      ListItem("Next patient called out", "name")
+    )
+  ),
+  SectionItem("actions", "Actions",
+    Buttons(
+      Button("Check-in patient", action:["check-in"]),
+      Button("Move to another day", action:["navigate","day"])
+    )
+  ),
+  SectionItem("navigation", "Navigate",
+    Card(Heading("Go to another day", h4), Form("navigate-day", Buttons(Button("Today", action:["today"]), Button("Next day", action:["next-day"]))))
+  )
+), variant:card)
+todayTable = Table(todayTablePipe)
+todayTablePipe = |Time|Patient
+|09:00|Alice Smith
+|09:30|Robert Jones
+|10:00|Maria Garcia
+|10:30|David Lee
+|11:00|Patricia Kim
+roomsFree = |Room|Status
+|101|Free
+|102|Free
+|103|Occupied
+noShowRate = 8.5% 
+patientsExpected = 5
+nextCalled = "Patricia Kim"

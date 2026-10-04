@@ -1,40 +1,30 @@
-root = Card(header, filters, kpis, volumeChart, recentOrders)
-
-header = CardHeader("E‑commerce Operations", "Today’s snapshot")
-
-filters = Card(Heading("Filters", h3), opsForm)
-
-opsForm = Form("ops-filters", filterButtons, statusFilter, searchField)
-
-statusFilter = FormControl("Status", Select("status", SelectItem("all","All"), SelectItem("pending","Pending"), SelectItem("shipped","Shipped"), SelectItem("refunded","Refunded"), placeholder:"All statuses"))
-
+root = Card(header, filterForm, sep1, metricsSection, sep2, volumeChart, sep3, refundChart, sep4, recentOrders, sep5)
+header = CardHeader("Today's Operations", "E‑commerce dashboard")
+filterForm = Form("order-filter", filterButtons, statusFilter, searchField)
+statusFilter = FormControl("Status", Select("status", SelectItem("all","All"), SelectItem("pending","Pending"), SelectItem("shipped","Shipped"), SelectItem("cancelled","Cancelled"), placeholder:"All statuses"))
 searchField = FormControl("Customer", Input("customer", "Search name...", type:text))
-
-filterButtons = Buttons(Button("Apply"), Button("Reset", secondary))
-
-kpis = Card(Heading("Key metrics", h3), ordersToday, revenueToday, aov, refundRate)
-
-ordersToday = TextContent("Orders placed today: **124**", size:large)
-
-revenueToday = TextContent("Revenue today: **$8,560**", size:large)
-
-aov = TextContent("Average order value: **$69.2**", size:large)
-
-refundRate = TextContent("Refund rate this month: **2.3%**", size:large)
-
-volumeChart = Card(Heading("Order volume (last 4 weeks)", h3), LineChart(volumeRows, linear, xLabel:"Week", yLabel:"Orders"))
-
-volumeRows = |Week|Orders
-|W1|1120
-|W2|980
-|W3|1045
-|W4|1230
-
+filterButtons = Buttons(Button("Apply", primary))
+sep1 = Separator(orientation:horizontal, decorative)
+metricsSection = Card(CardHeader("Key metrics"), ordersToday, revenueToday, aov)
+ordersToday = TextContent("Orders placed today: **152**", size:large)
+revenueToday = TextContent("Revenue today: **$4,320**", size:large)
+aov = TextContent("Average order value: **$28.4**", size:large)
+sep2 = Separator(orientation:horizontal, decorative)
+volumeChart = Card(Heading("Order volume – last 4 weeks", h3), BarChart(volumeTable, variant:grouped, xLabel:"Week", yLabel:"Orders"))
+volumeTable = |Week|Orders
+|W1|340
+|W2|410
+|W3|395
+|W4|380
+sep3 = Separator(orientation:horizontal, decorative)
+refundChart = Card(Heading("Refund rate this month", h3), SingleStackedBarChart(refundTable))
+refundTable = |Metric|Value
+|Refund rate|12
+sep4 = Separator(orientation:horizontal, decorative)
 recentOrders = Card(Heading("Recent orders", h3), recentList)
-
 recentList = ListBlock(order1, order2, order3, order4, variant:number)
-
-order1 = ListItem("#10234", "Customer: Alice – Total: $120 – Status: Pending", "Mark fulfilled")
-order2 = ListItem("#10233", "Customer: Bob – Total: $75 – Status: Shipped", "Mark fulfilled")
-order3 = ListItem("#10232", "Customer: Carol – Total: $45 – Status: Refunded", "Mark fulfilled")
-order4 = ListItem("#10231", "Customer: Dave – Total: $210 – Status: Pending", "Mark fulfilled")
+order1 = ListItem("#10234 – Alice", "Total: $45 – Status: Pending", "Fulfill")
+order2 = ListItem("#10233 – Bob", "Total: $78 – Status: Shipped")
+order3 = ListItem("#10232 – Carol", "Total: $22 – Status: Pending", "Fulfill")
+order4 = ListItem("#10231 – Dave", "Total: $110 – Status: Cancelled")
+sep5 = Separator(orientation:horizontal, decorative)

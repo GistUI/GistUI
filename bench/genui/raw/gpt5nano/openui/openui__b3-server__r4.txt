@@ -1,0 +1,89 @@
+root = Card([
+  header,
+  healthPanel,
+  regionFilter,
+  detailsSection,
+  controlsRow
+])
+
+header = CardHeader("On-Call Service Health", "Live status dashboard")
+
+healthPanel = Card([
+  uptimeCard,
+  perfChartRow,
+  errorRateBadge
+], "card")
+
+uptimeCard = Card([
+  Heading("Uptime - This Quarter", "h3"),
+  TextContent("98.9% up time this quarter across all regions.")
+], "card")
+
+perfChartRow = Card([
+  CardHeader("Performance Overview"),
+  chartRow
+], "card")
+
+chartRow = Card([
+  LineChart(["0h","2h","4h","6h","8h","10h","12h","14h","16h","18h","20h","22h","24h"],
+    [Series("CPU", [52,54,49,60,58,62,55,57,63,61,59,56,58]),
+     Series("Memory", [68,70,69,71,73,72,74,73,75,76,74,73,72])], "linear", "Hour", "Usage %")
+], "row")
+
+errorRateBadge = Card([
+  Heading("Current Error Rate", "h3"),
+  TextContent("0.8% errors in the last hour")
+], "card")
+
+regionFilter = Card([
+  CardHeader("Region Filter"),
+  TextContent("Narrow the view to a single region"),
+  Select("region", [SelectItem("us-east", "US East"), SelectItem("us-west", "US West"), SelectItem("eu-central", "EU Central")], "Select region", [])
+], "card")
+
+detailsSection = Card([
+  SectionBlock([
+    SectionItem("open-incidents", "Open Incidents by Severity", [incidentsTable]),
+    SectionItem("slow-endpoints", "Slowest Endpoints", [slowEndpointsTable])
+  ])
+], "card")
+
+incidentsTable = Table([
+  Col("Incident", ["INC-1001", "INC-1002", "INC-1003"]),
+  Col("Severity", ["Critical", "High", "Medium"]),
+  Col("Opened", ["2026-09-28 14:03", "2026-09-28 15:20", "2026-09-28 16:45"]),
+  Col("Region", ["us-east", "us-west", "eu-central"])
+])
+
+slowEndpointsTable = Table([
+  Col("Endpoint", ["/api/v1/login", "/api/v1/search", "/payments/process", "/inventory/list", "/reports/generate"]),
+  Col("Latency (ms)", [980, 860, 820, 790, 770]),
+  Col("Calls", [4200, 3850, 2600, 1900, 1500])
+])
+
+controlsRow = Card([
+  CardHeader("Alerts & Acknowledgement"),
+  alertThresholdRow,
+  ackIncidentRow
+], "card")
+
+alertThresholdRow = Card([
+  Heading("Set Alert Threshold", "h3"),
+  TextContent("Trigger alerts when error rate exceeds this percentage"),
+  Slider("alert_threshold", "continuous", 0, 5, 0.1, "Error rate threshold (%)", [], "1.0")
+], "card")
+
+ackIncidentRow = Card([
+  Heading("Acknowledge Incident", "h3"),
+  TextContent("Acknowledge a currently open incident to suppress alerts for acknowledged incident"),
+  Form("ack-form", ackButtons, [ackInput])
+], "card")
+
+ackButtons = Buttons([
+  Button("Acknowledge Selected", null, "primary"),
+  Button("Ignore", null, "secondary")
+])
+
+ackInput = FormControl("Incident ID", Input("incident_id", "INC-1001"), "Enter the ID of the incident to acknowledge")
+
+endorsement = null

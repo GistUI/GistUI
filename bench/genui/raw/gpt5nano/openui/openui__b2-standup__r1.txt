@@ -1,0 +1,26 @@
+root = Card([
+  header = CardHeader("Async Standup", "Today's teammate updates"),
+  dateRow = TextContent("Date: 2026-10-04", "default"),
+  teammatesSection = Card([
+    headingsRow = Heading("Team updates", "h2"),
+    teammatesList = ListBlock([
+      teammateA = ListItem("Alex Kim", "Worked on onboarding flow", ["https://picsum.photos/seed/Alex/40/40"], null),
+      teammateB = ListItem("Priya Singh", "Completed unit tests for auth", ["https://picsum.photos/seed/Priya/40/40"], null),
+      teammateC = ListItem("Diego Ramirez", "Blocked by API rate limits", ["https://picsum.photos/seed/Diego/40/40"], null)
+    ], "image")
+  ]),
+  blockedCallout = Callout("warning", "Blockers", "Diego is blocked due to API rate limits. ETA: TBD"),
+  todayMissingCount = Progress(2, "Updates remaining"),
+  postUpdateCard = Card([
+    CardHeader("Post your update", "Share what you did, what’s next, and blockers"),
+    formRow = Card([
+      inputRow = TextContent("Enter your update below and post to this channel.", "default"),
+      updateBox = TextArea("update", "What did you do? 0/280 chars", 6, [], ""),
+      postButtons = Buttons([
+        Button("Post update", null, "primary"),
+        Button("Clear", null, "secondary")
+      ])
+    ])
+  ]),
+  updatesCountNote = TextContent("Total updates so far: 3", "default")
+])

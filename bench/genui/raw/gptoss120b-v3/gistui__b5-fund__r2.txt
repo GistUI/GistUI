@@ -1,87 +1,95 @@
-root = Card(portfolioSection, pnlSection, positionsSection, exposureSection, varSection, gainersLosersSection, watchlistSection, ordersSection, marginSection, headlinesSection, econReleasesSection, strategyReturnSection, drawdownSection, riskLimitsSection, rebalanceSection, placeOrderSection, timeframeSection, variant:card)
+root = Card(portfolioHeader, pnlCard, positionsSection, exposureChart, varCard, gainersLosersSection, watchlistSection, ordersSection, marginCard, headlinesSection, econReleasesSection, strategiesSection, drawdownChart, riskLimitsSection, actionsSection)
 
-portfolioSection = Card(CardHeader("Portfolio Value"), TextContent("$12.4M", size:large), variant:clear)
+portfolioHeader = CardHeader("Portfolio Value", "$12.8M")
+pnlCard = Card(MarkDownRenderer("**P/L Today:** $45,300 ( +0.35% )", variant:clear))
 
-pnlSection = Card(CardHeader("Today's P&L"), TextContent("$+45.2k", size:large), variant:clear)
+positionsSection = SectionBlock(positionsItem, isFoldable)
+positionsItem = SectionItem("positions", "Positions", Table(positionsTable))
+positionsTable = |Ticker|Size|Entry|Current
+|AAPL|120|$150.00|$155.20
+|MSFT|80|$250.00|$248.10
+|TSLA|50|$720.00|$735.50
+|GOOGL|30|$2,800.00|$2,815.40
 
-positionsSection = Card(CardHeader("Positions"), Table(tickerCol, sizeCol, entryCol, priceCol), variant:clear)
-tickerCol = Col("Ticker", data:["AAPL","MSFT","TSLA","AMZN"], type:string)
-sizeCol = Col("Size", data:[120,80,50,30], type:number)
-entryCol = Col("Entry", data:[150.25,210.10,720.00,3300.50], type:number)
-priceCol = Col("Current", data:[152.40,215.60,730.10,3325.20], type:number)
+exposureChart = HorizontalBarChart(sectorTable, variant:grouped, xLabel:"Exposure %", yLabel:"Sector")
+sectorTable = |Sector|Exposure
+|Technology|35
+|Healthcare|20
+|Financials|15
+|Energy|10
+|Consumer Goods|12
+|Other|8
 
-exposureSection = Card(CardHeader("Exposure by Sector"), BarChart(sectorTable, variant:grouped, xLabel:"Sector", yLabel:"$ Value"), variant:clear)
-sectorTable = |Sector|Value
-|Technology|5.2M
-|Healthcare|2.8M
-|Finance|1.9M
-|Energy|0.9M
-|Consumer|1.6M
+varCard = Card(MarkDownRenderer("**Value at Risk (VaR):** $210,000 (1‑day 95%)", variant:clear))
 
-varSection = Card(CardHeader("Value at Risk (VaR)"), SingleStackedBarChart(varTable, variant:stacked), variant:clear)
-varTable = |Metric|Value
-|95% VaR|$120k
-|99% VaR|$180k
+gainersLosersSection = SectionBlock(gainersLosersItem, isFoldable)
+gainersLosersItem = SectionItem("gainersLosers", "Biggest Gainers / Losers", Table(gainersLosersTable))
+gainersLosersTable = |Ticker|Change%
+|NVDA|+4.2%
+|AMD|-3.8%
+|AMZN|+2.5%
+|NFLX|-2.9%
 
-gainersLosersSection = Card(CardHeader("Today's Gainers & Losers"), Table(gainerCol, gainCol, loserCol, lossCol), variant:clear)
-gainerCol = Col("Gainer", data:["NVDA","META"], type:string)
-gainCol = Col("Gain", data:["+3.2%","+2.8%"], type:string)
-loserCol = Col("Loser", data:["NFLX","BABA"], type:string)
-lossCol = Col("Loss", data:["-4.1%","-3.7%"], type:string)
+watchlistSection = SectionBlock(watchlistItem, isFoldable)
+watchlistItem = SectionItem("watchlist", "Watched Instruments", Table(watchlistTable))
+watchlistTable = |Ticker|Price
+|BRK.B|$320.10
+|JPM|$155.40
+|XOM|$88.30
+|BABA|$92.20
 
-watchlistSection = Card(CardHeader("Watchlist"), Table(watchTickerCol, watchPriceCol), variant:clear)
-watchTickerCol = Col("Ticker", data:["GOOG","JPM","XOM"], type:string)
-watchPriceCol = Col("Price", data:["$2,845","$158","$92"], type:string)
+ordersSection = SectionBlock(ordersItem, isFoldable)
+ordersItem = SectionItem("orders", "Working Orders", Table(ordersTable))
+ordersTable = |Order ID|Ticker|Side|Qty|Status
+|001|AAPL|Buy|50|Pending
+|002|TSLA|Sell|20|Filled
+|003|MSFT|Buy|30|Pending
 
-ordersSection = Card(CardHeader("Working Orders"), Table(orderTickerCol, sideCol, qtyCol, statusCol), variant:clear)
-orderTickerCol = Col("Ticker", data:["AAPL","TSLA"], type:string)
-sideCol = Col("Side", data:["Buy","Sell"], type:string)
-qtyCol = Col("Qty", data:[50,30], type:number)
-statusCol = Col("Status", data:["Pending","Pending"], type:string)
+marginCard = Card(MarkDownRenderer("**Margin Used:** $1.2M / $2.0M (60%)", variant:clear))
 
-marginSection = Card(CardHeader("Margin Usage"), TextContent("Margin Used: $1.2M (45%)", size:default), variant:clear)
+headlinesSection = SectionBlock(headlinesItem, isFoldable)
+headlinesItem = SectionItem("headlines", "Market Headlines", Table(headlinesTable))
+headlinesTable = |Headline|Sentiment|
+|Fed signals rate hike|negative|
+|Tech earnings beat expectations|positive|
+|Oil prices dip on supply concerns|neutral|
 
-headlinesSection = Card(CardHeader("Market Headlines"), Table(headlineCol, sentimentCol), variant:clear)
-headlineCol = Col("Headline", data:["Oil prices rise amid supply concerns","Tech stocks rally on earnings beat"], type:string)
-sentimentCol = Col("Sentiment", data:["Negative","Positive"], type:string)
+econReleasesSection = SectionBlock(econReleasesItem, isFoldable)
+econReleasesItem = SectionItem("econ", "Economic Releases This Week", Table(econReleasesTable))
+econReleasesTable = |Date|Event|Impact|
+|2024-10-07|CPI (US)|high|
+|2024-10-09|Jobs Report (US)|medium|
+|2024-10-11|GDP Q3 (EU)|low|
 
-econReleasesSection = Card(CardHeader("Economic Releases This Week"), Table(eventCol, dateCol, impactCol), variant:clear)
-eventCol = Col("Event", data:["US CPI","Fed Rate Decision","Eurozone GDP"], type:string)
-dateCol = Col("Date", data:["2024-10-02","2024-10-03","2024-10-04"], type:string)
-impactCol = Col("Impact", data:["High","High","Medium"], type:string)
+strategiesSection = SectionBlock(strategiesItem, isFoldable)
+strategiesItem = SectionItem("strategies", "Strategy Returns YTD", Table(strategiesTable))
+strategiesTable = |Strategy|Return%
+|Momentum|12.5%
+|Mean Reversion|8.3%
+|Arbitrage|5.0%
 
-strategyReturnSection = Card(CardHeader("Strategy Returns YTD"), Table(strategyCol, returnCol), variant:clear)
-strategyCol = Col("Strategy", data:["Momentum","Mean Reversion","Arbitrage"], type:string)
-returnCol = Col("YTD Return", data:["+12.5%","+8.3%","+5.7%"], type:string)
-
-drawdownSection = Card(CardHeader("Drawdown (Past Year)"), LineChart(drawdownTable, variant:linear, xLabel:"Month", yLabel:"% Drawdown"), variant:clear)
+drawdownChart = AreaChart(drawdownTable, variant:natural, xLabel:"Month", yLabel:"Drawdown %")
 drawdownTable = |Month|Drawdown
-|Jan|2.1%
-|Feb|1.8%
-|Mar|2.5%
-|Apr|3.0%
-|May|2.2%
-|Jun|1.9%
-|Jul|2.7%
-|Aug|3.1%
-|Sep|2.4%
-|Oct|2.0%
-|Nov|2.8%
-|Dec|3.3%
+|Jan|-5.2
+|Feb|-4.8
+|Mar|-6.1
+|Apr|-3.9
+|May|-2.7
+|Jun|-4.0
+|Jul|-5.5
+|Aug|-6.8
+|Sep|-4.3
+|Oct|-3.1
 
-riskLimitsSection = Card(CardHeader("Risk Limits Near Breach"), Table(limitCol, currentCol, thresholdCol), variant:clear)
-limitCol = Col("Limit", data:["Sector Exposure","VaR"], type:string)
-currentCol = Col("Current", data:["$5.1M","$118k"], type:string)
-thresholdCol = Col("Threshold", data:["$5.5M","$120k"], type:string)
+riskLimitsSection = SectionBlock(riskLimitsItem, isFoldable)
+riskLimitsItem = SectionItem("riskLimits", "Risk Limits Near Breach", Table(riskLimitsTable))
+riskLimitsTable = |Limit|Current|Threshold|
+|Sector Exposure Tech|36%|40%|
+|VaR|$210k|$250k|
+|Margin Utilization|60%|80%|
 
-rebalanceSection = Card(CardHeader("Rebalance Portfolio"), Form("rebalance", rebalanceButtons, rebalanceSelect), variant:clear)
-rebalanceSelect = FormControl("Target Allocation", Select("allocation", SelectItem("Aggressive","Aggressive"), SelectItem("Balanced","Balanced"), SelectItem("Conservative","Conservative"), placeholder:"Choose allocation"))
-rebalanceButtons = Buttons(Button("Rebalance", primary))
+actionsSection = Card(Buttons(rebalanceButton, placeOrderButton, timeframeSelect))
 
-placeOrderSection = Card(CardHeader("Place Order"), Form("order", orderButtons, tickerField, sideField, qtyField), variant:clear)
-tickerField = FormControl("Ticker", Input("ticker", "Enter ticker"))
-sideField = FormControl("Side", Select("side", SelectItem("Buy","Buy"), SelectItem("Sell","Sell"), placeholder:"Buy or Sell"))
-qtyField = FormControl("Quantity", Input("quantity", "Enter qty", type:number))
-orderButtons = Buttons(Button("Submit Order", primary), Button("Cancel", tertiary))
-
-timeframeSection = Card(CardHeader("Change Timeframe"), Buttons(Button("1D"), Button("1W"), Button("1M"), Button("1Y"), direction:row), variant:clear)
+rebalanceButton = Button("Rebalance", action:[], variant:primary)
+placeOrderButton = Button("Place Order", action:[], variant:primary)
+timeframeSelect = Select("timeframe", SelectItem("1D","1 Day"), SelectItem("1W","1 Week"), SelectItem("1M","1 Month"), placeholder:"Select timeframe")

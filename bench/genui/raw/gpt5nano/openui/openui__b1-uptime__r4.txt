@@ -1,0 +1,21 @@
+root = Card([header, uptimePanel, incidentPanel, actions])
+
+header = CardHeader("Platform Status", "Live health and incidents")
+
+uptimePanel = Card([uptimeHeading, uptimeValue, uptimeNote], "card")
+
+uptimeHeading = Heading("API Uptime — This Month", "h2")
+
+uptimeValue = TextContent("99.987%", "large")
+
+uptimeNote = TextContent("Current uptime percentage for the API this month.", "default")
+
+incidentPanel = Card([incidentHeading, incidentSummary], "card")
+
+incidentHeading = Heading("Most Recent Incident", "h3")
+
+incidentSummary = TextContent("Resolved on 2026-09-28 14:42 UTC. Outage lasting 42 minutes affecting auth service; root cause identified as intermittent DNS resolution. Mitigation deployed and verified; no customer impact reported.", "default")
+
+actions = Buttons([refreshBtn], "row")
+
+refreshBtn = Button("Refresh status")

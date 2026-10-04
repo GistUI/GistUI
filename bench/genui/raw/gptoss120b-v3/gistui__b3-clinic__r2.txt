@@ -1,36 +1,47 @@
-root = Card(header, statsSection, appointmentsSection, roomsSection, nextPatientSection, actions)
+root = Card(dayHeader, statsSection, appointmentsSection, roomsSection, nextPatientSection, actionsSection)
 
-header = CardHeader("Clinic Reception", "Today's Overview")
+dayHeader = CardHeader("Clinic Reception – Today", "Manage appointments and rooms")
 
-statsSection = Card(Heading("Stats", h3), expectedCallout, noShowCallout)
+statsSection = Card(statsHeader, statsTable, statsSectionGap)
 
-expectedCallout = TextCallout("Expected patients", "12", variant:info)
+statsHeader = Heading("Today's Summary", h3)
 
-noShowCallout = TextCallout("No-show rate (this month)", "8%", variant:warning)
+statsTable = Table(statsData)
+statsData = |Metric|Value
+|Patients expected|45
+|No‑show rate (this month)|12%
 
-appointmentsSection = Card(Heading("Today's Appointments", h3), appointmentsTable)
+appointmentsSection = Card(appointmentsHeader, appointmentsTable)
 
-appointmentsTable = |Time|Patient|
-|08:30|John Doe|
-|09:15|Jane Smith|
-|10:00|Alice Johnson|
-|10:45|Bob Lee|
-|11:30|Maria Garcia|
-|13:00|Tom Brown|
-|13:45|Emily Davis|
-|14:30|Michael Wilson|
-|15:15|Sarah Clark|
-|16:00|David Martinez|
+appointmentsHeader = Heading("Appointments", h3)
 
-roomsSection = Card(Heading("Room Availability", h3), roomsTable)
+appointmentsTable = Table(appointmentsData)
+appointmentsData = |Time|Patient
+|08:00 AM|Alice Johnson
+|08:30 AM|Bob Smith
+|09:00 AM|Carol Lee
+|09:30 AM|David Patel
+|10:00 AM|Eva Gomez
 
-roomsTable = |Room|Status|
-|101|Free|
-|102|Occupied|
-|103|Free|
-|104|Occupied|
-|105|Free|
+roomsSection = Card(roomsHeader, roomsTable)
 
-nextPatientSection = Card(Heading("Next Patient Called", h3), TextContent("09:15 – Jane Smith"))
+roomsHeader = Heading("Room Availability", h3)
 
-actions = Buttons(Button("Check In", primary), Button("Previous Day", secondary), Button("Next Day", secondary), direction:row)
+roomsTable = Table(roomsData)
+roomsData = |Room|Status
+|Room 1|Occupied
+|Room 2|Free
+|Room 3|Occupied
+|Room 4|Free
+
+nextPatientSection = Card(nextPatientHeader, nextPatientInfo, checkInButtons)
+
+nextPatientHeader = Heading("Next Patient Called Out", h3)
+
+nextPatientInfo = TextContent("09:00 AM – Carol Lee", size:small)
+
+checkInButtons = Buttons(Button("Check‑In", primary), Button("Reschedule", secondary))
+
+actionsSection = Card(navigationButtons)
+
+navigationButtons = Buttons(Button("Previous Day", secondary), Button("Next Day", primary))

@@ -1,0 +1,23 @@
+root = Card(CardHeader("Personal Budget"), Tabs()) 
+Tabs = Tabs(TabItem("overview", "Overview", rootOverview), TabItem("add", "Add Expense", addExpenseSection), TabItem("months", "Change Month", monthPicker)) 
+rootOverview = Card(Heading("Total spend vs budget", h3), TextContent("This month to date: $2,450 / Budget: $3,000", size:default), SectionBlock(SectionItem("largest", "Largest expense", largestExpense), SectionItem("bycat", "Spending by category", categoryChart)), LineChart(monthTable, natural, xLabel:"Month", yLabel:"USD"), sunk) 
+largestExpense = CardHeader("Largest expense", "Dinner with clients: $120") 
+categoryChart = Table(categoryTable) 
+monthPicker = Form("month-selector", Buttons(Button("Go", normal)), FormControl("Month", Select("month", SelectItem("Jan 2026","Jan 2026"), SelectItem("Feb 2026","Feb 2026"), placeholder:"Choose month"))) 
+addExpenseSection = Card( CardHeader("Add Expense"), Form("expense-form", formButtons, amountField, categoryField, dateField, noteField) ) 
+amountField = FormControl("Amount", Input("amount", placeholder:"0.00")) 
+categoryField = FormControl("Category", Select("category", SelectItem("Groceries","Groceries"), SelectItem("Transport","Transport"), SelectItem("Dining","Dining"), SelectItem("Rent","Rent"), placeholder:"Choose category")) 
+dateField = FormControl("Date", DatePicker("date", mode:single, value:["2026-10-01"])) 
+noteField = FormControl("Note", TextArea("note", placeholder:"Optional notes")) 
+formButtons = Buttons(Button("Add Expense", primary), Button("Cancel", tertiary)) 
+categoryTable = |Category|Spent
+|Groceries|$420
+|Dining|$260
+|Transport|$180
+|Rent|$1,200
+|Entertainment|$390
+monthTable = |Month|Spent
+|Jan 2026|$2,600
+|Feb 2026|$2,450
+|Mar 2026|$2,900
+|Apr 2026|$2,750

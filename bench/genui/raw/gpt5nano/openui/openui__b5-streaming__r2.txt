@@ -1,0 +1,125 @@
+root = Card([
+    CardHeader("Streaming Operations Dashboard", "Live view for all metrics"),
+    SectionBlock([
+        SectionItem(" viewers_now ", "Viewers Watching Right Now", [
+            TextContent("Current viewers: 12,4k", "default"),
+            Tag("Live", "pulse", "md", "info")
+        ]),
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("most_watched_titles", "Most-Watched Titles with Hours", [
+            Heading("Top titles by hours watched", "h3"),
+            Table([
+                Col("Title", ["The Odyssey", "Nebula Nights", "Pulse Racer", "Whispering Pines"]),
+                Col("Hours", ["124,000", "97,320", "85,210", "74,980"])
+            ])
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("watch_time_month", "Watch Time Past Month", [
+            LineChart(["Day 1","Day 2","Day 3","Day 4","Day 5","Day 6","Day 7","Day 8","Day 9","Day 10","Day 11","Day 12","Day 13","Day 14","Day 15","Day 16","Day 17","Day 18","Day 19","Day 20","Day 21","Day 22","Day 23","Day 24","Day 25","Day 26","Day 27","Day 28","Day 29","Day 30"], [
+                Series("Watch Time", [120,130,110,145,160,170,180,190,210,200,195,185,175,165,158,162,170,178,190,205,210,208,215,220,230,225,240,248,260,275])
+            ], "natural", "Days", "Minutes")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("subscr_vs_canc", "New Subscribers vs Cancellations", [
+            BarChart(["Week 1","Week 2","Week 3","Week 4"], [
+                Series("Subscribers", [3200, 3400, 3600, 3300]),
+                Series("Cancellations", [320, 410, 390, 360])
+            ], "grouped", "Week", "Count")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("genre_performance", "Performance by Genre", [
+            BarChart(["Drama","Sci-Fi","Comedy","Action","Documentary"], [
+                Series("Hours Watched", [4200, 3800, 3100, 2700, 1500])
+            ], "grouped", "Genre", "Hours")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("buffering", "Buffering Rate", [
+            Card([TextContent("Buffering rate: 2.4%", "default"), Progress(2.4, "Buffering")], "card")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("delivery_health", "Delivery Health by Region", [
+            PieChart(["North America","Europe","APAC","LATAM","MEA"], [40, 25, 20, 10, 5], "donut", "circular")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("releases_month", "Releases Coming This Month", [
+            ListBlock([
+                ListItem("The Grand Relay", "Release date: 2026-10-12", [], "Details"),
+                ListItem("Echoes of Neon", "Release date: 2026-10-22", [], "Details"),
+                ListItem("Midnight Orbit", "Release date: 2026-10-28", [], "Details")
+            ], "number")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("licenses_expiring", "Licenses Expiring Soon", [
+            Table([
+                Col("Title", ["The Grand Relay","Nebula Nights","Pulse Racer"]),
+                Col("Expires", ["2026-11-15","2026-11-25","2026-12-01"])
+            ])
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("rec_clicks", "Recommendations Click Rate", [
+            LineChart(["Week 1","Week 2","Week 3","Week 4"], [
+                Series("Clicks", [1200, 1350, 1280, 1420])
+            ], "linear", "Week", "Clicks")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("search_without_playback", "Searches Ending Without Playback", [
+            BarChart(["Drama","Sci-Fi","Comedy","Documentary"], [
+                Series("Searches", [320, 410, 260, 150])
+            ], "grouped", "Genre", "Counts")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("revenue_split", "Revenue Split by Plan", [
+            PieChart(["Basic","Standard","Premium"], [42, 33, 25], "donut", "circular")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("viewing_device", "Viewing Split by Device", [
+            PieChart(["Mobile","TV","Desktop","Tablet"], [45, 30, 20, 5], "pie", "circular")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("region_focus", "Focus on One Region", [
+            Label("Region Filter"),
+            Select("region_focus", [SelectItem("North America","North America"), SelectItem("Europe","Europe"), SelectItem("APAC","APAC"), SelectItem("LATAM","LATAM")], "Choose region")
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("feature_flags", "Feature Flags State", [
+            Table([
+                Col("Feature", ["New UI", "Dark Mode", "Auto-Play in Snippets", "Smart Resume"]),
+                Col("State", ["Enabled","Disabled","Enabled","Partial"])
+            ])
+        ])
+    ]),
+    Separator("horizontal"),
+    SectionBlock([
+        SectionItem("promote_title", "Promote a Title on Home Screen", [
+            Card([TextContent("Promote: The Grand Relay", "default"), Button("Promote to Home", null, "primary")], "card")
+        ])
+    ])
+], "card")

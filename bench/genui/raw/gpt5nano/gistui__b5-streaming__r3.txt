@@ -1,0 +1,82 @@
+root = Card(CardHeader("Streaming Operations Room", "Live dashboard and weekly snapshot"), Tabs())
+# Define sections
+ viewersSection = Card(Heading("1. Viewers watching right now", h3), Table(viewersTable), sunk)
+ titlesSection = Card(Heading("2. Most-watched titles with hours", h3), Table(titlesTable), sunk)
+ watchTimeSection = Card(Heading("3. Watch time over the past month", h3), LineChart(watchTimeTable, natural, xLabel:"Day", yLabel:"Hours"), sunk)
+ subscribersSection = Card(Heading("4. New subscribers vs cancellations", h3), BarChart(subsTable, xLabel:"Month", yLabel:"Count"), sunk)
+ genrePerfSection = Card(Heading("5. Performance by genre", h3), RadarChart(genreTable), sunk)
+ bufferingSection = Card(Heading("6. Buffering rate", h3), LineChart(bufferTable, linear, xLabel:"Time", yLabel:"Buffering %"), sunk)
+ deliverySection = Card(Heading("7. Delivery health by region", h3), HorizontalBarChart(deliveryTable, grouped, xLabel:"Region", yLabel:"Health"), sunk)
+ releasesSection = Card(Heading("8. Releases coming this month", h3), Table(releasesTable), sunk)
+ licensesSection = Card(Heading("9. Licenses expiring soon", h3), Table(licensesTable), sunk)
+ recClicksSection = Card(Heading("10. How often recommendations get clicked", h3), BarChart(recClicksTable, grouped, xLabel:"Week", yLabel:"Clicks"), sunk)
+ failedSearchSection = Card(Heading("11. Searches that ended without playback", h3), Table(failedSearchTable), sunk)
+ revenueSection = Card(Heading("12. Revenue split by plan", h3), PieChart(revenueTable, donut, appearance:circular), sunk)
+ deviceSplitSection = Card(Heading("13. Viewing split by device", h3), HorizontalBarChart(deviceTable, grouped, xLabel:"Device", yLabel:"Hours"), sunk)
+ regionFocusSection = Card(Heading("14. Focus on one region", h3), Form("region-focus", Buttons(Button("Apply", primary)), FormControl("Region", Select("region", SelectItem("NA"), SelectItem("EU"), SelectItem("APAC")), placeholder:"Choose region")), sunk)
+ featureFlagsSection = Card(Heading("15. Feature flags with state for each", h3), Table(featureFlagsTable), sunk)
+ promoteSection = Card(Heading("16. Promote a title on the home screen", h3), Form("promo-title", Buttons(Button("Promote", primary)), FormControl("Title", Input("title", "Enter title")), FormControl("Region", Input("region", "global"))), sunk)
+# Tabs content
+root = Card(CardHeader("Streaming Operations Room", "Live dashboard and weekly snapshot"), Tabs(TabItem("overview","Overview", viewersSection, titlesSection, watchTimeSection, subscribersSection, genrePerfSection, bufferingSection, deliverySection, releasesSection, licensesSection, recClicksSection, failedSearchSection, revenueSection, deviceSplitSection, regionFocusSection, featureFlagsSection, promoteSection)))
+# Data tables
+ viewersTable = |Region|Viewers
+|Global|12450
+|NA|3400
+|EU|2800
+|APAC|3240
+ titlesTable = |Title|Hours
+|"Show A"|1200
+|"Show B"|980
+|"Movie C"|860
+|"Series D"|750
+ watchTimeTable = |Day|Hours
+|Mon-0|120
+|Mon-1|135
+|Mon-2|142
+|Mon-3|150
+|Mon-4|160
+|Mon-5|170
+|Mon-6|180
+ subsTable = |Month|New|Cancellations
+|Jan|5200|320
+|Feb|6100|410
+ genreTable = |Genre|Hours
+|Drama|3200
+|Comedy|2100
+|Sci-Fi|1800
+|Documentary|900
+ bufferingTable = |Time|Buffering%
+|Hour-1|1.2
+|Hour-2|1.0
+|Hour-3|1.5
+ deliveryTable = |Region|Health%
+|NA|98.6
+|EU|97.8
+|APAC|96.2
+ releasesTable = |Release|Date
+|"Movie E"|2026-10-12
+|"Show F"|2026-10-18
+ licensesTable = |License|Expires
+|"Lic A"|2026-11-01
+|"Lic B"|2027-01-15
+ recClicksTable = |Week|Clicks
+|W1|4800
+|W2|5200
+|W3|6100
+ failedSearchTable = |Query|Occurrences
+| "travel times" | 120
+| "cancelled episodes" | 85
+ revenueTable = |Plan|Share
+|Basic|45
+|Standard|35
+|Premium|20
+ deviceTable = |Device|Hours
+|Mobile|4200
+|Desktop|3100
+|TV|1800
+ featureFlagsTable = |Flag|State
+|NewUI|enabled
+|HDStreaming|disabled
+|OfflineDownloads|enabled
+ promoteTitleTable = |Title|Region|Status
+|"Show G"|Global|Promoted

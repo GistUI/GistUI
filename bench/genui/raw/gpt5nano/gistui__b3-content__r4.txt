@@ -1,0 +1,71 @@
+root = Card(CardHeader("Editor's Content Studio", "Overview for this week"), SectionBlock(
+  SectionItem("drafts", "Drafts", draftsSection),
+  SectionItem("published", "Published this week", publishedSection),
+  SectionItem("mostread", "Most-read article this month", mostReadSection),
+  SectionItem("readership", " readership past 30 days", readershipSection),
+  SectionItem("filters", "Filter by category", filtersSection),
+  SectionItem("schedule", "Schedule a piece", scheduleSection),
+  SectionItem("comments", "Comments awaiting reply", commentsSection),
+  SectionItem("newdraft", "Start a new draft", newDraftSection)
+), variant:card)
+
+draftsSection = Table(draftsTable)
+publishedSection = Card(Heading("Published this week", h3), Table(publishedTable))
+mostReadSection = Card(Heading("Most-read article this month", h3), Table(mostReadTable))
+readershipSection = LineChart(readershipTable, natural, xLabel:"Day", yLabel:"Readers")
+filtersSection = Form("category-filter", formButtons, categoryControl)
+categoryControl = FormControl("Category", Select("category", SelectItem("News", "News"), SelectItem("Opinion", "Opinion"), SelectItem("Interview", "Interview")), placeholder:"Choose a category")
+scheduleSection = Card(Heading("Schedule a piece", h3), Form("schedule-form", formButtons, titleField, dateField))
+titleField = FormControl("Title", Input("title", "Untitled"))
+dateField = FormControl("Publish date", DatePicker("publish_date", mode:single, value:["2026-10-10"]))
+formButtons = Buttons(Button("Schedule", primary), Button("Cancel", tertiary))
+commentsSection = Table(commentsTable)
+newDraftSection = Card(Heading("New draft",h3), Card(Button("Start now", action:["start-draft"]))) 
+
+draftsTable = |Status|Title|Category|Last edited|
+|Draft|Understanding UX copy|News|2h ago|
+|Draft|Interview with founder|Opinion|Yesterday|
+
+publishedTable = |Title|Category|Publish date|
+|How to draft in public|News|2026-10-04|
+
+mostReadTable = |Title|Reads|Month|
+|The rise of AI in editorial|12400|October|
+
+readershipTable = |Day|Readers|
+|2026-09-25|5200|
+|2026-09-26|6100|
+|2026-09-27|5900|
+|2026-09-28|7200|
+|2026-09-29|6800|
+|2026-09-30|7600|
+|2026-10-01|8000|
+|2026-10-02|8300|
+|2026-10-03|7900|
+|2026-10-04|8200|
+|2026-10-05|9100|
+|2026-10-06|9400|
+|2026-10-07|9700|
+|2026-10-08|9800|
+|2026-10-09|10050|
+|2026-10-10|10200|
+|2026-10-11|10500|
+|2026-10-12|10700|
+|2026-10-13|11000|
+|2026-10-14|11250|
+|2026-10-15|11400|
+|2026-10-16|11700|
+|2026-10-17|12000|
+|2026-10-18|12300|
+|2026-10-19|12550|
+|2026-10-20|12800|
+|2026-10-21|13050|
+|2026-10-22|13300|
+|2026-10-23|13550|
+|2026-10-24|13800|
+|2026-10-25|14050|
+
+Notes:
+- All sections are reachable from root and defined; IDs used are defined exactly once.
+- Tables use pipe format as required.
+- Week/day labels are for demonstration; adjust data as needed.

@@ -1,0 +1,52 @@
+root = Card(CardHeader("University Administrator Overview"), Tabs("Overview", "Programs", "Admissions", "Finance", "Academics", "Campus Life", "Alumni", "Departments", "Calendar", "Waitlists", "Approvals", "Communications")) 
+Overview = Card(Heading("University overview", h3), SectionBlock(SectionItem("enrollment", "Enrollment & five-year trend", TextContent("Five-year total enrollment: +X% since year Y; trend: up | steady | down"), false), SectionItem("tenure", "Applications by program", Table(applicationsTable), false), SectionItem("acceptance", "Acceptance rate", TextContent("Current acceptance rate: X%"), false), SectionItem("tuition", "Tuition revenue (this year)", TextContent(" Tuition revenue: $YYYYY"), false), SectionItem("capacity", "Course capacity utilization", Table(courseFillTable), false), SectionItem("teaching", "Teaching load by faculty", Table(teachingLoadTable), false), SectionItem("risk", "Students at academic risk", Table(riskTable), false), SectionItem("scholarship", "Scholarship budget used vs total", TextContent("Used: $A,000,000 of $B,000,000"), false), SectionItem("housing", "Housing occupancy", TextContent("Occupancy: X%"), false), SectionItem("events", "Campus events this month", Table(eventsTable), false), SectionItem("alumni", "Alumni giving (past four years)", Table(alumniTable), false), SectionItem("departmentFocus", "Focus on one department", Form("dept-focus", Buttons(Button("Apply to focus", primary)), FormControl("Department", Select("department", SelectItem("Science","Science"), SelectItem("Arts","Arts"), SelectItem("Engineering","Engineering")), ))), SectionItem("compare", "This semester vs last", TextContent("This semester: X courses, Y students; Last semester: ..."), false), SectionItem("waitlists", "Waitlisted students per program", Table(waitlistTable), false), SectionItem("approveCourse", "Approve new course", DialogBlock("New course", "Approve course", Card(Heading("New course request", h4), TextContent("Details...")), Button("Approve", primary), Button("Reject", secondary)), "Button to open approval dialog"), SectionItem("communicate", "Message a student group", DialogBlock("Message group", "Send announcement", Card(Heading("New message", h4), TextContent("Subject and body...")), Button("Send", primary)), "Button to open communication dialog"))), SectionBlock) 
+Programs = Card(Heading("Applications by program", h3), Table(applicationsTable export?)) 
+Admissions = Card(Heading("Acceptance rate", h3), TextContent("Overall acceptance rate: X%")) 
+Finance = Card(Heading("Tuition revenue this year", h3), TextContent("Total revenue: $YYYY,YYY"), AreaChart? ) 
+Academics = Card(Heading("Course capacity utilization"), Table(courseFillTable)) 
+Campus Life = Card(Heading("Housing occupancy"), TextContent("Campus housing occupancy: X%")) 
+Alumni = Card(Heading("Alumni giving (past four years)", h3), Table(alumniTable)) 
+Departments = Card(Heading("Department focus"), CardHeader("Focus control"), ImageBlock("https://picsum.photos/seed/DEPT/800/400", "Campus overview")) 
+Calendar = Card(Heading("Campus events this month", h3), Table(eventsTable)) 
+Waitlists = Card(Heading("Waitlisted students per program", h3), Table(waitlistTable)) 
+Approvals = Card(Heading("Approve a new course", h3), DialogBlock("New course", "Approve course", Card(Heading("Course details", h4), TextContent("Course details here")), Buttons(Button("Approve", primary), Button("Cancel", tertiary)))) 
+Communications = Card(Heading("Send message to a student group", h3), DialogBlock("Message group", "Compose", Card(Heading("Message", h4), TextContent("Subject and body...")), Buttons(Button("Send", primary), Button("Cancel", tertiary)))) 
+applicationsTable = |Program|Applications
+|Undergraduate STEM|1200
+|Graduate Studies|540
+|Arts & Humanities|780
+|Business|980
+|Engineering|1100
+courseFillTable = |Course|Enrollment|Capacity|Utilization
+|Calculus I|320|400|80%
+|Intro to Psychology|210|240|88%
+|Modern Biology|275|300|92%
+|World Literature|190|240|79%
+teachingLoadTable = |Faculty|Courses|Students
+|Dr. Smith|3|120
+|Dr. Lee|2|74
+|Dr. Patel|4|168
+|Dr. Chen|3|90
+riskTable = |Student group|Risk factors|Interventions
+|First-year students|Low engagement, missing many assignments|Advising, tutoring
+|Athletes|Time management|Flexible scheduling
+|Online cohort|Limited contact|Virtual office hours
+scholarshipTable = |Budget item|Amount
+|Scholarships awarded|$12,000,000
+|Total scholarship pool|$15,000,000
+eventsTable = |Date|Event|Location
+|2026-10-12|Homecoming Dinner|Campus Center
+|2026-10-20|Research Symposium|Auditorium
+|2026-10-28|Fall Concert|Arts Hall
+alumniTable = |Year|Gifts($)|Donors
+|2023|$8,500,000|1,200
+|2024|$9,200,000|1,350
+|2025|$9,800,000|1,420
+|2026|$10,200,000|1,480
+waitlistTable = |Program|Waitlisted
+|Undergraduate STEM|120
+|Graduate Studies|50
+|Arts & Humanities|75
+|Business|40
+|Engineering|95
+deptFocusSelect = Select("department", SelectItem("Science","Science"), SelectItem("Arts","Arts"), SelectItem("Engineering","Engineering"))

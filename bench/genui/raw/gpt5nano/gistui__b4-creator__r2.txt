@@ -1,0 +1,61 @@
+root = Card(CardHeader("Creator Studio", "Cross-platform overview"), platformTag, metricsSection, postsSection, audienceSection, scheduleSection, bestHourSection, commentsSection, earningsSection, collaborationsSection, filterSection)
+
+platformTag = TagBlock(["platform:multi"])  // placeholder to ensure platform filter exists
+
+metricsSection = Card(Heading("Overview", h3), followerCard, engagementCard, growthCard, earningsCard, scheduleBadge)
+
+followerCard = Card(Heading("Followers", h4), Table(followersTable))
+
+followersTable = |Metric|Value
+|Followers|125,000
+|Growth (30d)|+8.2%
+
+engagementCard = Card(Heading("Engagement", h4), TextContent("EngagementRate: 4.6% over the past month", size:default))
+
+growthCard = Card(Tag("Growth last 30d"), TextContent("Followers grew by 8.2% from previous month.", size:default))
+
+earningsCard = Card(Heading("Earnings", h4), Table(earningsTable))
+
+earningsTable = |Metric|Value
+|This month|$7,540
+|ARPU|$1.25
+
+scheduleBadge = Card(Heading("Schedule actions"), Tag("New post workflow", info))
+
+ postsSection = Card(Heading("Best posts this month", h3), bestPostsTable, postReachChart)
+
+bestPostsTable = Table(|Post|Reach, |Post A|12,340, |Post B|9,780, |Post C|8,450)
+
+postReachChart = LineChart(bestPostsTrend, xLabel:"Post", yLabel:"Reach")
+
+bestPostsTrend = |Post|Reach
+|Post A|12340
+|Post B|9780
+|Post C|8450
+
+audienceSection = Card(Heading("Audience split by platform", h3), PieChart(audienceTable, variant:donut, appearance:circular))
+
+audienceTable = Table(|Platform|Users, |Instagram|42000, |TikTok|36000, |YouTube|23000, |Twitch|15000)
+
+scheduleSection = Card(Heading("Posts scheduled this week", h3), Table(scheduledTable))
+
+scheduledTable = |Post|ScheduledTime
+|Post X|Mon 10:00
+|Post Y|Wed 14:00
+|Post Z|Fri 09:30
+
+bestHourSection = Card(Heading("Best hour to post this history", h3), TextContent("Peak posting hour: 13:00–14:00 across platforms.", size:default))
+
+commentsSection = Card(Heading("Comments waiting for a reply", h3), Table(commentsTable))
+
+commentsTable = |Comment|From|Posted
+|Nice content|Follower A|2026-09-28
+|Question about collab|Brand X|2026-09-27
+
+collaborationsSection = Card(Heading("Pending collaboration requests", h3), Table(collabTable))
+
+collabTable = |Brand|Message|Requested
+|BrandCo|Interested in a joint reel|Yes
+|CreatorHub|Podcast collab proposal|Pending
+
+filterSection = Card(Heading("Filter by platform", h3), Select("platform", SelectItem("All", "All platforms"), SelectItem("Instagram", "Instagram"), SelectItem("TikTok", "TikTok"), SelectItem("YouTube", "YouTube"), placeholder:"Choose platform"), Button("Clear filter", action:[…], variant:secondary, type:normal))

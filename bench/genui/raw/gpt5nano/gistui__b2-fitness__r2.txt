@@ -1,0 +1,22 @@
+root = Card(CardHeader("Daily Summary"), logSection) 
+logSection = SectionBlock(SectionItem("log", "Log a Workout", logWorkoutSection), SectionItem("summary", "Today overview", todayOverview)) 
+logWorkoutSection = Form("log-workout", logButtons, workoutTypeField, durationField, intensityField) 
+logButtons = Buttons(Button("Save Workout", primary), Button("Cancel", tertiary)) 
+workoutTypeField = FormControl("Workout type", Select("workout_type", SelectItem("Run","Run"), SelectItem("Bike","Bike"), SelectItem("Strength","Strength"), placeholder:"Choose a type")) 
+durationField = FormControl("Duration (min)", Input("duration", placeholder:"30")) 
+intensityField = FormControl("Intensity", SwitchGroup("intensity", SwitchItem("easy", "easy", defaultChecked), SwitchItem("medium","medium"), SwitchItem("hard","hard"))) 
+todayOverview = Card(Separator(), todaySteps, todayCalories) 
+todaySteps = CardsRow("Steps today", StepProgress(steps:num, goal:num)) 
+stepsProgress = CardProgress(Progress(steps, value:goal)) 
+goalRow = Tag("Daily goal", variant:info) 
+todayCalories = Card("Calories burned", TextContent("### 1,420 kcal", size:"large")) 
+SectionBlock(SectionItem("week", "Past week workouts", weekChart)) 
+weekChart = RadarChart(weekTable) 
+weekTable = Table(|Day|Workout|Duration|Calories
+|Mon|Run|30|320
+|Tue|Cycling|45|420
+|Wed|Strength|40|380
+|Thu|Rest|0|0
+|Fri|Run|25|280
+|Sat|Yoga|50|180
+|Sun|Run|35|350)

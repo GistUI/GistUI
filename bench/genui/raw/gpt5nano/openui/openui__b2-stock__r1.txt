@@ -1,0 +1,62 @@
+root = Card([header, searchBar, lowInventoryList, thresholdCard, actions])
+
+header = CardHeader("Low Inventory Warning", "Items running low and reorder options")
+
+searchBar = Card([TextContent("Search items below to locate low stock items."), SearchField])
+
+SearchField = Form("search", searchButtons, [searchInput])
+searchInput = Input("query", "Search items...", "text")
+searchButtons = Buttons([searchBtn])
+
+searchBtn = Button("Search")
+
+lowInventoryList = Card([lowListHeading, listGrid])
+
+lowListHeading = Heading("Low-stock Items", "h3")
+
+listGrid = ListBlock([itemRow1, itemRow2, itemRow3], "image")
+
+itemRow1 = ListItem("Item A", "Remaining units: 12", ["https://picsum.photos/seed/A/40/40"], "Reorder")
+itemRow2 = ListItem("Item B", "Remaining units: 5", ["https://picsum.photos/seed/B/40/40"], "Reorder")
+itemRow3 = ListItem("Item C", "Remaining units: 2", ["https://picsum.photos/seed/C/40/40"], "Reorder")
+
+thresholdCard = Card([thresholdHeading, thresholdValue])
+
+thresholdHeading = Heading("Threshold for warning", "h4")
+thresholdValue = TextContent("Warning triggers when stock falls to 10 units or below.", "default")
+
+thresholdValue2 = TextContent("Current threshold: 10 units", "small")
+
+thresholdCard2 = Card([thresholdValue2], "card")
+
+-- Reorder flows (inline modals/drawers for each item)
+reorderA = DrawerBlock("Reorder A", "Reorder Item A", "Create a purchase order for Item A", [reorderAContent])
+reorderB = DrawerBlock("Reorder B", "Reorder Item B", "Create a purchase order for Item B", [reorderBContent])
+reorderC = DrawerBlock("Reorder C", "Reorder Item C", "Create a purchase order for Item C", [reorderCContent])
+
+reorderAContent = Card([TextContent("Quantity to order: "), Input("orderA_qty", "100", "number")], "card")
+reorderBContent = Card([TextContent("Quantity to order: "), Input("orderB_qty", "50", "number")], "card")
+reorderCContent = Card([TextContent("Quantity to order: "), Input("orderC_qty", "200", "number")], "card")
+
+- Note: The reorder actions are attached to each item row via separate DrawerBlock references.
+- To connect the buttons, we place the DrawerBlock components in the item rows below and reference them from the corresponding ListItem actions.
+
+itemRow1_action = Button("Reorder Item A", [reorderA], "primary")
+itemRow2_action = Button("Reorder Item B", [reorderB], "primary")
+itemRow3_action = Button("Reorder Item C", [reorderC], "primary")
+
+lowInventoryList_actions = Card([itemRow1, itemRow2, itemRow3], null)
+
+-- Attach reorder actions to each item in the list
+itemRow1.actions = [itemRow1_action]
+itemRow2.actions = [itemRow2_action]
+itemRow3.actions = [itemRow3_action]
+
+-- Helpers (minimal, to satisfy structure)
+ItemA = "Item A"
+ItemB = "Item B"
+ItemC = "Item C"
+
+searchInput_placeholder = "Search by name or SKU"
+
+root_end = null

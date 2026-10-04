@@ -1,0 +1,16 @@
+root = Card(CardHeader("Morning Weather Brief", "Bengaluru"), currentWeather, threeDayOutlook, sunriseSunset)
+
+currentWeather = Card(Heading("Bengaluru now", h2), TextContent("22°C, Sunny with light breeze"), Tag("today", info))
+
+threeDayOutlook = Card(Heading("3-day outlook", h3), Table(outlookTable))
+
+outlookTable = |Day|Conditions|High|Low
+|Fri|Sunny|26|16
+|Sat|Partly cloudy|25|17
+|Sun|Thunder showers|24|18
+
+sunriseSunset = Card(Heading("Sunrise & Sunset", h3), Table(sunTable))
+
+sunTable = |Event|Time
+|Sunrise|06:12 AM
+|Sunset|06:45 PM

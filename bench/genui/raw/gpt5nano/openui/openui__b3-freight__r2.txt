@@ -1,0 +1,112 @@
+root = Card([
+  header = CardHeader("Logistics Coordinator Dashboard", "Live view of shipments and KPIs"),
+
+  // 5. search by route
+  searchSection,
+
+  // 1,2,3,4,6,7,8,9 sections grouped in a vertical layout
+  shipmentsSection,
+  delayedSection,
+  onTimeSection,
+  volumeSection,
+  avgCostSection,
+  weeklyVolumeSection,
+  flagSection,
+  refreshedSection
+])
+
+// 5. Search by route
+searchSection = Card([
+  Heading("Search by route", "h3"),
+  TextContent("Enter origin-destination pair to filter shipments (e.g., NYC-LAX)."),
+  searchInputRow
+], "card")
+
+searchInputRow = Card([
+  Input("routeSearch", "Origin-Destination (e.g., NYC-LAX)"),
+  Button("Search", null, "primary")
+], null)
+
+// 1. shipments in transit with origin, destination, ETA and status for each
+shipmentsSection = Card([
+  Heading("Shipments in transit", "h3"),
+  inTransitTable
+], "card")
+
+inTransitTable = Table([colOrigin, colDestination, colETA, colStatus], null, null)
+
+colOrigin = Col("Origin", ["New York", "Los Angeles", "Chicago"])
+colDestination = Col("Destination", ["Houston", "Seattle", "Miami"])
+colETA = Col("ETA", ["2026-10-07 14:00", "2026-10-07 16:30", "2026-10-08 09:00"])
+colStatus = Col("Status", ["In transit", "In transit", "In transit"])
+
+// 2. delayed shipments called out
+delayedSection = Card([
+  Heading("Delayed shipments", "h3"),
+  delayedList
+], "card")
+
+delayedList = ListBlock([
+  ListItem("NYC-LAX", "Eta 2026-10-07 14:00Delayed by carrier", ["https://picsum.photos/seed/delay1/40/40"]),
+  ListItem("DAL-SEA", "Eta 2026-10-07 16:30Delay due to weather", ["https://picsum.photos/seed/delay2/40/40"])
+], "image")
+
+// 3. on-time percentage this month
+onTimeSection = Card([
+  Heading("On-time performance (this month)", "h3"),
+  onTimeCard
+], "card")
+
+onTimeCard = Card([
+  TextContent("On-time: 92.5%")
+], null)
+
+onTimePercent = TextContent("92.5%", "large")
+
+// 4. volume split by carrier
+volumeSection = Card([
+  Heading("Volume split by carrier", "h3"),
+  volumeChart
+], "card")
+
+volumeChart = BarChart(["Carrier A","Carrier B","Carrier C"], [Series("Volume", [120, 180, 60])], "grouped", "Carrier", "Shipments")
+
+colCarrierA = Col("Carrier A", [120])
+colCarrierB = Col("Carrier B", [180])
+colCarrierC = Col("Carrier C", [60])
+
+// 6. average cost per shipment
+avgCostSection = Card([
+  Heading("Average cost per shipment", "h3"),
+  avgCostCard
+], "card")
+
+avgCostCard = Card([
+  TextContent("Average cost per shipment: $128.40")
+], null)
+
+// 7. weekly volume across the past two months
+weeklyVolumeSection = Card([
+  Heading("Weekly volume (past 8 weeks)", "h3"),
+  weeklyLineChart
+], "card")
+
+weeklyLineChart = LineChart([1,2,3,4,5,6,7,8], [Series("Volume", [320, 410, 395, 420, 450, 480, 460, 500])], "linear", "Week", "Shipments")
+
+// 8. a way to flag a shipment
+flagSection = Card([
+  Heading("Flag a shipment", "h3"),
+  flagForm
+], "card")
+
+flagForm = Form("flag-shipment", Buttons([flagBtn], "row"), [flagControl])
+flagControl = FormControl("Shipment route", Input("flagRoute", "NYC-LAX"), "Flag shipment to attention")
+flagBtn = Button("Flag shipment", null, "secondary")
+
+// 9. when the numbers were last refreshed
+refreshedSection = Card([
+  Heading("Data refreshed", "h3"),
+  refreshedLine
+], "card")
+
+refreshedLine = TextContent("Last refreshed: 2026-10-04 10:22 UTC", "default")

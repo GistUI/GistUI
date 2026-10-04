@@ -1,0 +1,118 @@
+root = Card([
+  header = CardHeader("University Administrator Dashboard", "Overview for current semester"),
+  grid = Card([
+    leftCol = Card([
+      totalEnrollmentSection,
+      applicationsByProgramSection,
+      acceptanceRateSection,
+      tuitionRevenueSection,
+      courseFillSection,
+      teachingLoadSection,
+      atRiskSection,
+      scholarshipBudgetSection,
+      housingOccupancySection,
+      campusEventsSection,
+      alumniGivingSection,
+      focusDepartmentSection,
+      thisSemesterCompareSection,
+      waitlistedSection,
+      approveCourseSection,
+      messageStudentGroupSection
+    ], "card"),
+    departmentPanel = SectionBlock([
+      SectionItem("deptPanel", "Department Focus",
+        [
+          TextContent("Select a department to filter the dashboard details below."),
+          Select("deptFilter", [SelectItem("cs", "Computer Science"), SelectItem("math", "Mathematics"), SelectItem("eng", "Engineering"), SelectItem("bio", "Biology")], "Choose department")
+        ]
+      ]
+    ), false),
+    // Reusable sections definitions
+    totalEnrollmentSection = Card([
+      Heading("Total Enrollment"), 
+      TextContent("Five-year trend and current total."),
+      LineChart(["Y1","Y2","Y3","Y4","Y5"], [Series("Enrollment", [12000, 12250, 12500, 12800, 13050])], "linear", "Year", "Students"),
+      TextContent("Current total: 13,050; net change over five years: +1,050.")
+    ]),
+    applicationsByProgramSection = Card([
+      Heading("Applications by Program"),
+      BarChart(["CS","Math","Eng","Bio","Business"], [Series("Applicants", [3200, 1800, 2400, 1500, 2100])], "grouped", "Program", "Applicants")
+    ]),
+    acceptanceRateSection = Card([
+      Heading("Acceptance Rate"),
+      TextContent("Overall rate and by program."),
+      TextContent("Overall: 18%"),
+      HorizontalBarChart(["CS","Math","Eng","Bio","Business"], [Series("Rate", [22, 17, 16, 14, 19])], "grouped", "Program", "Percent")
+    ]),
+    tuitionRevenueSection = Card([
+      Heading("Tuition Revenue This Year"),
+      TextContent("Total revenue and per-faculty breakdown."),
+      TextContent("Projected: $210M"),
+      PieChart(["Tuition","Fees","Other"], [120, 50, 40], "donut", "circular"),
+      TextContent("Tuition share: 120M")
+    ]),
+    courseFillSection = Card([
+      Heading("Course Fill Rates"),
+      TextContent("Enrollment vs capacity by course."),
+      HorizontalBarChart(["Course A","Course B","Course C","Course D"], [Series("Fill", [0.92, 0.85, 0.78, 0.66])], "grouped", "Course", "Fill Rate")
+    ]),
+    teachingLoadSection = Card([
+      Heading("Teaching Load by Faculty"),
+      LineChart(["Mon","Tue","Wed","Thu","Fri"], [Series("Load", [3, 4, 3, 5, 2])], "linear", "Day", "Hours"),
+      TextContent("Average load: 3.4 courses per faculty member.")
+    ]),
+    atRiskSection = Card([
+      Heading("Students at Academic Risk"),
+      TextContent("Count by risk level and trend."),
+      TagBlock(["At Risk: 420", "Warning: 860", "Stable: 1320"])
+    ]),
+    scholarshipBudgetSection = Card([
+      Heading("Scholarship Budget Used vs Total"),
+      TextContent("Budget utilization."),
+      Progress(62, "Scholarship budget used")
+    ]),
+    housingOccupancySection = Card([
+      Heading("Housing Occupancy"),
+      BarChart(["Dorm A","Dorm B","Apartments","Graduate Housing"], [Series("Occupancy", [320, 280, 410, 120])], "grouped", "Housing Type", "Occupants")
+    ]),
+    campusEventsSection = Card([
+      Heading("Campus Events This Month"),
+      ListBlock([
+        ListItem("Convocation", "Sept 14, 4:00 PM", ["https://picsum.photos/seed/convocation/80/50"]),
+        ListItem("Homecoming", "Sept 28, all-day", ["https://picsum.photos/seed/homecoming/80/50"]),
+        ListItem("Research Expo", "Sept 22, 9:00 AM", ["https://picsum.photos/seed/expo/80/50"])
+      ])
+    ]),
+    alumniGivingSection = Card([
+      Heading("Alumni Giving Over Four Years"),
+      LineChart(["Y1","Y2","Y3","Y4"], [Series("Giving", [2.1, 2.7, 3.2, 3.8])], "natural", "Year", "Millions USD")
+    ]),
+    focusDepartmentSection = Card([
+      Heading("Focus on One Department"),
+      TextContent("Filter the dashboard to a single department using the department selector above." ),
+      Button("Focus CS Department", null, "primary")
+    ]),
+    thisSemesterCompareSection = Card([
+      Heading("This Semester vs Last"),
+      BarChart(["Enrollment","Applications","Graduates"], [Series("This Semester", [4200, 9800, 980]), Series("Last Semester", [4100, 9600, 970])], "grouped", "Metric", "Value")
+    ]),
+    waitlistedSection = Card([
+      Heading("Waitlisted Students by Program"),
+      HorizontalBarChart(["CS","Math","Eng","Bio","Business"], [Series("Waitlist", [120, 85, 60, 40, 70])], "grouped", "Program", "Waitlisted")
+    ]),
+    approveCourseSection = Card([
+      Heading("Approve a New Course"),
+      TextContent("Review proposal and approve or reject."),
+      DialogBlock("Open Approval", "New Course Proposal", "Details and justification.", [TextContent("Proposal content will render here."), Button("Approve", null, "primary")], "default")
+    ]),
+    messageStudentGroupSection = Card([
+      Heading("Message Student Group"),
+      TextContent("Send a message to a selected group."),
+      Form("groupMessage", Buttons([Button("Send", null, "primary")]), [
+        FormControl("Group", Input("group", "Enter group name"), "Group selector used by staff"),
+        FormControl("Subject", Input("subject", "Subject line"), "Subject"),
+        FormControl("Message", TextArea("message", "Write your message here"), "Message body")
+      ])
+    ])
+  ], "card")
+])

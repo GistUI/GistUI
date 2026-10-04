@@ -1,0 +1,50 @@
+root = Card(CardHeader("Hub Operations Dashboard", "Today’s snapshot"), onTimePerf, flightsSection, delayedOut, gateChanges, crewsSection, weatherAdvisories, paxLoad, connectionsRisk, rebook, hubSwitcher, cancellations, turnaround, Buttons(Button("Refresh now", primary), Button("Export CSV")))
+
+onTimePerf = Card(Heading("On-time performance today", h3), Table(onTimeRows), sunk)
+onTimeRows = |Metric|Value
+|On-time|92%
+|Late|8%
+
+flightsSection = Card(CardHeader("Today's flights", "Number, route, gate, status"), Table(flightsTable), sunk)
+
+flightsTable = |Flight|Route|Gate|Status
+|AA101|LAX-JFK|G12|On time
+|AA205|JFK-ORD|G5|Delayed
+|DL404|ATL-LHR|A3|Boarding
+
+delayedOut = Card(Heading("Delayed flights called out", h4), ListBlock(ListItem("AA205 - JFK to ORD", "Gate: G5", "View", ["AA205"])), sunk)
+
+gateChanges = Card(Heading("Recent gate changes", h4), Table(gateTable), sunk)
+gateTable = |Flight|OldGate|NewGate|Time
+| AA101 | G12 | G9 | 10:12
+| AA303 | A7 | B2 | 09:45
+
+crewsSection = Card(Heading("Crews available for reassignment", h4), Table(crewsTable), sunk)
+crewsTable = |Crew|Base|Status
+| Crew 12 | JFK | Available
+| Crew 7  | EWR | Standby
+
+weatherAdvisories = Card(Heading("Weather advisories at hub", h4), MarkDownRenderer("### Active advisories\n- Thunderstorm risk this afternoon\n- Runway work planned overnight"), sunk)
+
+paxLoad = Card(Heading("Average passenger load today", h4), TextContent("75% average load across flights today.", default), sunk)
+
+connectionsRisk = Card(Heading("Connections at risk of being missed", h4), Table(connectionsTable), sunk)
+connectionsTable = |Flight|Origin|Destination|ConnectionWindow
+| DL220 | ORD | JFK | 45m
+| UA410 | MIA | BOS | 50m
+
+rebook = Card(Heading("Rebook affected passengers", h4), Form("rebook-form", formButtons, passengerField, newFlightField), sunk)
+passengerField = FormControl("Passenger name or booking #", Input("passenger", "Enter name or booking"), "We will attach rebooking options")
+newFlightField = FormControl("New flight option", Select("new_flight", SelectItem("AA110 - JFK", "AA110 - JFK"), SelectItem("DL200 - BOS", "DL200 - BOS"), placeholder:"Choose a flight")
+
+hubSwitcher = Card(Heading("Change hub", h4), Form("hub-select", hubButtons, hubField), sunk)
+hubField = FormControl("Select hub", Select("hub", SelectItem("JFK", "New York JFK"), SelectItem("LAX", "Los Angeles"), SelectItem("ORD", "Chicago O'Hare"), placeholder:"Choose hub")
+
+hubButtons = Buttons(Button("Apply hub", primary))
+
+cancellations = Card(Heading("Cancellations today", h4), Table(cancelTable), sunk)
+cancelTable = |Flight|Route|Reason|Time
+| DL910 | SFO-SEA | Weather | 07:12
+| AA500 | JFK-MIA | Crew unavailable | 08:45
+
+turnaround = Card(Heading("Average turnaround time today", h4), TextContent("Estimated average turnaround: 38 minutes"), sunk)

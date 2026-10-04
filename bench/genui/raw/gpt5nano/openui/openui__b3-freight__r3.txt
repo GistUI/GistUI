@@ -1,0 +1,89 @@
+root = Card([
+  header = CardHeader("Logistics Coordinator Dashboard", "Live operations board"),
+  // Refresh timestamp
+  lastRefresh = TextContent("Last refreshed: 2026-10-04 12:00 UTC", "default"),
+
+  // 1. Shipments in transit with origin, destination, ETA and status
+  inTransitSection,
+
+  // 2. Delayed shipments called out
+  delayedSection,
+
+  // 3. On-time percentage this month
+  kpisSection1,
+
+  // 4. Volume split by carrier
+  volumeSection,
+
+  // 5. Search by route
+  searchSection,
+
+  // 6. Average cost per shipment
+  kpisSection2,
+
+  // 7. Weekly volume across the past two months
+  chartSection,
+
+  // 8. Flag a shipment
+  flagSection,
+
+  // 9. When the numbers were last refreshed
+  footerRefresh
+])
+
+// 1. Shipments in transit with origin, destination, ETA and status
+inTransitHeading = Heading("Shipments in transit", "h3")
+inTransitTable = Table([
+  Col("Route", ["NYC-LAX", "CHI-MIA", "DAL-SEA"]),
+  Col("Origin", ["New York", "Chicago", "Dallas"]),
+  Col("Destination", ["Los Angeles", "Miami", "Seattle"]),
+  Col("ETA", ["2026-10-04 18:00", "2026-10-05 02:00", "2026-10-04 23:30"]),
+  Col("Status", ["In transit", "In transit", "In transit"])
+])
+inTransitSection = Card([inTransitHeading, inTransitTable], "card")
+
+// 2. Delayed shipments called out
+delayedHeading = Heading("Delayed shipments", "h3")
+delayedList = ListBlock([
+  ListItem("Route NYC-LAX", "ETA delayed by 6h", ["https://picsum.photos/seed/delay1/40"]),
+  ListItem("Route CHI-MIA", "Customs hold 2h", ["https://picsum.photos/seed/delay2/40"])
+], "number")
+delayedSection = Card([delayedHeading, delayedList], "card")
+
+// 3. On-time percentage this month
+onsideHeading = Heading("On-time percentage (this month)", "h3")
+onsideValue = TextContent("92.5%", "large")
+kpisSection1 = Card([onsideHeading, onsideValue], "card")
+
+// 4. Volume split by carrier
+volumeHeading = Heading("Volume split by carrier", "h3")
+volumeChart = PieChart(["Carrier A", "Carrier B", "Carrier C"], [40, 35, 25], "donut", "circular")
+volumeSection = Card([volumeHeading, volumeChart], "card")
+
+// 5. A way to search by route
+searchLabel = Label("Search by route (Origin-Destination)")
+searchInput = Input("routeSearch", "e.g., NYC-LAX", "text")
+searchButton = Button("Search", null, "secondary")
+searchSection = Card([searchLabel, searchInput, searchButton], "card")
+
+// 6. average cost per shipment
+avgCostHeading = Heading("Average cost per shipment", "h3")
+avgCostValue = TextContent("$1,245.00", "large")
+kpisSection2 = Card([avgCostHeading, avgCostValue], "card")
+
+// 7. weekly volume across the past two months
+weeklyHeading = Heading("Weekly volume (past 8 weeks)", "h3")
+weeklyLabels = ["W7","W6","W5","W4","W3","W2","W1","T0"]
+weeklySeries = Series("Volume", [120, 150, 130, 170, 160, 180, 190, 210])
+weeklyChart = LineChart(weeklyLabels, [weeklySeries], "linear", "Week", "Shipments")
+chartSection = Card([weeklyHeading, weeklyChart], "card")
+
+// 8. a way to flag a shipment
+flagHeading = Heading("Flag a shipment", "h3")
+flagNote = TextContent("Select a shipment to flag for urgent handling.", "default")
+flagButton = Button("Flag shipment", null, "secondary")
+flagSection = Card([flagHeading, flagNote, flagButton], "card")
+
+// 9. when the numbers were last refreshed
+refreshFooter = TextContent("Last refreshed: 2026-10-04 12:00 UTC", "small")
+footerRefresh = Card([refreshFooter], "clear")

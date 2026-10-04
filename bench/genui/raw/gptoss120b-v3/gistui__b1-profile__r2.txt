@@ -1,11 +1,11 @@
-root = Card(header, bio, contactForm)
+root = Card(personHeader, bioSection, messageForm)
 
-header = CardHeader("Jane Doe", "Senior Engineer")
+personHeader = CardHeader("Jane Doe", "Senior Engineer")
 
-bio = TextContent("Jane has over 10 years of experience building scalable backend systems. She leads the infrastructure team and enjoys mentoring junior developers.", size:default)
+bioSection = Card(MarkDownRenderer("**About:**\n\nJane has over 10 years of experience in software development, specializing in distributed systems and cloud architecture.", variant:clear))
 
-contactForm = Form("message-form", formButtons, messageField)
+messageForm = Form("contact-jane", formButtons, messageField)
 
-messageField = FormControl("Send a message", TextArea("msg", "Type your message here...", "", rows:5))
+messageField = FormControl("Message", Input("message", placeholder:"Type your message here...", type:text))
 
 formButtons = Buttons(Button("Send", primary))

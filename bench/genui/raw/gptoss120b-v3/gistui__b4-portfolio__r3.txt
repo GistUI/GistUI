@@ -1,69 +1,67 @@
-root = Card(CardHeader("Project Portfolio Review", "Q2 2024"), healthSummary, quarterTabs, contentSections, actionButtons)
+root = Card(CardHeader("Project Portfolio Review", "Quarter 2"), healthSummary, sections, actions)
 
-healthSummary = TextContent("Overall portfolio health is **stable** with 78% of projects on track.", size:large)
+healthSummary = TextContent("Overall portfolio health is **Stable** with minor risks.", size:small)
 
-quarterTabs = Tabs(tabQ1, tabQ2, tabQ3, tabQ4)
+sections = Card(SectionBlock(activeItem, overdueItem, budgetItem, utilizationItem, risksItem, deadlinesItem, paceItem, blockedItem, isFoldable))
 
-tabQ1 = TabItem("q1", "Q1 2024", TextContent("Viewing Q1 2024 data."))
-tabQ2 = TabItem("q2", "Q2 2024", TextContent("Viewing Q2 2024 data."))
-tabQ3 = TabItem("q3", "Q3 2024", TextContent("Viewing Q3 2024 data."))
-tabQ4 = TabItem("q4", "Q4 2024", TextContent("Viewing Q4 2024 data."))
+activeItem = SectionItem("active", "Active Projects", Table(activeProjects))
+overdueItem = SectionItem("overdue", "Overdue Milestones", Table(overdueMilestones))
+budgetItem = SectionItem("budget", "Budget vs Allocation", BarChart(budgetData, grouped, xLabel:"Project", yLabel:"USD"))
+utilizationItem = SectionItem("util", "Team Utilization", HorizontalBarChart(utilizationData, stacked, xLabel:"Utilization %", yLabel:"Team"))
+risksItem = SectionItem("risks", "Risks", Table(risksTable))
+deadlinesItem = SectionItem("deadlines", "Upcoming Deadlines (Next 2 weeks)", Table(upcomingDeadlines))
+paceItem = SectionItem("pace", "Delivery Pace (Last 6 Sprints)", LineChart(paceData, linear, xLabel:"Sprint", yLabel:"Completed Stories"))
+blockedItem = SectionItem("blocked", "Blocked Work Items", Table(blockedItems))
 
-contentSections = SectionBlock(activeProjectsItem, overdueMilestonesItem, budgetItem, utilizationItem, risksItem, upcomingDeadlinesItem, deliveryPaceItem, blockedItemsItem, isFoldable)
+activeProjects = |Project|Owner|Deadline|Health
+|Alpha|Alice|2024-11-15|Good
+|Beta|Bob|2024-12-01|At Risk
+|Gamma|Carol|2025-01-20|Excellent
 
-activeProjectsItem = SectionItem("active", "Active Projects", activeProjectsTable)
-overdueMilestonesItem = SectionItem("overdue", "Overdue Milestones", overdueMilestonesTable)
-budgetItem = SectionItem("budget", "Budget vs Allocation", budgetTable)
-utilizationItem = SectionItem("util", "Team Utilization", utilizationChart)
-risksItem = SectionItem("risks", "Project Risks", risksTable)
-upcomingDeadlinesItem = SectionItem("upcoming", "Deadlines Next 2 Weeks", upcomingDeadlinesTable)
-deliveryPaceItem = SectionItem("pace", "Delivery Pace (Last 6 Sprints)", deliveryPaceChart)
-blockedItemsItem = SectionItem("blocked", "Blocked Work Items", blockedItemsTable)
+overdueMilestones = |Milestone|Project|Owner|Due Date|Status
+|M1|Alpha|Alice|2024-10-01|Overdue
+|M2|Beta|Bob|2024-09-28|Overdue
 
-activeProjectsTable = Table(projectCol, ownerCol, deadlineCol, healthCol)
+budgetData = |Project|Spent|Allocated
+|Alpha|120000|150000
+|Beta|95000|100000
+|Gamma|50000|80000
 
-projectCol = Col("Project", data:["Project Alpha","Project Beta","Project Gamma"], type:string)
-ownerCol = Col("Owner", data:["Alice","Bob","Carol"], type:string)
-deadlineCol = Col("Deadline", data:["2024‑05‑20","2024‑06‑15","2024‑07‑01"], type:string)
-healthCol = Col("Health", data:["🟢","🟡","🔴"], type:string)
+utilizationData = |Team|Utilization%
+|Team A|85
+|Team B|70
+|Team C|92
 
-overdueMilestonesTable = Table(milestoneCol, projectCol2, dueCol, statusCol)
+risksTable = |Risk|Project|Severity
+|Scope creep|Alpha|Medium
+|Resource shortage|Beta|High
+|Technical debt|Gamma|Low
 
-milestoneCol = Col("Milestone", data:["Design Review","Beta Release"], type:string)
-projectCol2 = Col("Project", data:["Project Alpha","Project Beta"], type:string)
-dueCol = Col("Due", data:["2024‑04‑10","2024‑04‑22"], type:string)
-statusCol = Col("Status", data:["Overdue","Overdue"], type:string)
+upcomingDeadlines = |Project|Deadline
+|Alpha|2024-11-20
+|Beta|2024-11-22
+|Gamma|2024-11-25
 
-budgetTable = Table(projectCol3, allocatedCol, spentCol, varianceCol)
+paceData = |Sprint|CompletedStories
+|S1|45
+|S2|50
+|S3|48
+|S4|52
+|S5|47
+|S6|49
 
-projectCol3 = Col("Project", data:["Project Alpha","Project Beta","Project Gamma"], type:string)
-allocatedCol = Col("Allocated", data:[120000,95000,80000], type:number)
-spentCol = Col("Spent", data:[90000,97000,60000], type:number)
-varianceCol = Col("Variance", data:["-20%","+2%","-25%"], type:string)
+blockedItems = |Item|Project|Owner|Reason
+|Feature X|Alpha|Alice|Dependency missing
+|Bug Y|Beta|Bob|Awaiting clarification
 
-utilizationChart = HorizontalBarChart(labels:["Team A","Team B","Team C"], Series("Utilization", values:[85,70,60]), variant:grouped, xLabel:"Utilization %", yLabel:"Team")
+actions = Card(Buttons(quarterSelect, requestPeople, exportBtn, archiveBtn, direction:row))
 
-risksTable = Table(riskCol, projectCol4, severityCol)
+quarterSelect = Select("quarter", SelectItem("Q1", "Q1"), SelectItem("Q2", "Q2"), SelectItem("Q3", "Q3"), SelectItem("Q4", "Q4"), placeholder:"Select quarter")
+requestPeople = DialogBlock("Request More People", "Add Resources", TextContent("Select a project and specify additional headcount."), Form(requestForm), description:"Request additional staff", triggerVariant:default)
+requestForm = Form("resource-request", requestFormButtons, projectField, headcountField)
+projectField = FormControl("Project", Select("proj", SelectItem("Alpha","Alpha"), SelectItem("Beta","Beta"), SelectItem("Gamma","Gamma"), placeholder:"Choose project"))
+headcountField = FormControl("Additional Headcount", Input("headcount", "Number", type:number))
+requestFormButtons = Buttons(Button("Submit", primary), Button("Cancel", tertiary))
 
-riskCol = Col("Risk", data:["Scope creep","Resource shortage"], type:string)
-projectCol4 = Col("Project", data:["Project Beta","Project Gamma"], type:string)
-severityCol = Col("Severity", data:["High","Medium"], type:string)
-
-upcomingDeadlinesTable = Table(projectCol5, deadlineCol2)
-
-projectCol5 = Col("Project", data:["Project Alpha","Project Beta"], type:string)
-deadlineCol2 = Col("Deadline", data:["2024‑05‑05","2024‑05‑12"], type:string)
-
-deliveryPaceChart = BarChart(labels:["Sprint 1","Sprint 2","Sprint 3","Sprint 4","Sprint 5","Sprint 6"], Series("Completed Stories", values:[30,28,32,27,31,29]), variant:grouped, xLabel:"Sprint", yLabel:"Stories")
-
-blockedItemsTable = Table(itemCol, projectCol6, reasonCol)
-
-itemCol = Col("Work Item", data:["Login bug","API throttling"], type:string)
-projectCol6 = Col("Project", data:["Project Alpha","Project Gamma"], type:string)
-reasonCol = Col("Reason", data:["Dependency missing","Third‑party outage"], type:string)
-
-actionButtons = Buttons(requestPeopleButton, exportButton, archiveButton, direction:row)
-
-requestPeopleButton = Button("Request More People", action:["request_people"], primary)
-exportButton = Button("Export Review", action:["export_review"], secondary)
-archiveButton = Button("Archive Project", action:["archive_project"], destructive)
+exportBtn = Button("Export Review", primary)
+archiveBtn = Button("Archive Project", destructive)

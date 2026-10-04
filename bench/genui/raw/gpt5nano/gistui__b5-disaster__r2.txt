@@ -1,0 +1,140 @@
+root = Card(CardHeader("Emergency Response Coordination Center"), sections, actions)
+
+sections = SectionBlock(zoneOverviewSection, resourceOverviewSection, sheltersSection, routesSection, weatherSection, outcomesSection, volunteersSection, donationsSection, requestsSection, commsSection, roadsSection, hospitalsSection, tasksSection, resourceRequestSection, broadcastSection, focusSection, reportSection)
+
+zoneOverviewSection = SectionItem("zone-overview", "Active Incidents by Zone", zoneOverviewCard)
+
+zoneOverviewCard = Card(Heading("Active Incidents by Zone", h3), Table(incidentsTable), SummaryChip("Overall Severity", totalSeverity), sunk)
+
+incidentsTable = |Zone|Active Incidents|Severity
+|North|5|Severe
+|East|3|High
+|South|2|Moderate
+|West|4|Critical
+
+totalSeverity = Table(|Metric|Value
+|Overall Severity|Critical-to-Severe)
+
+resourceOverviewSection = SectionItem("resources", "Resources Available", resourceCard)
+
+resourceCard = Card(Heading("Resources Available", h3), Table(resourcesTable), TagBlock(["Vehicles","Personnel","Supplies"]), sunk)
+
+resourcesTable = |Type|Count|Status
+|Vehicles|12|On Road
+|Personnel|85|Deployed
+|Supplies|230|In Stock
+
+sheltersSection = SectionItem("shelters", "Shelters and Capacity", sheltersCard)
+
+sheltersCard = Card(Heading("Shelters & Capacity", h3), Table(sheltersTable), sunk)
+
+sheltersTable = |Shelter|Capacity|Occupancy|Status
+|Downtown Shelter|500|320|Open
+|Riverside Shelter|300|180|Open
+|Uptown Shelter|450|420|Limited
+
+routesSection = SectionItem("routes", "Evacuation Routes Status", routesCard)
+
+routesCard = Card(Heading("Evacuation Routes", h3), Table(routesTable), sunk)
+
+routesTable = |Route|Status|EstimatedTime
+|Route A|Open|15m
+|Route B|Closed|0
+|Route C|Open|22m
+
+weatherSection = SectionItem("weather", "Weather Forecast Next 48 Hours", weatherCard)
+
+weatherCard = Card(Heading("Weather Forecast (Next 48h)", h3), MarkDownRenderer("### Forecast\\n- Hour 1: Rain, 80%\\n- Hour 2: Clear, 10%\\n- Hour 3: Windy, 20%\\n", variant:clear))
+
+outcomesSection = SectionItem("outcomes", "People & Casualties", outcomesCard)
+
+outcomesCard = Card(Heading("People Rescued and Casualties", h3), Table(outcomesTable), sunk)
+
+outcomesTable = |Metric|Value
+|Rescued|124
+|Casualties|18
+
+volunteersSection = SectionItem("volunteers", "Volunteers on Duty", volunteersCard)
+
+volunteersCard = Card(Heading("Volunteers on Duty", h3), Table(volunteersTable), sunk)
+
+volunteersTable = |Volunteer|Assignment
+|Alex Kim|Support Triage
+|Maria Lopez|Evacuation Lead
+|Ravi Singh|Logistics
+
+donationsSection = SectionItem("donations", "Donations Received", donationsCard)
+
+donationsCard = Card(Heading("Donations Received", h3), Table(donationsTable), sunk)
+
+donationsTable = |Donor|Amount
+|Cares Foundation|$12,400
+|Global Aid|$8,750
+
+requestsSection = SectionItem("requests", "Aid Requests Awaiting Action", requestsCard)
+
+requestsCard = Card(Heading("Aid Requests Awaiting Action", h3), Table(requestsTable), sunk)
+
+requestsTable = |Request|RequestedBy|Urgency
+|Medical Supplies|NGO A|High
+|Food Packets|Community Center|Medium
+
+commsSection = SectionItem("comms", "Communication Channels Status", commsCard)
+
+commsCard = Card(Heading("Communication Channels", h3), Table(commsTable), sunk)
+
+commsTable = |Channel|Status
+|Radio|Up
+|Satellite|Down
+|Mobile App|Up
+
+roadsSection = SectionItem("roads", "Road Closures", roadsCard)
+
+roadsCard = Card(Heading("Road Closures", h3), Table(roadsTable), sunk)
+
+roadsTable = |Road|Reason|ExpectedClearing
+|Route B|Accident|15m
+|Route D|Construction|45m
+
+hospitalsSection = SectionItem("hospitals", "Hospitals with Free Beds", hospitalsCard)
+
+hospitalsCard = Card(Heading("Nearby Hospitals with Free Beds", h3), Table(hospitalsTable), sunk)
+
+hospitalsTable = |Hospital|FreeBeds|Distance
+|City General|12|2.1mi
+|Mercy Center|5|4.5mi
+|Saint Mary|0|6.2mi
+
+tasksSection = SectionItem("tasks", "Open Tasks with Assignee", tasksCard)
+
+tasksCard = Card(Heading("Open Tasks", h3), Table(tasksTable), sunk)
+
+tasksTable = |Task|Assignee|Priority
+|Transfer supplies to North|Lina Chen|High
+|Rescue Team Briefing|Omar Khalid|Medium
+|Update shelter status|Priya Nair|Low
+
+resourceRequestSection = SectionItem("resource-request", "Request More Resources", resourceRequestCard)
+
+resourceRequestCard = Card(Heading("Resource Request", h3), Form("resource-request-form", Buttons(Button("Submit", primary)), resourceTypeField, quantityField), sunk)
+
+resourceTypeField = FormControl("Resource Type", Select("resource_type", SelectItem("Medical Supplies","Medical Supplies"), SelectItem("Food","Food"), SelectItem("Water","Water"), placeholder:"Choose a type"))
+quantityField = FormControl("Quantity", Input("quantity", "", value), "Enter numeric value")
+
+broadcastSection = SectionItem("broadcast", "Broadcast Update", broadcastCard)
+
+broadcastCard = Card(Heading("Broadcast Update", h3), Form("broadcast-form", Buttons(Button("Send Update", primary)), messageField), sunk)
+
+messageField = FormControl("Message", TextArea("message", "", rows:4),)
+
+focusSection = SectionItem("focus", "Focus on One Zone", focusCard)
+
+focusCard = Card(Heading("Focus", h3), Select("zone_focus", SelectItem("North","North"), SelectItem("East","East"), SelectItem("South","South"), SelectItem("West","West"), placeholder:"Choose a zone"), sunk)
+
+reportSection = SectionItem("report", "File Situation Report", reportCard)
+
+reportCard = Card(Heading("Situation Report", h3), Form("situation-form", Buttons(Button("Submit Report", primary)), reportDetailsField), sunk)
+
+reportDetailsField = FormControl("Report Details", TextArea("report_details", "", rows:6))
+
+root_end = null

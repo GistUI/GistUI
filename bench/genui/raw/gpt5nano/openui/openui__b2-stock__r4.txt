@@ -1,0 +1,37 @@
+root = Card([header, searchBar, itemsList, thresholdCard, reorderActions])
+
+header = CardHeader("Low Inventory Warning", "Items running low and ready to reorder")
+
+searchBar = Card([SearchInput(searchTerm), Buttons([searchBtn], "row")])
+
+searchTerm = Input("search", "Search items by name or SKU")
+
+searchBtn = Button("Search", null, "primary")
+
+itemsList = Card([ItemsBlock, itemsTable], "card")
+
+ItemsBlock = Heading("Items running low", "h3")
+
+itemsTable = Table([colName, colStock, colReorder])
+
+colName = Col("Item", ["Widget A", "Gadget B", "Doohickey C"])
+colStock = Col("Remaining units", [5, 2, 1])
+colReorder = Col("Action", ["Reorder", "Reorder", "Reorder"], "string")
+
+thresholdCard = Card([thresholdHeading, thresholdValue], "card")
+
+thresholdHeading = Heading("Reorder threshold", "h4")
+
+thresholdValue = TextContent("Threshold triggering this warning: 10 units per item", "default")
+
+reorderActions = Card([reorderList], "card")
+
+reorderList = ListBlock([
+  ListItem("Widget A", "Place order to replenish to 100 units", ["https://picsum.photos/seed/widget/40/40"]),
+  ListItem("Gadget B", "Place order to replenish to 100 units", ["https://picsum.photos/seed/gadget/40/40"]),
+  ListItem("Doohickey C", "Place order to replenish to 100 units", ["https://picsum.photos/seed/doohickey/40/40"])
+], "image")
+
+ListItem("Widget A", "Place order to replenish to 100 units", ["https://picsum.photos/seed/widget/40/40"])
+ListItem("Gadget B", "Place order to replenish to 100 units", ["https://picsum.photos/seed/gadget/40/40"])
+ListItem("Doohickey C", "Place order to replenish to 100 units", ["https://picsum.photos/seed/doohickey/40/40"])

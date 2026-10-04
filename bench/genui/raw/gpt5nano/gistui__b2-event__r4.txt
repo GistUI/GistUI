@@ -1,0 +1,23 @@
+root = Card(CardHeader("Global Tech Conference 2026", "Nov 12-14, 2026 • Berlin Congress Center"), Tag("Early bird", info), Tag("Limited seats", warning), DaysRemaining(days:num, label:"Days until event"), agendaSection, speakersSection, ticketsSection, registrationSection)
+agendaSection = Card(Heading("Agenda", h3), Table(agendaTable))
+agendaTable = |Time|Session
+|09:00|Registration & Coffee
+|10:00|Keynote: The Future of Tech
+|11:30|Panel: AI in the Enterprise
+|13:00|Lunch Break
+|14:30|Workshops A + B
+|16:00|Networking Reception
+speakersSection = Card(Heading("Speakers", h3), ListBlock(speaker1, speaker2, speaker3))
+speaker1 = ListItem("Dr. Elena Rossi", "Keynote Speaker", "bio")
+speaker2 = ListItem("Mr. Kenji Tanaka", "Industry Leader", "bio")
+speaker3 = ListItem("Prof. Amina Yusuf", "Research Director", "bio")
+ticketsSection = Card(Heading("Ticket Tiers", h3), Table(tiersTable))
+tiersTable = |Tier|Price
+|Standard|$399
+|VIP|$799
+|Student|$199
+registrationSection = Card(Heading("Register your interest", h3), Form("registration", formButtons, nameField, emailField))
+nameField = FormControl("Full name", Input("name", "Alex Smith"))
+emailField = FormControl("Email", Input("email", "alex@example.com")) 
+formButtons = Buttons(Button("Register", primary), Button("Cancel", tertiary))
+DaysRemaining(days:num, label:"Days until event") = DaysRemaining(days:42, label:"Days until event")

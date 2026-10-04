@@ -1,0 +1,93 @@
+root = Card([
+  header = CardHeader("Marketing Manager - Weekly Dashboard", "Overview for the current week"),
+  controlsRow = Card([rangeLabel, rangeSelect], "card"),
+  rangeLabel = Heading("Date range", "h4"),
+  rangeSelect = DatePicker("date_range", "range", null, null),
+  sections = Card([
+    visitorsCard,
+    conversionCard,
+    sourcesCard,
+    campaignsCard,
+    bestCampaignCard,
+    emailGrowthCard,
+  ], "card"),
+  exportBlock = DrawerBlock("Export report", "Export Options", "Choose format and range", [exportBtn]),
+  exportBtn = Button("Export CSV", null, "secondary")
+])
+
+visitorsCard = Card([
+  Heading("Site visitors (last 30 days)", "h3"),
+  visitorsChart
+], "card")
+
+visitorsChart = LineChart([for i in [1..30] -> i], [visitorsSeries], "natural", "Day", "Visitors")
+visitorsSeries = Series("Visitors", [120,130,125,140,160,155, etc])  // placeholder values; in streaming, fill actual data
+
+conversionCard = Card([
+  Heading("Conversion rate", "h3"),
+  conversionBadge,
+  conversionChart
+], "card")
+
+conversionBadge = Tag("Avg 2.3%", null, "md", "info")
+
+conversionChart = LineChart([30,29,28,27,26], [convSeries], "linear", "Day", "Rate")
+convSeries = Series("Conversion Rate", [2.1,2.4,2.2,2.5,2.3])
+
+sourcesCard = Card([
+  Heading("Top traffic sources (share)", "h3"),
+  sourcesTable
+], "card")
+
+sourcesTable = Table([
+  Col("Source", ["Direct", "Organic Search", "Paid Search", "Social", "Referral"]),
+  Col("Share (%)", [40, 28, 15, 10, 7])
+])
+
+campaignsCard = Card([
+  Heading("Running campaigns (spend)", "h3"),
+  campaignsList
+], "card")
+
+campaignsList = ListBlock([
+  ListItem("Spring Promo", "Paid social • $3,200", ["https://picsum.photos/seed/promo1/80/50"], "View"),
+  ListItem("Email Nurture", "Email • $1,150", ["https://picsum.photos/seed/promo2/80/50"], "View"),
+  ListItem("Retargeting Q2", "Display • $900", ["https://picsum.photos/seed/promo3/80/50"], "View"),
+  ListItem("Partner Spotlight", "Affiliate • $1,600", ["https://picsum.photos/seed/promo4/80/50"], "View"),
+  ListItem("Content Syndication", "Native • $1,100", ["https://picsum.photos/seed/promo5/80/50"], "View")
+], "number")
+
+bestCampaignCard = Card([
+  Heading("Best performing campaign", "h3"),
+  bestCampaignCallout,
+  bestCampaignDetails
+], "card")
+
+bestCampaignCallout = Callout("success", "Spring Promo", "Highest ROI and conversions this week")
+bestCampaignDetails = TextContent("Campaign performance beat targets with strong CTR and conversion rate across paid channels.", "default")
+
+emailGrowthCard = Card([
+  Heading("Email subscriber growth this month", "h3"),
+  emailGrowthChart
+], "card")
+
+emailGrowthChart = AreaChart(["W1","W2","W3","W4"], [emailGrowthSeries], "linear", "Week", "Subscribers")
+emailGrowthSeries = Series("Subscribers", [200, 350, 420, 510])
+
+// Reuse a shared date range control and export mechanism
+// Optional: include a small legend or quick tips
+TipsRow = Card([
+  Badge("Tip: Use date range to compare weeks", "neutral")
+], "card")
+
+root = Card([
+  header,
+  TipsRow,
+  visitorsCard,
+  conversionCard,
+  sourcesCard,
+  campaignsCard,
+  bestCampaignCard,
+  emailGrowthCard,
+  exportBtn
+])

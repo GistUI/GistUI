@@ -1,0 +1,69 @@
+root = Card(CardHeader("Marketing Weekly Dashboard", "Last 30 days overview"), dateRange, trafficPanel, topSourcesPanel, campaignsPanel, bestCampaignNotice, exportBar, emailGrowth, subscriberExport)
+dateRange = Form("date-range", Buttons(Button("Apply", primary)), dateRangeControls)
+dateRangeControls = SectionBlock(SectionItem("range", "Date range", DatePicker("range", mode:single), Tag("Last 30 days", info)))
+trafficPanel = Card(Heading("Site visitors (30 days)", h3), LineChart(trafficTable, natural, xLabel:"Day", yLabel:"Visitors"), sunk)
+trafficTable = |Date|Visitors
+|Sep-01|1200
+|Sep-02|1320
+|Sep-03|980
+|Sep-04|1500
+|Sep-05|1670
+|Sep-06|1430
+|Sep-07|1560
+|Sep-08|1780
+|Sep-09|1640
+|Sep-10|1720
+|Sep-11|1800
+|Sep-12|1900
+|Sep-13|2100
+|Sep-14|2050
+|Sep-15|1980
+|Sep-16|2150
+|Sep-17|2300
+|Sep-18|2250
+|Sep-19|2400
+|Sep-20|2350
+|Sep-21|2480
+|Sep-22|2600
+|Sep-23|2550
+|Sep-24|2700
+|Sep-25|2900
+|Sep-26|3000
+|Sep-27|3100
+|Sep-28|3200
+|Sep-29|3400
+|Sep-30|3600
+conversionPanel = Card(Heading("Conversion rate", h3), Gauge(0.0, 1.0), Tag("Conversion", success))
+Note: GistUI lacks a Gauge component in the signature; substitute with a simplified CardHeader and a TextContent showing rate.
+conversionRate = TextContent("Conversion rate: 2.3%", size:"default")
+topSourcesPanel = Card(Heading("Top traffic sources", h3), Table(sourcesTable))
+sourcesTable = |Source|Share
+|Organic|40%
+|Paid Search|25%
+|Direct|15%
+|Social|12%
+|Referral|8%
+campaignsPanel = Card(Heading("Running campaigns", h3), Table(campaignsTable))
+campaignsTable = |Campaign|Spend
+|Summer Boost|$4,200
+|Email Nurture|$2,100
+|Retargeting Push|$3,350
+|Brand Awareness|$1,900
+|Loyalty Push|$1,250
+bestCampaignNotice = Card(Separator(horizontal), Callout(warning, "Best performing campaign", "Summer Boost leads in conversions and ROAS this period"))
+exportBar = Card(Buttons(Button("Export CSV", primary)), Tag("Export ready", info))
+emailGrowth = Card(Heading("Email subscriber growth this month", h3), LineChart(emailTable, linear, xLabel:"Date", yLabel:"Subscribers"))
+emailTable = |Date|Subscribers
+|1|120
+|2|240
+|3|360
+|4|520
+|5|800
+|6|1050
+|7|1250
+|8|1450
+|9|1650
+|10|1800
+|11|2100
+|12|2400
+subscriberExport = Buttons(Button("Export Subscribers", primary))

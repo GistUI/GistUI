@@ -1,7 +1,0 @@
- root = Card(personHeader, bio, messageAction)
-personHeader = Card(CardHeader("Jane Smith", "Senior Product Designer"), Avatar("JS", alt:"Jane Smith"))
-bio = TextContent("Jane has spent the last 8 years designing **human-centered software** for fintech and health teams. She loves turning complex workflows into simple, elegant experiences. In her spare time she mentors junior designers and hikes the Pacific Northwest.", size:default)
-messageAction = DialogBlock("Send message", "Message Jane Smith", messageForm, description:"Your note goes straight to Jane’s inbox.")
-messageForm = Form("message", messageButtons, messageField)
-messageField = FormControl("Your message", TextArea("message", "Hi Jane, I’d love to connect…", rows:4), hint:"Include your email so Jane can reply.")
-messageButtons = Buttons(Button("Send message", primary), Button("Cancel", tertiary))

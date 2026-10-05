@@ -105,7 +105,7 @@
     },
     "packages/catalog": {
       "name": "@gistui/catalog",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/core": "workspace:*",
       },
@@ -117,7 +117,7 @@
     },
     "packages/chat": {
       "name": "@gistui/chat",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/core": "workspace:*",
         "@gistui/server": "workspace:*",
@@ -142,7 +142,7 @@
     },
     "packages/core": {
       "name": "@gistui/core",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "devDependencies": {
         "@types/bun": "^1.3.0",
         "fast-check": "^4.3.0",
@@ -152,7 +152,7 @@
     },
     "packages/headless": {
       "name": "@gistui/headless",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/core": "workspace:*",
       },
@@ -164,7 +164,7 @@
     },
     "packages/react": {
       "name": "@gistui/react",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/catalog": "workspace:*",
         "@gistui/core": "workspace:*",
@@ -206,7 +206,7 @@
     },
     "packages/server": {
       "name": "@gistui/server",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/core": "workspace:*",
       },
@@ -218,7 +218,7 @@
     },
     "packages/solid": {
       "name": "@gistui/solid",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/core": "workspace:*",
         "@gistui/headless": "workspace:*",
@@ -237,7 +237,7 @@
     },
     "packages/styles": {
       "name": "@gistui/styles",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "devDependencies": {
         "@types/bun": "^1.3.0",
         "tsdown": "^0.15.0",
@@ -246,7 +246,7 @@
     },
     "packages/svelte": {
       "name": "@gistui/svelte",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/core": "workspace:*",
         "@gistui/headless": "workspace:*",
@@ -264,7 +264,7 @@
     },
     "packages/vanilla": {
       "name": "@gistui/vanilla",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/catalog": "workspace:*",
         "@gistui/core": "workspace:*",
@@ -292,7 +292,7 @@
     },
     "packages/vue": {
       "name": "@gistui/vue",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/core": "workspace:*",
         "@gistui/headless": "workspace:*",
@@ -311,7 +311,7 @@
     },
     "packages/widgets": {
       "name": "@gistui/widgets",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@gistui/core": "workspace:*",
         "@gistui/headless": "workspace:*",

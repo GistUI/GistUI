@@ -20,9 +20,9 @@
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --pg-bg: #0a0a0b;
-  --pg-side: #0e0e10;
-  --pg-panel: #121214;
+  --pg-bg: #151414;
+  --pg-side: #181717;
+  --pg-panel: #1b1a1a;
   --pg-fg: #f4f4f5;
   --pg-muted: #a1a1aa;
   --pg-subtle: #71717a;
@@ -31,7 +31,7 @@
   --pg-hover: rgb(255 255 255 / 0.05);
   --pg-active: rgb(255 255 255 / 0.08);
   --pg-primary: #f4f4f5;
-  --pg-primary-fg: #0a0a0b;
+  --pg-primary-fg: #151414;
   --pg-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -8px rgb(0 0 0 / 0.6);
 }
 

@@ -2,6 +2,23 @@
 
 All packages are released together, with one version.
 
+## 0.2.1
+
+- **Autofix reads past one bad token** (`@gistui/core`). A statement the parser cannot read is cut back
+  to its readable parts instead of being dropped whole: in `Card(Text("Today is " + new Date()), list)`
+  the text and `list` stay. gpt-5-nano goes from 98.4% to 99.5% valid after repair.
+- **A program with no `root`** and several sections gets a root that holds them all; before, every
+  section after the first was removed.
+- **Fixes to 0.2.0's repair.** It changes code only, never text:
+  - a near-miss rename no longer rewrites a matching table cell or text in single quotes;
+  - a table cell with commas (`|Tags|red, green, blue|`) stays one cell;
+  - two unknown names are not both pointed at the same unused statement;
+  - a `$state` variable used only by an unused section keeps its starting value;
+  - in chat text (`inline`), only the fenced program is touched, so curly quotes in the prose are no
+    longer reported as a change.
+- **Benchmarks:** `bench:genui:score` scores the saved OpenUI answers by itself, with no key; the
+  report states the run-to-run noise and that the repair figure covers nine runs of five models.
+
 ## 0.2.0
 
 - **A stronger autofix** (`@gistui/core`). It now keeps more of what the model wrote:
@@ -13,7 +30,7 @@ All packages are released together, with one version.
   - a reference that misses a statement by case or one letter (`MetricsRow`, `incidentsTable`) points at
     it; a component named without `()` is called; curly quotes are read as quotes.
 
-  On 1,159 saved answers from four models, 99.2% are valid after repair; gpt-5-nano goes from 96.7% to
+  On 1,159 saved answers from five models, 99.2% are valid after repair; gpt-5-nano goes from 96.7% to
   98.4%.
 - **Prompt:** a list prop with no item type prints as `[…]` instead of `list`, so models no longer copy
   the word `list` into their answers.

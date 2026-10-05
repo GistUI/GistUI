@@ -8,7 +8,8 @@
  * say), compared with the bench's results for `gemini37`.
  */
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { join } from "node:path";
 import { GUB, HERE, RESULTS } from "./gub";
@@ -56,6 +57,20 @@ for (const label of labels) {
   // The other formats, same model, from the bench's committed results and raws.
   const base = label.split("@")[0]!;
   const theirsPath = join(GUB, "results", `results-${base}.json`);
+  // OpenUI answers saved in this repository (raw/<label>/openui, for models the bench has none for)
+  // go to the bench checkout and are scored there by the bench's own scorer.
+  const saved = join(dir, "openui");
+  if (existsSync(saved)) {
+    const target = join(GUB, "raw", base);
+    mkdirSync(target, { recursive: true });
+    let copied = 0;
+    for (const f of readdirSync(saved)) {
+      if (!/^(openui__.+\.txt|truncated\.json)$/.test(f) || existsSync(join(target, f))) continue;
+      copyFileSync(join(saved, f), join(target, f));
+      copied++;
+    }
+    if (copied || !existsSync(theirsPath)) execFileSync("node", ["score.ts", base], { cwd: GUB, stdio: "ignore" });
+  }
   // Compared on the same briefs and repeats as the GistUI run (a partial run compares its subset).
   const mine = new Set(rows.map((r) => `${r.scenario}__r${r.repeat}`));
   const theirs: Row[] = (existsSync(theirsPath) ? (JSON.parse(readFileSync(theirsPath, "utf8")) as Row[]) : []).filter((r) => mine.has(`${r.scenario}__r${r.repeat}`));

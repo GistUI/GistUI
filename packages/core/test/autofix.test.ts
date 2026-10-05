@@ -90,6 +90,61 @@ describe("autofix keeps what the model wrote", () => {
     expect(r.source).toMatch(/root = Card\(_c\d+, genre\)/);
   });
 
+  test("one unreadable argument does not cost the statement: text is kept, the rest is dropped", () => {
+    const r = autofix(`root = Card(Text("Today is " + new Date().toISOString()), Text("count: 0"?), items)\nitems = Card(Text("a"))\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toContain(`Text("Today is ")`);
+    expect(r.source).toContain(`Text("count: 0")`);
+    expect(r.source).toMatch(/root = Card\(_c\d+, _c\d+, items\)/);
+  });
+
+  test("a statement over several lines with comments is read as the parser reads it", () => {
+    const src = `root = Card(\n  // the title\n  Text("Title"),\n  Text("Body")\n)\n`;
+    const r = autofix(src, lib);
+    expect(r.changes).toEqual([]);
+    expect(r.source).toContain(`Text("Body")`);
+  });
+
+  test("a cell with commas stays one cell", () => {
+    const r = autofix(`root = Card(t)\nt = Table(|Tags|Colors|, |a|red, green, blue|, |b|x|)\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toContain(`|a|red, green, blue`);
+    expect(r.source).toContain(`|b|x`);
+    expect(r.source).not.toContain("Rows2");
+  });
+
+  test("a rename touches code only: not table cells, not text in either kind of quotes", () => {
+    const r = autofix(`root = Card(Genre, Text('Genre overview'), Table(rows))\ngenre = Text("x")\nrows = |Genre|Share\n|Genre|40\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toMatch(/root = Card\(genre, /);
+    expect(r.source).toContain(`"Genre overview"`);
+    expect(r.source).toContain(`rows = |Genre|Share\n|Genre|40`);
+  });
+
+  test("two unknown names are not both pointed at the same unused statement", () => {
+    const r = autofix(`root = Card(salesPanelA, salesPanelB)\nsalesPanelC = Text("only one")\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toContain(`root = Card(salesPanelC)`);
+  });
+
+  test("a state variable used only by an unused section keeps its starting value", () => {
+    const r = autofix(`root = Card(Text("a"))\n$on = true\nextra = Card($on ? Text("b") : Text("c"))\n`, lib);
+    expect(r.source).toContain(`$on = true`);
+    expect(r.source).toMatch(/root = Card\(_c\d+, extra\)/);
+  });
+
+  test("a program with no root gets one that holds every section", () => {
+    const r = autofix(`a = Card(Text("x"))\nb = Card(Text("y"))\nc = Card(Text("z"))\n`, lib);
+    expect(r.valid).toBe(true);
+    expect(r.source).toContain(`root = Card(a, b, c)`);
+  });
+
+  test("chat text around a fenced program is not code: curly quotes there are not a change", () => {
+    const r = autofix("He said “hello” about the Divider.\n```gistui\nroot = Card(Text(\"Hi\"))\n```\n", lib, { inline: true });
+    expect(r.valid).toBe(true);
+    expect(r.changes).toEqual([]);
+  });
+
   test("a data table nobody used is shown in a table, not deleted", () => {
     const r = autofix(`root = Card(Text("Learners"))\nrisk = |Learner|Score\n|Ann|3\n`, lib);
     expect(r.valid).toBe(true);

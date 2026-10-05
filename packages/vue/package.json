@@ -1,6 +1,6 @@
 {
   "name": "@gistui/vue",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "GistUI for Vue 3.5+: a <GistUI> component that renders streamed GistUI programs, with the default components built in and your own Vue components for any name.",
   "keywords": [
     "gistui",

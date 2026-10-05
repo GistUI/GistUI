@@ -33,15 +33,15 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --pg-bg: #000000;
-  --pg-side: #070708;
+  --pg-bg: #151414;
+  --pg-side: #181717;
   --pg-fg: #ededef;
   --pg-fg-2: #a1a1a8;
   --pg-fg-3: #6e6e76;
   --pg-line: rgb(255 255 255 / 0.09);
   --pg-line-2: rgb(255 255 255 / 0.16);
-  --pg-raise: #0d0d0f;
-  --pg-hover: #19191c;
+  --pg-raise: #1b1a1a;
+  --pg-hover: #252323;
   --pg-accent: #ff7037;
   --pg-accent-soft: rgb(255 94 30 / 0.13);
   --pg-logo-square: #1f130d;

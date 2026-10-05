@@ -1,6 +1,6 @@
 # Live run: gptoss120b-v3
 
-GistUI answers written by the model (`bench/genui/raw/gptoss120b-v3`), scored by `bench/genui/score.ts` on 2026-10-04; the other formats are the bench's committed runs of the same model on the same briefs and repeats. GistUI generation cost: $0.18.
+GistUI answers written by the model (`bench/genui/raw/gptoss120b-v3`), scored by `bench/genui/score.ts` on 2026-10-05; the other formats are the bench's committed runs of the same model on the same briefs and repeats. GistUI generation cost: $0.18.
 
 | format | runs | complete | renderable | mean output tokens | failure classes |
 |---|---:|---:|---:|---:|---|

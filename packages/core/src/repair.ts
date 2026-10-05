@@ -19,8 +19,11 @@
  * | cycle                          | the reference that closes the loop is removed                   |
  *
  * Before that, on the text as written (`prepare`), so the parser drops nothing it could have read:
- * a table written inside a call moves to its own statement, curly quotes become quotes, a reference
- * that misses a statement by case or one letter points at it, and a bare component name is called.
+ * a table written inside a call moves to its own statement, curly quotes become quotes, a statement
+ * with an unreadable argument is cut back to what reads, a reference that misses a statement by case
+ * or one letter points at it, and a bare component name is called. A program with no root and
+ * several sections gets a root that holds them. Only code is changed: text in strings, table cells
+ * and chat around a fenced program stays as written.
  *
  * Every change is listed, so a caller can log or show what was repaired.
  */
@@ -134,6 +137,8 @@ function refsOf(e: unknown, out = new Set<string>()): Set<string> {
   else if (e && typeof e === "object") {
     const o = e as Record<string, unknown>;
     if (o.k === "ref" && typeof o.name === "string") out.add(o.name);
+    // A state variable is the statement `$name`.
+    else if (o.k === "state" && typeof o.name === "string") out.add(o.name.startsWith("$") ? o.name : `$${o.name}`);
     for (const k in o) if (k !== "name") refsOf(o[k], out);
   }
   return out;
@@ -161,7 +166,8 @@ function dropRef(e: Expr, name: string): Expr | null {
  */
 function autofix(text: string, lib: Library, opts: { inline?: boolean; rounds?: number; shape?: "canonical" | "original" } = {}): AutofixResult {
   const changes: string[] = [];
-  let source = printProgram(parse(prepare(text, lib, changes), lib, { inline: opts.inline ?? false }).program, lib, { hoist: true });
+  const inline = opts.inline ?? false;
+  let source = addRoot(printProgram(parse(prepare(text, lib, inline, changes), lib, { inline }).program, lib, { hoist: true }), lib, changes);
   let errors: GistUIError[] = [];
   for (let round = 0; round < (opts.rounds ?? 6); round++) {
     const r = parse(source, lib);
@@ -380,39 +386,236 @@ function autofix(text: string, lib: Library, opts: { inline?: boolean; rounds?: 
   return { source: opts.shape === "original" ? inlineHoisted(source, lib) : source, changes, errors, valid: errors.length === 0 };
 }
 
-/** Applies `fn` to the code between string literals and table rows, leaving those as written. */
-function outsideStrings(text: string, fn: (code: string) => string): string {
-  let out = "";
-  let code = "";
-  let i = 0;
-  const flush = () => ((out += fn(code)), (code = ""));
-  while (i < text.length) {
-    const c = text[i]!;
-    if (c === '"') {
-      flush();
-      let j = i + 1;
-      while (j < text.length && text[j] !== '"' && text[j] !== "\n") j += text[j] === "\\" ? 2 : 1;
-      out += text.slice(i, j + 1);
-      i = j + 1;
-    } else if (c === "|" && (i === 0 || text[i - 1] === "\n")) {
-      flush();
-      const j = text.indexOf("\n", i);
-      out += j < 0 ? text.slice(i) : text.slice(i, j);
-      i = j < 0 ? text.length : j;
-    } else (code += c), i++;
+/** Whether the quote at `i` opens a string: `"` always, `'` only where a value can start (`O'Brien` is text). */
+function opensString(s: string, i: number): boolean {
+  if (s[i] === '"') return true;
+  if (s[i] !== "'") return false;
+  let j = i - 1;
+  while (j >= 0 && (s[j] === " " || s[j] === "\t")) j--;
+  return j < 0 || !/[\w)\]}"']/.test(s[j]!);
+}
+
+/** The index just after the string literal that opens at `i`; a string ends with its line. */
+function skipString(s: string, i: number): number {
+  const quote = s[i];
+  let j = i + 1;
+  while (j < s.length && s[j] !== quote && s[j] !== "\n") j += s[j] === "\\" ? 2 : 1;
+  return Math.min(s.length, j + 1);
+}
+
+/** A statement whose value is a pipe table (`rows = |A|B`): its cells are data, not code. */
+const TABLE_HEAD = /^\s*\$?[A-Za-z_]\w*\s*=\s*(?=\|)/;
+
+/** Maps each line of code. In chat text (`inline`), only the lines inside ``` fences are code. */
+function codeLines(text: string, inline: boolean, fn: (line: string) => string[]): string {
+  let fenced = false;
+  return text
+    .split("\n")
+    .flatMap((line) => {
+      if (/^\s*```/.test(line)) {
+        fenced = !fenced;
+        return [line];
+      }
+      return inline && !fenced ? [line] : fn(line);
+    })
+    .join("\n");
+}
+
+/** Applies `fn` to the code between string literals; strings, table cells and chat text stay as written. */
+function outsideStrings(text: string, inline: boolean, fn: (code: string) => string): string {
+  return codeLines(text, inline, (line) => {
+    if (line.startsWith("|")) return [line];
+    const head = TABLE_HEAD.exec(line);
+    if (head) return [fn(head[0]) + line.slice(head[0].length)];
+    let out = "";
+    let code = "";
+    for (let i = 0; i < line.length; ) {
+      if (opensString(line, i)) {
+        const j = skipString(line, i);
+        out += fn(code) + line.slice(i, j);
+        code = "";
+        i = j;
+      } else code += line[i++];
+    }
+    return [out + fn(code)];
+  });
+}
+
+/** How many brackets a line of code leaves open (negative: it closes more than it opens). */
+function depthOf(line: string): number {
+  if (line.startsWith("|") || TABLE_HEAD.test(line)) return 0;
+  let depth = 0;
+  for (let i = 0; i < line.length; ) {
+    if (opensString(line, i)) {
+      i = skipString(line, i);
+      continue;
+    }
+    const c = line[i++]!;
+    if (c === "(" || c === "[" || c === "{") depth++;
+    else if (c === ")" || c === "]" || c === "}") depth--;
   }
-  flush();
-  return out;
+  return depth;
+}
+
+/** The index of the bracket that closes the one at `open`, or -1 when it is never closed. */
+function closing(s: string, open: number): number {
+  let depth = 0;
+  for (let i = open; i < s.length; ) {
+    if (opensString(s, i)) {
+      i = skipString(s, i);
+      continue;
+    }
+    const c = s[i]!;
+    if (c === "(" || c === "[" || c === "{") depth++;
+    else if ((c === ")" || c === "]" || c === "}") && --depth === 0) return i;
+    i++;
+  }
+  return -1;
+}
+
+/** Splits an argument list at its top-level commas. */
+function splitArgs(s: string): string[] {
+  const out: string[] = [];
+  let depth = 0;
+  let from = 0;
+  for (let i = 0; i < s.length; ) {
+    if (opensString(s, i)) {
+      i = skipString(s, i);
+      continue;
+    }
+    const c = s[i]!;
+    if (c === "(" || c === "[" || c === "{") depth++;
+    else if (c === ")" || c === "]" || c === "}") depth--;
+    else if (c === "," && depth === 0) {
+      out.push(s.slice(from, i));
+      from = i + 1;
+    }
+    i++;
+  }
+  out.push(s.slice(from));
+  return out.filter((a) => a.trim());
+}
+
+/** Whether the parser reads a statement with nothing left over (`"a" + new Date()` reads, with a leftover). */
+function readsCleanly(stmt: string, lib: Library): boolean {
+  const p = parseStatement(stmt, lib);
+  return p.stmt !== null && !p.problems.some((x) => !x.soft);
+}
+
+/**
+ * The readable part of an expression the parser rejects, so one bad token does not cost a whole
+ * statement: inside a call or a list, each argument is kept if it reads, repaired the same way if it
+ * is itself a call, cut back to its text if it starts with a string (`"Today is " + new Date()`,
+ * `"count: 0"?`), and dropped otherwise. Null when nothing readable is left.
+ */
+function salvage(expr: string, lib: Library, lost: string[], depth = 0): string | null {
+  const text = expr.trim();
+  if (!text) return null;
+  const reads = (e: string) => readsCleanly(`_x = ${e}`, lib);
+  if (reads(text)) return text;
+  const call = /^((?:[A-Z]\w*|@\w+)\s*)?[([]/.exec(text);
+  if (call && depth < 32) {
+    const open = call[0].length - 1;
+    const close = closing(text, open);
+    // Something unreadable after the closing bracket (`Tags([…])?no`): the call itself is kept.
+    if (close !== -1 && text.slice(close + 1).trim()) {
+      lost.push(text.slice(close + 1).trim());
+      return salvage(text.slice(0, close + 1), lib, lost, depth + 1);
+    }
+    const args = splitArgs(text.slice(open + 1, close === -1 ? text.length : close)).map((arg) => {
+      const named = /^\s*([A-Za-z_]\w*)\s*[:=](?!=)\s*/.exec(arg);
+      const value = salvage(named ? arg.slice(named[0].length) : arg, lib, lost, depth + 1);
+      return value === null ? null : named ? `${named[1]}:${value}` : value;
+    });
+    const kept = `${call[1]?.trim() ?? ""}${text[open]}${args.filter((a) => a !== null).join(", ")}${text[open] === "(" ? ")" : "]"}`;
+    if (reads(kept)) return kept;
+  } else if (opensString(text, 0)) {
+    const end = skipString(text, 0);
+    const str = text.slice(0, end);
+    if (reads(str)) {
+      lost.push(text.slice(end).trim());
+      return str;
+    }
+  }
+  lost.push(text);
+  return null;
+}
+
+/** A statement without its `#` and `//` comments (the lexer drops them before the parser sees it). */
+function stripComments(stmt: string): string {
+  return stmt
+    .split("\n")
+    .map((line) => {
+      for (let i = 0; i < line.length; ) {
+        if (opensString(line, i)) i = skipString(line, i);
+        else if (line[i] === "#" || (line[i] === "/" && line[i + 1] === "/")) return line.slice(0, i);
+        else i++;
+      }
+      return line;
+    })
+    .join("\n");
+}
+
+/** A line that starts a statement at column 0: `id =`, `$id =`, `id.prop =`, `id +=`. */
+const NEXT_HEAD = /^\$?[A-Za-z_]\w*(\.[A-Za-z_]\w*)?[ \t]*\+?=(?![=>])/;
+
+/**
+ * Statements the parser could not read (`failed`: the lines its errors point at) are cut back to
+ * their readable parts (see `salvage`).
+ */
+function recoverStatements(text: string, lib: Library, inline: boolean, failed: ReadonlySet<number>, changes: string[]): string {
+  const out: string[] = [];
+  let open: string[] | null = null;
+  let first = 0;
+  let depth = 0;
+  const close = () => {
+    if (!open) return;
+    const lines = open;
+    const raw = lines.join("\n");
+    open = null;
+    if (!lines.some((_, i) => failed.has(first + i))) return void out.push(raw);
+    const stmt = stripComments(raw);
+    const head = HEAD.exec(stmt);
+    if (!head || head[2] || head[3] !== "=" || readsCleanly(stmt, lib)) return void out.push(raw);
+    const lost: string[] = [];
+    const value = salvage(stmt.slice(head[0].length), lib, lost);
+    if (value === null) return void out.push(raw);
+    out.push(`${head[1]} = ${value}`);
+    changes.push(`${head[1]}: removed what could not be read (${lost.map((l) => (l.length > 28 ? `${l.slice(0, 28)}…` : l)).join("; ")})`);
+  };
+  let fenced = false;
+  text.split("\n").forEach((line, at) => {
+    const fence = /^\s*```/.test(line);
+    if (fence) fenced = !fenced;
+    if (fence || (inline && !fenced)) {
+      close();
+      out.push(line);
+    } else if (open && depth > 0 && !(NEXT_HEAD.test(line) && !/[,([{+\-*/:?|&=]\s*$/.test(open[open.length - 1]!))) {
+      // A statement ends at the first line break outside brackets, or, as in the lexer, where a line
+      // starts a new statement (`id =` at column 0, after a complete value): a forgotten `)` ends there.
+      open.push(line);
+      depth += depthOf(line);
+    } else {
+      close();
+      if (HEAD.test(line) && !line.startsWith("|")) {
+        open = [line];
+        first = at + 1;
+        depth = depthOf(line);
+      } else out.push(line);
+    }
+  });
+  close();
+  return out.join("\n");
 }
 
 /**
  * A table written inside a call (`Table(|Ticket|Subject|, |T1|Login|)`, `Card(|MRR|$12k|ARR|$140k)`)
- * moves to its own statement, `<id>Rows`, and the call refers to it. Rows end at `|,` before the next
- * `|`, at a literal `\n`, or where the next argument starts.
+ * moves to its own statement, `<id>Rows`, and the call refers to it. A row ends at a comma that is
+ * followed by the next row's `|`, or at a literal `\n`; the table ends where the next argument starts.
  */
 function liftInlineTables(line: string, taken: Set<string>, changes: string[]): string[] {
   const head = HEAD.exec(line);
-  if (!head || line.startsWith("|") || !line.includes("|")) return [line];
+  if (!head || line.startsWith("|") || TABLE_HEAD.test(line) || !line.includes("|")) return [line];
   const extra: string[] = [];
   let out = "";
   let i = 0;
@@ -420,12 +623,11 @@ function liftInlineTables(line: string, taken: Set<string>, changes: string[]): 
   let prev = "";
   while (i < line.length) {
     const c = line[i]!;
-    if (c === '"') {
-      let j = i + 1;
-      while (j < line.length && line[j] !== '"') j += line[j] === "\\" ? 2 : 1;
-      out += line.slice(i, j + 1);
+    if (opensString(line, i)) {
+      const j = skipString(line, i);
+      out += line.slice(i, j);
       prev = '"';
-      i = j + 1;
+      i = j;
       continue;
     }
     if (c === "|" && depth > 0 && /[(,[]/.test(prev)) {
@@ -448,7 +650,9 @@ function liftInlineTables(line: string, taken: Set<string>, changes: string[]): 
             j += rest.length - rest.trimStart().length;
             continue;
           }
-          if (/\|\s*$/.test(row) || /^\s*([a-z_]\w*\s*[:=]|[A-Za-z_]\w*\s*\(|[a-z_]\w*\s*[,)\]])/.test(rest)) break;
+          // The row is closed (`…|,`), or what follows is the next argument and not more of this
+          // cell: the table ends here. A cell may hold commas (`|Tags|red, green, blue|`).
+          if (/\|\s*$/.test(row) || !continuesCell(rest)) break;
         }
         row += d;
       }
@@ -476,33 +680,74 @@ function liftInlineTables(line: string, taken: Set<string>, changes: string[]): 
 }
 
 /**
+ * After a comma inside an open table cell: whether the text goes on as the same cell. It does when a
+ * `|` follows before the call closes, with only plain words in between; a call, a string or a
+ * `key:value` there is the next argument.
+ */
+function continuesCell(rest: string): boolean {
+  const bar = rest.search(/[|)\]]/);
+  if (bar < 0 || rest[bar] !== "|") return false;
+  const between = rest.slice(0, bar);
+  return !/[("]/.test(between) && !/^\s*[A-Za-z_]\w*[:=]\S/.test(between);
+}
+
+/**
  * Fixes before parsing, on the text as the model wrote it, so nothing is lost when the parser drops
  * a statement it cannot read or a reference it cannot resolve:
- * curly quotes used as string quotes, tables written inside a call, references that miss an existing
- * statement by case or one letter (`MetricsRow`, `incidentsTable` for `incidentTable`), and a
- * component named without parentheses (`Card(Separator)`).
+ * curly quotes used as string quotes, tables written inside a call, statements with an unreadable
+ * part, references that miss an existing statement by case or one letter (`MetricsRow`,
+ * `incidentsTable` for `incidentTable`), and a component named without parentheses (`Card(Separator)`).
+ * Only code is touched: text in strings, table cells and (with `inline`) chat stays as written.
  */
-function prepare(text: string, lib: Library, changes: string[]): string {
-  let t = outsideStrings(text, (code) => code.replace(/[“”]/g, '"'));
+function prepare(text: string, lib: Library, inline: boolean, changes: string[]): string {
+  let t = outsideStrings(text, inline, (code) => code.replace(/[“”]/g, '"'));
   if (t !== text) changes.push("curly quotes → straight quotes");
   const taken = new Set([...t.matchAll(/^\$?([A-Za-z_]\w*)\s*=/gm)].map((m) => m[1]!));
-  t = t
-    .split("\n")
-    .flatMap((l) => liftInlineTables(l, taken, changes))
-    .join("\n");
-  const r = parse(t, lib);
-  const unused = r.errors.filter((e) => e.code === "unreachable" && e.stmtId).map((e) => e.stmtId!);
+  t = codeLines(t, inline, (line) => liftInlineTables(line, taken, changes));
+  let r = parse(t, lib, { inline });
+  const failed = new Set(r.errors.filter((e) => e.code === "parse-failed" && e.line).map((e) => e.line!));
+  if (failed.size) {
+    const recovered = recoverStatements(t, lib, inline, failed, changes);
+    if (recovered !== t) r = parse((t = recovered), lib, { inline });
+  }
+  const unused = new Set(r.errors.filter((e) => e.code === "unreachable" && e.stmtId).map((e) => e.stmtId!));
   const rename = new Map<string, string>();
   for (const e of r.errors) {
     if (e.code !== "unresolved-ref" || !e.ref || rename.has(e.ref)) continue;
     const low = e.ref.toLowerCase();
-    const meant = [...taken].find((k) => k !== e.ref && k.toLowerCase() === low) ?? (e.ref.length >= 6 ? unused.find((k) => editDistance(k.toLowerCase(), low) === 1) : undefined);
+    const sameName = [...taken].find((k) => k !== e.ref && k.toLowerCase() === low);
+    // One letter off: only an unused statement, and each one answers a single reference.
+    const oneOff = sameName || e.ref.length < 6 ? undefined : [...unused].find((k) => editDistance(k.toLowerCase(), low) === 1);
+    if (oneOff) unused.delete(oneOff);
+    const meant = sameName ?? oneOff;
     if (meant) rename.set(e.ref, meant);
     else if (lib.get(e.ref)?.requiredPositional === 0) rename.set(e.ref, `${e.ref}()`);
   }
   if (!rename.size) return t;
   for (const [from, to] of rename) changes.push(`"${from}" → "${to}"`);
-  return outsideStrings(t, (code) => code.replace(/\b[A-Za-z_]\w*\b(?!\s*\()/g, (w, at: number, all: string) => (rename.has(w) && !/[\w.$]$/.test(all.slice(0, at)) && !/^\s*[:=]/.test(all.slice(at + w.length)) ? rename.get(w)! : w)));
+  return outsideStrings(t, inline, (code) =>
+    code.replace(/\b[A-Za-z_]\w*\b(?!\s*\()/g, (w, at: number, all: string) => (rename.has(w) && !/[\w.$]$/.test(all.slice(0, at)) && !/^\s*[:=]/.test(all.slice(at + w.length)) ? rename.get(w)! : w)),
+  );
+}
+
+/**
+ * A program with no `root` statement and several sections nobody refers to: a root is added that
+ * holds them all. (Without it the first one stands in as the root and the others are unused.)
+ */
+function addRoot(source: string, lib: Library, changes: string[]): string {
+  const stmts = statements(source);
+  if (stmts.some((s) => s.id === "root")) return source;
+  const box = [...lib.components.values()].find((c) => c.hasChildren && c.requiredPositional === 0)?.spec.name;
+  if (!box) return source;
+  const values = stmts.map((s) => {
+    const stmt = HOISTED.test(s.id) || s.id.startsWith("$") ? null : parseStatement(s.text, lib).stmt;
+    return { id: s.id, value: stmt?.kind === "assign" ? stmt.value : null };
+  });
+  const used = new Set(stmts.flatMap((s) => [...refsOf(parseStatement(s.text, lib).stmt)].filter((r) => r !== s.id)));
+  const tops = values.filter((v) => v.value?.k === "comp" && !used.has(v.id)).map((v) => v.id);
+  if (tops.length < 2) return source;
+  changes.push(`root: added, holding ${tops.join(", ")} (the program had no root)`);
+  return `root = ${box}(${tops.join(", ")})\n${source}`;
 }
 
 const HOISTED = /^_c\d+$/;

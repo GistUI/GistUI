@@ -1,6 +1,6 @@
 {
   "name": "@gistui/server",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "GistUI on the model side: system prompts, stream parsing, validation and repair (Node, Edge, Bun, Workers).",
   "keywords": [
     "gistui",

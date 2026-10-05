@@ -21,7 +21,7 @@ Last updated 2026-10-05.
 
 - **Rendering:** 2–6× less main-thread work to render a streaming answer, across OpenUI's own sample screens (section 2).
 - **Accuracy:** with gpt-oss-120b, 3.3 points more valid answers as written; 100% after the code-only repair (section 4).
-  With the small gpt-5-nano, the two are even as written (22.8% against 22.3%) and the repair takes GistUI to 98.4%.
+  With the small gpt-5-nano, the two are even as written (22.8% against 22.3%) and the repair takes GistUI to 99.5%.
 - **Tokens:** 21% fewer tokens per screen, prompt and answer together.
 
 ---
@@ -184,7 +184,7 @@ each format's own prompt from the benchmark (`BENCH_FORMAT=openui` sends OpenUI'
 | Format | Valid | Partial | Blank | Validity | Prompt | Mean output | Per screen | Cost of 46 screens |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | GistUI, as written | 42 | 142 | 0 | 22.8% | 3,874 | 605 | 4,479 | $0.020 |
-| **GistUI, after repair** | **181** | **3** | **0** | **98.4%** | 3,874 | 605 | 4,479 | $0.020 |
+| **GistUI, after repair** | **183** | **1** | **0** | **99.5%** | 3,874 | 605 | 4,479 | $0.020 |
 | OpenUI | 41 | 142 | 1 | 22.3% | 5,017 | 850 | 5,867 | $0.027 |
 
 By screen complexity:
@@ -192,16 +192,16 @@ By screen complexity:
 | Components required | Runs | OpenUI | GistUI, as written | GistUI, after repair |
 |---|---:|---:|---:|---:|
 | 2–3 | 40 | 60.0% | 42.5% | 100% |
-| 4–6 | 40 | 27.5% | 37.5% | 97.5% |
-| 7–9 | 40 | 0.0% | 17.5% | 97.5% |
+| 4–6 | 40 | 27.5% | 37.5% | 100% |
+| 7–9 | 40 | 0.0% | 17.5% | 100% |
 | 11–13 | 32 | 6.3% | 9.4% | 100% |
 | 16–18 | 32 | 12.5% | 0.0% | 96.9% |
 
 - **As written, the two formats are even**, and both are weak: this model often defines a section and
   never places it, or refers to one it never wrote (GistUI 117 answers, OpenUI 129).
 - **GistUI answers are 29% shorter** (605 tokens against 850), and no GistUI screen came out blank.
-- **The repair takes GistUI to 98.4%.** The 3 it cannot fix have too few components for the brief (2 of
-  18, for one): code cannot add what the model never wrote.
+- **The repair takes GistUI to 99.5%.** The one answer it cannot fix is a single `root` line that
+  refers to 15 sections the model never wrote: code cannot add what is not there.
 - Cost per 46 screens is at the gateway's list price ($0.05 per million input tokens, $0.40 per million
   output), answer tokens only. The run was billed $0.05 (GistUI) and $0.07 (OpenUI). The gateway's free
   tier allows 5 requests a minute per provider; `BENCH_RPM` and `BENCH_GATEWAY_PROVIDERS` pace the run.
@@ -224,15 +224,19 @@ benchmark does not include that step, so the OpenUI numbers here are as the mode
 | A data table defined but never used | Shown in a Table on the root |
 | A table written inside a call (`Table(\|A\|B\|, \|1\|2\|)`) | Moved to its own statement, every row kept |
 | Curly quotes used as quotes, a component named without `()` | Read as meant |
+| One unreadable argument (`"Today is " + new Date()`, a stray `?`) | Its text is kept, or the argument is dropped; the rest of the statement stays |
+| No `root` statement, several sections | A root is added that holds them all |
 | Unknown component | Renamed when it is clearly a typo; otherwise a plain container that keeps its children |
 | A component whose required data is missing, a cycle | That statement is removed |
 
 With gpt-oss-120b, no repaired screen lost a component, and the repair placed 35 components the model
 wrote but never put on the screen. Checking an answer takes about 0.3 ms (median); checking plus repair
-1–2 ms (median), 13 ms at the slowest. It runs once, when the stream ends.
+1–2 ms (median), 7 ms at the slowest. It runs once, when the stream ends. Only code is changed: text
+in strings, table cells and chat around a fenced program stays as the model wrote it.
 
-Tested on 1,159 answers from eight runs of four models, the repair makes 99.2% valid; what is left is
-answers that are empty or far too short.
+Across every GistUI answer generated for this benchmark so far (1,159, from nine runs of five models;
+the earlier runs are in this repository's history), the repair makes 99.4% valid. Six of the seven it
+cannot fix are empty answers; the seventh is the single `root` line above.
 
 ---
 
@@ -241,7 +245,12 @@ answers that are empty or far too short.
 - **Two models.** The model test uses gpt-oss-120b and gpt-5-nano; more will follow.
 - **The rendering test uses each library's own components**, which is what you get by default. A different
   component library changes the numbers.
-- **Randomness.** Temperature 0.7 adds a few points of noise to validity.
+- **Randomness.** Temperature 0.7 adds a few points of noise to validity, and each figure here is one
+  run of 46 screens × 4. With gpt-oss-120b, three GistUI runs with slightly different prompts scored
+  86.7%, 86.8% and 87.9% (the last is the one reported); OpenUI's one run scored 84.6%. Read a gap of
+  about 3 points as "slightly ahead", not as settled.
+- **The benchmark prompt** has three rules the library's default prompt does not, written after
+  reading failures on these same screens.
 - **The model test checks structure, not appearance.** Its answers use the benchmark's 70-component
   catalog, not GistUI's own components.
 
@@ -265,5 +274,8 @@ BENCH_PROVIDER=vercel BENCH_MODEL=openai/gpt-5-nano BENCH_LABEL=gpt5nano BENCH_R
 BENCH_GATEWAY_PROVIDERS=azure,openai BENCH_BUDGET_USD=0.30 bun run bench:genui:run
 BENCH_FORMAT=openui BENCH_PROVIDER=vercel BENCH_MODEL=openai/gpt-5-nano BENCH_LABEL=gpt5nano BENCH_RPM=4 \
 BENCH_GATEWAY_PROVIDERS=azure,openai BENCH_BUDGET_USD=0.30 bun run bench:genui:run
-(cd bench/.cache/generative-ui-bench && node score.ts gpt5nano) && bun run bench:genui:score gpt5nano
+bun run bench:genui:score gpt5nano
+
+# Scoring alone needs no key: the answers of both formats are in bench/genui/raw/<label>
+bun run bench:genui:setup && bun run bench:genui:score gptoss120b-v3 gpt5nano
 ```

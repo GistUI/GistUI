@@ -1,6 +1,6 @@
 {
   "name": "@gistui/vanilla",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "GistUI for vanilla JavaScript: mount a streamed GistUI program into any element, with the default components as plain DOM and no framework. The base for @gistui/vue, @gistui/svelte and @gistui/solid.",
   "keywords": [
     "gistui",

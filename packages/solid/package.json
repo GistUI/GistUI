@@ -1,6 +1,6 @@
 {
   "name": "@gistui/solid",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "GistUI for Solid (and SolidStart, TanStack Start with Solid): a <GistUI> component that renders streamed GistUI programs, with the default components built in and your own Solid components for any name.",
   "keywords": [
     "gistui",

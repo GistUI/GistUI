@@ -21,7 +21,7 @@ interactive UI (dashboards, forms, reports, slide decks, galleries) while it str
 
 <p>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/GistUI/GistUI?style=flat-square&color=ff5e1e" alt="MIT licence" /></a>
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.2.0-ff5e1e?style=flat-square" alt="Version 0.2.0" /></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.2.1-ff5e1e?style=flat-square" alt="Version 0.2.1" /></a>
   <a href="https://github.com/GistUI/GistUI/stargazers"><img src="https://img.shields.io/github/stars/GistUI/GistUI?style=flat-square&color=ff5e1e" alt="GitHub stars" /></a>
   <img src="https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="Written in strict TypeScript" />
   <img src="https://img.shields.io/badge/first_load-74_KB_gzip-ff5e1e?style=flat-square" alt="First load: 74 KB gzip" />
@@ -152,7 +152,7 @@ Measured against OpenUI. The full results, the method and how to run them yourse
 | First-load JavaScript, default components, gzip | 699 KB | **74 KB** |
 
 - **Rendering:** 2–6× less main-thread work across OpenUI's own sample screens, in the same page, at the same streaming pace.
-- **Model test:** OpenUI's benchmark (46 screens × 4 runs), same catalog, examples and settings for both. With the small gpt-5-nano, both are 22–23% valid as written; GistUI's repair takes it to 98.4%.
+- **Model test:** OpenUI's benchmark (46 screens × 4 runs), same catalog, examples and settings for both. With the small gpt-5-nano, both are 22–23% valid as written; GistUI's repair takes it to 99.5%.
 
 ## Develop
 

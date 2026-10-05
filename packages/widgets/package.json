@@ -1,6 +1,6 @@
 {
   "name": "@gistui/widgets",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "GistUI framework-free DOM widgets: SVG chart engine and streaming Markdown.",
   "keywords": [
     "gistui",

@@ -16,13 +16,20 @@ const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").repl
 const shell = readFileSync(OUT + "index.html", "utf8");
 
 /** The shell page with this address's title, description and share tags. */
-function page(url: string, title: string, description: string): string {
+function page(url: string, title: string, description: string, crumb?: string): string {
   const set = (html: string, re: RegExp, value: string) => {
     if (!re.test(html)) throw new Error(`index.html has no match for ${re}`);
     return html.replace(re, value);
   };
   let html = shell;
-  html = set(html, /<title>[^<]*<\/title>/, `<title>${esc(title)}</title>\n    <link rel="canonical" href="${url}" />`);
+  // Where the page sits in the site, for search engines: GistUI › Examples › this example.
+  const crumbs = [["GistUI", `${SITE}/`], ["Examples", `${SITE}${BASE.replace(/\/$/, "")}`], ...(crumb ? [[crumb, url]] : [])];
+  const data = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map(([name, item], i) => ({ "@type": "ListItem", position: i + 1, name, item })),
+  }).replace(/</g, "\\u003c");
+  html = set(html, /<title>[^<]*<\/title>/, `<title>${esc(title)}</title>\n    <link rel="canonical" href="${url}" />\n    <script type="application/ld+json">${data}</script>`);
   html = set(html, /(<meta name="description" content=")[^"]*/, `$1${esc(description)}`);
   html = set(html, /(<meta property="og:title" content=")[^"]*/, `$1${esc(title)}`);
   html = set(html, /(<meta property="og:description" content=")[^"]*/, `$1${esc(description)}`);
@@ -31,12 +38,12 @@ function page(url: string, title: string, description: string): string {
 }
 
 const home = `${SITE}${BASE.replace(/\/$/, "")}`;
-writeFileSync(OUT + "index.html", page(home, "GistUI examples: ask, and watch the interface stream in", "A chat that answers in real GistUI screens: dashboards, forms, reports and slide decks, streamed live."));
+writeFileSync(OUT + "index.html", page(home, "Examples: generative UI dashboards, forms and reports | GistUI", "Live generative UI examples: ask, and GistUI streams in real dashboards, forms, reports and slide decks. Open-source, for React, Vue, Svelte and Solid."));
 
 for (const e of EXAMPLES) {
   mkdirSync(OUT + e.id, { recursive: true });
-  const description = `${e.description}. A GistUI example: the answer streams in as a real interface.`;
-  writeFileSync(`${OUT}${e.id}/index.html`, page(`${SITE}${BASE}${e.id}`, `${e.title} · GistUI examples`, description));
+  const description = `${e.description}. A generative UI example, streamed in live by GistUI.`;
+  writeFileSync(`${OUT}${e.id}/index.html`, page(`${SITE}${BASE}${e.id}`, `${e.title} example | GistUI`, description, e.title));
 }
 
 // An address that is not an example: the app, which shows its start screen.
